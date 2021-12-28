@@ -7,7 +7,7 @@ namespace FateExplorer.WPA.RollLogic
 {
     public class MultiDieRoll : IRoll
     {
-        protected IRandomNG RNG;
+        protected IRandomNG RNG { get; set; }
 
         public int DieCount { get; protected set; }
 
