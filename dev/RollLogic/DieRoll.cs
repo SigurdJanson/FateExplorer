@@ -8,23 +8,17 @@ namespace FateExplorer.WPA.RollLogic
     /// <summary>
     /// Represents a single die to roll
     /// </summary>
-    public class DieRoll
+    public class DieRoll : IRoll
     {
         protected IRandomNG RNG;
 
-        /// <summary>
-        /// The number of sides for the die
-        /// </summary>
-        public int Sides { get;  protected set; }
+        /// <inheritdoc/>
+        public int Sides { get; protected set; }
 
-        /// <summary>
-        /// The current roll value
-        /// </summary>
+        /// <inheritdoc/>
         public int OpenRoll { get; protected set; } = 0;
 
-        /// <summary>
-        /// The previous roll value
-        /// </summary>
+        /// <inheritdoc/>
         public int PrevRoll { get; protected set; } = 0;
 
         /// <summary>
@@ -33,14 +27,12 @@ namespace FateExplorer.WPA.RollLogic
         /// <param name="sides">The sides of the die</param>
         public DieRoll(int sides)
         {
+            if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
             Sides = sides;
             RNG = new RandomMersenne();
         }
 
-        /// <summary>
-        /// Roll the die and return the value
-        /// </summary>
-        /// <returns>The result of the die roll</returns>
+        /// <inheritdoc/>
         public int Roll()
         {
             PrevRoll = OpenRoll;
