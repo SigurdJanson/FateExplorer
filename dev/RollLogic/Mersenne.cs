@@ -3,8 +3,11 @@
 
 namespace FateExplorer.WPA.RollLogic
 {
-	// https://www.prowaretech.com/Computer/DotNet/Mersenne
-	public class RandomMersenne
+	/// <summary>
+	/// The Mersenne Twister is a pseudorandom number generator (PRNG). It is by far the most widely used general-purpose PRNG (quote by Wikipedia).
+	/// </summary>
+	/// <remarks>As implemented by https://www.prowaretech.com/Computer/DotNet/Mersenne</remarks>
+	public class RandomMersenne : IRandomNG
 	{
 		const int MERS_N = 624;
 		const int MERS_M = 397;
@@ -16,15 +19,28 @@ namespace FateExplorer.WPA.RollLogic
 		const uint MERS_B = 0x9D2C5680;
 		const uint MERS_C = 0xEFC60000;
 
-		uint[] mt = new uint[MERS_N];          // state vector
-		uint mti;                            // index into mt
+		private uint[] mt = new uint[MERS_N];        // state vector
+		private uint mti;                            // index into mt
 
-		private RandomMersenne() { }
+		/// <summary>
+		/// Constructor. Initialises the seed with <c>Guid.NewGuid().GetHashCode()</c>.
+		/// </summary>
+		public RandomMersenne()
+		{
+			int seed = Guid.NewGuid().GetHashCode(); // this should always generate a good number for the seed
+			RandomInit((uint)seed);
+		}
+
+		/// <summary>
+		/// Constructor. Initialises the seed with the given value.
+		/// </summary>
+		/// <param name="seed"></param>
 		public RandomMersenne(uint seed)
-		{       // constructor
+		{   // constructor
 			RandomInit(seed);
 		}
 
+		/// <inheritdoc/>
 		public void RandomInit(uint seed)
 		{
 			mt[0] = seed;
@@ -32,6 +48,10 @@ namespace FateExplorer.WPA.RollLogic
 				mt[mti] = (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
 		}
 
+		/// <summary>
+		/// Set a new seed for the random number generator using a byte array as seed..
+		/// </summary>
+		/// <param name="seeds">An array of unisigned integers.</param>
 		public void RandomInitByArray(uint[] seeds)
 		{
 			// seed by more than 32 bits
@@ -57,7 +77,7 @@ namespace FateExplorer.WPA.RollLogic
 			mt[0] = 0x80000000U; // MSB is 1; assuring non-zero initial array
 		}
 
-
+		/// <inheritdoc/>
 		public int IRandom(int min, int max)
 		{
 			// output random integer in the interval min <= x <= max
@@ -71,6 +91,7 @@ namespace FateExplorer.WPA.RollLogic
 		}
 
 
+		/// <inheritdoc/>
 		public double Random()
 		{
 			// output random float number in the interval 0 <= x < 1
@@ -86,6 +107,7 @@ namespace FateExplorer.WPA.RollLogic
 			return r * (1.0 / (0xFFFFFFFF + 1.0));
 		}
 
+		/// <inheritdoc/>
 		public uint BRandom()
 		{
 			// generate 32 random bits
