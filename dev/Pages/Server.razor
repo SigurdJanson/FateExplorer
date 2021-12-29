@@ -26,7 +26,8 @@
         </MudItem>
         <MudItem xs="12" sm="6" md="4">
             <h3>Skill</h3>
-            @for (int i = 0; i < Data.Skills.Count; i++)
+            <p>Total: @Data.Skills.Count</p>
+            @for (int i = 0; i < Math.Min(Data.Skills.Count, 10); i++)
             {
                 <p>
                     @Data.Skills[i].Name
@@ -36,10 +37,22 @@
 
         <MudItem xs="12" sm="6" md="4">
             <h3>Arcane Skills</h3>
-            @for (int i = 0; i < Data.ArcaneSkills.Count; i++)
+            <p>Total: @Data.ArcaneSkills.Count</p>
+            @for (int i = 0; i < Math.Min(Data.ArcaneSkills.Count, 10); i++)
             {
                 <p>
                     @Data.ArcaneSkills[i].Name
+                </p>
+            }
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Karma Skills</h3>
+            <p>Total: @Data.KarmaSkills.Count</p>
+            @for (int i = 0; i < Math.Min(Data.KarmaSkills.Count, 10); i++)
+            {
+                <p>
+                    @Data.KarmaSkills[i].Name
                 </p>
             }
         </MudItem>

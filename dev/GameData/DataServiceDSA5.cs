@@ -67,6 +67,18 @@ namespace FateExplorer.WPA.GameData
         }
 
 
+        private KarmaSkillsDB karmaSkills;
+        public KarmaSkillsDB KarmaSkills
+        {
+            get
+            {
+                if (karmaSkills is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return karmaSkills;
+            }
+            protected set => karmaSkills = value;
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -94,6 +106,9 @@ namespace FateExplorer.WPA.GameData
 
             fileName = "data/arcaneskills_de.json";
             ArcaneSkills = await DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
+
+            fileName = "data/karmaskills_de.json";
+            KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
         }
     }
 }

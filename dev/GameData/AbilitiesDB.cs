@@ -2,18 +2,12 @@
 using System.Text.Json.Serialization;
 
 
-namespace FateExplorer.WPA.GameLogic
+namespace FateExplorer.WPA.GameData
 {
 
-    public class AbilitiesDB
+    public class AbilitiesDB : DataServiceCollectionBase<AbilityDbEntry>
     {
-        [JsonPropertyName("Entries")]
-        public IReadOnlyList<AbilityDbEntry> Data { get; set; }
-
-        public AbilityDbEntry this[int i] => Data[i];
-
-        [JsonIgnore]
-        public int Count { get => Data?.Count ?? 0; }
+        // inherited
     }
 
 

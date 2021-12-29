@@ -1,5 +1,4 @@
-﻿using FateExplorer.WPA.GameLogic;
-using Moq;
+﻿using FateExplorer.WPA.GameData;
 using NUnit.Framework;
 using System;
 using System.IO;

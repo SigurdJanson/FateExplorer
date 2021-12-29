@@ -6,20 +6,23 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.WPA.GameData
 {
-    public class ArcaneSkillsDB : DataServiceCollectionBase<ArcaneSkillDbEntry>
+    public class KarmaSkillsDB : DataServiceCollectionBase<KarmaSkillDbEntry>
     {
         // inherited
     }
 
 
 
-    public class ArcaneSkillDbEntry : SkillDbEntryBase
+    public class KarmaSkillDbEntry : SkillDbEntryBase
     {
+        [JsonPropertyName("tradition")]
+        public object Tradition { get; set; }
+
+        [JsonPropertyName("chanttype")]
+        public string Type { get; set; }
+
         [JsonPropertyName("modagainst")]
         public string ModAgainst { get; set; }
-
-        [JsonPropertyName("category")] // TODO: most entries in file have not category
-        public string Category { get; set; }
     }
 
 

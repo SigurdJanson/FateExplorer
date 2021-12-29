@@ -4,17 +4,11 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace FateExplorer.WPA.GameLogic
+namespace FateExplorer.WPA.GameData
 {
-    public class CombatTechDB
+    public class CombatTechDB : DataServiceCollectionBase<CombatTechDbEntry>
     {
-        [JsonPropertyName("Entries")]
-        public IReadOnlyList<CombatTechDbEntry> Data { get; set; }
-
-        public CombatTechDbEntry this[int i] => Data[i];
-
-        [JsonIgnore]
-        public int Count { get => Data?.Count ?? 0; }
+        // inherited
     }
 
 

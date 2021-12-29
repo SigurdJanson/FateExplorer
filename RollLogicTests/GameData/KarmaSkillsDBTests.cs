@@ -1,45 +1,41 @@
-﻿using NUnit.Framework;
+﻿using FateExplorer.WPA.GameData;
+using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text.Json;
-using FateExplorer.WPA.GameData;
-
 
 namespace RollLogicTests.GameData
 {
-
-
     [TestFixture]
-    public class CombatTechDBTests
+    public class KarmaSkillsDBTests
     {
-        private static CombatTechDB CreateCombatTechDB()
+        private static KarmaSkillsDB CreateKarmaSkillsDB()
         {
-            return new CombatTechDB();
+            return new KarmaSkillsDB();
         }
-
 
         [Test]
         public void LoadFromFile_ParseSuccessful()
         {
             // Arrange
             string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, "combattechs_de.json"));
+            string fileName = Path.GetFullPath(Path.Combine(BasePath, "karmaskills_de.json"));
             string jsonString = File.ReadAllText(fileName);
 
             // Act
-            CombatTechDB Result = JsonSerializer.Deserialize<CombatTechDB>(jsonString);
+            KarmaSkillsDB Result = JsonSerializer.Deserialize<KarmaSkillsDB>(jsonString);
 
             // Assert
-            Assert.AreEqual(21, Result.Count);
-            Assert.AreEqual("CT_1", Result[0].Id);
-            Assert.AreEqual("CT_21", Result[20].Id);
+            Assert.AreEqual(328, Result.Count);
+            Assert.AreEqual("LITURGY_41", Result[0].Id);
+            Assert.AreEqual("", Result[Result.Count-1].Id);
         }
 
         [Test]
         public void Count_ContentNotLoaded_Return0()
         {
             // Arrange
-            CombatTechDB DB = CreateCombatTechDB();
+            KarmaSkillsDB DB = CreateKarmaSkillsDB();
 
             // Act
             int Count = DB.Count;

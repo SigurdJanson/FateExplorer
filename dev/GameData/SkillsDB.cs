@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.WPA.GameData
 {
-    public class SkillsDB
+    public class SkillsDB : DataServiceCollectionBase<SkillDbEntry>
     {
-        [JsonPropertyName("Entries")]
-        public IReadOnlyList<SkillDbEntry> Data { get; set; }
-
-        public SkillDbEntry this[int i] => Data[i];
-
-        [JsonIgnore]
-        public int Count { get => Data?.Count ?? 0; }
+        // inherited
     }
 
 
