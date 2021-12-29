@@ -33,6 +33,16 @@
                 </p>
             }
         </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Arcane Skills</h3>
+            @for (int i = 0; i < Data.ArcaneSkills.Count; i++)
+            {
+                <p>
+                    @Data.ArcaneSkills[i].Name
+                </p>
+            }
+        </MudItem>
     </MudGrid>
 </MudContainer>
 

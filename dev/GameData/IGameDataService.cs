@@ -14,6 +14,8 @@ namespace FateExplorer.WPA.GameData
 
         public SkillsDB Skills { get; }
 
+        public ArcaneSkillsDB ArcaneSkills { get; }
+
         public Task InitializeGameDataAsync();
     }
 }

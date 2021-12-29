@@ -53,6 +53,20 @@ namespace FateExplorer.WPA.GameData
             protected set => skills = value;
         }
 
+
+        private ArcaneSkillsDB arcaneSkills;
+        public ArcaneSkillsDB ArcaneSkills
+        {
+            get
+            {
+                if (arcaneSkills is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return arcaneSkills;
+            }
+            protected set => arcaneSkills = value;
+        }
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -78,6 +92,8 @@ namespace FateExplorer.WPA.GameData
             fileName = "data/skills_de.json";
             Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
 
+            fileName = "data/arcaneskills_de.json";
+            ArcaneSkills = await DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
         }
     }
 }
