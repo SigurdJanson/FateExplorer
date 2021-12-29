@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Moq;
 using Moq.Protected;
+using System.Linq;
 
 namespace RollLogicTests.RollLogic
 {
@@ -42,32 +43,93 @@ namespace RollLogicTests.RollLogic
         [SetUp]
         public void SetUp()
         {
-            this.mockRepository = new MockRepository(MockBehavior.Strict);
+            this.mockRepository = new(MockBehavior.Strict);
+
+            MoqRng = mockRepository.Create<IRandomNG>();
         }
 
 
 
-        [Test]
+        [Test(Description = "Test correct default aggregation")]
         [TestCase(2, 20)]
-        public void Roll_StateUnderTest_ExpectedBehavior(int DieCount, int Sides)
+        [TestCase(10, 20)]
+        [TestCase(2, 6)]
+        [TestCase(10, 6)]
+        public void Roll_DefaultAggregate_Sums(int DieCount, int Sides)
         {
             // Arrange
-            var mockRng = mockRepository.Create<IRandomNG>();
-            mockRng.SetupSequence(rng => rng.IRandom(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(1)
-                .Returns(1);
-
-            var mockRolls = mockRepository.Create<MultiDieRoll>(DieCount, Sides);
-            mockRolls.Protected()
-                    .SetupGet<IRandomNG>("RNG")
-                    .Returns(mockRng.Object);
-            var multiDieRoll = mockRolls.Object;
+            MultiDieRoll multiDieRoll = new(Sides, DieCount);
 
             // Act
             var result = multiDieRoll.Roll();
 
             // Assert
-            Assert.AreEqual(2, result);
+            Assert.AreEqual(multiDieRoll.OpenRollVals.Sum(), result);
+        }
+
+
+        [Test(Description = "Test non-default aggregation")]
+        [TestCase(2, 20)]
+        [TestCase(10, 20)]
+        [TestCase(2, 6)]
+        [TestCase(10, 6)]
+        public void Roll_DefaultAggregate_Products(int DieCount, int Sides)
+        {
+            // Arrange
+            MultiDieRoll multiDieRoll = new(Sides, DieCount, (int a, int b) => a*b );
+
+            // Act
+            var result = multiDieRoll.Roll();
+
+            // Assert
+            int product = 1;
+            foreach (int i in multiDieRoll.OpenRollVals)
+                product *= i;
+            Assert.AreEqual(product, result);
+        }
+
+
+        [Test(Description = "Default aggregator, 2 dice")]
+        [TestCase(6, 2)]
+        [TestCase(20, 2)]
+        public void Roll_FakeRandoms_Sums(int Sides, int DieCount)
+        {
+            // Arrange
+            MultiDieRoll multiDieRoll = new(Sides, DieCount);
+
+            MoqRng.SetupSequence(Rng => Rng.IRandom(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(1)
+                .Returns(Sides);
+            multiDieRoll.RNG = MoqRng.Object;
+
+            // Act
+            var result = multiDieRoll.Roll();
+            Assume.That(multiDieRoll.OpenRollVals[0] == 1 && multiDieRoll.OpenRollVals[1] == Sides);
+
+            // Assert
+            Assert.AreEqual(Sides+1, result);
+        }
+
+
+        [Test(Description = "Multiplication aggregator, 2 dice")]
+        [TestCase(6, 2)]
+        [TestCase(20, 2)]
+        public void Roll_FakeRandoms_Product(int Sides, int DieCount)
+        {
+            // Arrange
+            MultiDieRoll multiDieRoll = new(Sides, DieCount, (int a, int b) => a * b);
+
+            MoqRng.SetupSequence(Rng => Rng.IRandom(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(1)
+                .Returns(Sides);
+            multiDieRoll.RNG = MoqRng.Object;
+
+            // Act
+            var result = multiDieRoll.Roll();
+            Assume.That(multiDieRoll.OpenRollVals[0] == 1 && multiDieRoll.OpenRollVals[1] == Sides);
+
+            // Assert
+            Assert.AreEqual(Sides * 1, result);
         }
     }
 }

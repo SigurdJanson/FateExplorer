@@ -7,7 +7,10 @@ namespace FateExplorer.WPA.RollLogic
 {
     public class MultiDieRoll : IRoll
     {
-        protected IRandomNG RNG { get; set; }
+        /// <summary>
+        /// The source for random numbers; by default a mersenne twister
+        /// </summary>
+        public IRandomNG RNG { get; set; }
 
         public int DieCount { get; protected set; }
 
@@ -29,7 +32,7 @@ namespace FateExplorer.WPA.RollLogic
         {
             if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
             Sides = sides;
-            if (sides < 1) throw new ArgumentOutOfRangeException(nameof(dieCount), "Less than 1 dice make no sense");
+            if (dieCount < 1) throw new ArgumentOutOfRangeException(nameof(dieCount), "Less than 1 dice make no sense");
             DieCount = dieCount;
             OpenRollVals = new int[DieCount];
             PrevRollVals = new int[DieCount];
