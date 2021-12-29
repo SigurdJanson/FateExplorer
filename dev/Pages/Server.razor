@@ -2,21 +2,42 @@
 @using FateExplorer.WPA.GameData;
 @inject IGameDataService Data
 
-<h3>Server</h3>
+<MudContainer Class="mt-16">
+    <h1>Server</h1>
 
-@for (int i = 0; i < Data.Abilities.Count; i++)
-{
-    <p>
-        @Data.Abilities[i].Name
-    </p>
-}
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Abilities</h3>
+            @for (int i = 0; i < Data.Abilities.Count; i++)
+            {
+                <p>
+                    @Data.Abilities[i].Name
+                </p>
+            }
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <h3>CombatTechs</h3>
+            @for (int i = 0; i < Data.CombatTechs.Count; i++)
+            {
+                <p>
+                    @Data.CombatTechs[i].Name
+                </p>
+            }
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Skill</h3>
+            @for (int i = 0; i < Data.Skills.Count; i++)
+            {
+                <p>
+                    @Data.Skills[i].Name
+                </p>
+            }
+        </MudItem>
+    </MudGrid>
+</MudContainer>
 
-@for (int i = 0; i < Data.CombatTechs.Count; i++)
-{
-    <p>
-        @Data.CombatTechs[i].Name
-    </p>
-}
+
+
 
 @code {
 

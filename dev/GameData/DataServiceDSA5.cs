@@ -27,6 +27,7 @@ namespace FateExplorer.WPA.GameData
             protected set => abilities = value;
         }
 
+
         private CombatTechDB combatTechs;
         public CombatTechDB CombatTechs
         {
@@ -39,11 +40,33 @@ namespace FateExplorer.WPA.GameData
             protected set => combatTechs = value;
         }
 
+
+        private SkillsDB skills;
+        public SkillsDB Skills
+        {
+            get
+            {
+                if (skills is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return skills;
+            }
+            protected set => skills = value;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="dataSource">Injection of HttpClient</param>
         public DataServiceDSA5(HttpClient dataSource)
         {
             DataSource = dataSource;
         }
 
+
+        /// <summary>
+        /// Load the data
+        /// </summary>
+        /// <returns></returns>
         public async Task InitializeGameDataAsync()
         {
             string fileName = "data/attributes_de.json";
@@ -51,6 +74,10 @@ namespace FateExplorer.WPA.GameData
             
             fileName = "data/combattechs_de.json";
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
+
+            fileName = "data/skills_de.json";
+            Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
+
         }
     }
 }

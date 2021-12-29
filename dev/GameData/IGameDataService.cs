@@ -11,7 +11,9 @@ namespace FateExplorer.WPA.GameData
         public AbilitiesDB Abilities { get; }
 
         public CombatTechDB CombatTechs { get; }
-        
+
+        public SkillsDB Skills { get; }
+
         public Task InitializeGameDataAsync();
     }
 }
