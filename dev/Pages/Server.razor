@@ -1,0 +1,16 @@
+﻿@page "/servers"
+@using FateExplorer.WPA.GameData;
+@inject IGameDataService Data
+
+<h3>Server</h3>
+
+@for (int i = 0; i < Data.Abilities.Count; i++)
+{
+<p>
+    @Data.Abilities[i].Name
+</p>
+}
+
+@code {
+
+}

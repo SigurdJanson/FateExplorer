@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MudBlazor.Services;
+using FateExplorer.WPA.GameData;
 
 namespace FateExplorer.WPA
 {
@@ -21,7 +22,15 @@ namespace FateExplorer.WPA
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMudServices();
 
-            await builder.Build().RunAsync();
+            builder.Services.AddScoped<IGameDataService, DataServiceDSA5>();
+
+            //await builder.Build().RunAsync();
+            var host = builder.Build();
+
+            var DataService = host.Services.GetRequiredService<IGameDataService>();
+            await DataService.InitializeGameDataAsync();
+
+            await host.RunAsync();
         }
     }
 }
