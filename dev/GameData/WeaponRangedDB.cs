@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+
 
 namespace FateExplorer.WPA.GameData
 {
@@ -18,11 +15,29 @@ namespace FateExplorer.WPA.GameData
         // Inherited properties 
 
         // New properties
+        /// <summary>
+        /// Time to load the ranged weapon in actions
+        /// </summary>
         [JsonPropertyName("loadtime")]
-        public string LoadTime { get; set; }
+        public int LoadTime { get; set; }
 
         [JsonPropertyName("ammo")]
         public string Ammo { get; set; }
 
+        [JsonPropertyName("range")]
+        public WeaponsRange Range { get; set; }
     }
+
+    public class WeaponsRange
+    {
+        [JsonPropertyName("close")]
+        public int Close { get; set; }
+
+        [JsonPropertyName("medium")]
+        public int Medium { get; set; }
+
+        [JsonPropertyName("far")]
+        public int Far { get; set; }
+    }
+
 }

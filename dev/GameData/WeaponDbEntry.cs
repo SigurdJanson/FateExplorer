@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FateExplorer.WPA.GameData
 {
@@ -32,11 +28,11 @@ namespace FateExplorer.WPA.GameData
         [JsonPropertyName("pa")]
         public int Pa { get; set; }
 
-        [JsonPropertyName("range")]
-        public int Range { get; set; }
-
+        /// <summary>
+        /// Weight of weapon in stone
+        /// </summary>
         [JsonPropertyName("weight")]
-        public string Weight { get; set; }
+        public double Weight { get; set; }
 
         [JsonPropertyName("price")]
         public double Price { get; set; }

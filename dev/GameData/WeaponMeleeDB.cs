@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FateExplorer.WPA.GameData
 {
@@ -10,6 +6,9 @@ namespace FateExplorer.WPA.GameData
     public class WeaponMeleeDB : DataServiceCollectionBase<WeaponMeleeDbEntry>
     {
         // inherited
+
+        [JsonPropertyName("range")]
+        public int Range { get; set; }
     }
 
     public class WeaponMeleeDbEntry : WeaponDbEntry
