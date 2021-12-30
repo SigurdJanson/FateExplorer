@@ -1,0 +1,58 @@
+﻿@page "/freedice"
+
+
+<MudContainer Class="mt-16" MaxWidth="MaxWidth.Medium">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Roll Free Dice</MudText>
+    <MudGrid Spacing="6" Class="mt-16">
+        <MudItem xs="4">
+            <MudText Typo="Typo.h5" GutterBottom="true">Selection</MudText>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined="true">
+                <MudText GutterBottom="false">Favorites</MudText>
+                <MudList Clickable="true" >
+                    <MudListItem Icon="@Icons.Material.Filled.ContentCut">
+                        <div class="d-flex">
+                            <MudText>Any Single Die</MudText>
+                            <MudText Inline="true" Class="ml-auto">1dX</MudText>
+                        </div>
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.AirplanemodeActive">
+                        <div class="d-flex">
+                            <MudText>Ability</MudText>
+                            <MudText Class="ml-auto">1d20</MudText>
+                        </div>
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.Create">
+                        <div class="d-flex">
+                            <MudText>Skill</MudText>
+                            <MudText Class="ml-auto">3d20</MudText>
+                        </div>
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.Casino">
+                        <div class="d-flex">
+                            <MudText>Single 6</MudText>
+                            <MudText Class="ml-auto">1d6</MudText>
+                        </div>
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.Casino">
+                        <div class="d-flex">
+                            <MudText>Two 6s</MudText>
+                            <MudText Class="ml-auto">2d6</MudText>
+                        </div>
+                    </MudListItem>
+                </MudList>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="8">
+            <MudText Typo="Typo.h5" GutterBottom=true>Roll the Dice</MudText>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
+                <MudButton FullWidth=true>Roll</MudButton>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+
+@code {
+
+}
