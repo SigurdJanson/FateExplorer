@@ -15,20 +15,22 @@ namespace RollLogicTests.GameData
         }
 
         [Test]
-        public void LoadFromFile_ParseSuccessful()
+        [TestCase("de", "LITURGY_41", "", 328)]
+        [TestCase("en", "LITURGY_41", "LITURGY_192", 316)]
+        public void LoadFromFile_ParseSuccessful(string Language, string Skill1, string SkillLast, int Count)
         {
             // Arrange
             string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, "karmaskills_de.json"));
+            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"karmaskills_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 
             // Act
             KarmaSkillsDB Result = JsonSerializer.Deserialize<KarmaSkillsDB>(jsonString);
 
             // Assert
-            Assert.AreEqual(328, Result.Count);
-            Assert.AreEqual("LITURGY_41", Result[0].Id);
-            Assert.AreEqual("", Result[Result.Count-1].Id);
+            Assert.AreEqual(Count, Result.Count);
+            Assert.AreEqual(Skill1, Result[0].Id);
+            Assert.AreEqual(SkillLast, Result[Result.Count-1].Id);
         }
 
         [Test]

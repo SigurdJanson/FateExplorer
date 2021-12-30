@@ -12,6 +12,10 @@ namespace FateExplorer.WPA.GameData
 
         public CombatTechDB CombatTechs { get; }
 
+        public WeaponMeleeDB WeaponsMelee { get; }
+
+        public WeaponRangedDB WeaponsRanged { get; }
+
         public SkillsDB Skills { get; }
 
         public ArcaneSkillsDB ArcaneSkills { get; }

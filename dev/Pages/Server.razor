@@ -56,6 +56,28 @@
                 </p>
             }
         </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Melee Weapons</h3>
+            <p>Total: @Data.WeaponsMelee.Count</p>
+            @for (int i = 0; i < Math.Min(Data.WeaponsMelee.Count, 10); i++)
+            {
+                <p>
+                    @Data.WeaponsMelee[i].Name
+                </p>
+            }
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <h3>Ranged Weapons</h3>
+            <p>Total: @Data.WeaponsRanged.Count</p>
+            @for (int i = 0; i < Math.Min(Data.WeaponsRanged.Count, 10); i++)
+            {
+                <p>
+                    @Data.WeaponsRanged[i].Name
+                </p>
+            }
+        </MudItem>
     </MudGrid>
 </MudContainer>
 

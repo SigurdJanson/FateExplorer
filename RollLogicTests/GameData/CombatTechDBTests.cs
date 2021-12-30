@@ -19,11 +19,13 @@ namespace RollLogicTests.GameData
 
 
         [Test]
-        public void LoadFromFile_ParseSuccessful()
+        [TestCase("de", "CT_1", "CT_21")]
+        [TestCase("en", "CT_1", "CT_21")]
+        public void LoadFromFile_ParseSuccessful(string Language, string Tech1, string TechLast)
         {
             // Arrange
             string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, "combattechs_de.json"));
+            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"combattechs_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 
             // Act

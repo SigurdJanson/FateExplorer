@@ -27,7 +27,7 @@ namespace FateExplorer.WPA.GameData
             protected set => abilities = value;
         }
 
-
+        #region Combat
         private CombatTechDB combatTechs;
         public CombatTechDB CombatTechs
         {
@@ -41,6 +41,34 @@ namespace FateExplorer.WPA.GameData
         }
 
 
+        private WeaponMeleeDB weaponsMelee;
+        public WeaponMeleeDB WeaponsMelee
+        {
+            get
+            {
+                if (weaponsMelee is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return weaponsMelee;
+            }
+            protected set => weaponsMelee = value;
+        }
+
+
+        private WeaponRangedDB weaponsRanged;
+        public WeaponRangedDB WeaponsRanged
+        {
+            get
+            {
+                if (weaponsRanged is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return weaponsRanged;
+            }
+            protected set => weaponsRanged = value;
+        }
+        #endregion
+
+
+        #region Skills
         private SkillsDB skills;
         public SkillsDB Skills
         {
@@ -78,6 +106,8 @@ namespace FateExplorer.WPA.GameData
             }
             protected set => karmaSkills = value;
         }
+        #endregion
+
 
         /// <summary>
         /// Constructor
@@ -97,10 +127,16 @@ namespace FateExplorer.WPA.GameData
         {
             string fileName = "data/attributes_de.json";
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
-            
+
             // Combat
             fileName = "data/combattechs_de.json";
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
+
+            fileName = "data/weaponsmelee_de.json";
+            WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
+
+            fileName = "data/weaponsranged_de.json";
+            WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
 
             // Skills
             fileName = "data/skills_de.json";
@@ -111,6 +147,8 @@ namespace FateExplorer.WPA.GameData
 
             fileName = "data/karmaskills_de.json";
             KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
+
+            
         }
     }
 }

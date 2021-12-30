@@ -15,11 +15,13 @@ namespace RollLogicTests.GameData
         }
 
         [Test]
-        public void LoadFromFile_ParseSuccessful()
+        [TestCase("de", "Fliegen", "Stoffbearbeitung")]
+        [TestCase("en", "Flying", "Clothworking")]
+        public void LoadFromFile_ParseSuccessful(string Language, string Skill1, string SkillLast)
         {
             // Arrange
             string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, "skills_de.json"));
+            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"skills_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 
             // Act
@@ -27,8 +29,8 @@ namespace RollLogicTests.GameData
 
             // Assert
             Assert.AreEqual(59, Result.Count);
-            Assert.AreEqual("Fliegen", Result[0].Name);
-            Assert.AreEqual("Stoffbearbeitung", Result[58].Name);
+            Assert.AreEqual(Skill1, Result[0].Name);
+            Assert.AreEqual(SkillLast, Result[58].Name);
         }
 
         [Test]
