@@ -13,7 +13,7 @@ namespace FateExplorer.WPA.GameData
 {
     public class DataServiceDSA5 : IGameDataService
     {
-        HttpClient DataSource;
+        protected HttpClient DataSource;
 
         private AbilitiesDB abilities;
         public AbilitiesDB Abilities
@@ -98,9 +98,11 @@ namespace FateExplorer.WPA.GameData
             string fileName = "data/attributes_de.json";
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
             
+            // Combat
             fileName = "data/combattechs_de.json";
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
 
+            // Skills
             fileName = "data/skills_de.json";
             Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
 
