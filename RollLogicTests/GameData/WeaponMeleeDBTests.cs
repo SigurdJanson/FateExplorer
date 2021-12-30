@@ -35,7 +35,7 @@ namespace RollLogicTests.GameData
             // Assert
             Assert.AreEqual(184, Result.Count);
             Assert.AreEqual(Weapon1, Result[0].Name);
-            Assert.AreEqual(WeaponLast, Result[Result.Count-1].Name);
+            Assert.AreEqual(WeaponLast, Result[^1].Name);
         }
 
         [Test]

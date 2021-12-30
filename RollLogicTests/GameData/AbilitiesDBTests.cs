@@ -36,7 +36,7 @@ namespace RollLogicTests.GameData
             // Assert
             Assert.AreEqual(8, Result.Count);
             Assert.AreEqual(Ability1, Result[0].ShortName);
-            Assert.AreEqual(AbilityLast, Result[Result.Count-1].ShortName);
+            Assert.AreEqual(AbilityLast, Result[^1].ShortName);
         }
 
         [Test]

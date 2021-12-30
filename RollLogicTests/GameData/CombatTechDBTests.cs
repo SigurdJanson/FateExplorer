@@ -33,8 +33,8 @@ namespace RollLogicTests.GameData
 
             // Assert
             Assert.AreEqual(21, Result.Count);
-            Assert.AreEqual("CT_1", Result[0].Id);
-            Assert.AreEqual("CT_21", Result[20].Id);
+            Assert.AreEqual(Tech1, Result[0].Id);
+            Assert.AreEqual(TechLast, Result[^1].Id);
         }
 
         [Test]

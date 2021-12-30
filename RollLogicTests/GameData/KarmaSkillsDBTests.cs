@@ -30,7 +30,7 @@ namespace RollLogicTests.GameData
             // Assert
             Assert.AreEqual(Count, Result.Count);
             Assert.AreEqual(Skill1, Result[0].Id);
-            Assert.AreEqual(SkillLast, Result[Result.Count-1].Id);
+            Assert.AreEqual(SkillLast, Result[^1].Id);
         }
 
         [Test]

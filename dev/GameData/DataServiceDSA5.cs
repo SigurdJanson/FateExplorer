@@ -15,6 +15,7 @@ namespace FateExplorer.WPA.GameData
     {
         protected HttpClient DataSource;
 
+
         private AbilitiesDB abilities;
         public AbilitiesDB Abilities
         { 
@@ -26,6 +27,8 @@ namespace FateExplorer.WPA.GameData
             }
             protected set => abilities = value;
         }
+
+
 
         #region Combat
         private CombatTechDB combatTechs;
@@ -66,6 +69,7 @@ namespace FateExplorer.WPA.GameData
             protected set => weaponsRanged = value;
         }
         #endregion
+
 
 
         #region Skills
