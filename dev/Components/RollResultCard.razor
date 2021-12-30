@@ -1,0 +1,57 @@
+﻿<MudCard Elevation=2 Class="pa-1 ma-2">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Color="Color.Info">@Sides</MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">@Name</MudText>
+            <MudText Typo="Typo.body2"></MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            @if (CanClose)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Default" />
+            }
+        </CardHeaderActions>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudGrid Spacing=0 Class="my-2">
+            <MudItem xs="4">
+                <p>Success</p>
+            </MudItem>
+            <MudItem xs="8">
+                <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
+                    @* Style="overflow-x: auto;" *@
+                    <tbody>
+                        <tr>
+                            <td>Modifier</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Modifier</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </MudSimpleTable>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+    <MudCardContent>
+        <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
+    </MudCardContent>
+    @*<MudCardActions>
+        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+        <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+    </MudCardActions>*@
+</MudCard>
+
+
+@code {
+    [Parameter]
+    public string Name { get; set; } = "Roll";
+    [Parameter]
+    public int Sides { get; set; } = 2;
+    [Parameter]
+    public bool CanClose { get; set; } = false;
+}

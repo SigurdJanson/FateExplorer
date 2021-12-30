@@ -1,58 +1,92 @@
 ﻿@page "/freedice"
-
+@using FateExplorer.WPA.Components
+@using FateExplorer.WPA.FreeDiceCupViMo
 
 <MudContainer Class="mt-16" MaxWidth="MaxWidth.Medium">
     <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Roll Free Dice</MudText>
-    <MudGrid Spacing="6" Class="mt-16">
+    <MudGrid Spacing="4" Class="mt-16">
         <MudItem xs="4">
-            <MudText Typo="Typo.h5" GutterBottom="true">Selection</MudText>
-            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined="true">
-                <MudText GutterBottom="false">Favorites</MudText>
-                <MudList Clickable="true" >
-                    <MudListItem Icon="@Icons.Material.Filled.ContentCut">
+            <MudText Typo="Typo.h5" GutterBottom=true>Selection</MudText>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
+                <MudList Clickable="true">
+                    <MudListSubheader>Dice Cups</MudListSubheader>
+                    @foreach(var Cup in DiceCups.CupList)
+                    {
+                    <MudListItem Avatar=@GetCupIcon(Cup) IconColor=@GetCupColor(Cup) OnClick=@(() => OnCupClicked(Cup))>
                         <div class="d-flex">
-                            <MudText>Any Single Die</MudText>
-                            <MudText Inline="true" Class="ml-auto">1dX</MudText>
+                            <MudText>@Cup.Name</MudText>
+                            <MudText Class="ml-auto">@Cup.Description</MudText>
                         </div>
                     </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.AirplanemodeActive">
-                        <div class="d-flex">
-                            <MudText>Ability</MudText>
-                            <MudText Class="ml-auto">1d20</MudText>
-                        </div>
-                    </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.Create">
-                        <div class="d-flex">
-                            <MudText>Skill</MudText>
-                            <MudText Class="ml-auto">3d20</MudText>
-                        </div>
-                    </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.Casino">
-                        <div class="d-flex">
-                            <MudText>Single 6</MudText>
-                            <MudText Class="ml-auto">1d6</MudText>
-                        </div>
-                    </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.Casino">
-                        <div class="d-flex">
-                            <MudText>Two 6s</MudText>
-                            <MudText Class="ml-auto">2d6</MudText>
-                        </div>
-                    </MudListItem>
+                    }
                 </MudList>
+                <MudButton OnClick=@AddCup Variant="Variant.Outlined" Color="Color.Primary" FullWidth=true Class="rounded-t rounded-br">
+                    Add Dice Cup ...
+                </MudButton>
             </MudPaper>
         </MudItem>
         <MudItem xs="8">
             <MudText Typo="Typo.h5" GutterBottom=true>Roll the Dice</MudText>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
-                <MudButton FullWidth=true>Roll</MudButton>
+                <RollResultCard Name="Ability Roll / d20 Roll" Sides=20 />
             </MudPaper>
         </MudItem>
     </MudGrid>
 </MudContainer>
 
+@*                    <MudListItem Icon="@Icons.Material.Filled.ContentCut">
+                        <div class="d-flex">
+                            <MudText>Any Single Die</MudText>
+                            <MudText Inline="true" Class="ml-auto">1dX</MudText>
+                        </div>
+                    </MudListItem>*@
 
 
 @code {
+    private DiceCupHolderViMo DiceCups = new();
 
+    protected override void OnInitialized()
+    {
+        if (DiceCups is null) DiceCups = new();
+        DiceCups.CupList.Add(new DiceCupViMo("New", "User-defined", new int[2] { 3, 3} ));
+    }
+
+    #region interaction // ==========================================
+
+    private void OnCupClicked(DiceCupViMo Cup)
+    {
+        
+    }
+
+    private void AddCup()
+    {
+        DiceCups.AddCup($"New_{DiceCups.Count+1}", "Another", new int[1] { 6 });
+        StateHasChanged();
+    }
+
+    #endregion
+
+
+    #region display // ==============================================
+
+    private string GetCupIcon(DiceCupViMo Cup)
+    {
+        switch(Cup.Type)
+        {
+            case CupType.Single: return Cup.Eyes.ToString();
+            case CupType.Multi: return Cup.Eyes.ToString();
+            case CupType.MixedMulti: return Icons.Material.Filled.Widgets;
+            default: return Icons.Material.Filled.QuestionAnswer;
+        }
+    }
+
+    private MudBlazor.Color GetCupColor(DiceCupViMo Cup)
+    {
+        if (Cup.FactoryDefault)
+            return Color.Error;
+        else
+            return Color.Info;
+    }
+
+    #endregion
 }
