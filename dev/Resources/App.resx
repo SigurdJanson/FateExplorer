@@ -124,6 +124,26 @@
     <value>Add Dice Cup</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="AGI" xml:space="preserve">
+    <value>AGI</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="CHA" xml:space="preserve">
+    <value>CHA</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="CON" xml:space="preserve">
+    <value>CON</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="COU" xml:space="preserve">
+    <value>COU</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="DEX" xml:space="preserve">
+    <value>DEX</value>
+    <comment>Abilities</comment>
+  </data>
   <data name="Dice Cups" xml:space="preserve">
     <value>Dice Cups</value>
     <comment>Free Dice</comment>
@@ -143,6 +163,10 @@
   <data name="imgAltSorcerer" xml:space="preserve">
     <value>Sorcerer doing magic</value>
     <comment>About</comment>
+  </data>
+  <data name="INT" xml:space="preserve">
+    <value>INT</value>
+    <comment>Abilities</comment>
   </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Combined</value>
@@ -209,6 +233,18 @@
   <data name="rollSuccess" xml:space="preserve">
     <value>Success</value>
     <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="SAG" xml:space="preserve">
+    <value>SAG</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="STR" xml:space="preserve">
+    <value>STR</value>
+    <comment>Abilities</comment>
+  </data>
+  <data name="txtAbilities" xml:space="preserve">
+    <value>Abilities</value>
+    <comment>Abilities</comment>
   </data>
   <data name="txtAboutHonourableMentions" xml:space="preserve">
     <value>This work would not have been possible without the support of Sadik al'Dudei, Moran Lichtpfeil, Meschok, Sohn des Ssok, Ahgans Guelden (R.I.P), Alassar von Tundrien, Anjin Siebenstich, Sina ibn Rushd, Junis Djelef ibn Yakuban, Torfin Hardsgersen &amp; Asleif Phileasson Foggwulf.</value>
