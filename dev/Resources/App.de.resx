@@ -120,6 +120,14 @@
   <data name="abbrvDie" xml:space="preserve">
     <value>W</value>
   </data>
+  <data name="Add Dice Cup" xml:space="preserve">
+    <value>Würfelbecher erstellen</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="Dice Cups" xml:space="preserve">
+    <value>Würfelbecher</value>
+    <comment>Free Dice</comment>
+  </data>
   <data name="imgAltBarbarian" xml:space="preserve">
     <value>Lässiger Barbar</value>
     <comment>About</comment>
@@ -136,6 +144,36 @@
     <value>Zauberer zaubert</value>
     <comment>About</comment>
   </data>
+  <data name="lblSelection" xml:space="preserve">
+    <value>Auswahl</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="naviAbout" xml:space="preserve">
+    <value>Über FateExplorer</value>
+  </data>
+  <data name="naviAct" xml:space="preserve">
+    <value>Handeln</value>
+  </data>
+  <data name="naviCharacter" xml:space="preserve">
+    <value>Charakter</value>
+  </data>
+  <data name="naviFight" xml:space="preserve">
+    <value>Kämpfen</value>
+  </data>
+  <data name="naviFreeDice" xml:space="preserve">
+    <value>Frei Würfeln</value>
+  </data>
+  <data name="naviSettings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Roll Free Dice" xml:space="preserve">
+    <value>Frei Würfeln</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="Roll Results" xml:space="preserve">
+    <value>Wurfergebnisse</value>
+    <comment>Free Dice</comment>
+  </data>
   <data name="txtAboutHonourableMentions" xml:space="preserve">
     <value>Dieses Stück Arbeit wäre niemals möglich gewesen ohne die Hilfe von Sadik al'Dudei, Moran Lichtpfeil, Meschok, Sohn des Ssok, Ahgans Guelden (R.I.P), Alassar von Tundrien, Anjin Siebenstich, Sina ibn Rushd, Junis Djelef ibn Yakuban, Torfin Hardsgersen &amp; Asleif Phileasson Foggwulf.</value>
     <comment>About</comment>
@@ -146,24 +184,31 @@
   </data>
   <data name="txtAboutMention0" xml:space="preserve">
     <value>Entwickler des Optolith</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMention1" xml:space="preserve">
     <value>Erstellern der Game Icons Bibliothek</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMention2" xml:space="preserve">
     <value>all denen, die dazu beigetragen haben</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMention3" xml:space="preserve">
     <value>Ersteller der Illustrationen</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMention4" xml:space="preserve">
     <value>Wiki Aventurica</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMention5" xml:space="preserve">
     <value>Ulisses Verlag</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutMoreMentions" xml:space="preserve">
     <value>Außerdem danken wir dem {0}, den {1} einschließlich {2}, dem {3} auf dieser Seite, all den Helden vom {4} und der {5}.</value>
+    <comment>About</comment>
   </data>
   <data name="txtAboutTitleMentions" xml:space="preserve">
     <value>Lobende Erwähnungen</value>

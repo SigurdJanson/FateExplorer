@@ -1,12 +1,15 @@
-﻿<MudNavMenu>
-    <MudNavGroup Title="Character" Expanded="true">
-        <MudNavLink Href="/overview">Character</MudNavLink>
-        <MudNavLink Href="/act">Act</MudNavLink>
-        <MudNavLink Href="/fight">Fight</MudNavLink>
+﻿@inject IStringLocalizer<App> l10n
+
+<MudNavMenu>
+    <MudNavGroup Title="@l10n["naviCharacter"]" Expanded="true">
+        <MudNavLink Href="/overview">@l10n["naviCharacter"]</MudNavLink>
+        <MudNavLink Href="/act">@l10n["naviAct"]</MudNavLink>
+        <MudNavLink Href="/fight">@l10n["naviFight"]</MudNavLink>
     </MudNavGroup>
-    <MudNavLink Href="/freedice">Free Dice</MudNavLink>
+    <MudNavLink Href="/freedice">@l10n["naviFreeDice"]</MudNavLink>
     <MudNavLink Href="/servers">Servers</MudNavLink>
-    <MudNavLink Href="/about">About</MudNavLink>
+    <MudNavLink Href="/settings">@l10n["naviSettings"]</MudNavLink>
+    <MudNavLink Href="/about">@l10n["naviAbout"]</MudNavLink>
     <MudDivider />
     <MudNavLink Href="/dashboard">Dashboard</MudNavLink>
     <MudNavLink Href="/counter">Testing</MudNavLink>
