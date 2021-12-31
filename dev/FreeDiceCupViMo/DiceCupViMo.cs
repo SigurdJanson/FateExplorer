@@ -10,44 +10,52 @@ namespace FateExplorer.WPA.FreeDiceCupViMo
 
     public class DiceCupViMo
     {
-        public DiceCupViMo(string name, string descr, int[] eyes, bool factoryDefault = false)
+        public DiceCupViMo(string name, string descr, int[] sides, bool factoryDefault = false)
         {
 
             Name = name ?? "";
             Description = descr ?? "";
             FactoryDefault = factoryDefault;
-Console.WriteLine($"{Name}: Props are done");
 
             // Set cup type and eyes
-            if (eyes is null || eyes.Length == 0)
-                throw new ArgumentNullException(nameof(eyes), "Internal error: empty dice cup defined");
+            if (sides is null || sides.Length == 0)
+                throw new ArgumentNullException(nameof(sides), "Internal error: empty dice cup defined");
 
-            if (eyes.Length == 1)
+            if (sides.Length == 1)
             {
                 Type = CupType.Single;
-                Eyes = eyes[0];
+                Sides = new int[1] { sides[0] };
             }
             else
             {
                 bool AllTheSame = true;
-                for(int i = 1; i < eyes.Length; i++)
-                    if (eyes[0] != eyes[i])
+                for(int i = 1; i < sides.Length; i++)
+                    if (sides[0] != sides[i])
                     {
                         AllTheSame = false;
                         break;
                     }
-                Type = AllTheSame ? CupType.Multi : CupType.MixedMulti;
-                Eyes = AllTheSame ? eyes[0] : 0;
+                if (AllTheSame)
+                {
+                    Type = CupType.Multi;
+                    Sides = new int[1] { sides[0] };
+                }
+                else
+                {
+                    Type = CupType.MixedMulti;
+                    Sides = sides.Clone() as int[]; // new int[eyes.Length] {}
+                }
+                //Type = AllTheSame ? CupType.Multi : CupType.MixedMulti;
+                //Eyes = AllTheSame ? eyes[0] : 0;
             }
-Console.WriteLine($"{Name}: Eyes are done");
+
             // Make a roller
             switch (Type)
             {
-                case CupType.Single: Roller = new DieRoll(Eyes); break;
-                case CupType.Multi: Roller = new MultiDieRoll(Eyes, eyes.Length); break;
+                case CupType.Single: Roller = new DieRoll(Sides[0]); break;
+                case CupType.Multi: Roller = new MultiDieRoll(Sides[0], sides.Length); break;
                 case CupType.MixedMulti: throw new NotImplementedException(); //TODO
             }
-Console.WriteLine($"{Name}: Roller is done");
         }
 
         public string Name { get; set; }
@@ -60,17 +68,20 @@ Console.WriteLine($"{Name}: Roller is done");
         public bool FactoryDefault { get; protected set; }
 
         /// <summary>
-        /// The eyes of the dice in this dice cup. Returns 0 if the dice are mixed.
+        /// The eyes of the dice in this dice cup. Returns an array of 1
+        /// when all dice are the same. Otherways an array of length of
+        /// the number of dice.
         /// </summary>
-        public int Eyes { get; protected set; }
+        public int[] Sides { get; protected set; }
 
         public CupType Type { get; set; }
 
         protected IRoll Roller { get; set; }
 
-        public int GetRollResult()
-        {
-            return Roller.Roll();
-        }
+        public void Roll() => Roller.Roll();
+
+        public int[] GetRollResult() => Roller.OpenRoll;
+
+        public int GetCombinedRollResult() => Roller.OpenRollCombined();
     }
 }

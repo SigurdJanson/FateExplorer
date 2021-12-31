@@ -12,7 +12,8 @@
                     <MudListSubheader>Dice Cups</MudListSubheader>
                     @foreach(var Cup in DiceCups.CupList)
                     {
-                    <MudListItem Avatar=@GetCupIcon(Cup) IconColor=@GetCupColor(Cup) OnClick=@(() => OnCupClicked(Cup))>
+                    @*<MudListItem Avatar=@GetCupIcon(Cup) IconColor=@GetCupColor(Cup) OnClick=@(() => OnCupClicked(Cup))>*@
+                    <MudListItem Avatar=Icons.Material.Filled.Widgets IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))>
                         <div class="d-flex">
                             <MudText>@Cup.Name</MudText>
                             <MudText Class="ml-auto">@Cup.Description</MudText>
@@ -28,7 +29,12 @@
         <MudItem xs="8">
             <MudText Typo="Typo.h5" GutterBottom=true>Roll the Dice</MudText>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
-                <RollResultCard Name="Ability Roll / d20 Roll" Sides=20 />
+                @*<RollResultCard Name="Ability Roll / d20 Roll" />*@
+                @if (DiceCups.CupRollResults is not null)
+                    @foreach(var r in DiceCupHolderViMo.ReverseResults(DiceCups.CupRollResults))
+                    {
+                        <RollResultCard Name=@r.Name RollResult=@r />
+                    }
             </MudPaper>
         </MudItem>
     </MudGrid>
@@ -48,14 +54,15 @@
     protected override void OnInitialized()
     {
         if (DiceCups is null) DiceCups = new();
-        DiceCups.CupList.Add(new DiceCupViMo("New", "User-defined", new int[2] { 3, 3} ));
+        //-DiceCups.CupList.Add(new DiceCupViMo("New", "User-defined", new int[2] { 3, 3} ));
     }
+
 
     #region interaction // ==========================================
 
     private void OnCupClicked(DiceCupViMo Cup)
     {
-        
+        DiceCups.RollCup(Cup);
     }
 
     private void AddCup()
@@ -73,8 +80,8 @@
     {
         switch(Cup.Type)
         {
-            case CupType.Single: return Cup.Eyes.ToString();
-            case CupType.Multi: return Cup.Eyes.ToString();
+            case CupType.Single: return Cup.Sides.ToString();
+            case CupType.Multi: return Cup.Sides.ToString();
             case CupType.MixedMulti: return Icons.Material.Filled.Widgets;
             default: return Icons.Material.Filled.QuestionAnswer;
         }
