@@ -144,6 +144,18 @@
     <value>Zauberer zaubert</value>
     <comment>About</comment>
   </data>
+  <data name="lblResultCardCombined" xml:space="preserve">
+    <value>Kombiniert</value>
+    <comment>Result Card</comment>
+  </data>
+  <data name="lblResultCardModifier" xml:space="preserve">
+    <value>Modifikator</value>
+    <comment>Result Card</comment>
+  </data>
+  <data name="lblResultCardResult" xml:space="preserve">
+    <value>Wurfergebnis</value>
+    <comment>Result Card</comment>
+  </data>
   <data name="lblSelection" xml:space="preserve">
     <value>Auswahl</value>
     <comment>Free Dice</comment>
@@ -173,6 +185,30 @@
   <data name="Roll Results" xml:space="preserve">
     <value>Wurfergebnisse</value>
     <comment>Free Dice</comment>
+  </data>
+  <data name="rollBotch" xml:space="preserve">
+    <value>Patzer</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollCritical" xml:space="preserve">
+    <value>Meisterlich</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollFail" xml:space="preserve">
+    <value>Scheitern</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollPendingBotch" xml:space="preserve">
+    <value>Unbestätigter Patzer</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollPendingCritical" xml:space="preserve">
+    <value>Unbestätigt meisterlich</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollSuccess" xml:space="preserve">
+    <value>Erfolg</value>
+    <comment>RollSuccessLevel</comment>
   </data>
   <data name="txtAboutHonourableMentions" xml:space="preserve">
     <value>Dieses Stück Arbeit wäre niemals möglich gewesen ohne die Hilfe von Sadik al'Dudei, Moran Lichtpfeil, Meschok, Sohn des Ssok, Ahgans Guelden (R.I.P), Alassar von Tundrien, Anjin Siebenstich, Sina ibn Rushd, Junis Djelef ibn Yakuban, Torfin Hardsgersen &amp; Asleif Phileasson Foggwulf.</value>

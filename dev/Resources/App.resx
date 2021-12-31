@@ -144,6 +144,18 @@
     <value>Sorcerer doing magic</value>
     <comment>About</comment>
   </data>
+  <data name="lblResultCardCombined" xml:space="preserve">
+    <value>Combined</value>
+    <comment>Result Card</comment>
+  </data>
+  <data name="lblResultCardModifier" xml:space="preserve">
+    <value>Modifier</value>
+    <comment>Result Card</comment>
+  </data>
+  <data name="lblResultCardResult" xml:space="preserve">
+    <value>Roll Result</value>
+    <comment>Result Card</comment>
+  </data>
   <data name="lblSelection" xml:space="preserve">
     <value>Selection</value>
     <comment>Free Dice</comment>
@@ -173,6 +185,30 @@
   <data name="Roll Results" xml:space="preserve">
     <value>Roll Results</value>
     <comment>Free Dice</comment>
+  </data>
+  <data name="rollBotch" xml:space="preserve">
+    <value>Botch</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollCritical" xml:space="preserve">
+    <value>Critical</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollFail" xml:space="preserve">
+    <value>Fail</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollPendingBotch" xml:space="preserve">
+    <value>Pending Botch</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollPendingCritical" xml:space="preserve">
+    <value>Pending Critital</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="rollSuccess" xml:space="preserve">
+    <value>Success</value>
+    <comment>RollSuccessLevel</comment>
   </data>
   <data name="txtAboutHonourableMentions" xml:space="preserve">
     <value>This work would not have been possible without the support of Sadik al'Dudei, Moran Lichtpfeil, Meschok, Sohn des Ssok, Ahgans Guelden (R.I.P), Alassar von Tundrien, Anjin Siebenstich, Sina ibn Rushd, Junis Djelef ibn Yakuban, Torfin Hardsgersen &amp; Asleif Phileasson Foggwulf.</value>

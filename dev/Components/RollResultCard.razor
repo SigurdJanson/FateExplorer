@@ -1,5 +1,7 @@
 ﻿@using FateExplorer.WPA.RollLogic
 
+@inject IStringLocalizer<App> l10n
+
 
 <MudCard Elevation=2 Class="pa-1 ma-1">
     <MudCardHeader>
@@ -23,7 +25,7 @@
             @if (RollResult.SuccessLevel != RollSuccessLevel.na)
             {
             <MudItem xs="4">
-                <p>@(RollResult.SuccessLevel.ToString())</p>
+                <p>@l10n[RollResult.SuccessLevel.ToString()]</p>
             </MudItem>
             }
             <MudItem xs="8">
@@ -31,20 +33,20 @@
                 @* Style="overflow-x: auto;" *@
                 <tbody>
                     <tr>
-                        <td>Result</td>
+                        <td>@l10n["lblResultCardResult"]</td>
                         <td>@string.Join(" \u00B7 ", RollResult.RollResult)</td>
                     </tr>
                     @if (RollResult.RollResult.Length > 1)
                     {
                     <tr>
-                        <td>Combined</td>
+                        <td>@l10n["lblResultCardCombined"]</td>
                         <td>@RollResult.CombinedResult</td>
                     </tr>
                     }
                     @if (RollResult.Modifier != 0)
                     {
                     <tr>
-                        <td>Modifier</td>
+                        <td>@l10n["lblResultCardModifier"]</td>
                         <td>@RollResult.Modifier</td>
                     </tr>
                     }
@@ -54,7 +56,7 @@
         </MudGrid>
     </MudCardContent>
     <MudCardContent>
-        <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
+        <MudText Typo="Typo.body2"></MudText>
     </MudCardContent>
     @*<MudCardActions>
         <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
