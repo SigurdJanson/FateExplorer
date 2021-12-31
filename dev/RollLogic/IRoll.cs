@@ -8,24 +8,36 @@ namespace FateExplorer.WPA.RollLogic
     public interface IRoll
     {
         /// <summary>
-        /// The number of sides for the die
+        /// Number of dice.
         /// </summary>
-        int Sides { get; }
+        int DieCount { get; }
+
 
         /// <summary>
-        /// The current roll value
+        /// The number of sides for the die. Array length must be <see cref="DieCount"/>.
         /// </summary>
-        int OpenRoll { get; }
+        int[] Sides { get; }
 
         /// <summary>
-        /// The previous roll value
+        /// The current roll value. Array length must be <see cref="DieCount"/>.
         /// </summary>
-        int PrevRoll { get; }
+        int[] OpenRoll { get; }
 
         /// <summary>
-        /// Roll the dice and return the value
+        /// The previous roll value. Array length must be <see cref="DieCount"/>.
+        /// </summary>
+        int[] PrevRoll { get; }
+
+        /// <summary>
+        /// Roll the dice and return the value. Array length must be <see cref="DieCount"/>.
         /// </summary>
         /// <returns>The result of the die roll</returns>
-        int Roll();
+        int[] Roll();
+
+        /// <summary>
+        /// Used to aggregate several dice used to roll.
+        /// </summary>
+        /// <returns>An aggregated form of all dice</returns>
+        int OpenRollCombined();
     }
 }

@@ -14,14 +14,14 @@ namespace RollLogicTests.RollLogic
         [SetUp]
         public void SetUp()
         {
-            this.mockRepository = new MockRepository(MockBehavior.Strict);
+            this.mockRepository = new(MockBehavior.Strict);
 
             MoqRng = mockRepository.Create<IRandomNG>();
         }
 
         private DieRoll CreateDieRoll(int Sides)
         {
-            DieRoll ClassUnderTest = new DieRoll(Sides);
+            DieRoll ClassUnderTest = new(Sides);
             return ClassUnderTest;
         }
 
@@ -38,10 +38,11 @@ namespace RollLogicTests.RollLogic
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.GreaterOrEqual(result, 1);
-                Assert.LessOrEqual(result, Sides);
-                Assert.AreEqual(result, dieRoll.OpenRoll);
-                Assert.AreEqual(dieRoll.PrevRoll, 0);
+                Assert.AreEqual(1, dieRoll.OpenRoll.Length);
+                Assert.GreaterOrEqual(result[0], 1);
+                Assert.LessOrEqual(result[0], Sides);
+                Assert.AreEqual(dieRoll.OpenRoll, result);
+                Assert.AreEqual(0, dieRoll.PrevRoll[0]);
             });
             this.mockRepository.VerifyAll();
         }
@@ -56,17 +57,17 @@ namespace RollLogicTests.RollLogic
             var dieRoll = this.CreateDieRoll(Sides);
 
             // Act
-            var first = dieRoll.Roll();
-            var second = dieRoll.Roll();
+            var first = dieRoll.Roll()[0];
+            var second = dieRoll.Roll()[0];
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.GreaterOrEqual(second, 1);
                 Assert.LessOrEqual(second, Sides);
-                Assert.AreEqual(second, dieRoll.OpenRoll);
-                Assert.AreEqual(first, dieRoll.PrevRoll);
             });
+            Assert.AreEqual(dieRoll.OpenRoll[0], second);
+            Assert.AreEqual(dieRoll.PrevRoll[0], first);
             this.mockRepository.VerifyAll();
         }
 

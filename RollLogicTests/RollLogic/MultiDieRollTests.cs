@@ -49,13 +49,13 @@ namespace RollLogicTests.RollLogic
         }
 
 
-
-        [Test(Description = "Test correct default aggregation")]
-        [TestCase(2, 20)]
-        [TestCase(10, 20)]
-        [TestCase(2, 6)]
-        [TestCase(10, 6)]
-        public void Roll_DefaultAggregate_Sums(int DieCount, int Sides)
+        [Test(Description = "Test if output has `DieCount` places and all rolls are within allowed range"), Repeat(50)]
+        [TestCase(6, 1)] // single die edge case
+        [TestCase(6, 2)]
+        [TestCase(6, 10)]
+        [TestCase(20, 2)]
+        [TestCase(20, 10)]
+        public void Roll__CorrectArrayLengthNContent(int Sides, int DieCount)
         {
             // Arrange
             MultiDieRoll multiDieRoll = new(Sides, DieCount);
@@ -64,7 +64,28 @@ namespace RollLogicTests.RollLogic
             var result = multiDieRoll.Roll();
 
             // Assert
-            Assert.AreEqual(multiDieRoll.OpenRollVals.Sum(), result);
+            Assert.AreEqual(DieCount, result.Length);
+            Assert.That(result, Is.All.Matches<int>(x => x >= 1 && x <= Sides));
+        }
+
+
+        [Test(Description = "Test correct default aggregation")]
+        [TestCase(6, 1)] // single die edge case
+        [TestCase(6, 2)]
+        [TestCase(6, 10)]
+        [TestCase(20, 2)]
+        [TestCase(20, 10)]
+        public void Roll_DefaultAggregate_Sums(int Sides, int DieCount)
+        {
+            // Arrange
+            MultiDieRoll multiDieRoll = new(Sides, DieCount);
+            multiDieRoll.Roll();
+
+            // Act
+            var result = multiDieRoll.OpenRollCombined();
+
+            // Assert
+            Assert.AreEqual(multiDieRoll.OpenRoll.Sum(), result);
         }
 
 
@@ -77,13 +98,15 @@ namespace RollLogicTests.RollLogic
         {
             // Arrange
             MultiDieRoll multiDieRoll = new(Sides, DieCount, (int a, int b) => a*b );
+            multiDieRoll.Roll();
 
             // Act
-            var result = multiDieRoll.Roll();
+            var result = multiDieRoll.OpenRollCombined();
+
 
             // Assert
             int product = 1;
-            foreach (int i in multiDieRoll.OpenRollVals)
+            foreach (int i in multiDieRoll.OpenRoll)
                 product *= i;
             Assert.AreEqual(product, result);
         }
@@ -101,10 +124,11 @@ namespace RollLogicTests.RollLogic
                 .Returns(1)
                 .Returns(Sides);
             multiDieRoll.RNG = MoqRng.Object;
+            multiDieRoll.Roll();
 
             // Act
-            var result = multiDieRoll.Roll();
-            Assume.That(multiDieRoll.OpenRollVals[0] == 1 && multiDieRoll.OpenRollVals[1] == Sides);
+            var result = multiDieRoll.OpenRollCombined();
+            Assume.That(multiDieRoll.OpenRoll[0] == 1 && multiDieRoll.OpenRoll[1] == Sides);
 
             // Assert
             Assert.AreEqual(Sides+1, result);
@@ -123,10 +147,12 @@ namespace RollLogicTests.RollLogic
                 .Returns(1)
                 .Returns(Sides);
             multiDieRoll.RNG = MoqRng.Object;
+            multiDieRoll.Roll();
 
             // Act
-            var result = multiDieRoll.Roll();
-            Assume.That(multiDieRoll.OpenRollVals[0] == 1 && multiDieRoll.OpenRollVals[1] == Sides);
+            var result = multiDieRoll.OpenRollCombined();
+
+            Assume.That(multiDieRoll.OpenRoll[0] == 1 && multiDieRoll.OpenRoll[1] == Sides);
 
             // Assert
             Assert.AreEqual(Sides * 1, result);

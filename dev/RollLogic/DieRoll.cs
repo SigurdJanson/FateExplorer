@@ -10,16 +10,22 @@ namespace FateExplorer.WPA.RollLogic
     /// </summary>
     public class DieRoll : IRoll
     {
-        protected IRandomNG RNG;
+        /// <summary>
+        /// The source for random numbers; by default a mersenne twister
+        /// </summary>
+        public IRandomNG RNG;
 
         /// <inheritdoc/>
-        public int Sides { get; protected set; }
+        public int DieCount { get; protected set; } = 1;
 
         /// <inheritdoc/>
-        public int OpenRoll { get; protected set; } = 0;
+        public int[] Sides { get; protected set; }
 
         /// <inheritdoc/>
-        public int PrevRoll { get; protected set; } = 0;
+        public int[] OpenRoll { get; protected set; }
+
+        /// <inheritdoc/>
+        public int[] PrevRoll { get; protected set; }
 
         /// <summary>
         /// Constructor
@@ -28,16 +34,28 @@ namespace FateExplorer.WPA.RollLogic
         public DieRoll(int sides)
         {
             if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
-            Sides = sides;
+            Sides = new int[1] { sides };
+            OpenRoll = new int[1] { 0 };
+            PrevRoll = new int[1] { 0 };
             RNG = new RandomMersenne();
         }
 
         /// <inheritdoc/>
-        public int Roll()
+        public int[] Roll()
         {
-            PrevRoll = OpenRoll;
-            OpenRoll = RNG.IRandom(1, Sides);
+            PrevRoll[0] = OpenRoll[0];
+            OpenRoll[0] = RNG.IRandom(1, Sides[0]);
             return OpenRoll;
+        }
+
+        /// <summary>
+        /// Used to aggregate the roll result for multi dice rolls. For single die
+        /// rolls this merely returns the roll result.
+        /// </summary>
+        /// <returns>The current (i.e. openly visible) roll</returns>
+        public int OpenRollCombined()
+        {
+            return OpenRoll[0];
         }
     }
 }
