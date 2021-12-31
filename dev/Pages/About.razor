@@ -1,4 +1,5 @@
 ﻿@page "/about"
+@using System.Reflection
 
 @inject IStringLocalizer<App> l10n
 
@@ -13,7 +14,7 @@
         </MudItem>
 
         <MudItem xs=12 sm=4 md=3>
-            <div Class="pa-4" Style="height: 200px">
+            <div Class="pa-4" Style="height: 200px; align-content:center">
                 <img src="img/fe_magic.jpg" style="height:100%" alt="@l10n["imgAltSorcerer"]"/>
             </div>
         </MudItem>
@@ -24,6 +25,9 @@
                 </MudText>
                 <MudText Typo="Typo.body1" GutterBottom=true>
                     @l10n["txtAboutLimitations"]
+                </MudText>
+                <MudText Typo="Typo.body1" GutterBottom=true>
+                    @string.Format(l10n["txtAboutVersion"], Author, Version, Codename)
                 </MudText>
             </MudPaper>
         </MudItem>
@@ -47,9 +51,13 @@
                     @l10n["txtAboutHonourableMentions"]
                 </MudText>
                 <MudText Typo="Typo.body1">
-                    @string.Format(l10n["txtAboutMoreMentions"], 
-                        l10n["txtAboutMention0"], l10n["txtAboutMention1"], l10n["txtAboutMention2"], 
-                        l10n["txtAboutMention3"], l10n["txtAboutMention4"], l10n["txtAboutMention5"])
+                    @((MarkupString)string.Format(l10n["txtAboutMoreMentions"], 
+                        string.Format("<a href=\"https://github.com/elyukai\">{0}</a>", l10n["txtAboutMention0"]), 
+                        string.Format("<a href=\"https://github.com/seiyria/gameicons-font/\">{0}</a>", l10n["txtAboutMention1"]), 
+                        string.Format("<a href=\"https://game-icons.net/\">{0}</a>", l10n["txtAboutMention2"]), 
+                        string.Format("<a href=\"https://pixabay.com/users/parker_west-7094318/\">{0}</a>", l10n["txtAboutMention3"]), 
+                        string.Format("<a href=\"https://www.wiki-aventurica.de/\">{0}</a>", l10n["txtAboutMention4"]), 
+                        string.Format("<a href=\"https://ulisses-spiele.de/\">{0}</a>", l10n["txtAboutMention5"])))
                 </MudText>
             </MudPaper>
         </MudItem>
@@ -65,5 +73,7 @@
 
 
 @code {
-
+    string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+    string Author = "Jan Seifert"; // TODO
+    string Codename = "Aves Bootheel";// TODO
 }

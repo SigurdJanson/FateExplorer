@@ -170,7 +170,7 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutVersion" xml:space="preserve">
-    <value>Fate Explorer wurde erstellt von {0}. Dies ist Version {1} mit dem Codenamen {3}.</value>
+    <value>Fate Explorer wurde erstellt von {0}. Dies ist Version {1} mit dem Codenamen {2}.</value>
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">
