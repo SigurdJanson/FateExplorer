@@ -38,15 +38,13 @@ namespace FateExplorer.FreeDiceCupViMo
                 if (AllTheSame)
                 {
                     Type = CupType.Multi;
-                    Sides = new int[1] { sides[0] };
+                    Sides = sides.Clone() as int[];
                 }
                 else
                 {
                     Type = CupType.MixedMulti;
-                    Sides = sides.Clone() as int[]; // new int[eyes.Length] {}
+                    Sides = sides.Clone() as int[];
                 }
-                //Type = AllTheSame ? CupType.Multi : CupType.MixedMulti;
-                //Eyes = AllTheSame ? eyes[0] : 0;
             }
 
             // Make a roller
