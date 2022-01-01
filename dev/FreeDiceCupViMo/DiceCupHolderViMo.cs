@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FateExplorer.WPA.RollLogic;
 
@@ -32,7 +33,11 @@ namespace FateExplorer.WPA.FreeDiceCupViMo
             CupList.Add(new DiceCupViMo(name, descr, eyes));
         }
 
-
+        public void AddCup(DiceCupViMo diceCup)
+        {
+            if (diceCup is null) throw new ArgumentNullException(nameof(diceCup));
+            CupList.Add(diceCup);
+        }
 
         public int CupRollResultsMax { get; set; } = 4;
 

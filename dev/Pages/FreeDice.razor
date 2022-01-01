@@ -2,6 +2,7 @@
 @using FateExplorer.WPA.Components
 @using FateExplorer.WPA.FreeDiceCupViMo
 
+@inject IDialogService DialogService
 @inject IStringLocalizer<App> l10n
 
 
@@ -24,7 +25,7 @@
                     </MudListItem>
                     }
                 </MudList>
-                <MudButton OnClick=@AddCup Variant="Variant.Outlined" Color="Color.Primary" FullWidth=true Class="rounded-t rounded-br">
+                <MudButton OnClick=@OpenAddDlg Variant="Variant.Outlined" Color="Color.Primary" FullWidth=true Class="rounded-t rounded-br">
                     @l10n["Add Dice Cup"] ...
                 </MudButton>
             </MudPaper>
@@ -42,7 +43,6 @@
         </MudItem>
     </MudGrid>
 </MudContainer>
-
 @*                    <MudListItem Icon="@Icons.Material.Filled.ContentCut">
                         <div class="d-flex">
                             <MudText>Any Single Die</MudText>
@@ -51,14 +51,36 @@
                     </MudListItem>*@
 
 
+
+
+
 @code {
+    // DIALOG: Add new dice cup
+    private DialogOptions dialogOptions = new() { FullWidth = true, CloseOnEscapeKey = true, FullScreen = true };
+    private async Task OpenAddDlg()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<DlgFreeDiceCup>(l10n[""], options);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            DiceCupViMo NewDiceCup = result.Data as DiceCupViMo;
+            if (NewDiceCup is not null)
+                DiceCups.AddCup(NewDiceCup);
+        }
+    }
+
+
+
+    // PAGE
     private DiceCupHolderViMo DiceCups = new();
 
     protected override void OnInitialized()
     {
         if (DiceCups is null) DiceCups = new();
-        //-DiceCups.CupList.Add(new DiceCupViMo("New", "User-defined", new int[2] { 3, 3} ));
     }
+
 
 
     #region interaction // ==========================================
@@ -68,13 +90,8 @@
         DiceCups.RollCup(Cup);
     }
 
-    private void AddCup()
-    {
-        DiceCups.AddCup($"New_{DiceCups.Count+1}", "Another", new int[1] { 6 });
-        StateHasChanged();
-    }
-
     #endregion
+
 
 
     #region display // ==============================================

@@ -1,0 +1,119 @@
+﻿@using FateExplorer.WPA.FreeDiceCupViMo
+
+@inject IStringLocalizer<App> l10n
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @l10n["New Dice Cup"]
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Label="@l10n["lblName"]" @bind-Value=DiceCupName Required=true RequiredError=@l10n["msgRequired"]/>
+        <MudTextField Label="@l10n["lblDescription"]" @bind-Value=DiceCupDescr/>
+        
+        <MudGrid Class="my-2 align-center">
+           @foreach (var cup in DiceCups)
+           {
+            <MudItem xs=4 Class="d-inline-flex">
+            <MudCard Outlined=true Square=true>
+                <MudCardContent>
+                    <MudNumericField Label="@l10n["lblDie"]" FullWidth=true Min=2 Max=8192
+                                     Value=cup.Sides ValueChanged=@((int i) => ModifyCup(i, cup, true)) />
+                    <MudNumericField Label="@l10n["lblCount"]" FullWidth=true Min=1 Max=8192
+                                     Value=cup.Count  ValueChanged=@((int i) => ModifyCup(i, cup, false)) />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Outlined" OnClick=@(() => RemoveCup(cup)) Disabled=RemoveCupDisabled()>
+                        @l10n["btnRemove"]
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+            </MudItem>
+           }
+        </MudGrid>
+        <MudButton Variant="Variant.Outlined" OnClick=AddCup> @l10n["btnAdd"] </MudButton>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Class="mx-2" OnClick=Cancel Variant="Variant.Outlined" >@l10n["btnCancel"]</MudButton>
+        <MudButton OnClick=Submit Variant="Variant.Filled" Color=Color.Primary Disabled=SubmitDisabled()>
+            @l10n["btnCreate"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+    // BASIC DIALOG FEATURES
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    private bool SubmitDisabled() => string.IsNullOrWhiteSpace(DiceCupName);
+
+    void Submit()
+    {
+        List<int> NewCupList = new();
+        foreach (var c in DiceCups)
+            for (int i = 0; i < c.Count; i++)
+                NewCupList.Add(c.Sides);
+
+        DiceCupViMo DiceCup = new(DiceCupName, DiceCupDescr, NewCupList.ToArray());
+        MudDialog.Close(DialogResult.Ok(DiceCup));
+    }
+
+    void Cancel() => MudDialog.Cancel();
+
+
+    // DATA
+    private string DiceCupName { get; set; }
+    private string DiceCupDescr { get; set; }
+
+
+    // DATA: DICE
+    private List<(int Id, int Sides, int Count)> DiceCups;
+
+
+    private void AddCup()
+    {
+        int MaxId = -1;
+        foreach (var c in DiceCups)
+            if (c.Id > MaxId) MaxId = c.Id;
+
+        DiceCups.Add((Id: MaxId+1, Sides: 6, Count: 1));
+        StateHasChanged();
+    }
+
+
+    private bool RemoveCupDisabled() => (DiceCups.Count == 1);
+
+    private void RemoveCup((int Id, int Sides, int Count) Cup)
+    {
+        DiceCups.Remove(Cup);
+    }
+
+
+    private void ModifyCup(int NewValue, (int Id, int Sides, int Count) Cup, bool Sides)
+    {
+        int Index = DiceCups.IndexOf(Cup);
+        if (Sides)
+            DiceCups[Index] = (Id: Cup.Id, Sides: NewValue, Count: Cup.Count);
+        else
+            DiceCups[Index] = (Id: Cup.Id, Sides: Cup.Sides, Count: NewValue);
+
+        StateHasChanged();
+    }
+
+
+
+    
+    protected override void OnInitialized()
+    {
+        if (DiceCups is null)
+            DiceCups = new();
+        else
+            DiceCups.Clear();
+        AddCup();
+    }
+
+}

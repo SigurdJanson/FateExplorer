@@ -128,6 +128,18 @@
     <value>GE</value>
     <comment>Abilities</comment>
   </data>
+  <data name="btnAdd" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="btnCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="btnCreate" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="btnRemove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
   <data name="CHA" xml:space="preserve">
     <value>CH</value>
     <comment>Abilities</comment>
@@ -168,6 +180,18 @@
     <value>IN</value>
     <comment>Abilities</comment>
   </data>
+  <data name="lblCount" xml:space="preserve">
+    <value>Anzahl</value>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="lblDie" xml:space="preserve">
+    <value>Würfel</value>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Kombiniert</value>
     <comment>Result Card</comment>
@@ -183,6 +207,9 @@
   <data name="lblSelection" xml:space="preserve">
     <value>Auswahl</value>
     <comment>Free Dice</comment>
+  </data>
+  <data name="msgRequired" xml:space="preserve">
+    <value>Der Wert brauche ich</value>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>Über FateExplorer</value>
@@ -201,6 +228,10 @@
   </data>
   <data name="naviSettings" xml:space="preserve">
     <value>Einstellungen</value>
+  </data>
+  <data name="New Dice Cup" xml:space="preserve">
+    <value>New Dice Cup</value>
+    <comment>DlgFreeDiceCup</comment>
   </data>
   <data name="Roll Free Dice" xml:space="preserve">
     <value>Frei Würfeln</value>
