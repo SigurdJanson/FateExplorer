@@ -1,0 +1,13 @@
+﻿<MudAvatarGroup Max=3 MaxElevation=8 MaxColor=Color.Secondary MaxSquare=true Spacing=10 Class=@Class>
+    @foreach (var s in DieSides)
+    {
+    <MudAvatar Color=Color.Secondary Square=true>@s</MudAvatar>
+    }
+</MudAvatarGroup>
+
+
+@code {
+    [Parameter] public int[] DieSides { get; set; }
+
+    [Parameter] public string Class { get; set; }
+}

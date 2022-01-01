@@ -17,8 +17,9 @@
                     @foreach(var Cup in DiceCups.CupList)
                     {
                     @*<MudListItem Avatar=@GetCupIcon(Cup) IconColor=@GetCupColor(Cup) OnClick=@(() => OnCupClicked(Cup))>*@
-                    <MudListItem Avatar=Icons.Material.Filled.Widgets IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))>
+                    <MudListItem IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))> @*Avatar=Icons.Material.Filled.Widgets *@
                         <div class="d-flex">
+                            <AvatarDiceCup DieSides=@Cup.Sides Class="mr-4" />
                             <MudText>@Cup.Name</MudText>
                             <MudText Class="ml-auto">@Cup.Description</MudText>
                         </div>
