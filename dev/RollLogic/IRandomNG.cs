@@ -1,5 +1,5 @@
 ﻿
-namespace FateExplorer.WPA.RollLogic
+namespace FateExplorer.RollLogic
 {
     /// <summary>
     /// An interface for various simple RNG implementation

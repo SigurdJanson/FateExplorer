@@ -1,4 +1,4 @@
-﻿using FateExplorer.WPA.GameLogic;
+﻿using FateExplorer.GameLogic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
-namespace FateExplorer.WPA.GameData
+namespace FateExplorer.GameData
 {
     public class DataServiceDSA5 : IGameDataService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace FateExplorer.WPA.RollLogic
+namespace FateExplorer.RollLogic
 {
 	/// <summary>
 	/// The Mersenne Twister is a pseudorandom number generator (PRNG). It is by far the most widely used general-purpose PRNG (quote by Wikipedia).

@@ -1,6 +1,6 @@
 {
-  "name": "FateExplorer.WPA",
-  "short_name": "FateExplorer.WPA",
+  "name": "FateExplorer",
+  "short_name": "FateExplorer",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

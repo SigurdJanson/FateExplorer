@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using FateExplorer.WPA.RollLogic;
+using FateExplorer.RollLogic;
 
-namespace FateExplorer.WPA.FreeDiceCupViMo
+namespace FateExplorer.FreeDiceCupViMo
 {
     public class DiceCupHolderViMo
     {

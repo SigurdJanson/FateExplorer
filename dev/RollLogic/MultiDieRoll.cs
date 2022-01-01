@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace FateExplorer.WPA.RollLogic
+namespace FateExplorer.RollLogic
 {
     /// <summary>
     /// Represents a collection of dice, all dice identical (equivalent to <see cref="CupType.Multi"/>).

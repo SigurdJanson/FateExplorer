@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FateExplorer.WPA.RollLogic
+namespace FateExplorer.RollLogic
 {
     public interface IRoll
     {

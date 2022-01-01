@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 
 
-namespace FateExplorer.WPA.GameData
+namespace FateExplorer.GameData
 {
 
     public class AbilitiesDB : DataServiceCollectionBase<AbilityDbEntry>

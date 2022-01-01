@@ -1,10 +1,10 @@
-﻿using FateExplorer.WPA.GameLogic;
+﻿using FateExplorer.GameLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FateExplorer.WPA.GameData
+namespace FateExplorer.GameData
 {
     interface IGameDataService
     {

@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using FateExplorer.WPA.GameData;
+using FateExplorer.GameData;
 
 
 namespace RollLogicTests.GameData

@@ -1,7 +1,7 @@
-﻿using FateExplorer.WPA.RollLogic;
+﻿using FateExplorer.RollLogic;
 using System;
 
-namespace FateExplorer.WPA.FreeDiceCupViMo
+namespace FateExplorer.FreeDiceCupViMo
 {
     public enum CupType
     {

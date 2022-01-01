@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using FateExplorer.WPA.FreeDiceCupViMo;
+using FateExplorer.FreeDiceCupViMo;
 
-namespace FateExplorer.WPA.RollLogic
+namespace FateExplorer.RollLogic
 {
     public enum RollSuccessLevel
     {

@@ -1,4 +1,4 @@
-using FateExplorer.WPA.GameData;
+using FateExplorer.GameData;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 //using Microsoft.JSInterop;
 
-namespace FateExplorer.WPA
+namespace FateExplorer
 {
     public class Program
     {

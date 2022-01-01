@@ -1,4 +1,4 @@
-﻿using FateExplorer.WPA.RollLogic;
+﻿using FateExplorer.RollLogic;
 using Moq;
 using NUnit.Framework;
 

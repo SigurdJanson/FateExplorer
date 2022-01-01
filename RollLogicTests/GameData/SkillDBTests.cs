@@ -1,4 +1,4 @@
-﻿using FateExplorer.WPA.GameData;
+﻿using FateExplorer.GameData;
 using NUnit.Framework;
 using System;
 using System.IO;

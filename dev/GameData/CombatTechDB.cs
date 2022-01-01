@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace FateExplorer.WPA.GameData
+namespace FateExplorer.GameData
 {
     public class CombatTechDB : DataServiceCollectionBase<CombatTechDbEntry>
     {
