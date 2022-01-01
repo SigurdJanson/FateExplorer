@@ -129,27 +129,34 @@ namespace FateExplorer.GameData
         /// <returns></returns>
         public async Task InitializeGameDataAsync()
         {
-            string fileName = "data/attributes_de.json";
+            string Language = System.Globalization.CultureInfo.CurrentUICulture.Name;
+            if (Language.StartsWith("de"))
+                Language = "de";
+            else
+                Language = "en";
+                
+
+            string fileName = $"data/attributes_{Language}.json";
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
 
             // Combat
-            fileName = "data/combattechs_de.json";
+            fileName = "data/combattechs_{Language}.json";
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
 
-            fileName = "data/weaponsmelee_de.json";
+            fileName = "data/weaponsmelee_{Language}.json";
             WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
 
-            fileName = "data/weaponsranged_de.json";
+            fileName = "data/weaponsranged_{Language}.json";
             WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
 
             // Skills
-            fileName = "data/skills_de.json";
+            fileName = "data/skills_{Language}.json";
             Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
 
-            fileName = "data/arcaneskills_de.json";
+            fileName = "data/arcaneskills_{Language}.json";
             ArcaneSkills = await DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
 
-            fileName = "data/karmaskills_de.json";
+            fileName = "data/karmaskills_{Language}.json";
             KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
 
             
