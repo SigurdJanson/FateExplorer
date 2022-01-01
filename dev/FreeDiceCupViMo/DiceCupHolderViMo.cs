@@ -57,7 +57,6 @@ namespace FateExplorer.FreeDiceCupViMo
             Cup.Roll();
 
             RollResultViMo Result = new(Cup.Name, Cup.Sides, Cup.Type);
-            Result.Modifier = 0; // TODO
 
             Result.RollResult = Cup.GetRollResult().Clone() as int[];
             Result.CombinedResult = Cup.GetCombinedRollResult();
