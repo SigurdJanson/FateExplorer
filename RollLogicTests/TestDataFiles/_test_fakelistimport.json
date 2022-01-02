@@ -1,0 +1,46 @@
+{
+"begin":1029,
+"items": {
+    "ITEM_1": {
+        "id": "ITEM_1",
+        "name": "Albernisches Langschwert",
+        "gr": 1,
+        "isTemplateLocked": true,
+        "amount": 1,
+        "weight": 1.5,
+        "price": 180,
+        "at": -1,
+        "damageDiceNumber": 1,
+        "damageFlat": 4,
+        "length": 90,
+        "pa": -1,
+        "combatTechnique": "CT_12",
+        "damageDiceSides": 6,
+        "reach": 2,
+        "template": "ITEMTPL_530"
+    },
+    "ITEM_2": {
+        "id": "ITEM_2",
+        "name": "Lederrüstung",
+        "gr": 4,
+        "isTemplateLocked": true,
+        "amount": 1,
+        "weight": 6,
+        "price": 150,
+        "enc": 1,
+        "pro": 3,
+        "template": "ITEMTPL_84",
+        "armorType": 4
+    },
+    "ITEM_3": {
+        "id": "ITEM_3",
+        "name": "Schwertscheide",
+        "gr": 5,
+        "isTemplateLocked": true,
+        "amount": 1,
+        "weight": 0.75,
+        "price": 12,
+        "template": "ITEMTPL_91"
+    }
+},
+"end":"end6584"}
