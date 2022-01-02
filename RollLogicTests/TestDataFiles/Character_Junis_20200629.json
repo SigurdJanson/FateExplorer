@@ -1,0 +1,569 @@
+{
+    "clientVersion": "1.3.2",
+    "dateCreated": "2019-02-24T13:40:58.210Z",
+    "dateModified": "2020-06-11T20:44:49.224Z",
+    "id": "H_1551015658210",
+    "phase": 3,
+    "locale": "de-DE",
+    "name": "Junis Djelef ibn Yakuban Al Thani",
+    "ap": {
+        "total": 1321
+    },
+    "el": "EL_3",
+    "r": "R_1",
+    "rv": "RV_5",
+    "c": "C_7",
+    "p": "P_24",
+    "sex": "m",
+    "pers": {
+        "placeofbirth": "Fasar",
+        "dateofbirth": "27. Phex 997 BF",
+        "age": "26",
+        "haircolor": 16,
+        "eyecolor": 11,
+        "size": "171",
+        "weight": "76",
+        "title": "Adeptus minor der Alten und Erhabenen Al'Achamie-Akademie der Bruderschaft der Wissenden vom Djer Tulam zu Fasar",
+        "socialstatus": 2,
+        "cultureAreaKnowledge": "Fasar"
+    },
+    "attr": {
+        "values": [
+            {
+                "id": "ATTR_1",
+                "value": 13
+            },
+            {
+                "id": "ATTR_2",
+                "value": 15
+            },
+            {
+                "id": "ATTR_3",
+                "value": 13
+            },
+            {
+                "id": "ATTR_4",
+                "value": 13
+            },
+            {
+                "id": "ATTR_5",
+                "value": 9
+            },
+            {
+                "id": "ATTR_6",
+                "value": 10
+            },
+            {
+                "id": "ATTR_7",
+                "value": 10
+            },
+            {
+                "id": "ATTR_8",
+                "value": 12
+            }
+        ],
+        "attributeAdjustmentSelected": "ATTR_1",
+        "ae": 3,
+        "kp": 0,
+        "lp": 1,
+        "permanentAE": {
+            "lost": 2,
+            "redeemed": 2
+        },
+        "permanentKP": {
+            "lost": 0,
+            "redeemed": 0
+        },
+        "permanentLP": {
+            "lost": 0
+        }
+    },
+    "activatable": {
+        "ADV_50": [
+            {}
+        ],
+        "ADV_36": [],
+        "ADV_10": [
+            {}
+        ],
+        "ADV_26": [
+            {}
+        ],
+        "ADV_40": [
+            {}
+        ],
+        "ADV_48": [
+            {}
+        ],
+        "DISADV_5": [],
+        "DISADV_2": [
+            {
+                "tier": 3
+            }
+        ],
+        "DISADV_37": [
+            {
+                "sid": 9
+            }
+        ],
+        "DISADV_50": [
+            {
+                "sid": "1200 D",
+                "tier": 3
+            }
+        ],
+        "DISADV_71": [
+            {}
+        ],
+        "DISADV_29": [],
+        "DISADV_48": [],
+        "DISADV_49": [],
+        "DISADV_46": [],
+        "SA_78": [
+            {}
+        ],
+        "SA_76": [
+            {}
+        ],
+        "SA_1": [
+            {}
+        ],
+        "SA_3": [
+            {
+                "sid": 11
+            }
+        ],
+        "SA_27": [
+            {
+                "sid": 14
+            }
+        ],
+        "SA_29": [
+            {
+                "sid": 23,
+                "tier": 4
+            },
+            {
+                "sid": 24,
+                "tier": 2
+            },
+            {
+                "sid": 8,
+                "tier": 3
+            }
+        ],
+        "SA_39": [
+            {}
+        ],
+        "SA_681": [],
+        "SA_70": [
+            {}
+        ],
+        "SA_80": [
+            {}
+        ],
+        "SA_233": [
+            {}
+        ],
+        "SA_267": [
+            {}
+        ],
+        "SA_315": [
+            {}
+        ],
+        "SA_421": []
+    },
+    "talents": {
+        "TAL_3": 1,
+        "TAL_4": 2,
+        "TAL_8": 6,
+        "TAL_9": 7,
+        "TAL_10": 4,
+        "TAL_16": 3,
+        "TAL_18": 5,
+        "TAL_19": 6,
+        "TAL_20": 7,
+        "TAL_21": 4,
+        "TAL_23": 8,
+        "TAL_27": 4,
+        "TAL_31": 1,
+        "TAL_32": 4,
+        "TAL_33": 5,
+        "TAL_34": 6,
+        "TAL_35": 1,
+        "TAL_36": 8,
+        "TAL_38": 5,
+        "TAL_39": 4,
+        "TAL_40": 4,
+        "TAL_41": 6,
+        "TAL_42": 4,
+        "TAL_46": 6,
+        "TAL_47": 2,
+        "TAL_48": 1,
+        "TAL_50": 1,
+        "TAL_54": 4,
+        "TAL_44": 1,
+        "TAL_22": 2,
+        "TAL_6": 3,
+        "TAL_13": 1,
+        "TAL_17": 2
+    },
+    "ct": {
+        "CT_3": 12,
+        "CT_13": 12
+    },
+    "spells": {
+        "SPELL_6": 7,
+        "SPELL_8": 3,
+        "SPELL_79": 0,
+        "SPELL_20": 10,
+        "SPELL_134": 4,
+        "SPELL_35": 5,
+        "SPELL_40": 4,
+        "SPELL_72": 1,
+        "SPELL_3": 4,
+        "SPELL_7": 5,
+        "SPELL_30": 5,
+        "SPELL_9": 5
+    },
+    "cantrips": [
+        "CANTRIP_17",
+        "CANTRIP_35",
+        "CANTRIP_9",
+        "CANTRIP_10",
+        "CANTRIP_53"
+    ],
+    "liturgies": {},
+    "blessings": [],
+    "belongings": {
+        "items": {
+            "ITEM_1": {
+                "id": "ITEM_1",
+                "name": "Magierstab, kurz",
+                "gr": 1,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.75,
+                "price": 40,
+                "at": 0,
+                "damageDiceNumber": 1,
+                "damageFlat": 1,
+                "length": 50,
+                "pa": -1,
+                "combatTechnique": "CT_5",
+                "damageDiceSides": 6,
+                "reach": 1,
+                "template": "ITEMTPL_15"
+            },
+            "ITEM_2": {
+                "id": "ITEM_2",
+                "name": "Tuchbeutel",
+                "gr": 10,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.5,
+                "price": 0.75,
+                "template": "ITEMTPL_213"
+            },
+            "ITEM_3": {
+                "id": "ITEM_3",
+                "name": "Feldflasche",
+                "gr": 10,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.25,
+                "price": 6,
+                "template": "ITEMTPL_199"
+            },
+            "ITEM_4": {
+                "id": "ITEM_4",
+                "name": "Geldbeutel",
+                "gr": 10,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.05,
+                "price": 1,
+                "template": "ITEMTPL_200"
+            },
+            "ITEM_5": {
+                "id": "ITEM_5",
+                "name": "Lederranzen",
+                "gr": 10,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 1,
+                "price": 17,
+                "template": "ITEMTPL_204"
+            },
+            "ITEM_6": {
+                "id": "ITEM_6",
+                "name": "Hemd",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.5,
+                "price": 3,
+                "template": "ITEMTPL_100"
+            },
+            "ITEM_7": {
+                "id": "ITEM_7",
+                "name": "Hose mit Hosentasche",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.75,
+                "price": 3,
+                "template": "ITEMTPL_102"
+            },
+            "ITEM_8": {
+                "id": "ITEM_8",
+                "name": "Kapuzenumhang",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 2,
+                "price": 6,
+                "template": "ITEMTPL_105"
+            },
+            "ITEM_9": {
+                "id": "ITEM_9",
+                "name": "Ledergürtel",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.2,
+                "price": 3,
+                "template": "ITEMTPL_109"
+            },
+            "ITEM_10": {
+                "id": "ITEM_10",
+                "name": "Mantel",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 1.5,
+                "price": 7,
+                "template": "ITEMTPL_118"
+            },
+            "ITEM_11": {
+                "id": "ITEM_11",
+                "name": "Schal",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.2,
+                "price": 0.5,
+                "template": "ITEMTPL_125"
+            },
+            "ITEM_12": {
+                "id": "ITEM_12",
+                "name": "Tunika",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 1,
+                "price": 1.5,
+                "template": "ITEMTPL_131"
+            },
+            "ITEM_13": {
+                "id": "ITEM_13",
+                "name": "Unterhosen",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.5,
+                "price": 1,
+                "template": "ITEMTPL_133"
+            },
+            "ITEM_14": {
+                "id": "ITEM_14",
+                "name": "Unterkleid",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.5,
+                "price": 5,
+                "template": "ITEMTPL_134"
+            },
+            "ITEM_15": {
+                "id": "ITEM_15",
+                "name": "Wollstrümpfe",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.1,
+                "price": 0.5,
+                "template": "ITEMTPL_137"
+            },
+            "ITEM_16": {
+                "id": "ITEM_16",
+                "name": "Federkiel",
+                "gr": 17,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.05,
+                "price": 0.1,
+                "template": "ITEMTPL_282"
+            },
+            "ITEM_17": {
+                "id": "ITEM_17",
+                "name": "Federmesser",
+                "gr": 17,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.2,
+                "price": 3,
+                "template": "ITEMTPL_283"
+            },
+            "ITEM_18": {
+                "id": "ITEM_18",
+                "name": "Papier, 1 Blatt",
+                "gr": 17,
+                "isTemplateLocked": true,
+                "amount": 10,
+                "price": 0.1,
+                "template": "ITEMTPL_286"
+            },
+            "ITEM_21": {
+                "id": "ITEM_21",
+                "name": "Tinte",
+                "gr": 17,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.1,
+                "price": 1,
+                "template": "ITEMTPL_291"
+            },
+            "ITEM_22": {
+                "id": "ITEM_22",
+                "name": "Waqqif",
+                "gr": 1,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 0.5,
+                "price": 60,
+                "at": 0,
+                "damageDiceNumber": 1,
+                "damageFlat": 2,
+                "length": 45,
+                "pa": -1,
+                "combatTechnique": "CT_3",
+                "damageDiceSides": 6,
+                "reach": 1,
+                "template": "ITEMTPL_7"
+            },
+            "ITEM_23": {
+                "id": "ITEM_23",
+                "name": "Lederhandschuhe",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 1,
+                "price": 0.3,
+                "template": "ITEMTPL_110"
+            },
+            "ITEM_25": {
+                "id": "ITEM_25",
+                "name": "Anaurak",
+                "gr": 6,
+                "isTemplateLocked": false,
+                "amount": 1,
+                "weight": 1.5,
+                "price": 7,
+                "at": 0,
+                "damageDiceNumber": 0,
+                "damageFlat": 0,
+                "enc": 0,
+                "length": 0,
+                "pa": 0,
+                "pro": 0,
+                "reloadTime": 0,
+                "stp": 0,
+                "template": "ITEMTPL_118",
+                "range": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "ITEM_26": {
+                "id": "ITEM_26",
+                "name": "Magierrobe",
+                "gr": 6,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 3,
+                "price": 120,
+                "template": "ITEMTPL_117"
+            },
+            "ITEM_27": {
+                "id": "ITEM_27",
+                "name": "Dschadra",
+                "gr": 1,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "weight": 2,
+                "price": 60,
+                "at": 0,
+                "damageDiceNumber": 1,
+                "damageFlat": 5,
+                "length": 200,
+                "pa": -1,
+                "combatTechnique": "CT_13",
+                "damageDiceSides": 6,
+                "reach": 3,
+                "template": "ITEMTPL_40",
+                "primaryThreshold": {
+                    "threshold": 15
+                }
+            },
+            "ITEM_28": {
+                "id": "ITEM_28",
+                "name": "Delphinamulett (Boote fahren +1) (Geschenk der Efferdkirche)",
+                "gr": 15,
+                "isTemplateLocked": false,
+                "amount": 1,
+                "weight": 0.05,
+                "price": 7.5,
+                "template": "ITEMTPL_242",
+                "where": "Hals"
+            },
+            "ITEM_29": {
+                "id": "ITEM_29",
+                "name": "Encyclopaedia Magica",
+                "gr": 18,
+                "isTemplateLocked": true,
+                "amount": 1,
+                "price": 800,
+                "stp": 20,
+                "template": "ITEMTPL_294"
+            }
+        },
+        "armorZones": {
+            "ARMORZONES_1": {
+                "id": "ARMORZONES_1",
+                "name": "Tunika, Hose, Kufiya",
+                "head": "ITEMTPL_78",
+                "leftArm": "ITEMTPL_78",
+                "rightArm": "ITEMTPL_78",
+                "torso": "ITEMTPL_78",
+                "leftLeg": "ITEMTPL_78",
+                "rightLeg": "ITEMTPL_78"
+            }
+        },
+        "purse": {
+            "d": "0",
+            "s": "10",
+            "h": "0",
+            "k": "0"
+        }
+    },
+    "rules": {
+        "higherParadeValues": 0,
+        "attributeValueLimit": false,
+        "enableAllRuleBooks": true,
+        "enabledRuleBooks": [],
+        "enableLanguageSpecializations": true
+    },
+    "pets": {}
+}
