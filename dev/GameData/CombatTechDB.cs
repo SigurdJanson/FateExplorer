@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.GameLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -12,7 +13,7 @@ namespace FateExplorer.GameData
     }
 
 
-    public class CombatTechDbEntry
+    public class CombatTechDbEntry : ICharacterAttribute
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
