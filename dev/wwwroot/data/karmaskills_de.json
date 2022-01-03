@@ -388,7 +388,7 @@
         "ab1": "ATTR_1",
         "ab2": "ATTR_1",
         "ab3": "ATTR_3",
-        "tradition": {},
+        "tradition": [""],
         "chanttype": "Liturgie"
     },
     {
@@ -1160,7 +1160,7 @@
         "ab1": "ATTR_1",
         "ab2": "ATTR_3",
         "ab3": "ATTR_4",
-        "tradition": {},
+        "tradition": [],
         "chanttype": "Liturgie"
     },
     {
@@ -1771,7 +1771,7 @@
         "ab1": "ATTR_2",
         "ab2": "ATTR_3",
         "ab3": "ATTR_4",
-        "tradition": {},
+        "tradition": [],
         "chanttype": "Liturgie"
     },
     {
@@ -4182,7 +4182,7 @@
         "ab1": "ATTR_1",
         "ab2": "ATTR_3",
         "ab3": "ATTR_4",
-        "tradition": {},
+        "tradition": [],
         "chanttype": "Zeremonie",
         "modagainst": "SK"
     },
@@ -4208,7 +4208,7 @@
         "ab1": "ATTR_1",
         "ab2": "ATTR_3",
         "ab3": "ATTR_4",
-        "tradition": {},
+        "tradition": [],
         "chanttype": "Zeremonie"
     },
     {
