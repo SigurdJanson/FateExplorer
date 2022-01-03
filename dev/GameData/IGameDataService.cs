@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameData
 {
-    interface IGameDataService
+    public interface IGameDataService
     {
         public AbilitiesDB Abilities { get; }
 

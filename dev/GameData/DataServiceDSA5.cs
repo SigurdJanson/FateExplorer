@@ -1,13 +1,6 @@
-﻿using FateExplorer.GameLogic;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace FateExplorer.GameData
 {
@@ -156,26 +149,24 @@ namespace FateExplorer.GameData
             Botches = await DataSource.GetFromJsonAsync<BotchDB>(fileName);
 
             // Combat
-            fileName = "data/combattechs_{Language}.json";
+            fileName = $"data/combattechs_{Language}.json";
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
 
-            fileName = "data/weaponsmelee_{Language}.json";
+            fileName = $"data/weaponsmelee_{Language}.json";
             WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
 
-            fileName = "data/weaponsranged_{Language}.json";
+            fileName = $"data/weaponsranged_{Language}.json";
             WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
 
             // Skills
-            fileName = "data/skills_{Language}.json";
+            fileName = $"data/skills_{Language}.json";
             Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
 
-            fileName = "data/arcaneskills_{Language}.json";
+            fileName = $"data/arcaneskills_{Language}.json";
             ArcaneSkills = await DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
 
-            fileName = "data/karmaskills_{Language}.json";
+            fileName = $"data/karmaskills_{Language}.json";
             KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
-
-            
         }
     }
 }
