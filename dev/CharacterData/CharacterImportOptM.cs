@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace FateExplorer.CharacterData
 {
-    public class CharacterImportOptM
+    public class CharacterImportOptM : ICharacterImporter
     {
+        #region Optolith
         [JsonPropertyName("clientVersion")]
         public string ClientVersion { get; set; }
 
@@ -21,12 +22,25 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("phase")]
         public int Phase { get; set; }
 
+        [JsonPropertyName("rules")]
+        public RulesOptM Rules { get; set; }
+
+        #endregion
+
+
+
         [JsonPropertyName("locale")]
         public string Locale { get; set; }
 
+
+
+        #region Character Data =============
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Experience or adventure points
+        /// </summary>
         [JsonPropertyName("ap")]
         public ExperiencePointsOpt Ap { get; set; }
 
@@ -78,14 +92,59 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("belongings")]
         public BelongingsOptM Belongings { get; set; }
 
-        [JsonPropertyName("rules")]
-        public RulesOptM Rules { get; set; }
-
         [JsonPropertyName("pets")]
         public PetsOptM Pets { get; set; }
 
         [JsonPropertyName("pact")]
         public PactOptM Pact { get; set; }
+
+        #endregion
+
+
+        #region IMPLEMENTs ICharacterImporter
+
+        public int CountAbilities() => Attr.Abilities.Count;
+
+        public IEnumerable<KeyValuePair<string, int>> GetAbilities()
+        {
+            foreach (var a in Attr.Abilities)
+            {
+                yield return new KeyValuePair<string, int>(a.Id, a.Value);
+            }
+        }
+
+        public int CountTalentSkills() => Talents.Count;
+
+        public IEnumerable<KeyValuePair<string, int>> GetTalentSkills()
+        {
+            foreach (var s in Talents)
+            {
+                yield return s;
+            }
+        }
+
+
+        public int CountArcaneSkills() => Spells.Count;
+
+        public IEnumerable<KeyValuePair<string, int>> GetArcaneSkills()
+        {
+            foreach (var s in Spells)
+            {
+                yield return s;
+            }
+        }
+
+        public int CountKarmaSkills() => Liturgies.Count;
+
+        public IEnumerable<KeyValuePair<string, int>> GetKarmaSkills()
+        {
+            foreach (var s in Liturgies)
+            {
+                yield return s;
+            }
+        }
+
+        #endregion
     }
 
 
