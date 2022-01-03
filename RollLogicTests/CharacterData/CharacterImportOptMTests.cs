@@ -13,7 +13,8 @@ namespace RollLogicTests.CharacterData
         [TestCase("Character_Anjin Siebenstich_202012", "1.4.2")]
         [TestCase("Character_Junis_20200629", "1.3.2")]
         [TestCase("Character_LayarielWipfelglanz_20201025", "1.3.2")]
-        [TestCase("Character_Sina_202005", "1.0.3")]
+        [TestCase("Character_RhydderchDiistra_20220102", "1.4.2")]
+        //[TestCase("Character_Sina_202005", "1.0.3")] // File has an old format and cannot be used as test case
         public void LoadCharacterWithoutErrors(string Filename, string TargetClientVersion)
         {
             // Arrange

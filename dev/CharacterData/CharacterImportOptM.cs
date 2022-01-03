@@ -76,16 +76,16 @@ namespace FateExplorer.CharacterData
         public List<string> Blessings { get; set; }
 
         [JsonPropertyName("belongings")]
-        public Belongings Belongings { get; set; }
+        public BelongingsOptM Belongings { get; set; }
 
         [JsonPropertyName("rules")]
-        public Rules Rules { get; set; }
+        public RulesOptM Rules { get; set; }
 
         [JsonPropertyName("pets")]
-        public Pets Pets { get; set; }
+        public PetsOptM Pets { get; set; }
 
         [JsonPropertyName("pact")]
-        public Pact Pact { get; set; }
+        public PactOptM Pact { get; set; }
     }
 
 
@@ -407,41 +407,108 @@ namespace FateExplorer.CharacterData
 
     public class BelongingItem //TODO Next
     {
+        /// <summary>
+        /// The item id in the characters' file (format "ITEM_1").
+        /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
+        /// <summary>
+        /// Name
+        /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("gr")]
-        public int Gr { get; set; }
-
-        [JsonPropertyName("isTemplateLocked")]
-        public bool IsTemplateLocked { get; set; }
-
+        /// <summary>
+        /// Amount
+        /// </summary>
         [JsonPropertyName("amount")]
         public int Amount { get; set; }
 
+        /// <summary>
+        /// Item weight in stone per piece. 1 stone are 2 pounds.
+        /// </summary>
         [JsonPropertyName("weight")]
         public double Weight { get; set; }
 
+        /// <summary>
+        /// Typical price of the item in silverthalers.
+        /// </summary>
         [JsonPropertyName("price")]
         public double Price { get; set; }
 
-        [JsonPropertyName("at")]
-        public int Attack { get; set; }
+        /// <summary>
+        /// The location where the character wears/carries this item.
+        /// </summary>
+        [JsonPropertyName("where")]
+        public string Where { get; set; }
 
+
+#region Unclear
+        /// <summary>
+        /// ?
+        /// </summary>
+        [JsonPropertyName("stp")]
+        public int? Stp { get; set; }
+#endregion
+
+
+
+#region Optolith-specific properties
+
+        /// <summary>
+        /// String referring to the Optolith template id.
+        /// </summary>
+        [JsonPropertyName("template")]
+        public string Template { get; set; }
+
+        /// <summary>
+        /// An item cannot be changed by the user when the template can be 
+        /// changed by the user.
+        /// </summary>
+        [JsonPropertyName("isTemplateLocked")]
+        public bool IsTemplateLocked { get; set; }
+
+        /// <summary>
+        /// An item group like close combat weapon, clothing, ...
+        /// </summary>
+        [JsonPropertyName("gr")]
+        public int Group { get; set; }
+
+#endregion
+
+
+
+#region Weapon
+        /// <summary>
+        /// AT-Mod
+        /// </summary>
+        [JsonPropertyName("at")]
+        public int AttackMod { get; set; }
+
+        /// <summary>
+        /// PA-Mod
+        /// </summary>
+        [JsonPropertyName("pa")]
+        public int ParryMod { get; set; }
+
+        /// <summary>
+        /// Number of dice to get the damage, i.e. the N in "Nd6 + 3".
+        /// </summary>
         [JsonPropertyName("damageDiceNumber")]
         public int DamageDiceNumber { get; set; }
 
+        /// <summary>
+        /// Damage bonus for a hit with a weapon, i.e. the N in "1d6 + N".
+        /// </summary>
         [JsonPropertyName("damageFlat")]
         public int DamageFlat { get; set; }
 
+        /// <summary>
+        /// Length of the item in half fingers (Halbfinger = 1 cm)
+        /// </summary>
         [JsonPropertyName("length")]
         public int Length { get; set; }
-
-        [JsonPropertyName("pa")]
-        public int Parry { get; set; }
 
         /// <summary>
         /// The combat technique used to 
@@ -456,46 +523,45 @@ namespace FateExplorer.CharacterData
         public int DamageDiceSides { get; set; }
 
         /// <summary>
-        /// close combat only
+        /// Weapon's reach. Close combat only.
         /// </summary>
         [JsonPropertyName("reach")]
         public int Reach { get; set; }
 
         /// <summary>
-        /// Ranged weapons only
+        /// Distances that define the weapons range short / middle / far. 
+        /// Ranged weapons only.
         /// </summary>
         [JsonPropertyName("range")]
         public List<int> Range { get; set; }
 
         /// <summary>
-        /// String referring to the Optolith template id.
+        /// Primary thresholds "P+T" for a weapon (Leiteigenschaft, L+S).
         /// </summary>
-        [JsonPropertyName("template")]
-        public string Template { get; set; }
-
-        [JsonPropertyName("enc")]
-        public int? Enc { get; set; }
-
-        [JsonPropertyName("pro")]
-        public int? Pro { get; set; }
-
-        /// <summary>
-        /// ?
-        /// </summary>
-        [JsonPropertyName("armorType")]
-        public int? ArmorType { get; set; } //TODO
-
-        [JsonPropertyName("where")]
-        public string Where { get; set; }
-
         [JsonPropertyName("primaryThreshold")]
         public PrimaryThreshold PrimaryThreshold { get; set; }
 
+#endregion
+
+
+
+#region Armour
         /// <summary>
-        /// ?
+        /// Encumbrance (Behinderung, BE) caused by the armour.
         /// </summary>
-        [JsonPropertyName("stp")]
-        public int? Stp { get; set; }
+        [JsonPropertyName("enc")]
+        public int? Encumbrance { get; set; }
+
+        /// <summary>
+        /// Protection against damage (Rüstungsschutz, RS).
+        /// </summary>
+        [JsonPropertyName("pro")]
+        public int? Protection { get; set; }
+
+        // ?
+        [JsonPropertyName("armorType")]
+        public int? ArmorType { get; set; } //TODO
+#endregion
     }
 
     public class PrimaryThreshold
@@ -505,68 +571,134 @@ namespace FateExplorer.CharacterData
     }
 
 
+    /// <summary>
+    /// A set of armour. Each area may have a different armour.
+    /// 
+    /// </summary>
     public class Armor
     {
+        /// <summary>
+        /// Optolith id in the format "ARMORZONES_1".
+        /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
+        /// <summary>
+        /// User-defined string to identify the armour
+        /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The armour to protect the head.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("head")]
         public string Head { get; set; }
 
+        /// <summary>
+        /// The wear through use or age.
+        /// </summary>
+        [JsonPropertyName("headLoss")]
+        public long HeadLoss { get; set; }
+
+        /// <summary>
+        /// The armour to protect the left arm.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("leftArm")]
         public string LeftArm { get; set; }
 
+        [JsonPropertyName("leftArmLoss")]
+        public long LeftArmLoss { get; set; }
+
+        /// <summary>
+        /// The armour to protect the right arm.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("rightArm")]
         public string RightArm { get; set; }
 
+        [JsonPropertyName("rightArmLoss")]
+        public long RightArmLoss { get; set; }
+
+        /// <summary>
+        /// The armour to protect the torso.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("torso")]
         public string Torso { get; set; }
 
+        [JsonPropertyName("torsoLoss")]
+        public long TorsoLoss { get; set; }
+
+        /// <summary>
+        /// The armour to protect the left leg.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("leftLeg")]
         public string LeftLeg { get; set; }
 
+        [JsonPropertyName("leftLegLoss")]
+        public long LeftLegLoss { get; set; }
+
+        /// <summary>
+        /// The armour to protect the right leg.
+        /// The Optolith item id of the armour (format: "ITEMTPL_691").
+        /// </summary>
         [JsonPropertyName("rightLeg")]
         public string RightLeg { get; set; }
+
+        [JsonPropertyName("rightLegLoss")]
+        public long RightLegLoss { get; set; }
     }
 
-    public class ArmorZones
-    {
-        [JsonPropertyName("ARMORZONES_1")] // TODO
-        public List<Armor> Armors { get; set; }
-    }
 
-    public class Purse
+    public class PurseOptM
     {
+        /// <summary>
+        /// (Gold) Ducat (D) in the purse
+        /// </summary>
         [JsonPropertyName("d")]
         public string D { get; set; }
 
+        /// <summary>
+        /// (Silver) Thalers in the purse
+        /// </summary>
         [JsonPropertyName("s")]
         public string S { get; set; }
 
+        /// <summary>
+        /// (Copper) Farthings in the purse
+        /// </summary>
         [JsonPropertyName("h")]
         public string H { get; set; }
 
+        /// <summary>
+        /// (Iron) Kreutzer (K)	in the purse
+        /// </summary>
         [JsonPropertyName("k")]
         public string K { get; set; }
     }
 
-    public class Belongings
+
+    /// <summary>
+    /// All the personal belongings.
+    /// </summary>
+    public class BelongingsOptM
     {
-        [JsonPropertyName("items"), JsonConverter(typeof(JsonOptBelongingsConverter))]
+        [JsonPropertyName("items"), JsonConverter(typeof(JsonFakeListConverter<BelongingItem>))]
         public List<BelongingItem> Items { get; set; }
 
-        [JsonPropertyName("armorZones")]
-        public ArmorZones ArmorZones { get; set; }
+        [JsonPropertyName("armorZones"), JsonConverter(typeof(JsonFakeListConverter<Armor>))]
+        public List<Armor> ArmorZones { get; set; }
 
         [JsonPropertyName("purse")]
-        public Purse Purse { get; set; }
+        public PurseOptM Purse { get; set; }
     }
 
 
-    public class Rules
+    public class RulesOptM
     {
         [JsonPropertyName("higherParadeValues")]
         public int HigherParadeValues { get; set; }
@@ -584,16 +716,146 @@ namespace FateExplorer.CharacterData
         public bool EnableLanguageSpecializations { get; set; }
     }
 
-    public class Pets
+
+    public class PetsOptM
     {
-        // TODO
+        /// <summary>
+        /// So far the Optolith seems to support only a single pet (20220102).
+        /// </summary>
+        [JsonPropertyName("PET_1")]
+        public Pet Pet { get; set; }
     }
 
-    public class Pact
+    /// <summary>
+    /// Pets and other compansions.
+    /// </summary>
+    public class Pet
+    {
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("size")]
+        public string Size { get; set; }
+
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        [JsonPropertyName("attack")]
+        //[JsonConverter(typeof(ParseStringConverter))] // Convert to int
+        public string Attack { get; set; }
+
+        [JsonPropertyName("dp")]
+        public string Dp { get; set; }
+
+        [JsonPropertyName("reach")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Reach { get; set; }
+
+        [JsonPropertyName("actions")]
+        public string Actions { get; set; }
+
+        [JsonPropertyName("talents")]
+        public string Talents { get; set; }
+
+        [JsonPropertyName("skills")]
+        public string Skills { get; set; }
+
+        [JsonPropertyName("notes")]
+        public string Notes { get; set; }
+
+        [JsonPropertyName("spentAp")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string SpentAp { get; set; }
+
+        [JsonPropertyName("totalAp")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string TotalAp { get; set; }
+
+        [JsonPropertyName("cou")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Cou { get; set; }
+
+        [JsonPropertyName("sgc")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Sgc { get; set; }
+
+        [JsonPropertyName("int")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Int { get; set; }
+
+        [JsonPropertyName("cha")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Cha { get; set; }
+
+        [JsonPropertyName("dex")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Dex { get; set; }
+
+        [JsonPropertyName("agi")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Agi { get; set; }
+
+        [JsonPropertyName("con")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Con { get; set; }
+
+        [JsonPropertyName("str")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Str { get; set; }
+
+        [JsonPropertyName("lp")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Lp { get; set; }
+
+        [JsonPropertyName("ae")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Ae { get; set; }
+
+        [JsonPropertyName("spi")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Spi { get; set; }
+
+        [JsonPropertyName("tou")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Tou { get; set; }
+
+        [JsonPropertyName("pro")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Pro { get; set; }
+
+        [JsonPropertyName("ini")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Ini { get; set; }
+
+        [JsonPropertyName("mov")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string Mov { get; set; }
+
+        [JsonPropertyName("at")]
+        //[JsonConverter(typeof(ParseStringConverter))]
+        public string At { get; set; }
+
+        [JsonPropertyName("pa")]
+        ////[JsonConverter(typeof(ParseStringConverter))]
+        public string Pa { get; set; }
+    }
+
+
+    /// <summary>
+    /// Characters can make a pact with a non-human creature. 
+    /// Only one pact per character is possible.
+    /// </summary>
+    public class PactOptM
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Fairy or demon
+        /// </summary>
         [JsonPropertyName("category")]
         public int Category { get; set; }
 
@@ -603,6 +865,9 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("type")]
         public int Type { get; set; }
 
+        /// <summary>
+        /// "Paktstufe" (bei Feen), "Kreis der Verdammnis" (bei Dämonen).
+        /// </summary>
         [JsonPropertyName("level")]
         public int Level { get; set; }
     }
