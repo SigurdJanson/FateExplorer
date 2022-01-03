@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.GameLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -6,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameData
 {
-    public class SkillDbEntryBase
+    public enum SkillDomain
+    {
+        Basic = 0, Arcane = 1, Karma = 2
+    }
+
+    public class SkillDbEntryBase : ICharacterAttribute
     {
         [JsonPropertyName("attrID")]
         public string Id { get; set; }
@@ -29,8 +35,13 @@ namespace FateExplorer.GameData
         [JsonPropertyName("ab3")]
         public string Ab3 { get; set; }
 
-
         [JsonPropertyName("url")]
         public string Url { get; set; }
+
+        
+        // Extra properties
+
+        [JsonIgnore]
+        public virtual SkillDomain Domain { get; }
     }
 }

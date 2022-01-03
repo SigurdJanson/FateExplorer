@@ -17,6 +17,11 @@ namespace FateExplorer.GameData
     public class SkillDbEntry : SkillDbEntryBase
     {
         // Inherited properties
+
+        [JsonIgnore]
+        public override SkillDomain Domain { get => SkillDomain.Basic; }
+
+
         // TODO: no URLs in file
     }
 

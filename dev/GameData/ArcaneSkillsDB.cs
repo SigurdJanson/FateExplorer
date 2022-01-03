@@ -20,6 +20,9 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("category")] // TODO: most entries in file have not category
         public string Category { get; set; }
+
+        [JsonIgnore]
+        public override SkillDomain Domain { get => SkillDomain.Arcane; }
     }
 
 
