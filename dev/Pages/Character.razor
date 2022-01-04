@@ -14,40 +14,56 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
-            <h3>Character</h3>
-        </MudItem>
-
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <MudPaper Class="px-4">
+                <MudText Typo=Typo.body1>@Hero.Name</MudText>
+                <MudText Typo=Typo.caption>lblPlaceOfBirth</MudText>
+                <MudText Typo=Typo.body2>@Hero.PlaceOfBirth</MudText>
+                <MudText Typo=Typo.caption>lblDateOfBirth</MudText>
+                <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>            
             </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="12" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudGrid>
-                <MudItem xs="12">
-                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-                </MudItem>
-                <MudItem xs="12">
-                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-                </MudItem>
-            </MudGrid>
-        </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="12" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+            <MudPaper>
+                <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
+                    @* Style="overflow-x: auto;" *@
+                    <tbody>
+                        <tr>
+                            @foreach(var ab in Hero.GetAbilites())
+                            {
+                            <td>@ab.ShortName</td>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach(var ab in Hero.GetAbilites())
+                            {
+                            <td>
+                                @if (ab.Max > ab.EffectiveValue)
+                                {
+                                <MudBadge Content=@ab.EffectiveValue Color="Color.Primary" Overlap=false Origin=Origin.BottomCenter>
+                                    <MudText>@ab.Max</MudText>
+                                </MudBadge>
+                                }
+                                else
+                                {
+                                <MudText>@ab.Max</MudText>
+                                }
+                            </td>
+                            }
+                        </tr>
+                    </tbody>
+                </MudSimpleTable>
+            </MudPaper>
+
+
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudText Typo=Typo.body1>@l10n["lblResiliences"]</MudText>
+            </MudPaper>
+
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudText Typo=Typo.body1>@l10n["MORE VALUES"]</MudText>
+            </MudPaper>
+
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudText Typo=Typo.body1>@l10n["lblBelongings"]</MudText>
+            </MudPaper>
         </MudItem>
     </MudGrid>
 </MudContainer>
