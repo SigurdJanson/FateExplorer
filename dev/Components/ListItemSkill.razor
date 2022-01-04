@@ -1,0 +1,28 @@
+﻿@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+
+<MudListItem @key=Skill.Id Text="" OnClick=@(() => RollSkill.InvokeAsync(Skill))>
+    <div class="d-flex align-center" >
+    <div>
+        <MudText Typo=Typo.body1 GutterBottom=false>@Skill.Name</MudText>
+        <MudText Typo=Typo.body2 GutterBottom=false>lblFertigkeit @Skill.SkillValue</MudText>
+    </div>
+    <MudSpacer/>
+    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
+            OnClick=@(() => RollSkill.InvokeAsync(Skill))
+            aria-label=@(l10n["lblRoll"] + " " + Skill.Name) />
+    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
+            OnClick=@(() => ViewSkill.InvokeAsync(Skill))
+            aria-label=@(l10n["lblView"] + " " + Skill.Name) />
+    </div>
+</MudListItem>
+
+
+@code {
+    [Parameter] public SkillsDTO Skill { get; set; }
+
+    [Parameter] public EventCallback<SkillsDTO> RollSkill { get; set; }
+
+    [Parameter] public EventCallback<SkillsDTO> ViewSkill { get; set; }
+}
