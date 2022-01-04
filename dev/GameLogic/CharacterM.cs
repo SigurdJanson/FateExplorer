@@ -1,12 +1,8 @@
 ﻿using FateExplorer.CharacterData;
 using FateExplorer.GameData;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
-// TODO
-using System.Net.Http;
-using System.Net.Http.Json;
+
+
 
 namespace FateExplorer.GameLogic
 {
@@ -14,15 +10,10 @@ namespace FateExplorer.GameLogic
     {
         public CharacterM(IGameDataService gameData, CharacterImportOptM characterImportOptM)
         {
-            // TEMPORARY IMPORT //TODO
-            //string fileName = $"data/Character_Junis_20200629.json";
-            //CharacterImportOptM characterImportOptM = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
-            //string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
-            //string fileName = Path.GetFullPath(Path.Combine(BasePath, $"{Filename}.json"));
+            Name = characterImportOptM.GetName();
+            PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
 
-            //CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>("jsonString");
-            //
-
+            // ABILITIES
             Abilities = new();
             foreach(var AbImport in characterImportOptM.GetAbilities())
             {
@@ -32,8 +23,34 @@ namespace FateExplorer.GameLogic
                 Abilities.Add(AbImport.Key, ab);
             }
 
+            // SKILLS
             Skills = new(this, characterImportOptM, gameData);
+
+            // RESOURCES
+            Resources = new();
+            Resources.Add(
+                CharacterResourceClass.Health.ToString(), 
+                new CharacterHealth(0, this));
+            if (characterImportOptM.CountArcaneSkills() > 0)
+            {
+                Resources.Add(
+                    CharacterResourceClass.Magic.ToString(),
+                    new CharacterResourceM(CharacterResourceClass.Magic, 0, this));
+            }
+            if (characterImportOptM.CountKarmaSkills() > 0)
+            {
+                Resources.Add(
+                    CharacterResourceClass.Karma.ToString(),
+                    new CharacterKarma(0, this));
+            }
         }
+
+
+
+        public string Name { get; set; }
+
+        public string PlaceOfBirth { get; set; }
+
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
@@ -45,19 +62,6 @@ namespace FateExplorer.GameLogic
 
         public CharacterSkillsM Skills { get; set; }
 
-        public int GetAbility(string Id)
-        {
-            return Abilities[Id].EffectiveValue;
-        }
-
-        public int GetEffectiveAbility(string Id)
-        {
-            return Abilities[Id].EffectiveValue;
-        }
-
-        public int GetEffectiveResilience(string Id)
-        {
-            return Resiliences[Id].Value;
-        }
+        public int GetAbility(string Id) => Abilities[Id].EffectiveValue;
     }
 }

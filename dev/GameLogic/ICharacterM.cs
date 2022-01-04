@@ -17,8 +17,5 @@ namespace FateExplorer.GameLogic
 
         int GetAbility(string Id);
 
-        int GetEffectiveAbility(string Id);
-
-        int GetEffectiveResilience(string Id);
     }
 }
