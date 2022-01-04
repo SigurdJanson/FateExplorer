@@ -1,5 +1,12 @@
 ﻿@page "/overview"
 
+@using FateExplorer.ViewModel
+@using System.IO
+@using System
+
+@inject IStringLocalizer<App> l10n
+@inject ISnackbar Snackbar
+@inject ITheHeroViMo Hero
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
@@ -8,7 +15,16 @@
         </MudItem>
 
         <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <InputFile id="CharacterFileInput" OnChange="UploadCharacterFile" hidden  />
+
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled" Color="Color.Primary" Class="rounded-0"
+                           StartIcon="@Icons.Filled.CloudUpload"
+                           for="CharacterFileInput">
+                    Upload Files
+                </MudButton>
+            </MudPaper>
         </MudItem>
         <MudItem xs="12" sm="6" md="4">
             <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
@@ -42,5 +58,38 @@
 </MudContainer>
 
 @code {
+    IList<IBrowserFile> files = new List<IBrowserFile>();
 
+    private async Task UploadCharacterFile(InputFileChangeEventArgs e)
+    {
+        IBrowserFile CharacterFile = e.File;
+
+        //Do your validations here
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        //Snackbar.Add($"Files with {CharacterFile.Size} bytes size are not allowed", Severity.Error);
+        //Snackbar.Add($"Files starting with letter {CharacterFile.Name.Substring(0, 1)} are not recommended", Severity.Warning);
+        //Snackbar.Add($"This file has the extension {CharacterFile.Name.Split(".").Last()}", Severity.Info);
+
+
+        //var buffers = new byte[CharacterFile.Size];
+        //await CharacterFile.OpenReadStream().ReadAsync(buffers);
+        //string DataType = CharacterFile.ContentType;
+
+        Snackbar.Add($"This file is of type: {CharacterFile.ContentType}", Severity.Error);
+        Snackbar.Add($"This files starts with letter {CharacterFile.Name.Substring(0, 1)}", Severity.Warning);
+        Snackbar.Add($"This file has the extension: {CharacterFile.Name.Split(".").Last()}", Severity.Info);
+
+
+        //TODO upload the files to the server
+        var memoryStream = new MemoryStream();
+        await CharacterFile.OpenReadStream().CopyToAsync(memoryStream);
+        //byte[] ByteData = memoryStream.ToArray();
+        memoryStream.Dispose();
+        
+        Hero.ReadCharacterFile(memoryStream.ToArray());
+
+        // Sample code by MS
+        //await using FileStream fs = new(path, FileMode.Create);
+        //await CharacterFile.OpenReadStream().CopyToAsync(fs);
+    }
 }
