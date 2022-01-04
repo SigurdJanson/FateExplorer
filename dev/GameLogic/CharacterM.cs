@@ -12,6 +12,7 @@ namespace FateExplorer.GameLogic
         {
             Name = characterImportOptM.GetName();
             PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
+            DateOfBirth = characterImportOptM.GetDateOfBirth();
 
             // ABILITIES
             Abilities = new();
@@ -47,9 +48,11 @@ namespace FateExplorer.GameLogic
 
 
 
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
-        public string PlaceOfBirth { get; set; }
+        public string PlaceOfBirth { get; protected set; }
+
+        public string DateOfBirth { get; protected set; }
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
@@ -62,6 +65,6 @@ namespace FateExplorer.GameLogic
 
         public CharacterSkillsM Skills { get; set; }
 
-        public int GetAbility(string Id) => Abilities[Id].EffectiveValue;
+        public int GetAbility(string Id) => Abilities[Id].Value;
     }
 }

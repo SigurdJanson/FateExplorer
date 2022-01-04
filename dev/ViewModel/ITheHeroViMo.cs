@@ -19,6 +19,15 @@ namespace FateExplorer.ViewModel
         /// <param name="Data">The json data as byte array</param>
         void ReadCharacterFile(byte[] Data);
 
+
+        string Name { get; }
+        string PlaceOfBirth { get; }
+        string DateOfBirth { get; }
+
+
+        List<AbilityDTO> GetAbilites();
+
+
         //
         /// <summary>
         /// Get the skills from a character.

@@ -7,11 +7,31 @@ using System.Text.Json;
 
 namespace FateExplorer.ViewModel
 {
+    public struct AbilityDTO
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string ShortName { get; set; }
+        public int Max { get; set; }
+        public int Min { get; set; }
+        public int EffectiveValue { get; set; }
+    }
+
     public struct SkillsDTO
     {
         public string Id;
         public string Name;
         public int SkillValue;
+    }
+
+    public struct ResourceDTO
+    {
+        public string Id;
+        public string Name;
+        public string ShortName;
+        public int Max;
+        public int Min;
+        public int EffectiveValue;
     }
 
     public class TheHeroViMo : ITheHeroViMo
@@ -28,7 +48,7 @@ namespace FateExplorer.ViewModel
             GameDataService = gameData;
         }
 
-
+        /// <inheritdoc/>
         public bool HasBorn { get; protected set; }
 
         /// <inheritdoc/>
@@ -37,9 +57,56 @@ namespace FateExplorer.ViewModel
             CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>(new ReadOnlySpan<byte>(Data));//(reader);
 
             characterM = new CharacterM(GameDataService, characterImportOptM);
+            InitAttributes();
             HasBorn = true;
         }
 
+        /// <summary>
+        /// Sets the effective values after a new character was loaded.
+        /// </summary>
+        protected void InitAttributes()
+        {
+            if (characterM is null) 
+                throw new Exception("Interner Programmfehler; keine geladenen Daten.");
+
+            // ABILITIES
+            if (AbilityEffValues is null)
+                AbilityEffValues = new();
+            else
+                AbilityEffValues.Clear();
+            foreach (var chab in characterM?.Abilities)
+                AbilityEffValues.Add(chab.Key, chab.Value.Value);
+        }
+
+        public string Name { get => characterM?.Name ?? ""; }
+        public string PlaceOfBirth { get => characterM?.PlaceOfBirth ?? ""; }
+        public string DateOfBirth { get => characterM?.DateOfBirth ?? ""; }
+
+
+        #region ABILITIES
+
+        Dictionary<string, int> AbilityEffValues { get; set; }
+
+        public List<AbilityDTO> GetAbilites()
+        {
+            var Result = new List<AbilityDTO>();
+
+            foreach(var chab in characterM?.Abilities)
+            {
+                Result.Add(new AbilityDTO()
+                {
+                    Id = chab.Value.Id,
+                    Name = chab.Value.Name,
+                    ShortName = chab.Value.ShortName,
+                    EffectiveValue = AbilityEffValues[chab.Key],
+                    Max = chab.Value.Value,
+                    Min = 0
+                });
+            }
+
+            return Result;
+        }
+        #endregion
 
 
         /// <inheritdoc/>
@@ -147,5 +214,39 @@ namespace FateExplorer.ViewModel
                 if (b.Value) Result.Add(b.Key);
             return Result;
         }
+
+
+
+        #region CHARACTER RESOURCES
+
+
+        /// <summary>
+        /// Effective points of this resource
+        /// </summary>
+        public Dictionary<string, int> ResourceValue { get; protected set; }
+
+        /// <inheritdoc/>
+        public List<ResourceDTO> GetResources()
+        {
+            List<ResourceDTO> Result = new();
+
+            foreach (var r in characterM.Resources)
+            {
+                var resource = new ResourceDTO()
+                {
+                    Name = "",
+                    ShortName = "",
+                    Max = r.Value.Max,
+                    Min = r.Value.Min,
+                    Id = r.Key,
+                    EffectiveValue = ResourceValue[r.Key]
+                };
+                Result.Add(resource);
+            }
+
+            return Result;
+        }
+
+        #endregion
     }
 }

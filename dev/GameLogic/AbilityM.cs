@@ -29,24 +29,21 @@ namespace FateExplorer.GameLogic
         {
             Id = id;
             Name = name;
-            ShortName = ShortName;
+            ShortName = shortName;
             Value = value;
         }
 
 
-
-        // TODO: Effective Values are ViMo
-        public int EffectiveValue { get; protected set; }
-
-
-        public void ChangeEffectiveValue(int Modifier, Func<int, int, int> Operation = null)
+        public int ChangeEffectiveValue(int Value, int Modifier, Func<int, int, int> Operation = null)
         {
             if (Operation is null)
-                EffectiveValue += Modifier;
+                Value += Modifier;
             else
-                EffectiveValue = Operation(EffectiveValue, Modifier);
+                Value = Operation(Value, Modifier);
 
-            if (EffectiveValue < 0) EffectiveValue = 0;
+            if (Value < 0) Value = 0;
+
+            return Value;
         }
     }
 

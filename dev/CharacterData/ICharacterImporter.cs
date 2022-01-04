@@ -4,6 +4,14 @@ namespace FateExplorer.CharacterData
 {
     public interface ICharacterImporter
     {
+        string GetName();
+
+        string GetPlaceOfBirth();
+
+        string GetDateOfBirth();
+
+
+
         int CountAbilities();
         IEnumerable<KeyValuePair<string, int>> GetAbilities();
 

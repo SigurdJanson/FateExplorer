@@ -4,6 +4,12 @@ namespace FateExplorer.GameLogic
 {
     public interface ICharacterM
     {
+        string Name { get; }
+
+        string PlaceOfBirth { get; }
+
+        string DateOfBirth { get; }
+
         Dictionary<string, AbilityM> Abilities { get; }
 
         Dictionary<string, CharacterResourceM> Resources { get; }
