@@ -6,6 +6,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Globalization;
+using FateExplorer.GameLogic;
+using FateExplorer.ViewModel;
 //using Microsoft.JSInterop;
 
 namespace FateExplorer
@@ -26,6 +28,8 @@ namespace FateExplorer
             });
 
             builder.Services.AddScoped<IGameDataService, DataServiceDSA5>();
+            //-builder.Services.AddScoped<ICharacterM, CharacterM>();
+            builder.Services.AddScoped<ITheHeroViMo, TheHeroViMo>();
 
             var host = builder.Build();
 
