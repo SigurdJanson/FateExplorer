@@ -1,7 +1,157 @@
 ﻿@page "/act"
 
-<h3>Character Act</h3>
+@using FateExplorer.ViewModel
+@using FateExplorer.Components
+
+@inject IStringLocalizer<App> l10n
+@inject ITheHeroViMo Hero
+
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="0" Outlined="true" Square="true">
+            <MudExpansionPanels Elevation="0">
+                <MudExpansionPanel Text=@l10n["lblMostUsed"] IsInitiallyExpanded=true DisableGutters=true>
+                    <MudList Clickable="true">
+                        @foreach (var skill in FavoriteSkills)
+                        {
+                            <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill> </ListItemSkill>
+@*                        <MudListItem Text="" OnClick=RollSkill>
+                            <div class="d-flex align-center" >
+                            @skill.Name
+                            <MudSpacer/>
+                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
+                                    OnClick=RollSkill 
+                                    aria-label=@(l10n["lblRoll"] + skill.Name) />
+                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
+                                    OnClick=ViewSkill 
+                                    aria-label=@(l10n["lblView"] + skill.Name) />
+                            </div>
+                        </MudListItem>
+*@                        }
+                    </MudList>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+            </MudPaper>
+
+            <MudPaper Elevation="0" Outlined="true" Square="true">
+                <MudExpansionPanels Elevation="0">
+                    <MudExpansionPanel Text=@l10n["lblYourBestSkills"] IsInitiallyExpanded=true DisableGutters=true>
+                    <MudList Clickable="true">
+                        @foreach (var skill in BestSkills)
+                        {
+                            <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill/>
+@*                        <MudListItem Text="" OnClick=RollSkill>
+                            <div class="d-flex align-center" >
+                            @skill.Name
+                            <MudSpacer/>
+                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
+                                    OnClick=RollSkill 
+                                    aria-label=@(l10n["lblRoll"] + skill.Name) />
+                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
+                                    OnClick=ViewSkill 
+                                    aria-label=@(l10n["lblView"] + skill.Name) />
+                            </div>
+                        </MudListItem>
+*@                        }
+                    </MudList>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+            </MudPaper>
+
+            <MudPaper Elevation="0" Outlined="true" Square="true">
+                <MudExpansionPanels Elevation="0">
+                    <MudExpansionPanel Text=@l10n["lblSelection"] IsInitiallyExpanded=true DisableGutters=true>
+                        <MudList Clickable="true">
+                            <MudListSubheader>
+                                <MudChipSet MultiSelection=false Filter=false Mandatory=true>
+                                    <MudChip Size="Size.Large" Text="Alle" Label=true Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary" Default="true" Icon="@Icons.Material.Filled.Casino" Class="rounded-0"/>
+                                    @foreach (var f in SkillDomains)
+                                    { @* TODO L!=N *@
+                                        <MudChip Size="Size.Large" Text="@f.ToString()" Label=true Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary" Class="rounded-0"></MudChip>
+                                    }
+                                </MudChipSet>
+                                <MudTextField @bind-Value="FilterTerm" Placeholder="Search" 
+                                    Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" 
+                                    IconSize="Size.Medium" Immediate="true"></MudTextField>
+                            </MudListSubheader>
+
+                            @foreach (var skill in SkillList)
+                            {
+                                @if (CheckFilter(SkillDomain.Basic, skill.Name))
+                                {
+                                    <ListItemSkill Skill=skill RollSkill=RollSkill ViewSkill=ViewSkill />
+@*                                <MudListItem @key=skill.Id Icon="@Icons.Filled.Folder">
+                                    <div class="d-flex align-center" >
+                                    <MudHighlighter Class="mud-primary-text"
+                                                    Style="background-color:transparent;font-weight:bold"
+                                                    Text="@skill.Name"
+                                                    HighlightedText="@FilterTerm" />
+                                    <MudSpacer/>
+                                    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
+                                            OnClick=@(() => RollSkill(skill))
+                                            aria-label=@(l10n["lblRoll"] + skill.Name) />
+                                    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
+                                            OnClick=@(() => ViewSkill(skill))
+                                            aria-label=@(l10n["lblView"] + skill.Name) />
+                                    </div>
+                                </MudListItem>*@
+                                }
+                            }
+                        </MudList>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+            </MudPaper>
+        </MudItem>
+        <MudItem  xs="12" sm="6" md="8">
+            <MudPaper Elevation="0" Outlined=true Square=true>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
 
 @code {
+    private List<SkillDomain> SkillDomains;
+
+    private IEnumerable<SkillsDTO> SkillList { get; set; }
+
+    private IEnumerable<SkillsDTO> BestSkills { get; set; }
+
+    private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        SkillDomains = Hero.GetMasteredSkillDomains();
+        SkillList = Hero.GetSkills();
+        BestSkills = Hero.GetBestSkills();
+        FavoriteSkills = Hero.GetFavoriteSkills();
+    }
+
+
+
+    private void RollSkill(SkillsDTO s)
+    {
+
+    }
+
+
+    private void ViewSkill(SkillsDTO s)
+    {
+
+    }
+
+    private string FilterTerm = "";
+
+    private bool CheckFilter(SkillDomain d, string Item)
+    {
+        // TODO Check domain
+        return Item.ToLower().Contains(FilterTerm.ToLower());
+    }
 
 }
