@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.GameLogic;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
-    public class WeaponDbEntry
+    public class WeaponDbEntry : ICharacterAttribute
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -60,5 +61,8 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("templateID")]
         public string TemplateID { get; set; }
+
+        [JsonIgnore]
+        public string Id { get => TemplateID; set => TemplateID = value; }
     }
 }
