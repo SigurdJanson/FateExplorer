@@ -212,6 +212,9 @@
     <value>Auswahl</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="lblSkillAbbr" xml:space="preserve">
+    <value>FW</value>
+  </data>
   <data name="msgRequired" xml:space="preserve">
     <value>Der Wert brauche ich</value>
   </data>
