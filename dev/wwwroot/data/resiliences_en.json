@@ -1,0 +1,18 @@
+{"Entries": [
+{"id": "TOU", "name": "Toughness", "shortname": "TOU", 
+    "abilities": ["ATTR_7", "ATTR_7", "ATTR_8"],
+    "racebase": [
+    {"id": "R_1", "base": -5},
+    {"id": "R_2", "base": -6},
+    {"id": "R_3", "base": -6},
+    {"id": "R_4", "base": -4}
+]},
+{"id": "SPI", "name": "Spirit", "shortname": "SPI", 
+"abilities": ["ATTR_1", "ATTR_2", "ATTR_3"],
+"racebase": [
+    {"id": "R_1", "base": -5},
+    {"id": "R_2", "base": -4},
+    {"id": "R_3", "base": -4},
+    {"id": "R_4", "base": -4}
+]}
+]}

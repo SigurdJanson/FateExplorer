@@ -22,6 +22,8 @@ namespace FateExplorer.GameData
 
         public KarmaSkillsDB KarmaSkills { get; }
 
+        public ResiliencesDB Resiliences { get; }
+
         public Task InitializeGameDataAsync();
     }
 }

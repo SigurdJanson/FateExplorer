@@ -116,6 +116,18 @@ namespace FateExplorer.GameData
             }
             protected set => karmaSkills = value;
         }
+
+        public ResiliencesDB resiliences;
+        public ResiliencesDB Resiliences
+        {
+            get
+            {
+                if (resiliences is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return resiliences;
+            }
+            protected set => resiliences = value;
+        }
         #endregion
 
 

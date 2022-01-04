@@ -44,6 +44,13 @@ namespace FateExplorer.GameLogic
                     CharacterResourceClass.Karma.ToString(),
                     new CharacterKarma(0, this));
             }
+
+            // RESILIENCES
+            Resiliences = new();
+            foreach (var Res in gameData.Resiliences.Data)
+            {
+                Resiliences.Add(Res.Id, new ResilienceM(Res, this));
+            }
         }
 
 
