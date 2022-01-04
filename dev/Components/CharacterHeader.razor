@@ -1,0 +1,46 @@
+﻿@using FateExplorer.ViewModel
+
+@inject ITheHeroViMo Hero
+
+@if (Hero.HasBorn)
+{
+    <MudText Typo=Typo.body1>
+        Junis Djelef ibn Yakuban ...
+    </MudText>
+
+    <MudBadge Origin=Origin.BottomCenter Content="4" Color="Color.Primary" Overlap=true Dot=false Bordered=true Icon=@BadgeIconLife>
+        <MudChip Label="true" Color=Color.Surface Variant="Variant.Outlined" Class="mx-2"
+                 Icon=@IconLife>27 LE</MudChip>
+    </MudBadge>
+    <MudBadge Origin=Origin.BottomCenter Content="200" Color="Color.Warning" Overlap=true Dot=false Bordered=true Icon=@BadgeIconAstralEnergy>
+        <MudChip Label="true" Color=Color.Surface Variant="Variant.Outlined" Class="mx-2">33 AsP</MudChip>
+    </MudBadge>
+}
+else
+{
+    <MudText Typo=Typo.body1>
+        ...
+    </MudText>
+}
+
+@code {
+    readonly string[] LifeIcon = { Icons.Filled.Favorite, Icons.Filled.FavoriteBorder, Icons.Filled.HeartBroken };
+    readonly string[] AstralIcon = { Icons.Filled.AutoFixHigh, Icons.Filled.AutoFixNormal, Icons.Filled.AutoFixOff };
+    readonly string[] KarmaIcon = { Icons.Filled.Star, Icons.Filled.StarHalf, Icons.Filled.StarOutline };
+
+    private string CharacterName;
+
+    private void LoadHeroData()
+    {
+        if (Hero.HasBorn)
+        {
+            CharacterName = Hero.Name;
+        }
+    }
+
+    string BaseColor { get; set; }
+    public string[] Resources { get; set; } =  {"LE", "AsP"};
+    public string IconLife { get; set; } = Icons.Filled.HeartBroken; //.Favorite;
+    public string BadgeIconLife { get; set; }
+    public string BadgeIconAstralEnergy { get; set; }    
+}
