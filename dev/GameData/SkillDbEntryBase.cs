@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameData
 {
-    public enum SkillDomain
-    {
-        Basic = 0, Arcane = 1, Karma = 2
-    }
-
     public class SkillDbEntryBase : ICharacterAttribute
     {
         [JsonPropertyName("attrID")]
