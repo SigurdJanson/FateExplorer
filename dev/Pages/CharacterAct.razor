@@ -7,6 +7,8 @@
 @inject ITheHeroViMo Hero
 
 
+@if (Hero.HasBorn)
+{
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
@@ -70,7 +72,11 @@
         </MudItem>
     </MudGrid>
 </MudContainer>
-
+}
+else
+{
+<SkeletonNoCharacterData />
+}
 
 
 @code {
@@ -83,14 +89,21 @@
     private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
 
 
+    private void LoadHeroData()
+    {
+        if (Hero.HasBorn)
+        {
+            SkillDomains = Hero.GetMasteredSkillDomains();
+            SkillList = Hero.GetSkills();
+            BestSkills = Hero.GetBestSkills();
+            FavoriteSkills = Hero.GetFavoriteSkills();
+        }
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        SkillDomains = Hero.GetMasteredSkillDomains();
-        SkillList = Hero.GetSkills();
-        BestSkills = Hero.GetBestSkills();
-        FavoriteSkills = Hero.GetFavoriteSkills();
+        LoadHeroData();
     }
 
 

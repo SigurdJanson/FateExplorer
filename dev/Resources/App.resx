@@ -144,6 +144,10 @@
   <data name="btnRemove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="btnUploadFile" xml:space="preserve">
+    <value>Upload file</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="CHA" xml:space="preserve">
     <value>CHA</value>
     <comment>Abilities</comment>
@@ -196,6 +200,10 @@
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="lblNoCharacter" xml:space="preserve">
+    <value>No character data available</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Combined</value>
     <comment>Result Card</comment>
@@ -215,8 +223,20 @@
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
   </data>
+  <data name="msgLoadCharacterToUse" xml:space="preserve">
+    <value>You can import character files created by the Optolith app</value>
+    <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgNoCharacterData" xml:space="preserve">
+    <value>You have not loaded any characters</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="msgRequired" xml:space="preserve">
     <value>I need this value</value>
+  </data>
+  <data name="msgWrongContentType" xml:space="preserve">
+    <value>This app expects a JSON file. The given file is of type {0}.</value>
+    <comment>No Character Skeleton</comment>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>About FateExplorer</value>

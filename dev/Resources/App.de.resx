@@ -144,6 +144,10 @@
   <data name="btnRemove" xml:space="preserve">
     <value>Entfernen</value>
   </data>
+  <data name="btnUploadFile" xml:space="preserve">
+    <value>Datei laden</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="CHA" xml:space="preserve">
     <value>CH</value>
     <comment>Abilities</comment>
@@ -196,6 +200,10 @@
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="lblNoCharacter" xml:space="preserve">
+    <value>Keine Charakterdaten vorhanden</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Kombiniert</value>
     <comment>Result Card</comment>
@@ -215,8 +223,24 @@
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
   </data>
+  <data name="msgLoadCharacterToUse" xml:space="preserve">
+    <value>Du kannst Heldendateien aus der Optolith-App laden</value>
+    <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgNoCharacterData" xml:space="preserve">
+    <value>Du hast noch keinen Charakter geladen</value>
+    <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgNoCharacterData1" xml:space="preserve">
+    <value>You have not loaded any characters</value>
+    <comment>No Character Skeleton</comment>
+  </data>
   <data name="msgRequired" xml:space="preserve">
     <value>Der Wert brauche ich</value>
+  </data>
+  <data name="msgWrongContentType" xml:space="preserve">
+    <value>Diese App erwartet eine JSON Datei. Die angegebene Datei ist vom Typ  {0}.</value>
+    <comment>No Character Skeleton</comment>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>Über FateExplorer</value>
