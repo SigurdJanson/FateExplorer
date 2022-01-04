@@ -26,7 +26,7 @@ namespace RollLogicTests.CharacterData
 
 
 
-        [Test]
+        [Test, Ignore("Not implemented")]
         public void Write_StateUnderTest_ExpectedBehavior()
         {
             // Assert
