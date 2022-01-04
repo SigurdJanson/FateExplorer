@@ -47,24 +47,48 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("el")]
         public string El { get; set; }
 
+        /// <summary>
+        /// Race, e.g. human, elf
+        /// </summary>
         [JsonPropertyName("r")]
         public string R { get; set; }
 
+        /// <summary>
+        /// Race variant, e.g. Thorwalian for a human or wood elf for an elf.
+        /// </summary>
         [JsonPropertyName("rv")]
         public string Rv { get; set; }
 
+        /// <summary>
+        /// Culture
+        /// </summary>
         [JsonPropertyName("c")]
         public string C { get; set; }
 
+        /// <summary>
+        /// Profession
+        /// </summary>
         [JsonPropertyName("p")]
         public string P { get; set; }
 
+        /// <summary>
+        /// Profession variation, e.g. a golgarithian for a boronian priest
+        /// </summary>
+        [JsonPropertyName("pv")]
+        public string PV { get; set; }
+
+        /// <summary>
+        ///  Gender
+        /// </summary>
         [JsonPropertyName("sex")]
         public string Sex { get; set; }
 
         [JsonPropertyName("pers")]
         public PersonOpt Pers { get; set; }
 
+        /// <summary>
+        /// Container for several character attributes
+        /// </summary>
         [JsonPropertyName("attr")]
         public Attributes Attr { get; set; }
 
@@ -102,6 +126,13 @@ namespace FateExplorer.CharacterData
 
 
         #region IMPLEMENTs ICharacterImporter
+
+        public string GetName() => Name;
+
+        public string GetPlaceOfBirth() => Pers.Placeofbirth;
+
+        public string GetDateOfBirth() => Pers.Dateofbirth;
+
 
         public int CountAbilities() => Attr.Abilities.Count;
 
@@ -206,32 +237,13 @@ namespace FateExplorer.CharacterData
 
 
 
-    public class PermanentAE
+    public class PermanentEnergy
     {
         [JsonPropertyName("lost")]
         public int Lost { get; set; }
 
         [JsonPropertyName("redeemed")]
         public int Redeemed { get; set; }
-    }
-
-
-
-    public class PermanentKP
-    {
-        [JsonPropertyName("lost")]
-        public int Lost { get; set; }
-
-        [JsonPropertyName("redeemed")]
-        public int Redeemed { get; set; }
-    }
-
-
-
-    public class PermanentLP
-    {
-        [JsonPropertyName("lost")]
-        public int Lost { get; set; }
     }
 
 
@@ -254,13 +266,13 @@ namespace FateExplorer.CharacterData
         public int Lp { get; set; }
 
         [JsonPropertyName("permanentAE")]
-        public PermanentAE PermanentAE { get; set; }
+        public PermanentEnergy PermanentAE { get; set; }
 
         [JsonPropertyName("permanentKP")]
-        public PermanentKP PermanentKP { get; set; }
+        public PermanentEnergy PermanentKP { get; set; }
 
         [JsonPropertyName("permanentLP")]
-        public PermanentLP PermanentLP { get; set; }
+        public PermanentEnergy PermanentLP { get; set; }
     }
 
 
