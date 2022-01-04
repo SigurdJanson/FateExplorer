@@ -18,6 +18,7 @@ namespace FateExplorer.CharacterData
 
         int CountTalentSkills();
         IEnumerable<KeyValuePair<string, int>> GetTalentSkills();
+        int GetTalentSkill(string Id);
 
         int CountArcaneSkills();
         IEnumerable<KeyValuePair<string, int>> GetArcaneSkills();

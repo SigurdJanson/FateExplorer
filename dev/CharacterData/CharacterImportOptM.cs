@@ -154,6 +154,14 @@ namespace FateExplorer.CharacterData
             }
         }
 
+        public int GetTalentSkill(string Id)
+        {
+            if (Talents.TryGetValue(Id, out var skill))
+                return skill;
+            else
+                return 0;
+        }
+
 
         public int CountArcaneSkills() => Spells.Count;
 
@@ -174,6 +182,7 @@ namespace FateExplorer.CharacterData
                 yield return s;
             }
         }
+
 
         #endregion
     }

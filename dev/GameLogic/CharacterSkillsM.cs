@@ -23,14 +23,15 @@ namespace FateExplorer.GameLogic
             Skills = new();
             MasteredDomains = new();
 
-            // Basic mundane skills
+            // BASIC (mundane) skills
+            // Create ALL available skills (unlike magic and karma)
             MasteredDomains.Add(SkillDomain.Basic, true);
-            foreach (var v in import.GetTalentSkills())
+            foreach (var dbentry in gameData.Skills.Data)
             {
-                CharacterSkillM skill = new(gameData.Skills[v.Key], v.Value, character);
-                Skills.Add(v.Key, skill);
+                CharacterSkillM skill = new(dbentry, import.GetTalentSkill(dbentry.Id), character);
+                Skills.Add(dbentry.Id, skill);
             }
-            // Arcane skills
+            // ARCANE skills
             var ToImport = import.GetArcaneSkills();
             MasteredDomains.Add(SkillDomain.Arcane, ToImport?.Any() ?? false);
             foreach (var v in ToImport)
@@ -39,7 +40,7 @@ namespace FateExplorer.GameLogic
                 Skills.Add(v.Key, skill);
             }
 
-            // Karma skills
+            // KARMA skills
             ToImport = import.GetKarmaSkills();
             MasteredDomains.Add(SkillDomain.Karma, ToImport?.Any() ?? false);
             foreach (var v in ToImport)
