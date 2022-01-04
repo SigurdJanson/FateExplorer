@@ -137,6 +137,10 @@
   <data name="btnCreate" xml:space="preserve">
     <value>Erstellen</value>
   </data>
+  <data name="btnOpenMenu" xml:space="preserve">
+    <value>Menü öffnen</value>
+    <comment>NavMenu</comment>
+  </data>
   <data name="btnRemove" xml:space="preserve">
     <value>Entfernen</value>
   </data>
