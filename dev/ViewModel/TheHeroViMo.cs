@@ -81,7 +81,8 @@ namespace FateExplorer.ViewModel
                 var skill = new SkillsDTO
                 {
                     Id = fav,
-                    Name = s.Name
+                    Name = s.Name,
+                    SkillValue = s.Value
                 };
                 Result.Add(skill);
             }
