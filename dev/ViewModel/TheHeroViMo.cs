@@ -34,6 +34,17 @@ namespace FateExplorer.ViewModel
         public int EffectiveValue;
     }
 
+    public struct ResilienceDTO
+    {
+        public string Id;
+        public string Name;
+        public string ShortName;
+        public int Max;
+        public int EffectiveValue;
+    }
+
+
+
     public class TheHeroViMo : ITheHeroViMo
     {
         protected IGameDataService GameDataService;
@@ -84,7 +95,6 @@ namespace FateExplorer.ViewModel
 
 
         #region ABILITIES
-
         Dictionary<string, int> AbilityEffValues { get; set; }
 
         public List<AbilityDTO> GetAbilites()
@@ -109,6 +119,8 @@ namespace FateExplorer.ViewModel
         #endregion
 
 
+
+        #region SKILLS
         /// <inheritdoc/>
         public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
         {
@@ -214,11 +226,11 @@ namespace FateExplorer.ViewModel
                 if (b.Value) Result.Add(b.Key);
             return Result;
         }
+        #endregion
 
 
 
-        #region CHARACTER RESOURCES
-
+        #region RESOURCES
 
         /// <summary>
         /// Effective points of this resource
@@ -247,6 +259,29 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
+        #endregion
+
+
+        #region RESILIENCES
+        public List<ResilienceDTO> GetResiliences()
+        {
+            List<ResilienceDTO> Result = new();
+
+            foreach (var r in characterM.Resiliences)
+            {
+                var resilience = new ResilienceDTO()
+                {
+                    Name = GameDataService.Resiliences[r.Key].Name,
+                    ShortName = GameDataService.Resiliences[r.Key].ShortName,
+                    Max = r.Value.Value,
+                    Id = r.Key,
+                    EffectiveValue = r.Value.ComputeValue(AbilityEffValues)
+                };
+                Result.Add(resilience);
+            }
+
+            return Result;
+        }
         #endregion
     }
 }

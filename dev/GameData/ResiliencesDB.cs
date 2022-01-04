@@ -22,6 +22,16 @@ namespace FateExplorer.GameData
         public string[] DependantAbilities { get; set; }
 
         [JsonPropertyName("racebase")]
-        public (string Id, int Value)[] RaceBaseValue { get; set; }
+        public ResilienceBaseValue[] RaceBaseValue { get; set; }
+    }
+
+
+    public class ResilienceBaseValue
+    {
+        [JsonPropertyName("id")]
+        public string RaceId { get; set; }
+
+        [JsonPropertyName("base")]
+        public int Value { get; set; }
     }
 }

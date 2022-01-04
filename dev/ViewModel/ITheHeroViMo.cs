@@ -59,5 +59,12 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <returns>LIst of the skill domain enum with at least 1 value (i.e. "Basic")</returns>
         List<SkillDomain> GetMasteredSkillDomains();
+
+
+        /// <summary>
+        /// Returns toughness and spirit
+        /// </summary>
+        /// <returns></returns>
+        List<ResilienceDTO> GetResiliences();
     }
 }

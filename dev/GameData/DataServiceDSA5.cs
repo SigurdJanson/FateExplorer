@@ -152,10 +152,13 @@ namespace FateExplorer.GameData
                 Language = "de";
             else
                 Language = "en";
-                
+
 
             string fileName = $"data/attributes_{Language}.json";
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
+
+            fileName = $"data/resiliences_{Language}.json";
+            Resiliences = await DataSource.GetFromJsonAsync<ResiliencesDB>(fileName);
 
             fileName = $"data/botches_{Language}.json";
             Botches = await DataSource.GetFromJsonAsync<BotchDB>(fileName);

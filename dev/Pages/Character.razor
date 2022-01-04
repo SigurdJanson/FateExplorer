@@ -54,7 +54,11 @@
 
 
             <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
-                <MudText Typo=Typo.body1>@l10n["lblResiliences"]</MudText>
+                @foreach (var r in Hero.GetResiliences())
+                {
+                    <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>
+                    <MudText Typo=Typo.caption>@r.ShortName (@(r.Max))</MudText>
+                }
             </MudPaper>
 
             <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
@@ -62,7 +66,11 @@
             </MudPaper>
 
             <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
-                <MudText Typo=Typo.body1>@l10n["lblBelongings"]</MudText>
+                <MudText Typo=Typo.caption>@l10n["lblBelongings"]</MudText>
+                <MudText Typo=Typo.body1>n/a</MudText>
+
+                <MudText Typo=Typo.caption>@l10n["lblWealth"]</MudText>
+                <MudText Typo=Typo.body1>n/a</MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>
