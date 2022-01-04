@@ -19,29 +19,30 @@ namespace FateExplorer.ViewModel
         protected IGameDataService GameDataService;
         protected ICharacterM characterM;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="gameData"></param>
         public TheHeroViMo(IGameDataService gameData)
         {
             GameDataService = gameData;
         }
 
 
-        public void ReadCharacterFile(byte[] Data) //(MemoryStream reader)
+        public bool HasBorn { get; protected set; }
+
+        /// <inheritdoc/>
+        public void ReadCharacterFile(byte[] Data)
         {
             CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>(new ReadOnlySpan<byte>(Data));//(reader);
 
             characterM = new CharacterM(GameDataService, characterImportOptM);
+            HasBorn = true;
         }
 
 
 
-        /// <summary>
-        /// Get the skills from a character.
-        /// </summary>
-        /// <param name="Domain">Mundane, arcane or karmic skill. Use null for all.</param>
-        /// <param name="NameFilter">Return only skills with the filter string in the name.</param>
-        /// <returns>
-        /// List as DTO for the View. If no skill fits the criterion the list will be empty.
-        /// </returns>
+        /// <inheritdoc/>
         public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
         {
             List<SkillsDTO> Result = new();
@@ -89,13 +90,7 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
-        /// <summary>
-        /// Return the skills with the highest skill value
-        /// </summary>
-        /// <param name="Count">How many top skills? Top 5, top 10?</param>
-        /// <param name="IncludeTies">Return exactly 'Count' skills or shall skills with same 
-        /// proficiency be added?</param>
-        /// <returns>List as DTO for the View</returns>
+        /// <inheritdoc/>
         public List<SkillsDTO> GetBestSkills(uint Count = 4, bool IncludeTies = true)
         {
             List<SkillsDTO> Result = new();
@@ -144,6 +139,7 @@ namespace FateExplorer.ViewModel
         }
 
 
+        /// <inheritdoc/>
         public List<SkillDomain> GetMasteredSkillDomains()
         {
             List<SkillDomain> Result = new();
