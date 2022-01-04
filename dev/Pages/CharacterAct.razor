@@ -13,23 +13,11 @@
             <MudPaper Elevation="0" Outlined="true" Square="true">
             <MudExpansionPanels Elevation="0">
                 <MudExpansionPanel Text=@l10n["lblMostUsed"] IsInitiallyExpanded=true DisableGutters=true>
-                    <MudList Clickable="true">
+                    <MudList Clickable="true" Style="overflow:auto; max-height:300px">
                         @foreach (var skill in FavoriteSkills)
                         {
                             <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill> </ListItemSkill>
-@*                        <MudListItem Text="" OnClick=RollSkill>
-                            <div class="d-flex align-center" >
-                            @skill.Name
-                            <MudSpacer/>
-                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
-                                    OnClick=RollSkill 
-                                    aria-label=@(l10n["lblRoll"] + skill.Name) />
-                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
-                                    OnClick=ViewSkill 
-                                    aria-label=@(l10n["lblView"] + skill.Name) />
-                            </div>
-                        </MudListItem>
-*@                        }
+                        }
                     </MudList>
                 </MudExpansionPanel>
             </MudExpansionPanels>
@@ -38,23 +26,11 @@
             <MudPaper Elevation="0" Outlined="true" Square="true">
                 <MudExpansionPanels Elevation="0">
                     <MudExpansionPanel Text=@l10n["lblYourBestSkills"] IsInitiallyExpanded=true DisableGutters=true>
-                    <MudList Clickable="true">
+                    <MudList Clickable="true" Style="overflow:auto; max-height:300px">
                         @foreach (var skill in BestSkills)
                         {
                             <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill/>
-@*                        <MudListItem Text="" OnClick=RollSkill>
-                            <div class="d-flex align-center" >
-                            @skill.Name
-                            <MudSpacer/>
-                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
-                                    OnClick=RollSkill 
-                                    aria-label=@(l10n["lblRoll"] + skill.Name) />
-                            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
-                                    OnClick=ViewSkill 
-                                    aria-label=@(l10n["lblView"] + skill.Name) />
-                            </div>
-                        </MudListItem>
-*@                        }
+                        }
                     </MudList>
                     </MudExpansionPanel>
                 </MudExpansionPanels>
@@ -63,7 +39,7 @@
             <MudPaper Elevation="0" Outlined="true" Square="true">
                 <MudExpansionPanels Elevation="0">
                     <MudExpansionPanel Text=@l10n["lblSelection"] IsInitiallyExpanded=true DisableGutters=true>
-                        <MudList Clickable="true">
+                        <MudList Clickable="true" Style="overflow:auto; max-height:300px">
                             <MudListSubheader>
                                 <MudChipSet MultiSelection=false Filter=false Mandatory=true>
                                     <MudChip Size="Size.Large" Text="Alle" Label=true Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary" Default="true" Icon="@Icons.Material.Filled.Casino" Class="rounded-0"/>
@@ -82,21 +58,6 @@
                                 @if (CheckFilter(SkillDomain.Basic, skill.Name))
                                 {
                                     <ListItemSkill Skill=skill RollSkill=RollSkill ViewSkill=ViewSkill />
-@*                                <MudListItem @key=skill.Id Icon="@Icons.Filled.Folder">
-                                    <div class="d-flex align-center" >
-                                    <MudHighlighter Class="mud-primary-text"
-                                                    Style="background-color:transparent;font-weight:bold"
-                                                    Text="@skill.Name"
-                                                    HighlightedText="@FilterTerm" />
-                                    <MudSpacer/>
-                                    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
-                                            OnClick=@(() => RollSkill(skill))
-                                            aria-label=@(l10n["lblRoll"] + skill.Name) />
-                                    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
-                                            OnClick=@(() => ViewSkill(skill))
-                                            aria-label=@(l10n["lblView"] + skill.Name) />
-                                    </div>
-                                </MudListItem>*@
                                 }
                             }
                         </MudList>
