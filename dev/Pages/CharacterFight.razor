@@ -1,7 +1,52 @@
 ﻿@page "/Fight"
 
-<h3>Character Fight</h3>
+@using FateExplorer.Components
+@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+@inject ITheHeroViMo Hero
+
+
+@if (Hero.HasBorn)
+{
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="0" Outlined="true" Square="true">
+            </MudPaper>
+
+            <MudPaper Elevation="0" Outlined="true" Square="true">
+            </MudPaper>
+        </MudItem>
+        <MudItem  xs="12" sm="6" md="8">
+            <MudPaper Elevation="0" Outlined=true Square=true>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+}
+else
+{
+<SkeletonNoCharacterData OnCharacterHasLoaded=LoadHeroData />
+}
+
 
 @code {
+
+
+
+    private void LoadHeroData()
+    {
+        if (Hero.HasBorn)
+        {
+
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadHeroData();
+    }
 
 }
