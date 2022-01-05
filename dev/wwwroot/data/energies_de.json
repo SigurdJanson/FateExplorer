@@ -1,0 +1,29 @@
+{"Entries": [
+{"id": "LP", "name": "Lebensenergie", "shortname": "LE",
+    "abilities": ["ATTR_7", "ATTR_7"],
+    "racebase": [
+    {"id": "R_1", "base": 5},
+    {"id": "R_2", "base": 2},
+    {"id": "R_3", "base": 5},
+    {"id": "R_4", "base": 8}
+]},
+{"id": "AE", "name": "Astralenergie", "shortname": "AE",
+"abilities": [],
+"racebase": [
+    {"id": "R_1", "base": 0},
+    {"id": "R_2", "base": 0},
+    {"id": "R_3", "base": 0},
+    {"id": "R_4", "base": 0}
+],
+"advmod": [
+{"id": "ADV_50", "base": 20}
+]},
+{"id": "KP", "name": "Karmaenergie", "shortname": "KE", 
+"abilities": ["ATTR_1", "ATTR_2", "ATTR_3"],
+"racebase": [
+    {"id": "R_1", "base": 0},
+    {"id": "R_2", "base": 0},
+    {"id": "R_3", "base": 0},
+    {"id": "R_4", "base": 0}
+]}
+]}
