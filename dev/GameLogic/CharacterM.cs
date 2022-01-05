@@ -29,20 +29,33 @@ namespace FateExplorer.GameLogic
 
             // ENERGIES
             Energies = new();
-            Energies.Add(
-                CharacterEnergyClass.Health.ToString(), 
-                new CharacterHealth(0, this));
-            if (characterImportOptM.CountArcaneSkills() > 0)
+            foreach(var energy in gameData.Energies.Data)
             {
-                Energies.Add(
-                    CharacterEnergyClass.Magic.ToString(),
-                    new CharacterEnergyM(CharacterEnergyClass.Magic, 0, this));
-            }
-            if (characterImportOptM.CountKarmaSkills() > 0)
-            {
-                Energies.Add(
-                    CharacterEnergyClass.Karma.ToString(),
-                    new CharacterKarma(0, this));
+                CharacterEnergyM energyM = null;
+                CharacterEnergyClass _Class;
+                int ExtraEnergy;
+                switch (energy.Id)
+                {
+                    case "LP":
+                        _Class = CharacterEnergyClass.LP;
+                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                        energyM = new CharacterHealth(energy, _Class, ExtraEnergy, this);
+                        break;
+                    case "AE":
+                        if (!characterImportOptM.IsSpellcaster()) break;
+                        _Class = CharacterEnergyClass.AE;
+                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                        energyM = new CharacterEnergyM(energy, _Class, ExtraEnergy, this);
+                        break;
+                    case "KP":
+                        if (!characterImportOptM.IsBlessed()) break;
+                        _Class = CharacterEnergyClass.KP;
+                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                        energyM = new CharacterKarma(energy, _Class, ExtraEnergy, this);
+                        break;
+                }
+                if (energyM is not null)
+                    Energies.Add(energy.Id, energyM);
             }
 
             // RESILIENCES

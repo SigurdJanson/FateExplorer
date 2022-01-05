@@ -184,6 +184,32 @@ namespace FateExplorer.CharacterData
         }
 
 
+        public int GetAddedEnergy(CharacterEnergyClass energyClass) =>
+            energyClass switch
+            {
+                CharacterEnergyClass.LP => 
+                    Attr.Lp + Attr.PermanentLP.Lost + Attr.PermanentLP.Redeemed,
+                CharacterEnergyClass.AE => 
+                    Attr.Ae + Attr.PermanentAE.Lost + Attr.PermanentAE.Redeemed,
+                CharacterEnergyClass.KP => 
+                    Attr.Kp + Attr.PermanentKP.Lost + Attr.PermanentKP.Redeemed,
+                _ => 0
+            };
+            
+
+        /// <inheritdoc/>
+        public bool IsSpellcaster() // TODO: use the advantage here, not the crutch
+        {
+            return CountArcaneSkills() > 0;
+        }
+
+        /// <inheritdoc/>
+        public bool IsBlessed() // TODO: use the advantage here, not the crutch
+        {
+            return CountKarmaSkills() > 0;
+        }
+
+
         #endregion
     }
 

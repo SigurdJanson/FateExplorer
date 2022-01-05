@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.GameData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,12 +9,15 @@ namespace FateExplorer.GameLogic
 
     public class CharacterEnergyM
     {
-        public CharacterEnergyM(CharacterEnergyClass _Class, int max, ICharacterM hero)
+
+        public CharacterEnergyM(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
         {
-            Class = _Class;
-            Max = max;
             Hero = hero;
+            Class = _Class;
+
+            Max = AddedEnergy;
         }
+
 
         public ICharacterM Hero { get; protected set; }
 

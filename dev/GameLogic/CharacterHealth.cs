@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.GameData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +9,23 @@ namespace FateExplorer.GameLogic
     public class CharacterHealth : CharacterEnergyM
     {
 
-        public CharacterHealth(int max, CharacterM hero) 
-            : base(CharacterEnergyClass.LP, max, hero)
+        public CharacterHealth(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
+            : base(gameData, _Class, AddedEnergy, hero)
         {
-            CalcThresholds();
+            if (_Class != CharacterEnergyClass.LP) 
+                throw new ArgumentException($"Class has been instantiated with the wrong type of energy", nameof(_Class));
+
+            Max = gameData.RaceBaseValue[0].Value; // TODO: pick the right value
+            foreach (var a in gameData.DependantAbilities)
+                Max += Hero.Abilities[a].Value;
+            Max += AddedEnergy;
 
             // If a character’s LP total ever drops below zero by an amount equal to
             // or greater than the character’s Constitution stat, the character dies
             // immediately. (Core Rules, p. 340)
-            Min = - Hero.GetAbility(AbilityM.CON);
+            Min = -Hero.GetAbility(AbilityM.CON);
+
+            CalcThresholds();
         }
 
         protected override void CalcThresholds()

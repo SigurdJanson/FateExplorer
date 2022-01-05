@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.GameData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,13 +8,24 @@ namespace FateExplorer.GameLogic
 {
     public class CharacterKarma : CharacterEnergyM
     {
-        public CharacterKarma(int max, CharacterM hero) 
-            : base(CharacterEnergyClass.KP, max, hero)
+
+        public CharacterKarma(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
+            : base(gameData, _Class, AddedEnergy, hero)
         {
-            CalcThresholds();
+            if (_Class != CharacterEnergyClass.KP)
+                throw new ArgumentException($"Class has been instantiated with the wrong type of energy", nameof(_Class));
+
+            Max = gameData.RaceBaseValue[0].Value; // TODO: pick the right value
+            foreach (var a in gameData.DependantAbilities)
+                Max += Hero.Abilities[a].Value;
+            Max += AddedEnergy;
 
             Min = 0;
+
+            CalcThresholds();
         }
+
+
 
         protected override void CalcThresholds()
         {
