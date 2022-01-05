@@ -52,6 +52,14 @@ namespace FateExplorer.ViewModel
         protected ICharacterM characterM;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public event Action OnChange;
+        private void NotifyStateChanged() => OnChange?.Invoke();  // this method hides the OnChange to simplify it
+
+
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="gameData"></param>
@@ -71,6 +79,7 @@ namespace FateExplorer.ViewModel
             characterM = new CharacterM(GameDataService, characterImportOptM);
             InitAttributes();
             HasBorn = true;
+            NotifyStateChanged();
         }
 
         /// <summary>
@@ -264,8 +273,8 @@ namespace FateExplorer.ViewModel
                 var energy = new EnergyDTO()
                 {
                     Id = r.Key,
-                    Name = "",
-                    ShortName = "",
+                    Name = GameDataService.Energies[r.Key].Name,
+                    ShortName = GameDataService.Energies[r.Key].ShortName,
                     Max = r.Value.Max,
                     Min = r.Value.Min,
                     EffectiveValue = EnergyEffValues[r.Key],

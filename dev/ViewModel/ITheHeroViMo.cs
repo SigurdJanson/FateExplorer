@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -8,6 +9,12 @@ namespace FateExplorer.ViewModel
     public interface ITheHeroViMo
     {
         // SETUP
+        
+        /// <summary>
+        /// Notify registered components when the hero has changed.
+        /// </summary>
+        public event Action OnChange;
+
         /// <summary>
         /// Has character data been read. Then the character has been born.
         /// </summary>
