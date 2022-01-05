@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
-    public enum CharacterEnergyClass
-    {
-        Health = 1, Magic = 2, Karma = 3
-    }
+
     public class CharacterEnergyM
     {
         public CharacterEnergyM(CharacterEnergyClass _Class, int max, ICharacterM hero)
