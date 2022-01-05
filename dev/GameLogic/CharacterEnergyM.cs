@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
-    public enum CharacterResourceClass
+    public enum CharacterEnergyClass
     {
         Health = 1, Magic = 2, Karma = 3
     }
-    public class CharacterResourceM
+    public class CharacterEnergyM
     {
-        public CharacterResourceM(CharacterResourceClass _Class, int max, ICharacterM hero)
+        public CharacterEnergyM(CharacterEnergyClass _Class, int max, ICharacterM hero)
         {
             Class = _Class;
             Max = max;
@@ -20,7 +20,7 @@ namespace FateExplorer.GameLogic
 
         public ICharacterM Hero { get; protected set; }
 
-        public CharacterResourceClass Class { get; protected set; }
+        public CharacterEnergyClass Class { get; protected set; }
 
         /// <summary>
         /// Minimum possible points (which is not always 0).

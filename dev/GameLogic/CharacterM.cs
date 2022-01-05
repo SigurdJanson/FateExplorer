@@ -27,21 +27,21 @@ namespace FateExplorer.GameLogic
             // SKILLS
             Skills = new(this, characterImportOptM, gameData);
 
-            // RESOURCES
-            Resources = new();
-            Resources.Add(
-                CharacterResourceClass.Health.ToString(), 
+            // ENERGIES
+            Energies = new();
+            Energies.Add(
+                CharacterEnergyClass.Health.ToString(), 
                 new CharacterHealth(0, this));
             if (characterImportOptM.CountArcaneSkills() > 0)
             {
-                Resources.Add(
-                    CharacterResourceClass.Magic.ToString(),
-                    new CharacterResourceM(CharacterResourceClass.Magic, 0, this));
+                Energies.Add(
+                    CharacterEnergyClass.Magic.ToString(),
+                    new CharacterEnergyM(CharacterEnergyClass.Magic, 0, this));
             }
             if (characterImportOptM.CountKarmaSkills() > 0)
             {
-                Resources.Add(
-                    CharacterResourceClass.Karma.ToString(),
+                Energies.Add(
+                    CharacterEnergyClass.Karma.ToString(),
                     new CharacterKarma(0, this));
             }
 
@@ -64,7 +64,7 @@ namespace FateExplorer.GameLogic
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
-        public Dictionary<string, CharacterResourceM> Resources { get; set; }
+        public Dictionary<string, CharacterEnergyM> Energies { get; set; }
 
         public Dictionary<string, ResilienceM> Resiliences { get; set; }
 

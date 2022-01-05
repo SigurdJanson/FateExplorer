@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
-    public class CharacterHealth : CharacterResourceM
+    public class CharacterHealth : CharacterEnergyM
     {
 
         public int MaxHealth { get; set; }
@@ -17,7 +17,7 @@ namespace FateExplorer.GameLogic
 
 
         public CharacterHealth(int max, CharacterM hero) 
-            : base(CharacterResourceClass.Health, max, hero)
+            : base(CharacterEnergyClass.Health, max, hero)
         {
             CalcThresholds();
 

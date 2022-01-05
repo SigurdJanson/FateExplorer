@@ -12,7 +12,7 @@ namespace FateExplorer.GameLogic
 
         Dictionary<string, AbilityM> Abilities { get; }
 
-        Dictionary<string, CharacterResourceM> Resources { get; }
+        Dictionary<string, CharacterEnergyM> Energies { get; }
 
         Dictionary<string, ResilienceM> Resiliences { get; }
 

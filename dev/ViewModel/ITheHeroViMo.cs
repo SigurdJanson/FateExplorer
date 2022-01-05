@@ -71,13 +71,13 @@ namespace FateExplorer.ViewModel
         /// Returns the list of energies () as available for the character
         /// </summary>
         /// <returns></returns>
-        List<ResourceDTO> GetResources();
+        List<EnergyDTO> GetEnergies();
 
         /// <summary>
         /// Updates max and effective value
         /// </summary>
-        /// <param name="resource"></param>
+        /// <param name="energy"></param>
         /// <returns></returns>
-        ResourceDTO ChangeResource(ResourceDTO resource);
+        EnergyDTO ChangeEnergies(EnergyDTO energy);
     }
 }

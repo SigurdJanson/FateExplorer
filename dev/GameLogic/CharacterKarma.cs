@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
-    public class CharacterKarma : CharacterResourceM
+    public class CharacterKarma : CharacterEnergyM
     {
         public CharacterKarma(int max, CharacterM hero) 
-            : base(CharacterResourceClass.Karma, max, hero)
+            : base(CharacterEnergyClass.Karma, max, hero)
         {
             CalcThresholds();
 

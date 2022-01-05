@@ -24,7 +24,7 @@ namespace FateExplorer.ViewModel
         public int SkillValue;
     }
 
-    public struct ResourceDTO
+    public struct EnergyDTO
     {
         public string Id;
         public string Name;
@@ -231,49 +231,45 @@ namespace FateExplorer.ViewModel
 
 
 
-        #region RESOURCES
+        #region ENERGIES
 
         /// <summary>
-        /// Effective points of this resource
+        /// Effective points of this energy
         /// </summary>
-        public Dictionary<string, int> ResourceValue { get; protected set; }
+        public Dictionary<string, int> EnergyValue { get; protected set; }
 
         /// <inheritdoc/>
-        public List<ResourceDTO> GetResources()
+        public List<EnergyDTO> GetEnergies()
         {
-            List<ResourceDTO> Result = new();
+            List<EnergyDTO> Result = new();
 
-            foreach (var r in characterM.Resources)
+            foreach (var r in characterM.Energies)
             {
-                var resource = new ResourceDTO()
+                var energy = new EnergyDTO()
                 {
                     Id = r.Key,
                     Name = "",
                     ShortName = "",
                     Max = r.Value.Max,
                     Min = r.Value.Min,
-                    EffectiveValue = ResourceValue[r.Key],
-                    CrossedThresholds = r.Value.CountCrossedThresholds(ResourceValue[r.Key])
+                    EffectiveValue = EnergyValue[r.Key],
+                    CrossedThresholds = r.Value.CountCrossedThresholds(EnergyValue[r.Key])
                 };
-                Result.Add(resource);
+                Result.Add(energy);
             }
 
             return Result;
         }
 
-        /// <summary>
-        /// Updates max and effective value
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public ResourceDTO ChangeResource(ResourceDTO resource)
+        /// <inheritdoc/>
+        public EnergyDTO ChangeEnergies(EnergyDTO energy)
         {
-            var ModelResource = characterM.Resources[resource.Id];
-            ResourceValue[resource.Id] = resource.EffectiveValue;
-            ModelResource.Max = resource.Max;
-            resource.CrossedThresholds = ModelResource.CountCrossedThresholds(resource.EffectiveValue);
+            var energyM = characterM.Energies[energy.Id];
+            EnergyValue[energy.Id] = energy.EffectiveValue;
+            energyM.Max = energy.Max;
+            energy.CrossedThresholds = energyM.CountCrossedThresholds(energy.EffectiveValue);
 
-            return resource;
+            return energy;
         }
 
         #endregion
