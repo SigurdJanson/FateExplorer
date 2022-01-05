@@ -5,16 +5,32 @@
 @if (Hero.HasBorn)
 {
     <MudText Typo=Typo.body1>
-        Junis Djelef ibn Yakuban ...
+        @Hero?.Name
     </MudText>
 
-    <MudBadge Origin=Origin.BottomCenter Content="4" Color="Color.Primary" Overlap=true Dot=false Bordered=true Icon=@BadgeIconLife>
-        <MudChip Label="true" Color=Color.Surface Variant="Variant.Outlined" Class="mx-2"
-                 Icon=@IconLife>27 LE</MudChip>
-    </MudBadge>
-    <MudBadge Origin=Origin.BottomCenter Content="200" Color="Color.Warning" Overlap=true Dot=false Bordered=true Icon=@BadgeIconAstralEnergy>
-        <MudChip Label="true" Color=Color.Surface Variant="Variant.Outlined" Class="mx-2">33 AsP</MudChip>
-    </MudBadge>
+    @foreach (var e in Hero.GetEnergies())
+    {
+        @if (e.CrossedThresholds > 0)
+        {
+        <MudBadge Origin=Origin.BottomCenter Content=e.CrossedThresholds Color=Color.Primary Overlap=true Dot=false Bordered=false>
+        <MudChip Label=true Variant=Variant.Filled Class="mx-2 rounded-0"
+                 Icon=@GetIcon(e.Max, e.EffectiveValue, e.Id)
+                 OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+                    @e.EffectiveValue @e.ShortName
+        </MudChip>
+        </MudBadge>
+        }
+        else
+        {
+        <MudChip Label=true Variant=Variant.Filled  Color=Color.Primary Class="mx-2 rounded-0"
+                 Icon=@GetIcon(e.Max, e.EffectiveValue, e.Id)
+                 OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+                    @e.EffectiveValue @e.ShortName
+        </MudChip>
+        }
+    }
+
+    <EnergyPopup @bind-IsOpen=IsPopupOpen Energies=Hero?.GetEnergies() />
 }
 else
 {
@@ -24,9 +40,35 @@ else
 }
 
 @code {
-    readonly string[] LifeIcon = { Icons.Filled.Favorite, Icons.Filled.FavoriteBorder, Icons.Filled.HeartBroken };
-    readonly string[] AstralIcon = { Icons.Filled.AutoFixHigh, Icons.Filled.AutoFixNormal, Icons.Filled.AutoFixOff };
-    readonly string[] KarmaIcon = { Icons.Filled.Star, Icons.Filled.StarHalf, Icons.Filled.StarOutline };
+    //
+
+
+    //
+    private bool IsPopupOpen { get; set; }
+
+    //
+
+    private readonly string[] LifeIcon = { Icons.Filled.Favorite, Icons.Filled.FavoriteBorder, Icons.Filled.HeartBroken };
+    private readonly string[] AstralIcon = { Icons.Filled.AutoFixHigh, Icons.Filled.AutoFixNormal, Icons.Filled.AutoFixOff };
+    private readonly string[] KarmaIcon = { Icons.Filled.Star, Icons.Filled.StarHalf, Icons.Filled.StarOutline };
+
+    private string GetIcon(int Max, int Eff, string Id)
+    {
+        int Level;
+        if (Max == Eff)
+            Level = 0;
+        else if (Eff <= 5)
+            Level = 2;
+        else Level = 1;
+
+        switch (Id)
+        {
+            case "LP": return LifeIcon[Level];
+            case "AE": return AstralIcon[Level];
+            case "KP": return KarmaIcon[Level];
+            default: return Icons.Material.Filled.Square;
+        }
+    }
 
     private string CharacterName;
 
@@ -39,8 +81,15 @@ else
     }
 
     string BaseColor { get; set; }
-    public string[] Resources { get; set; } =  {"LE", "AsP"};
-    public string IconLife { get; set; } = Icons.Filled.HeartBroken; //.Favorite;
-    public string BadgeIconLife { get; set; }
-    public string BadgeIconAstralEnergy { get; set; }    
+
+
+    protected override void OnInitialized()
+    {
+        Hero.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Hero.OnChange -= StateHasChanged;
+    }
 }

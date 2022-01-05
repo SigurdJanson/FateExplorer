@@ -1,0 +1,66 @@
+﻿@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+
+
+<MudPopover @bind-Open=IsOpen Square=true RelativeWidth=true
+            OverflowBehavior="OverflowBehavior.FlipAlways" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" 
+            Class="px-6 pt-4">
+
+<div class="d-flex flex-row">
+    <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=Close />
+</div>
+
+<MudContainer>
+    <MudGrid Justify="Justify.Center">
+        @foreach (var r in Energies)
+        {
+        <MudItem xs=4 xl=4 xxl=2>
+            <EnergyCard Name=@r.Name 
+                          MinValue=@r.Min EffValue=@r.EffectiveValue MaxValue=@r.Max 
+                          CrossThresholds=@r.CrossedThresholds />
+        </MudItem>
+        }
+
+        @*
+        <MudItem xs=9>
+            <MudSelect T="string" Label="Situation" AnchorOrigin="Origin.BottomCenter" MultiSelection="true">
+                <MudSelectItem Value="@("Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)")" />
+                <MudSelectItem Value="@("Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall) ")" />
+                <MudDivider />
+                <MudSelectItem Value="@("Gute Unterkunft (Einzelzimmer Reisegasthof)")" />
+                <MudSelectItem Value="@("Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)")" />
+                <MudSelectItem Value="@("Furchtbare Umgebung (extrem schlechtes Wetter)")" />
+                <MudDivider />
+                <MudSelectItem Value="@("Held ist erkrankt/vergiftet")" />
+            </MudSelect>
+
+            <MudSlider @bind-Value="value1" Min="-4" Max="+4" Color="Color.Primary">Value: @value1.ToString()</MudSlider>
+            <MudButton OnClick="@Regenerate" Class="ml-auto mr-n3 mb-1" Color="Color.Secondary">Regenerate</MudButton>
+        </MudItem>
+        *@
+    </MudGrid>
+</MudContainer>
+</MudPopover>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter] public List<EnergyDTO> Energies { get; set; }
+
+    [Parameter] public EventCallback<List<EnergyDTO>> EnergiesChanged { get; set; }
+
+
+    private void Close()
+    {
+        IsOpen = false;
+        IsOpenChanged.InvokeAsync(IsOpen);
+    }
+
+    private void Regenerate()
+    {
+        //
+    }
+}

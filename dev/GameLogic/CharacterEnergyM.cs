@@ -28,10 +28,20 @@ namespace FateExplorer.GameLogic
         /// </summary>
         public int Min { get; protected set; } = 0;
 
+        protected int max;
         /// <summary>
         /// Maximum points of the character, i.e. health, karma or astral energy.
+        /// Changing it updates the thresholds, too.
         /// </summary>
-        public int Max { get; set; }
+        public int Max 
+        {
+            get => max;
+            set
+            {
+                max = value;
+                CalcThresholds();
+            }
+        }
 
 
         public int Compute(int Value, int Modifier, Func<int, int, int> Operation = null)

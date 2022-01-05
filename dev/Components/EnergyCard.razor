@@ -1,0 +1,93 @@
+﻿<MudCard Outlined=true Squared=true Class="mb-4">
+
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">@Name</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudNumericField @bind-Value=EffValue Label="lblAvailable" 
+            Variant=Variant.Text Min=@MinValue Max=@MaxValue HideSpinButtons=true />
+            <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
+
+            <MudText Typo=Typo.caption Align="Align.Center">lblCrossedThresholds</MudText>
+            <div class="d-flex flex-row">
+                <MudSpacer/>
+                <MudTooltip Text="lblArrowLeft" Style="Width:100%">
+                <MudAvatar Color=Color.Primary Square=true>@CrossThresholds</MudAvatar>
+                </MudTooltip>
+                <MudSpacer/>
+            </div>
+    </MudCardContent>
+
+    <MudCardContent>
+        <MudNumericField @bind-Value=MaxValue Label="lblMaximum" 
+            Variant="Variant.Text" Min=0  HideSpinButtons=true 
+            Disabled=false Style="color:black" />
+        <MudNumericField @bind-Value=MinValue Label="lblMinimum" 
+            Variant="Variant.Text" HideSpinButtons=true 
+            Disabled=true Style="color:black" />
+    </MudCardContent>
+
+    <MudCardActions>
+        <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
+            <MudButton OnClick=@(() => ChangeEffValue(-1))>-1</MudButton>
+            <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(-1)) >-2</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(-3)) >-3</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(-4)) >-4</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(-5)) >-5</MudMenuItem>
+            </MudMenu>
+        </MudButtonGroup>
+        <MudSpacer/>
+        <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
+            <MudButton OnClick=@(() => ChangeEffValue(1))>+1</MudButton>
+            <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(2))>+2</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(3))>+3</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(4))>+4</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(5))>+5</MudMenuItem>
+            </MudMenu>
+        </MudButtonGroup>
+    </MudCardActions>
+
+</MudCard>
+
+@code {
+    /// <summary>
+    /// Name of the energy resource
+    /// </summary>
+    [Parameter] public string Name { get; set; }
+
+    /// <summary>
+    /// Minimum possible value
+    /// </summary>
+    [Parameter] public int MinValue { get; set; }
+
+    /// <summary>
+    /// Maximum possible value, i.e. the character's full points.'
+    /// </summary>
+    [Parameter] public int MaxValue { get; set; }
+    [Parameter] public EventCallback<int> MaxValueChanged { get; set; }
+
+    /// <summary>
+    /// The current value of energy points
+    /// </summary>
+    [Parameter] public int EffValue { get; set; }
+    [Parameter] public EventCallback<int> EffValueChanged { get; set; }
+
+    /// <summary>
+    /// The thresholds crossed
+    /// </summary>
+    [Parameter] public int CrossThresholds { get; set; }
+
+
+    private void ChangeEffValue(int Delta)
+    {
+        int New = EffValue + Delta;
+        if (New <= MaxValue || MinValue <= EffValue)
+            EffValue = New;
+    }
+
+}
