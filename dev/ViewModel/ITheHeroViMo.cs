@@ -66,5 +66,18 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <returns></returns>
         List<ResilienceDTO> GetResiliences();
+
+        /// <summary>
+        /// Returns the list of energies () as available for the character
+        /// </summary>
+        /// <returns></returns>
+        List<ResourceDTO> GetResources();
+
+        /// <summary>
+        /// Updates max and effective value
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        ResourceDTO ChangeResource(ResourceDTO resource);
     }
 }

@@ -32,6 +32,7 @@ namespace FateExplorer.ViewModel
         public int Max;
         public int Min;
         public int EffectiveValue;
+        public int CrossedThresholds;
     }
 
     public struct ResilienceDTO
@@ -246,17 +247,33 @@ namespace FateExplorer.ViewModel
             {
                 var resource = new ResourceDTO()
                 {
+                    Id = r.Key,
                     Name = "",
                     ShortName = "",
                     Max = r.Value.Max,
                     Min = r.Value.Min,
-                    Id = r.Key,
-                    EffectiveValue = ResourceValue[r.Key]
+                    EffectiveValue = ResourceValue[r.Key],
+                    CrossedThresholds = r.Value.CountCrossedThresholds(ResourceValue[r.Key])
                 };
                 Result.Add(resource);
             }
 
             return Result;
+        }
+
+        /// <summary>
+        /// Updates max and effective value
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public ResourceDTO ChangeResource(ResourceDTO resource)
+        {
+            var ModelResource = characterM.Resources[resource.Id];
+            ResourceValue[resource.Id] = resource.EffectiveValue;
+            ModelResource.Max = resource.Max;
+            resource.CrossedThresholds = ModelResource.CountCrossedThresholds(resource.EffectiveValue);
+
+            return resource;
         }
 
         #endregion

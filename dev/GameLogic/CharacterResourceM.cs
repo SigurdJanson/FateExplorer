@@ -30,10 +30,10 @@ namespace FateExplorer.GameLogic
         /// <summary>
         /// Maximum points of the character, i.e. health, karma or astral energy.
         /// </summary>
-        public int Max { get; protected set; }
+        public int Max { get; set; }
 
 
-        public int ChangeValue(int Value, int Modifier, Func<int, int, int> Operation = null)
+        public int Compute(int Value, int Modifier, Func<int, int, int> Operation = null)
         {
             if (Operation is null)
                 Value += Modifier;
