@@ -117,6 +117,7 @@ namespace FateExplorer.GameData
             protected set => karmaSkills = value;
         }
 
+
         public ResiliencesDB resiliences;
         public ResiliencesDB Resiliences
         {
@@ -128,6 +129,20 @@ namespace FateExplorer.GameData
             }
             protected set => resiliences = value;
         }
+
+
+        private EnergiesDB energies;
+        public EnergiesDB Energies
+        {
+            get
+            {
+                if (energies is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return energies;
+            }
+            protected set => energies = value;
+        }
+
         #endregion
 
 
@@ -160,8 +175,12 @@ namespace FateExplorer.GameData
             fileName = $"data/resiliences_{Language}.json";
             Resiliences = await DataSource.GetFromJsonAsync<ResiliencesDB>(fileName);
 
+            fileName = $"data/energies_{Language}.json";
+            Energies = await DataSource.GetFromJsonAsync<EnergiesDB>(fileName);
+
             fileName = $"data/botches_{Language}.json";
             Botches = await DataSource.GetFromJsonAsync<BotchDB>(fileName);
+
 
             // Combat
             fileName = $"data/combattechs_{Language}.json";
@@ -172,6 +191,7 @@ namespace FateExplorer.GameData
 
             fileName = $"data/weaponsranged_{Language}.json";
             WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
+
 
             // Skills
             fileName = $"data/skills_{Language}.json";

@@ -24,6 +24,8 @@ namespace FateExplorer.GameData
 
         public ResiliencesDB Resiliences { get; }
 
+        public EnergiesDB Energies { get; }
+
         public Task InitializeGameDataAsync();
     }
 }
