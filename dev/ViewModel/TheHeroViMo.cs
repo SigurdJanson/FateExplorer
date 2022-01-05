@@ -88,6 +88,22 @@ namespace FateExplorer.ViewModel
                 AbilityEffValues.Clear();
             foreach (var chab in characterM?.Abilities)
                 AbilityEffValues.Add(chab.Key, chab.Value.Value);
+
+            // ENERGIES
+            if (EnergyEffValues is null)
+                EnergyEffValues = new();
+            else
+                EnergyEffValues.Clear();
+            foreach (var chen in characterM?.Energies)
+                EnergyEffValues.Add(chen.Key, chen.Value.Max);
+
+            // RESILIENCES
+            if (ResilienceEffValues is null)
+                ResilienceEffValues = new();
+            else
+                ResilienceEffValues.Clear();
+            foreach (var chre in characterM?.Resiliences)
+                ResilienceEffValues.Add(chre.Key, chre.Value.ComputeValue(AbilityEffValues));
         }
 
         public string Name { get => characterM?.Name ?? ""; }
@@ -236,7 +252,7 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// Effective points of this energy
         /// </summary>
-        public Dictionary<string, int> EnergyValue { get; protected set; }
+        public Dictionary<string, int> EnergyEffValues { get; protected set; }
 
         /// <inheritdoc/>
         public List<EnergyDTO> GetEnergies()
@@ -252,8 +268,8 @@ namespace FateExplorer.ViewModel
                     ShortName = "",
                     Max = r.Value.Max,
                     Min = r.Value.Min,
-                    EffectiveValue = EnergyValue[r.Key],
-                    CrossedThresholds = r.Value.CountCrossedThresholds(EnergyValue[r.Key])
+                    EffectiveValue = EnergyEffValues[r.Key],
+                    CrossedThresholds = r.Value.CountCrossedThresholds(EnergyEffValues[r.Key])
                 };
                 Result.Add(energy);
             }
@@ -265,7 +281,7 @@ namespace FateExplorer.ViewModel
         public EnergyDTO ChangeEnergies(EnergyDTO energy)
         {
             var energyM = characterM.Energies[energy.Id];
-            EnergyValue[energy.Id] = energy.EffectiveValue;
+            EnergyEffValues[energy.Id] = energy.EffectiveValue;
             energyM.Max = energy.Max;
             energy.CrossedThresholds = energyM.CountCrossedThresholds(energy.EffectiveValue);
 
@@ -276,6 +292,12 @@ namespace FateExplorer.ViewModel
 
 
         #region RESILIENCES
+
+        /// <summary>
+        /// Effective points of this energy
+        /// </summary>
+        public Dictionary<string, int> ResilienceEffValues { get; protected set; }
+
         public List<ResilienceDTO> GetResiliences()
         {
             List<ResilienceDTO> Result = new();
