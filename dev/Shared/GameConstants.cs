@@ -13,5 +13,5 @@ public enum ResilienceTypes
 
 public enum CharacterEnergyClass
 {
-    Health = 1, Magic = 2, Karma = 3
+    LP = 1, AE = 2, KP = 3
 }
