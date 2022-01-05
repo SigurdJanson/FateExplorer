@@ -8,16 +8,8 @@ namespace FateExplorer.GameLogic
     public class CharacterHealth : CharacterEnergyM
     {
 
-        public int MaxHealth { get; set; }
-
-        /// <summary>
-        /// Effective health points
-        /// </summary>
-        public int Health { get; set; }
-
-
         public CharacterHealth(int max, CharacterM hero) 
-            : base(CharacterEnergyClass.Health, max, hero)
+            : base(CharacterEnergyClass.LP, max, hero)
         {
             CalcThresholds();
 
@@ -27,7 +19,7 @@ namespace FateExplorer.GameLogic
             Min = - Hero.GetAbility(AbilityM.CON);
         }
 
-        protected void CalcThresholds()
+        protected override void CalcThresholds()
         {
             // Since the lowest level is fixed at 5 we may not need all thresholds.
             if (Max >= 5.5 * 4) // we need all levels then

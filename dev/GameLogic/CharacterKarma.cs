@@ -8,14 +8,14 @@ namespace FateExplorer.GameLogic
     public class CharacterKarma : CharacterEnergyM
     {
         public CharacterKarma(int max, CharacterM hero) 
-            : base(CharacterEnergyClass.Karma, max, hero)
+            : base(CharacterEnergyClass.KP, max, hero)
         {
             CalcThresholds();
 
             Min = 0;
         }
 
-        protected void CalcThresholds()
+        protected override void CalcThresholds()
         {
             // We may not need all thresholds.
             if (Max >= 41) // we need all levels then

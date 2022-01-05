@@ -48,6 +48,10 @@ namespace FateExplorer.GameLogic
 
         public int[] Thresholds { get; protected set; }
 
+        protected virtual void CalcThresholds()
+        {
+            Thresholds = new int[] { 5 };
+        }
 
         public int CountCrossedThresholds(int Value)
         {
