@@ -1,21 +1,22 @@
-﻿<MudCard Outlined=true Squared=true Class="mb-4">
+﻿@using FateExplorer.ViewModel
+<MudCard Outlined=true Squared=true Class="mb-4">
 
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo="Typo.h6">@Name</MudText>
+            <MudText Typo="Typo.h6">@Energy.Name</MudText>
         </CardHeaderContent>
     </MudCardHeader>
 
     <MudCardContent>
         <MudNumericField @bind-Value=EffValue Label="lblAvailable" 
-            Variant=Variant.Text Min=@MinValue Max=@MaxValue HideSpinButtons=true />
+            Variant=Variant.Text Min=@Energy.Min Max=@MaxValue HideSpinButtons=true />
             <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
 
             <MudText Typo=Typo.caption Align="Align.Center">lblCrossedThresholds</MudText>
             <div class="d-flex flex-row">
                 <MudSpacer/>
                 <MudTooltip Text="lblArrowLeft" Style="Width:100%">
-                <MudAvatar Color=Color.Primary Square=true>@CrossThresholds</MudAvatar>
+                <MudAvatar Color=Color.Primary Square=true>@Energy.CrossedThresholds</MudAvatar>
                 </MudTooltip>
                 <MudSpacer/>
             </div>
@@ -23,10 +24,10 @@
 
     <MudCardContent>
         <MudNumericField @bind-Value=MaxValue Label="lblMaximum" 
-            Variant="Variant.Text" Min=0  HideSpinButtons=true 
+            Variant=Variant.Text Min=0  HideSpinButtons=true 
             Disabled=false Style="color:black" />
-        <MudNumericField @bind-Value=MinValue Label="lblMinimum" 
-            Variant="Variant.Text" HideSpinButtons=true 
+        <MudNumericField Value=@Energy.Min Label="lblMinimum" 
+            Variant=Variant.Text HideSpinButtons=true 
             Disabled=true Style="color:black" />
     </MudCardContent>
 
@@ -34,7 +35,7 @@
         <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
             <MudButton OnClick=@(() => ChangeEffValue(-1))>-1</MudButton>
             <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(-1)) >-2</MudMenuItem>
+                <MudMenuItem OnClick=@(() => ChangeEffValue(-2)) >-2</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-3)) >-3</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-4)) >-4</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-5)) >-5</MudMenuItem>
@@ -56,38 +57,43 @@
 
 @code {
     /// <summary>
-    /// Name of the energy resource
+    /// Data container for the displayed energy.
     /// </summary>
-    [Parameter] public string Name { get; set; }
+    [Parameter] public EnergyDTO Energy { get; set; }
 
     /// <summary>
-    /// Minimum possible value
+    /// Callback to support two-way binding of <see cref="Energy" />
     /// </summary>
-    [Parameter] public int MinValue { get; set; }
+    [Parameter] public EventCallback<EnergyDTO> EnergyChanged { get; set; }
 
-    /// <summary>
-    /// Maximum possible value, i.e. the character's full points.'
-    /// </summary>
-    [Parameter] public int MaxValue { get; set; }
-    [Parameter] public EventCallback<int> MaxValueChanged { get; set; }
 
-    /// <summary>
-    /// The current value of energy points
-    /// </summary>
-    [Parameter] public int EffValue { get; set; }
-    [Parameter] public EventCallback<int> EffValueChanged { get; set; }
+    // Variables duplicate values to allow 2-way binding
+    private int MaxValue { get; set; }
+    private int EffValue { get; set; }
 
-    /// <summary>
-    /// The thresholds crossed
-    /// </summary>
-    [Parameter] public int CrossThresholds { get; set; }
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        MaxValue = Energy.Max;
+        EffValue = Energy.EffectiveValue;
+    }
+
 
 
     private void ChangeEffValue(int Delta)
     {
-        int New = EffValue + Delta;
-        if (New <= MaxValue || MinValue <= EffValue)
-            EffValue = New;
+        int NewEff = EffValue + Delta;
+        if (NewEff <= MaxValue && Energy.Min <= EffValue)
+        {
+            EffValue = NewEff;
+
+            //Energy.EffectiveValue = EffValue causes Error CS1612
+            EnergyDTO NewEnergy = Energy;
+            NewEnergy.EffectiveValue = EffValue;
+
+            EnergyChanged.InvokeAsync(NewEnergy);
+        }
     }
 
 }

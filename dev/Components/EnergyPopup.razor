@@ -13,12 +13,10 @@
 
 <MudContainer>
     <MudGrid Justify="Justify.Center">
-        @foreach (var r in Energies)
+        @foreach (var energy in Energies)
         {
         <MudItem xs=4 xl=4 xxl=2>
-            <EnergyCard Name=@r.Name 
-                          MinValue=@r.Min EffValue=@r.EffectiveValue MaxValue=@r.Max 
-                          CrossThresholds=@r.CrossedThresholds />
+            <EnergyCard Energy=@energy EnergyChanged=@OnEnergyChanged />
         </MudItem>
         }
 
@@ -44,14 +42,30 @@
 </MudPopover>
 
 @code {
+    /// <summary>
+    /// Determines whether the popup is open or closed.
+    /// </summary>
     [Parameter] public bool IsOpen { get; set; }
 
     [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
+    /// <summary>
+    /// Data container for the energies to be displayed.
+    /// </summary>
     [Parameter] public List<EnergyDTO> Energies { get; set; }
 
     [Parameter] public EventCallback<List<EnergyDTO>> EnergiesChanged { get; set; }
 
+
+
+    private void OnEnergyChanged(EnergyDTO changedE)
+    {
+        for (int i = 0; i < Energies.Count; i++)
+            if (Energies[i].Id == changedE.Id)
+                Energies[i] = changedE;
+
+        EnergiesChanged.InvokeAsync(Energies);
+    }
 
     private void Close()
     {

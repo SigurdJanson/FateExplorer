@@ -12,8 +12,8 @@
     {
         @if (e.CrossedThresholds > 0)
         {
-        <MudBadge Origin=Origin.BottomCenter Content=e.CrossedThresholds Color=Color.Primary Overlap=true Dot=false Bordered=false>
-        <MudChip Label=true Variant=Variant.Filled Class="mx-2 rounded-0"
+        <MudBadge Origin=Origin.BottomCenter Content=e.CrossedThresholds Color=Color.Warning Overlap=true Dot=false Bordered=false>
+        <MudChip Label=true Variant=Variant.Filled  Color=Color.Primary Class="ml-4 rounded-0"
                  Icon=@GetIcon(e.Max, e.EffectiveValue, e.Id)
                  OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
                     @e.EffectiveValue @e.ShortName
@@ -22,7 +22,7 @@
         }
         else
         {
-        <MudChip Label=true Variant=Variant.Filled  Color=Color.Primary Class="mx-2 rounded-0"
+        <MudChip Label=true Variant=Variant.Filled  Color=Color.Primary Class="ml-4 rounded-0"
                  Icon=@GetIcon(e.Max, e.EffectiveValue, e.Id)
                  OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
                     @e.EffectiveValue @e.ShortName
@@ -30,7 +30,7 @@
         }
     }
 
-    <EnergyPopup @bind-IsOpen=IsPopupOpen Energies=Hero?.GetEnergies() />
+    <EnergyPopup @bind-IsOpen=IsPopupOpen Energies=Hero?.GetEnergies() EnergiesChanged=@UpdateEnergies />
 }
 else
 {
@@ -71,6 +71,13 @@ else
     }
 
     private string CharacterName;
+
+
+    private void UpdateEnergies(List<EnergyDTO> ChangedEnergies)
+    {
+        foreach (var e in ChangedEnergies)
+            Hero.ChangeEnergies(e);
+    }
 
     private void LoadHeroData()
     {

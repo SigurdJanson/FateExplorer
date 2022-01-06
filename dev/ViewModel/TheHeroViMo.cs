@@ -294,6 +294,7 @@ namespace FateExplorer.ViewModel
             energyM.Max = energy.Max;
             energy.CrossedThresholds = energyM.CountCrossedThresholds(energy.EffectiveValue);
 
+            NotifyStateChanged();
             return energy;
         }
 
