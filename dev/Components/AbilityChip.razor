@@ -1,0 +1,27 @@
+﻿@using FateExplorer.ViewModel
+
+<div class="mr-1 Chip">
+    <div class="d-flex justify-center d-block pa-2 mud-theme-primary">
+        <MudTooltip Text=@Ability.Name>
+        @Ability.ShortName
+        </MudTooltip>
+    </div>
+    <div class="d-flex justify-center d-block pa-2">
+        @if (Ability.EffectiveValue != Ability.Max)
+        {
+            <MudBadge Content=@Ability.EffectiveValue Overlap=false Origin=Origin.TopCenter Color=Color.Warning Class="mx-6 my-4">
+                <MudText>@Ability.EffectiveValue</MudText>
+            </MudBadge>
+        }
+        else
+        {
+            <MudText>@Ability.EffectiveValue</MudText>
+        }
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public AbilityDTO Ability { get; set; }
+
+}

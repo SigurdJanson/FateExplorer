@@ -14,63 +14,49 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
-            <MudPaper Class="px-4">
-                <MudText Typo=Typo.body1>@Hero.Name</MudText>
-                <MudText Typo=Typo.caption>lblPlaceOfBirth</MudText>
-                <MudText Typo=Typo.body2>@Hero.PlaceOfBirth</MudText>
-                <MudText Typo=Typo.caption>lblDateOfBirth</MudText>
-                <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>            
-            </MudPaper>
-            <MudPaper>
-                <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
-                    @* Style="overflow-x: auto;" *@
-                    <tbody>
-                        <tr>
-                            @foreach(var ab in Hero.GetAbilites())
-                            {
-                            <td>@ab.ShortName</td>
-                            }
-                        </tr>
-                        <tr>
-                            @foreach(var ab in Hero.GetAbilites())
-                            {
-                            <td>
-                                @if (ab.Max > ab.EffectiveValue)
-                                {
-                                <MudBadge Content=@ab.EffectiveValue Color="Color.Primary" Overlap=false Origin=Origin.BottomCenter>
-                                    <MudText>@ab.Max</MudText>
-                                </MudBadge>
-                                }
-                                else
-                                {
-                                <MudText>@ab.Max</MudText>
-                                }
-                            </td>
-                            }
-                        </tr>
-                    </tbody>
-                </MudSimpleTable>
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.body1 Class="mb-3">@Hero.Name</MudText>
+                <div class="FieldParent">
+                    <div class="mr-4 d-block Field" >
+                        <MudText Typo=Typo.caption>lblPlaceOfBirth</MudText>
+                        <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
+                    </div>
+                    <div class="mr-4 d-block Field">
+                        <MudText Typo=Typo.caption>lblDateOfBirth</MudText>
+                        <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>
+                    </div>
+                </div>
             </MudPaper>
 
 
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <div>
+                @foreach (var ab in Hero.GetAbilites())
+                {
+                <AbilityChip Ability=@ab />
+                }
+                </div>
+            </MudPaper>
+
+
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 @foreach (var r in Hero.GetResiliences())
                 {
-                    <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>
-                    <MudText Typo=Typo.caption>@r.ShortName (@(r.Max))</MudText>
+                <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
+                <MudText Typo=Typo.body1 Class="mb-3">@r.EffectiveValue</MudText>
                 }
             </MudPaper>
 
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <MudPaper Elevation=0 Outlined=true Class="pa-4" Style="height: 200px;">
                 <MudText Typo=Typo.body1>@l10n["MORE VALUES"]</MudText>
             </MudPaper>
 
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudText Typo=Typo.caption>@l10n["lblBelongings"]</MudText>
-                <MudText Typo=Typo.body1>n/a</MudText>
+                <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
 
                 <MudText Typo=Typo.caption>@l10n["lblWealth"]</MudText>
-                <MudText Typo=Typo.body1>n/a</MudText>
+                <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>
@@ -83,4 +69,12 @@ else
 
 @code {
     protected void OnCharacterHasLoaded() => StateHasChanged();
+
+    RenderFragment AddMaxResilience(ResilienceDTO r)
+    {
+        if (r.Max != r.EffectiveValue)
+            return @<span>(Original @r.Max)</span>;
+        else
+            return @<span></span>;
+    }
 }
