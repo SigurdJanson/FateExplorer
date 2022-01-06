@@ -9,15 +9,15 @@
 
 @if (Hero.HasBorn)
 {
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs=12 sm=6 md=5 lg=4>
             <MudPaper Elevation=0 Outlined=true Square=true>
             <MudExpansionPanels Elevation=0>
                 <MudExpansionPanel Text=@l10n["lblImportantSkill"] IsInitiallyExpanded=true DisableGutters=true>
                     <MudTabs Elevation=0 Rounded=false Centered=false>
                         <MudTabPanel Text=@l10n["lblMostUsed"]>
-                            <MudList Clickable="true" Style="overflow:auto; height:280px">
+                            <MudList Clickable=true Style="overflow:auto; height:280px">
                                 @foreach (var skill in FavoriteSkills)
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill />
@@ -25,7 +25,7 @@
                             </MudList>
                         </MudTabPanel>
                         <MudTabPanel Text=@l10n["lblYourBestSkills"]>
-                            <MudList Clickable="true" Style="overflow:auto; height:280px">
+                            <MudList Clickable=true Style="overflow:auto; height:280px">
                                 @foreach (var skill in BestSkills)
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill/>
@@ -72,8 +72,8 @@
                 </MudExpansionPanels>
             </MudPaper>
         </MudItem>
-        <MudItem  xs="12" sm="6" md="8">
-            <MudPaper Elevation="0" Outlined=true Square=true>
+        <MudItem  xs=12 sm=6 md=7 lg=8>
+            <MudPaper Elevation=0 Outlined=true>
             </MudPaper>
         </MudItem>
     </MudGrid>

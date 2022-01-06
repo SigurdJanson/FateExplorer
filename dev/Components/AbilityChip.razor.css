@@ -1,5 +1,15 @@
 ﻿
-.Chip {
-    width: 3.6rem;
-    display: inline-grid;
+@media screen and (min-width:1280px) {
+    .Chip {
+        width: calc(100% / 8 - 4px);
+        display: inline-grid;
+    }
+}
+
+@media screen and (max-width:1279px) {
+    .Chip {
+        width: calc(100% / 4 - 4px);
+        display: inline-grid;
+    }
+
 }
