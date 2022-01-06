@@ -2,7 +2,7 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudListItem @key=Skill.Id Text="" OnClick=@(() => RollSkill.InvokeAsync(Skill))>
+<MudListItem @key=Skill.Id OnClick=@(() => RollSkill.InvokeAsync(Skill)) DisableRipple=true>
     <div class="d-flex align-center" >
     <div>
         @if (TextFilter is not null)
