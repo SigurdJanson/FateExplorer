@@ -2,7 +2,7 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudThemeProvider />
+<MudThemeProvider Theme="FateExplorerTheme" />
 <MudDialogProvider
     MaxWidth="MaxWidth.Medium" FullWidth=true
     Position=DialogPosition.Center
@@ -34,4 +34,24 @@
     {
         _drawerOpen = !_drawerOpen;
     }
+
+
+    MudTheme FateExplorerTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            //Primary = Colors.Blue.Default,
+            Secondary = Colors.Green.Accent4//,
+            //AppbarBackground = Colors.Red.Default,
+        },
+        PaletteDark = new Palette()
+        {
+            Primary = Colors.Blue.Lighten1
+        },
+
+        LayoutProperties = new LayoutProperties()
+        {
+            DefaultBorderRadius = "0px"
+        }
+    };
 }
