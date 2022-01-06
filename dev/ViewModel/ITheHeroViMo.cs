@@ -1,8 +1,5 @@
-﻿using FateExplorer.GameData;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace FateExplorer.ViewModel
 {

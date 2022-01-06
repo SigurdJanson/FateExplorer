@@ -10,6 +10,11 @@ namespace FateExplorer.GameLogic
 
         string DateOfBirth { get; }
 
+        /// <summary>
+        /// The character's race/species as Id.
+        /// </summary>
+        string SpeciesId { get; }
+
         Dictionary<string, AbilityM> Abilities { get; }
 
         Dictionary<string, CharacterEnergyM> Energies { get; }

@@ -1,5 +1,6 @@
 ﻿using FateExplorer.GameData;
 using System;
+using System.Linq;
 
 namespace FateExplorer.GameLogic
 {
@@ -12,7 +13,8 @@ namespace FateExplorer.GameLogic
             if (_Class != CharacterEnergyClass.KP)
                 throw new ArgumentException($"Class has been instantiated with the wrong type of energy", nameof(_Class));
 
-            Max = gameData.RaceBaseValue[0].Value; // TODO: pick the right value
+            int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
+            Max = RaceBaseValue;
             foreach (var a in gameData.DependantAbilities)
                 Max += Hero.Abilities[a].Value;
             Max += AddedEnergy;

@@ -209,6 +209,11 @@ namespace FateExplorer.CharacterData
             return CountKarmaSkills() > 0;
         }
 
+        public string GetSpeciesId()
+        {
+            return R;
+        }
+
 
         #endregion
     }

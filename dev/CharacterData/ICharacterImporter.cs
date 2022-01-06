@@ -10,6 +10,12 @@ namespace FateExplorer.CharacterData
 
         string GetDateOfBirth();
 
+        /// <summary>
+        /// Return the identifier of the character's species
+        /// </summary>
+        /// <returns>A string in the format "R_{0}".</returns>
+        string GetSpeciesId();
+
 
         /// <summary>
         /// Get the extra energy points the character has traded throughout their lives

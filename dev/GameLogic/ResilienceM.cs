@@ -71,7 +71,8 @@ namespace FateExplorer.GameLogic
         {
             Hero = hero;
             DependentAbilities = gameData.DependantAbilities.Clone() as string[];
-            BaseValue = gameData.RaceBaseValue[0].Value; // TODO: pick the right race
+            int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
+            BaseValue = RaceBaseValue;
             ExtraValue = 0; // Unknown at this points, because we do not know special abilities
         }
 

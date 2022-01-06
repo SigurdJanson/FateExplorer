@@ -13,9 +13,11 @@ namespace FateExplorer.GameLogic
             : base(gameData, _Class, AddedEnergy, hero)
         {
             if (_Class != CharacterEnergyClass.LP) 
-                throw new ArgumentException($"Class has been instantiated with the wrong type of energy", nameof(_Class));
+                throw new ArgumentException($"Class has been instantiated with the wrong type of energy", 
+                    nameof(_Class));
 
-            Max = gameData.RaceBaseValue[0].Value; // TODO: pick the right value
+            int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
+            Max = RaceBaseValue;
             foreach (var a in gameData.DependantAbilities)
                 Max += Hero.Abilities[a].Value;
             Max += AddedEnergy;

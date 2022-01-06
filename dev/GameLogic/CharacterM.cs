@@ -13,6 +13,7 @@ namespace FateExplorer.GameLogic
             Name = characterImportOptM.GetName();
             PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
             DateOfBirth = characterImportOptM.GetDateOfBirth();
+            SpeciesId = characterImportOptM.GetSpeciesId();
 
             // ABILITIES
             Abilities = new();
@@ -73,6 +74,9 @@ namespace FateExplorer.GameLogic
         public string PlaceOfBirth { get; protected set; }
 
         public string DateOfBirth { get; protected set; }
+
+        /// <inheritdoc/>
+        public string SpeciesId { get; protected set; }
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
