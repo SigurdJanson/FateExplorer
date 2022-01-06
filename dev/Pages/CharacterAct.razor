@@ -12,10 +12,10 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="0" Outlined="true" Square="true">
-            <MudExpansionPanels Elevation="0">
+            <MudPaper Elevation=0 Outlined=true Square=true>
+            <MudExpansionPanels Elevation=0>
                 <MudExpansionPanel Text=@l10n["lblImportantSkill"] IsInitiallyExpanded=true DisableGutters=true>
-                    <MudTabs Elevation=0 Rounded=false Centered=false Color=@Color.Primary>
+                    <MudTabs Elevation=0 Rounded=false Centered=false>
                         <MudTabPanel Text=@l10n["lblMostUsed"]>
                             <MudList Clickable="true" Style="overflow:auto; height:300px">
                                 @foreach (var skill in FavoriteSkills)
@@ -37,21 +37,21 @@
             </MudExpansionPanels>
             </MudPaper>
 
-            <MudPaper Elevation="0" Outlined="true" Square="true">
-                <MudExpansionPanels Elevation="0">
+            <MudPaper Elevation=0 Outlined=true Square=true>
+                <MudExpansionPanels Elevation=0>
                     <MudExpansionPanel Text=@l10n["lblSelection"] IsInitiallyExpanded=true DisableGutters=true>
-                        <MudList Clickable="true" Style="overflow:auto; max-height:300px">
+                        <MudList Clickable=true Style="overflow:auto; max-height:340px">
                             <MudListSubheader>
                                 <MudChipSet MultiSelection=false Filter=false Mandatory=true>
-                                    <MudChip Size="Size.Large" Text="Alle" Label=true Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary" Default="true" Icon="@Icons.Material.Filled.Casino" Class="rounded-0"/>
+                                    <MudChip Size=Size.Large Text="@l10n["lblAll"]" Label=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Default=true Icon=@Icons.Material.Filled.Casino />
                                     @foreach (var f in SkillDomains)
-                                    { @* TODO L!=N *@
-                                        <MudChip Size="Size.Large" Text="@f.ToString()" Label=true Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary" Class="rounded-0"></MudChip>
+                                    {
+                                        <MudChip Size=Size.Large Text="@l10n["SkillDomain."+f.ToString()]" Label=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary ></MudChip>
                                     }
                                 </MudChipSet>
-                                <MudTextField @bind-Value="FilterTerm" Placeholder="Search" 
-                                    Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" 
-                                    IconSize="Size.Medium" Immediate="true"></MudTextField>
+                                <MudTextField @bind-Value=FilterTerm Placeholder="Search" 
+                                    Adornment=Adornment.End AdornmentIcon=@Icons.Filled.Search 
+                                    IconSize=Size.Medium Immediate=true></MudTextField>
                             </MudListSubheader>
 
                             @foreach (var skill in SkillList)

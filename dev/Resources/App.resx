@@ -188,6 +188,9 @@
     <value>INT</value>
     <comment>Abilities</comment>
   </data>
+  <data name="lblAll" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Count</value>
   </data>
@@ -295,6 +298,17 @@
   <data name="SAG" xml:space="preserve">
     <value>SAG</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="SkillDomain.Arcane" xml:space="preserve">
+    <value>Arcane</value>
+    <comment>Translation of enum SkillDomain</comment>
+  </data>
+  <data name="SkillDomain.Basic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>Translation of enum SkillDomain</comment>
+  </data>
+  <data name="SkillDomain.Karma" xml:space="preserve">
+    <value>Karma</value>
   </data>
   <data name="STR" xml:space="preserve">
     <value>STR</value>
