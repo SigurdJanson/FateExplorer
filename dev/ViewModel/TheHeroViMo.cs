@@ -22,6 +22,7 @@ namespace FateExplorer.ViewModel
         public string Id;
         public string Name;
         public int SkillValue;
+        public SkillDomain Domain;
     }
 
     public struct EnergyDTO
@@ -163,7 +164,8 @@ namespace FateExplorer.ViewModel
                 {
                     Id = s.Key,
                     Name = s.Value.Name,
-                    SkillValue = s.Value.Value
+                    SkillValue = s.Value.Value,
+                    Domain = s.Value.Domain
                 };
                 Result.Add(skill);
             }
@@ -212,7 +214,7 @@ namespace FateExplorer.ViewModel
 
             // Get the first `Count` elements
             int i;
-            for (i = 0; i <= Count; i++)
+            for (i = 0; i < Count; i++)
             {
                 string Key = SkillByValue[i].Id;
                 Result.Add(new SkillsDTO()

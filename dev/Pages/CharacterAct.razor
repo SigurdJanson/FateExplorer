@@ -17,7 +17,7 @@
                 <MudExpansionPanel Text=@l10n["lblImportantSkill"] IsInitiallyExpanded=true DisableGutters=true>
                     <MudTabs Elevation=0 Rounded=false Centered=false>
                         <MudTabPanel Text=@l10n["lblMostUsed"]>
-                            <MudList Clickable="true" Style="overflow:auto; height:300px">
+                            <MudList Clickable="true" Style="overflow:auto; height:280px">
                                 @foreach (var skill in FavoriteSkills)
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill />
@@ -25,7 +25,7 @@
                             </MudList>
                         </MudTabPanel>
                         <MudTabPanel Text=@l10n["lblYourBestSkills"]>
-                            <MudList Clickable="true" Style="overflow:auto; height:300px">
+                            <MudList Clickable="true" Style="overflow:auto; height:280px">
                                 @foreach (var skill in BestSkills)
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill/>
@@ -39,14 +39,20 @@
 
             <MudPaper Elevation=0 Outlined=true Square=true>
                 <MudExpansionPanels Elevation=0>
-                    <MudExpansionPanel Text=@l10n["lblSelection"] IsInitiallyExpanded=true DisableGutters=true>
+                    <MudExpansionPanel Text=@l10n["lblFindSkill"] IsInitiallyExpanded=true DisableGutters=true>
                         <MudList Clickable=true Style="overflow:auto; max-height:340px">
                             <MudListSubheader>
-                                <MudChipSet MultiSelection=false Filter=false Mandatory=true>
-                                    <MudChip Size=Size.Large Text="@l10n["lblAll"]" Label=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Default=true Icon=@Icons.Material.Filled.Casino />
-                                    @foreach (var f in SkillDomains)
+                                <MudChipSet @bind-SelectedChip=SelectedDomain MultiSelection=false Filter=false Mandatory=true>
+                                    <MudChip Text="All" Label=true Default=true 
+                                             Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
+                                             @l10n["lblAll"]
+                                    </MudChip>
+                                    @foreach (var d in SkillDomains)
                                     {
-                                        <MudChip Size=Size.Large Text="@l10n["SkillDomain."+f.ToString()]" Label=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary ></MudChip>
+                                        <MudChip Text="@d.ToString()" Label=true 
+                                                 Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
+                                                 @l10n["SkillDomain."+d.ToString()]
+                                        </MudChip>
                                     }
                                 </MudChipSet>
                                 <MudTextField @bind-Value=FilterTerm Placeholder="Search" 
@@ -56,7 +62,7 @@
 
                             @foreach (var skill in SkillList)
                             {
-                                @if (CheckFilter(SkillDomain.Basic, skill.Name))
+                                @if (CheckFilter(skill.Domain, skill.Name))
                                 {
                                     <ListItemSkill Skill=skill RollSkill=RollSkill ViewSkill=ViewSkill TextFilter=@FilterTerm />
                                 }
@@ -88,7 +94,6 @@ else
 
     private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
 
-
     private void LoadHeroData()
     {
         if (Hero.HasBorn)
@@ -107,6 +112,8 @@ else
     }
 
 
+    // 
+
 
     private void RollSkill(SkillsDTO s)
     {
@@ -119,12 +126,21 @@ else
 
     }
 
+
+    // FILTER REGION
+
     private string FilterTerm = "";
+
+    private MudChip SelectedDomain;
+
 
     private bool CheckFilter(SkillDomain d, string Item)
     {
-        // TODO Check domain
-        return Item.ToLower().Contains(FilterTerm.ToLower());
+        bool DomainMatch = SelectedDomain is null || 
+            SelectedDomain.Text == "All" || 
+            SelectedDomain.Text == d.ToString();
+
+        return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
     }
 
 }

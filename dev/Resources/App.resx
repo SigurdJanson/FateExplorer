@@ -200,6 +200,18 @@
   <data name="lblDie" xml:space="preserve">
     <value>Die</value>
   </data>
+  <data name="lblFindSkill" xml:space="preserve">
+    <value>Find a Skill</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblImportantSkill" xml:space="preserve">
+    <value>Selected Skills</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblMostUsed" xml:space="preserve">
+    <value>Needed the Most</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -225,6 +237,10 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
+  </data>
+  <data name="lblYourBestSkills" xml:space="preserve">
+    <value>Your Specialties</value>
+    <comment>Character Act (Skills)</comment>
   </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>You can import character files created by the Optolith app</value>

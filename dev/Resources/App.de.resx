@@ -200,6 +200,18 @@
   <data name="lblDie" xml:space="preserve">
     <value>Würfel</value>
   </data>
+  <data name="lblFindSkill" xml:space="preserve">
+    <value>Fertigkeiten finden</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblImportantSkill" xml:space="preserve">
+    <value>Ausgewählte Fertigkeiten</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblMostUsed" xml:space="preserve">
+    <value>Häufig benötigt</value>
+    <comment>Character Act (Skills)</comment>
+  </data>
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -225,6 +237,10 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
+  </data>
+  <data name="lblYourBestSkills" xml:space="preserve">
+    <value>Deine Spezialität</value>
+    <comment>Character Act (Skills)</comment>
   </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>Du kannst Heldendateien aus der Optolith-App laden</value>
