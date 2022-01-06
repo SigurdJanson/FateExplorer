@@ -1,0 +1,8 @@
+﻿
+.FieldParent {
+    width: 100%;
+}
+.Field {
+    min-width: 10rem;
+    width: 50%;
+}
