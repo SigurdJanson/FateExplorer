@@ -16,8 +16,7 @@
                     <MudListSubheader>@l10n["Dice Cups"]</MudListSubheader>
                     @foreach(var Cup in DiceCups.CupList)
                     {
-                    @*<MudListItem Avatar=@GetCupIcon(Cup) IconColor=@GetCupColor(Cup) OnClick=@(() => OnCupClicked(Cup))>*@
-                    <MudListItem IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))> @*Avatar=Icons.Material.Filled.Widgets *@
+                    <MudListItem IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))>
                         <div class="d-flex">
                             <AvatarDiceCup DieSides=@Cup.Sides Class="mr-4" />
                             <MudText>@Cup.Name</MudText>
@@ -44,12 +43,7 @@
         </MudItem>
     </MudGrid>
 </MudContainer>
-@*                    <MudListItem Icon="@Icons.Material.Filled.ContentCut">
-                        <div class="d-flex">
-                            <MudText>Any Single Die</MudText>
-                            <MudText Inline="true" Class="ml-auto">1dX</MudText>
-                        </div>
-                    </MudListItem>*@
+
 
 
 
