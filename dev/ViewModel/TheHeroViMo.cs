@@ -7,42 +7,132 @@ using System.Text.Json;
 
 namespace FateExplorer.ViewModel
 {
-    public struct AbilityDTO
+    public interface ICharacterAttributDTO
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string ShortName { get; set; }
+        /// <summary>
+        /// Unique identifier fot the character attribute
+        /// </summary>
+        string Id { get; set; }
+
+        /// <summary>
+        /// Name of the attribute
+        /// </summary>
+        string Name { get; set; }
+
+        /// <summary>
+        /// The character's attribute value
+        /// </summary>
         public int Max { get; set; }
+
+        /// <summary>
+        /// The permitted minimum value.
+        /// </summary>
         public int Min { get; set; }
+
+        /// <summary>
+        /// The character's attribute value after adding/removing temporary changes.
+        /// Reductions happen during gameplay and are defined by the game master.
+        /// Calculated attributes may change due to dependencies.
+        /// </summary>
         public int EffectiveValue { get; set; }
     }
 
-    public struct SkillsDTO
+    public struct AbilityDTO : ICharacterAttributDTO
     {
-        public string Id;
-        public string Name;
-        public int SkillValue;
+        /// <inheritdoc />
+        public string Id { get; set; }
+        
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <summary>
+        /// An abbreviation of the name (e.g. COU for courage as common in roleplay systems).
+        /// </summary>
+        public string ShortName { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
+    }
+
+    public struct SkillsDTO : ICharacterAttributDTO
+    {
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
+
+        /// <summary>
+        /// Specifies what domain the skill is from (mundane, arcane or divine).
+        /// </summary>
         public SkillDomain Domain;
     }
 
     public struct EnergyDTO
     {
-        public string Id;
-        public string Name;
-        public string ShortName;
-        public int Max;
-        public int Min;
-        public int EffectiveValue;
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <summary>
+        /// An abbreviation of the name (e.g. COU for courage as common in roleplay systems).
+        /// </summary>
+        public string ShortName { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
+
+        /// <summary>
+        /// Some energies have a number of consequences when reduced 
+        /// by certain amounts i.e. crosing thresholds.
+        /// </summary>
         public int CrossedThresholds;
     }
 
     public struct ResilienceDTO
     {
-        public string Id;
-        public string Name;
-        public string ShortName;
-        public int Max;
-        public int EffectiveValue;
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <summary>
+        /// An abbreviation of the name (e.g. COU for courage as common in roleplay systems).
+        /// </summary>
+        public string ShortName { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
     }
 
 
@@ -148,6 +238,9 @@ namespace FateExplorer.ViewModel
 
 
         #region SKILLS
+
+        // TODO: implement effective values
+
         /// <inheritdoc/>
         public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
         {
@@ -164,7 +257,7 @@ namespace FateExplorer.ViewModel
                 {
                     Id = s.Key,
                     Name = s.Value.Name,
-                    SkillValue = s.Value.Value,
+                    Max = s.Value.Value,
                     Domain = s.Value.Domain
                 };
                 Result.Add(skill);
@@ -190,7 +283,10 @@ namespace FateExplorer.ViewModel
                 {
                     Id = fav,
                     Name = s.Name,
-                    SkillValue = s.Value
+                    Max = s.Value,
+                    EffectiveValue = s.Value,
+                    Min = 0,
+                    Domain = s.Domain
                 };
                 Result.Add(skill);
             }
@@ -221,7 +317,10 @@ namespace FateExplorer.ViewModel
                 {
                     Id = Key,
                     Name = characterM.Skills.Skills[Key].Name,
-                    SkillValue = characterM.Skills.Skills[Key].Value
+                    Max = characterM.Skills.Skills[Key].Value,
+                    EffectiveValue = characterM.Skills.Skills[Key].Value, // TODO: effective skill value
+                    Min = 0,
+                    Domain = characterM.Skills.Skills[Key].Domain
                 });
             }
 
@@ -236,7 +335,10 @@ namespace FateExplorer.ViewModel
                     {
                         Id = Key,
                         Name = characterM.Skills.Skills[Key].Name,
-                        SkillValue = characterM.Skills.Skills[Key].Value
+                        Max = characterM.Skills.Skills[Key].Value,
+                        EffectiveValue = characterM.Skills.Skills[Key].Value, // TODO: effective skill value
+                        Min = 0,
+                        Domain = characterM.Skills.Skills[Key].Domain
                     });
                     i++;
                 }
