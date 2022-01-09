@@ -12,27 +12,30 @@ namespace FateExplorer.RollLogic
         na = 99
     }
 
-    public struct RollResultViMo
+    public class RollResultViMo
     {
-        public RollResultViMo(string name, int[] dieSides, CupType cupType) : this()
+        /// <summary>
+        /// Constructor used for free dice rolls
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="dieSides"></param>
+        /// <param name="cupType"></param>
+        public RollResultViMo(string name, int[] dieSides, CupType cupType)
         {
             Name = name;
             DieSides = dieSides.Clone() as int[];
             CupType = cupType;
-
-            // Defaults
-            RollAgainst = null;
-            RollResult = null;
-            CombinedResult = -999;
-            SuccessLevel = RollSuccessLevel.na;
-            Modifier = 0;
         }
 
         /// <summary>
         /// Describes the roll.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CupType CupType { get; set; }
 
         /// <summary>
@@ -49,12 +52,12 @@ namespace FateExplorer.RollLogic
         /// The effect of the roll. For a combat attack role this would be the hit points.
         /// For a skill rol eit is the skill level.
         /// </summary>
-        public int CombinedResult { get; set; }
+        public int? CombinedResult { get; set; }
 
         /// <summary>
         /// Success level
         /// </summary>
-        public RollSuccessLevel SuccessLevel { get; set; }
+        public RollSuccessLevel SuccessLevel { get; set; } = RollSuccessLevel.na;
 
         /// <summary>
         /// The sum of the modifiers put into the roll.
@@ -70,7 +73,7 @@ namespace FateExplorer.RollLogic
         /// Returns the roll in the format "3d20".
         /// </summary>
         /// <returns></returns>
-        public string RollIdString()
+        public string RollToString()
         {
             if (CupType == CupType.MixedMulti)
             {
