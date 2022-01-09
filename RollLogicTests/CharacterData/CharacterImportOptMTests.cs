@@ -18,7 +18,7 @@ namespace RollLogicTests.CharacterData
         public void LoadCharacterWithoutErrors(string Filename, string TargetClientVersion)
         {
             // Arrange
-            var characterImportOptM = new CharacterImportOptM();
+            //var characterImportOptM = new CharacterImportOptM();
             string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2TestData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"{Filename}.json"));
             string jsonString = File.ReadAllText(fileName);

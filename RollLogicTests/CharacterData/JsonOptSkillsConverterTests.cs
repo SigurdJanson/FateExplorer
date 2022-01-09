@@ -11,7 +11,7 @@ namespace RollLogicTests.CharacterData
     [TestFixture]
     public class JsonOptSkillsConverterTests
     {
-        Dictionary<string, int> TargetResult = new()
+        readonly Dictionary<string, int> TargetResult = new()
         {
             { "SPELL_6", 7 },
             { "SPELL_8", 6 },

@@ -1,6 +1,4 @@
-﻿using FateExplorer.GameLogic;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 
 namespace FateExplorer.GameData
