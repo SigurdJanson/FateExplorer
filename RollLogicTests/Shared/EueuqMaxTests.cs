@@ -1,5 +1,5 @@
 ﻿using FateExplorer.RollLogic;
-using FateExplorer.ViewModel;
+using FateExplorer.Shared;
 using FateExplorer.FreeDiceCupViMo;
 using NUnit.Framework;
 using System;
@@ -8,13 +8,13 @@ using System.Linq;
 namespace RollLogicTests.ViewModel
 {
     [TestFixture]
-    public class ResultQueueViMoTests
+    public class EueuqMaxTests
     {
         [Test]
         public void Enqueue_ExceedMaxCount_LengthIsFixedtoMaxLen([Values(1, 2, 5, 10)] int MaxLen)
         {
             // Arrange
-            var resultQueueViMo = new ResultQueueViMo(MaxLen);
+            var resultQueueViMo = new EueuqMax<RollResultViMo>(MaxLen);
             for (int i = 0; i < MaxLen; i++)
             {
                 RollResultViMo item = new($"_{i + 1}", new int[1] { i }, CupType.Single);
@@ -41,7 +41,7 @@ namespace RollLogicTests.ViewModel
         public void Enqueue_DecreaseMaxCount_LengthIsReducedToFit(int Start, int Decreased)
         {
             // Arrange
-            var resultQueueViMo = new ResultQueueViMo(Start);
+            var resultQueueViMo = new EueuqMax<RollResultViMo>(Start);
             for (int i = 0; i < Start; i++)
             {
                 RollResultViMo item = new($"_{i + 1}", new int[1] { i }, CupType.Single);
@@ -63,7 +63,7 @@ namespace RollLogicTests.ViewModel
         public void Enqueue_Reverse_GetReversed([Values(2, 5, 10)] int MaxLen)
         {
             // Arrange
-            var resultQueueViMo = new ResultQueueViMo(MaxLen);
+            var resultQueueViMo = new EueuqMax<RollResultViMo>(MaxLen);
             for (int i = 0; i < MaxLen; i++)
             {
                 RollResultViMo item = new($"_{i + 1}", new int[1] { i }, CupType.Single);

@@ -1,9 +1,12 @@
-﻿using FateExplorer.RollLogic;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace FateExplorer.ViewModel
+namespace FateExplorer.Shared
 {
-    public class ResultQueueViMo : Queue<RollResultViMo>
+    /// <summary>
+    /// Provides a queue with 2 extra features. A maximum limit of contents. If the queue grows
+    /// larger the items exceeding the limit will be removed. And a reverse iterator.
+    /// </summary>
+    public class EueuqMax<T> : Queue<T>
     {
         private int maxCount;
 
@@ -19,6 +22,8 @@ namespace FateExplorer.ViewModel
                 maxCount = value;
                 if (oldMax > value)
                     ResetMax();
+
+                EnsureCapacity(maxCount + 1);
             }
         }
 
@@ -36,10 +41,11 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="maxCount">THe maximum allowed elements in the queue</param>
-        public ResultQueueViMo(int maxCount = -1)
+        /// <param name="maxCount">The maximum allowed elements in the queue</param>
+        public EueuqMax(int maxCount = -1)
         {
             MaxCount = maxCount;
+            EnsureCapacity(MaxCount+1);
         }
 
 
@@ -49,7 +55,7 @@ namespace FateExplorer.ViewModel
         /// Adds an object to the end of the queue.
         /// </summary>
         /// <param name="item">The object to add to the queue. The value can be null.</param>
-        public new void Enqueue(RollResultViMo item)
+        public new void Enqueue(T item)
         {
             base.Enqueue(item);
             ResetMax();
