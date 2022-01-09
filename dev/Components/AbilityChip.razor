@@ -1,6 +1,9 @@
 ﻿@using FateExplorer.ViewModel
 
-<div class="mr-1 Chip">
+@inherits MudComponentBase
+
+
+<div tabindex="0" @attributes="UserAttributes" class="mr-1 Chip @Classname" style="@Style" @onclick="@OnClickHandler">
     <div class="d-flex justify-center d-block pa-2 mud-theme-primary">
         <MudTooltip Text=@Ability.Name>
         @Ability.ShortName
