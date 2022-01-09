@@ -1,24 +1,14 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text.Json;
+
 
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class AbilitiesDBTests
+    public class AbilitiesDBTests : GameDataTestsBase<AbilitiesDB, AbilityDbEntry>
     {
+        public override string FilenameId { get => "attributes"; }
 
-        [SetUp]
-        public void SetUp()
-        {
-        }
-
-        private static AbilitiesDB CreateAbilitiesDB()
-        {
-            return new AbilitiesDB();
-        }
 
         [Test]
         [TestCase("de", "MU", "KK")]
@@ -26,12 +16,8 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Ability1, string AbilityLast)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"attributes_{Language}.json"));
-            string jsonString = File.ReadAllText(fileName);
-
             // Act
-            AbilitiesDB Result = JsonSerializer.Deserialize<AbilitiesDB>(jsonString);
+            AbilitiesDB Result = CreateDBfromFile(Language);
 
             // Assert
             Assert.AreEqual(8, Result.Count);
@@ -39,17 +25,6 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(AbilityLast, Result[^1].ShortName);
         }
 
-        [Test]
-        public void Count_ContentNotLoaded_Return0()
-        {
-            // Arrange
-            AbilitiesDB DB = CreateAbilitiesDB();
-
-            // Act
-            int Count = DB.Count;
-
-            // Assert
-            Assert.AreEqual(0, Count);
-        }
+        // inherited: public void Count_ContentNotLoaded_Return0()
     }
 }

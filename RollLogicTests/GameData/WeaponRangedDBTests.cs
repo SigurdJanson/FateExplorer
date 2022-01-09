@@ -7,17 +7,12 @@ using System.Text.Json;
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class WeaponRangedDBTests
+    public class WeaponRangedDBTests : GameDataTestsBase<WeaponRangedDB, WeaponRangedDbEntry>
     {
-        [SetUp]
-        public void SetUp()
-        {
-        }
+        public override string FilenameId { get => "weaponsranged"; }
 
-        private static WeaponRangedDB CreateWeaponRangedDB()
-        {
-            return new WeaponRangedDB();
-        }
+
+
 
         [Test]
         [TestCase("de", "Balestrina", "Wurfmesser")]
@@ -25,12 +20,8 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Weapon1, string WeaponLast)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"weaponsranged_{Language}.json"));
-            string jsonString = File.ReadAllText(fileName);
-
             // Act
-            WeaponRangedDB Result = JsonSerializer.Deserialize<WeaponRangedDB>(jsonString);
+            WeaponRangedDB Result = CreateDBfromFile(Language);
 
             // Assert
             Assert.AreEqual(52, Result.Count);
@@ -38,17 +29,7 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(WeaponLast, Result[^1].Name);
         }
 
-        [Test]
-        public void Count_ContentNotLoaded_Return0()
-        {
-            // Arrange
-            WeaponRangedDB DB = CreateWeaponRangedDB();
 
-            // Act
-            int Count = DB.Count;
-
-            // Assert
-            Assert.AreEqual(0, Count);
-        }
+        // inherited: public void Count_ContentNotLoaded_Return0()
     }
 }

@@ -1,23 +1,14 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text.Json;
+
 
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class ResilienceDBTests
+    public class ResilienceDBTests : GameDataTestsBase<ResiliencesDB, ResilienceDbEntry>
     {
-        [SetUp]
-        public void SetUp()
-        {
-        }
+        public override string FilenameId { get => "resiliences"; }
 
-        private static ResiliencesDB CreateResiliencesDB()
-        {
-            return new ResiliencesDB();
-        }
 
         [Test]
         [TestCase("de", "Zähigkeit", "Seelenkraft")]
@@ -26,14 +17,10 @@ namespace RollLogicTests.GameData
         {
             const string ResId1 = "TOU";
             const string ResId2 = "SPI";
+
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"resiliences_{Language}.json"));
-            string jsonString = File.ReadAllText(fileName);
-
             // Act
-            ResiliencesDB Result = JsonSerializer.Deserialize<ResiliencesDB>(jsonString);
-
+            ResiliencesDB Result = CreateDBfromFile(Language);
             // Assert
             Assert.AreEqual(2, Result.Count);
             Assert.AreEqual(ResId1, Result[0].Id);
@@ -42,18 +29,8 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(ResName2, Result[1].Name);
         }
 
-        [Test]
-        public void Count_ContentNotLoaded_Return0()
-        {
-            // Arrange
-            ResiliencesDB DB = CreateResiliencesDB();
 
-            // Act
-            int Count = DB.Count;
-
-            // Assert
-            Assert.AreEqual(0, Count);
-        }
+        // inherited: public void Count_ContentNotLoaded_Return0()
     }
 }
 

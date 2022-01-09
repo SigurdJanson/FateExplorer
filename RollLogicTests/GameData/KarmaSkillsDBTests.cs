@@ -1,18 +1,12 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text.Json;
 
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class KarmaSkillsDBTests
+    public class KarmaSkillsDBTests : GameDataTestsBase<KarmaSkillsDB, KarmaSkillDbEntry>
     {
-        private static KarmaSkillsDB CreateKarmaSkillsDB()
-        {
-            return new KarmaSkillsDB();
-        }
+        public override string FilenameId { get => "karmaskills"; }
 
         [Test]
         [TestCase("de", "LITURGY_41", "", 328)]
@@ -20,12 +14,8 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Skill1, string SkillLast, int Count)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"karmaskills_{Language}.json"));
-            string jsonString = File.ReadAllText(fileName);
-
             // Act
-            KarmaSkillsDB Result = JsonSerializer.Deserialize<KarmaSkillsDB>(jsonString);
+            KarmaSkillsDB Result = CreateDBfromFile(Language);
 
             // Assert
             Assert.AreEqual(Count, Result.Count);
@@ -33,17 +23,17 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(SkillLast, Result[^1].Id);
         }
 
-        [Test]
-        public void Count_ContentNotLoaded_Return0()
+
+        [Test, Ignore("Not valid for karma skill because not all have been translated")]
+        [TestCase("", new string[] { "de", "en" })]
+        public override void CompareLanguages_Equality(string Dummy, string[] Languages)
         {
-            // Arrange
-            KarmaSkillsDB DB = CreateKarmaSkillsDB();
-
-            // Act
-            int Count = DB.Count;
-
-            // Assert
-            Assert.AreEqual(0, Count);
+            Assert.Inconclusive("Not valid for karma skill because not all have been translated");
         }
+
+
+
+        // inherited: public void Count_ContentNotLoaded_Return0()
+
     }
 }

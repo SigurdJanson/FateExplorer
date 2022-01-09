@@ -1,18 +1,15 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text.Json;
+
 
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class ArcaneSkillsDBTests
+    public class ArcaneSkillsDBTests : GameDataTestsBase<ArcaneSkillsDB, ArcaneSkillDbEntry>
     {
-        private static ArcaneSkillsDB CreateArcaneSkillsDB()
-        {
-            return new ArcaneSkillsDB();
-        }
+        public override string FilenameId { get => "arcaneskills"; }
+
+
 
         [Test]
         [TestCase("de", "SPELL_89", "", 335)]
@@ -20,12 +17,9 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Skill1, string SkillLast, int Count)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
-            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"arcaneskills_{Language}.json"));
-            string jsonString = File.ReadAllText(fileName);
-
             // Act
-            ArcaneSkillsDB Result = JsonSerializer.Deserialize<ArcaneSkillsDB>(jsonString);
+            ArcaneSkillsDB Result = CreateDBfromFile(Language);
+
 
             // Assert
             Assert.AreEqual(Count, Result.Count);
@@ -33,17 +27,15 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(SkillLast, Result[^1].Id);
         }
 
-        [Test]
-        public void Count_ContentNotLoaded_Return0()
+        
+        [Test, Ignore("Not valid for arcane skill because not all have been translated")]
+        [TestCase("", new string[] { "de", "en" })]
+        public override void CompareLanguages_Equality(string Dummy, string[] Languages)
         {
-            // Arrange
-            ArcaneSkillsDB DB = CreateArcaneSkillsDB();
-
-            // Act
-            int Count = DB.Count;
-
-            // Assert
-            Assert.AreEqual(0, Count);
+            Assert.Inconclusive("Not valid for arcane skill because not all have been translated");
         }
+
+
+        // inherited: public void Count_ContentNotLoaded_Return0()
     }
 }
