@@ -20,7 +20,7 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Skill1, string SkillLast)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"skills_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 

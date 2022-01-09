@@ -24,7 +24,7 @@ namespace RollLogicTests.GameData
         public void LoadFromFile_ParseSuccessful(string Language, string Tech1, string TechLast)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"combattechs_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 

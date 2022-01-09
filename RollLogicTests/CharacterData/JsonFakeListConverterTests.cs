@@ -36,7 +36,7 @@ namespace RollLogicTests.CharacterData
         [Test]
         public void Read_StateUnderTest_ExpectedBehavior()
         {
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, "_test_fakelistimport.json"));
             string jsonString = File.ReadAllText(fileName);
 

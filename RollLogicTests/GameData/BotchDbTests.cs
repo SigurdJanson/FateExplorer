@@ -31,7 +31,7 @@ namespace RollLogicTests.GameData
             [Values("de", "en")] string Language)
         {
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\TestDataFiles"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"botches_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 

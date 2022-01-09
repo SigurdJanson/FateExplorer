@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace RollLogicTests
 {
+    
+
     internal static class TestHelpers
     {
+        public const string Path2wwwrootData = "..\\..\\..\\..\\dev\\wwwroot\\data";
+
+
         /// <summary>
         /// Compares two objects on the topmost level of properties without recursive
         /// entry into complex objects. Be careful with reference types!

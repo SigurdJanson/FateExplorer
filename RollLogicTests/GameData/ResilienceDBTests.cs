@@ -27,7 +27,7 @@ namespace RollLogicTests.GameData
             const string ResId1 = "TOU";
             const string ResId2 = "SPI";
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\..\\dev\\wwwroot\\data"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"resiliences_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 

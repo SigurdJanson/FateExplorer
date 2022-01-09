@@ -30,7 +30,7 @@ namespace RollLogicTests.GameData
             string[] ResId = new string[] { "LP", "AE", "KP" };
 
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\..\\dev\\wwwroot\\data"));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"energies_{Language}.json"));
             string jsonString = File.ReadAllText(fileName);
 
@@ -56,7 +56,7 @@ namespace RollLogicTests.GameData
 
             foreach (var lang in Languages)
             {
-                string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\..\\dev\\wwwroot\\data"));
+                string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
                 string fileName = Path.GetFullPath(Path.Combine(BasePath, $"energies_{lang}.json"));
                 string jsonString = File.ReadAllText(fileName);
                 Result.Add(JsonSerializer.Deserialize<EnergiesDB>(jsonString));
