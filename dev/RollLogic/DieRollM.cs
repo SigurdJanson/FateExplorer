@@ -8,7 +8,7 @@ namespace FateExplorer.RollLogic
     /// <summary>
     /// Represents a single die to roll
     /// </summary>
-    public class DieRoll : IRoll
+    public class DieRollM : IRollM
     {
         /// <summary>
         /// The source for random numbers; by default a mersenne twister
@@ -31,7 +31,7 @@ namespace FateExplorer.RollLogic
         /// Constructor
         /// </summary>
         /// <param name="sides">The sides of the die</param>
-        public DieRoll(int sides)
+        public DieRollM(int sides)
         {
             if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
             Sides = new int[1] { sides };
@@ -57,5 +57,20 @@ namespace FateExplorer.RollLogic
         {
             return OpenRoll[0];
         }
+
+
+        //
+        #region ENTRY CONDITION 
+        /// <summary>
+        /// The class to verify entry
+        /// </summary>
+        protected IEntryCondition EntryCondition { get; set; }
+
+        /// <inheritdoc/>
+        public bool EntryConfirmed(params object[] Args)
+        {
+            return EntryCondition?.MeetsCondition(this, null) ?? true;
+        }
+        #endregion
     }
 }

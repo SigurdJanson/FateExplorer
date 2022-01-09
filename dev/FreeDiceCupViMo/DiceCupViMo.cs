@@ -5,7 +5,7 @@ namespace FateExplorer.FreeDiceCupViMo
 {
     public enum CupType
     {
-        Single = 1, Multi = 2, MixedMulti = 3
+        Single = 1, Multi = 2, MixedMulti = 3, None = -1
     }
 
     public class DiceCupViMo
@@ -50,7 +50,7 @@ namespace FateExplorer.FreeDiceCupViMo
             // Make a roller
             switch (Type)
             {
-                case CupType.Single: Roller = new DieRoll(Sides[0]); break;
+                case CupType.Single: Roller = new DieRollM(Sides[0]); break;
                 case CupType.Multi: Roller = new MultiDieRoll(Sides[0], sides.Length); break;
                 case CupType.MixedMulti: throw new NotImplementedException(); //TODO
             }
@@ -74,7 +74,7 @@ namespace FateExplorer.FreeDiceCupViMo
 
         public CupType Type { get; set; }
 
-        protected IRoll Roller { get; set; }
+        protected IRollM Roller { get; set; }
 
         public void Roll() => Roller.Roll();
 

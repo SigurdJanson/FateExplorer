@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.RollLogic
 {
-    public interface IRoll
+    public interface IRollM
     {
         /// <summary>
         /// Number of dice.
@@ -39,5 +39,11 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <returns>An aggregated form of all dice</returns>
         int OpenRollCombined();
+
+        /// <summary>
+        /// Checks if the condition to perform the roll are met. 
+        /// </summary>
+        /// <returns></returns>
+        bool EntryConfirmed(params object[] Args);
     }
 }

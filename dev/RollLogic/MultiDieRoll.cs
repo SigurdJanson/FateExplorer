@@ -6,7 +6,7 @@ namespace FateExplorer.RollLogic
     /// <summary>
     /// Represents a collection of dice, all dice identical (equivalent to <see cref="CupType.Multi"/>).
     /// </summary>
-    public class MultiDieRoll : IRoll
+    public class MultiDieRoll : IRollM
     {
         /// <summary>
         /// The source for random numbers; by default a mersenne twister
@@ -65,5 +65,16 @@ namespace FateExplorer.RollLogic
         {
             return OpenRoll.Aggregate(AggregateFunc);
         }
+
+
+
+        //
+        #region ENTRY
+
+        public bool EntryConfirmed(params object[] Args)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

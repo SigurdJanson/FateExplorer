@@ -19,9 +19,9 @@ namespace RollLogicTests.RollLogic
             MoqRng = mockRepository.Create<IRandomNG>();
         }
 
-        private DieRoll CreateDieRoll(int Sides)
+        private DieRollM CreateDieRoll(int Sides)
         {
-            DieRoll ClassUnderTest = new(Sides);
+            DieRollM ClassUnderTest = new(Sides);
             return ClassUnderTest;
         }
 
