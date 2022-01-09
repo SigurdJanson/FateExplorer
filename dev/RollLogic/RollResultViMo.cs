@@ -52,7 +52,7 @@ namespace FateExplorer.RollLogic
         /// The effect of the roll. For a combat attack role this would be the hit points.
         /// For a skill rol eit is the skill level.
         /// </summary>
-        public int? CombinedResult { get; set; }
+        public int? CombinedResult { get; set; } // TODO: is this required in the long run?
 
         /// <summary>
         /// Success level
