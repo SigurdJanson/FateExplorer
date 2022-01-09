@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FateExplorer", "FateExplorer.csproj", "{8A27F2B1-BBA4-4E25-9266-B4F247F49E25}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RollLogicTests", "..\RollLogicTests\RollLogicTests.csproj", "{D8DFC54F-D414-4B20-8EA8-1A334A3C65D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A27F2B1-BBA4-4E25-9266-B4F247F49E25} = {8A27F2B1-BBA4-4E25-9266-B4F247F49E25}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
