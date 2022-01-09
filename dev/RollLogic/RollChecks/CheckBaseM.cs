@@ -4,6 +4,8 @@ namespace FateExplorer.RollLogic
 {
     public abstract class CheckBaseM
     {
+        #region Identification
+
         public const string checkTypeId = "DSA5/0";
 
         /// <summary>
@@ -30,6 +32,13 @@ namespace FateExplorer.RollLogic
         { 
             get => CheckTypeId + "/" + AttributeId.TrimEnd('/') + "/" + UniqueId;
         }
+
+        #endregion
+
+        /// <summary>
+        /// A string describing the 
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// This checks modifier
