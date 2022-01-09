@@ -81,7 +81,7 @@
 }
 else
 {
-<SkeletonNoCharacterData />
+<SkeletonNoCharacterData OnCharacterHasLoaded=@OnCharacterHasLoaded/>
 }
 
 
@@ -94,6 +94,9 @@ else
 
     private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
 
+
+    protected void OnCharacterHasLoaded() => StateHasChanged();
+
     private void LoadHeroData()
     {
         if (Hero.HasBorn)
@@ -105,6 +108,7 @@ else
         }
     }
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         base.OnInitialized();
