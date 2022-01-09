@@ -45,7 +45,7 @@ namespace RollLogicTests.CharacterData
         {
 
             // Arrange
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2TestData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"_test_spellsjsonimport.json"));
             string jsonString = File.ReadAllText(fileName);
 

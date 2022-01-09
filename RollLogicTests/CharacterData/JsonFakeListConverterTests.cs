@@ -26,17 +26,11 @@ namespace RollLogicTests.CharacterData
 
 
 
-        [Test, Ignore("Not implemented")]
-        public void Write_StateUnderTest_ExpectedBehavior()
-        {
-            // Assert
-            Assert.Fail();
-        }
 
         [Test]
         public void Read_StateUnderTest_ExpectedBehavior()
         {
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2TestData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, "_test_fakelistimport.json"));
             string jsonString = File.ReadAllText(fileName);
 

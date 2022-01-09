@@ -11,6 +11,7 @@ namespace RollLogicTests
 
     internal static class TestHelpers
     {
+        public const string Path2TestData = "..\\..\\..\\TestDataFiles";
         public const string Path2wwwrootData = "..\\..\\..\\..\\dev\\wwwroot\\data";
 
 

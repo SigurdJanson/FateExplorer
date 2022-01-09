@@ -19,7 +19,7 @@ namespace RollLogicTests.CharacterData
         {
             // Arrange
             var characterImportOptM = new CharacterImportOptM();
-            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2TestData));
             string fileName = Path.GetFullPath(Path.Combine(BasePath, $"{Filename}.json"));
             string jsonString = File.ReadAllText(fileName);
 
