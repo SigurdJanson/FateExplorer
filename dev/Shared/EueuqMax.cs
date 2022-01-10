@@ -45,7 +45,8 @@ namespace FateExplorer.Shared
         public EueuqMax(int maxCount = -1)
         {
             MaxCount = maxCount;
-            EnsureCapacity(MaxCount+1);
+            if (MaxCount > 0)
+                EnsureCapacity(MaxCount+1);
         }
 
 
