@@ -1,17 +1,9 @@
 ﻿using System.Linq;
 using FateExplorer.FreeDiceCupViMo;
+using FateExplorer.Shared;
 
 namespace FateExplorer.RollLogic
 {
-    public enum RollSuccessLevel
-    {
-        Botch = 1, PendingBotch = -1,
-        Fail = 2,
-        Success = 3,
-        Critical = 4, PendingCritical = -4,
-        na = 99
-    }
-
     public class RollResultViMo
     {
         /// <summary>
