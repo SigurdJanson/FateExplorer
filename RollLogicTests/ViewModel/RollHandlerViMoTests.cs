@@ -44,7 +44,7 @@ namespace RollLogicTests.ViewModel
             this.mockRepository = new MockRepository(MockBehavior.Strict);
         }
 
-        private RollHandlerViMo CreateRollHandlerViMo(string jsonString)
+        private static RollHandlerViMo CreateRollHandlerViMo(string jsonString)
         {
             var Result = new RollHandlerViMo(new HttpClient());
             Result.ReadRollMappings(jsonString);
@@ -52,7 +52,7 @@ namespace RollLogicTests.ViewModel
             return Result;
         }
 
-        private string GetMappingDataFromWWWroot()
+        private static string GetMappingDataFromWWWroot()
         {
             const string FilenameId = "rollresolver";
 
@@ -65,19 +65,20 @@ namespace RollLogicTests.ViewModel
 
 
         [Test]
-        public void _CheckMappingFileFormat_Read2Dictionary_NoExceptions()
+        public void CheckMappingFileFormat()
         {
             // Arrange
             string jsonString = GetMappingDataFromWWWroot();
 
             // Act
-            DataTestClass Result = JsonSerializer.Deserialize<DataTestClass>(jsonString);
+            var Result = JsonSerializer.Deserialize<Dictionary<string, RollMappingViMo>>(jsonString);
 
             // Assert
             Assert.IsNotNull(Result);
             Assert.AreEqual(7, Result.Count);
             this.mockRepository.VerifyAll();
         }
+
 
 
         [Test]
@@ -88,8 +89,10 @@ namespace RollLogicTests.ViewModel
             RollHandlerViMo ClassUnderTest = CreateRollHandlerViMo(jsonString);
             Assume.That(ClassUnderTest.RollMappings.Count, Is.EqualTo(7));
 
+            AbilityDTO data = new() { Id = Id };
+
             // Act
-            var Result = ClassUnderTest.OpenRollCheck(Id);
+            var Result = ClassUnderTest.OpenRollCheck(Id, data);
 
             // Assert
             Assert.NotNull(Result);

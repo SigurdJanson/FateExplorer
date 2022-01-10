@@ -220,9 +220,6 @@ namespace RollLogicTests.RollLogic.RollChecks
         {
             const int Ability = 10;
 
-            // Arrange
-            int Expected = -3 * (Eyes - Ability);
-
             // Act
             var result = SkillCheckM.ComputeSuccess(
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { Ability, Ability, Ability }, 0, 0);
