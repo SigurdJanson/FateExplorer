@@ -6,19 +6,19 @@
 <div tabindex="0" @attributes="UserAttributes" class="mr-1 Chip @Classname" style="@Style" @onclick="@OnClickHandler">
     <div class="d-flex justify-center d-block pa-2 mud-theme-primary">
         <MudTooltip Text=@Ability.Name>
-        @Ability.ShortName
+        <span style="user-select: none;">@Ability.ShortName</span>
         </MudTooltip>
     </div>
     <div class="d-flex justify-center d-block pa-2">
         @if (Ability.EffectiveValue != Ability.Max)
         {
             <MudBadge Content=@Ability.EffectiveValue Overlap=false Origin=Origin.TopCenter Color=Color.Warning Class="mx-6 my-4">
-                <MudText>@Ability.EffectiveValue</MudText>
+                <MudText Style="user-select: none;">@Ability.EffectiveValue</MudText>
             </MudBadge>
         }
         else
         {
-            <MudText>@Ability.EffectiveValue</MudText>
+            <MudText Style="user-select: none;">@Ability.EffectiveValue</MudText>
         }
     </div>
 </div>
