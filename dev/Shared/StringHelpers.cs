@@ -8,7 +8,10 @@ namespace FateExplorer.Shared
         {
             int sum = 0;
             for (int i = 0; i < Math.Min(individual.Length, target.Length); i++)
-                if (individual[i] == target[i]) sum++;
+                if (individual[i] == target[i])
+                    sum++;
+                else
+                    return sum;
             return sum;
         }
     }
