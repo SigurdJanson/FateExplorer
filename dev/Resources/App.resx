@@ -191,8 +191,14 @@
   <data name="lblAll" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="lblAvailable" xml:space="preserve">
+    <value>Available</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Count</value>
+  </data>
+  <data name="lblCrossedThresholds" xml:space="preserve">
+    <value>Crossed Thresholds</value>
   </data>
   <data name="lblDescription" xml:space="preserve">
     <value>Description</value>
@@ -207,6 +213,12 @@
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Selected Skills</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblMaximum" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="lblMinimum" xml:space="preserve">
+    <value>Minimum</value>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
     <value>Needed the Most</value>

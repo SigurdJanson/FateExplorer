@@ -1,4 +1,7 @@
 ﻿@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+
 <MudCard Outlined=true Squared=true Class="mb-4">
 
     <MudCardHeader>
@@ -8,11 +11,11 @@
     </MudCardHeader>
 
     <MudCardContent>
-        <MudNumericField @bind-Value=EffValue Label="lblAvailable" 
+        <MudNumericField @bind-Value=EffValue Label="@l10n["lblAvailable"]"
             Variant=Variant.Text Min=@Energy.Min Max=@MaxValue HideSpinButtons=true />
             <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
 
-            <MudText Typo=Typo.caption Align="Align.Center">lblCrossedThresholds</MudText>
+            <MudText Typo=Typo.caption Align="Align.Center">@l10n["lblCrossedThresholds"]</MudText>
             <div class="d-flex flex-row">
                 <MudSpacer/>
                 <MudTooltip Text="lblArrowLeft" Style="Width:100%">
@@ -23,10 +26,10 @@
     </MudCardContent>
 
     <MudCardContent>
-        <MudNumericField @bind-Value=MaxValue Label="lblMaximum" 
-            Variant=Variant.Text Min=0  HideSpinButtons=true 
+        <MudNumericField @bind-Value=MaxValue Label="@l10n["lblMaximum"]"
+            Variant=Variant.Text Min=0 HideSpinButtons=true 
             Disabled=false Style="color:black" />
-        <MudNumericField Value=@Energy.Min Label="lblMinimum" 
+        <MudNumericField Value=@Energy.Min Label="@l10n["lblMinimum"]" 
             Variant=Variant.Text HideSpinButtons=true 
             Disabled=true Style="color:black" />
     </MudCardContent>
