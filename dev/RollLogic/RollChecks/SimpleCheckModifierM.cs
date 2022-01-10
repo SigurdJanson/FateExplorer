@@ -9,7 +9,10 @@
         /// <summary>
         /// An additive modifier
         /// </summary>
-        public int Value { get; set; }
+        public int Value { get; protected set; }
+
+        /// <inheritdoc/>
+        public int Total => Total;
 
         /// <summary>
         /// Constructor
@@ -22,10 +25,12 @@
 
 
         /// <inheritdoc/>
-        public void Apply(IRollM Before)
+        public int[] Apply(IRollM Before)
         {
+            int[] After = new int[Before.OpenRoll.Length];
             for (int i = 0; i < Before.OpenRoll.Length; i++)
-                Before.OpenRoll[i] -= Value;
+                After[i] = Before.OpenRoll[i] + Value;
+            return After;
         }
     }
 }

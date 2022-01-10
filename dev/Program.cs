@@ -27,15 +27,22 @@ namespace FateExplorer
                 options.ResourcesPath = "Resources";
             });
 
-            builder.Services.AddScoped<IGameDataService, DataServiceDSA5>();
-            //-builder.Services.AddScoped<ICharacterM, CharacterM>();
-            builder.Services.AddScoped<ITheHeroViMo, TheHeroViMo>();
+            // Services of Fate Explorer
+            builder.Services
+                .AddScoped<IGameDataService, DataServiceDSA5>()
+                .AddScoped<ITheHeroViMo, TheHeroViMo>();
+            builder.Services.AddScoped<IRollHandlerViMo, RollHandlerViMo>();
 
             var host = builder.Build();
 
-            // Fate Explorer
+            // Fate Explorer Setup
             var DataService = host.Services.GetRequiredService<IGameDataService>();
             await DataService.InitializeGameDataAsync();
+
+            var RollHandlerService = host.Services.GetRequiredService<IRollHandlerViMo>();
+            await RollHandlerService.ReadRollMappingsAsync();
+            RollHandlerService.RegisterChecks();
+
 
             // Run
             await host.RunAsync();
