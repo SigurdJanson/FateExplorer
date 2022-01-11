@@ -12,7 +12,7 @@
         public int Value { get; protected set; }
 
         /// <inheritdoc/>
-        public int Total => Total;
+        public int Total { get; }
 
         /// <summary>
         /// Constructor
@@ -25,7 +25,7 @@
 
 
         /// <inheritdoc/>
-        public int[] Apply(IRollM Before)
+        public int[] Apply(IRollM Before) // TODO: check for min/max???
         {
             int[] After = new int[Before.OpenRoll.Length];
             for (int i = 0; i < Before.OpenRoll.Length; i++)
