@@ -1,7 +1,8 @@
-﻿using FateExplorer.RollLogic;
-
-namespace FateExplorer.RollLogic
+﻿namespace FateExplorer.RollLogic
 {
+    /// <summary>
+    /// This is the common interface for different kinds of roll/check modifiers.
+    /// </summary>
     public interface ICheckModifierM
     {
         /// <summary>
