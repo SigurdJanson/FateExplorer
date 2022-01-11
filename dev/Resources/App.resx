@@ -191,6 +191,9 @@
   <data name="lblAll" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="lblAttributeValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <data name="lblAvailable" xml:space="preserve">
     <value>Available</value>
   </data>
@@ -242,6 +245,9 @@
   <data name="lblResultCardResult" xml:space="preserve">
     <value>Roll Result</value>
     <comment>Result Card</comment>
+  </data>
+  <data name="lblRoll" xml:space="preserve">
+    <value>Roll</value>
   </data>
   <data name="lblSelection" xml:space="preserve">
     <value>Selection</value>

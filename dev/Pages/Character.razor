@@ -73,7 +73,7 @@
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
-                        <RollCheckCard Result=@r />
+                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons />
                     }
                 }
                 else
@@ -91,6 +91,8 @@ else
 }
 
 @code {
+    private readonly string[] CheckIcons = new string[4] { Icons.Filled.Accessible, Icons.Filled.Elderly, Icons.Filled.Accessibility, Icons.Filled.AccessibilityNew };
+
     private RollCheckResultViMo ActiveAbilityCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }

@@ -6,13 +6,13 @@
 <MudCard Elevation=2 Class="pa-1 ma-1">
     <MudCardHeader>
         <CardHeaderAvatar>
-            <MudAvatar  Color=Color.Secondary Square=true>
-                <MudIcon Color=Color.Dark Icon=@GetAvatarIcon() />
+            <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
+                <MudIcon Color=Color.Dark Icon=@GetAvatarIcon(Result.SuccessLevel) />
             </MudAvatar>
         </CardHeaderAvatar>
         <CardHeaderContent>
-            <MudText Typo="Typo.body1">@Result.Name</MudText>
-            <MudText Typo="Typo.body2">...</MudText>
+            <MudText Typo="Typo.body1">@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
+            <MudText Typo="Typo.caption">@Result.Name</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (CanClose)
@@ -24,39 +24,58 @@
 
     <MudCardContent>
         <MudGrid Spacing=0 Class="my-1">
-            @if (Result.SuccessLevel != RollSuccessLevel.na)
-            {
-            <MudItem xs="4">
-                <p>@l10n[Result.SuccessLevel.ToString()]</p>
-            </MudItem>
-            }
-            <MudItem xs="8">
+            <MudItem xs=8>
                 <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
                 @* Style="overflow-x: auto;" *@
                 <tbody>
                     <tr>
-                        @if (ShowValueLabels)
-                        {
-                        <td>@string.Join(" \u00B7 ", Result.GetPrimaryResult().RollResult)</td>
-                        }
-                        <td>@l10n["lblResultCardResult"]</td>
-                        <td>@string.Join(" \u00B7 ", Result.GetPrimaryResult().RollResult)</td>
+                        <td>@*AttributeLabel*@</td> 
+                        <td>
+                            <MudText Typo=Typo.caption>
+                            @if (ShowValueLabels)
+                            {
+                            @string.Join(" \u00B7 ", PrimRollResult.Name)
+                            }
+                            else
+                            {
+                            @l10n["lblAttribute"]
+                            }
+                            </MudText>
+                        </td>
+                        <td><MudText Typo=Typo.caption>@l10n["lblResultCardModifier"]</MudText></td>
                     </tr>
-                    @if (Result.SummarizedModifier != 0)
-                    {
                     <tr>
-                        <td>@l10n["lblResultCardModifier"]</td>
+                        <td>@l10n["lblAttributeValue"]</td>
+                        <td>@string.Join(" \u00B7 ", PrimRollResult.RollAgainst)</td>
                         <td>@Result.SummarizedModifier</td>
                     </tr>
-                    }
+                    <tr>
+                        <td>@l10n["lblRoll"]</td>
+                        <td>@string.Join(" \u00B7 ", PrimRollResult.RollResult)</td>
+                        <td>@*No roll against the mod*@</td>
+                    </tr>
                 </tbody>
             </MudSimpleTable>
             </MudItem>
         </MudGrid>
     </MudCardContent>
+    @if (Result.PrimaryNeedsConfirmation())
+    {
     <MudCardContent>
-        <MudText Typo="Typo.body2">SOMETHING</MudText>
+        <MudText Typo=Typo.body1>@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
+        <MudButton Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled>
+            @l10n["lblConfirm"]
+        </MudButton>
     </MudCardContent>
+    }
+    @if (Result.NeedsBotchEffect())
+    {
+    <MudCardContent>
+        <MudButton Color=@GetAvatarColor(Result.SuccessLevel)>
+            @l10n["btnBotchEffect"]
+        </MudButton>
+    </MudCardContent>
+    }
     @*<MudCardActions>
         <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
         <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
@@ -65,20 +84,104 @@
 
 
 @code {
+    /// <summary>
+    /// A result object carrying the required data to display the card
+    /// </summary>
     [Parameter]
     public RollCheckResultViMo Result { get; set; }
 
+    /// <summary>
+    /// Displays an extra x-Icon users can close the card with.
+    /// </summary>
     [Parameter]
     public bool CanClose { get; set; } = false;
 
+    /// <summary>
+    /// Display an extra row with value labels
+    /// </summary>
     [Parameter]
     public bool ShowValueLabels { get; set; } = false;
 
+    /// <summary>
+    /// A list of strings holding the icons that can be used as avatars. 
+    /// Supports 1, 2, 4 or 6 different icons to be displayed with different success
+    /// levels.
+    /// </summary>
+    [Parameter]
+    public string[] AvatarIcon { get; set; } = { Icons.Material.Filled.HelpCenter };
 
-    private string GetAvatarIcon()
+
+
+    protected RollResultViMo PrimRollResult { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
     {
-        return Icons.Material.Filled.Accessibility;
+        base.OnParametersSet();
+        PrimRollResult = Result.GetPrimaryResult();
     }
+
+
+
+    private string GetAvatarIcon(RollSuccessLevel Success)
+    {
+        if (AvatarIcon.Length == 1)
+            return AvatarIcon[0];
+        if (AvatarIcon.Length == 2)
+        {
+            return Success switch
+            {
+                RollSuccessLevel.Botch => AvatarIcon[0],
+                RollSuccessLevel.PendingBotch => AvatarIcon[0],
+                RollSuccessLevel.Fail => AvatarIcon[0],
+                RollSuccessLevel.Critical => AvatarIcon[1],
+                RollSuccessLevel.Success => AvatarIcon[1],
+                RollSuccessLevel.PendingCritical => AvatarIcon[1],
+                _ => Icons.Material.Filled.HelpCenter
+            };
+        }        
+        if (AvatarIcon.Length == 4)
+        {
+            return Success switch
+            {
+                RollSuccessLevel.Botch => AvatarIcon[0],
+                RollSuccessLevel.PendingBotch => AvatarIcon[0],
+                RollSuccessLevel.Fail => AvatarIcon[1],
+                RollSuccessLevel.Success => AvatarIcon[2],
+                RollSuccessLevel.PendingCritical => AvatarIcon[3],
+                RollSuccessLevel.Critical => AvatarIcon[3],
+                _ => Icons.Material.Filled.HelpCenter
+            };
+        }
+        if (AvatarIcon.Length == 6)
+        {
+            return Success switch
+            {
+                RollSuccessLevel.Botch => AvatarIcon[0],
+                RollSuccessLevel.PendingBotch => AvatarIcon[1],
+                RollSuccessLevel.Fail => AvatarIcon[2],
+                RollSuccessLevel.Success => AvatarIcon[3],
+                RollSuccessLevel.PendingCritical => AvatarIcon[4],
+                RollSuccessLevel.Critical => AvatarIcon[5],
+                _ => Icons.Material.Filled.HelpCenter
+            };
+        }
+        return Icons.Material.Filled.HelpCenter;
+    }
+
+
+
+    private Color GetAvatarColor(RollSuccessLevel Success) =>
+        Success switch
+        {
+            RollSuccessLevel.Botch => Color.Error,
+            RollSuccessLevel.Fail => Color.Error,
+            RollSuccessLevel.Critical => Color.Success,
+            RollSuccessLevel.Success => Color.Success,
+            RollSuccessLevel.PendingBotch => Color.Warning,
+            RollSuccessLevel.PendingCritical => Color.Warning,
+            _ => Color.Info
+        };
 
     //private RenderFragment MakeAvatar()
     //{

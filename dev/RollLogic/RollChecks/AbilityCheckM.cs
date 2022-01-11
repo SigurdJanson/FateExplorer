@@ -94,5 +94,6 @@ namespace FateExplorer.RollLogic
 
         // inherited bool HasNextStep();
 
+
     }
 }

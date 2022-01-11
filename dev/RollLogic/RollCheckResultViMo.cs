@@ -16,6 +16,7 @@ namespace FateExplorer.RollLogic
             RollCheck = rollCheck ?? throw new ArgumentNullException(nameof(rollCheck));
         }
 
+
         /// <summary>
         /// Describing name
         /// </summary>
@@ -52,16 +53,24 @@ namespace FateExplorer.RollLogic
 
 
 
-        public IRollM GetPrimaryRoll()
+        /// <summary>
+        /// Returns the primary roll itself
+        /// </summary>
+        /// <returns></returns>
+        public IRollM GetPrimaryRoll() // TODO: model is exposed
             => RollCheck?.RollSeries[0];
 
         /// <summary>
-        /// Returns the primary roll
+        /// Returns the analysed result of the primary roll
         /// </summary>
         /// <returns></returns>
         /// <remarks>Assumes that the primary roll is at index 0.</remarks>
         public RollResultViMo GetPrimaryResult()
             => GetRollResult(0);
+
+
+        public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
+        public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
 
 
         /// <summary>
