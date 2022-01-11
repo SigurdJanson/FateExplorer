@@ -8,40 +8,24 @@ namespace FateExplorer.RollLogic
     {
         public new const string checkTypeId = "DSA5/0/ability";
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="abilityValue">Effective value of the ability</param>
-        /// <param name="modifier">An additional modifier</param>
-        public AbilityCheckM(int abilityValue, int modifier) // TODO: Check if necessary in the long run
-        {
-            // inherited properties
-            AttributeId = "";
-            Attribute = new int[1];
-
-            AbilityValue = abilityValue;
-            Modifier = modifier;
-            RollSeries = new();
-        }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="ability"></param>
         /// <param name="modifier"></param>
-        public AbilityCheckM(AbilityDTO ability, ICheckModifierM modifier)
+        public AbilityCheckM(AbilityDTO ability, SimpleCheckModifierM modifier)
         {
             // inherited properties
             AttributeId = ability.Id;
             Attribute = new int[1];
+            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
             AbilityValue = ability.EffectiveValue;
-            //Modifier = modifier; // TODO modify
             Name = ability.Name;
             RollSeries = new();
+            RollNextStep(); // directly roll first roll and add
         }
-
-        private enum TRoll { Primary = 0, Confirm = 1 }
 
 
         /// <summary>
@@ -50,20 +34,16 @@ namespace FateExplorer.RollLogic
         private int AbilityValue {  get => Attribute[0]; set => Attribute[0] = value; }
 
 
-        /// <summary>
-        /// A simple additive modifier
-        /// </summary>
-        private int Modifier { get; set; }
-
-
         /// <inheritdoc />
         public override RollSuccessLevel Success
         {
             get => RollSeries.Count switch
             {
                 0 => RollSuccessLevel.na,
-                1 => SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], AbilityValue + Modifier),
-                2 => SuccessHelpers.CheckSuccess(RollSeries[0].OpenRoll[0], RollSeries[1].OpenRoll[0], AbilityValue + Modifier),
+                1 => SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], 
+                    AbilityValue + CheckModifier.Total),
+                2 => SuccessHelpers.CheckSuccess(RollSeries[0].OpenRoll[0], RollSeries[1].OpenRoll[0], 
+                    AbilityValue + CheckModifier.Total),
                 _ => RollSuccessLevel.na
             };
         }
@@ -75,21 +55,22 @@ namespace FateExplorer.RollLogic
             if (Roll >= RollSeries.Count)
                 throw new ArgumentOutOfRangeException(nameof(Roll));
 
-            return RollSeries.Count switch
+            return Roll switch
             {
-                0 => RollSuccessLevel.na,
-                1 => SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], AbilityValue + Modifier),
-                2 => SuccessHelpers.D20Success(RollSeries[1].OpenRoll[0], AbilityValue + Modifier),
+                (int)RollType.Primary => 
+                    SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], AbilityValue + (CheckModifier?.Total ?? 0)),
+                (int)RollType.Confirm => 
+                    SuccessHelpers.D20Success(RollSeries[1].OpenRoll[0], AbilityValue + (CheckModifier?.Total ?? 0)),
                 _ => RollSuccessLevel.na
             };
         }
 
 
-        private IRollM NextStep(TRoll Which) =>
+        private IRollM NextStep(RollType Which) =>
             Which switch
             {
-                TRoll.Primary => new D20Roll(null),
-                TRoll.Confirm => new D20Roll(new D20ConfirmEntry()),
+                RollType.Primary => new D20Roll(null),
+                RollType.Confirm => new D20Roll(new D20ConfirmEntry()),
                 _ => throw new ArgumentException()
             };
 
@@ -99,10 +80,10 @@ namespace FateExplorer.RollLogic
         {
             IRollM NextRoll;
             if (RollSeries.Count == 0)
-                NextRoll = NextStep(TRoll.Primary);
+                NextRoll = NextStep(RollType.Primary);
             else
             {
-                NextRoll = NextStep(TRoll.Confirm);
+                NextRoll = NextStep(RollType.Confirm);
                 if (!NextRoll.EntryConfirmed())
                     NextRoll = null; // TODO: instantiate and throw away immediately!!! URGS
             }
