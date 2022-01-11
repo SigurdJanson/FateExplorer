@@ -28,16 +28,17 @@ namespace FateExplorer.RollLogic
         public int[] PrevRoll { get; protected set; }
 
         /// <summary>
-        /// Constructor
+        /// Constructor; immediately rolls the first roll.
         /// </summary>
         /// <param name="sides">The sides of the die</param>
         public DieRollM(int sides)
         {
             if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
             Sides = new int[1] { sides };
+            RNG = new RandomMersenne();
             OpenRoll = new int[1] { 0 };
             PrevRoll = new int[1] { 0 };
-            RNG = new RandomMersenne();
+            Roll();
         }
 
         /// <inheritdoc/>
