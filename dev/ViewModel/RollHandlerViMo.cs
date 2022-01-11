@@ -134,41 +134,41 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc />
-        public CheckBaseM OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData)
+        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
                 throw new NotImplementedException($"A check for {AttrId} has not yet been implemented");
 
             //-var CheckType = ListOfChecks[RollId];
-            CheckBaseM Result;
-            switch (ListOfChecks[RollId].ToString())
+            CheckBaseM Checker;
+            RollCheckResultViMo Result;
+            switch (ListOfChecks[RollId].Name)
             {
                 case
                     nameof(AbilityCheckM):
-                    Result = new AbilityCheckM(AttrData.EffectiveValue, 0);
+                    Checker = new AbilityCheckM((AbilityDTO)AttrData, new SimpleCheckModifierM(0)/*TODO*/);
                     break;
-                case
-                    nameof(SkillCheckM):
-                    Result = new SkillCheckM(AttrData.Id);
-                    break;
-                default: 
-                    Result = Activator.CreateInstance(ListOfChecks[RollId], AttrData.EffectiveValue, 0) as CheckBaseM; 
+                //case
+                //    nameof(SkillCheckM):
+                //    Checker = new SkillCheckM(AttrData);
+                //    break;
+                default:
+                    Checker = Activator.CreateInstance(ListOfChecks[RollId], AttrData.EffectiveValue, 0) as CheckBaseM;
                     break;
 
             };
             //-var Result = Activator.CreateInstance(ListOfChecks[RollId], AttrData.EffectiveValue, 0) as CheckBaseM;
-
+            Result = new(Checker);
             return Result;
         }
 
 
         /// <inheritdoc />
-        public CheckBaseM OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier)
+        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier)
         {
             var Result = OpenRollCheck(AttrId, AttrData);
             Result.CheckModifier = Modifier;
-            Result.NextStep();
             return Result;
         }
 

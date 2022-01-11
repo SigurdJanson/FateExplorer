@@ -1,4 +1,5 @@
 ﻿using FateExplorer.RollLogic;
+using System;
 
 namespace FateExplorer.Shared
 {
@@ -22,6 +23,7 @@ namespace FateExplorer.Shared
         /// <returns>The result; criticals/botches are given as *pending*</returns>
         public static RollSuccessLevel PrimaryD20Success(int Eyes, int Attribute)
         {
+            if (Eyes > 20 || Eyes < 1) throw new ArgumentOutOfRangeException(nameof(Eyes));
             if (Eyes == 1)
                 return RollSuccessLevel.PendingCritical;
             else if (Eyes == 20)

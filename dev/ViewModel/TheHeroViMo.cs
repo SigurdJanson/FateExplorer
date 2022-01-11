@@ -257,6 +257,8 @@ namespace FateExplorer.ViewModel
                 {
                     Id = s.Key,
                     Name = s.Value.Name,
+                    Min = 0,
+                    EffectiveValue = s.Value.Value, // TODO: effective skill value
                     Max = s.Value.Value,
                     Domain = s.Value.Domain
                 };
@@ -284,7 +286,7 @@ namespace FateExplorer.ViewModel
                     Id = fav,
                     Name = s.Name,
                     Max = s.Value,
-                    EffectiveValue = s.Value,
+                    EffectiveValue = s.Value, // TODO: effective skill value
                     Min = 0,
                     Domain = s.Domain
                 };

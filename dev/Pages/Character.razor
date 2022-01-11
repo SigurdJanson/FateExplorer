@@ -1,6 +1,7 @@
 ﻿@page "/overview"
 
 @using FateExplorer.Components
+@using FateExplorer.RollLogic
 @using FateExplorer.ViewModel
 @using System.IO
 @using System
@@ -8,6 +9,7 @@
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
 @inject ITheHeroViMo Hero
+@inject IRollHandlerViMo RollHandler
 
 @if (Hero.HasBorn)
 {
@@ -33,7 +35,7 @@
                 <div>
                 @foreach (var ab in Hero.GetAbilites())
                 {
-                <AbilityChip Ability=@ab />
+                <AbilityChip Ability=@ab OnClick=@((MouseEventArgs e) => OnAbilityCheck(ab)) />
                 }
                 </div>
             </MudPaper>
@@ -59,6 +61,27 @@
                 <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
             </MudPaper>
         </MudItem>
+        <MudItem xs=12 sm=6 md=7 lg=8>
+            <MudPaper Square="true" Class="d-flex justify-space-around">
+                <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
+                <MudSlider @bind-Value=ModifyValue Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
+                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                </MudSlider>
+            </MudPaper>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
+                @if (RollCheckResults is not null)
+                {
+                    @foreach(var r in RollCheckResults.Reverse())
+                    {
+                        <RollCheckCard Result=@r />
+                    }
+                }
+                else
+                {
+                    <span>Roll something</span>
+                }
+                </MudPaper>
+        </MudItem>
     </MudGrid>
 </MudContainer>
 }
@@ -68,12 +91,33 @@ else
 }
 
 @code {
+    private RollCheckResultViMo ActiveAbilityCheck;
+    private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
+    private int ModifyValue { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (RollCheckResults is null)
+            RollCheckResults = new(4);
+    }
+
+
+    private void OnAbilityCheck(AbilityDTO ability)
+    {
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(ability.Id, ability);
+        RollCheckResults.Enqueue(ActiveAbilityCheck);
+    }
+
+
     protected void OnCharacterHasLoaded() => StateHasChanged();
+
 
     RenderFragment AddMaxResilience(ResilienceDTO r)
     {
         if (r.Max != r.EffectiveValue)
-            return @<span>(Original @r.Max)</span>;
+            return 
+                @<span>(Original @r.Max)</span>;
         else
             return @<span></span>;
     }

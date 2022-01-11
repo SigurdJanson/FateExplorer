@@ -42,7 +42,7 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
         /// <returns>A roll check</returns>
-        CheckBaseM OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData);
+        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData);
 
 
         /// <summary>
@@ -51,6 +51,6 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
         /// <returns>A roll check</returns>
-        CheckBaseM OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier);
+        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier);
     }
 }
