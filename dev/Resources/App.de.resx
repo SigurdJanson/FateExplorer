@@ -203,11 +203,17 @@
   <data name="lblAvailable" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
+  <data name="lblBelongings" xml:space="preserve">
+    <value>Besitz</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Anzahl</value>
   </data>
   <data name="lblCrossedThresholds" xml:space="preserve">
     <value>Überschrittene Schwellen</value>
+  </data>
+  <data name="lblDateOfBirth" xml:space="preserve">
+    <value>Geburtsdatum</value>
   </data>
   <data name="lblDescription" xml:space="preserve">
     <value>Beschreibung</value>
@@ -229,6 +235,9 @@
   <data name="lblMinimum" xml:space="preserve">
     <value>Minimal</value>
   </data>
+  <data name="lblModifier" xml:space="preserve">
+    <value>Modifikator</value>
+  </data>
   <data name="lblMostUsed" xml:space="preserve">
     <value>Häufig benötigt</value>
     <comment>Character Act (Skills)</comment>
@@ -239,6 +248,9 @@
   <data name="lblNoCharacter" xml:space="preserve">
     <value>Keine Charakterdaten vorhanden</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="lblPlaceOfBirth" xml:space="preserve">
+    <value>Geburtsort</value>
   </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Kombiniert</value>
@@ -261,6 +273,9 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
+  </data>
+  <data name="lblWealth" xml:space="preserve">
+    <value>Vermögen</value>
   </data>
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Deine Spezialität</value>

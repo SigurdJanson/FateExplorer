@@ -203,11 +203,17 @@
   <data name="lblAvailable" xml:space="preserve">
     <value>Available</value>
   </data>
+  <data name="lblBelongings" xml:space="preserve">
+    <value>Belongings</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Count</value>
   </data>
   <data name="lblCrossedThresholds" xml:space="preserve">
     <value>Crossed Thresholds</value>
+  </data>
+  <data name="lblDateOfBirth" xml:space="preserve">
+    <value>Date of Birth</value>
   </data>
   <data name="lblDescription" xml:space="preserve">
     <value>Description</value>
@@ -229,6 +235,9 @@
   <data name="lblMinimum" xml:space="preserve">
     <value>Minimum</value>
   </data>
+  <data name="lblModifier" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
   <data name="lblMostUsed" xml:space="preserve">
     <value>Needed the Most</value>
     <comment>Character Act (Skills)</comment>
@@ -239,6 +248,9 @@
   <data name="lblNoCharacter" xml:space="preserve">
     <value>No character data available</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="lblPlaceOfBirth" xml:space="preserve">
+    <value>Place of Birth</value>
   </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Combined</value>
@@ -261,6 +273,9 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
+  </data>
+  <data name="lblWealth" xml:space="preserve">
+    <value>Funds</value>
   </data>
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Your Specialties</value>

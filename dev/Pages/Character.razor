@@ -20,11 +20,11 @@
                 <MudText Typo=Typo.body1 Class="mb-3">@Hero.Name</MudText>
                 <div class="FieldParent">
                     <div class="mr-4 d-block Field" >
-                        <MudText Typo=Typo.caption>lblPlaceOfBirth</MudText>
+                        <MudText Typo=Typo.caption>@l10n["lblPlaceOfBirth"]</MudText>
                         <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
                     </div>
                     <div class="mr-4 d-block Field">
-                        <MudText Typo=Typo.caption>lblDateOfBirth</MudText>
+                        <MudText Typo=Typo.caption>@l10n["lblDateOfBirth"]</MudText>
                         <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>
                     </div>
                 </div>
@@ -44,8 +44,12 @@
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 @foreach (var r in Hero.GetResiliences())
                 {
-                <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
-                <MudText Typo=Typo.body1 Class="mb-3">@r.EffectiveValue</MudText>
+                <div class="d-inline">
+                <MudTooltip Text=@r.Name>
+                    <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
+                </MudTooltip>
+                    <MudText Typo=Typo.body1 Class="mb-3">@r.EffectiveValue</MudText>
+                </div>
                 }
             </MudPaper>
 
@@ -64,7 +68,7 @@
         <MudItem xs=12 sm=6 md=7 lg=8>
             <MudPaper Square="true" Class="d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider @bind-Value=ModifyValue Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
+                <MudSlider Value=ModifyValue Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
                     @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
@@ -111,6 +115,12 @@ else
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }
 
+
+    private void OnModChanged(int NewValue)
+    {
+        ModifyValue = NewValue;
+        //ActiveAbilityCheck.CheckModifier.
+    }
 
     protected void OnCharacterHasLoaded() => StateHasChanged();
 
