@@ -7,7 +7,7 @@
     <MudCardHeader>
         <CardHeaderAvatar>
             <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
-                <MudIcon Color=Color.Dark Icon=@GetAvatarIcon(Result.SuccessLevel) />
+                <MudIcon Color=Color.Dark Icon=@GetAvatarIcon(Result.SuccessLevel) Size=Size.Large />
             </MudAvatar>
         </CardHeaderAvatar>
         <CardHeaderContent>
@@ -74,9 +74,8 @@
     {
     <MudCardContent>
         <MudText Typo=Typo.body1 Class="d-inline">@GetConfirmationMessage(Result.SuccessLevel)</MudText>
-        <MudIcon Icon=@Icons.Material.Filled.Casino Title=@l10n["lblResultCardResult"] Class="d-inline px-4" />
         <MudText Typo=Typo.body1 Class="d-inline">
-            (@(Result.GetRollResult(RollType.Confirm).CombinedResult) = @(l10n["roll"+Result.SuccessLevel.ToString()]))
+            [@l10n["lblRoll"] @(Result.GetRollResult(RollType.Confirm).CombinedResult)]
         </MudText>
     </MudCardContent>
     }
