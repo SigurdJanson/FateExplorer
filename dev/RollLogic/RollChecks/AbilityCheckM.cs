@@ -43,11 +43,12 @@ namespace FateExplorer.RollLogic
                 if (RollList[RollType.Confirm] is not null)
                     return SuccessHelpers.CheckSuccess(RollList[RollType.Primary].OpenRoll[0],
                         RollList[RollType.Confirm].OpenRoll[0],
-                        AbilityValue + CheckModifier.Total);
+                        CheckModifier.Apply(AbilityValue));
+
                 else if (RollList[RollType.Primary] is not null)
                     return SuccessHelpers.PrimaryD20Success(
                         RollList[RollType.Primary].OpenRoll[0],
-                        AbilityValue + CheckModifier.Total);
+                        CheckModifier.Apply(AbilityValue));
                 else return RollSuccessLevel.na;
             }
         }
@@ -60,11 +61,15 @@ namespace FateExplorer.RollLogic
             return Which switch
             {
                 RollType.Primary => RollList[RollType.Confirm] is not null ?
-                    SuccessHelpers.PrimaryD20Success(RollList[RollType.Primary].OpenRoll[0], 
-                        AbilityValue + (CheckModifier?.Total ?? 0)) : RollSuccessLevel.na,
+                    SuccessHelpers.PrimaryD20Success(
+                        RollList[RollType.Primary].OpenRoll[0],
+                        CheckModifier.Apply(AbilityValue))
+                    : RollSuccessLevel.na,
                 RollType.Confirm => RollList[RollType.Primary] is not null ?
-                    SuccessHelpers.D20Success(RollList[RollType.Confirm].OpenRoll[0], 
-                        AbilityValue + (CheckModifier?.Total ?? 0)) : RollSuccessLevel.na,
+                    SuccessHelpers.D20Success(
+                        RollList[RollType.Confirm].OpenRoll[0],
+                        CheckModifier.Apply(AbilityValue)) 
+                    : RollSuccessLevel.na,
                 _ => RollSuccessLevel.na
             };
         }

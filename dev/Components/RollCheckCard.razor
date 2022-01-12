@@ -34,7 +34,7 @@
                             <MudText Typo=Typo.caption>
                             @if (ShowValueLabel is not null)
                             {
-                            @ShowValueLabel    @*@string.Join(" \u00B7 ", PrimRollResult.Name)*@
+                            @ShowValueLabel 
                             }
                             else
                             {
@@ -209,14 +209,4 @@
         this.StateHasChanged();
     }
 
-    //private RenderFragment MakeAvatar()
-    //{
-    //    switch (RollResult.CupType)
-    //    {
-    //        case FreeDiceCupViMo.CupType.Single: return @<span>@RollResult.DieSides[0]</span>;
-    //        case FreeDiceCupViMo.CupType.Multi:  return @<span>@RollResult.DieSides[0]</span>;
-    //        case FreeDiceCupViMo.CupType.MixedMulti: return @<span>MIX</span>;
-    //        default: return @<span>MIX</span>; //@(<MudIcon Icon=Icons.Material.Filled.FormatListNumbered />);
-    //    }
-    //}
 }

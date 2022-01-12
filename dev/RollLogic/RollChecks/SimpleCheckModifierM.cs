@@ -1,4 +1,6 @@
-﻿namespace FateExplorer.RollLogic
+﻿using System;
+
+namespace FateExplorer.RollLogic
 {
     /// <summary>
     /// The most common modifier. It simply adds the modifier to all rolled
@@ -12,7 +14,7 @@
         public int Value { get; protected set; }
 
         /// <inheritdoc/>
-        public int Total { get; }
+        public int Total { get => Value; }
 
         /// <summary>
         /// Constructor
@@ -31,6 +33,31 @@
             for (int i = 0; i < Before.OpenRoll.Length; i++)
                 After[i] = Before.OpenRoll[i] + Value;
             return After;
+        }
+
+
+        /// <inheritdoc/>
+        public int[] Apply(int[] Before) // TODO: check for min/max???
+        {
+            int[] After = new int[Before.Length];
+            for (int i = 0; i < Before.Length; i++)
+                After[i] = Before[i] + Value;
+            return After;
+        }
+
+        /// <inheritdoc/>
+        public int Apply(int Before) // TODO: check for min/max???
+        {
+            return Before + Value; ;
+        }
+
+
+
+        /// <inheritdoc/>
+        public void Set(int value)
+        {
+            if (value < -30 || value > +30) throw new ArgumentOutOfRangeException(nameof(value));
+            Value = value;
         }
     }
 }

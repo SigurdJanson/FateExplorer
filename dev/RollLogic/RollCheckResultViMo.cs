@@ -45,6 +45,7 @@ namespace FateExplorer.RollLogic
             set => RollCheck.CheckModifier = value;
         }
 
+
         /// <summary>
         /// Get the summarized additive modifier after it has been applied to the
         /// roll. See <seealso cref="ICheckModifierM.Total"/>.
