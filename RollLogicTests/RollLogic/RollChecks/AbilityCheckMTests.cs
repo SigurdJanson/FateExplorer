@@ -32,7 +32,7 @@ namespace RollLogicTests.RollLogic.RollChecks
 
 
         [Test, Repeat(10)]
-        public void RollSuccess_StateUnderTest_ExpectedBehavior()
+        public void RollSuccess_Primary_ExpectedBehavior()
         {
             AbilityDTO Ability = new()
             {
@@ -45,10 +45,10 @@ namespace RollLogicTests.RollLogic.RollChecks
             };
             // Arrange
             var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0));
-            abilityCheckM.RollNextStep();
+            //abilityCheckM.RollNextStep();
 
             // Act
-            var result = abilityCheckM.RollSuccess(0);
+            var result = abilityCheckM.RollSuccess(RollType.Primary);
 
             // Assert
             Assert.AreEqual(RollSuccessLevel.Success, result);

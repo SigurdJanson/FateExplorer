@@ -134,6 +134,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="btnConfirm" xml:space="preserve">
+    <value>Bestätige</value>
+  </data>
   <data name="btnCreate" xml:space="preserve">
     <value>Erstellen</value>
   </data>
@@ -187,6 +190,9 @@
   <data name="INT" xml:space="preserve">
     <value>IN</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="lblAbility" xml:space="preserve">
+    <value>Eigenschaft</value>
   </data>
   <data name="lblAll" xml:space="preserve">
     <value>Alle</value>
@@ -259,6 +265,18 @@
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Deine Spezialität</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="msgBotchAvoided" xml:space="preserve">
+    <value>Wie bist Du da wieder raus gekommen?</value>
+  </data>
+  <data name="msgBotchConfirmed" xml:space="preserve">
+    <value>Verlierer!</value>
+  </data>
+  <data name="msgCriticalConfirmed" xml:space="preserve">
+    <value>Genau so machen das Helden!</value>
+  </data>
+  <data name="msgCriticalLost" xml:space="preserve">
+    <value>Was ist nur los mit Dir?</value>
   </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>Du kannst Heldendateien aus der Optolith-App laden</value>

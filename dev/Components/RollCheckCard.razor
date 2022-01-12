@@ -32,9 +32,9 @@
                         <td>@*AttributeLabel*@</td> 
                         <td>
                             <MudText Typo=Typo.caption>
-                            @if (ShowValueLabels)
+                            @if (ShowValueLabel is not null)
                             {
-                            @string.Join(" \u00B7 ", PrimRollResult.Name)
+                            @ShowValueLabel    @*@string.Join(" \u00B7 ", PrimRollResult.Name)*@
                             }
                             else
                             {
@@ -62,10 +62,22 @@
     @if (Result.PrimaryNeedsConfirmation())
     {
     <MudCardContent>
-        <MudText Typo=Typo.body1>@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
-        <MudButton Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled>
-            @l10n["lblConfirm"]
+        <MudText Typo=Typo.body1 Class="d-inline pr-2">
+            @l10n["roll"+Result.SuccessLevel.ToString()]
+        </MudText>
+        <MudButton OnClick=@(() => RollConfirm()) Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled Class="d-inline">
+            @l10n["btnConfirm"]
         </MudButton>
+    </MudCardContent>
+    }
+    @if (Result.GetConfirmationResult() is not null)
+    {
+    <MudCardContent>
+        <MudText Typo=Typo.body1 Class="d-inline">@GetConfirmationMessage(Result.SuccessLevel)</MudText>
+        <MudIcon Icon=@Icons.Material.Filled.Casino Title=@l10n["lblResultCardResult"] Class="d-inline px-4" />
+        <MudText Typo=Typo.body1 Class="d-inline">
+            (@(Result.GetRollResult(RollType.Confirm).CombinedResult) = @(l10n["roll"+Result.SuccessLevel.ToString()]))
+        </MudText>
     </MudCardContent>
     }
     @if (Result.NeedsBotchEffect())
@@ -76,10 +88,6 @@
         </MudButton>
     </MudCardContent>
     }
-    @*<MudCardActions>
-        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
-        <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
-    </MudCardActions>*@
 </MudCard>
 
 
@@ -100,7 +108,8 @@
     /// Display an extra row with value labels
     /// </summary>
     [Parameter]
-    public bool ShowValueLabels { get; set; } = false;
+    public string ShowValueLabel { get; set; }
+
 
     /// <summary>
     /// A list of strings holding the icons that can be used as avatars. 
@@ -182,6 +191,24 @@
             RollSuccessLevel.PendingCritical => Color.Warning,
             _ => Color.Info
         };
+
+
+    private string GetConfirmationMessage(RollSuccessLevel Outcome) =>
+        Outcome switch
+        {
+            RollSuccessLevel.Botch => l10n["msgBotchConfirmed"],
+            RollSuccessLevel.Fail => l10n["msgBotchAvoided"],
+            RollSuccessLevel.Success => l10n["msgCriticalLost"],
+            RollSuccessLevel.Critical => l10n["msgCriticalConfirmed"],
+            _ => ""
+        };
+
+
+    private void RollConfirm()
+    {
+        Result.GetRollResult(RollType.Confirm, true);
+        this.StateHasChanged();
+    }
 
     //private RenderFragment MakeAvatar()
     //{

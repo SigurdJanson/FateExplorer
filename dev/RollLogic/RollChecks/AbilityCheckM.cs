@@ -23,8 +23,8 @@ namespace FateExplorer.RollLogic
 
             AbilityValue = ability.EffectiveValue;
             Name = ability.Name;
-            RollSeries = new();
-            RollNextStep(); // directly roll first roll and add
+            RollList = new();
+            NextStep(RollType.Primary); // directly roll first roll and add
         }
 
 
@@ -35,61 +35,84 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
+        /// <exception cref="ArgumentOutOfRangeException" />
         public override RollSuccessLevel Success
         {
-            get => RollSeries.Count switch
+            get
             {
-                0 => RollSuccessLevel.na,
-                1 => SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], 
-                    AbilityValue + CheckModifier.Total),
-                2 => SuccessHelpers.CheckSuccess(RollSeries[0].OpenRoll[0], RollSeries[1].OpenRoll[0], 
-                    AbilityValue + CheckModifier.Total),
-                _ => RollSuccessLevel.na
-            };
+                if (RollList[RollType.Confirm] is not null)
+                    return SuccessHelpers.CheckSuccess(RollList[RollType.Confirm].OpenRoll[0],
+                        RollList[RollType.Confirm].OpenRoll[0],
+                        AbilityValue + CheckModifier.Total);
+                else if (RollList[RollType.Primary] is not null)
+                    return SuccessHelpers.PrimaryD20Success(
+                        RollList[RollType.Primary].OpenRoll[0],
+                        AbilityValue + CheckModifier.Total);
+                else return RollSuccessLevel.na;
+            }
         }
 
 
         /// <inheritdoc />
-        public override RollSuccessLevel RollSuccess(int Roll)
+        /// <exception cref="ArgumentOutOfRangeException" />
+        public override RollSuccessLevel RollSuccess(RollType Which)
         {
-            if (Roll >= RollSeries.Count)
-                throw new ArgumentOutOfRangeException(nameof(Roll));
-
-            return Roll switch
+            return Which switch
             {
-                (int)RollType.Primary => 
-                    SuccessHelpers.PrimaryD20Success(RollSeries[0].OpenRoll[0], AbilityValue + (CheckModifier?.Total ?? 0)),
-                (int)RollType.Confirm => 
-                    SuccessHelpers.D20Success(RollSeries[1].OpenRoll[0], AbilityValue + (CheckModifier?.Total ?? 0)),
+                RollType.Primary => RollList[RollType.Confirm] is not null ?
+                    SuccessHelpers.PrimaryD20Success(RollList[RollType.Primary].OpenRoll[0], 
+                        AbilityValue + (CheckModifier?.Total ?? 0)) : RollSuccessLevel.na,
+                RollType.Confirm => RollList[RollType.Primary] is not null ?
+                    SuccessHelpers.D20Success(RollList[RollType.Confirm].OpenRoll[0], 
+                        AbilityValue + (CheckModifier?.Total ?? 0)) : RollSuccessLevel.na,
                 _ => RollSuccessLevel.na
             };
         }
 
 
-        private IRollM NextStep(RollType Which) =>
-            Which switch
+        private IRollM NextStep(RollType Which)
+        {
+            IRollM roll = Which switch
             {
                 RollType.Primary => new D20Roll(null),
-                RollType.Confirm => new D20Roll(new D20ConfirmEntry()),
-                _ => throw new ArgumentException()
+                RollType.Confirm => NeedsConfirmation ? new D20Roll(new D20ConfirmEntry()) : null,
+                _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
             };
-
-
-        /// <inheritdoc/>
-        public override IRollM RollNextStep()
-        {
-            IRollM NextRoll;
-            if (RollSeries.Count == 0)
-                NextRoll = NextStep(RollType.Primary);
-            else
-            {
-                NextRoll = NextStep(RollType.Confirm);
-                if (!NextRoll.EntryConfirmed())
-                    NextRoll = null; // TODO: instantiate and throw away immediately!!! URGS
-            }
-            RollSeries.Add(NextRoll);
-            return NextRoll;
+            RollList[Which] = roll;
+            return roll;
         }
+
+
+
+        ///// <inheritdoc/>
+        //public override IRollM RollNextStep()
+        //{
+        //    IRollM NextRoll;
+        //    if (RollList[RollType.Primary] is null)
+        //    {
+        //        NextRoll = NextStep(RollType.Primary);
+        //        RollList[RollType.Primary] = NextRoll;
+        //    }
+
+        //    else
+        //    {
+        //        NextRoll = NextStep(RollType.Confirm);
+        //        if (!NextRoll.EntryConfirmed())
+        //            NextRoll = null; // TODO: instantiate and throw away immediately!!! URGS
+        //    }
+        //    RollList.Add(NextRoll);
+        //    return NextRoll;
+        //}
+
+
+        public override IRollM GetRoll(RollType Which, bool AutoRoll = false)
+        {
+            if (AutoRoll && RollList[Which] is null)
+                RollList[Which] = NextStep(Which);
+
+            return RollList[Which];
+        }
+
 
 
         // inherited bool HasNextStep();

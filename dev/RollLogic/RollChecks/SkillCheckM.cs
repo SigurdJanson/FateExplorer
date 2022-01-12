@@ -39,20 +39,6 @@ namespace FateExplorer.RollLogic
         }
 
 
-        /// <inheritdoc/>
-        public override bool HasNextStep()
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-
-        /// <inheritdoc/>
-        public override IRollM RollNextStep()
-        {
-            throw new System.NotImplementedException();
-        }
-
 
         /// <summary>
         /// Determines the quality level given a number of remaining skill points
@@ -119,27 +105,42 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public override RollSuccessLevel Success
         {
-            get => RollSeries.Count switch
+            get => RollList.Count switch
             {
                 0 => RollSuccessLevel.na,
-                1 => ComputeSuccess(RollSeries[0].OpenRoll, Attribute, Skill, CheckModifier.Total),
+                1 => ComputeSuccess(RollList[0].OpenRoll, Attribute, Skill, CheckModifier.Total),
                 _ => RollSuccessLevel.na
             };
         }
 
 
-        /// <inheritdoc />
-        public override RollSuccessLevel RollSuccess(int Roll)
-        {
-            if (Roll >= RollSeries.Count)
-                throw new ArgumentOutOfRangeException(nameof(Roll));
+        ///// <inheritdoc />
+        //public override RollSuccessLevel RollSuccess(int Roll)
+        //{
+        //    if (Roll >= RollList.Count)
+        //        throw new ArgumentOutOfRangeException(nameof(Roll));
 
-            return RollSeries.Count switch
-            {
-                0 => RollSuccessLevel.na,
-                1 => ComputeSuccess(RollSeries[0].OpenRoll, Attribute, Skill, CheckModifier.Total),
-                _ => RollSuccessLevel.na
-            };
+        //    return RollList.Count switch
+        //    {
+        //        0 => RollSuccessLevel.na,
+        //        1 => ComputeSuccess(RollList[0].OpenRoll, Attribute, Skill, CheckModifier.Total),
+        //        _ => RollSuccessLevel.na
+        //    };
+        //}
+
+        //public override IRollM GetConfirmationRoll()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override RollSuccessLevel RollSuccess(RollType Which)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRollM GetRoll(RollType Which, bool AutoRoll = false)
+        {
+            throw new NotImplementedException();
         }
     }
 }

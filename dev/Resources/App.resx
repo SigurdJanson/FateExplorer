@@ -134,6 +134,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="btnConfirm" xml:space="preserve">
+    <value>Confirm it</value>
+  </data>
   <data name="btnCreate" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -187,6 +190,9 @@
   <data name="INT" xml:space="preserve">
     <value>INT</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="lblAbility" xml:space="preserve">
+    <value>Ability</value>
   </data>
   <data name="lblAll" xml:space="preserve">
     <value>All</value>
@@ -259,6 +265,18 @@
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Your Specialties</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="msgBotchAvoided" xml:space="preserve">
+    <value>You did not manage to get out of this one?</value>
+  </data>
+  <data name="msgBotchConfirmed" xml:space="preserve">
+    <value>Loser!</value>
+  </data>
+  <data name="msgCriticalConfirmed" xml:space="preserve">
+    <value>This is how heroes do it!</value>
+  </data>
+  <data name="msgCriticalLost" xml:space="preserve">
+    <value>How could you mess this up?</value>
   </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>You can import character files created by the Optolith app</value>

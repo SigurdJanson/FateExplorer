@@ -1,0 +1,9 @@
+{
+    "ATTR": {"id": "ATTR", "roll": "DSA5/0/ability", "name": "Eigenschaftsprobe", "type": "simple"},
+    "TAL":  {"id": "TAL", "roll": "DSA5/0/skill/mundane", "name": "Fertigkeitsprobe", "type": "simple"},
+    "SPELL":{"id": "SPELL", "roll": "DSA5/0/skill/arcane", "name": "Zauber", "type": "simple"},
+    "LITURGY": {"id": "LITURGY", "roll": "DSA5/0/skill/karma", "name": "Liturgiewirken", "type": "simple"},
+    "REGENERATE": {"id": "REGENERATE", "roll": "DSA5/0/regeneration", "name": "Regeneration", "type": "value"},
+    "INI": {"id": "INI", "roll": "DSA5/0/initiative", "name": "Initiative", "type": "compare"},
+    "CT_9/AT+SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/initiative", "name": "Hruruzat Attacke", "type": "compare"}
+}

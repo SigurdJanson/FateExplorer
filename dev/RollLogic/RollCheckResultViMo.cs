@@ -58,19 +58,32 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <returns></returns>
         public IRollM GetPrimaryRoll() // TODO: model is exposed
-            => RollCheck?.RollSeries[0];
+            => RollCheck?.GetRoll(RollType.Primary);
+
+        
+
+
+        public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
+        
+        
+        public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
+
+
 
         /// <summary>
         /// Returns the analysed result of the primary roll
         /// </summary>
         /// <returns></returns>
         /// <remarks>Assumes that the primary roll is at index 0.</remarks>
-        public RollResultViMo GetPrimaryResult()
-            => GetRollResult(0);
+        public RollResultViMo GetPrimaryResult() => GetRollResult(RollType.Primary);
 
 
-        public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
-        public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public RollResultViMo GetConfirmationResult() => GetRollResult(RollType.Confirm);
+
 
 
         /// <summary>
@@ -78,29 +91,18 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="Step">The roll in the order they were executed.</param>
         /// <returns></returns>
-        public RollResultViMo GetRollResult(int Step = -1)
+        public RollResultViMo GetRollResult(RollType Which, bool ForceRoll = false)
         {
-            IRollM CurrentRoll;
-
-            if (RollCheck.RollSeries.Count == 0 || RollCheck.RollSeries is null)
-            {
-                CurrentRoll = RollCheck.RollNextStep();
-                Step = 0;
-            }
-            else if (Step == -1)
-            {
-                CurrentRoll = RollCheck.RollSeries[^1];
-                Step = RollCheck.RollSeries.Count - 1;
-            }
-            else
-                CurrentRoll = RollCheck.RollSeries[Step];
+            IRollM CurrentRoll = RollCheck.GetRoll(Which, ForceRoll);
+            if (CurrentRoll is null)
+                return null;
 
             RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None);
             Result.RollResult = CurrentRoll.OpenRoll;
 
-            Result.SuccessLevel = RollCheck.RollSuccess(Step);
+            Result.SuccessLevel = RollCheck.RollSuccess(Which);
             Result.Modifier = RollCheck.CheckModifier.Total;
-            Result.CombinedResult = null;
+            Result.CombinedResult = CurrentRoll.OpenRollCombined();
             Result.RollAgainst = RollCheck.Attribute;
 
             return Result;

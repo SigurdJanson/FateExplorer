@@ -1,5 +1,5 @@
 ﻿using FateExplorer.Shared;
-using System.Collections.Generic;
+using RollLogicTests.Shared;
 
 namespace FateExplorer.RollLogic
 {
@@ -41,11 +41,6 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// A category of a roll
-        /// </summary>
-        public enum RollType { Primary = 0, Confirm = 1, Damage = 2, Botch = 3, BotchDamage = 4 }
-
 
         /// <summary>
         /// The (pending) success level of the whole check.
@@ -57,7 +52,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="Roll"></param>
         /// <returns></returns>
-        public abstract RollSuccessLevel RollSuccess(int Roll);
+        public abstract RollSuccessLevel RollSuccess(RollType Which);
 
         /// <summary>
         /// This checks modifier
@@ -68,7 +63,7 @@ namespace FateExplorer.RollLogic
         /// The series of rolls as they were needed during the check.
         /// It needs to be built roll after roll by classes implementing checks.
         /// </summary>
-        public List<IRollM> RollSeries { get; protected set; }
+        protected ArrayByEnum<IRollM, RollType> RollList { get; set; }
 
         /// <summary>
         /// The target attribute to roll against.
@@ -81,8 +76,10 @@ namespace FateExplorer.RollLogic
         /// Implement this method to return an instance of the next roll.
         /// Create the instance and add it to the RollSeries.
         /// </summary>
-        /// <returns>A roll object; null if the check has allows no further rolls.</returns>
-        public abstract IRollM RollNextStep();
+        /// <param name="Which">The desired roll type</param>
+        /// <param name="AutoRoll">If the roll has not been made, yet, do it. Default = false.</param>
+        /// <returns>A roll object; null if the check does not allow this roll or has ot not made, yet.</returns>
+        public abstract IRollM GetRoll(RollType Which, bool AutoRoll = false);
 
 
 
@@ -95,7 +92,6 @@ namespace FateExplorer.RollLogic
         { get => Success == RollSuccessLevel.PendingBotch || Success == RollSuccessLevel.PendingCritical; }
 
 
-
         /// <summary>
         /// Needs a roll to determine the effect of a botch roll. By default 
         /// a botch roll is required when the current 
@@ -106,18 +102,6 @@ namespace FateExplorer.RollLogic
 
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// This method does not need to be overwritten unless addtional conditions 
-        /// than <c>NextStep() == 0</c> must be met.
-        /// </remarks>
-        public virtual bool HasNextStep()
-        {
-            return RollNextStep() is not null;
-        }
 
     }
 }
