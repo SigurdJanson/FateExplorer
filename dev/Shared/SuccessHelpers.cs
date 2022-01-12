@@ -111,8 +111,6 @@ namespace FateExplorer.Shared
             {
                 return Primary;
             }
-                
-
         }
     }
 }

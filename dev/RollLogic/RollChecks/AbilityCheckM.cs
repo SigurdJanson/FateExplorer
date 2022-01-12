@@ -41,7 +41,7 @@ namespace FateExplorer.RollLogic
             get
             {
                 if (RollList[RollType.Confirm] is not null)
-                    return SuccessHelpers.CheckSuccess(RollList[RollType.Confirm].OpenRoll[0],
+                    return SuccessHelpers.CheckSuccess(RollList[RollType.Primary].OpenRoll[0],
                         RollList[RollType.Confirm].OpenRoll[0],
                         AbilityValue + CheckModifier.Total);
                 else if (RollList[RollType.Primary] is not null)
@@ -84,27 +84,6 @@ namespace FateExplorer.RollLogic
 
 
 
-        ///// <inheritdoc/>
-        //public override IRollM RollNextStep()
-        //{
-        //    IRollM NextRoll;
-        //    if (RollList[RollType.Primary] is null)
-        //    {
-        //        NextRoll = NextStep(RollType.Primary);
-        //        RollList[RollType.Primary] = NextRoll;
-        //    }
-
-        //    else
-        //    {
-        //        NextRoll = NextStep(RollType.Confirm);
-        //        if (!NextRoll.EntryConfirmed())
-        //            NextRoll = null; // TODO: instantiate and throw away immediately!!! URGS
-        //    }
-        //    RollList.Add(NextRoll);
-        //    return NextRoll;
-        //}
-
-
         public override IRollM GetRoll(RollType Which, bool AutoRoll = false)
         {
             if (AutoRoll && RollList[Which] is null)
@@ -114,8 +93,8 @@ namespace FateExplorer.RollLogic
         }
 
 
-
-        // inherited bool HasNextStep();
+        public override bool NeedsBotchEffect
+        { get => false; }
 
 
     }
