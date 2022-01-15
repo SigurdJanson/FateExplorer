@@ -11,30 +11,51 @@
     </MudCardHeader>
 
     <MudCardContent>
-        <MudNumericField @bind-Value=EffValue Label="@l10n["lblAvailable"]"
-            Variant=Variant.Text Min=@Energy.Min Max=@MaxValue HideSpinButtons=true />
-            <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
+        <div class="d-flex flex-row">
+        <MudIconButton OnClick=@(() => ChangeEffValue(-2)) Icon="@Icons.Material.Filled.ExposureNeg2" aria-label="Reduce by 2"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(-1)) Icon="@Icons.Material.Filled.ExposureNeg1" aria-label="Reduce by 1"></MudIconButton>
+        <div>
+        <MudNumericField Value=@EffValue ValueChanged=@((int i) => SetEffValue(i)) Label="@l10n["lblAvailable"]"
+            Variant=Variant.Text Min=@Energy.Min Max=99 HideSpinButtons=true Style="min-width:4rem;" />
+        <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
+        </div>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon="@Icons.Material.Filled.ExposurePlus1" aria-label="Increase by 1"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon="@Icons.Material.Filled.ExposurePlus2" aria-label="Increase by 2"></MudIconButton>
+        </div>
 
-            <MudText Typo=Typo.caption Align="Align.Center">@l10n["lblCrossedThresholds"]</MudText>
-            <div class="d-flex flex-row">
-                <MudSpacer/>
-                <MudTooltip Text="lblArrowLeft" Style="Width:100%">
-                <MudAvatar Color=Color.Primary Square=true>@Energy.CrossedThresholds</MudAvatar>
-                </MudTooltip>
-                <MudSpacer/>
-            </div>
+        <MudText Typo=Typo.caption Align="Align.Center">@l10n["lblCrossedThresholds"]</MudText>
+        <div class="d-flex flex-row">
+            <MudSpacer/>
+            <MudTooltip Text="lblArrowLeft" Style="Width:100%">
+            <MudAvatar Color=Color.Primary Square=true>@Energy.CrossedThresholds</MudAvatar>
+            </MudTooltip>
+            <MudSpacer/>
+        </div>
     </MudCardContent>
+    <MudCardActions Class="d-flex justify-center">
+        <MudButton OnClick=@FullyRestore Variant=Variant.Outlined Color=Color.Primary>
+            @l10n["btnFullyRestore"]
+        </MudButton>
+    </MudCardActions>
 
     <MudCardContent>
-        <MudNumericField @bind-Value=MaxValue Label="@l10n["lblMaximum"]"
-            Variant=Variant.Text Min=0 HideSpinButtons=true 
-            Disabled=false Style="color:black" />
+        <div class="d-flex flex-row">
+            <MudNumericField Value=@MaxValue ValueChanged=@((int i) => SetEffMaxValue(i)) Label="@l10n["lblMaximum"]"
+                Variant=Variant.Text Min=1 HideSpinButtons=true 
+                Disabled=false Style="color:black" />
+            @if (Energy.EffMax != Energy.Max) @* The maximum value != the effective Max *@
+            {
+                <MudIconButton OnClick=@(() => SetEffMaxValue(Energy.Max))
+                    Icon=@Icons.Material.Filled.SettingsBackupRestore Color=Color.Default Size=Size.Small 
+                        Title=@l10n["btnReset"] aria-label=@l10n["btnReset"] />
+            }
+        </div>
         <MudNumericField Value=@Energy.Min Label="@l10n["lblMinimum"]" 
             Variant=Variant.Text HideSpinButtons=true 
             Disabled=true Style="color:black" />
     </MudCardContent>
 
-    <MudCardActions>
+@*    <MudCardActions>
         <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
             <MudButton OnClick=@(() => ChangeEffValue(-1))>-1</MudButton>
             <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
@@ -54,7 +75,7 @@
                 <MudMenuItem OnClick=@(() => ChangeEffValue(5))>+5</MudMenuItem>
             </MudMenu>
         </MudButtonGroup>
-    </MudCardActions>
+    </MudCardActions>*@
 
 </MudCard>
 
@@ -70,16 +91,36 @@
     [Parameter] public EventCallback<EnergyDTO> EnergyChanged { get; set; }
 
 
-    // Variables duplicate values to allow 2-way binding
-    private int MaxValue { get; set; }
-    private int EffValue { get; set; }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        MaxValue = Energy.Max;
+        MaxValue = Energy.EffMax;
         EffValue = Energy.EffectiveValue;
+    }
+
+    // Variables duplicate values to allow 2-way binding
+    private int MaxValue { get; set; }
+    private int EffValue { get; set; }
+
+
+
+    private void FullyRestore() => SetEffValue(MaxValue);
+
+
+    private void SetEffValue(int NewValue)
+    {
+        if (Energy.Min <= NewValue)
+        {
+            EffValue = NewValue;
+
+            //Energy.EffectiveValue = EffValue causes Error CS1612
+            EnergyDTO NewEnergy = Energy;
+            NewEnergy.EffectiveValue = EffValue;
+
+            EnergyChanged.InvokeAsync(NewEnergy);
+        }
     }
 
 
@@ -87,7 +128,7 @@
     private void ChangeEffValue(int Delta)
     {
         int NewEff = EffValue + Delta;
-        if (NewEff <= MaxValue && Energy.Min <= EffValue)
+        if (Energy.Min <= NewEff)
         {
             EffValue = NewEff;
 
@@ -99,4 +140,18 @@
         }
     }
 
+
+    private void SetEffMaxValue(int NewValue)
+    {
+        if (Energy.Min <= NewValue)
+        {
+            MaxValue = NewValue;
+
+            //Energy.EffectiveValue = MaxValue causes Error CS1612
+            EnergyDTO NewEnergy = Energy;
+            NewEnergy.EffMax = MaxValue;
+
+            EnergyChanged.InvokeAsync(NewEnergy);
+        }
+    }
 }

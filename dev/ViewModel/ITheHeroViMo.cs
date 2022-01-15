@@ -65,6 +65,8 @@ namespace FateExplorer.ViewModel
         List<SkillDomain> GetMasteredSkillDomains();
 
 
+        List<AbilityDTO> GetSkillAbilities(SkillsDTO skill);
+
         /// <summary>
         /// Returns toughness and spirit
         /// </summary>

@@ -140,12 +140,18 @@
   <data name="btnCreate" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="btnFullyRestore" xml:space="preserve">
+    <value>Fully restore</value>
+  </data>
   <data name="btnOpenMenu" xml:space="preserve">
     <value>Open menu</value>
     <comment>NavMenu</comment>
   </data>
   <data name="btnRemove" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="btnReset" xml:space="preserve">
+    <value>Reset</value>
   </data>
   <data name="btnUploadFile" xml:space="preserve">
     <value>Upload file</value>

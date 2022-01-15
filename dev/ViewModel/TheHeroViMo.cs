@@ -99,6 +99,11 @@ namespace FateExplorer.ViewModel
         /// <inheritdoc />
         public int Max { get; set; }
 
+        /// <summary>
+        /// Allows users to set their character's energy themselves
+        /// </summary>
+        public int EffMax { get; set; }
+
         /// <inheritdoc />
         public int Min { get; set; }
 
@@ -196,6 +201,13 @@ namespace FateExplorer.ViewModel
                 EnergyEffValues.Clear();
             foreach (var chen in characterM?.Energies)
                 EnergyEffValues.Add(chen.Key, chen.Value.Max);
+
+            if (EnergyEffMax is null)
+                EnergyEffMax = new();
+            else
+                EnergyEffMax.Clear();
+            foreach (var chen in characterM?.Energies)
+                EnergyEffMax.Add(chen.Key, chen.Value.Max);
 
             // RESILIENCES
             if (ResilienceEffValues is null)
@@ -358,6 +370,28 @@ namespace FateExplorer.ViewModel
                 if (b.Value) Result.Add(b.Key);
             return Result;
         }
+
+
+        public List<AbilityDTO> GetSkillAbilities(SkillsDTO skill)
+        {
+            List<AbilityDTO> Result = new ();
+            var s = characterM.Skills.Skills[skill.Id];
+            foreach (var AbilityId in s.Abilities)
+            {
+                var Ability = characterM?.Abilities[AbilityId];
+                Result.Add(new AbilityDTO()
+                {
+                    Id = Ability.Id,
+                    Name = Ability.Name,
+                    ShortName = Ability.ShortName,
+                    EffectiveValue = AbilityEffValues[Ability.Id],
+                    Max = Ability.Value,
+                    Min = 0
+                });
+            }
+            return Result;
+        }
+
         #endregion
 
 
@@ -368,6 +402,11 @@ namespace FateExplorer.ViewModel
         /// Effective points of this energy
         /// </summary>
         public Dictionary<string, int> EnergyEffValues { get; protected set; }
+
+        /// <summary>
+        /// Effective points of this energy
+        /// </summary>
+        public Dictionary<string, int> EnergyEffMax { get; protected set; }
 
         /// <inheritdoc/>
         public List<EnergyDTO> GetEnergies()
@@ -382,6 +421,7 @@ namespace FateExplorer.ViewModel
                     Name = GameDataService.Energies[r.Key].Name,
                     ShortName = GameDataService.Energies[r.Key].ShortName,
                     Max = r.Value.Max,
+                    EffMax = EnergyEffMax[r.Key],
                     Min = r.Value.Min,
                     EffectiveValue = EnergyEffValues[r.Key],
                     CrossedThresholds = r.Value.CountCrossedThresholds(EnergyEffValues[r.Key])
@@ -397,6 +437,7 @@ namespace FateExplorer.ViewModel
         {
             var energyM = characterM.Energies[energy.Id];
             EnergyEffValues[energy.Id] = energy.EffectiveValue;
+            EnergyEffMax[energy.Id] = energy.EffMax;
             energyM.Max = energy.Max;
             energy.CrossedThresholds = energyM.CountCrossedThresholds(energy.EffectiveValue);
 
