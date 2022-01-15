@@ -1,6 +1,7 @@
 ﻿using FateExplorer.CharacterData;
 using FateExplorer.GameData;
 using FateExplorer.GameLogic;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -144,7 +145,8 @@ namespace FateExplorer.ViewModel
 
     public class TheHeroViMo : ITheHeroViMo
     {
-        protected IGameDataService GameDataService;
+        protected IGameDataService GameDataService; // injected
+        protected IConfiguration AppConfig; // injected
         protected ICharacterM characterM;
 
         /// <summary>
@@ -159,9 +161,10 @@ namespace FateExplorer.ViewModel
         /// Constructor
         /// </summary>
         /// <param name="gameData"></param>
-        public TheHeroViMo(IGameDataService gameData)
+        public TheHeroViMo(IGameDataService gameData, IConfiguration appConfig)
         {
             GameDataService = gameData;
+            AppConfig = appConfig;
         }
 
         /// <inheritdoc/>
@@ -285,8 +288,7 @@ namespace FateExplorer.ViewModel
         /// <returns>List as DTO for the View</returns>
         public List<SkillsDTO> GetFavoriteSkills()
         {
-            // TODO: put into config: "Sinnesschärfe", "Menschenkenntnis", "Heilkunde Wunden"
-            string[] Favs = new string[3] { "TAL_10", "TAL_20", "TAL_50" };
+            string[] Favs = AppConfig.GetSection("MostUsedSkills").Get<string[]>();
 
             List<SkillsDTO> Result = new();
 
