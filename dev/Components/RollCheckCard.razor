@@ -56,16 +56,14 @@
                             @TargetAttrValues(Result.Remainder)
                         <td> &nbsp; </td>  @*No roll against the mod*@
                     </tr>
-                    @*if (Result is not null)
-                    {
-                    <tr>
-                        <td>@l10n["lblRemaining"]</td>
-                        <td>@string.Join(" \u00B7 ", Result.Remainder)</td>
-                        <td>@*No roll against the mod@</td>
-                    </tr>
-                    }*@
                 </tbody>
             </MudSimpleTable>
+            @if (Result.Classification is not null)
+            {
+            <p class="py-4">
+                @l10n[Result.ClassificationLabel] @Result.Classification
+            </p>
+            }
             </MudItem>
         </MudGrid>
     </MudCardContent>

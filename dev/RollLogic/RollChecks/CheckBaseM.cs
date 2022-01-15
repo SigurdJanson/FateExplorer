@@ -65,6 +65,10 @@ namespace FateExplorer.RollLogic
         /// they have been rolled against.
         /// </summary>
         public abstract int? TargetAttr { get; protected set; }
+        /// <summary>
+        /// The target value is to compensate for rolls exceeding the attibute value 
+        /// they have been rolled against. This is it's name.
+        /// </summary>
         public abstract string TargetAttrName { get; protected set; }
 
 
@@ -87,18 +91,30 @@ namespace FateExplorer.RollLogic
         /// <returns></returns>
         public abstract RollSuccessLevel RollSuccess(RollType Which);
 
-        /// <summary>
-        /// The series of rolls as they were needed during the check.
-        /// It needs to be built roll after roll by classes implementing checks.
-        /// </summary>
-        protected ArrayByEnum<IRollM, RollType> RollList { get; set; }
-
 
 
         /// <summary>
         /// The remaining eyes after evaluating the check
         /// </summary>
         public abstract int Remainder { get; }
+
+        /// <summary>
+        /// Classifies the result, e.g. the quality level of a skill check.
+        /// </summary>
+        public abstract string ClassificationLabel { get; }
+
+        /// <summary>
+        /// Classifies the result, e.g. the quality level of a skill check.
+        /// </summary>
+        public abstract string Classification { get; }
+
+
+        /// <summary>
+        /// The series of rolls as they were needed during the check.
+        /// It needs to be built roll after roll by classes implementing checks.
+        /// </summary>
+        protected ArrayByEnum<IRollM, RollType> RollList { get; set; }
+
 
         /// <summary>
         /// Get remaining eyes for a particular roll after it's evaluation.

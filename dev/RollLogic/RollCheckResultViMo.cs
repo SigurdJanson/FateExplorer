@@ -18,6 +18,9 @@ namespace FateExplorer.RollLogic
         }
 
 
+
+        // CHECK ///////////////////////////////
+
         /// <summary>
         /// Describing name
         /// </summary>
@@ -80,7 +83,13 @@ namespace FateExplorer.RollLogic
         public int Remainder { get => RollCheck.Remainder; }
 
 
+        public string ClassificationLabel => RollCheck.ClassificationLabel;
 
+        public string Classification => RollCheck.Classification;
+
+
+
+        // ROLLS ///////////////////////
 
         /// <summary>
         /// Get remaining eyes for a particular roll after it's evaluation (i.e. roll attribute 

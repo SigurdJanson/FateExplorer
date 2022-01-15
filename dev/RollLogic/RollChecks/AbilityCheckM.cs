@@ -78,6 +78,18 @@ namespace FateExplorer.RollLogic
         }
 
 
+
+        /// <inheritdoc />
+        /// <remarks>Ability rolls do not provide a classification</remarks>
+        public override string ClassificationLabel => null;
+
+        /// <inheritdoc />
+        /// <remarks>Ability rolls do not provide a classification</remarks>
+        public override string Classification => null;
+
+
+        // ROLL /////////////////////////////////
+
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException" />
         public override RollSuccessLevel RollSuccess(RollType Which)

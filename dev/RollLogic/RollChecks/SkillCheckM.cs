@@ -195,6 +195,15 @@ namespace FateExplorer.RollLogic
         }
 
 
+        /// <inheritdoc />
+        public override string ClassificationLabel => "QL";
+
+        /// <inheritdoc />
+        public override string Classification => ComputeSkillQuality(Remainder).ToString();
+
+
+
+        // ROLLS  ////////////////////////
 
         /// <inheritdoc/>
         public override int[] RollRemainder(RollType Which)

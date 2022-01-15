@@ -340,6 +340,9 @@
     <value>New Dice Cup</value>
     <comment>DlgFreeDiceCup</comment>
   </data>
+  <data name="QL" xml:space="preserve">
+    <value>QS</value>
+  </data>
   <data name="Roll Free Dice" xml:space="preserve">
     <value>Frei Würfeln</value>
     <comment>Free Dice</comment>
