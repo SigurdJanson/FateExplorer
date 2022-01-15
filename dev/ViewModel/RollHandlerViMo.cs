@@ -1,13 +1,13 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.RollLogic;
+using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using FateExplorer.RollLogic;
-using System.Text.Json;
 
 namespace FateExplorer.ViewModel
 {
@@ -51,7 +51,7 @@ namespace FateExplorer.ViewModel
             set => rollMappings = value;
         }
 
-        
+
         protected Dictionary<string, Type> ListOfChecks { get; set; }
 
 
@@ -79,7 +79,7 @@ namespace FateExplorer.ViewModel
         /// <inheritdoc/>
         public void RegisterChecks()
         {
-            ListOfChecks = new() 
+            ListOfChecks = new()
             {
                 { AbilityCheckM.checkTypeId, typeof(AbilityCheckM) },
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) }
@@ -163,7 +163,7 @@ namespace FateExplorer.ViewModel
                     break;
 
             };
-            
+
             Result = new(Checker);
             return Result;
         }

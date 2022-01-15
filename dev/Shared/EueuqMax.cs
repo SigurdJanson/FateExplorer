@@ -14,8 +14,9 @@ namespace FateExplorer.Shared
         /// The maximum of the queue. It will not hold more items than that.
         /// if MaxCount <= 0 it will be ignored.
         /// </summary>
-        public int MaxCount { 
-            get => maxCount; 
+        public int MaxCount
+        {
+            get => maxCount;
             set
             {
                 int oldMax = maxCount;
@@ -46,7 +47,7 @@ namespace FateExplorer.Shared
         {
             MaxCount = maxCount;
             if (MaxCount > 0)
-                EnsureCapacity(MaxCount+1);
+                EnsureCapacity(MaxCount + 1);
         }
 
 

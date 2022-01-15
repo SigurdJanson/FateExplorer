@@ -15,8 +15,12 @@ namespace RollLogicTests.RollLogic.RollChecks
         {
             AbilityDTO Ability = new()
             {
-                Name = "Test-Ability", Id = "TestId", ShortName = "TT",
-                Max = 10, Min = 0, EffectiveValue = 20
+                Name = "Test-Ability",
+                Id = "TestId",
+                ShortName = "TT",
+                Max = 10,
+                Min = 0,
+                EffectiveValue = 20
             };
             // Arrange
             var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0));

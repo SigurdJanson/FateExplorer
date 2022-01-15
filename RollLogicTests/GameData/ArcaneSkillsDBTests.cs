@@ -27,7 +27,7 @@ namespace RollLogicTests.GameData
             Assert.AreEqual(SkillLast, Result[^1].Id);
         }
 
-        
+
         [Test, Ignore("Not valid for arcane skill because not all have been translated")]
         [TestCase("", new string[] { "de", "en" })]
         public override void CompareLanguages_Equality(string Dummy, string[] Languages)

@@ -36,7 +36,7 @@ namespace RollLogicTests.CharacterData
             public Dictionary<string, int> Spells { get; set; }
 
             [JsonPropertyName("end")]
-            public string End { get; set;}
+            public string End { get; set; }
         }
 
 

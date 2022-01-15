@@ -1,7 +1,6 @@
 ﻿using FateExplorer.RollLogic;
-using NUnit.Framework;
 using Moq;
-using Moq.Protected;
+using NUnit.Framework;
 using System.Linq;
 
 namespace RollLogicTests.RollLogic
@@ -97,7 +96,7 @@ namespace RollLogicTests.RollLogic
         public void Roll_DefaultAggregate_Products(int DieCount, int Sides)
         {
             // Arrange
-            MultiDieRoll multiDieRoll = new(Sides, DieCount, (int a, int b) => a*b );
+            MultiDieRoll multiDieRoll = new(Sides, DieCount, (int a, int b) => a * b);
             multiDieRoll.Roll();
 
             // Act
@@ -131,7 +130,7 @@ namespace RollLogicTests.RollLogic
             Assume.That(multiDieRoll.OpenRoll[0] == 1 && multiDieRoll.OpenRoll[1] == Sides);
 
             // Assert
-            Assert.AreEqual(Sides+1, result);
+            Assert.AreEqual(Sides + 1, result);
         }
 
 

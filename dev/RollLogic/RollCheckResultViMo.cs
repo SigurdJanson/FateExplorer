@@ -1,5 +1,4 @@
 ﻿using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -108,8 +107,8 @@ namespace FateExplorer.RollLogic
             => RollCheck?.GetRoll(RollType.Primary);
 
         public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
-        
-        
+
+
         public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
 
 

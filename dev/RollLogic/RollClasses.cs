@@ -56,14 +56,14 @@ namespace FateExplorer.RollLogic
                     Success = RollSuccessLevel.Fail;
                 else
                     Success = RollSuccessLevel.Botch;
-            } 
+            }
             else if (Roll.Meaning == RollSuccessLevel.PendingCritical)
             {
                 if (OpenRoll[0] <= Threshold)
                     Success = RollSuccessLevel.Critical;
                 else
                     Success = RollSuccessLevel.Success;
-            } 
+            }
             else
             {
                 Success = Roll.Meaning;

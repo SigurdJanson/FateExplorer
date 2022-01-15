@@ -17,7 +17,7 @@ namespace FateExplorer.GameLogic
 
             // ABILITIES
             Abilities = new();
-            foreach(var AbImport in characterImportOptM.GetAbilities())
+            foreach (var AbImport in characterImportOptM.GetAbilities())
             {
                 string AbilityName = gameData.Abilities[AbImport.Key].Name;
                 string AbilityShortName = gameData.Abilities[AbImport.Key].ShortName;
@@ -30,7 +30,7 @@ namespace FateExplorer.GameLogic
 
             // ENERGIES
             Energies = new();
-            foreach(var energy in gameData.Energies.Data)
+            foreach (var energy in gameData.Energies.Data)
             {
                 CharacterEnergyM energyM = null;
                 CharacterEnergyClass _Class;
@@ -85,7 +85,7 @@ namespace FateExplorer.GameLogic
 
         public Dictionary<string, ResilienceM> Resiliences { get; set; }
 
-        public Dictionary<string, CombatTechM> CombatTechs{ get; set; }
+        public Dictionary<string, CombatTechM> CombatTechs { get; set; }
 
         public CharacterSkillsM Skills { get; set; }
 

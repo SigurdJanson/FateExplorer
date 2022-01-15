@@ -187,15 +187,15 @@ namespace FateExplorer.CharacterData
         public int GetAddedEnergy(CharacterEnergyClass energyClass) =>
             energyClass switch
             {
-                CharacterEnergyClass.LP => 
+                CharacterEnergyClass.LP =>
                     Attr.Lp + Attr.PermanentLP.Lost + Attr.PermanentLP.Redeemed,
-                CharacterEnergyClass.AE => 
+                CharacterEnergyClass.AE =>
                     Attr.Ae + Attr.PermanentAE.Lost + Attr.PermanentAE.Redeemed,
-                CharacterEnergyClass.KP => 
+                CharacterEnergyClass.KP =>
                     Attr.Kp + Attr.PermanentKP.Lost + Attr.PermanentKP.Redeemed,
                 _ => 0
             };
-            
+
 
         /// <inheritdoc/>
         public bool IsSpellcaster() // TODO: use the advantage here, not the crutch
@@ -419,7 +419,7 @@ namespace FateExplorer.CharacterData
     //{
     //}
 
-    
+
     // TODO
     public class Activatable
     {
@@ -555,17 +555,17 @@ namespace FateExplorer.CharacterData
         public string Where { get; set; }
 
 
-#region Unclear
+        #region Unclear
         /// <summary>
         /// ?
         /// </summary>
         [JsonPropertyName("stp")]
         public int? Stp { get; set; }
-#endregion
+        #endregion
 
 
 
-#region Optolith-specific properties
+        #region Optolith-specific properties
 
         /// <summary>
         /// String referring to the Optolith template id.
@@ -586,11 +586,11 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("gr")]
         public int Group { get; set; }
 
-#endregion
+        #endregion
 
 
 
-#region Weapon
+        #region Weapon
         /// <summary>
         /// AT-Mod
         /// </summary>
@@ -652,11 +652,11 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("primaryThreshold")]
         public PrimaryThreshold PrimaryThreshold { get; set; }
 
-#endregion
+        #endregion
 
 
 
-#region Armour
+        #region Armour
         /// <summary>
         /// Encumbrance (Behinderung, BE) caused by the armour.
         /// </summary>
@@ -672,7 +672,7 @@ namespace FateExplorer.CharacterData
         // ?
         [JsonPropertyName("armorType")]
         public int? ArmorType { get; set; } //TODO
-#endregion
+        #endregion
     }
 
     public class PrimaryThreshold

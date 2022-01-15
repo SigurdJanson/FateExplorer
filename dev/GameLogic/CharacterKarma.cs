@@ -30,7 +30,7 @@ namespace FateExplorer.GameLogic
         {
             // We may not need all thresholds when Max is low
             if (Max >= 41) // we need all levels then
-                Thresholds = new int[] { Max-10, Max-20, Max-30, Max-40 };
+                Thresholds = new int[] { Max - 10, Max - 20, Max - 30, Max - 40 };
             else if (Max >= 31)
                 Thresholds = new int[] { Max - 10, Max - 20, Max - 30 };
             else if (Max >= 21)

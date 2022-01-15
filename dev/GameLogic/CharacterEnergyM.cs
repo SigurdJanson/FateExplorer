@@ -1,8 +1,5 @@
 ﻿using FateExplorer.GameData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
@@ -33,7 +30,7 @@ namespace FateExplorer.GameLogic
         /// Maximum points of the character, i.e. health, karma or astral energy.
         /// Changing it updates the thresholds, too.
         /// </summary>
-        public int Max 
+        public int Max
         {
             get => max;
             set
@@ -51,9 +48,9 @@ namespace FateExplorer.GameLogic
             else
                 Value = Operation(Value, Modifier);
 
-            if (Value < Min) 
+            if (Value < Min)
                 Value = Min;
-            else if (Value > Max) 
+            else if (Value > Max)
                 Value = Max;
 
             return Value;

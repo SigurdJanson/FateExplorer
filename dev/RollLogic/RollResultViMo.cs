@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using FateExplorer.FreeDiceCupViMo;
+﻿using FateExplorer.FreeDiceCupViMo;
 using FateExplorer.Shared;
+using System.Linq;
 
 namespace FateExplorer.RollLogic
 {

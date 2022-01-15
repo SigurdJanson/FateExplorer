@@ -8,7 +8,7 @@ using System.Text.Json;
 namespace RollLogicTests.GameData
 {
     [TestFixture]
-    public class GameDataTestsBase<TDB, TEntry> 
+    public class GameDataTestsBase<TDB, TEntry>
         where TDB : DataServiceCollectionBase<TEntry>, new()
         where TEntry : class, ICharacterAttribute
     {

@@ -1,8 +1,6 @@
 ﻿using FateExplorer.GameData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
@@ -12,8 +10,8 @@ namespace FateExplorer.GameLogic
         public CharacterHealth(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
             : base(gameData, _Class, AddedEnergy, hero)
         {
-            if (_Class != CharacterEnergyClass.LP) 
-                throw new ArgumentException($"Class has been instantiated with the wrong type of energy", 
+            if (_Class != CharacterEnergyClass.LP)
+                throw new ArgumentException($"Class has been instantiated with the wrong type of energy",
                     nameof(_Class));
 
             int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;

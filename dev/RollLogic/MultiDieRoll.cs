@@ -51,7 +51,7 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc/>
         public int[] Roll()
         {
-            for(int i = 0; i < DieCount; i++)
+            for (int i = 0; i < DieCount; i++)
             {
                 PrevRoll[i] = OpenRoll[i];
                 OpenRoll[i] = RNG.IRandom(1, Sides[i]);

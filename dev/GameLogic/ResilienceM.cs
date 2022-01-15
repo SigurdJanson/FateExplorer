@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FateExplorer.GameLogic
 {
@@ -26,8 +25,8 @@ namespace FateExplorer.GameLogic
         public string[] DependentAbilities { get; set; }
 
         private int? value = null;
-        public int Value 
-        { 
+        public int Value
+        {
             get
             {
                 if (this.value is null)

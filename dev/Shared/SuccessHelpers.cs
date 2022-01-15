@@ -1,5 +1,4 @@
-﻿using FateExplorer.RollLogic;
-using System;
+﻿using System;
 
 namespace FateExplorer.Shared
 {
@@ -106,7 +105,7 @@ namespace FateExplorer.Shared
             {
                 Confirm = D20Success(ConfirmEyes, Attribute);
                 return CheckSuccess(Primary, Confirm);
-            } 
+            }
             else
             {
                 return Primary;

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using MudBlazor.Extensions;
 using MudBlazor.Utilities;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -23,11 +22,11 @@ namespace FateExplorer.Components
           .AddClass($"mud-chip-size-{Size.ToDescriptionString()}")
           .AddClass($"mud-chip-color-{GetColor().ToDescriptionString()}")
           .AddClass("mud-clickable", OnClick.HasDelegate)
-          .AddClass("mud-ripple",  OnClick.HasDelegate && !DisableRipple)
+          .AddClass("mud-ripple", OnClick.HasDelegate && !DisableRipple)
           .AddClass("mud-chip-label", Label)
           .AddClass("mud-disabled", Disabled)
           .AddClass("mud-chip-selected", IsSelected)
-          //.AddClass(Class)
+        //.AddClass(Class)
         .Build();
 
         private Variant GetVariant()

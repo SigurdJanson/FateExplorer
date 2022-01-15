@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using FateExplorer.RollLogic;
+using System;
 using System.Collections.Generic;
-using FateExplorer.RollLogic;
 
 namespace FateExplorer.FreeDiceCupViMo
 {

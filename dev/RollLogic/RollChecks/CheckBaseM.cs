@@ -32,8 +32,8 @@ namespace FateExplorer.RollLogic
         /// incl. the <see cref="CheckTypeId">id path</see>, the <see cref="AttributeId">attribute</see> and 
         /// the <see cref="UniqueId">unique check id</see>.
         /// </summary>
-        public string Id 
-        { 
+        public string Id
+        {
             get => CheckTypeId + "/" + AttributeId.TrimEnd('/') + "/" + UniqueId;
         }
 
@@ -51,12 +51,12 @@ namespace FateExplorer.RollLogic
         /// The value(s) of the target attribute to roll against.
         /// </summary>
         public abstract int[] RollAttr { get; protected set; }
-        
+
         /// <summary>
-                                                              /// (Human-readable) string to describe the values that is being rolled against.
-                                                              /// A single string here may be identical to <see cref="Name"/>, e.g. for
-                                                              /// ability checks.
-                                                              /// </summary>
+        /// (Human-readable) string to describe the values that is being rolled against.
+        /// A single string here may be identical to <see cref="Name"/>, e.g. for
+        /// ability checks.
+        /// </summary>
         public abstract string[] RollAttrName { get; protected set; }
 
 

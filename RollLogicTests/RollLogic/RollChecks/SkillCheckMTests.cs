@@ -169,7 +169,7 @@ namespace RollLogicTests.RollLogic.RollChecks
 
         // Example Core Rules, p. 22
         [Test]
-        [TestCase(new int[3] {10, 18, 12}, new int[3] { 13, 12, 14 }, 7, 0, ExpectedResult = 1)]
+        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, 0, ExpectedResult = 1)]
         public int ComputeSkillRemainder_Samples(int[] Eyes, int[] Attributes, int Skill, int Mod)
         {
             // Arrange
@@ -231,7 +231,7 @@ namespace RollLogicTests.RollLogic.RollChecks
 
         [Test]
         public void ComputeSuccess_Critical_CriticalLevel(
-            [Values(1)] int v1, [Values(1)] int v2, [Random(1, 20, 10)] int v3, 
+            [Values(1)] int v1, [Values(1)] int v2, [Random(1, 20, 10)] int v3,
             [Random(0, 20, 5)] int Skill, [Random(-6, 6, 5)] int Mod)
         {
             const int Ability = 10;

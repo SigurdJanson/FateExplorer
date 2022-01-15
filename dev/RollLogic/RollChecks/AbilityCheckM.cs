@@ -104,7 +104,7 @@ namespace FateExplorer.RollLogic
                 RollType.Confirm => RollList[RollType.Primary] is not null ?
                     SuccessHelpers.D20Success(
                         RollList[RollType.Confirm].OpenRoll[0],
-                        CheckModifier.Apply(AbilityValue)) 
+                        CheckModifier.Apply(AbilityValue))
                     : RollSuccessLevel.na,
                 _ => RollSuccessLevel.na
             };
@@ -144,9 +144,9 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
-        public override int Remainder 
-        { 
-            get => throw new NotImplementedException(); 
+        public override int Remainder
+        {
+            get => throw new NotImplementedException();
         }
 
 

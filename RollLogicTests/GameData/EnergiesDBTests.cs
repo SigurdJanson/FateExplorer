@@ -1,6 +1,5 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 
 namespace RollLogicTests.GameData
@@ -8,11 +7,11 @@ namespace RollLogicTests.GameData
     [TestFixture]
     public class EnergiesDBTests : GameDataTestsBase<EnergiesDB, EnergiesDbEntry>
     {
-        public override string FilenameId { get => "energies";  }
+        public override string FilenameId { get => "energies"; }
 
         [Test]
-        [TestCase("de", new string[] { "Lebensenergie", "Astralenergie", "Karmaenergie" } )]
-        [TestCase("en", new string[] { "Life Energy", "Arcane Energy", "Karma Energy" } )]
+        [TestCase("de", new string[] { "Lebensenergie", "Astralenergie", "Karmaenergie" })]
+        [TestCase("en", new string[] { "Life Energy", "Arcane Energy", "Karma Energy" })]
         public void LoadFromFile_ParseSuccessful(string Language, string[] EnName)
         {
             string[] ResId = new string[] { "LP", "AE", "KP" };

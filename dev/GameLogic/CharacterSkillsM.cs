@@ -1,5 +1,5 @@
-﻿using FateExplorer.GameData;
-using FateExplorer.CharacterData;
+﻿using FateExplorer.CharacterData;
+using FateExplorer.GameData;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +13,7 @@ namespace FateExplorer.GameLogic
 
         public Dictionary<string, CharacterSkillM> Skills { get; set; }
 
-        public Dictionary<SkillDomain,bool> MasteredDomains { get; protected set; }
+        public Dictionary<SkillDomain, bool> MasteredDomains { get; protected set; }
 
 
         public CharacterSkillsM(ICharacterM character, ICharacterImporter import, IGameDataService gameData)
@@ -54,7 +54,7 @@ namespace FateExplorer.GameLogic
         public List<string> GetSkillNames(SkillDomain? Domain, string Filter)
         {
             List<string> names = new();
-            foreach(var s in Skills.Values)
+            foreach (var s in Skills.Values)
             {
                 if (s.Name.Contains(Filter) && s.Domain == Domain)
                     names.Add(s.Name);

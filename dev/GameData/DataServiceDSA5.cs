@@ -11,7 +11,7 @@ namespace FateExplorer.GameData
 
         private AbilitiesDB abilities;
         public AbilitiesDB Abilities
-        { 
+        {
             get
             {
                 if (abilities is null)

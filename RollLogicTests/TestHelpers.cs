@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RollLogicTests
 {
-    
+
 
     internal static class TestHelpers
     {
@@ -74,12 +72,12 @@ namespace RollLogicTests
                                 Console.WriteLine($"Mismatch at property {pi.Name}");
                                 return false;
                             }
-                        else
+                            else
                             if (!IsDeeplyEqual(selfValue, toValue, ignore))
                             {
                                 return false;
                             }
-                                
+
                     }
                 }
                 return true;

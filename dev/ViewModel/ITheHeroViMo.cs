@@ -6,7 +6,7 @@ namespace FateExplorer.ViewModel
     public interface ITheHeroViMo
     {
         // SETUP
-        
+
         /// <summary>
         /// Notify registered components when the hero has changed.
         /// </summary>

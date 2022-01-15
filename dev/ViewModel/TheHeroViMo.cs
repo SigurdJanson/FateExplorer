@@ -41,7 +41,7 @@ namespace FateExplorer.ViewModel
     {
         /// <inheritdoc />
         public string Id { get; set; }
-        
+
         /// <inheritdoc />
         public string Name { get; set; }
 
@@ -183,7 +183,7 @@ namespace FateExplorer.ViewModel
         /// </summary>
         protected void InitAttributes()
         {
-            if (characterM is null) 
+            if (characterM is null)
                 throw new Exception("Interner Programmfehler; keine geladenen Daten.");
 
             // ABILITIES
@@ -230,7 +230,7 @@ namespace FateExplorer.ViewModel
         {
             var Result = new List<AbilityDTO>();
 
-            foreach(var chab in characterM?.Abilities)
+            foreach (var chab in characterM?.Abilities)
             {
                 Result.Add(new AbilityDTO()
                 {
@@ -374,7 +374,7 @@ namespace FateExplorer.ViewModel
 
         public List<AbilityDTO> GetSkillAbilities(SkillsDTO skill)
         {
-            List<AbilityDTO> Result = new ();
+            List<AbilityDTO> Result = new();
             var s = characterM.Skills.Skills[skill.Id];
             foreach (var AbilityId in s.Abilities)
             {

@@ -1,8 +1,5 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text.Json;
 
 namespace RollLogicTests.GameData
 {

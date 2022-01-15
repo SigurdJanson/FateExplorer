@@ -29,7 +29,7 @@ namespace FateExplorer.FreeDiceCupViMo
             else
             {
                 bool AllTheSame = true;
-                for(int i = 1; i < sides.Length; i++)
+                for (int i = 1; i < sides.Length; i++)
                     if (sides[0] != sides[i])
                     {
                         AllTheSame = false;

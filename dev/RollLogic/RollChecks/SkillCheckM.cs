@@ -73,7 +73,7 @@ namespace FateExplorer.RollLogic
         public static int ComputeSkillQuality(int Remainder)
         {
             if (Remainder < 0) return 0;
-            
+
             return Math.Max(((Remainder - 1) / 3) + 1, 1);
         }
 
@@ -141,7 +141,7 @@ namespace FateExplorer.RollLogic
                         RollSuccess(RollType.Confirm));
                 else if (RollList[RollType.Primary] is not null)
                     return RollSuccess(RollType.Primary);
-                else 
+                else
                     return RollSuccessLevel.na;
             }
         }
@@ -177,8 +177,8 @@ namespace FateExplorer.RollLogic
         {
             return ComputeSuccess(
                         RollList[Which].OpenRoll,
-                        CheckModifier.Apply(RollAttr), 
-                        TargetAttr ?? 0, 
+                        CheckModifier.Apply(RollAttr),
+                        TargetAttr ?? 0,
                         0); // mod not required here because skill value is already modified
         }
 
@@ -190,7 +190,7 @@ namespace FateExplorer.RollLogic
             get => ComputeSkillRemainder(
                 RollList[RollType.Primary].OpenRoll,
                 CheckModifier.Apply(RollAttr),
-                TargetAttr ?? 0, 
+                TargetAttr ?? 0,
                 0);// mod not required here because skill value is already modified
         }
 

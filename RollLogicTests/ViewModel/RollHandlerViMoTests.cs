@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,7 +21,7 @@ namespace RollLogicTests.ViewModel
             "\"REGENERATE\": {\"id\": \"REGENERATE\", \"roll\": \"DSA5/0/regeneration\", \"name\": \"Regeneration\", \"type\": \"value\"}, " +
             "\"INI\": {\"id\": \"INI\", \"roll\": \"DSA5/0/initiative\", \"name\": \"Initiative\", \"type\": \"compare\"}, " +
             "\"CT_9/AT+SA_186\": {\"id\": \"CT_9/AT+SA_186\", \"roll\": \"DSA5/0/initiative\", \"name\": \"Hruruzat Attacke\", \"type\": \"compare\"}}";
-        
+
         private MockRepository mockRepository;
 
 

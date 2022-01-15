@@ -2,7 +2,7 @@
 
 namespace FateExplorer.GameLogic
 {
-    
+
 
     public class CharacterSkillM
     {

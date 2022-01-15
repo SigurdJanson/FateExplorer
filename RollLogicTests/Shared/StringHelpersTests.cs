@@ -1,6 +1,5 @@
 ﻿using FateExplorer.Shared;
 using NUnit.Framework;
-using System;
 
 namespace RollLogicTests.Shared
 {

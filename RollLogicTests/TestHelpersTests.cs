@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using RollLogicTests;
 using System;
 
 namespace RollLogicTests
@@ -31,11 +30,15 @@ namespace RollLogicTests
             string TestString = "Fate is Fate";
             SimpleType self = new()
             {
-                I = 1, Name = TestString, DateTime = DateTime.Today
+                I = 1,
+                Name = TestString,
+                DateTime = DateTime.Today
             };
             SimpleType to = new()
             {
-                I = 1, Name = TestString, DateTime = DateTime.Today
+                I = 1,
+                Name = TestString,
+                DateTime = DateTime.Today
             };
 
             // Act
@@ -83,11 +86,15 @@ namespace RollLogicTests
             string TestString = "Fate is Fate";
             SimpleType self = new()
             {
-                I = 1, Name = TestString, DateTime = DateTime.Today
+                I = 1,
+                Name = TestString,
+                DateTime = DateTime.Today
             };
             SimpleType to = new()
             {
-                I = 1, Name = TestString, DateTime = DateTime.Today.AddTicks(1)
+                I = 1,
+                Name = TestString,
+                DateTime = DateTime.Today.AddTicks(1)
             };
 
             // Act

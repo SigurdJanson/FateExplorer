@@ -38,7 +38,7 @@ namespace FateExplorer.GameData
             // Get reference
             BotchEffect effect = null;
             foreach (var i in Table.Effect)
-                foreach(var e in i.DiceEyes)
+                foreach (var e in i.DiceEyes)
                     if (e == DiceEyes)
                         effect = i;
 
@@ -68,7 +68,7 @@ namespace FateExplorer.GameData
     public class BotchEntry
     {
         [JsonPropertyName("id")]
-        public string Id { get; set;  }
+        public string Id { get; set; }
 
         [JsonPropertyName("label")]
         public string Label { get; set; }

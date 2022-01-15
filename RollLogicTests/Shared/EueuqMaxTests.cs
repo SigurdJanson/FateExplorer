@@ -1,6 +1,6 @@
-﻿using FateExplorer.RollLogic;
+﻿using FateExplorer.FreeDiceCupViMo;
+using FateExplorer.RollLogic;
 using FateExplorer.Shared;
-using FateExplorer.FreeDiceCupViMo;
 using NUnit.Framework;
 using System;
 using System.Linq;
@@ -54,7 +54,7 @@ namespace RollLogicTests.ViewModel
 
             // Assert
             Assert.AreEqual(Decreased, resultQueueViMo.Count);
-            Assert.AreEqual($"_{Start-Decreased+1}", resultQueueViMo.Peek().Name);
+            Assert.AreEqual($"_{Start - Decreased + 1}", resultQueueViMo.Peek().Name);
         }
 
 
@@ -80,7 +80,7 @@ namespace RollLogicTests.ViewModel
                 Assert.AreEqual($"_{ri}", item.Name);
                 ri--;
             }
-                
+
         }
     }
 }

@@ -25,8 +25,8 @@ namespace RollLogicTests.GameData
 
         [Test]
         public void LoadFromFile_ParseSuccessful(
-            [Values("Attack", "Parry", "Dodge")] string Roll, 
-            [Values("Melee", "Unarmed", "Ranged", "Shield")] string Type, 
+            [Values("Attack", "Parry", "Dodge")] string Roll,
+            [Values("Melee", "Unarmed", "Ranged", "Shield")] string Type,
             [Range(2, 12)] int DiceEyes,
             [Values("de", "en")] string Language)
         {
