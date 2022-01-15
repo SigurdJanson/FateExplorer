@@ -245,7 +245,7 @@
     <value>Modifikator</value>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
-    <value>Häufig benötigt</value>
+    <value>Meistverwendet</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="lblName" xml:space="preserve">
