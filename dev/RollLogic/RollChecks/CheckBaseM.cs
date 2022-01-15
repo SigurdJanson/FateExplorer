@@ -7,6 +7,9 @@ namespace FateExplorer.RollLogic
     {
         #region Identification
 
+        /// <summary>
+        /// Must be an EXACT match for the roll property in the 'rollresolver*.json' file.
+        /// </summary>
         public const string checkTypeId = "DSA5/0";
 
         /// <summary>
@@ -22,7 +25,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// A unique id to identify each particluar check
         /// </summary>
-        public string UniqueId { get; protected set; }
+        public string UniqueId { get; protected set; } //TODO: is this even being used?
 
         /// <summary>
         /// A combined id that contains all the information of the check
@@ -37,9 +40,39 @@ namespace FateExplorer.RollLogic
         #endregion
 
         /// <summary>
-        /// A string describing the 
+        /// A string describing the nature of the check (human-readable, no id)
         /// </summary>
         public string Name { get; set; }
+
+
+
+
+        /// <summary>
+        /// The value(s) of the target attribute to roll against.
+        /// </summary>
+        public abstract int[] RollAttr { get; protected set; }
+        
+        /// <summary>
+                                                              /// (Human-readable) string to describe the values that is being rolled against.
+                                                              /// A single string here may be identical to <see cref="Name"/>, e.g. for
+                                                              /// ability checks.
+                                                              /// </summary>
+        public abstract string[] RollAttrName { get; protected set; }
+
+
+        /// <summary>
+        /// The value is to compensate for rolls exceeding the attibute value 
+        /// they have been rolled against.
+        /// </summary>
+        public abstract int? TargetAttr { get; protected set; }
+        public abstract string TargetAttrName { get; protected set; }
+
+
+        /// <summary>
+        /// This checks modifier
+        /// </summary>
+        public ICheckModifierM CheckModifier { get; set; }
+
 
 
         /// <summary>
@@ -55,21 +88,24 @@ namespace FateExplorer.RollLogic
         public abstract RollSuccessLevel RollSuccess(RollType Which);
 
         /// <summary>
-        /// This checks modifier
-        /// </summary>
-        public ICheckModifierM CheckModifier { get; set; }
-
-        /// <summary>
         /// The series of rolls as they were needed during the check.
         /// It needs to be built roll after roll by classes implementing checks.
         /// </summary>
         protected ArrayByEnum<IRollM, RollType> RollList { get; set; }
 
-        /// <summary>
-        /// The target attribute to roll against.
-        /// </summary>
-        public int[] Attribute { get; protected set; }
 
+
+        /// <summary>
+        /// The remaining eyes after evaluating the check
+        /// </summary>
+        public abstract int Remainder { get; }
+
+        /// <summary>
+        /// Get remaining eyes for a particular roll after it's evaluation.
+        /// </summary>
+        /// <param name="Which">The desired roll type</param>
+        /// <returns>A list of remainders one for each die of the roll</returns>
+        public abstract int[] RollRemainder(RollType Which);
 
 
         /// <summary>
@@ -99,8 +135,6 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public virtual bool NeedsBotchEffect
         { get => Success == RollSuccessLevel.Botch; }
-
-
 
 
     }

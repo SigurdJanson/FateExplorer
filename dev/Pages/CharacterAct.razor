@@ -1,10 +1,13 @@
 ﻿@page "/act"
 
+@using FateExplorer.RollLogic
 @using FateExplorer.ViewModel
 @using FateExplorer.Components
 
 @inject IStringLocalizer<App> l10n
+@inject ISnackbar Snackbar
 @inject ITheHeroViMo Hero
+@inject IRollHandlerViMo RollHandler
 
 
 @if (Hero.HasBorn)
@@ -18,17 +21,19 @@
                     <MudTabs Elevation=0 Rounded=false Centered=false>
                         <MudTabPanel Text=@l10n["lblMostUsed"]>
                             <MudList Clickable=true Style="overflow:auto; height:280px">
+                            @if (FavoriteSkills is not null)
                                 @foreach (var skill in FavoriteSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill />
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView />
                                 }
                             </MudList>
                         </MudTabPanel>
                         <MudTabPanel Text=@l10n["lblYourBestSkills"]>
                             <MudList Clickable=true Style="overflow:auto; height:280px">
+                            @if (BestSkills is not null)
                                 @foreach (var skill in BestSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=RollSkill ViewSkill=ViewSkill/>
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView/>
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -47,35 +52,56 @@
                                              Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
                                              @l10n["lblAll"]
                                     </MudChip>
-                                    @foreach (var d in SkillDomains)
-                                    {
-                                        <MudChip Text="@d.ToString()" Label=true 
-                                                 Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
-                                                 @l10n["SkillDomain."+d.ToString()]
-                                        </MudChip>
-                                    }
+                                    @if (SkillDomains is not null)
+                                        @foreach (var d in SkillDomains)
+                                        {
+                                            <MudChip Text="@d.ToString()" Label=true 
+                                                     Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
+                                                     @l10n["SkillDomain."+d.ToString()]
+                                            </MudChip>
+                                        }
                                 </MudChipSet>
                                 <MudTextField @bind-Value=FilterTerm Placeholder="Search" 
                                     Adornment=Adornment.End AdornmentIcon=@Icons.Filled.Search 
                                     IconSize=Size.Medium Immediate=true></MudTextField>
                             </MudListSubheader>
-
-                            @foreach (var skill in SkillList)
-                            {
-                                @if (CheckFilter(skill.Domain, skill.Name))
+                            @if (SkillList is not null)
+                                @foreach (var skill in SkillList)
                                 {
-                                    <ListItemSkill Skill=skill RollSkill=RollSkill ViewSkill=ViewSkill TextFilter=@FilterTerm />
+                                    @if (CheckFilter(skill.Domain, skill.Name))
+                                    {
+                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck ViewSkill=OnSkillView TextFilter=@FilterTerm />
+                                    }
                                 }
-                            }
                         </MudList>
                     </MudExpansionPanel>
                 </MudExpansionPanels>
             </MudPaper>
         </MudItem>
-        <MudItem  xs=12 sm=6 md=7 lg=8>
-            <MudPaper Elevation=0 Outlined=true>
+
+        <MudItem xs=12 sm=6 md=7 lg=8>
+            <MudPaper Square="true" Class="d-flex justify-space-around">
+                <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
+                <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
+                    Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
+                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                </MudSlider>
+            </MudPaper>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
+                @if (RollCheckResults is not null)
+                {
+                    @foreach(var r in RollCheckResults.Reverse())
+                    {
+                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons />
+                    }
+                }
+                else
+                {
+                    <span>Roll something</span>
+                }
             </MudPaper>
         </MudItem>
+
     </MudGrid>
 </MudContainer>
 }
@@ -86,6 +112,8 @@ else
 
 
 @code {
+
+    // SKILL REGION
     private List<SkillDomain> SkillDomains;
 
     private IEnumerable<SkillsDTO> SkillList { get; set; }
@@ -94,8 +122,91 @@ else
 
     private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
 
+    /// <summary></summary>
+    private string FilterTerm = "";
 
+    /// <summary></summary>
+    private MudChip SelectedDomain;
+
+
+    /// <summary>Verifies if the set filter matches an item string</summary>
+    /// <returns></returns>
+    private bool CheckFilter(SkillDomain d, string Item)
+    {
+        bool DomainMatch = SelectedDomain is null || 
+            SelectedDomain.Text == "All" || 
+            SelectedDomain.Text == d.ToString();
+
+        return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
+    }
+
+
+    // CHECK REGION
+
+    private readonly string[] CheckIcons_ = new string[4] { Icons.Filled.LocalAtm, 
+        Icons.Filled.ThumbDown, Icons.Filled.ThumbUp, Icons.Filled.Star };
+    private readonly string[] CheckIcons = new string[6] { 
+        Icons.Filled.SentimentVeryDissatisfied, Icons.Filled.TheaterComedy, Icons.Filled.SentimentDissatisfied, 
+        Icons.Filled.SentimentSatisfied, Icons.Filled.TheaterComedy, Icons.Filled.SentimentVerySatisfied };
+
+    /// <summary>
+    /// The latest roll check
+    /// </summary>
+    private RollCheckResultViMo ActiveCheck;
+    private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
+    private int ModifyValue { get; set; }
+
+
+    private void OnModChanged(int NewValue)
+    {
+        ModifyValue = NewValue;
+        ActiveCheck?.CheckModifier.Set(ModifyValue);
+    }
+
+
+    private void OnSkillCheck(SkillsDTO s)
+    {
+        bool CheckSucceeded = true;
+        try
+        {
+            var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s).ToArray(), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
+            ActiveCheck = RollHandler.OpenRollCheck(s.Id, s, cnv);
+        }
+        catch(NotImplementedException error)
+        {
+            Snackbar.Add(l10n[error.Message], Severity.Error);
+            CheckSucceeded = false;
+        }
+        if (CheckSucceeded)
+        {
+            ActiveCheck.CheckModifier.Set(ModifyValue);
+            RollCheckResults.Enqueue(ActiveCheck);
+        }
+    }
+
+
+    private void OnSkillView(SkillsDTO s)
+    {
+
+    }
+
+
+
+    // INITIALISATION REGION
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadHeroData();
+        if (RollCheckResults is null)
+            RollCheckResults = new(4);
+    }
+
+
+    /// <summary>Reacts to any changes of the character view model</summary>
     protected void OnCharacterHasLoaded() => StateHasChanged();
+
 
     private void LoadHeroData()
     {
@@ -108,43 +219,5 @@ else
         }
     }
 
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        LoadHeroData();
-    }
-
-
-    // 
-
-
-    private void RollSkill(SkillsDTO s)
-    {
-
-    }
-
-
-    private void ViewSkill(SkillsDTO s)
-    {
-
-    }
-
-
-    // FILTER REGION
-
-    private string FilterTerm = "";
-
-    private MudChip SelectedDomain;
-
-
-    private bool CheckFilter(SkillDomain d, string Item)
-    {
-        bool DomainMatch = SelectedDomain is null || 
-            SelectedDomain.Text == "All" || 
-            SelectedDomain.Text == d.ToString();
-
-        return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
-    }
 
 }

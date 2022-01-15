@@ -1,4 +1,5 @@
 ﻿using FateExplorer.Shared;
+using FateExplorer.ViewModel;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -27,14 +28,6 @@ namespace FateExplorer.RollLogic
         }
 
 
-        /// <summary>
-        /// Success level of the complete check
-        /// </summary>
-        public RollSuccessLevel SuccessLevel 
-        {
-            get => RollCheck.Success;
-        }
-
 
         /// <summary>
         /// The sum of the modifiers put into the roll.
@@ -46,12 +39,56 @@ namespace FateExplorer.RollLogic
         }
 
 
+
+        /// <summary>
+        /// Success level of the complete check
+        /// </summary>
+        public RollSuccessLevel SuccessLevel
+        {
+            get => RollCheck.Success;
+        }
+
+
         /// <summary>
         /// Get the summarized additive modifier after it has been applied to the
         /// roll. See <seealso cref="ICheckModifierM.Total"/>.
         /// </summary>
         public int SummarizedModifier => RollCheck?.CheckModifier?.Total ?? 0;
 
+
+        /// <summary>
+        /// Return the names of the checks roll attribute(s)
+        /// </summary>
+        public string[] RollAttrName { get => RollCheck.RollAttrName; }
+
+
+        /// <summary>
+        /// The value of the target attribute. If a check does not support the 
+        /// target attribute this is null.
+        /// </summary>
+        public int? TargetAttr { get => RollCheck.TargetAttr; }
+
+        /// <summary>
+        /// The name of the target attribute. If a check does not support the 
+        /// target attribute this is null.
+        /// </summary>
+        public string TargetAttrName { get => RollCheck.TargetAttrName; }
+
+        /// <summary>
+        /// The remaining eyes of the target attribute after evaluating the check
+        /// </summary>
+        public int Remainder { get => RollCheck.Remainder; }
+
+
+
+
+        /// <summary>
+        /// Get remaining eyes for a particular roll after it's evaluation (i.e. roll attribute 
+        /// minus roll result).
+        /// </summary>
+        /// <param name="Which">The desired roll type</param>
+        /// <returns>A list of remainders one for each die of the roll</returns>
+        public int[] RollRemainder(RollType Which) => RollCheck.RollRemainder(Which);
 
 
         /// <summary>
@@ -60,9 +97,6 @@ namespace FateExplorer.RollLogic
         /// <returns></returns>
         public IRollM GetPrimaryRoll() // TODO: model is exposed
             => RollCheck?.GetRoll(RollType.Primary);
-
-        
-
 
         public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
         
@@ -75,7 +109,6 @@ namespace FateExplorer.RollLogic
         /// Returns the analysed result of the primary roll
         /// </summary>
         /// <returns></returns>
-        /// <remarks>Assumes that the primary roll is at index 0.</remarks>
         public RollResultViMo GetPrimaryResult() => GetRollResult(RollType.Primary);
 
 
@@ -104,7 +137,7 @@ namespace FateExplorer.RollLogic
             Result.SuccessLevel = RollCheck.RollSuccess(Which);
             Result.Modifier = RollCheck.CheckModifier.Total;
             Result.CombinedResult = CurrentRoll.OpenRollCombined();
-            Result.RollAgainst = RollCheck.Attribute;
+            Result.RollAgainst = RollCheck.RollAttr;
 
             return Result;
         }

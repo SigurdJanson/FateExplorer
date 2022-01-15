@@ -75,13 +75,15 @@ namespace FateExplorer.RollLogic
     }
 
 
-    public class SkillRoll : DieRollM
+    public class SkillRoll : MultiDieRoll
     {
         public const int _Sides = 20;
+        public const int _DieCount = 3;
         public RollSuccessLevel Meaning { get; protected set; }
 
-        public SkillRoll() : base(_Sides)
+        public SkillRoll(IEntryCondition entryCondition) : base(_Sides, _DieCount)
         {
+            //EntryCondition = entryCondition;
         }
 
 

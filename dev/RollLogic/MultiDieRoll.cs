@@ -44,6 +44,8 @@ namespace FateExplorer.RollLogic
 
             if (aggregate is not null)
                 AggregateFunc = aggregate;
+
+            Roll();
         }
 
         /// <inheritdoc/>

@@ -23,18 +23,6 @@ namespace FateExplorer.ViewModel
         /// </summary>
         void RegisterChecks();
 
-        /// <summary>
-        /// Concludes a roll check
-        /// </summary>
-        /// <param name="rollSeries"></param>
-        void FinishCheck(CheckBaseM rollSeries);
-
-        /// <summary>
-        /// Identifies the naxt valid roll and rolls it.
-        /// </summary>
-        /// <param name="rollSeries"></param>
-        void NextRoll(CheckBaseM rollSeries);
-
 
         /// <summary>
         /// Creates and returns a new (unmodified) roll check with the first roll
@@ -42,15 +30,18 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
         /// <returns>A roll check</returns>
-        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData);
+        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
 
 
         /// <summary>
-        /// Creates and returns a new (unmodified) roll check with the first roll
-        /// already done.
+        /// Creates and returns a new roll check with the first roll already done. The modifier 
+        /// will be applied.
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
+        /// <param name="AttrData"></param>
+        /// <param name="Modifier"></param>
+        /// <param name="Args">Additional arguments sent to the constructor of the instantiated check</param>
         /// <returns>A roll check</returns>
-        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier);
+        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null);
     }
 }

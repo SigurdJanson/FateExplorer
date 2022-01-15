@@ -24,36 +24,46 @@
 
     <MudCardContent>
         <MudGrid Spacing=0 Class="my-1">
-            <MudItem xs=8>
-                <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
+            <MudItem xs=12>
+                <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 Class="rolltable">
                 @* Style="overflow-x: auto;" *@
                 <tbody>
                     <tr>
-                        <td>@*AttributeLabel*@</td> 
-                        <td>
-                            <MudText Typo=Typo.caption>
-                            @if (ShowValueLabel is not null)
-                            {
-                            @ShowValueLabel 
-                            }
-                            else
-                            {
-                            @l10n["lblAttribute"]
-                            }
-                            </MudText>
-                        </td>
+                        <td>@*AttributeLabel*@</td>
+                        @if (ShowValueLabel is null)
+                            @AttrHead(Result.RollAttrName)
+                        else
+                        {
+                            <td><MudText Typo=Typo.caption>
+                                @ShowValueLabel
+                            </MudText></td>
+                        }
+                        @if (Result.TargetAttr is not null) 
+                            @TargetAttrHead(Result.TargetAttrName)
                         <td><MudText Typo=Typo.caption>@l10n["lblResultCardModifier"]</MudText></td>
                     </tr>
                     <tr>
                         <td>@l10n["lblAttributeValue"]</td>
-                        <td>@string.Join(" \u00B7 ", PrimRollResult.RollAgainst)</td>
+                        @AttrValue(PrimRollResult.RollAgainst)
+                        @if (Result.TargetAttr is not null)
+                            @TargetAttrValues(Result.TargetAttr)
                         <td>@Result.SummarizedModifier</td>
                     </tr>
                     <tr>
                         <td>@l10n["lblRoll"]</td>
-                        <td>@string.Join(" \u00B7 ", PrimRollResult.RollResult)</td>
-                        <td>@*No roll against the mod*@</td>
+                        @AttrValue(PrimRollResult.RollResult)
+                        @if (Result.TargetAttr is not null)
+                            @TargetAttrValues(Result.Remainder)
+                        <td> &nbsp; </td>  @*No roll against the mod*@
                     </tr>
+                    @*if (Result is not null)
+                    {
+                    <tr>
+                        <td>@l10n["lblRemaining"]</td>
+                        <td>@string.Join(" \u00B7 ", Result.Remainder)</td>
+                        <td>@*No roll against the mod@</td>
+                    </tr>
+                    }*@
                 </tbody>
             </MudSimpleTable>
             </MudItem>
@@ -130,6 +140,15 @@
     }
 
 
+    private void RollConfirm()
+    {
+        Result.GetRollResult(RollType.Confirm, true);
+        this.StateHasChanged();
+    }
+
+
+
+    // TEMPLATES
 
     private string GetAvatarIcon(RollSuccessLevel Success)
     {
@@ -203,10 +222,44 @@
         };
 
 
-    private void RollConfirm()
+
+    RenderFragment<string> TargetAttrHead = Name => __builder =>
     {
-        Result.GetRollResult(RollType.Confirm, true);
-        this.StateHasChanged();
-    }
+        if (Name is not null)
+        {
+            <td><MudText Typo=Typo.caption>@Name</MudText></td>
+        }
+    };
+
+    RenderFragment<int?> TargetAttrValues = Value => __builder =>
+    {
+        if (Value is not null)
+        {
+        <td>@Value</td>
+        }
+    };
+
+
+    RenderFragment<string[]> AttrHead = Name => __builder =>
+    {
+        if (Name is not null)
+        {
+            foreach (var n in Name)
+            {
+            <td><MudText Typo=Typo.caption>@n</MudText></td>
+            }
+        }
+    };
+
+    RenderFragment<int[]> AttrValue = Value => __builder =>
+    {
+        if (Value is not null)
+        {
+            foreach (var v in Value)
+            {
+            <td>@v</td>
+            }
+        }
+    };
 
 }

@@ -108,7 +108,8 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttributeId">An id of a character attribute like an ability 
         /// or skill like "TAL_3" or "SPELL_125".</param>
-        /// <returns></returns>
+        /// <returns>A string (lika a path) that identifies the class to roll
+        /// thus check</returns>
         private string MatchAttributeToRollId(string AttributeId)
         {
             // Exact match
@@ -134,57 +135,48 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc />
-        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData)
+        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICharacterAttributDTO[] RollAttr = null)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
-                throw new NotImplementedException($"A check for {AttrId} has not yet been implemented");
+                throw new NotImplementedException($"A check for {TargetAttr.Name} has not yet been implemented");
 
-            //-var CheckType = ListOfChecks[RollId];
+            Type CheckType;
+            if (!ListOfChecks.TryGetValue(RollId, out CheckType))
+                throw new NotImplementedException($"A check for {TargetAttr.Name} has not yet been implemented");
+
             CheckBaseM Checker;
             RollCheckResultViMo Result;
-            switch (ListOfChecks[RollId].Name)
+            switch (CheckType.Name)
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)AttrData, new SimpleCheckModifierM(0)/*TODO*/);
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0)/*TODO*/);
                     break;
-                //case
-                //    nameof(SkillCheckM):
-                //    Checker = new SkillCheckM(AttrData);
-                //    break;
+                case
+                    nameof(SkillCheckM):
+                    AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0)); // how to instatiate with ability values?
+                    break;
                 default:
-                    Checker = Activator.CreateInstance(ListOfChecks[RollId], AttrData.EffectiveValue, 0) as CheckBaseM;
+                    Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM;
                     break;
 
             };
-            //-var Result = Activator.CreateInstance(ListOfChecks[RollId], AttrData.EffectiveValue, 0) as CheckBaseM;
+            
             Result = new(Checker);
             return Result;
         }
 
 
         /// <inheritdoc />
-        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier)
+        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null)
         {
-            var Result = OpenRollCheck(AttrId, AttrData);
+            var Result = OpenRollCheck(AttrId, TargetAttr, RollAttr);
             Result.CheckModifier = Modifier;
             return Result;
         }
 
-
-        /// <inheritdoc />
-        public void NextRoll(CheckBaseM rollSeries)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <inheritdoc />
-        public void FinishCheck(CheckBaseM rollSeries)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

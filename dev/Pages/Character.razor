@@ -65,6 +65,7 @@
                 <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
             </MudPaper>
         </MudItem>
+
         <MudItem xs=12 sm=6 md=7 lg=8>
             <MudPaper Square="true" Class="d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
@@ -112,7 +113,7 @@ else
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
-        ActiveAbilityCheck = RollHandler.OpenRollCheck(ability.Id, ability);
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(ability.Id, ability, null);
         ActiveAbilityCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }

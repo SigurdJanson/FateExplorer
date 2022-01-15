@@ -1,0 +1,4 @@
+﻿.rolltable td:not(:first-child),
+.rolltable th:not(:first-child) {
+    text-align: center;
+}
