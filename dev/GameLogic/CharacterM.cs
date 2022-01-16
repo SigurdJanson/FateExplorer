@@ -28,6 +28,14 @@ namespace FateExplorer.GameLogic
             // SKILLS
             Skills = new(this, characterImportOptM, gameData);
 
+            // COMBAT TECHNIQUES
+            CombatTechs = new();
+            foreach (var CtImport in characterImportOptM.GetCombatSkills())
+            {
+                CombatTechM ct = new(gameData.CombatTechs[CtImport.Key], CtImport.Value, this);
+                CombatTechs.Add(CtImport.Key, ct);
+            }
+
             // ENERGIES
             Energies = new();
             foreach (var energy in gameData.Energies.Data)
