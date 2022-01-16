@@ -111,7 +111,6 @@ namespace FateExplorer.GameLogic
                 CombatTechniques.Ranged => Hero.GetAbility(AbilityM.DEX),
                 _ => Hero.GetAbility(AbilityM.COU)
             };
-            //int Result = Value + (BaseAbility - 8) / 3;
             return ComputeAttack(BaseAbility);
         }
 
@@ -123,14 +122,7 @@ namespace FateExplorer.GameLogic
         /// <returns>Basic parry value</returns>
         protected int ComputeParryValue() 
             => ComputeParry(GetPrimaryAbilityValue());
-        //{
-        //    ////if (!CanParry) return 0;
 
-        //    ////int PrimaryAbility = GetPrimaryAbilityValue();
-        //    ////int Result = Value / 2 + Value % 2;
-        //    ////Result += (PrimaryAbility - 8) / 3;
-        //    return ComputeParry(GetPrimaryAbilityValue());
-        //}
 
 
     }
