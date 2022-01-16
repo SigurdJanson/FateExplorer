@@ -27,6 +27,10 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("ranged")]
         public bool IsRanged { get; set; }
+
+        [JsonPropertyName("branch")]
+        public CombatTechniques WeaponsBranch { get; set; }
+
     }
 
 

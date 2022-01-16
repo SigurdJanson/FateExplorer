@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -51,7 +52,7 @@ namespace FateExplorer.CharacterData
         /// Race, e.g. human, elf
         /// </summary>
         [JsonPropertyName("r")]
-        public string R { get; set; }
+        public string Race { get; set; }
 
         /// <summary>
         /// Race variant, e.g. Thorwalian for a human or wood elf for an elf.
@@ -184,6 +185,21 @@ namespace FateExplorer.CharacterData
         }
 
 
+
+        public int CountCombatSkills() => CombatTechniques.Count;
+
+        public IEnumerable<KeyValuePair<string, int>> GetCombatSkills()
+        {
+            foreach (var s in CombatTechniques)
+            {
+                yield return s;
+            }
+        }
+
+
+
+
+
         public int GetAddedEnergy(CharacterEnergyClass energyClass) =>
             energyClass switch
             {
@@ -211,9 +227,14 @@ namespace FateExplorer.CharacterData
 
         public string GetSpeciesId()
         {
-            return R;
+            return Race;
         }
 
+
+        public List<WeaponDTO> GetWeapons()
+        { 
+            throw new NotImplementedException();
+        }
 
         #endregion
     }
