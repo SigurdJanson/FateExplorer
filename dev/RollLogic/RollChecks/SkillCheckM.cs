@@ -237,6 +237,7 @@ namespace FateExplorer.RollLogic
 
 
 
+        /// <inheritdoc />
         public override IRollM GetRoll(RollType Which, bool AutoRoll = false)
         {
             if (AutoRoll && RollList[Which] is null)
