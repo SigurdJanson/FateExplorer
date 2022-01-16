@@ -36,6 +36,9 @@ namespace FateExplorer.GameLogic
                 CombatTechs.Add(CtImport.Key, ct);
             }
 
+            // DODGE
+            Dodge = new DodgeM(this);
+
             // ENERGIES
             Energies = new();
             foreach (var energy in gameData.Energies.Data)
@@ -94,6 +97,8 @@ namespace FateExplorer.GameLogic
         public Dictionary<string, ResilienceM> Resiliences { get; set; }
 
         public Dictionary<string, CombatTechM> CombatTechs { get; set; }
+
+        public DodgeM Dodge { get; set; }
 
         public CharacterSkillsM Skills { get; set; }
 

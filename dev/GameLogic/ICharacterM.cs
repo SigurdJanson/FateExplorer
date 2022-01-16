@@ -23,6 +23,8 @@ namespace FateExplorer.GameLogic
 
         Dictionary<string, CombatTechM> CombatTechs { get; }
 
+        DodgeM Dodge { get; }
+
         CharacterSkillsM Skills { get; }
 
 
