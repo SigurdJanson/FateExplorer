@@ -42,19 +42,17 @@
 
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudGrid>
                 @foreach (var r in Hero.GetResiliences())
                 {
-                <div class="d-inline">
-                <MudTooltip Text=@r.Name>
-                    <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
-                </MudTooltip>
-                    <MudText Typo=Typo.body1 Class="mb-3">@r.EffectiveValue</MudText>
-                </div>
+                    <MudItem xs=6 Class="mb-3">
+                        <MudTooltip Text=@r.Name Placement=Placement.Bottom>
+                            <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
+                            <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>
+                        </MudTooltip>
+                    </MudItem>
                 }
-            </MudPaper>
-
-            <MudPaper Elevation=0 Outlined=true Class="pa-4" Style="height: 200px;">
-                <MudText Typo=Typo.body1>@l10n["MORE VALUES"]</MudText>
+                </MudGrid>
             </MudPaper>
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
@@ -110,6 +108,11 @@ else
             RollCheckResults = new(4);
     }
 
+    /// <summary>Reacts to any changes of the character view model</summary>
+    protected void OnCharacterHasLoaded() => StateHasChanged();
+
+
+
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
@@ -125,8 +128,6 @@ else
         ActiveAbilityCheck?.CheckModifier.Set(ModifyValue);
         StateHasChanged();
     }
-
-    protected void OnCharacterHasLoaded() => StateHasChanged();
 
 
     RenderFragment AddMaxResilience(ResilienceDTO r)
