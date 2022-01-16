@@ -205,7 +205,11 @@ else
 
 
     /// <summary>Reacts to any changes of the character view model</summary>
-    protected void OnCharacterHasLoaded() => StateHasChanged();
+    protected void OnCharacterHasLoaded()
+    {
+        LoadHeroData();
+        StateHasChanged();
+    }
 
 
     private void LoadHeroData()
