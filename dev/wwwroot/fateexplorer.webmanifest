@@ -1,6 +1,8 @@
 {
   "name": "FateExplorer",
-  "short_name": "FateExplorer",
+  "short_name": "FE",
+  "description": "A DSA5 pen & paper support app",
+  "id": "https://www.seifseit.de/fateexplorer",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
