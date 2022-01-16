@@ -33,18 +33,6 @@ namespace FateExplorer.GameLogic
             Value = value;
         }
 
-
-        public int ChangeEffectiveValue(int Value, int Modifier, Func<int, int, int> Operation = null)
-        {
-            if (Operation is null)
-                Value += Modifier;
-            else
-                Value = Operation(Value, Modifier);
-
-            if (Value < 0) Value = 0;
-
-            return Value;
-        }
     }
 
 
