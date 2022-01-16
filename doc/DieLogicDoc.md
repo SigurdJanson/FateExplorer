@@ -1,0 +1,105 @@
+
+# Rolls & Checks
+
+## Types of Checks (Rule Book)
+
+### Simple Checks
+
+The simple check is a regular skill check. The outcome of this check depends on whether the hero succeeds at the check. If the hero
+succeeds the result will be classified.
+
+### Competitive Checks
+
+The competitive check allows you to compare two contestants, and the one with the higher QL wins the check.
+
+### Cumulative Check
+
+Sometimes it takes a certain amount of time and more than one skill check to accomplish a task. In such cases, the GM calls for a cumulative check. This consists of multiple skill checks of the same kind, wherein the hero must accumulate a total of 10 QL in order to accomplish the task at hand.
+
+### Group Checks
+
+A group of heroes must work together to achieve certain goals. When several heroes use skills to work together, the procedure is called a group check. Group checks can be competitive or cumulative checks, but never simple checks. In group checks, add up the combined results of all participating characters.
+
+
+
+
+## FateExplorer
+
+The FE distinguishes rolls and checks. A roll is whatever you can do with rolling one dice cup. A check requires several rolls and may involve additional criteria, tables and comparisons.
+
+
+
+
+## Checks: Overview
+
+| Type | Roll | Criterion | Result |
+| --- | --- | --- | --- |
+| Botch (effects) roll  | 2d6 | botch table | Enum |
+| Skill roll  | 3d20 | (abilities - mods) + skill => Quality level | `RollSuccessLevel` |
+| Routine skill "roll" |  |  | `RollSuccessLevel` + Quality level |
+| Attack Roll | 1d20 | attack skill - mod |`RollSuccessLevel`|
+| Parry Roll | 1d20 | attack skill - mod (mod halves skill for critical) | `RollSuccessLevel` |
+| Critical confirmation roll | 1d20 | attack skill - mod | `RollSuccessLevel` |
+| Ability roll | 1d20 | ability + mod | `RollSuccessLevel` |
+| Damage roll  | NdM + x | - (m is usually 6) | points |
+| Initiative roll | INI + 1d6 + mod | - | points |
+| Regeneration roll | 1d6 + mod | - | points |
+| Meditation roll |  |  |  |
+
+
+
+## Roll Sequences
+
+1. Single roll
+2. 1d20 --> &empty; | Damage | Confirmation --> Damage | Botch roll --> [Damage] | Effect
+
+| Type | Roll | Criterion |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+
+
+
+
+# Character Attributes
+
+One an roll checks against these:
+
+**Abilities**
+
+| Name | Abbr. | Original |
+| --- | --- | --- |
+| Courage   | COU | Mut |
+| Sagacity  | SAG | Klugheit |
+| Intuition |  | Intuition |
+| Charisma  |  | Charisma |
+|  |  | Fingerfertigkeit |
+|  |  | Gewandheit |
+| Constitution |  | Konstitution |
+| Strength     |  | Körperkraft |
+
+
+**Resources**.
+
+* Health/Life Points
+* Arcane Energy
+* Karma Points
+
+
+**Initiative**. (INI).
+
+**Dodge**. (DO; Ausweichen, AW)
+
+The `resilience` attributes act as modifiers
+
+* Spirit (SPI; Seelenkraft, SK)
+* Toughness (TOU; Zähigkeit, ZK)
+
+These are required for additional rules:
+
+**Movement**. (MOV; Geschwindigkeit, GW)
+
+**Fate Points**.
+
+
