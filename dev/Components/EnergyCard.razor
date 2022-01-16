@@ -17,7 +17,9 @@
         <div>
         <MudNumericField Value=@EffValue ValueChanged=@((int i) => SetEffValue(i)) Label="@l10n["lblAvailable"]"
             Variant=Variant.Text Min=@Energy.Min Max=99 HideSpinButtons=true Style="min-width:4rem;" />
-        <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2" />
+        <MudProgressLinear Color=Color.Primary Size=Size.Small Value=@(EffValue*100/MaxValue) Class="mb-2">
+            |
+        </MudProgressLinear>
         </div>
         <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon="@Icons.Material.Filled.ExposurePlus1" aria-label="Increase by 1"></MudIconButton>
         <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon="@Icons.Material.Filled.ExposurePlus2" aria-label="Increase by 2"></MudIconButton>

@@ -1,4 +1,13 @@
-﻿.rolltable td:not(:first-child),
+﻿::deep .check {
+    background-color: #EFEEEF;
+}
+
+::deep .rolltable {
+    background-color: transparent !important;
+}
+
+.rolltable td:not(:first-child),
 .rolltable th:not(:first-child) {
     text-align: center;
+    background-color: transparent;
 }

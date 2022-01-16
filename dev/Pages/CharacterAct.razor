@@ -84,7 +84,7 @@
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
                 <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
-                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                    @l10n["lblModifier"]: @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>

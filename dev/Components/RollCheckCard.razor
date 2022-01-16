@@ -17,16 +17,16 @@
         <CardHeaderActions>
             @if (CanClose)
             {
-                <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Default" />
+                <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
             }
         </CardHeaderActions>
     </MudCardHeader>
 
-    <MudCardContent>
-        <MudGrid Spacing=0 Class="my-1">
+    <div> @*Needed for css isolation to work*@
+    <MudCardContent Class="check">
+        <MudGrid Spacing=0 Class="my-1"> 
             <MudItem xs=12>
                 <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 Class="rolltable">
-                @* Style="overflow-x: auto;" *@
                 <tbody>
                     <tr>
                         <td>@*AttributeLabel*@</td>
@@ -57,16 +57,25 @@
                         <td> &nbsp; </td>  @*No roll against the mod*@
                     </tr>
                 </tbody>
-            </MudSimpleTable>
-            @if (Result.Classification is not null)
-            {
-            <p class="py-4">
-                @l10n[Result.ClassificationLabel] @Result.Classification
-            </p>
-            }
+                </MudSimpleTable>
             </MudItem>
         </MudGrid>
     </MudCardContent>
+    </div>
+
+    @if (Result.Classification is not null)
+    {
+    <MudCardContent>
+        <MudGrid Spacing=0 Class="my-1">
+            <MudItem xs=12>
+            <MudText Class="px-4" Typo=Typo.subtitle2>
+                @Result.Classification @l10n[Result.ClassificationLabel]
+            </MudText>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+    }
+
     @if (Result.PrimaryNeedsConfirmation())
     {
     <MudCardContent>
