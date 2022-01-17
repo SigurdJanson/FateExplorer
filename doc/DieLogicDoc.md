@@ -1,4 +1,25 @@
 
+# Attributes
+
+## Wording
+
+Any character value is called an **attribute**.
+
+Courage, strength, ... are called abilites.
+
+Skills are basic, mundane skills (like perception, ...). But arcane and karma skills are called skills as much as the combat techniques. Only that the program logic handles combat techniques differently.
+
+
+## 
+
+* Imported value: the value as it was understood by importing a character sheet.
+* True value: the correct character's attribute after applying special abilities, advantages and disadvantages.
+* Effective value. An attribute value modified either...
+  * by a modification at the GMs discretion.
+  * by temporary states and conditions.
+  * for dependent attributes when the dependencies change.
+
+
 # Rolls & Checks
 
 ## Types of Checks (Rule Book)
