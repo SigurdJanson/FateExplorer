@@ -12,8 +12,8 @@
 
     <MudCardContent>
         <div class="d-flex flex-row">
-        <MudIconButton OnClick=@(() => ChangeEffValue(-2)) Icon="@Icons.Material.Filled.ExposureNeg2" aria-label="Reduce by 2"></MudIconButton>
-        <MudIconButton OnClick=@(() => ChangeEffValue(-1)) Icon="@Icons.Material.Filled.ExposureNeg1" aria-label="Reduce by 1"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(-2)) Icon=@Icons.Material.Filled.ExposureNeg2 aria-label="Reduce by 2"></MudIconButton> @*l10n*@
+        <MudIconButton OnClick=@(() => ChangeEffValue(-1)) Icon=@Icons.Material.Filled.ExposureNeg1 aria-label="Reduce by 1"></MudIconButton>
         <div>
         <MudNumericField Value=@EffValue ValueChanged=@((int i) => SetEffValue(i)) Label="@l10n["lblAvailable"]"
             Variant=Variant.Text Min=@Energy.Min Max=99 HideSpinButtons=true Style="min-width:4rem;" />
@@ -21,8 +21,8 @@
             |
         </MudProgressLinear>
         </div>
-        <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon="@Icons.Material.Filled.ExposurePlus1" aria-label="Increase by 1"></MudIconButton>
-        <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon="@Icons.Material.Filled.ExposurePlus2" aria-label="Increase by 2"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon=@Icons.Material.Filled.ExposurePlus1 aria-label="Increase by 1"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon=@Icons.Material.Filled.ExposurePlus2 aria-label="Increase by 2"></MudIconButton>
         </div>
 
         <MudText Typo=Typo.caption Align="Align.Center">@l10n["lblCrossedThresholds"]</MudText>
