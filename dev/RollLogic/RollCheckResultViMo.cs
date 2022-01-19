@@ -106,9 +106,18 @@ namespace FateExplorer.RollLogic
         public IRollM GetPrimaryRoll() // TODO: model is exposed
             => RollCheck?.GetRoll(RollType.Primary);
 
+
+        /// <summary>
+        /// Indicates if the check requires a confirmation roll as immediate next step.
+        /// </summary>
+        /// <returns>true/false</returns>
         public bool PrimaryNeedsConfirmation() => RollCheck.NeedsConfirmation;
 
 
+        /// <summary>
+        /// Indicates if the check requires a botch effect roll as immediate next step.
+        /// </summary>
+        /// <returns>true/false</returns>
         public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
 
 
@@ -121,11 +130,17 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// 
+        /// Returns the analysed result of the confirmation roll
         /// </summary>
         /// <returns></returns>
         public RollResultViMo GetConfirmationResult() => GetRollResult(RollType.Confirm);
 
+
+        /// <summary>
+        /// Returns the analysed result of the botch effect roll
+        /// </summary>
+        /// <returns></returns>
+        public RollResultViMo GetBotchResult() => GetRollResult(RollType.Botch);
 
 
         /// <summary>

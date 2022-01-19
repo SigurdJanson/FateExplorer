@@ -131,6 +131,12 @@
   <data name="btnAdd" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
+  <data name="btnAvoid" xml:space="preserve">
+    <value>Abwenden</value>
+  </data>
+  <data name="btnBotchEffect" xml:space="preserve">
+    <value>Folgen aufdecken</value>
+  </data>
   <data name="btnCancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>

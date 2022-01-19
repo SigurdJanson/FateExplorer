@@ -150,7 +150,10 @@ namespace FateExplorer.RollLogic
         /// <see cref="Success">success level</see> is "botch".
         /// </summary>
         public virtual bool NeedsBotchEffect
-        { get => Success == RollSuccessLevel.Botch; }
+        { get => RollList[RollType.Confirm] is not null &&
+                RollList[RollType.Botch] is null &&
+                Success == RollSuccessLevel.Botch;
+        }
 
 
     }

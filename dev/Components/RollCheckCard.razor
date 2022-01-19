@@ -83,7 +83,7 @@
             @l10n["roll"+Result.SuccessLevel.ToString()]
         </MudText>
         <MudButton OnClick=@(() => RollConfirm()) Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled Class="d-inline">
-            @l10n["btnConfirm"]
+            @(Result.SuccessLevel == RollSuccessLevel.PendingCritical ? l10n["btnConfirm"] : l10n["btnAvoid"])
         </MudButton>
     </MudCardContent>
     }
@@ -99,9 +99,18 @@
     @if (Result.NeedsBotchEffect())
     {
     <MudCardContent>
-        <MudButton Color=@GetAvatarColor(Result.SuccessLevel)>
+        <MudButton OnClick=@(() => RollBotchEffect()) Color=@GetAvatarColor(Result.SuccessLevel)>
             @l10n["btnBotchEffect"]
         </MudButton>
+    </MudCardContent>
+    }
+    @if (Result.GetBotchResult() is not null)
+    {
+    <MudCardContent>
+        <MudText Typo=Typo.body1 Class="d-inline">"msgMessage"</MudText>
+        <MudText Typo=Typo.body1 Class="d-inline">
+            [@l10n["lblRoll"] @(Result.GetBotchResult().CombinedResult)]
+        </MudText>
     </MudCardContent>
     }
 </MudCard>
@@ -150,6 +159,12 @@
     private void RollConfirm()
     {
         Result.GetRollResult(RollType.Confirm, true);
+        this.StateHasChanged();
+    }    
+    
+    private void RollBotchEffect()
+    {
+        Result.GetRollResult(RollType.Botch, true);
         this.StateHasChanged();
     }
 

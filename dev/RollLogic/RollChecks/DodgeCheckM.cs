@@ -88,13 +88,6 @@ namespace FateExplorer.RollLogic
             get => throw new NotImplementedException();
         }
 
-        /// <inheritdoc/>
-        public override bool NeedsBotchEffect
-        { 
-            get => RollList[RollType.Confirm] is not null && 
-                Success == RollSuccessLevel.Botch; 
-        }
-
 
 
         // ROLL /////////////////////////////////
