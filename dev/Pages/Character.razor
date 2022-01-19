@@ -3,6 +3,7 @@
 @using FateExplorer.Components
 @using FateExplorer.RollLogic
 @using FateExplorer.ViewModel
+@using FateExplorer.Shared
 @using System.IO
 @using System
 
@@ -40,6 +41,8 @@
                 </div>
             </MudPaper>
 
+@*                            <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
+                            <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>*@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
@@ -47,8 +50,9 @@
                 {
                     <MudItem xs=6 Class="mb-3">
                         <MudTooltip Text=@r.Name Placement=Placement.Bottom>
-                            <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
-                            <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>
+                            <MudField Label="@r.ShortName" Variant=Variant.Text DisableUnderLine=true>
+                                @r.EffectiveValue @AddMaxResilience(r)
+                            </MudField>
                         </MudTooltip>
                     </MudItem>
                 }
@@ -56,16 +60,39 @@
             </MudPaper>
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudText Typo=Typo.caption>@l10n["lblBelongings"]</MudText>
-                <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
+                <MudGrid>
+                    <MudItem xs=6 Class="mb-3">
+                    <MudField Label=@l10n["lblBelongings"] Variant=Variant.Text DisableUnderLine=true>
+                        n/a
+                    </MudField>
+                    </MudItem>
 
-                <MudText Typo=Typo.caption>@l10n["lblWealth"]</MudText>
-                <MudText Typo=Typo.body1 Class="mb-3">n/a</MudText>
+                    <MudItem xs=6 Class="mb-3">
+                    <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
+                        @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
+                        <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
+                            <MudIcon Icon=@Icons.Filled.Info Color=Color.Info/>
+                        </MudTooltip>
+                        @if (Hero.CarriedWeight > Hero.WhatCanCarry)
+                        {
+                        <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
+                            <MudIcon Icon=@Icons.Filled.Info Color=Color.Error />
+                        </MudTooltip>
+                        }
+                    </MudField>
+                    </MudItem>
+
+                    <MudItem xs=6 Class="mb-3">
+                    <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
+                        n/a
+                    </MudField>
+                    </MudItem>
+                </MudGrid>
             </MudPaper>
         </MudItem>
 
         <MudItem xs=12 sm=6 md=7 lg=8>
-            <MudPaper Square="true" Class="d-flex justify-space-around">
+            <MudPaper Square=true Outlined=false Class="d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
                 <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
@@ -73,7 +100,7 @@
                 </MudSlider>
             </MudPaper>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
-                @if (RollCheckResults is not null)
+                @if (RollCheckResults is not null && RollCheckResults.Count > 0)
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
@@ -84,7 +111,7 @@
                 {
                     <span>Roll something</span>
                 }
-                </MudPaper>
+            </MudPaper>
         </MudItem>
     </MudGrid>
 </MudContainer>

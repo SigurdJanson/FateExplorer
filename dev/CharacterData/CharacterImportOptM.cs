@@ -231,9 +231,26 @@ namespace FateExplorer.CharacterData
         }
 
 
-        public List<WeaponDTO> GetWeapons()
-        { 
-            throw new NotImplementedException();
+
+
+        public double TotalWeightOfBelongings()
+        {
+            double totalWeight = 0;
+            foreach (var i in Belongings.Items)
+            {
+                totalWeight += i.Weight * i.Amount;
+            }
+            return totalWeight;
+        }
+
+
+
+        public IEnumerable<KeyValuePair<string, string>> GetWeapons()
+        {
+            foreach (var i in Belongings.Items)
+            {
+                yield return new KeyValuePair<string, string>(i.Template, i.Name);
+            }
         }
 
         #endregion

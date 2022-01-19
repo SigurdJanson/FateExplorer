@@ -55,5 +55,12 @@ namespace FateExplorer.CharacterData
         int CountKarmaSkills();
         IEnumerable<KeyValuePair<string, int>> GetKarmaSkills();
 
+
+        // PROPERTY / BELONGINGS
+
+        double TotalWeightOfBelongings();
+
+        IEnumerable<KeyValuePair<string, string>> GetWeapons();
+
     }
 }

@@ -76,6 +76,9 @@ namespace FateExplorer.GameLogic
             {
                 Resiliences.Add(Res.Id, new ResilienceM(Res, this));
             }
+
+            // BELONGINGS
+            CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
         }
 
 
@@ -86,7 +89,24 @@ namespace FateExplorer.GameLogic
 
         public string DateOfBirth { get; protected set; }
 
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
+        public double CarriedWeight { get; protected set; }
+
+        /// <inheritdoc />
+        public double WhatCanCarry(int EffectiveStrength)
+        {
+            return EffectiveStrength * 2;
+        }
+
+        /// <inheritdoc />
+        public double WhatCanLift(int EffectiveStrength)
+        {
+            return EffectiveStrength * 10;
+        }
+
+
+        /// <inheritdoc />
         public string SpeciesId { get; protected set; }
 
 

@@ -137,11 +137,11 @@ namespace FateExplorer.Shared
 
     public struct WeaponDTO : ICharacterAttributDTO
     {
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Max { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Min { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int EffectiveValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int Max { get; set; }
+        public int Min { get; set; }
+        public int EffectiveValue { get; set; }
     }
 
 

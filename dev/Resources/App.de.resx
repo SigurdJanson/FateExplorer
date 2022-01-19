@@ -289,6 +289,12 @@
   <data name="lblWealth" xml:space="preserve">
     <value>Vermögen</value>
   </data>
+  <data name="lblWeight" xml:space="preserve">
+    <value>Traggewicht</value>
+  </data>
+  <data name="lblWeightUnit" xml:space="preserve">
+    <value>Stein</value>
+  </data>
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Deine Spezialität</value>
     <comment>Character Act (Skills)</comment>
@@ -299,6 +305,9 @@
   <data name="msgBotchConfirmed" xml:space="preserve">
     <value>Verlierer!</value>
   </data>
+  <data name="msgCanCarry" xml:space="preserve">
+    <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
+  </data>
   <data name="msgCriticalConfirmed" xml:space="preserve">
     <value>Genau so machen das Helden!</value>
   </data>
@@ -308,6 +317,9 @@
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>Du kannst Heldendateien aus der Optolith-App laden</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgMaxCarryExceeded" xml:space="preserve">
+    <value>Der Held erleidet eventuell einen Malus, denn das getragene Gewicht übersteigt seine Tragkraft.</value>
   </data>
   <data name="msgNoCharacterData" xml:space="preserve">
     <value>Du hast noch keinen Charakter geladen</value>

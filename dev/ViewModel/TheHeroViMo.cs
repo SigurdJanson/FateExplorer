@@ -99,6 +99,12 @@ namespace FateExplorer.ViewModel
         public string PlaceOfBirth { get => characterM?.PlaceOfBirth ?? ""; }
         public string DateOfBirth { get => characterM?.DateOfBirth ?? ""; }
 
+        public double CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
+
+        public double WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
+        public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
 
         #region ABILITIES
         Dictionary<string, int> AbilityEffValues { get; set; }

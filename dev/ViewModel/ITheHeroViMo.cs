@@ -28,6 +28,9 @@ namespace FateExplorer.ViewModel
         string Name { get; }
         string PlaceOfBirth { get; }
         string DateOfBirth { get; }
+        double CarriedWeight { get; }
+        double WhatCanCarry { get; }
+        double WhatCanLift { get; }
 
 
         List<AbilityDTO> GetAbilites();

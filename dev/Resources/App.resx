@@ -289,6 +289,12 @@
   <data name="lblWealth" xml:space="preserve">
     <value>Funds</value>
   </data>
+  <data name="lblWeight" xml:space="preserve">
+    <value>Carried Weight</value>
+  </data>
+  <data name="lblWeightUnit" xml:space="preserve">
+    <value>Stone</value>
+  </data>
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Your Specialties</value>
     <comment>Character Act (Skills)</comment>
@@ -299,6 +305,9 @@
   <data name="msgBotchConfirmed" xml:space="preserve">
     <value>Loser!</value>
   </data>
+  <data name="msgCanCarry" xml:space="preserve">
+    <value>This character can carry up to {0} stone for a longer period time and lift things with a weight up to {1} stone.</value>
+  </data>
   <data name="msgCriticalConfirmed" xml:space="preserve">
     <value>This is how heroes do it!</value>
   </data>
@@ -308,6 +317,9 @@
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>You can import character files created by the Optolith app</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgMaxCarryExceeded" xml:space="preserve">
+    <value>The character may suffer a penalty for too much weight</value>
   </data>
   <data name="msgNoCharacterData" xml:space="preserve">
     <value>You have not loaded any characters</value>
