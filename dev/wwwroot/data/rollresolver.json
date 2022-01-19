@@ -4,6 +4,7 @@
     "SPELL":{"id": "SPELL", "roll": "DSA5/0/skill", "name": "Zauber", "type": "simple"},
     "LITURGY": {"id": "LITURGY", "roll": "DSA5/0/skill", "name": "Liturgiewirken", "type": "simple"},
     "REGENERATE": {"id": "REGENERATE", "roll": "DSA5/0/regeneration", "name": "Regeneration", "type": "value"},
+    "DO": {"id": "DO", "roll": "DSA5/0/dodge", "name": "Dodge", "type": "simple"},
     "INI": {"id": "INI", "roll": "DSA5/0/initiative", "name": "Initiative", "type": "compare"},
-    "CT_9/AT+SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/initiative", "name": "Hruruzat Attacke", "type": "compare"}
+    "CT_9/AT/SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/initiative", "name": "Hruruzat Attacke", "type": "compare"}
 }

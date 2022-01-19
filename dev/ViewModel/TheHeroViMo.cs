@@ -65,6 +65,12 @@ namespace FateExplorer.ViewModel
             foreach (var chab in characterM?.Abilities)
                 AbilityEffValues.Add(chab.Key, chab.Value.Value);
 
+            // COMBAT
+            // TODO: COMBAT 
+
+            // DODGE
+            DodgeTrueValue = characterM.Dodge.Value;
+
             // ENERGIES
             if (EnergyEffValues is null)
                 EnergyEffValues = new();
@@ -260,6 +266,53 @@ namespace FateExplorer.ViewModel
                 });
             }
             return Result;
+        }
+
+        #endregion
+
+
+
+        #region COMBAT & DODGE
+
+
+        /// <summary>
+        /// A basic dodge value set by the user overwrites the value from the charcter sheet
+        /// </summary>
+        int DodgeTrueValue { get; set; }
+
+        /// <summary>
+        /// A temporary modifier of the dodge value
+        /// </summary>
+        int DodgeEffMod { get; set; }
+
+        /// <inheritdoc />
+        public DodgeDTO GetDodge()
+        {
+            int DodgeVal;
+            var dodgeM = characterM.Dodge;
+            var Dependencies = dodgeM.DependentAttributes;
+            if (Dependencies == null) 
+                DodgeVal = DodgeTrueValue;
+            else
+            {
+                // TODO: Make this logic flexible so that it can apply to all calculated values
+                bool Same = true;
+                foreach (var d in Dependencies)
+                    if (characterM.GetAbility(d) != AbilityEffValues[d])
+                        Same = false;
+
+                if (Same)
+                    DodgeVal = DodgeTrueValue + DodgeEffMod;
+                else
+                    DodgeVal = DodgeM.ComputeDodge(characterM.GetAbility(Dependencies[0])) + DodgeEffMod;
+            }
+
+            return new DodgeDTO()
+            {
+                Id = "DO"/*TODO*/,
+                Name = "Dodge"/*TODO*/, 
+                EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
+            };
         }
 
         #endregion

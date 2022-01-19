@@ -26,7 +26,17 @@
             => EffectiveAgility / 2 + EffectiveAgility % 2;
 
         /// <summary>
-        /// The basic dodge value
+        /// The allowed minimum of the true/effective value
+        /// </summary>
+        public int Min { get; protected set; } = 0;
+
+        /// <summary>
+        /// The allowed maximum of the true/effective value
+        /// </summary>
+        public int Max { get; protected set; } = 20;
+
+        /// <summary>
+        /// The imported dodge value
         /// </summary>
         public int Value { get; protected set; }
 

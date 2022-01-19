@@ -82,6 +82,8 @@ namespace FateExplorer.ViewModel
             ListOfChecks = new()
             {
                 { AbilityCheckM.checkTypeId, typeof(AbilityCheckM) },
+                { CombatCheckM.checkTypeId, typeof(CombatCheckM) },
+                { DodgeCheckM.checkTypeId, typeof(DodgeCheckM) },
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) }
             };
         }
@@ -115,7 +117,7 @@ namespace FateExplorer.ViewModel
             // Exact match
             RollMappingViMo Result;
             if (RollMappings.TryGetValue(AttributeId, out Result))
-                return Result.Id;
+                return Result.Roll;
 
             // Partial match (i.e. begins with)
             var Candidates = RollMappings.Keys.Where(p => AttributeId.StartsWith(p));
@@ -151,12 +153,15 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0)/*TODO*/);
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0));
                     break;
                 case
                     nameof(SkillCheckM):
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
-                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0)); // how to instatiate with ability values?
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0));
+                    break;
+                case nameof(DodgeCheckM):
+                    Checker = new DodgeCheckM((DodgeDTO)TargetAttr, new SimpleCheckModifierM(0));
                     break;
                 default:
                     Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM;

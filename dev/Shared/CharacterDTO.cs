@@ -153,4 +153,23 @@ namespace FateExplorer.Shared
         public int Min { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int EffectiveValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
+
+
+    public struct DodgeDTO : ICharacterAttributDTO
+    {
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
+    }
 }

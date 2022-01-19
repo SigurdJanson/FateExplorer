@@ -69,6 +69,13 @@ namespace FateExplorer.ViewModel
         List<AbilityDTO> GetSkillAbilities(SkillsDTO skill);
 
         /// <summary>
+        /// Returns the effective dodge value
+        /// </summary>
+        /// <returns>The effective dodge value</returns>
+        DodgeDTO GetDodge();
+
+
+        /// <summary>
         /// Returns toughness and spirit
         /// </summary>
         /// <returns></returns>
