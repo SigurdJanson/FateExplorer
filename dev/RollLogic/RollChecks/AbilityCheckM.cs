@@ -88,6 +88,21 @@ namespace FateExplorer.RollLogic
         public override string Classification => null;
 
 
+
+        /// <inheritdoc/>
+        /// <remarks>Not needed at the moment</remarks>
+        public override int Remainder
+        {
+            get => throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public override bool NeedsBotchEffect
+        { get => false; }
+
+
+
+
         // ROLL /////////////////////////////////
 
         /// <inheritdoc />
@@ -141,16 +156,5 @@ namespace FateExplorer.RollLogic
             throw new NotImplementedException();
         }
 
-
-        /// <inheritdoc/>
-        /// <remarks>Not needed at the moment</remarks>
-        public override int Remainder
-        {
-            get => throw new NotImplementedException();
-        }
-
-
-        public override bool NeedsBotchEffect
-        { get => false; }
     }
 }
