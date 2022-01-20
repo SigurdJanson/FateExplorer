@@ -18,6 +18,7 @@
         <FateExplorer.Components.CharacterHeader />
         <MudSpacer /> 
         Fate Explorer
+        
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu />
@@ -40,9 +41,11 @@
     {
         Palette = new Palette()
         {
-            //Primary = Colors.Blue.Default,
-            Secondary = Colors.Green.Accent4//,
-            //AppbarBackground = Colors.Red.Default,
+            Primary = Colors.Grey.Darken4,
+            Secondary = "#9c0000ff", //Colors.Green.Accent4//,
+            AppbarBackground = "#9c0000ff",
+            TextPrimary = "#210000ff",
+            OverlayDark = "#9c000088"
         },
         PaletteDark = new Palette()
         {
