@@ -59,7 +59,8 @@ namespace FateExplorer.GameLogic
 
         /// <summary>
         /// The basic parry value of the combat technique according to the 
-        /// characters skills and not modified by damage threshold.
+        /// characters skills and not modified by damage threshold or any 
+        /// other modifications from specific weapons.
         /// Yields 0 if the combat technique does not allow parrying.
         /// </summary>
         public int ParryValue { get; protected set; }
@@ -70,18 +71,31 @@ namespace FateExplorer.GameLogic
         public bool IsRanged { get; protected set; }
 
 
-
+        /// <summary>
+        /// The basic attack value of the combat technique according to the 
+        /// characters skills and not modified by damage thresholdor any 
+        /// other modifications from specific weapons.
+        /// </summary>
+        /// <param name="EffectiveBase">The effective value of primary ability.</param>
+        /// <returns>The effective attack skill value</returns>
         public int ComputeAttack(int EffectiveBase)
         {
-            return Value + (EffectiveBase - 8) / 3;
+            return Value + Math.Max((EffectiveBase - 8) / 3, 0);
         }
 
+        /// <summary>
+        /// The basic parry value of the combat technique according to the 
+        /// characters skills and not modified by damage threshold or any 
+        /// other modifications from specific weapons.
+        /// </summary>
+        /// <param name="EffectivePrimary">The effective value of primary ability.</param>
+        /// <returns>The effective parry skill value</returns>
         public int ComputeParry(int EffectivePrimary)
         {
             if (!CanParry) return 0;
 
             int Result = Value / 2 + Value % 2;
-            Result += (EffectivePrimary - 8) / 3;
+            Result += Math.Max((EffectivePrimary - 8) / 3, 0);
             return Result;
         }
 
