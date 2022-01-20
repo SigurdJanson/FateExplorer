@@ -89,6 +89,9 @@ namespace FateExplorer.GameLogic
 
         public string DateOfBirth { get; protected set; }
 
+        /// <inheritdoc />
+        public string SpeciesId { get; protected set; }
+
 
         /// <inheritdoc />
         public double CarriedWeight { get; protected set; }
@@ -105,9 +108,7 @@ namespace FateExplorer.GameLogic
             return EffectiveStrength * 10;
         }
 
-
-        /// <inheritdoc />
-        public string SpeciesId { get; protected set; }
+        public Dictionary<string, WeaponM> Weapons { get; protected set; }
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
