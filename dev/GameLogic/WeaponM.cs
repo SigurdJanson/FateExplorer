@@ -154,7 +154,7 @@ namespace FateExplorer.GameLogic
 
             CombatTechM technique = CombatTecSkill[CombatTechId];
 
-            int Parry = technique.ComputeAttack(PrimeAbility); // no weapons modifier
+            int Parry = technique.ComputeParry(PrimeAbility); // no weapons modifier
             Parry += ParryMod; // attack modifier of the weapon
             Parry += Math.Max(PrimeAbility - DamageThreshold, 0); // if primary attribute > damage threshold ...
 
