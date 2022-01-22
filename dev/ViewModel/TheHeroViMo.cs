@@ -410,6 +410,21 @@ namespace FateExplorer.ViewModel
 
         #region WEAPONS
 
+        List<WeaponViMo> weapons;
+        public List<WeaponViMo> Weapons
+        {
+            get
+            {
+                if (weapons is null)
+                {
+                    weapons = new List<WeaponViMo>();
+                    foreach (var w in characterM.Weapons)
+                        weapons.Add(new WeaponViMo(w.Value));
+                }
+                return weapons;
+            }
+        }
+
         #endregion
     }
 }

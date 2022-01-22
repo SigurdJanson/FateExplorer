@@ -35,6 +35,14 @@ namespace FateExplorer.GameLogic
                 CombatTechM ct = new(gameData.CombatTechs[CtImport.Key], CtImport.Value, this);
                 CombatTechs.Add(CtImport.Key, ct);
             }
+            foreach (var ct in gameData.CombatTechs.Data)
+            {
+                if (!CombatTechs.TryGetValue(ct.Id, out CombatTechM ExistingCt))
+                {
+                    CombatTechM newCt = new(ct, CombatTechM.DefaultSkillValue, this);
+                    CombatTechs.Add(ct.Id, newCt);
+                }
+            }
 
             // DODGE
             Dodge = new DodgeM(this);
@@ -79,6 +87,14 @@ namespace FateExplorer.GameLogic
 
             // BELONGINGS
             CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
+
+            Weapons = new Dictionary<string, WeaponM>();
+            foreach (var w in characterImportOptM.GetWeaponsDetails())
+            {
+                WeaponM weaponM = new (this);
+                weaponM.Initialise(w, gameData);
+                Weapons.Add(w.Id, weaponM);
+            }
         }
 
 

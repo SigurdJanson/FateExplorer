@@ -1,4 +1,6 @@
-﻿using FateExplorer.RollLogic;
+﻿using FateExplorer.GameData;
+using FateExplorer.RollLogic;
+using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
 
@@ -19,32 +21,32 @@ namespace FateExplorer.GameLogic
 
         public int PaSkill { get; protected set; }
 
-
-
-
-        public string Name { get; protected set; }
-
-        public string CombatTechId { get; protected set; }
-
-        public int DamageThreshold { get; protected set; }
-
-        public int DamageDieCount { get; protected set; }
-
-        public int DamageDieSides { get; protected set; }
-
-        public int DamageBonus { get; protected set; }
-
-        public int AttackMod { get; protected set; }
-
-        public int ParryMod { get; protected set; }
-
-        public int Range { get; protected set; }
-
-        public int Weight { get; protected set; }
-
-        public bool Improvised { get; protected set; }
-
         public bool Ranged { get; protected set; }
+
+
+
+
+
+        public string Name { get; set; }
+
+        public string CombatTechId { get; set; }
+
+        public int DamageDieCount { get; set; }
+
+        public int DamageDieSides { get; set; }
+
+        public int DamageBonus { get; set; }
+
+        public int DamageThreshold { get; set; }
+
+        public int AttackMod { get; set; }
+
+        public int ParryMod { get; set; }
+
+        public int Range { get; set; }
+
+        public bool Improvised { get; set; }
+
 
 
         /// <summary>
@@ -55,23 +57,45 @@ namespace FateExplorer.GameLogic
         public WeaponM(ICharacterM hero)
         {
             Hero = hero ?? throw new ArgumentNullException(nameof(hero));
+
+            // TODO: get "improvised" from DB
         }
+
 
 
         /// <summary>
         /// 
         /// </summary>
-        public void Initialise()
+        public void Initialise(WeaponDTO WeaponData, IGameDataService gameData)
         {
+            Name = WeaponData.Name ?? "unknown";
+            CombatTechId = WeaponData.CombatTechId ?? CombatTechM.Unarmed;
+            DamageBonus = WeaponData.DamageBonus;
+            DamageDieCount = WeaponData.DamageDieCount;
+            DamageDieSides = WeaponData.DamageDieSides;
+            DamageThreshold = WeaponData.DamageThreshold;
+            AttackMod = WeaponData.AttackMod;
+            ParryMod = WeaponData.ParryMod;
+            // Range = WeaponData.Range; // TODO currently ignored because anmbiguous for ranged vs melee
+            Improvised = WeaponData.Improvised;
+
+
             CombatTechM combatTech;
             if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
                 PrimaryAbilityId = combatTech.PrimeAbilityId.Split("/");
             else
-                PrimaryAbilityId = Array.Empty<string>();
+            {
+                //PrimaryAbilityId = Array.Empty<string>();
+                string Temp = gameData.WeaponsMelee[WeaponData.Id].PrimeAttrID;
+                PrimaryAbilityId = Temp.Split("/");
+            }
+
+            Ranged = combatTech.IsRanged;
 
             AtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
             PaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
         }
+
 
 
         /// <summary>
@@ -107,6 +131,7 @@ namespace FateExplorer.GameLogic
         }
 
 
+
         /// <summary>
         /// Compute effective parry value to roll against based on DSA5 rules. 
         /// Base values for AT and PA depend on: courage, character skill, weapon modifiers,
@@ -136,18 +161,6 @@ namespace FateExplorer.GameLogic
             return Parry;
         }
 
-
-        ////' CalcDamage
-        ////' Computes the hit point formula of the weapon. It takes the
-        ////' character's abilities into account to get the bonus right.
-        ////' @details The damage is determined by three components: [N]d[DP] + [Bonus]
-        ////' @param CharAbs The character's abilities
-        ////' @return Invisible returns `self`
-        //public IRollM GetDamageRoll() 
-        //{
-
-        //    return null;
-        //}
 
 
         /// <summary>

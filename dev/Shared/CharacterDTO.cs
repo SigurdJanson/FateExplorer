@@ -135,13 +135,29 @@ namespace FateExplorer.Shared
         public int EffectiveValue { get; set; }
     }
 
-    public struct WeaponDTO : ICharacterAttributDTO
+    public struct WeaponDTO
     {
+        /// <summary>
+        /// An object id (for the optolith it's the template id).
+        /// </summary>
         public string Id { get; set; }
+
+        public string CombatTechId { get; set; }
+
         public string Name { get; set; }
-        public int Max { get; set; }
-        public int Min { get; set; }
-        public int EffectiveValue { get; set; }
+
+        public int AttackMod { get; set; }
+        public int ParryMod { get; set; }
+
+        public int DamageBonus { get; set; }
+
+        public int DamageDieCount { get; set; }
+
+        public int DamageDieSides { get; set; }
+
+        public int DamageThreshold { get; set; }
+
+        public bool Improvised { get; set; }
     }
 
 

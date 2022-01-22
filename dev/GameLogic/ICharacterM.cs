@@ -15,6 +15,9 @@ namespace FateExplorer.GameLogic
         /// </summary>
         string SpeciesId { get; }
 
+        Dictionary<string, WeaponM> Weapons { get; }
+
+
         Dictionary<string, AbilityM> Abilities { get; }
 
         Dictionary<string, CharacterEnergyM> Energies { get; }

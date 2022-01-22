@@ -96,5 +96,10 @@ namespace FateExplorer.ViewModel
         /// <param name="energy"></param>
         /// <returns></returns>
         EnergyDTO ChangeEnergies(EnergyDTO energy);
+
+        /// <summary>
+        /// The weapons carried by a character
+        /// </summary>
+        List<WeaponViMo> Weapons { get; }
     }
 }

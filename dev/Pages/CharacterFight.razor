@@ -40,6 +40,19 @@
                     </MudListItem>
                 </MudList>
             <MudPaper Elevation=0 Outlined=true Square=true>
+                <MudList Clickable=true>
+                    @foreach (var w in Hero.Weapons)
+                    {
+                    <MudListItem Text=@w.Name DisableRipple=true>
+                        <div class="d-flex align-center" >
+                            <div>
+                            <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
+                            <MudText Typo=Typo.body2 GutterBottom=false>@l10n["abbrvAttack"] @w.AtSkill - @l10n["abbrvParry"] @w.PaSkill</MudText>
+                            </div>
+                        </div>
+                    </MudListItem>
+                    }
+                </MudList>
             </MudPaper>
         </MudItem>
         <MudItem  xs=12 sm=6 md=8>

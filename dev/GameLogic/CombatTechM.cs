@@ -7,6 +7,9 @@ namespace FateExplorer.GameLogic
 
     public class CombatTechM
     {
+        public const int DefaultSkillValue = 6;
+        public const string Unarmed = "CT_9";
+
         private ICharacterM Hero;
 
         public CombatTechM(CombatTechDbEntry gameData, int value, ICharacterM hero)

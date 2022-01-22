@@ -249,7 +249,29 @@ namespace FateExplorer.CharacterData
         {
             foreach (var i in Belongings.Items)
             {
-                yield return new KeyValuePair<string, string>(i.Template, i.Name);
+                if (i.CombatTechnique is not null)
+                    yield return new KeyValuePair<string, string>(i.Template, i.Name);
+            }
+        }
+
+        public IEnumerable<WeaponDTO> GetWeaponsDetails()
+        {
+            foreach (var i in Belongings.Items)
+            {
+                if (i.CombatTechnique is not null && i.Amount > 0)
+                    yield return new WeaponDTO()
+                    { 
+                        Name = i.Name,
+                        Id = i.Template,
+                        AttackMod = i.AttackMod,
+                        ParryMod = i.ParryMod,
+                        CombatTechId = i.CombatTechnique,
+                        DamageBonus = i.DamageFlat,
+                        DamageDieCount = i.DamageDiceNumber,
+                        DamageDieSides = i.DamageDiceSides,
+                        DamageThreshold = i.PrimaryThreshold?.Threshold ?? 21,
+                        Improvised = false
+                    };
             }
         }
 
