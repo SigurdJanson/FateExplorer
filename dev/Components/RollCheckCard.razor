@@ -7,7 +7,7 @@
     <MudCardHeader>
         <CardHeaderAvatar>
             <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
-                <MudIcon Color=Color.Dark Icon=@GetAvatarIcon(Result.SuccessLevel) Size=Size.Large />
+                <MudIcon Color=@GetAvatarIconColor(Result.SuccessLevel) Icon=@GetAvatarIcon(Result.SuccessLevel) Size=Size.Large />
             </MudAvatar>
         </CardHeaderAvatar>
         <CardHeaderContent>
@@ -224,14 +224,25 @@
         Success switch
         {
             RollSuccessLevel.Botch => Color.Error,
-            RollSuccessLevel.Fail => Color.Error,
+            RollSuccessLevel.Fail => Color.Dark,
             RollSuccessLevel.Critical => Color.Success,
-            RollSuccessLevel.Success => Color.Success,
+            RollSuccessLevel.Success => Color.Dark,
             RollSuccessLevel.PendingBotch => Color.Warning,
             RollSuccessLevel.PendingCritical => Color.Warning,
             _ => Color.Info
         };
 
+    private Color GetAvatarIconColor(RollSuccessLevel Success) =>
+        Success switch
+        {
+            RollSuccessLevel.Botch => Color.Surface,
+            RollSuccessLevel.Fail => Color.Surface,
+            RollSuccessLevel.Critical => Color.Surface,
+            RollSuccessLevel.Success => Color.Surface,
+            RollSuccessLevel.PendingBotch => Color.Dark,
+            RollSuccessLevel.PendingCritical => Color.Dark,
+            _ => Color.Info
+        };
 
     private string GetConfirmationMessage(RollSuccessLevel Outcome) =>
         Outcome switch
