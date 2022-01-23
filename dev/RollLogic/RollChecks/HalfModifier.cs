@@ -13,6 +13,10 @@ namespace FateExplorer.RollLogic
         /// <remarks>Total cannot be interpreted for this type of modifier</remarks>
         public int Total { get => 0; }
 
+        /// <inheritdoc />
+        public int[] LastEffectiveApply { get; protected set; }
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -29,16 +33,24 @@ namespace FateExplorer.RollLogic
         public int[] Apply(int[] Before) // TODO: check for min/max???
         {
             int[] After = new int[Before.Length];
+            LastEffectiveApply = new int[Before.Length];
 
             for (int i = 0; i < Before.Length; i++)
+            {
                 After[i] = Before[i] / 2 + Before[i] % 2;
+                LastEffectiveApply[i] = Before[i] - After[i];
+            }
+                
             return After;
         }
 
         /// <inheritdoc/>
         public int Apply(int Before) // TODO: check for min/max???
         {
-            return Before / 2 + Before % 2;
+            int After = Before / 2 + Before % 2;
+            LastEffectiveApply = new int[1];
+            LastEffectiveApply[0] = Before - After;
+            return After;
         }
 
 

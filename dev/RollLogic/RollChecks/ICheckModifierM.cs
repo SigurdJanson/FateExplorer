@@ -36,6 +36,12 @@
         /// </summary>
         int Total { get; }
 
+        /// <summary>
+        /// The result of the last modification as (effective) as 
+        /// array of additive modifiers. Can be null if this modifier 
+        /// has not been applied, yet..
+        /// </summary>
+        int[] LastEffectiveApply { get; }
 
         /// <summary>
         /// Sets the modifier using an int. Each class implementing this interface has

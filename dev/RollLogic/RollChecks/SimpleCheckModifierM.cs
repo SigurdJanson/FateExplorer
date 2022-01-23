@@ -16,6 +16,9 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc/>
         public int Total { get => Value; }
 
+        /// <inheritdoc />
+        public int[] LastEffectiveApply { get; protected set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,8 +33,14 @@ namespace FateExplorer.RollLogic
         public int[] Apply(IRollM Before) // TODO: check for min/max???
         {
             int[] After = new int[Before.OpenRoll.Length];
+            LastEffectiveApply = new int[Before.OpenRoll.Length];
+
             for (int i = 0; i < Before.OpenRoll.Length; i++)
+            {
                 After[i] = Before.OpenRoll[i] + Value;
+                LastEffectiveApply[i] = Value;
+            }
+                
             return After;
         }
 
@@ -40,14 +49,22 @@ namespace FateExplorer.RollLogic
         public int[] Apply(int[] Before) // TODO: check for min/max???
         {
             int[] After = new int[Before.Length];
+            LastEffectiveApply = new int[Before.Length];
+
             for (int i = 0; i < Before.Length; i++)
+            {
                 After[i] = Before[i] + Value;
+                LastEffectiveApply[i] = Value;
+            }
+                
             return After;
         }
+
 
         /// <inheritdoc/>
         public int Apply(int Before) // TODO: check for min/max???
         {
+            LastEffectiveApply = new int[1] { Value };
             return Before + Value; ;
         }
 
