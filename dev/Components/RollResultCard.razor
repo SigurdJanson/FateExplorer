@@ -43,11 +43,11 @@
                         <td>@RollResult.CombinedResult</td>
                     </tr>
                     }
-                    @if (RollResult.Modifier != 0)
+                    @if (RollResult.Modifier is not null)
                     {
                     <tr>
                         <td>@l10n["lblResultCardModifier"]</td>
-                        <td>@RollResult.Modifier</td>
+                        <td>@string.Join(" \u00B7 ", RollResult.Modifier)</td>
                     </tr>
                     }
                 </tbody>
