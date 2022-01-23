@@ -158,7 +158,7 @@ namespace FateExplorer.RollLogic
             Result.RollResult = CurrentRoll.OpenRoll;
 
             Result.SuccessLevel = RollCheck.RollSuccess(Which);
-            Result.Modifier = RollCheck.CheckModifier.Total;
+            Result.Modifier = RollCheck.CheckModifier.LastEffectiveApply;
             Result.CombinedResult = CurrentRoll.OpenRollCombined();
             Result.RollAgainst = RollCheck.RollAttr;
 

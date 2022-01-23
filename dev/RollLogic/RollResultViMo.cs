@@ -19,6 +19,24 @@ namespace FateExplorer.RollLogic
             CupType = cupType;
         }
 
+
+        /// <summary>
+        /// Constructor to wrap a roll
+        /// </summary>
+        /// <param name="roll"></param>
+        public RollResultViMo(IRollM roll)
+        {
+            Name = roll.ToString();
+            DieSides = roll.Sides.Clone() as int[];
+            CupType = CupType.None; // unknown
+
+            RollAgainst = null;
+            RollResult = roll.OpenRoll.Clone() as int[];
+            CombinedResult = roll.OpenRollCombined();
+            Modifier = roll.ModifiedBy;
+            //SuccessLevel = ...
+        }
+
         /// <summary>
         /// Describes the roll.
         /// </summary>
@@ -44,7 +62,7 @@ namespace FateExplorer.RollLogic
         /// The effect of the roll. For a combat attack role this would be the hit points.
         /// For a skill rol eit is the skill level.
         /// </summary>
-        public int? CombinedResult { get; set; } // TODO: is this required in the long run?
+        public int? CombinedResult { get; set; }
 
         /// <summary>
         /// Success level
@@ -54,7 +72,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The sum of the modifiers put into the roll.
         /// </summary>
-        public int Modifier { get; set; } = 0;
+        public int[] Modifier { get; set; }
 
         /// <summary>
         /// Number of eyes of the dice (array with sides for each die).
