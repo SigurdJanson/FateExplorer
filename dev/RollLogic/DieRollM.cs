@@ -80,6 +80,8 @@ namespace FateExplorer.RollLogic
         /// The modifier that has effectively been applied to the roll.
         /// It must be set by <see cref="Roll"/>.
         /// </summary>
+        /// <remarks>The base class DieRollM does not modifiers 
+        /// and will return an array of zeroes.</remarks>
         public int[] ModifiedBy
         {
             get
