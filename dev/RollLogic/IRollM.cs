@@ -35,6 +35,13 @@
         /// <returns>An aggregated form of all dice</returns>
         int OpenRollCombined();
 
+
+        /// <summary>
+        /// The modifier that has effectively been applied to the roll.
+        /// It must be set by <see cref="Roll"/>.
+        /// </summary>
+        int[] ModifiedBy { get; }
+
         /// <summary>
         /// Checks if the condition to perform the roll are met. 
         /// </summary>

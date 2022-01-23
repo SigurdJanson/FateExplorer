@@ -69,6 +69,21 @@ namespace FateExplorer.RollLogic
         }
 
 
+        private int[] modifiedBy;
+        /// <summary>
+        /// The modifier that has effectively been applied to the roll.
+        /// It must be set by <see cref="Roll"/>.
+        /// </summary>
+        public int[] ModifiedBy
+        {
+            get
+            {
+                if (modifiedBy == null) modifiedBy = new int[Sides.Length];
+                return modifiedBy;
+            }
+            protected set => modifiedBy = value;
+        }
+
 
         //
         #region ENTRY
