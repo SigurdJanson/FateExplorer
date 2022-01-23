@@ -37,7 +37,7 @@ namespace FateExplorer.GameLogic
             }
             foreach (var ct in gameData.CombatTechs.Data)
             {
-                if (!CombatTechs.TryGetValue(ct.Id, out CombatTechM ExistingCt))
+                if (!CombatTechs.ContainsKey(ct.Id))
                 {
                     CombatTechM newCt = new(ct, CombatTechM.DefaultSkillValue, this);
                     CombatTechs.Add(ct.Id, newCt);
