@@ -1,4 +1,5 @@
-﻿using FateExplorer.RollLogic;
+﻿using FateExplorer.GameData;
+using FateExplorer.RollLogic;
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace FateExplorer.ViewModel
         #region INIT [][][][][][][][][][][][][][]
 
         protected HttpClient DataSource; // injected
+        protected IGameDataService GameData { get; set; }  // injected
+
 
 
         private Dictionary<string, RollMappingViMo> rollMappings;
@@ -94,10 +97,11 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="dataSource"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public RollHandlerViMo(HttpClient dataSource)
+        public RollHandlerViMo(HttpClient dataSource, IGameDataService gameData)
         {
             // injection
             DataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
+            GameData = gameData ?? throw new ArgumentNullException(nameof(gameData));
         }
 
         #endregion
@@ -181,7 +185,6 @@ namespace FateExplorer.ViewModel
             Result.CheckModifier = Modifier;
             return Result;
         }
-
 
     }
 }
