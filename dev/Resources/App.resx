@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="abbrvAttack" xml:space="preserve">
+    <value>AT</value>
+  </data>
   <data name="abbrvDie" xml:space="preserve">
     <value>d</value>
+  </data>
+  <data name="abbrvParry" xml:space="preserve">
+    <value>PA</value>
   </data>
   <data name="Add Dice Cup" xml:space="preserve">
     <value>Add Dice Cup</value>
@@ -152,6 +158,10 @@
   <data name="btnOpenMenu" xml:space="preserve">
     <value>Open menu</value>
     <comment>NavMenu</comment>
+  </data>
+  <data name="btnRegenerate" xml:space="preserve">
+    <value>Regenerate</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="btnRemove" xml:space="preserve">
     <value>Remove</value>
@@ -264,6 +274,10 @@
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Place of Birth</value>
   </data>
+  <data name="lblRegenerate6Hours" xml:space="preserve">
+    <value>Regenerate for at least 6 hours</value>
+    <comment>Energy regeneration</comment>
+  </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Combined</value>
     <comment>Result Card</comment>
@@ -324,6 +338,18 @@
   <data name="msgNoCharacterData" xml:space="preserve">
     <value>You have not loaded any characters</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgRegenerationSite.Default" xml:space="preserve">
+    <value>Basic regeneration for 6 hours of sleep</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSite.Good" xml:space="preserve">
+    <value>Good accommodations (single room in an inn)</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSite.Poor" xml:space="preserve">
+    <value>Poor campsite, failed Survival (Find Campsite) check</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="msgRequired" xml:space="preserve">
     <value>I need this value</value>

@@ -16,6 +16,17 @@ public enum CharacterEnergyClass
     LP = 1, AE = 2, KP = 3
 }
 
+public enum RegenerationSite
+{
+    Terrible = -3, Bad = -2, Poor = -1, Default = 0, Good = 1
+}
+
+public enum RegenerationDisturbance
+{
+    None = 0, Brief = -1, Prolonged = -2
+}
+
+
 /// <summary>
 /// A category of a roll
 /// </summary>

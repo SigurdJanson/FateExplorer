@@ -88,14 +88,14 @@ namespace FateExplorer.ViewModel
         /// Returns the list of energies () as available for the character
         /// </summary>
         /// <returns></returns>
-        List<EnergyDTO> GetEnergies();
+        List<EnergyViMo> GetEnergies();
 
         /// <summary>
         /// Updates max and effective value
         /// </summary>
         /// <param name="energy"></param>
         /// <returns></returns>
-        EnergyDTO ChangeEnergies(EnergyDTO energy);
+        EnergyViMo OnEnergyChanged(EnergyViMo energy);
 
         /// <summary>
         /// The weapons carried by a character

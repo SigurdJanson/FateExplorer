@@ -85,12 +85,12 @@
     /// <summary>
     /// Data container for the displayed energy.
     /// </summary>
-    [Parameter] public EnergyDTO Energy { get; set; }
+    [Parameter] public EnergyViMo Energy { get; set; }
 
     /// <summary>
     /// Callback to support two-way binding of <see cref="Energy" />
     /// </summary>
-    [Parameter] public EventCallback<EnergyDTO> EnergyChanged { get; set; }
+    [Parameter] public EventCallback<EnergyViMo> EnergyChanged { get; set; }
 
 
 
@@ -113,16 +113,14 @@
 
     private void SetEffValue(int NewValue)
     {
-        if (Energy.Min <= NewValue)
-        {
-            EffValue = NewValue;
+        int NewEff = NewValue;
+        if (NewValue < Energy.Min) NewEff = Energy.Min;
+        if (NewValue > Energy.EffMax) NewEff = Energy.EffMax;
 
-            //Energy.EffectiveValue = EffValue causes Error CS1612
-            EnergyDTO NewEnergy = Energy;
-            NewEnergy.EffectiveValue = EffValue;
+        EffValue = NewEff;
+        Energy.EffectiveValue = EffValue;
 
-            EnergyChanged.InvokeAsync(NewEnergy);
-        }
+        EnergyChanged.InvokeAsync(Energy);
     }
 
 
@@ -130,30 +128,25 @@
     private void ChangeEffValue(int Delta)
     {
         int NewEff = EffValue + Delta;
-        if (Energy.Min <= NewEff)
-        {
-            EffValue = NewEff;
+        if (NewEff < Energy.Min) NewEff = Energy.Min;
+        if (NewEff > Energy.EffMax) NewEff = Energy.EffMax;
 
-            //Energy.EffectiveValue = EffValue causes Error CS1612
-            EnergyDTO NewEnergy = Energy;
-            NewEnergy.EffectiveValue = EffValue;
+        Energy.EffectiveValue = NewEff;
+        EffValue = Energy.EffectiveValue;
 
-            EnergyChanged.InvokeAsync(NewEnergy);
-        }
+        EnergyChanged.InvokeAsync(Energy);
     }
 
 
     private void SetEffMaxValue(int NewValue)
     {
-        if (Energy.Min <= NewValue)
-        {
-            MaxValue = NewValue;
+        if (NewValue <= Energy.Min)
+            throw new ArgumentOutOfRangeException(nameof(NewValue),
+                "Max energy value cannot go beneath the minimum limit");
 
-            //Energy.EffectiveValue = MaxValue causes Error CS1612
-            EnergyDTO NewEnergy = Energy;
-            NewEnergy.EffMax = MaxValue;
+        Energy.EffMax = NewValue;
+        EffValue = Energy.EffMax;
 
-            EnergyChanged.InvokeAsync(NewEnergy);
-        }
+        EnergyChanged.InvokeAsync(Energy);
     }
 }

@@ -73,10 +73,10 @@ else
     private string CharacterName;
 
 
-    private void UpdateEnergies(List<EnergyDTO> ChangedEnergies)
+    private void UpdateEnergies(List<EnergyViMo> ChangedEnergies)
     {
         foreach (var e in ChangedEnergies)
-            Hero.ChangeEnergies(e);
+            Hero.OnEnergyChanged(e);
     }
 
     private void LoadHeroData()

@@ -1,7 +1,10 @@
-﻿@using FateExplorer.ViewModel
+﻿@using FateExplorer.RollLogic
+@using FateExplorer.Shared
+@using FateExplorer.ViewModel
 
 @inject IStringLocalizer<App> l10n
-
+@inject IRollHandlerViMo RollHandler
+@inject ISnackbar Snackbar
 
 <MudPopover @bind-Open=IsOpen Square=true RelativeWidth=true
             OverflowBehavior="OverflowBehavior.FlipAlways" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" 
@@ -20,8 +23,22 @@
         </MudItem>
         }
 
-        @*
-        <MudItem xs=9>
+        <MudItem xs=9 Class="mb-2">
+            <MudText>@l10n["lblRegenerate6Hours"]</MudText>
+            <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
+                <MudIconButton Icon=@Icons.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
+                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
+            </MudTooltip>
+            <MudTooltip Text=@l10n["msgRegenerationSite.Default"]>
+                <MudIconButton Icon=@Icons.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
+                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
+            </MudTooltip>
+            <MudTooltip Text=@l10n["msgRegenerationSite.Poor"]>
+                <MudIconButton Icon=@Icons.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
+                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
+            </MudTooltip>
+            <MudButton Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
+        @**
             <MudSelect T="string" Label="Situation" AnchorOrigin="Origin.BottomCenter" MultiSelection="true">
                 <MudSelectItem Value="@("Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)")" />
                 <MudSelectItem Value="@("Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall) ")" />
@@ -35,8 +52,8 @@
 
             <MudSlider @bind-Value="value1" Min="-4" Max="+4" Color="Color.Primary">Value: @value1.ToString()</MudSlider>
             <MudButton OnClick="@Regenerate" Class="ml-auto mr-n3 mb-1" Color="Color.Secondary">Regenerate</MudButton>
+        @**@
         </MudItem>
-        *@
     </MudGrid>
 </MudContainer>
 </MudPopover>
@@ -52,13 +69,13 @@
     /// <summary>
     /// Data container for the energies to be displayed.
     /// </summary>
-    [Parameter] public List<EnergyDTO> Energies { get; set; }
+    [Parameter] public List<EnergyViMo> Energies { get; set; }
 
-    [Parameter] public EventCallback<List<EnergyDTO>> EnergiesChanged { get; set; }
+    [Parameter] public EventCallback<List<EnergyViMo>> EnergiesChanged { get; set; }
 
 
 
-    private void OnEnergyChanged(EnergyDTO changedE)
+    private void OnEnergyChanged(EnergyViMo changedE)
     {
         for (int i = 0; i < Energies.Count; i++)
             if (Energies[i].Id == changedE.Id)
@@ -67,14 +84,43 @@
         EnergiesChanged.InvokeAsync(Energies);
     }
 
+
     private void Close()
     {
         IsOpen = false;
         IsOpenChanged.InvokeAsync(IsOpen);
     }
 
-    private void Regenerate()
+
+    private bool CanRegenerate()
     {
-        //
+        foreach (var e in Energies)
+            if (e.EffectiveValue < e.EffMax) 
+                return true;
+        return false;
+    }
+
+
+    private void Regenerate(RegenerationSite site, RegenerationDisturbance disturb)
+    {
+        List<RollResultViMo> Rolls = new();
+        foreach (var e in Energies)
+        {
+            // Check if regeneration is meaningfull (it is not if the value is at max already)
+            var Result = e.Regenerate(site, disturb);
+            if (Result is null) continue;
+
+            Rolls.Add(Result);
+            string Message;
+            if (Rolls.Last().CombinedResult > 0)
+                Message = $"Regenerate {e.ShortName} by 1d6 + {Rolls.Last().Modifier[0]} = {Rolls.Last().CombinedResult}";
+            else
+                Message = $"No regeneration for {e.ShortName}";
+            Snackbar.Add(Message, Severity.Info, config =>
+                {
+                    config.SnackbarVariant = Variant.Outlined;
+                });
+        }
+        EnergiesChanged.InvokeAsync(Energies);
     }
 }

@@ -153,6 +153,10 @@
     <value>Menü öffnen</value>
     <comment>NavMenu</comment>
   </data>
+  <data name="btnRegenerate" xml:space="preserve">
+    <value>Regeneriere</value>
+    <comment>Energy regeneration</comment>
+  </data>
   <data name="btnRemove" xml:space="preserve">
     <value>Entfernen</value>
   </data>
@@ -264,6 +268,10 @@
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Geburtsort</value>
   </data>
+  <data name="lblRegenerate6Hours" xml:space="preserve">
+    <value>Regeneration für mindestens 6 Stunden</value>
+    <comment>Energy regeneration</comment>
+  </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Kombiniert</value>
     <comment>Result Card</comment>
@@ -328,6 +336,18 @@
   <data name="msgNoCharacterData1" xml:space="preserve">
     <value>You have not loaded any characters</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="msgRegenerationSite.Default" xml:space="preserve">
+    <value>Grundregeneration für 6 Stunden Schlaf</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSite.Good" xml:space="preserve">
+    <value>Gute Unterkunft (Einzelzimmer Reisegasthof)</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSite.Poor" xml:space="preserve">
+    <value>Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="msgRequired" xml:space="preserve">
     <value>Der Wert brauche ich</value>

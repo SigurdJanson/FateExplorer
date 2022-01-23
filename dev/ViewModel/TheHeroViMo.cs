@@ -72,19 +72,18 @@ namespace FateExplorer.ViewModel
             DodgeTrueValue = characterM.Dodge.Value;
 
             // ENERGIES
-            if (EnergyEffValues is null)
-                EnergyEffValues = new();
-            else
-                EnergyEffValues.Clear();
-            foreach (var chen in characterM?.Energies)
-                EnergyEffValues.Add(chen.Key, chen.Value.Max);
-
-            if (EnergyEffMax is null)
-                EnergyEffMax = new();
-            else
-                EnergyEffMax.Clear();
-            foreach (var chen in characterM?.Energies)
-                EnergyEffMax.Add(chen.Key, chen.Value.Max);
+            EffEnergy = new();
+            foreach (var r in characterM.Energies)
+            {
+                var energy = new EnergyViMo(r.Value, r.Key, this)
+                {
+                    Name = GameDataService.Energies[r.Key].Name,
+                    ShortName = GameDataService.Energies[r.Key].ShortName,
+                    EffMax = r.Value.Max,
+                    EffectiveValue = r.Value.Max
+                };
+                EffEnergy.Add(energy);
+            }
 
             // RESILIENCES
             if (ResilienceEffValues is null)
@@ -330,46 +329,18 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// Effective points of this energy
         /// </summary>
-        public Dictionary<string, int> EnergyEffValues { get; protected set; }
+        public List<EnergyViMo> EffEnergy { get; protected set; }
 
-        /// <summary>
-        /// Effective points of this energy
-        /// </summary>
-        public Dictionary<string, int> EnergyEffMax { get; protected set; }
 
         /// <inheritdoc/>
-        public List<EnergyDTO> GetEnergies()
+        public List<EnergyViMo> GetEnergies()
         {
-            List<EnergyDTO> Result = new();
-
-            foreach (var r in characterM.Energies)
-            {
-                var energy = new EnergyDTO()
-                {
-                    Id = r.Key,
-                    Name = GameDataService.Energies[r.Key].Name,
-                    ShortName = GameDataService.Energies[r.Key].ShortName,
-                    Max = r.Value.Max,
-                    EffMax = EnergyEffMax[r.Key],
-                    Min = r.Value.Min,
-                    EffectiveValue = EnergyEffValues[r.Key],
-                    CrossedThresholds = r.Value.CountCrossedThresholds(EnergyEffValues[r.Key])
-                };
-                Result.Add(energy);
-            }
-
-            return Result;
+            return EffEnergy;
         }
 
         /// <inheritdoc/>
-        public EnergyDTO ChangeEnergies(EnergyDTO energy)
+        public EnergyViMo OnEnergyChanged(EnergyViMo energy)
         {
-            var energyM = characterM.Energies[energy.Id];
-            EnergyEffValues[energy.Id] = energy.EffectiveValue;
-            EnergyEffMax[energy.Id] = energy.EffMax;
-            energyM.Max = energy.Max;
-            energy.CrossedThresholds = energyM.CountCrossedThresholds(energy.EffectiveValue);
-
             NotifyStateChanged();
             return energy;
         }

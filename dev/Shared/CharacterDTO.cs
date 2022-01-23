@@ -78,40 +78,6 @@ namespace FateExplorer.Shared
         public SkillDomain Domain;
     }
 
-    public struct EnergyDTO
-    {
-        /// <inheritdoc />
-        public string Id { get; set; }
-
-        /// <inheritdoc />
-        public string Name { get; set; }
-
-        /// <summary>
-        /// An abbreviation of the name (e.g. COU for courage as common in roleplay systems).
-        /// </summary>
-        public string ShortName { get; set; }
-
-        /// <inheritdoc />
-        public int Max { get; set; }
-
-        /// <summary>
-        /// Allows users to set their character's energy themselves
-        /// </summary>
-        public int EffMax { get; set; }
-
-        /// <inheritdoc />
-        public int Min { get; set; }
-
-        /// <inheritdoc />
-        public int EffectiveValue { get; set; }
-
-        /// <summary>
-        /// Some energies have a number of consequences when reduced 
-        /// by certain amounts i.e. crosing thresholds.
-        /// </summary>
-        public int CrossedThresholds;
-    }
-
     public struct ResilienceDTO
     {
         /// <inheritdoc />
