@@ -26,17 +26,19 @@ namespace FateExplorer.GameLogic
 
 
 
-        protected override void CalcThresholds()
+        public override void CalcThresholds(int EffMax = -1)
         {
+            if (EffMax < 0) EffMax = Max;
+
             // We may not need all thresholds when Max is low
-            if (Max >= 41) // we need all levels then
-                Thresholds = new int[] { Max - 10, Max - 20, Max - 30, Max - 40 };
-            else if (Max >= 31)
-                Thresholds = new int[] { Max - 10, Max - 20, Max - 30 };
-            else if (Max >= 21)
-                Thresholds = new int[] { Max - 10, Max - 20 };
-            else if (Max >= 11)
-                Thresholds = new int[] { Max - 10 };
+            if (EffMax >= 41) // we need all levels then
+                Thresholds = new int[] { EffMax - 10, EffMax - 20, EffMax - 30, EffMax - 40 };
+            else if (EffMax >= 31)
+                Thresholds = new int[] { EffMax - 10, EffMax - 20, EffMax - 30 };
+            else if (EffMax >= 21)
+                Thresholds = new int[] { EffMax - 10, EffMax - 20 };
+            else if (EffMax >= 11)
+                Thresholds = new int[] { EffMax - 10 };
         }
     }
 }

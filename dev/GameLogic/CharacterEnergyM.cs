@@ -49,8 +49,21 @@ namespace FateExplorer.GameLogic
             set
             {
                 max = value;
-                CalcThresholds();
+                CalcThresholds(max);
             }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="NewValue"></param>
+        /// <returns></returns>
+        public int ResolveValue(int newValue, int EffMax, int EffMin)
+        {
+            if (newValue > EffMax) return EffMax;
+            if (newValue < EffMin) return EffMin;
+            return newValue;
         }
 
         /// <summary>
@@ -83,9 +96,9 @@ namespace FateExplorer.GameLogic
         public int[] Thresholds { get; protected set; }
 
         /// <summary>
-        /// Generates the <see cref="Thresholds"/>.
+        /// Generates the <see cref="Thresholds"/> given the effective maximum.
         /// </summary>
-        protected virtual void CalcThresholds()
+        public virtual void CalcThresholds(int EffMax)
         {
             Thresholds = new int[] { 5 };
         }

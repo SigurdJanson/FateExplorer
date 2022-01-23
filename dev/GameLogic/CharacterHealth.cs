@@ -28,15 +28,17 @@ namespace FateExplorer.GameLogic
             CalcThresholds();
         }
 
-        protected override void CalcThresholds()
+        public override void CalcThresholds(int EffMax = -1)
         {
+            if (EffMax < 0) EffMax = Max;
+
             // Since the lowest level is fixed at 5 we may not need all thresholds.
-            if (Max >= 5.5 * 4) // we need all levels then
-                Thresholds = new int[] { (int)Math.Round((double)Max * 3 / 4), (int)Math.Round((double)Max / 2), (int)Math.Round((double)Max / 4), 5 };
-            else if (Max >= 5.5 * 2)
-                Thresholds = new int[] { (int)Math.Round((double)Max * 3 / 4), (int)Math.Round((double)Max / 2), 5 };
-            else if (Max >= 5.5 * 4 / 3)
-                Thresholds = new int[] { (int)Math.Round((double)Max * 3 / 4), 5 };
+            if (EffMax >= 5.5 * 4) // we need all levels then
+                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), (int)Math.Round((double)EffMax / 2), (int)Math.Round((double)EffMax / 4), 5 };
+            else if (EffMax >= 5.5 * 2)
+                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), (int)Math.Round((double)EffMax / 2), 5 };
+            else if (EffMax >= 5.5 * 4 / 3)
+                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), 5 };
         }
     }
 }
