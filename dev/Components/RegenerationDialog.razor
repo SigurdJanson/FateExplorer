@@ -1,0 +1,88 @@
+﻿@inject IStringLocalizer<App> l10n
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo=Typo.h6>
+            <MudIcon Icon=@Icons.Material.Sharp.Nightlight Class="mr-3"/> @l10n["titleRegenerationDialog"]
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+                @if (Values is not null)
+                    @foreach (var v in Values)
+                    {
+                    <MudItem xs=12 md=4>
+                        <MudAvatar Square=true Variant=Variant.Filled>@v.Name</MudAvatar>
+                        <MudAvatar Square=true Variant=Variant.Outlined>@v.RegenerateBy</MudAvatar>
+                        <MudSlider Min=-6 Max=6 Step=1 Value=0>@l10n["lblModifier"]</MudSlider>
+                    </MudItem>
+                    <MudDivider/>
+                    }
+            <MudItem xs=12 md=6>
+                <MudRadioGroup @bind-SelectedOption=DialogSiteSetting>
+                    <MudRadio Option=RegenerationSite.Good Dense=true>Gute Unterkunft (Einzelzimmer Reisegasthof)</MudRadio>
+                    <MudRadio Option=RegenerationSite.Default Dense=true>Normale Regeneration bei 6 Stunden Schlaf</MudRadio>
+                    <MudRadio Option=RegenerationSite.Poor Dense=true>Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)</MudRadio>
+                    <MudRadio Option=RegenerationSite.Bad  Dense=true>Schlechte Umgebung (feucht, kalt)</MudRadio>
+                    <MudRadio Option=RegenerationSite.Terrible Dense=true>Furchtbare Umgebung (extrem schlechtes Wetter)</MudRadio>
+                </MudRadioGroup>
+            </MudItem>
+            <MudItem xs=12 md=6>
+                <MudRadioGroup @bind-SelectedOption=DialogDisturbSetting>
+                    <MudRadio Option=RegenerationDisturbance.None  Dense=true>Keine Unterbrechung</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true>"Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)"</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true>"Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall)"</MudRadio>
+                </MudRadioGroup>
+            </MudItem>
+            <MudItem xs=12>
+                <MudCheckBox @bind-Checked=DialogSickness Label=@l10n["lblRegenerateSick"] StopClickPropagation=true></MudCheckBox>
+            </MudItem>
+        </MudGrid>
+            @**
+            <MudSelect T="string" Label="Situation" AnchorOrigin="Origin.BottomCenter" MultiSelection="true">
+                <MudSelectItem Value="@("Held ist erkrankt/vergiftet")" />
+            </MudSelect>
+            @**@
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@ResetDialog Class="px-10">
+            @l10n["btnReset"]
+        </MudButton>
+        <MudSpacer />
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@CancelDialog Class="px-10">
+            @l10n["btnClose"]
+        </MudButton>
+        <MudButton Variant=Variant.Filled  Color=Color.Primary OnClick=@SubmitDialog Class="px-10">
+            @l10n["btnRegenerate"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public (string Name, int RegenerateBy)[] Values { get; set; }
+
+    private RegenerationSite DialogSiteSetting { get; set; } = RegenerationSite.Default;
+    private RegenerationDisturbance DialogDisturbSetting { get; set; } = RegenerationDisturbance.None;
+    private bool DialogSickness = false;
+
+    private void SubmitDialog()
+    {
+        MudDialog.Close(DialogResult.Ok(true));
+    }    
+    
+    private void CancelDialog()
+    {
+        MudDialog.Close(DialogResult.Cancel());
+    }
+
+    private void ResetDialog()
+    {
+        DialogSiteSetting = RegenerationSite.Default;
+        DialogDisturbSetting = RegenerationDisturbance.None;
+    }
+}

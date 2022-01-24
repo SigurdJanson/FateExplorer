@@ -5,6 +5,8 @@
 @inject IStringLocalizer<App> l10n
 @inject IRollHandlerViMo RollHandler
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
 
 <MudPopover @bind-Open=IsOpen Square=true RelativeWidth=true
             OverflowBehavior="OverflowBehavior.FlipAlways" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" 
@@ -37,26 +39,14 @@
                 <MudIconButton Icon=@Icons.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
-            <MudButton Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
-        @**
-            <MudSelect T="string" Label="Situation" AnchorOrigin="Origin.BottomCenter" MultiSelection="true">
-                <MudSelectItem Value="@("Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)")" />
-                <MudSelectItem Value="@("Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall) ")" />
-                <MudDivider />
-                <MudSelectItem Value="@("Gute Unterkunft (Einzelzimmer Reisegasthof)")" />
-                <MudSelectItem Value="@("Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)")" />
-                <MudSelectItem Value="@("Furchtbare Umgebung (extrem schlechtes Wetter)")" />
-                <MudDivider />
-                <MudSelectItem Value="@("Held ist erkrankt/vergiftet")" />
-            </MudSelect>
-
-            <MudSlider @bind-Value="value1" Min="-4" Max="+4" Color="Color.Primary">Value: @value1.ToString()</MudSlider>
-            <MudButton OnClick="@Regenerate" Class="ml-auto mr-n3 mb-1" Color="Color.Secondary">Regenerate</MudButton>
-        @**@
+            <MudButton OnClick=@OpenDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
         </MudItem>
     </MudGrid>
 </MudContainer>
 </MudPopover>
+
+
+
 
 @code {
     /// <summary>
@@ -123,4 +113,29 @@
         }
         EnergiesChanged.InvokeAsync(Energies);
     }
+
+
+    // DIALOG
+
+    private DialogOptions dialogOptions = new() 
+    { 
+        FullWidth = true,
+        CloseOnEscapeKey = true 
+    };
+
+
+    private async Task OpenDialog()
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("Values", new (string,int)[] { ("LE", 2), ("AE", 3) } );
+
+        var dialog = DialogService.Show<RegenerationDialog>("", parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            //Regenerate(DialogSiteSetting, DialogDisturbSetting);
+        }
+    }
+
 }
