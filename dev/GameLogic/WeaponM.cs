@@ -70,7 +70,7 @@ namespace FateExplorer.GameLogic
         {
             Name = WeaponData.Name ?? "unknown";
             CombatTechId = WeaponData.CombatTechId ?? CombatTechM.Unarmed;
-            DamageBonus = WeaponData.DamageBonus;
+            DamageBonus = WeaponData.DamageBonus; //TODO: must this be re-calculated???
             DamageDieCount = WeaponData.DamageDieCount;
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;

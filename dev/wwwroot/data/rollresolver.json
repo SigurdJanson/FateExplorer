@@ -6,5 +6,48 @@
     "REGENERATE": {"id": "REGENERATE", "roll": "DSA5/0/regeneration", "name": "Regeneration", "type": "value"},
     "DO": {"id": "DO", "roll": "DSA5/0/dodge", "name": "Dodge", "type": "simple"},
     "INI": {"id": "INI", "roll": "DSA5/0/initiative", "name": "Initiative", "type": "compare"},
-    "CT_9/AT/SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/initiative", "name": "Hruruzat Attacke", "type": "compare"}
+
+    "CT_9/AT/SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/initiative", "name": "Hruruzat Attacke", "type": "compare"},
+
+    "CT_1/AT":  {"id": "CT_1/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_2/AT":  {"id": "CT_2/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_8/AT":  {"id": "CT_8/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_11/AT": {"id": "CT_11/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_14/AT": {"id": "CT_14/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_17/AT": {"id": "CT_17/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_18/AT": {"id": "CT_18/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_19/AT": {"id": "CT_19/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+
+    "CT_3/AT":  {"id": "CT_3/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_4/AT":  {"id": "CT_4/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_5/AT":  {"id": "CT_5/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_6/AT":  {"id": "CT_6/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_12/AT": {"id": "CT_12/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_13/AT": {"id": "CT_13/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_15/AT": {"id": "CT_15/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_16/AT": {"id": "CT_16/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_21/AT": {"id": "CT_21/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+
+    "CT_7/AT":  {"id": "CT_7/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+
+    "CT_9/AT":  {"id": "CT_9/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+
+    "CT_10/AT": {"id": "CT_10/AT", "roll": "DSA5/0/combat/shield/attack", "name": "Attack", "type": "compare"},
+    "CT_20/AT": {"id": "CT_20/AT", "roll": "DSA5/0/combat/shield/attack", "name": "Attack", "type": "compare"},
+
+
+    "CT_3/PA":  {"id": "CT_3/PA",  "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_4/PA":  {"id": "CT_4/PA",  "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_5/PA":  {"id": "CT_5/PA",  "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_6/PA":  {"id": "CT_6/PA",  "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_12/PA": {"id": "CT_12/PA", "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_13/PA": {"id": "CT_13/PA", "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_15/PA": {"id": "CT_15/PA", "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_16/PA": {"id": "CT_16/PA", "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+    "CT_21/PA": {"id": "CT_21/PA", "roll": "DSA5/0/combat/melee/parry", "name": "Attack", "type": "compare"},
+
+    "CT_9/PA":  {"id": "CT_9/PA",  "roll": "DSA5/0/combat/unarmed/parry", "name": "Attack", "type": "compare"},
+
+    "CT_10/PA": {"id": "CT_10/PA", "roll": "DSA5/0/combat/shield/parry", "name": "Attack", "type": "compare"},
+    "CT_20/PA": {"id": "CT_20/PA", "roll": "DSA5/0/combat/shield/parry", "name": "Attack", "type": "compare"}
 }

@@ -145,7 +145,7 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// Needs a roll to determine the effect of a botch roll. By default 
+        /// Needs a roll to determine the effect of a botch. By default 
         /// a botch roll is required when the current 
         /// <see cref="Success">success level</see> is "botch".
         /// </summary>
@@ -155,6 +155,13 @@ namespace FateExplorer.RollLogic
                 Success == RollSuccessLevel.Botch;
         }
 
-
+        /// <summary>
+        /// Needs a roll to determine the damage caused by a combat roll. By default 
+        /// this is false.
+        /// </summary>
+        public virtual bool NeedsDamage
+        {
+            get => false;
+        }
     }
 }

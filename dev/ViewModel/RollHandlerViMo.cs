@@ -85,9 +85,9 @@ namespace FateExplorer.ViewModel
             ListOfChecks = new()
             {
                 { AbilityCheckM.checkTypeId, typeof(AbilityCheckM) },
-                { CombatCheckM.checkTypeId, typeof(CombatCheckM) },
                 { DodgeCheckM.checkTypeId, typeof(DodgeCheckM) },
-                { SkillCheckM.checkTypeId, typeof(SkillCheckM) }
+                { SkillCheckM.checkTypeId, typeof(SkillCheckM) },
+                { AttackCheckM.checkTypeId, typeof(AttackCheckM) }
             };
         }
 
@@ -168,9 +168,8 @@ namespace FateExplorer.ViewModel
                     Checker = new DodgeCheckM((DodgeDTO)TargetAttr, new SimpleCheckModifierM(0));
                     break;
                 default:
-                    Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM;
+                    Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM; //TODO: make this: throw new NotImplementedException();
                     break;
-
             };
 
             Result = new(Checker);
@@ -178,13 +177,41 @@ namespace FateExplorer.ViewModel
         }
 
 
-        /// <inheritdoc />
-        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null)
+        public RollCheckResultViMo OpenCombatRollCheck(string combatTechId, string actionId, WeaponViMo weapon)
         {
-            var Result = OpenRollCheck(AttrId, TargetAttr, RollAttr);
-            Result.CheckModifier = Modifier;
+            string TargetAttrName = $"{combatTechId}/{actionId}";
+
+            string RollId = MatchAttributeToRollId(TargetAttrName);
+            if (string.IsNullOrWhiteSpace(RollId))
+                throw new NotImplementedException($"A check for {TargetAttrName} has not yet been implemented");
+
+            Type CheckType;
+            if (!ListOfChecks.TryGetValue(RollId, out CheckType))
+                throw new NotImplementedException($"A check for {TargetAttrName} has not yet been implemented");
+
+            CheckBaseM Checker;
+            RollCheckResultViMo Result;
+            switch (CheckType.Name)
+            {
+                case
+                    nameof(AttackCheckM):
+                    Checker = new AttackCheckM(weapon, new SimpleCheckModifierM(0));
+                    break;
+                default:
+                    throw new NotImplementedException("Unknown combat roll");
+            };
+
+            Result = new(Checker);
             return Result;
         }
+
+        ///// <inheritdoc />
+        //public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null)
+        //{
+        //    var Result = OpenRollCheck(AttrId, TargetAttr, RollAttr);
+        //    Result.CheckModifier = Modifier;
+        //    return Result;
+        //}
 
     }
 }

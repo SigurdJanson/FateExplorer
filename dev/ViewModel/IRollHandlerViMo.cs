@@ -34,15 +34,18 @@ namespace FateExplorer.ViewModel
         RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
 
 
-        /// <summary>
-        /// Creates and returns a new roll check with the first roll already done. The modifier 
-        /// will be applied.
-        /// </summary>
-        /// <param name="AttrId">The attribute id</param>
-        /// <param name="AttrData"></param>
-        /// <param name="Modifier"></param>
-        /// <param name="Args">Additional arguments sent to the constructor of the instantiated check</param>
-        /// <returns>A roll check</returns>
-        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null);
+
+        RollCheckResultViMo OpenCombatRollCheck(string combatTechId, string actionId, WeaponViMo weapon);
+
+        ///// <summary>
+        ///// Creates and returns a new roll check with the first roll already done. The modifier 
+        ///// will be applied.
+        ///// </summary>
+        ///// <param name="AttrId">The attribute id</param>
+        ///// <param name="AttrData"></param>
+        ///// <param name="Modifier"></param>
+        ///// <param name="Args">Additional arguments sent to the constructor of the instantiated check</param>
+        ///// <returns>A roll check</returns>
+        //RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null);
     }
 }
