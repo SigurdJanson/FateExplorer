@@ -120,6 +120,9 @@
   <data name="abbrvDie" xml:space="preserve">
     <value>W</value>
   </data>
+  <data name="abbrvHP" xml:space="preserve">
+    <value>Trefferpunkte</value>
+  </data>
   <data name="Add Dice Cup" xml:space="preserve">
     <value>Würfelbecher erstellen</value>
     <comment>Free Dice</comment>
@@ -145,6 +148,9 @@
   </data>
   <data name="btnCreate" xml:space="preserve">
     <value>Erstellen</value>
+  </data>
+  <data name="btnDamage" xml:space="preserve">
+    <value>Trefferpunkte auswürfeln</value>
   </data>
   <data name="btnFullyRestore" xml:space="preserve">
     <value>Voll wiederherstellen</value>

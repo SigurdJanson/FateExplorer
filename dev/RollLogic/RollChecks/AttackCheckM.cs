@@ -94,7 +94,7 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        public override string ClassificationLabel => "DMG";
+        public override string ClassificationLabel => "abbrvHP"; // TODO: is a string like that for l10n the best way?
 
         /// <inheritdoc />
         /// <remarks>Returns the damage in case of combat attack checks</remarks>
@@ -102,13 +102,19 @@ namespace FateExplorer.RollLogic
         {
             get
             {
-                if (RollList[RollType.Damage] is null) 
+                int RollResult;
+                int? Result = null;
+                if (RollList[RollType.Damage] is null)
                     return null;
+                else
+                    RollResult = RollList[RollType.Damage].OpenRollCombined();
+
                 if (Success == RollSuccessLevel.Success)
-                    return RollList[RollType.Damage].OpenRollCombined().ToString();
+                    Result = RollResult + DamageBonus;
                 if (Success == RollSuccessLevel.Critical)
-                    return (RollList[RollType.Damage].OpenRollCombined() * 2).ToString();
-                return "";
+                    Result = (RollResult + DamageBonus) * 2;
+
+                return Result is null ? null : $"{Result}";
             }
         }
 
@@ -160,8 +166,8 @@ namespace FateExplorer.RollLogic
         {
             IRollM roll = Which switch
             {
-                RollType.Primary => new SkillRoll(null),
-                RollType.Confirm => NeedsConfirmation ? new SkillRoll(new D20ConfirmEntry()) : null,
+                RollType.Primary => new D20Roll(null),
+                RollType.Confirm => NeedsConfirmation ? new D20Roll(new D20ConfirmEntry()) : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
                 RollType.Damage => NeedsDamage ? new MultiDieRoll(DamageDieSides, DamageDieCount) : null,
                 _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")

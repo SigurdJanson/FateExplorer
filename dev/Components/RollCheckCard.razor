@@ -96,6 +96,7 @@
         </MudText>
     </MudCardContent>
     }
+
     @if (Result.NeedsBotchEffect())
     {
     <MudCardContent>
@@ -111,6 +112,15 @@
         <MudText Typo=Typo.body1 Class="d-inline">
             [@l10n["lblRoll"] @(Result.GetBotchResult().CombinedResult)]
         </MudText>
+    </MudCardContent>
+    }
+
+    @if (Result.NeedsDamage())
+    {
+    <MudCardContent>
+        <MudButton OnClick=@(() => RollDamage()) Color=Color.Primary>
+            @l10n["btnDamage"]
+        </MudButton>
     </MudCardContent>
     }
 </MudCard>
@@ -168,7 +178,11 @@
         this.StateHasChanged();
     }
 
-
+    private void RollDamage()
+    {
+        Result.GetRollResult(RollType.Damage, true);
+        this.StateHasChanged();
+    }
 
     // TEMPLATES
 
