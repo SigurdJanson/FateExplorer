@@ -47,7 +47,9 @@
                         <div class="d-flex align-center" >
                             <div>
                             <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
-                            <MudText Typo=Typo.body2 GutterBottom=false>@l10n["abbrvAttack"] @w.AtSkill - @l10n["abbrvParry"] @w.PaSkill</MudText>
+                            <MudText Typo=Typo.body2 GutterBottom=false>
+                                @l10n["abbrvAttack"] @w.AtSkill - @l10n["abbrvParry"] @w.PaSkill - @w.DamageDieCount@l10n["abbrvDie"]@w.DamageDieSides + @w.DamageBonus
+                            </MudText>
                             </div>
                             <MudSpacer/>
                             <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
