@@ -120,7 +120,11 @@ namespace FateExplorer.RollLogic
         /// <returns>true/false</returns>
         public bool NeedsBotchEffect() => RollCheck.NeedsBotchEffect;
 
-
+        /// <summary>
+        /// Needs a roll to determine the damage caused by a combat roll. By default 
+        /// this is false.
+        /// </summary>
+        public bool NeedsDamage() => RollCheck.NeedsDamage;
 
         /// <summary>
         /// Returns the analysed result of the primary roll
