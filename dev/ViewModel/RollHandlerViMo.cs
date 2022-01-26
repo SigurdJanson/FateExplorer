@@ -87,7 +87,8 @@ namespace FateExplorer.ViewModel
                 { AbilityCheckM.checkTypeId, typeof(AbilityCheckM) },
                 { DodgeCheckM.checkTypeId, typeof(DodgeCheckM) },
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) },
-                { AttackCheckM.checkTypeId, typeof(AttackCheckM) }
+                { AttackCheckM.checkTypeId, typeof(AttackCheckM) },
+                { ParryCheckM.checkTypeId, typeof(ParryCheckM) }
             };
         }
 
@@ -197,6 +198,10 @@ namespace FateExplorer.ViewModel
                     nameof(AttackCheckM):
                     Checker = new AttackCheckM(weapon, new SimpleCheckModifierM(0));
                     break;
+                case
+                    nameof(ParryCheckM):
+                    Checker = new ParryCheckM(weapon, new SimpleCheckModifierM(0));
+                    break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");
             };
@@ -205,13 +210,6 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
-        ///// <inheritdoc />
-        //public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null)
-        //{
-        //    var Result = OpenRollCheck(AttrId, TargetAttr, RollAttr);
-        //    Result.CheckModifier = Modifier;
-        //    return Result;
-        //}
 
     }
 }
