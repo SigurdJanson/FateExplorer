@@ -9,8 +9,10 @@ Courage, strength, ... are called abilites.
 
 Skills are basic, mundane skills (like perception, ...). But arcane and karma skills are called skills as much as the combat techniques. Only that the program logic handles combat techniques differently.
 
+The combat technique describes the basic skill with a certain weapon's branch. Each particular weapon may modify the attack and parry skill, as well as the 
 
-## 
+
+## ...
 
 * Imported value: the value as it was understood by importing a character sheet.
 * True value: the correct character's attribute after applying special abilities, advantages and disadvantages.
@@ -41,6 +43,20 @@ Sometimes it takes a certain amount of time and more than one skill check to acc
 
 A group of heroes must work together to achieve certain goals. When several heroes use skills to work together, the procedure is called a group check. Group checks can be competitive or cumulative checks, but never simple checks. In group checks, add up the combined results of all participating characters.
 
+## Add Combat Checks
+
+All attack checks are handled by the same class with only the exception of shields. The class distinguishes botch rolls that are different for unarmed combat, shields or ranged combat. It also distinguises 
+
+To add a combat check you need a new entry in "rollresolver.json". Example:
+
+``` json
+"CT_3/AT":  {"id": "CT_3/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"}
+```
+
+* The key of the entry starts the combat technique. The "AT" or "PA" identifier dinstinguishes attack and parry actions. 
+* The `roll` attribute denotes the `checkTypeId` of the roll check class (derived from `CheckBaseM`).
+* `name`is an arbitrary string to describe the action in a human readable form (unsused so far).
+* `type` (unused)
 
 
 
