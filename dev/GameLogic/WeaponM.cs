@@ -47,6 +47,17 @@ namespace FateExplorer.GameLogic
 
         public bool Improvised { get; set; }
 
+        public bool CanParry
+        {
+            get
+            {
+                CombatTechM combatTech;
+                if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
+                    return combatTech.CanParry;
+                else
+                    throw new Exception($"Unknown combat technique {CombatTechId}");
+            }
+        }
 
 
         /// <summary>
@@ -87,6 +98,7 @@ namespace FateExplorer.GameLogic
             {
                 //PrimaryAbilityId = Array.Empty<string>();
                 string Temp = gameData.WeaponsMelee[WeaponData.Id].PrimeAttrID;
+                CombatTechId = gameData.WeaponsMelee[WeaponData.Id].CombatTechID;
                 PrimaryAbilityId = Temp.Split("/");
             }
 
