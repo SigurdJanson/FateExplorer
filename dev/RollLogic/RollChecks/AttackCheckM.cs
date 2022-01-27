@@ -126,9 +126,7 @@ namespace FateExplorer.RollLogic
             get => throw new NotImplementedException();
         }
 
-        /// <inheritdoc/>
-        public override bool NeedsBotchEffect
-        { get => false; }
+        // inherited: public override bool NeedsBotchEffect
 
 
 
