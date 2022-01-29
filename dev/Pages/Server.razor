@@ -3,7 +3,16 @@
 @inject IGameDataService Data
 
 <MudContainer Class="mt-16">
-    <h1>Server</h1>
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+<MudContainer Class="mt-16">
+    <h1>Settings</h1>
 
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
@@ -81,9 +90,11 @@
     </MudGrid>
 </MudContainer>
 
-
+<MudScrollToTop>
+    <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+</MudScrollToTop>
 
 
 @code {
-
+    
 }
