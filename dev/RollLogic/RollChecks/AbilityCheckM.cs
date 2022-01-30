@@ -1,6 +1,5 @@
 ﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -113,7 +112,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(AbilityValue));
 
             return roll;
         }

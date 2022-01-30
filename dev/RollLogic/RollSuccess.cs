@@ -3,12 +3,12 @@
 namespace FateExplorer.RollLogic
 {
 
-    public struct RollSuccess
+    public class RollSuccess
     {
         const int Min = 1, Max = 20;
         const int DefaultBotchThreshold = Max;
 
-        public int BotchThreshold;// { get; set; }
+        public int BotchThreshold { get; set; }
 
 
         public RollSuccess()
@@ -45,8 +45,8 @@ namespace FateExplorer.RollLogic
             na = 0
         }
 
-        public Level PrimaryLevel, ConfirmationLevel; // { get; set; } = Level.na;
-        //public Level ConfirmationLevel; // { get; set; } = Level.na;
+        public Level PrimaryLevel { get; set; } = Level.na;
+        public Level ConfirmationLevel { get; set; } = Level.na;
 
         public Level CurrentLevel
         {
@@ -81,7 +81,11 @@ namespace FateExplorer.RollLogic
         }
 
 
-
+        /// <summary>
+        /// Update the status of the success evaluation after a new roll in the series.
+        /// </summary>
+        /// <param name="Primary"></param>
+        /// <param name="Confirm"></param>
         public void Update(Level Primary, Level Confirm)
         {
             PrimaryLevel = Primary;

@@ -1,8 +1,7 @@
 ﻿using FateExplorer.RollLogic;
 using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using NUnit.Framework;
-using System;
+
 
 namespace RollLogicTests.RollLogic
 {
@@ -10,33 +9,10 @@ namespace RollLogicTests.RollLogic
     public class AbilityCheckMTests
     {
 
-        [Test]
-        public void RollSuccess_NothingRolled_Exception()
-        {
-            AbilityDTO Ability = new()
-            {
-                Name = "Test-Ability",
-                Id = "TestId",
-                ShortName = "TT",
-                Max = 10,
-                Min = 0,
-                EffectiveValue = 20
-            };
-            // Arrange
-            var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0));
-
-            // Act
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                var result = abilityCheckM.RollSuccess(0);
-            });
-        }
-
 
 
         [Test, Repeat(10)]
-        public void RollSuccess_Primary_ExpectedBehavior()
+        public void RollSuccess_Primary_NoConfirmation_()
         {
             AbilityDTO Ability = new()
             {
@@ -48,14 +24,29 @@ namespace RollLogicTests.RollLogic
                 EffectiveValue = 20
             };
             // Arrange
-            var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0));
-            //abilityCheckM.RollNextStep();
+            var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0), null);
 
             // Act
-            var result = abilityCheckM.RollSuccess(RollType.Primary);
+            var result = abilityCheckM.SuccessOfRoll(RollType.Primary);
 
-            // Assert
-            Assert.AreEqual(RollSuccessLevel.Success, result);
+            // Assert primary roll
+            Assert.Multiple(() =>
+            {
+                // ... that it must have changed from NA to somethign meaningful
+                Assert.AreNotEqual(RollSuccess.Level.na, result);
+                // ... that it is no fail because effective ability value is 20 and that's not possible
+                Assert.AreNotEqual(RollSuccess.Level.Fail, result);
+                // ... that there are no confirmed cricitals or botches
+                Assert.AreNotEqual(RollSuccess.Level.Critical, result);
+                Assert.AreNotEqual(RollSuccess.Level.Botch, result);
+            });
+            
+            // Assert confirmation roll
+            // ... that there is no confirmation result
+            Assert.AreEqual(RollSuccess.Level.na, abilityCheckM.SuccessOfRoll(RollType.Confirm));
+
+            // Assert total check
+            Assert.AreEqual(result, (RollSuccess.Level)abilityCheckM.Success);
         }
 
 

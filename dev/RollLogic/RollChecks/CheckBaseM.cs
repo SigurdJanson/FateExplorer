@@ -11,6 +11,7 @@ namespace FateExplorer.RollLogic
         protected CheckBaseM(IGameDataService gameData)
         {
             GameData = gameData;
+            Success = new();
         }
 
 
