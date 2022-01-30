@@ -1,0 +1,25 @@
+@startuml RollClasses
+!theme vibrant
+
+title Classes in the RollLogic namespace
+
+    interface IRollM
+    class DieRollM
+        class EnergyRollM
+        class D20Roll
+        class D20ConfirmRoll
+    class MultiDieRoll
+        class SkillRoll
+        class BotchEffectRoll
+
+    IRollM <|.. DieRollM
+    IRollM <|.. MultiDieRoll
+
+    DieRollM <|-- D20Roll
+    DieRollM <|-- D20ConfirmRoll
+    DieRollM <|-- EnergyRollM
+
+    MultiDieRoll <|-- SkillRoll
+    MultiDieRoll <|-- BotchEffectRoll
+
+@enduml
