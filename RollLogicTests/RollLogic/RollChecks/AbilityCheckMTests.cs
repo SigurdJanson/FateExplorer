@@ -4,7 +4,7 @@ using FateExplorer.ViewModel;
 using NUnit.Framework;
 using System;
 
-namespace RollLogicTests.RollLogic.RollChecks
+namespace RollLogicTests.RollLogic
 {
     [TestFixture]
     public class AbilityCheckMTests
