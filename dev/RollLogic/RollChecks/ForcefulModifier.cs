@@ -30,12 +30,12 @@
 
 
         /// <inheritdoc/>
-        public int[] Apply(IRollM Before) // TODO: check for min/max???
+        public int[] Apply(IRollM Before)
             => Apply(Before.OpenRoll);
 
 
         /// <inheritdoc/>
-        public int[] Apply(int[] Before) // TODO: check for min/max???
+        public int[] Apply(int[] Before) 
         {
             int[] After = new int[Before.Length];
             LastEffectiveApply = new int[Before.Length];
@@ -43,21 +43,19 @@
             for (int i = 0; i < Before.Length; i++)
             {
                 After[i] = Value;
-                LastEffectiveApply[i] = Before[i] - After[i];
+                LastEffectiveApply[i] = After[i] - Before[i];
             }
                 
             return After;
         }
 
         /// <inheritdoc/>
-        public int Apply(int Before) // TODO: check for min/max???
+        public int Apply(int Before)
         {
-            int After = Value;
-
             LastEffectiveApply = new int[1];
-            LastEffectiveApply[0] = Before - After;
+            LastEffectiveApply[0] = Value - Before;
 
-            return After;
+            return Value;
         }
 
 
