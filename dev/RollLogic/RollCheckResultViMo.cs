@@ -45,7 +45,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Success level of the complete check
         /// </summary>
-        public RollSuccessLevel SuccessLevel
+        public RollSuccess.Level SuccessLevel
         {
             get => RollCheck.Success;
         }
@@ -161,7 +161,7 @@ namespace FateExplorer.RollLogic
             RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None);
             Result.RollResult = CurrentRoll.OpenRoll;
 
-            Result.SuccessLevel = RollCheck.RollSuccess(Which);
+            Result.SuccessLevel = RollCheck.SuccessOfRoll(Which);
             Result.Modifier = RollCheck.CheckModifier.LastEffectiveApply;
             Result.CombinedResult = CurrentRoll.OpenRollCombined();
             Result.RollAgainst = RollCheck.RollAttr;

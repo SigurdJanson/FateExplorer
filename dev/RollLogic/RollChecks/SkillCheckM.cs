@@ -133,24 +133,11 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        public override RollSuccessLevel Success
-        {
-            get
-            {
-                if (RollList[RollType.Confirm] is not null)
-                    return SuccessHelpers.CheckSuccess(
-                        RollSuccess(RollType.Primary),
-                        RollSuccess(RollType.Confirm));
-                else if (RollList[RollType.Primary] is not null)
-                    return RollSuccess(RollType.Primary);
-                else
-                    return RollSuccessLevel.na;
-            }
-        }
+        public override RollSuccess Success { get; protected set; }
 
 
 
-        public static RollSuccessLevel ComputeSuccess(int[] Eyes, int[] Attributes, int Skill, int Mod)
+        public static RollSuccess.Level ComputeSuccess(int[] Eyes, int[] Attributes, int Skill, int Mod)
         {
             int Count20s = 0, Count1s = 0;
             foreach (int e in Eyes)
@@ -158,24 +145,24 @@ namespace FateExplorer.RollLogic
                 else if (e == 20) Count20s++;
 
             if (Count1s >= 2)
-                return RollSuccessLevel.Critical;
+                return RollSuccess.Level.Critical;
             else if (Count20s >= 2)
-                return RollSuccessLevel.Botch;
+                return RollSuccess.Level.Botch;
             else
             {
                 int Remainder = ComputeSkillRemainder(Eyes, Attributes, Skill, Mod);
 
                 if (Remainder >= 0)
-                    return RollSuccessLevel.Success;
+                    return RollSuccess.Level.Success;
                 else
-                    return RollSuccessLevel.Fail;
+                    return RollSuccess.Level.Fail;
             }
         }
 
 
 
 
-        public override RollSuccessLevel RollSuccess(RollType Which)
+        public override RollSuccess.Level SuccessOfRoll(RollType Which)
         {
             return ComputeSuccess(
                         RollList[Which].OpenRoll,
@@ -229,11 +216,18 @@ namespace FateExplorer.RollLogic
             IRollM roll = Which switch
             {
                 RollType.Primary => new SkillRoll(),
-                RollType.Confirm => NeedsConfirmation ? new SkillRoll() : null,
+                //RollType.Confirm => NeedsConfirmation ? new SkillRoll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
-                _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
+                _ => throw new ArgumentException("Skill rolls only support primary and confirmation rolls")
             };
             RollList[Which] = roll;
+
+            if (Which == RollType.Primary)
+            {
+                RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+                Success.Update(s, s);
+            }
+
             return roll;
         }
 

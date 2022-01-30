@@ -93,14 +93,14 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The (pending) success level of the whole check.
         /// </summary>
-        public abstract RollSuccessLevel Success { get; }
+        public abstract RollSuccess Success { get; protected set; }
 
         /// <summary>
         /// Get the success level of a given roll
         /// </summary>
         /// <param name="Roll"></param>
         /// <returns></returns>
-        public abstract RollSuccessLevel RollSuccess(RollType Which);
+        public abstract RollSuccess.Level SuccessOfRoll(RollType Which);
 
 
 
@@ -151,8 +151,7 @@ namespace FateExplorer.RollLogic
         /// By default confirmation is required when the current 
         /// <see cref="Success">success level</see> is "pending".
         /// </summary>
-        public virtual bool NeedsConfirmation
-        { get => Success == RollSuccessLevel.PendingBotch || Success == RollSuccessLevel.PendingCritical; }
+        public virtual bool NeedsConfirmation => Success.IsPending;
 
 
         /// <summary>
@@ -163,7 +162,7 @@ namespace FateExplorer.RollLogic
         public virtual bool NeedsBotchEffect
         { get => RollList[RollType.Confirm] is not null &&
                 RollList[RollType.Botch] is null &&
-                Success == RollSuccessLevel.Botch;
+                Success == RollSuccess.Level.Botch;
         }
 
         /// <summary>

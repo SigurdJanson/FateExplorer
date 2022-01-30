@@ -67,7 +67,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Success level
         /// </summary>
-        public RollSuccessLevel SuccessLevel { get; set; } = RollSuccessLevel.na;
+        public RollSuccess.Level SuccessLevel { get; set; } = RollSuccess.Level.na;
 
         /// <summary>
         /// The sum of the modifiers put into the roll.

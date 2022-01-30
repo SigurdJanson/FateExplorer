@@ -22,7 +22,7 @@
 
     <MudCardContent>
         <MudGrid Spacing=0 Class="my-1">
-            @if (RollResult.SuccessLevel != RollSuccessLevel.na)
+            @if (RollResult.SuccessLevel != RollSuccess.Level.na)
             {
             <MudItem xs="4">
                 <p>@l10n[RollResult.SuccessLevel.ToString()]</p>

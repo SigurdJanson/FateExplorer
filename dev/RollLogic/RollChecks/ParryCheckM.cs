@@ -69,24 +69,8 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        /// <exception cref="ArgumentOutOfRangeException" />
-        public override RollSuccessLevel Success
-        {
-            get
-            {
-                if (RollList[RollType.Confirm] is not null)
-                    return SuccessHelpers.CheckSuccess(
-                        RollList[RollType.Primary].OpenRoll[0],
-                        RollList[RollType.Confirm].OpenRoll[0],
-                        CheckModifier.Apply(RollAttr[0]));
+        public override RollSuccess Success { get; protected set; }
 
-                else if (RollList[RollType.Primary] is not null)
-                    return SuccessHelpers.PrimaryD20Success(
-                        RollList[RollType.Primary].OpenRoll[0],
-                        CheckModifier.Apply(RollAttr[0]));
-                else return RollSuccessLevel.na;
-            }
-        }
 
 
         /// <inheritdoc />
@@ -112,22 +96,13 @@ namespace FateExplorer.RollLogic
         // ROLL /////////////////////////////////
 
         /// <inheritdoc />
-        /// <exception cref="ArgumentOutOfRangeException" />
-        public override RollSuccessLevel RollSuccess(RollType Which)
+        public override RollSuccess.Level SuccessOfRoll(RollType Which)
         {
             return Which switch
             {
-                RollType.Primary => RollList[RollType.Confirm] is not null ?
-                    SuccessHelpers.PrimaryD20Success(
-                        RollList[RollType.Primary].OpenRoll[0],
-                        CheckModifier.Apply(RollAttr[0]))
-                    : RollSuccessLevel.na,
-                RollType.Confirm => RollList[RollType.Primary] is not null ?
-                    SuccessHelpers.D20Success(
-                        RollList[RollType.Confirm].OpenRoll[0],
-                        CheckModifier.Apply(RollAttr[0]))
-                    : RollSuccessLevel.na,
-                _ => RollSuccessLevel.na
+                RollType.Primary => Success.PrimaryLevel,
+                RollType.Confirm => Success.ConfirmationLevel,
+                _ => RollSuccess.Level.na
             };
         }
 
@@ -149,6 +124,10 @@ namespace FateExplorer.RollLogic
                 _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
             };
             RollList[Which] = roll;
+
+            if (Which == RollType.Primary || Which == RollType.Confirm)
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+
             return roll;
         }
 

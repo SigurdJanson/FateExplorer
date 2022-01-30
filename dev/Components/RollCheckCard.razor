@@ -83,7 +83,7 @@
             @l10n["roll"+Result.SuccessLevel.ToString()]
         </MudText>
         <MudButton OnClick=@(() => RollConfirm()) Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled Class="d-inline">
-            @(Result.SuccessLevel == RollSuccessLevel.PendingCritical ? l10n["btnConfirm"] : l10n["btnAvoid"])
+            @(Result.SuccessLevel == RollSuccess.Level.PendingCritical ? l10n["btnConfirm"] : l10n["btnAvoid"])
         </MudButton>
     </MudCardContent>
     }
@@ -186,7 +186,7 @@
 
     // TEMPLATES
 
-    private string GetAvatarIcon(RollSuccessLevel Success)
+    private string GetAvatarIcon(RollSuccess.Level Success)
     {
         if (AvatarIcon.Length == 1)
             return AvatarIcon[0];
@@ -194,12 +194,12 @@
         {
             return Success switch
             {
-                RollSuccessLevel.Botch => AvatarIcon[0],
-                RollSuccessLevel.PendingBotch => AvatarIcon[0],
-                RollSuccessLevel.Fail => AvatarIcon[0],
-                RollSuccessLevel.Critical => AvatarIcon[1],
-                RollSuccessLevel.Success => AvatarIcon[1],
-                RollSuccessLevel.PendingCritical => AvatarIcon[1],
+                RollSuccess.Level.Botch => AvatarIcon[0],
+                RollSuccess.Level.PendingBotch => AvatarIcon[0],
+                RollSuccess.Level.Fail => AvatarIcon[0],
+                RollSuccess.Level.Critical => AvatarIcon[1],
+                RollSuccess.Level.Success => AvatarIcon[1],
+                RollSuccess.Level.PendingCritical => AvatarIcon[1],
                 _ => Icons.Material.Filled.HelpCenter
             };
         }        
@@ -207,12 +207,12 @@
         {
             return Success switch
             {
-                RollSuccessLevel.Botch => AvatarIcon[0],
-                RollSuccessLevel.PendingBotch => AvatarIcon[0],
-                RollSuccessLevel.Fail => AvatarIcon[1],
-                RollSuccessLevel.Success => AvatarIcon[2],
-                RollSuccessLevel.PendingCritical => AvatarIcon[3],
-                RollSuccessLevel.Critical => AvatarIcon[3],
+                RollSuccess.Level.Botch => AvatarIcon[0],
+                RollSuccess.Level.PendingBotch => AvatarIcon[0],
+                RollSuccess.Level.Fail => AvatarIcon[1],
+                RollSuccess.Level.Success => AvatarIcon[2],
+                RollSuccess.Level.PendingCritical => AvatarIcon[3],
+                RollSuccess.Level.Critical => AvatarIcon[3],
                 _ => Icons.Material.Filled.HelpCenter
             };
         }
@@ -220,12 +220,12 @@
         {
             return Success switch
             {
-                RollSuccessLevel.Botch => AvatarIcon[0],
-                RollSuccessLevel.PendingBotch => AvatarIcon[1],
-                RollSuccessLevel.Fail => AvatarIcon[2],
-                RollSuccessLevel.Success => AvatarIcon[3],
-                RollSuccessLevel.PendingCritical => AvatarIcon[4],
-                RollSuccessLevel.Critical => AvatarIcon[5],
+                RollSuccess.Level.Botch => AvatarIcon[0],
+                RollSuccess.Level.PendingBotch => AvatarIcon[1],
+                RollSuccess.Level.Fail => AvatarIcon[2],
+                RollSuccess.Level.Success => AvatarIcon[3],
+                RollSuccess.Level.PendingCritical => AvatarIcon[4],
+                RollSuccess.Level.Critical => AvatarIcon[5],
                 _ => Icons.Material.Filled.HelpCenter
             };
         }
@@ -234,37 +234,37 @@
 
 
 
-    private Color GetAvatarColor(RollSuccessLevel Success) =>
+    private Color GetAvatarColor(RollSuccess.Level Success) =>
         Success switch
         {
-            RollSuccessLevel.Botch => Color.Error,
-            RollSuccessLevel.Fail => Color.Dark,
-            RollSuccessLevel.Critical => Color.Success,
-            RollSuccessLevel.Success => Color.Dark,
-            RollSuccessLevel.PendingBotch => Color.Warning,
-            RollSuccessLevel.PendingCritical => Color.Warning,
+            RollSuccess.Level.Botch => Color.Error,
+            RollSuccess.Level.Fail => Color.Dark,
+            RollSuccess.Level.Critical => Color.Success,
+            RollSuccess.Level.Success => Color.Dark,
+            RollSuccess.Level.PendingBotch => Color.Warning,
+            RollSuccess.Level.PendingCritical => Color.Warning,
             _ => Color.Info
         };
 
-    private Color GetAvatarIconColor(RollSuccessLevel Success) =>
+    private Color GetAvatarIconColor(RollSuccess.Level Success) =>
         Success switch
         {
-            RollSuccessLevel.Botch => Color.Surface,
-            RollSuccessLevel.Fail => Color.Surface,
-            RollSuccessLevel.Critical => Color.Surface,
-            RollSuccessLevel.Success => Color.Surface,
-            RollSuccessLevel.PendingBotch => Color.Dark,
-            RollSuccessLevel.PendingCritical => Color.Dark,
+            RollSuccess.Level.Botch => Color.Surface,
+            RollSuccess.Level.Fail => Color.Surface,
+            RollSuccess.Level.Critical => Color.Surface,
+            RollSuccess.Level.Success => Color.Surface,
+            RollSuccess.Level.PendingBotch => Color.Dark,
+            RollSuccess.Level.PendingCritical => Color.Dark,
             _ => Color.Info
         };
 
-    private string GetConfirmationMessage(RollSuccessLevel Outcome) =>
+    private string GetConfirmationMessage(RollSuccess.Level Outcome) =>
         Outcome switch
         {
-            RollSuccessLevel.Botch => l10n["msgBotchConfirmed"],
-            RollSuccessLevel.Fail => l10n["msgBotchAvoided"],
-            RollSuccessLevel.Success => l10n["msgCriticalLost"],
-            RollSuccessLevel.Critical => l10n["msgCriticalConfirmed"],
+            RollSuccess.Level.Botch => l10n["msgBotchConfirmed"],
+            RollSuccess.Level.Fail => l10n["msgBotchAvoided"],
+            RollSuccess.Level.Success => l10n["msgCriticalLost"],
+            RollSuccess.Level.Critical => l10n["msgCriticalConfirmed"],
             _ => ""
         };
 

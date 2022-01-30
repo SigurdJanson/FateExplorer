@@ -158,15 +158,15 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0));
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0), GameData);
                     break;
                 case
                     nameof(SkillCheckM):
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
-                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0));
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0), GameData);
                     break;
                 case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM((DodgeDTO)TargetAttr, new SimpleCheckModifierM(0));
+                    Checker = new DodgeCheckM((DodgeDTO)TargetAttr, new SimpleCheckModifierM(0), GameData);
                     break;
                 default:
                     Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM; //TODO: make this: throw new NotImplementedException();
@@ -196,11 +196,11 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AttackCheckM):
-                    Checker = new AttackCheckM(weapon, new SimpleCheckModifierM(0));
+                    Checker = new AttackCheckM(weapon, new SimpleCheckModifierM(0), GameData);
                     break;
                 case
                     nameof(ParryCheckM):
-                    Checker = new ParryCheckM(weapon, new SimpleCheckModifierM(0));
+                    Checker = new ParryCheckM(weapon, new SimpleCheckModifierM(0), GameData);
                     break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");
