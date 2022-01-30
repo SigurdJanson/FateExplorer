@@ -1,18 +1,13 @@
-﻿using System;
+﻿using FateExplorer.RollLogic;
+using System;
 
 namespace FateExplorer.Shared
 {
-    public enum RollSuccessLevel
-    {
-        Botch = 1, PendingBotch = -1,
-        Fail = 2,
-        Success = 3,
-        Critical = 4, PendingCritical = -4,
-        na = 99
-    }
+
 
     public static class SuccessHelpers
     {
+
 
         /// <summary>
         /// Determines the success of a d20 roll against a crition.
@@ -20,17 +15,17 @@ namespace FateExplorer.Shared
         /// <param name="Eyes">The result of the roll</param>
         /// <param name="Attribute">The criterion the roll goes against</param>
         /// <returns>The result; criticals/botches are given as *pending*</returns>
-        public static RollSuccessLevel PrimaryD20Success(int Eyes, int Attribute)
+        public static RollSuccess.Level PrimaryD20Success(int Eyes, int Attribute)
         {
             if (Eyes > 20 || Eyes < 1) throw new ArgumentOutOfRangeException(nameof(Eyes));
             if (Eyes == 1)
-                return RollSuccessLevel.PendingCritical;
+                return RollSuccess.Level.PendingCritical;
             else if (Eyes == 20)
-                return RollSuccessLevel.PendingBotch;
+                return RollSuccess.Level.PendingBotch;
             else if (Eyes <= Attribute)
-                return RollSuccessLevel.Success;
+                return RollSuccess.Level.Success;
             else
-                return RollSuccessLevel.Fail;
+                return RollSuccess.Level.Fail;
         }
 
 
@@ -41,16 +36,16 @@ namespace FateExplorer.Shared
         /// <param name="Eyes">The result of the roll</param>
         /// <param name="Attribute">The criterion the roll goes against</param>
         /// <returns>The result</returns>
-        public static RollSuccessLevel D20Success(int Eyes, int Attribute)
+        public static RollSuccess.Level D20Success(int Eyes, int Attribute)
         {
             if (Eyes == 1)
-                return RollSuccessLevel.Critical;
+                return RollSuccess.Level.Critical;
             else if (Eyes == 20)
-                return RollSuccessLevel.Botch;
+                return RollSuccess.Level.Botch;
             else if (Eyes <= Attribute)
-                return RollSuccessLevel.Success;
+                return RollSuccess.Level.Success;
             else
-                return RollSuccessLevel.Fail;
+                return RollSuccess.Level.Fail;
         }
 
 
@@ -60,29 +55,29 @@ namespace FateExplorer.Shared
         /// <param name="Primary">Success of the primary roll</param>
         /// <param name="Confirm">Success of the confirmation roll</param>
         /// <returns></returns>
-        public static RollSuccessLevel CheckSuccess(RollSuccessLevel Primary, RollSuccessLevel Confirm)
+        public static RollSuccess.Level CheckSuccess(RollSuccess.Level Primary, RollSuccess.Level Confirm)
         {
-            if (Primary == RollSuccessLevel.na) return RollSuccessLevel.na;
+            if (Primary == RollSuccess.Level.na) return RollSuccess.Level.na;
 
-            if (Primary == RollSuccessLevel.Critical || Primary == RollSuccessLevel.PendingCritical)
+            if (Primary == RollSuccess.Level.Critical || Primary == RollSuccess.Level.PendingCritical)
             {
-                if (Confirm == RollSuccessLevel.Botch ||
-                    Confirm == RollSuccessLevel.Fail)
-                    return RollSuccessLevel.Success;
-                else if (Confirm == RollSuccessLevel.na)
-                    return RollSuccessLevel.PendingCritical;
+                if (Confirm == RollSuccess.Level.Botch ||
+                    Confirm == RollSuccess.Level.Fail)
+                    return RollSuccess.Level.Success;
+                else if (Confirm == RollSuccess.Level.na)
+                    return RollSuccess.Level.PendingCritical;
                 else
-                    return RollSuccessLevel.Critical;
+                    return RollSuccess.Level.Critical;
             }
-            else if (Primary == RollSuccessLevel.Botch || Primary == RollSuccessLevel.PendingBotch)
+            else if (Primary == RollSuccess.Level.Botch || Primary == RollSuccess.Level.PendingBotch)
             {
-                if (Confirm == RollSuccessLevel.Botch ||
-                    Confirm == RollSuccessLevel.Fail)
-                    return RollSuccessLevel.Botch;
-                else if (Confirm == RollSuccessLevel.na)
-                    return RollSuccessLevel.PendingBotch;
+                if (Confirm == RollSuccess.Level.Botch ||
+                    Confirm == RollSuccess.Level.Fail)
+                    return RollSuccess.Level.Botch;
+                else if (Confirm == RollSuccess.Level.na)
+                    return RollSuccess.Level.PendingBotch;
                 else
-                    return RollSuccessLevel.Fail;
+                    return RollSuccess.Level.Fail;
             }
             else
                 return Primary;
@@ -97,11 +92,11 @@ namespace FateExplorer.Shared
         /// <param name="ConfirmEyes">The result of the confirmation roll</param>
         /// <param name="Attribute">The criterion the rolls go against</param>
         /// <returns></returns>
-        public static RollSuccessLevel CheckSuccess(int PrimaryEyes, int ConfirmEyes, int Attribute)
+        public static RollSuccess.Level CheckSuccess(int PrimaryEyes, int ConfirmEyes, int Attribute)
         {
-            RollSuccessLevel Confirm;
-            RollSuccessLevel Primary = PrimaryD20Success(PrimaryEyes, Attribute);
-            if (Primary == RollSuccessLevel.PendingCritical || Primary == RollSuccessLevel.PendingBotch)
+            RollSuccess.Level Confirm;
+            RollSuccess.Level Primary = PrimaryD20Success(PrimaryEyes, Attribute);
+            if (Primary == RollSuccess.Level.PendingCritical || Primary == RollSuccess.Level.PendingBotch)
             {
                 Confirm = D20Success(ConfirmEyes, Attribute);
                 return CheckSuccess(Primary, Confirm);

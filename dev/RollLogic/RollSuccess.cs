@@ -69,8 +69,15 @@ namespace FateExplorer.RollLogic
         /// <param name="Confirm"></param>
         public void Update(IRollM Primary, IRollM Confirm, int Attr)
         {
-            PrimaryLevel = PrimaryD20Success(Primary.OpenRoll[0], Attr);
-            ConfirmationLevel = D20Success(Confirm.OpenRoll[0], Attr);
+            if (Primary is null)
+                PrimaryLevel = Level.na;
+            else 
+                PrimaryLevel = PrimaryD20Success(Primary.OpenRoll[0], Attr);
+
+            if (Confirm is null)
+                ConfirmationLevel = Level.na; 
+            else
+                ConfirmationLevel = D20Success(Confirm.OpenRoll[0], Attr);
         }
 
 
