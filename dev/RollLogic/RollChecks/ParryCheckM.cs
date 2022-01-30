@@ -141,8 +141,8 @@ namespace FateExplorer.RollLogic
         {
             IRollM roll = Which switch
             {
-                RollType.Primary => new D20Roll(null),
-                RollType.Confirm => NeedsConfirmation ? new D20Roll(new D20ConfirmEntry()) : null,
+                RollType.Primary => new D20Roll(),
+                RollType.Confirm => NeedsConfirmation ? new D20Roll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
                 _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
             };

@@ -92,18 +92,5 @@ namespace FateExplorer.RollLogic
         }
 
 
-        //
-        #region ENTRY CONDITION 
-        /// <summary>
-        /// The class to verify entry
-        /// </summary>
-        protected IEntryCondition EntryCondition { get; set; }
-
-        /// <inheritdoc/>
-        public bool EntryConfirmed(params object[] Args)
-        {
-            return EntryCondition?.MeetsCondition(this, null) ?? true;
-        }
-        #endregion
     }
 }

@@ -8,9 +8,8 @@ namespace FateExplorer.RollLogic
         public const int _Sides = 20;
         public RollSuccessLevel Meaning { get; protected set; }
 
-        public D20Roll(IEntryCondition entryCondition) : base(_Sides)
+        public D20Roll() : base(_Sides)
         {
-            EntryCondition = entryCondition;
         }
 
 
@@ -81,9 +80,8 @@ namespace FateExplorer.RollLogic
         public const int _DieCount = 3;
         public RollSuccessLevel Meaning { get; protected set; }
 
-        public SkillRoll(IEntryCondition entryCondition) : base(_Sides, _DieCount)
+        public SkillRoll() : base(_Sides, _DieCount)
         {
-            //EntryCondition = entryCondition;
         }
 
 

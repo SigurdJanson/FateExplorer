@@ -32,7 +32,7 @@ namespace RollLogicTests.RollLogic.RollChecks
 
             // Arrange
             var simpleCheckModifierM = this.CreateSimpleCheckModifierM(ModValue);
-            IRollM Roll = new D20Roll(null);
+            IRollM Roll = new D20Roll();
             var Before = Roll.Roll();
 
             // Act
@@ -50,7 +50,7 @@ namespace RollLogicTests.RollLogic.RollChecks
 
             // Arrange
             var simpleCheckModifierM = this.CreateSimpleCheckModifierM(ModValue);
-            IRollM Roll = new D20Roll(null);
+            IRollM Roll = new D20Roll();
             var Before = Roll.Roll();
 
             // Act

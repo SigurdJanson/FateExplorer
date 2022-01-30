@@ -42,10 +42,5 @@
         /// </summary>
         int[] ModifiedBy { get; }
 
-        /// <summary>
-        /// Checks if the condition to perform the roll are met. 
-        /// </summary>
-        /// <returns></returns>
-        bool EntryConfirmed(params object[] Args);
     }
 }
