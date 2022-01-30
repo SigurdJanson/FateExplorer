@@ -1,4 +1,5 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.ViewModel;
 using System;
 
@@ -39,7 +40,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="skill"></param>
         /// <param name="ability"></param>
-        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier)
+        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData)
+            : base(gameData)
         {
             // inherited
             RollAttr = new int[3];

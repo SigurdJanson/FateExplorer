@@ -1,4 +1,5 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.ViewModel;
 using System;
 
@@ -40,7 +41,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="ability"></param>
         /// <param name="modifier"></param>
-        public AbilityCheckM(AbilityDTO ability, ICheckModifierM modifier)
+        public AbilityCheckM(AbilityDTO ability, ICheckModifierM modifier, IGameDataService gameData)
+            :base(gameData)
         {
             // inherited properties
             AttributeId = ability.Id;

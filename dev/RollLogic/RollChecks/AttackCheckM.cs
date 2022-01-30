@@ -1,4 +1,5 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.ViewModel;
 using System;
 
@@ -49,7 +50,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="weapon"></param>
         /// <param name="modifier"></param>
-        public AttackCheckM(WeaponViMo weapon, ICheckModifierM modifier)
+        public AttackCheckM(WeaponViMo weapon, ICheckModifierM modifier, IGameDataService gameData)
+            : base(gameData)
         {
             // inherited properties
             AttributeId = weapon.CombatTechId;
@@ -102,19 +104,27 @@ namespace FateExplorer.RollLogic
         {
             get
             {
-                int RollResult;
                 int? Result = null;
-                if (RollList[RollType.Damage] is null)
-                    return null;
-                else
+                if (RollList[RollType.Damage] is not null)
+                {
+                    int RollResult;
                     RollResult = RollList[RollType.Damage].OpenRollCombined();
+                    // TODO: Move the damage assessment to the weapon
+                    if (Success == RollSuccessLevel.Success)
+                        Result = RollResult + DamageBonus;
+                    if (Success == RollSuccessLevel.Critical)
+                        Result = (RollResult + DamageBonus) * 2;
 
-                if (Success == RollSuccessLevel.Success)
-                    Result = RollResult + DamageBonus;
-                if (Success == RollSuccessLevel.Critical)
-                    Result = (RollResult + DamageBonus) * 2;
+                    return Result is null ? null : $"{Result}";
+                }
+                else if (RollList[RollType.Botch] is not null)
+                {
+                    Result = RollList[RollType.Botch].OpenRollCombined();
 
-                return Result is null ? null : $"{Result}";
+                    return $"{Result}";
+                }
+                else
+                    return null;
             }
         }
 
@@ -126,8 +136,21 @@ namespace FateExplorer.RollLogic
             get => throw new NotImplementedException();
         }
 
+
         // inherited: public override bool NeedsBotchEffect
 
+
+
+        /// <summary>
+        /// Needs a roll to determine the damage caused by a combat roll. By default 
+        /// this is false.
+        /// </summary>
+        public override bool NeedsDamage
+        {
+            get => (Success == RollSuccessLevel.Success ||
+                Success == RollSuccessLevel.Critical) &&
+                RollList[RollType.Damage] is null;
+        }
 
 
         // ROLL /////////////////////////////////
@@ -193,16 +216,5 @@ namespace FateExplorer.RollLogic
             throw new NotImplementedException();
         }
 
-
-        /// <summary>
-        /// Needs a roll to determine the damage caused by a combat roll. By default 
-        /// this is false.
-        /// </summary>
-        public override bool NeedsDamage
-        {
-            get => (Success == RollSuccessLevel.Success ||
-                Success == RollSuccessLevel.Critical) &&
-                RollList[RollType.Damage] is null;
-        }
     }
 }

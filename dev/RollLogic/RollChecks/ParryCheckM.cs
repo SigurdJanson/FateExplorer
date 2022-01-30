@@ -1,4 +1,5 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.ViewModel;
 using System;
 
@@ -46,7 +47,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="weapon"></param>
         /// <param name="modifier"></param>
-        public ParryCheckM(WeaponViMo weapon, ICheckModifierM modifier)
+        public ParryCheckM(WeaponViMo weapon, ICheckModifierM modifier, IGameDataService gameData)
+            : base(gameData)
         {
             // inherited properties
             AttributeId = weapon.CombatTechId;

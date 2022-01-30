@@ -1,10 +1,21 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using RollLogicTests.Shared;
 
 namespace FateExplorer.RollLogic
 {
     public abstract class CheckBaseM
     {
+        protected IGameDataService GameData { get; set; }  // injected
+
+        protected CheckBaseM(IGameDataService gameData)
+        {
+            GameData = gameData;
+        }
+
+
+
+
         #region Identification
 
         /// <summary>

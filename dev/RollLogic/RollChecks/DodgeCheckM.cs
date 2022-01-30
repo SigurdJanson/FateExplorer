@@ -1,4 +1,5 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -32,7 +33,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="dodge"></param>
         /// <param name="modifier"></param>
-        public DodgeCheckM(DodgeDTO dodge, ICheckModifierM modifier)
+        public DodgeCheckM(DodgeDTO dodge, ICheckModifierM modifier, IGameDataService gameData)
+            : base(gameData)
         {
             // inherited properties
             AttributeId = dodge.Id;
