@@ -24,8 +24,7 @@ namespace FateExplorer.RollLogic
         { 
             get
             {
-                if (openRoll is null || openRoll[0] == 0)
-                    InitRoll();
+                if (openRoll[0] == 0) InitRoll();
                 return openRoll;
             }
             protected set => openRoll = value;
