@@ -1,5 +1,8 @@
 ﻿namespace FateExplorer.RollLogic
 {
+    /// <summary>
+    /// A roll yields one or many random numbers between 1 and the number of die sides.
+    /// </summary>
     public interface IRollM
     {
         /// <summary>

@@ -26,6 +26,27 @@ namespace RollLogicTests.RollLogic
         }
 
 
+        [Test]
+        public void Roll_FakeRoll([Values(2, 6, 12, 20)] int Sides)
+        {
+            // Arrange
+            var dieRoll = this.CreateDieRoll(Sides);
+
+            int MoqRandomInt = Sides - 1;
+            MoqRng.Setup(r => r.IRandom(It.Is<int>(i => i == 1), It.Is<int>(i => i == Sides)))
+                .Returns(Sides - 1);
+            dieRoll.RNG = MoqRng.Object;
+
+            // Act
+            var result = dieRoll.Roll();
+
+            // Assert
+            Assert.AreEqual(MoqRandomInt, result[0]);
+            Assert.AreEqual(1, result.Length);
+        }
+
+
+
         [Test, Repeat(100)]
         public void Roll_FirstRoll_WithinLimits([Values(2, 6, 12, 20)] int Sides)
         {
@@ -42,7 +63,7 @@ namespace RollLogicTests.RollLogic
                 Assert.GreaterOrEqual(result[0], 1);
                 Assert.LessOrEqual(result[0], Sides);
                 Assert.AreEqual(dieRoll.OpenRoll, result);
-                Assert.AreEqual(0, dieRoll.PrevRoll[0]);
+                //Assert.AreEqual(0, dieRoll.PrevRoll[0]);
             });
             this.mockRepository.VerifyAll();
         }
