@@ -6,6 +6,14 @@ namespace FateExplorer.GameData
     {
         public AbilitiesDB Abilities { get; }
 
+
+        public BotchEntry GetSkillBotch(SkillDomain domain, int DiceEyes);
+
+        public BotchEntry GetAttackBotch(CombatBranch technique, int DiceEyes);
+
+        public BotchEntry GetParryBotch(CombatBranch technique, int DiceEyes);
+
+
         public CombatTechDB CombatTechs { get; }
 
         public WeaponMeleeDB WeaponsMelee { get; }

@@ -174,7 +174,7 @@
 },
 {
     "Roll": ["Skill"],
-    "Type": "Magic",
+    "Type": "Arcane",
     "Url": "Patzer_Zauber.html",
     "Effect": [
     {"dr":[2], "ref": "FMBL_31"},
@@ -191,7 +191,7 @@
 },
 {
     "Roll": ["Skill"],
-    "Type": "Blessed",
+    "Type": "Karma",
     "Url": "Patzer_Liturgien.html",
     "Effect": [
     {"dr":[2], "ref": "FMBL_51"},

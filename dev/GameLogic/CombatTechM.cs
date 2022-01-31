@@ -34,7 +34,7 @@ namespace FateExplorer.GameLogic
         /// <summary>
         /// THe type of weapon
         /// </summary>
-        public CombatTechniques Branch { get; protected set; }
+        public CombatBranch Branch { get; protected set; }
 
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace FateExplorer.GameLogic
         {
             int BaseAbility = Branch switch
             {
-                CombatTechniques.Ranged => Hero.GetAbility(AbilityM.DEX),
+                CombatBranch.Ranged => Hero.GetAbility(AbilityM.DEX),
                 _ => Hero.GetAbility(AbilityM.COU)
             };
             return ComputeAttack(BaseAbility);

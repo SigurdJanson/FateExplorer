@@ -32,7 +32,10 @@ public enum RegenerationDisturbance
 /// </summary>
 public enum RollType { Primary = 0, Confirm = 1, Damage = 2, Botch = 3, BotchDamage = 4 }
 
-public enum CombatTechniques
+/// <summary>
+/// Types of armed conflicts
+/// </summary>
+public enum CombatBranch
 {
     Unarmed = 1, Melee = 2, Ranged = 3, Shield = 4
 }

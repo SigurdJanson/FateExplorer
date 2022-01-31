@@ -23,7 +23,7 @@ namespace FateExplorer.GameData
 
 
         private BotchDB botches;
-        public BotchDB Botches
+        public BotchDB Botches // not part of interface IGameDataService
         {
             get
             {
@@ -34,6 +34,14 @@ namespace FateExplorer.GameData
             protected set => botches = value;
         }
 
+        public BotchEntry GetSkillBotch(SkillDomain domain, int DiceEyes)
+            => Botches.GetBotch("Skill", domain.ToString(), DiceEyes);
+
+        public BotchEntry GetAttackBotch(CombatBranch technique, int DiceEyes)
+            => Botches.GetBotch("Attack", technique.ToString(), DiceEyes);
+
+        public BotchEntry GetParryBotch(CombatBranch technique, int DiceEyes)
+            => Botches.GetBotch("Parry", technique.ToString(), DiceEyes);
 
 
         #region Combat
