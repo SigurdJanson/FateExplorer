@@ -33,7 +33,7 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc/>
         public override int[] Roll()
         {
-            base.Roll();
+            base.Roll(); // executes the roll
 
             int BeforeMod = OpenRoll[0];
             OpenRoll[0] = DisturbModifier.Apply(OpenRoll[0]);

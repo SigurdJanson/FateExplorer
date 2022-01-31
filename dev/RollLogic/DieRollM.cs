@@ -22,11 +22,7 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc/>
         public int[] OpenRoll
         { 
-            get
-            {
-                if (openRoll[0] == 0) InitRoll();
-                return openRoll;
-            }
+            get => openRoll;
             protected set => openRoll = value;
         }
 
@@ -42,18 +38,10 @@ namespace FateExplorer.RollLogic
             if (sides < 2) throw new ArgumentOutOfRangeException(nameof(sides), "A die with less than 2 sides makes no sense");
             Sides = new int[1] { sides };
             RNG = new RandomMersenne();
-            OpenRoll = new int[1] { 0 };
+            OpenRoll = new int[1] { RNG.IRandom(1, Sides[0]) };
             PrevRoll = new int[1] { 0 };
         }
 
-        /// <summary>
-        /// Rolls an initlialising role; is only to called once in the rolls
-        /// lifetime.
-        /// </summary>
-        protected void InitRoll()
-        {
-            openRoll[0] = RNG.IRandom(1, Sides[0]);
-        }
 
         /// <inheritdoc/>
         public virtual int[] Roll()

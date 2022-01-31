@@ -59,7 +59,7 @@ namespace FateExplorer.RollLogic
         /// <remarks>Not implemented for this type of modifier</remarks>
         public void Set(int value)
         {
-            throw new NotImplementedException(nameof(value));
+            throw new NotImplementedException("User-defined values not supported for half modifier");
         }
     }
 }
