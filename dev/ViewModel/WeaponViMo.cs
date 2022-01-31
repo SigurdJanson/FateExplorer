@@ -24,6 +24,8 @@ namespace FateExplorer.ViewModel
 
         public string CombatTechId { get => WeaponM.CombatTechId; }
 
+        public CombatBranch Branch { get => WeaponM.Branch; }
+
         public int DamageThreshold { get => WeaponM.DamageThreshold; }
 
         public int DamageDieCount { get => WeaponM.DamageDieCount; }

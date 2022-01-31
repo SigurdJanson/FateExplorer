@@ -31,6 +31,8 @@ namespace FateExplorer.GameLogic
 
         public string CombatTechId { get; set; }
 
+        public CombatBranch Branch { get; protected set; }
+
         public int DamageDieCount { get; set; }
 
         public int DamageDieSides { get; set; }
@@ -89,6 +91,7 @@ namespace FateExplorer.GameLogic
             ParryMod = WeaponData.ParryMod;
             // Range = WeaponData.Range; // TODO currently ignored because anmbiguous for ranged vs melee
             Improvised = WeaponData.Improvised;
+            Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 
 
             CombatTechM combatTech;
