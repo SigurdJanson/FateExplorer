@@ -207,7 +207,7 @@ namespace RollLogicTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { 10, 10, 10 }, 0, 0);
 
             // Assert
-            Assert.AreEqual(RollSuccessLevel.Success, result);
+            Assert.AreEqual(RollSuccess.Level.Success, result);
         }
 
 
@@ -225,7 +225,7 @@ namespace RollLogicTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { Ability, Ability, Ability }, 0, 0);
 
             // Assert
-            Assert.AreEqual(RollSuccessLevel.Fail, result);
+            Assert.AreEqual(RollSuccess.Level.Fail, result);
         }
 
 
@@ -244,7 +244,7 @@ namespace RollLogicTests.RollLogic
                 Roll, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(RollSuccessLevel.Critical, result);
+            Assert.AreEqual(RollSuccess.Level.Critical, result);
         }
 
 
@@ -261,16 +261,16 @@ namespace RollLogicTests.RollLogic
                 new int[3] { v1, v2, v3 }, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(RollSuccessLevel.Botch, result);
+            Assert.AreEqual(RollSuccess.Level.Botch, result);
         }
 
 
         // Example Core Rules, p. 22
         [Test]
-        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, 0, ExpectedResult = RollSuccessLevel.Success)]
-        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, -1, ExpectedResult = RollSuccessLevel.Success)]
-        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, -2, ExpectedResult = RollSuccessLevel.Fail)]
-        public RollSuccessLevel ComputeSuccess_Samples(int[] Eyes, int[] Attributes, int Skill, int Mod)
+        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, 0, ExpectedResult = RollSuccess.Level.Success)]
+        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, -1, ExpectedResult = RollSuccess.Level.Success)]
+        [TestCase(new int[3] { 10, 18, 12 }, new int[3] { 13, 12, 14 }, 7, -2, ExpectedResult = RollSuccess.Level.Fail)]
+        public RollSuccess.Level ComputeSuccess_Samples(int[] Eyes, int[] Attributes, int Skill, int Mod)
         {
             // Arrange
             // Act

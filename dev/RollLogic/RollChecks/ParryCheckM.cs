@@ -33,7 +33,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The kind of combat technique behind the weapon
         /// </summary>
-        public CombatTechniques CombatTechType { get; protected set; }
+        public CombatBranch CombatTechType { get; protected set; }
 
         /// <summary>
         /// Is the weapon improvised (affects botch rolls)?
@@ -79,6 +79,9 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         /// <remarks>Returns the damage in case of combat attack checks</remarks>
         public override string Classification => null;
+
+        /// <inheritdoc />
+        public override string ClassificationDescr => null;
 
 
         /// <inheritdoc/>

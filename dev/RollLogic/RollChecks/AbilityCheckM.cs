@@ -71,6 +71,9 @@ namespace FateExplorer.RollLogic
         /// <remarks>Ability rolls do not provide a classification</remarks>
         public override string Classification => null;
 
+        /// <inheritdoc />
+        /// <remarks>Ability rolls do not provide a classification</remarks>
+        public override string ClassificationDescr => null;
 
 
         /// <inheritdoc/>

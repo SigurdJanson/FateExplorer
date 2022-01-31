@@ -12,7 +12,9 @@ namespace FateExplorer.RollLogic
         public new const string checkTypeId = "DSA5/0/skill";
 
 
-
+        /// <summary>
+        /// The domain of the skill
+        /// </summary>
         public SkillDomain Domain { get; protected set; }
 
 
@@ -190,6 +192,8 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public override string Classification => ComputeSkillQuality(Remainder).ToString();
 
+        /// <inheritdoc />
+        public override string ClassificationDescr => null;
 
 
         // ROLLS  ////////////////////////

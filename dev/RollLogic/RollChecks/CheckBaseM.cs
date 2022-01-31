@@ -110,6 +110,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public abstract int Remainder { get; }
 
+
         /// <summary>
         /// Classifies the result, e.g. the quality level of a skill check.
         /// </summary>
@@ -119,6 +120,12 @@ namespace FateExplorer.RollLogic
         /// Classifies the result, e.g. the quality level of a skill check.
         /// </summary>
         public abstract string Classification { get; }
+
+        /// <summary>
+        /// An extended description of the classification
+        /// </summary>
+        public abstract string ClassificationDescr { get; }
+
 
 
         /// <summary>

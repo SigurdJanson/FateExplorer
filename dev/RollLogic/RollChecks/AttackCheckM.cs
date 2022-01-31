@@ -33,7 +33,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The kind of combat technique behind the weapon
         /// </summary>
-        public CombatTechniques CombatTechType { get; protected set; }
+        public CombatBranch CombatTechType { get; protected set; }
 
         /// <summary>
         /// Is the weapon improvised (affects botch rolls)?
@@ -63,9 +63,11 @@ namespace FateExplorer.RollLogic
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
+            // specialised properties
             DamageDieCount = weapon.DamageDieCount;
             DamageDieSides = weapon.DamageDieSides;
             DamageBonus = weapon.DamageBonus;
+            CombatTechType = weapon.Branch;
             IsImprovised = weapon.Improvised;
 
             RollList = new();
@@ -80,7 +82,21 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        public override string ClassificationLabel => "abbrvHP"; // TODO: is a string like that for l10n the best way?
+        public override string ClassificationLabel
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetAttackBotch(CombatTechType, Result);
+
+                    return Botch.Label;
+                }
+                else
+                    return null;
+            }
+        }
 
         /// <inheritdoc />
         /// <remarks>Returns the damage in case of combat attack checks</remarks>
@@ -104,11 +120,27 @@ namespace FateExplorer.RollLogic
                 else if (RollList[RollType.Botch] is not null)
                 {
                     Result = RollList[RollType.Botch].OpenRollCombined();
-
-                    return $"{Result}";
+                    var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
+                    
+                    return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
                 }
                 else
                     return null;
+            }
+        }
+
+        public override string ClassificationDescr
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
+
+                    return Botch.Descr;
+                }
+                return null;
             }
         }
 

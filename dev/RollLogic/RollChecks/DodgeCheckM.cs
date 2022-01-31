@@ -65,6 +65,8 @@ namespace FateExplorer.RollLogic
         /// <remarks>Dodge rolls do not provide a classification</remarks>
         public override string Classification => null;
 
+        /// <inheritdoc />
+        public override string ClassificationDescr => null;
 
 
         /// <inheritdoc/>
