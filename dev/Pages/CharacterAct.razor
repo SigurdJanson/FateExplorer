@@ -47,12 +47,13 @@
                     <MudExpansionPanel Text=@l10n["lblFindSkill"] IsInitiallyExpanded=true DisableGutters=true>
                         <MudList Clickable=true Style="overflow:auto; max-height:340px">
                             <MudListSubheader>
+                                @if (SkillDomains is not null && SkillDomains.Count > 1)
+                                {
                                 <MudChipSet @bind-SelectedChip=SelectedDomain MultiSelection=false Filter=false Mandatory=true>
                                     <MudChip Text="All" Label=true Default=true 
                                              Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
                                              @l10n["lblAll"]
                                     </MudChip>
-                                    @if (SkillDomains is not null)
                                         @foreach (var d in SkillDomains)
                                         {
                                             <MudChip Text="@d.ToString()" Label=true 
@@ -61,6 +62,7 @@
                                             </MudChip>
                                         }
                                 </MudChipSet>
+                                }
                                 <MudTextField @bind-Value=FilterTerm Placeholder="Search" 
                                     Adornment=Adornment.End AdornmentIcon=@Icons.Filled.Search 
                                     IconSize=Size.Medium Immediate=true></MudTextField>
