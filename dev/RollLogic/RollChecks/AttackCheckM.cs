@@ -86,7 +86,11 @@ namespace FateExplorer.RollLogic
         {
             get
             {
-                if (RollList[RollType.Botch] is not null)
+                if (RollList[RollType.Damage] is not null)
+                {
+                    return "abbrvHP";
+                }
+                else if (RollList[RollType.Botch] is not null)
                 {
                     int Result = RollList[RollType.Botch].OpenRollCombined();
                     var Botch = GameData.GetAttackBotch(CombatTechType, Result);
