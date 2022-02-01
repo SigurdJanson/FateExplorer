@@ -60,6 +60,8 @@ namespace FateExplorer.RollLogic
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
+            // specialised properties
+            CombatTechType = weapon.Branch;
             IsImprovised = weapon.Improvised;
 
             RollList = new();
@@ -74,14 +76,57 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        public override string ClassificationLabel => null;
+        public override string ClassificationLabel
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetParryBotch(CombatTechType, Result);
+
+                    return Botch.Label;
+                }
+                else
+                    return null;
+            }
+        }
+
 
         /// <inheritdoc />
         /// <remarks>Returns the damage in case of combat attack checks</remarks>
-        public override string Classification => null;
+        public override string Classification
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    //var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
+
+                    return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
+                }
+                else
+                    return null;
+            }
+        }
+
 
         /// <inheritdoc />
-        public override string ClassificationDescr => null;
+        public override string ClassificationDescr
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetParryBotch(CombatTechType, (int)Result);
+
+                    return Botch.Descr;
+                }
+                return null;
+            }
+        }
 
 
         /// <inheritdoc/>

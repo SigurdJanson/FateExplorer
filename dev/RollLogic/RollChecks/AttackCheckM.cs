@@ -102,6 +102,7 @@ namespace FateExplorer.RollLogic
             }
         }
 
+
         /// <inheritdoc />
         /// <remarks>Returns the damage in case of combat attack checks</remarks>
         public override string Classification
@@ -124,7 +125,7 @@ namespace FateExplorer.RollLogic
                 else if (RollList[RollType.Botch] is not null)
                 {
                     Result = RollList[RollType.Botch].OpenRollCombined();
-                    var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
+                    //var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
                     
                     return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
                 }
@@ -133,6 +134,8 @@ namespace FateExplorer.RollLogic
             }
         }
 
+
+        /// <inheritdoc />
         public override string ClassificationDescr
         {
             get
