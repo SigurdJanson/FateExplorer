@@ -63,19 +63,6 @@
     </MudCardContent>
     </div>
 
-    @if (Result.Classification is not null)
-    {
-    <MudCardContent>
-        <MudGrid Spacing=0 Class="my-1">
-            <MudItem xs=12>
-            <MudText Class="px-4" Typo=Typo.subtitle2>
-                @l10n[Result.ClassificationLabel] @Result.Classification
-            </MudText>
-            </MudItem>
-        </MudGrid>
-    </MudCardContent>
-    }
-
     @if (Result.PrimaryNeedsConfirmation())
     {
     <MudCardContent>
@@ -100,12 +87,12 @@
     @if (Result.NeedsBotchEffect())
     {
     <MudCardContent>
-        <MudButton OnClick=@(() => RollBotchEffect()) Color=@GetAvatarColor(Result.SuccessLevel)>
+        <MudButton OnClick=@(() => RollBotchEffect()) Color=@GetAvatarColor(Result.SuccessLevel) Variant=Variant.Filled>
             @l10n["btnBotchEffect"]
         </MudButton>
     </MudCardContent>
     }
-    @if (Result.GetBotchResult() is not null)
+@*    @if (Result.GetBotchResult() is not null)
     {
     <MudCardContent>
         <MudText Typo=Typo.body1 Class="d-inline">"msgMessage"</MudText>
@@ -113,16 +100,27 @@
             [@l10n["lblRoll"] @(Result.GetBotchResult().CombinedResult)]
         </MudText>
     </MudCardContent>
-    }
+    }*@
 
     @if (Result.NeedsDamage())
     {
     <MudCardContent>
-        <MudButton OnClick=@(() => RollDamage()) Color=Color.Primary>
+        <MudButton OnClick=@(() => RollDamage()) Color=Color.Primary Variant=Variant.Filled>
             @l10n["btnDamage"]
         </MudButton>
     </MudCardContent>
     }
+
+    @if (Result.Classification is not null)
+    {
+    <MudCardContent>
+        <MudText Typo=Typo.subtitle1>
+            @l10n[Result.ClassificationLabel ?? ""] @Result.Classification
+        </MudText>
+    </MudCardContent>
+    }
+
+
 </MudCard>
 
 
