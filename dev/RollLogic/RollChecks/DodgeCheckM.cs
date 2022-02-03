@@ -58,15 +58,52 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        /// <remarks>Dodge rolls do not provide a classification</remarks>
-        public override string ClassificationLabel => null;
+        public override string ClassificationLabel
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetDodgeBotch(CombatBranch.Unarmed /*TODO*/, Result);
 
+                    return Botch.Label;
+                }
+                else
+                    return null;
+            }
+        }
         /// <inheritdoc />
         /// <remarks>Dodge rolls do not provide a classification</remarks>
-        public override string Classification => null;
+        public override string Classification
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
+                }
+                else
+                    return null;
+            }
+        }
 
         /// <inheritdoc />
-        public override string ClassificationDescr => null;
+        public override string ClassificationDescr
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetAttackBotch(CombatBranch.Unarmed /*TODO*/, (int)Result);
+
+                    return Botch.Descr;
+                }
+                return null;
+            }
+        }
 
 
         /// <inheritdoc/>

@@ -13,8 +13,17 @@ namespace FateExplorer.GameData
 
         public BotchEntry GetParryBotch(CombatBranch technique, int DiceEyes);
 
+        public BotchEntry GetDodgeBotch(CombatBranch technique, int DiceEyes);
+
 
         public CombatTechDB CombatTechs { get; }
+
+        /// <summary>
+        /// Check if the item with the given id is a weapon.
+        /// </summary>
+        /// <param name="TemplateId"></param>
+        /// <returns></returns>
+        bool IsWeapon(string TemplateId);
 
         public WeaponMeleeDB WeaponsMelee { get; }
 

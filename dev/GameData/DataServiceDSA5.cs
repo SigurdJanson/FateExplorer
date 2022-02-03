@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -43,6 +44,9 @@ namespace FateExplorer.GameData
         public BotchEntry GetParryBotch(CombatBranch technique, int DiceEyes)
             => Botches.GetBotch("Parry", technique.ToString(), DiceEyes);
 
+        public BotchEntry GetDodgeBotch(CombatBranch technique, int DiceEyes)
+            => Botches.GetBotch("Dodge", technique.ToString(), DiceEyes);
+
 
         #region Combat
         private CombatTechDB combatTechs;
@@ -56,6 +60,16 @@ namespace FateExplorer.GameData
             }
             protected set => combatTechs = value;
         }
+
+
+        /// <summary>
+        /// Check if the item with the given id is a weapon.
+        /// </summary>
+        /// <param name="TemplateId">Template id in the data base</param>
+        /// <returns>true/false</returns>
+        public bool IsWeapon(string TemplateId)
+            => WeaponsMelee.Data.FirstOrDefault(w => w.TemplateID == TemplateId) != default 
+                || WeaponsRanged.Data.FirstOrDefault(w => w.TemplateID == TemplateId) != default;
 
 
         private WeaponMeleeDB weaponsMelee;
