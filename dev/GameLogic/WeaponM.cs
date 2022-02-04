@@ -77,12 +77,29 @@ namespace FateExplorer.GameLogic
 
 
         /// <summary>
-        /// 
+        /// Provide the weapon with all the necessary data
         /// </summary>
         public void Initialise(WeaponDTO WeaponData, IGameDataService gameData)
         {
-            Name = WeaponData.Name ?? "unknown";
             CombatTechId = WeaponData.CombatTechId ?? CombatTechM.Unarmed;
+
+            CombatTechM combatTech;
+            if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
+                PrimaryAbilityId = combatTech.PrimeAbilityId.Split("/");
+            else
+            {
+                string Temp = gameData.WeaponsMelee[WeaponData.Id].PrimeAttrID;
+                CombatTechId = gameData.WeaponsMelee[WeaponData.Id].CombatTechID;
+                PrimaryAbilityId = Temp.Split("/");
+            }
+            Ranged = combatTech.IsRanged;
+
+            // Get template weapon from internal db
+            string Template = WeaponData.Id;
+            WeaponMeleeDbEntry DbWeapon = gameData.WeaponsMelee[Template];
+
+
+            Name = WeaponData.Name ?? "unknown";
             DamageBonus = WeaponData.DamageBonus; //TODO: must this be re-calculated???
             DamageDieCount = WeaponData.DamageDieCount;
             DamageDieSides = WeaponData.DamageDieSides;
@@ -92,20 +109,6 @@ namespace FateExplorer.GameLogic
             // Range = WeaponData.Range; // TODO currently ignored because anmbiguous for ranged vs melee
             Improvised = WeaponData.Improvised;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
-
-
-            CombatTechM combatTech;
-            if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
-                PrimaryAbilityId = combatTech.PrimeAbilityId.Split("/");
-            else
-            {
-                //PrimaryAbilityId = Array.Empty<string>();
-                string Temp = gameData.WeaponsMelee[WeaponData.Id].PrimeAttrID;
-                CombatTechId = gameData.WeaponsMelee[WeaponData.Id].CombatTechID;
-                PrimaryAbilityId = Temp.Split("/");
-            }
-
-            Ranged = combatTech.IsRanged;
 
             AtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
             PaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
