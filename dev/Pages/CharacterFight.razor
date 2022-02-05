@@ -77,8 +77,8 @@
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Dominant hand</MudText>
-                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.DominantHandWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.DominantHandWeapon)</MudText>
+                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.MainWeapon.Name</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.MainWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
                                     <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
@@ -86,12 +86,12 @@
                             </MudCardHeader>
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
-                                    OnClick=@(() => OnAttackCheck(Hero.DominantHandWeapon))
+                                    OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon))
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                                @if (Hero.DominantHandWeapon.CanParry)
+                                @if (Hero.Hands.MainWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.DominantHandWeapon))
+                                    OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon))
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
@@ -104,8 +104,8 @@
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Non-dominant hand</MudText>
-                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.NondominantHandWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.NondominantHandWeapon)</MudText>
+                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.OffWeapon.Name</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.OffWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
                                     <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
@@ -113,12 +113,12 @@
                              </MudCardHeader>
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
-                                    OnClick=@(() => OnAttackCheck(Hero.NondominantHandWeapon))
+                                    OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon))
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                                @if (Hero.NondominantHandWeapon.CanParry)
+                                @if (Hero.Hands.OffWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.NondominantHandWeapon))
+                                    OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon))
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility

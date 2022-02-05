@@ -66,7 +66,7 @@ namespace FateExplorer.ViewModel
                 AbilityEffValues.Add(chab.Key, chab.Value.Value);
 
             // COMBAT
-            // TODO: COMBAT: Unarmed
+            Hands = new(characterM, GameDataService);
 
             // DODGE
             DodgeTrueValue = characterM.Dodge.Value;
@@ -279,44 +279,74 @@ namespace FateExplorer.ViewModel
 
         #region COMBAT & DODGE
 
+        public HandsViMo Hands { get; protected set; }
 
-        protected WeaponViMo dominantHandWeapon;
-        protected WeaponViMo nondominantHandWeapon;
+        //protected WeaponViMo dominantHandWeapon;
+        //protected WeaponViMo nondominantHandWeapon;
 
-        /// <summary>
-        /// Create a "bare hands" weapon for unarmed combat
-        /// </summary>
-        /// <returns>A weapon</returns>
-        protected WeaponViMo GetBareHandsAsWeapon()
-        {
-            WeaponUnarmedM weapon = new(characterM);
-            weapon.Initialise(GameDataService);
-            return new WeaponViMo(weapon);
-        }
+        ///// <summary>
+        ///// Create a "bare hands" weapon for unarmed combat
+        ///// </summary>
+        ///// <returns>A weapon</returns>
+        //protected WeaponViMo GetBareHandsAsWeapon()
+        //{
+        //    WeaponUnarmedM weapon = new(characterM);
+        //    weapon.Initialise(GameDataService);
+        //    return new WeaponViMo(weapon);
+        //}
 
-        /// <inheritdoc/>
-        public WeaponViMo DominantHandWeapon 
-        { 
-            get 
-            { 
-                if (dominantHandWeapon is null)
-                    dominantHandWeapon = GetBareHandsAsWeapon();
-                return dominantHandWeapon; 
-            }
-            set { dominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
-        }
+        ///// <inheritdoc/>
+        //public WeaponViMo DominantHandWeapon 
+        //{
+        //    get 
+        //    { 
+        //        if (dominantHandWeapon is null)
+        //            dominantHandWeapon = GetBareHandsAsWeapon();
+        //        return dominantHandWeapon; 
+        //    }
+        //    set { dominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
+        //}
 
-        /// <inheritdoc/>
-        public WeaponViMo NondominantHandWeapon
-        { 
-            get 
-            {
-                if (nondominantHandWeapon is null)
-                    nondominantHandWeapon = GetBareHandsAsWeapon();
-                return nondominantHandWeapon; 
-            }
-            set { nondominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
-        }
+
+        ///// <inheritdoc/>
+        //public WeaponViMo NondominantHandWeapon
+        //{ 
+        //    get 
+        //    {
+        //        if (nondominantHandWeapon is null)
+        //            nondominantHandWeapon = GetBareHandsAsWeapon();
+        //        return nondominantHandWeapon; 
+        //    }
+        //    set { nondominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
+        //}
+
+
+        ///// <summary>
+        ///// Empties the characters hand by removing the current weapon and "replacing" it with 
+        ///// bare hands.
+        ///// </summary>
+        ///// <param name="Dominant">Remove the weapon from which hand? 
+        ///// true is the dominant hand; false the non-domoinant.</param>
+        //public void RemoveWeapon(bool Dominant)
+        //{
+        //    if (Dominant)
+        //        DominantHandWeapon = null;
+        //    else
+        //        NondominantHandWeapon = null;
+        //}
+
+        ///// <summary>
+        ///// Tells if the character's hands are empty and s/he would be fighting with bare hands.
+        ///// </summary>
+        ///// <param name="Dominant"></param>
+        ///// <returns></returns>
+        //public bool IsBareHand(bool Dominant)
+        //{
+        //    if (Dominant) //TODO: comparison is always false
+        //        return DominantHandWeapon.GetType() == typeof(WeaponUnarmedM);
+        //    else
+        //        return NondominantHandWeapon.GetType() == typeof(WeaponUnarmedM);
+        //}
 
 
 

@@ -102,14 +102,19 @@ namespace FateExplorer.ViewModel
         /// </summary>
         List<WeaponViMo> Weapons { get; }
 
-        /// <summary>
-        /// The weapon held by the dominant hand; is either a set weapon or it is the bare hands
-        /// </summary>
-        WeaponViMo DominantHandWeapon { get; set; }
+        ///// <summary>
+        ///// The weapon held by the dominant hand; is either a set weapon or it is the bare hands
+        ///// </summary>
+        //WeaponViMo DominantHandWeapon { get; set; }
+
+        ///// <summary>
+        ///// The weapon held by the NON-dominant hand
+        ///// </summary>
+        //WeaponViMo NondominantHandWeapon { get; set; }
 
         /// <summary>
-        /// The weapon held by the NON-dominant hand
+        /// Hands carrying weapons
         /// </summary>
-        WeaponViMo NondominantHandWeapon { get; set; }
+        HandsViMo Hands { get; }
     }
 }
