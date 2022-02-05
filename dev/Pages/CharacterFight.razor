@@ -81,7 +81,10 @@
                                     <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.MainWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
+                                    @if (Hero.Hands.IsBare(HandsViMo.Hand.Main))
+                                    {
                                     <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
+                                    }
                                 </CardHeaderActions>
                             </MudCardHeader>
                             <MudCardActions>
@@ -108,7 +111,10 @@
                                     <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.OffWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
+                                    @if (Hero.Hands.IsBare(HandsViMo.Hand.Off))
+                                    {
                                     <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
+                                    }
                                 </CardHeaderActions>
                              </MudCardHeader>
                             <MudCardActions>
