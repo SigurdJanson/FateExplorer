@@ -9,14 +9,14 @@ Courage, strength, ... are called abilites.
 
 Skills are basic, mundane skills (like perception, ...). But arcane and karma skills are called skills as much as the combat techniques. Only that the program logic handles combat techniques differently.
 
-The combat technique describes the basic skill with a certain weapon's branch. Each particular weapon may modify the attack and parry skill, as well as the 
+The combat technique describes the basic skill with a certain weapon's branch. Each particular weapon may modify the attack and parry skill, as well as the hit points.
 
 
-## ...
+## Kinds of Values
 
-* Imported value: the value as it was understood by importing a character sheet.
-* True value: the correct character's attribute after applying special abilities, advantages and disadvantages.
-* Effective value. An attribute value modified either...
+* **Imported** value: the value as it was understood by importing a character sheet.
+* **True** value: the correct character's attribute after applying special abilities, advantages and disadvantages.
+* **Effective** value. An attribute value modified either...
   * by a modification at the GMs discretion.
   * by temporary states and conditions.
   * for dependent attributes when the dependencies change.
@@ -43,6 +43,7 @@ Sometimes it takes a certain amount of time and more than one skill check to acc
 
 A group of heroes must work together to achieve certain goals. When several heroes use skills to work together, the procedure is called a group check. Group checks can be competitive or cumulative checks, but never simple checks. In group checks, add up the combined results of all participating characters.
 
+
 ## Add Combat Checks
 
 All attack checks are handled by the same class with only the exception of shields. The class distinguishes botch rolls that are different for unarmed combat, shields or ranged combat. It also distinguises 
@@ -60,7 +61,8 @@ To add a combat check you need a new entry in "rollresolver.json". Example:
 
 
 
-## FateExplorer
+
+# FateExplorer
 
 The FE distinguishes rolls and checks. A roll is whatever you can do with rolling one dice cup. A check requires several rolls and may involve additional criteria, tables and comparisons.
 
@@ -90,13 +92,38 @@ The FE distinguishes rolls and checks. A roll is whatever you can do with rollin
 1. Single roll
 2. 1d20 --> &empty; | Damage | Confirmation --> Damage | Botch roll --> [Damage] | Effect
 
-| Type | Roll | Criterion |
-| --- | --- | --- |
-|  |  |  |
-|  |  |  |
-|  |  |  |
 
+## Combat
 
+\* The right hand in this context is the dominant hand (while left is non-dominant).
+
+AT and PA in this table are regular AT/PA values when calculated for the main (dominant) hand.
+
+* General **off-hand penalty** is -4.
+  * The penalty is removed by advantage *Ambidextrous*.
+* General **two-weapon penalty** is -2; but it is only used for a second weapon of parry weapon, but not shields.
+  * penalty is reduced with special ability *Two-Weapon Combat I-II*.
+* The **parry bonus** for shields is the parry modifier that is specified for each single item that can be used as a weapon.
+* When defending with a shield, it's important to decide whether you want to use the shield passively (adding its Parry to the base Parry stat of your main weapon), or actively, with the combat technique 'Shields', to receive double the shield's Parry bonus.
+* The only documented parry weapons (that is technically a weapon) seems to be the **main-gauche** (parrying dagger).
+* Other parry weapons are technically shields (most of all bucklers). Their 'PA-bonus' is 0 but an addtional PA-bonus is documented in the comments. This bonus of +1 will be called *PW1*.
+
+| Situation                 | Right hand   | Left hand    | R Modified                  | L Modified           | Questions & Exceptions  |
+|---------------------------|--------------|--------------|-----------------------------|----------------------|------------|
+| Unarmed                   | &#8709;      | &#8709;      | *Regular brawling*          | *Regular brawling*   |            |
+| Dominant                  | Weapon       | &#8709;      | no mods                     | *Regular brawling*   |            |
+| Non-Dominant              | &#8709;      | Weapon       | *Regular brawling*          | AT -4 / PA -4        | -4 penalty is removed by advantage *Ambidextrous* |
+| Two-weapon                | Weapon       | Weapon       | AT -2 / PA -2               | AT -2 -4 / PA -2 -4  | -2 applies per combat round<br>-2 penalty is reduced with special ability *Two-Weapon Combat I-II*<br>-4 penalty is removed by advantage *Ambidextrous* |
+| Dominant                  | &#8709;      | Shield       | AT &pm;0 / PA +PA-bonus     | AT -4 / PA &pm;0     | -4 penalty is removed by advantage *Ambidextrous*<br>Shields do not suffer the off-hand penalty for parades |
+| Non-Dominant              | Shield       | &#8709;      | no mods                     | *Regular brawling*   |            |
+| Both                      | Weapon       | Shield       | AT &pm;0 / PA +PA-bonus     | AT -4 / PA +PA-bonus | -4 penalty is removed by advantage *Ambidextrous*<br>Shields do not suffer the off-hand penalty for parades<br>PA nonus is the PA mod specific to the shield. |
+| Two-weapon, shield attack | Weapon       | Shield       | AT -2                       | AT -2                | When shields is used to attack<br>-2 penalty is reduced with special ability Two-Weapon Combat I-II   |
+| Dominant                  | &#8709;      | Parry weapon | Brawl AT &pm;0 / PA +*PW1*  | AT -4 / PA...        |            |
+| Non-Dominant              | Parry weapon | &#8709;      | no mods                     |                      |            |
+| Two-weapon                | Weapon       | Parry weapon | AT &pm;0 / PA +*PW1*        |                      | Decide each combat round whether to use the passive parry bonus<br>or the active parade with parry weapon |
+| Two-handed                <td colspan=2> Weapon         <td colspan=2> no mods                               |            |
+| Two-weapon both shields   | Shield       | Shield       | AT -2 / PA -2 +max(PA-bonus)|                      |            |
+| Two-parry-weapon          | Parry weapon | Parry weapon | AT -2 / PA -2 +*PW1*        |                      |            |
 
 
 # Character Attributes
