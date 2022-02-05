@@ -104,7 +104,8 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        /// <remarks>Returns the damage in case of combat attack checks</remarks>
+        /// <remarks>Returns the damage in case of combat attack checks 
+        /// or the botch effect</remarks>
         public override string Classification
         {
             get

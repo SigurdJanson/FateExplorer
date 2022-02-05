@@ -322,6 +322,10 @@
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
   </data>
+  <data name="msgCombatActionMissing" xml:space="preserve">
+    <value>{0} für {1} ist nicht implementiert</value>
+    <comment>Fight</comment>
+  </data>
   <data name="msgCriticalConfirmed" xml:space="preserve">
     <value>Genau so machen das Helden!</value>
   </data>

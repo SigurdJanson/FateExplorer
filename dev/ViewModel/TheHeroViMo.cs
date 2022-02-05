@@ -41,7 +41,7 @@ namespace FateExplorer.ViewModel
         /// <inheritdoc/>
         public void ReadCharacterFile(byte[] Data)
         {
-            CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>(new ReadOnlySpan<byte>(Data));//(reader);
+            CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>(new ReadOnlySpan<byte>(Data));
 
             characterM = new CharacterM(GameDataService, characterImportOptM);
             InitAttributes();
@@ -66,7 +66,7 @@ namespace FateExplorer.ViewModel
                 AbilityEffValues.Add(chab.Key, chab.Value.Value);
 
             // COMBAT
-            // TODO: COMBAT 
+            // TODO: COMBAT: Unarmed
 
             // DODGE
             DodgeTrueValue = characterM.Dodge.Value;
@@ -278,6 +278,47 @@ namespace FateExplorer.ViewModel
 
 
         #region COMBAT & DODGE
+
+
+        protected WeaponViMo dominantHandWeapon;
+        protected WeaponViMo nondominantHandWeapon;
+
+        /// <summary>
+        /// Create a "bare hands" weapon for unarmed combat
+        /// </summary>
+        /// <returns>A weapon</returns>
+        protected WeaponViMo GetBareHandsAsWeapon()
+        {
+            WeaponUnarmedM weapon = new(characterM);
+            weapon.Initialise(GameDataService);
+            return new WeaponViMo(weapon);
+        }
+
+        /// <inheritdoc/>
+        public WeaponViMo DominantHandWeapon 
+        { 
+            get 
+            { 
+                if (dominantHandWeapon is null)
+                    dominantHandWeapon = GetBareHandsAsWeapon();
+                return dominantHandWeapon; 
+            }
+            set { dominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
+        }
+
+        /// <inheritdoc/>
+        public WeaponViMo NondominantHandWeapon
+        { 
+            get 
+            {
+                if (nondominantHandWeapon is null)
+                    nondominantHandWeapon = GetBareHandsAsWeapon();
+                return nondominantHandWeapon; 
+            }
+            set { nondominantHandWeapon = value ?? GetBareHandsAsWeapon(); }
+        }
+
+
 
 
         /// <summary>

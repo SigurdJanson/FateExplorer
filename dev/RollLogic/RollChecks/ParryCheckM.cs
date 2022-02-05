@@ -8,7 +8,7 @@ namespace FateExplorer.RollLogic
     public class ParryCheckM : CheckBaseM
     {
         /// <inheritdoc />
-        public new const string checkTypeId = "DSA5/0/combat/melee/parry";
+        public new const string checkTypeId = "DSA5/0/combat/parry";
 
 
         /// <inheritdoc />
@@ -102,8 +102,6 @@ namespace FateExplorer.RollLogic
                 if (RollList[RollType.Botch] is not null)
                 {
                     int Result = RollList[RollType.Botch].OpenRollCombined();
-                    //var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
-
                     return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
                 }
                 else
