@@ -40,7 +40,7 @@ namespace FateExplorer.ViewModel
 
         public int Range { get => WeaponM.Range; }
 
-        public bool Improvised { get => WeaponM.Improvised; }
+        public bool IsImprovised { get => WeaponM.Improvised; }
 
         public bool Ranged { get => WeaponM.Ranged; }
 

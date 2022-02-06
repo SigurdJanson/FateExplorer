@@ -68,7 +68,7 @@ namespace FateExplorer.RollLogic
             DamageDieSides = weapon.DamageDieSides;
             DamageBonus = weapon.DamageBonus;
             CombatTechType = weapon.Branch;
-            IsImprovised = weapon.Improvised;
+            IsImprovised = weapon.IsImprovised;
 
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
