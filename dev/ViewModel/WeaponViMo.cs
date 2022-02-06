@@ -45,5 +45,7 @@ namespace FateExplorer.ViewModel
         public bool Ranged { get => WeaponM.Ranged; }
 
         public bool CanParry { get => WeaponM.CanParry; }
+
+        public bool IsTwohanded { get => WeaponM.TwoHanded; }
     }
 }

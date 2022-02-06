@@ -49,6 +49,8 @@ namespace FateExplorer.GameLogic
 
         public bool Improvised { get; set; }
 
+        public bool TwoHanded { get; set; }
+
         public bool CanParry
         {
             get
@@ -96,24 +98,32 @@ namespace FateExplorer.GameLogic
 
             // Get template weapon from internal db
             string Template = WeaponData.Id;
-            //-WeaponMeleeDbEntry DbWeapon = gameData.WeaponsMelee[Template]; // careful with unarmed combat!!!
+            WeaponMeleeDbEntry DbWeapon = null;
+            try
+            {
+                DbWeapon = gameData.WeaponsMelee[Template];
+            } catch (Exception) { }
+            
 
 
             Name = WeaponData.Name ?? "unknown";
-            DamageBonus = WeaponData.DamageBonus; //TODO: must this be re-calculated???
             DamageDieCount = WeaponData.DamageDieCount;
+            //DamageDieCount = WeaponData.DamageDieCount != 0 ? WeaponData.DamageDieCount : (DbWeapon?.DamageDieCount ?? 0)
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;
+            DamageBonus = WeaponData.DamageBonus; //TODO: must this be re-calculated???
+
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
             // Range = WeaponData.Range; // TODO currently ignored because anmbiguous for ranged vs melee
+
             Improvised = WeaponData.Improvised;
+            TwoHanded = DbWeapon?.TwoHanded ?? false;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 
             AtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
             PaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
         }
-
 
 
         /// <summary>

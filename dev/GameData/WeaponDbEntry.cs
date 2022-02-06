@@ -58,6 +58,9 @@ namespace FateExplorer.GameData
         [JsonPropertyName("armed")]
         public bool Armed { get; set; }
 
+        [JsonPropertyName("twohanded")]
+        public bool TwoHanded { get; set; }
+
         [JsonPropertyName("templateID")]
         public string TemplateID { get; set; }
 
