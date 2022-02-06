@@ -193,6 +193,58 @@
     <value>Würfelbecher</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="iAlchimica" xml:space="preserve">
+    <value>Alchimica</value>
+  </data>
+  <data name="iAmmunition" xml:space="preserve">
+    <value>Munition</value>
+  </data>
+  <data name="iAnimal" xml:space="preserve">
+    <value>Tiere</value>
+  </data>
+  <data name="iAnimalSupplies" xml:space="preserve">
+    <value>Tierbedarf</value>
+  </data>
+  <data name="iArmor" xml:space="preserve">
+    <value>Rüstung</value>
+  </data>
+  <data name="iBandagesNRemedies" xml:space="preserve">
+    <value>Verbandszeug und Heilmittel</value>
+  </data>
+  <data name="iBooks" xml:space="preserve">
+    <value>Bücher</value>
+  </data>
+  <data name="iBurglarTools" xml:space="preserve">
+    <value>Diebeswerkzeug</value>
+  </data>
+  <data name="iCeremonialObjects" xml:space="preserve">
+    <value>Zeremonialgegenstände</value>
+  </data>
+  <data name="iClothing" xml:space="preserve">
+    <value>Kleidung</value>
+  </data>
+  <data name="iContainers" xml:space="preserve">
+    <value>Behälter</value>
+  </data>
+  <data name="iFinestoneNGems" xml:space="preserve">
+    <value>Edelsteine und Feingestein</value>
+  </data>
+  <data name="iHerbs" xml:space="preserve">
+    <value>Heilkräuter</value>
+  </data>
+  <data name="iJewellery" xml:space="preserve">
+    <value>Schmuck</value>
+  </data>
+  <data name="iLights" xml:space="preserve">
+    <value>Leuchtmittel</value>
+  </data>
+  <data name="iMagicalArtefacts" xml:space="preserve">
+    <value>Magische Artefakte</value>
+  </data>
+  <data name="iMelee" xml:space="preserve">
+    <value>Nahkampfwaffen</value>
+    <comment>equipment</comment>
+  </data>
   <data name="imgAltBarbarian" xml:space="preserve">
     <value>Lässiger Barbar</value>
     <comment>About</comment>
@@ -209,9 +261,45 @@
     <value>Zauberer zaubert</value>
     <comment>About</comment>
   </data>
+  <data name="iMusicalInstruments" xml:space="preserve">
+    <value>Musikinstrumente</value>
+  </data>
   <data name="INT" xml:space="preserve">
     <value>IN</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="iOrientation" xml:space="preserve">
+    <value>Orientierungshilfen</value>
+  </data>
+  <data name="iPoisons" xml:space="preserve">
+    <value>Gifte</value>
+  </data>
+  <data name="iRangedWeapon" xml:space="preserve">
+    <value>Fernkampfwaffen</value>
+  </data>
+  <data name="iRopesNChains" xml:space="preserve">
+    <value>Seile und Ketten</value>
+  </data>
+  <data name="iSacredTools" xml:space="preserve">
+    <value>Ausrüstunge der Geweihtenschaft</value>
+  </data>
+  <data name="iStationary" xml:space="preserve">
+    <value>Schreibwaren</value>
+  </data>
+  <data name="iStimulantsNLuxury" xml:space="preserve">
+    <value>Genussmittel und Luxus</value>
+  </data>
+  <data name="iTools" xml:space="preserve">
+    <value>Handwerkszeug</value>
+  </data>
+  <data name="iTransport" xml:space="preserve">
+    <value>Fortbewegungsmittel</value>
+  </data>
+  <data name="iTravelNTools" xml:space="preserve">
+    <value>Reisebedarf und Werkzeuge</value>
+  </data>
+  <data name="iWeaponAccessories" xml:space="preserve">
+    <value>Waffenzubehör</value>
   </data>
   <data name="lblAbility" xml:space="preserve">
     <value>Eigenschaft</value>
@@ -247,6 +335,9 @@
     <value>Fertigkeiten finden</value>
     <comment>Character Act (Skills)</comment>
   </data>
+  <data name="lblGroup" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Ausgewählte Fertigkeiten</value>
     <comment>Character Act (Skills)</comment>
@@ -274,6 +365,9 @@
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Geburtsort</value>
   </data>
+  <data name="lblPrice" xml:space="preserve">
+    <value>Preis</value>
+  </data>
   <data name="lblRegenerate6Hours" xml:space="preserve">
     <value>Regeneration für mindestens 6 Stunden</value>
     <comment>Energy regeneration</comment>
@@ -292,6 +386,9 @@
   </data>
   <data name="lblRoll" xml:space="preserve">
     <value>Wurf</value>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Finden</value>
   </data>
   <data name="lblSelection" xml:space="preserve">
     <value>Auswahl</value>

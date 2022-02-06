@@ -15,5 +15,7 @@
         public double Price => ItemM.Price;
 
         public double Weight => ItemM.Weight ?? 0;
+
+        public ShopItemM.GroupId Group => ItemM.Group;
     }
 }

@@ -20,7 +20,11 @@ namespace FateExplorer.Shop
 
         public List<ShopItemViMo> GetStock(string Filter)
         {
-            var Selected = Inventory.FindAll(i => i.Name.Contains(Filter));
+            List<ShopItemM> Selected;
+            if (Filter is not null)
+                Selected = Inventory.FindAll(i => i.Name.Contains(Filter, System.StringComparison.CurrentCultureIgnoreCase));
+            else
+                Selected = new();
 
             List<ShopItemViMo> Result = new();
             foreach (var item in Selected)

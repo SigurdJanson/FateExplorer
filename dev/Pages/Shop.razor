@@ -1,0 +1,84 @@
+﻿@page "/shop"
+@using FateExplorer.Shop
+
+@inject IStringLocalizer<App> l10n
+@inject ISnackbar Snackbar
+@inject HttpClient httpClient
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs=12>
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.body1 Class="mb-3">@l10n["lblShop"]</MudText>
+            </MudPaper>
+            @if (Stock is not null)
+            {
+            <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
+                      FixedHeader=true Hover=true Striped=true Height="600px">
+                <ToolBarContent>
+@*                  <MudText Typo="Typo.h6">@l10n[""]</MudText>
+                    <MudSpacer />ValueChanged=@(s => OnSearch(s)) 
+*@                  <MudTextField T=string Clearable=true TextUpdateSuppression=false
+                        DebounceInterval=200 OnDebounceIntervalElapsed="@(s=>OnSearch(s))"
+                        Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start
+                        AdornmentIcon=@Icons.Material.Filled.Search IconSize=Size.Medium Class="mt-0" />
+                    <MudSelect T=ShopItemM.GroupId Class="mt-0" Clearable=true>
+                        @foreach (ShopItemM.GroupId item in Enum.GetValues(typeof(ShopItemM.GroupId)))
+                        {
+                            <MudSelectItem Value=@item>@l10n[item.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>@l10n["lblName"]</MudTh>
+                    <MudTh>@l10n["lblPrice"] (S)</MudTh>
+                    <MudTh>@l10n["lblWeight"] (@l10n["lblStone"])</MudTh>
+                    <MudTh>@l10n["lblGroup"]</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Price">@context.Price</MudTd>
+                    <MudTd DataLabel="Weight">@context.Weight</MudTd>
+                    <MudTd DataLabel="Group">@l10n[context.Group.ToString()]</MudTd>
+                </RowTemplate>
+                </MudTable>
+            }
+            else
+            {
+                <MudSkeleton SkeletonType=SkeletonType.Text Width="100%" />
+                <MudText Typo=Typo.caption>Shop is about to be opened</MudText>
+                <MudSkeleton SkeletonType=SkeletonType.Text Width="100%" />
+            }
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+
+
+@code {
+    private MudTable<ShopItemViMo> Table;
+
+    private ShopInventoryViMo Stock { get; set; }
+
+    private string searchString = null;
+
+    private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
+    {
+        var data = await Task.Run(() => Stock.GetStock(searchString));
+        return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = data };
+    }
+
+    private void OnSearch(string text)
+    {
+        searchString = text;
+        Table.ReloadServerData();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        Stock = new ShopInventoryViMo(httpClient);
+        await Stock.InitializeGameDataAsync();
+    }
+}
