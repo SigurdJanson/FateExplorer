@@ -95,18 +95,30 @@ The FE distinguishes rolls and checks. A roll is whatever you can do with rollin
 
 ## Combat
 
-\* The right hand in this context is the dominant hand (while left is non-dominant).
+---
+<details>
+<summary markdown="span">NOTES: Terms and Legend</summary>
 
-AT and PA in this table are regular AT/PA values when calculated for the main (dominant) hand.
+* The right hand in this context is the dominant hand (while left is non-dominant). 
+* The dominant hand is called **main** hand.
+* The non-dominant is the **off** hand.
+* AT and PA in this table are regular AT/PA values when calculated for the main (dominant) hand.
+</details>
+
+---
+
+
 
 * General **off-hand penalty** is -4.
   * The penalty is removed by advantage *Ambidextrous*.
+  * QUESTION: does the off-hand penalty apply in unarmed combat actions? Assumption is: No.
 * General **two-weapon penalty** is -2; but it is only used for a second weapon of parry weapon, but not shields.
   * penalty is reduced with special ability *Two-Weapon Combat I-II*.
 * The **parry bonus** for shields is the parry modifier that is specified for each single item that can be used as a weapon.
 * When defending with a shield, it's important to decide whether you want to use the shield passively (adding its Parry to the base Parry stat of your main weapon), or actively, with the combat technique 'Shields', to receive double the shield's Parry bonus.
 * The only documented parry weapons (that is technically a weapon) seems to be the **main-gauche** (parrying dagger).
 * Other parry weapons are technically shields (most of all bucklers). Their 'PA-bonus' is 0 but an addtional PA-bonus is documented in the comments. This bonus of +1 will be called *PW1*.
+
 
 | Situation                 | Right hand   | Left hand    | R Modified                  | L Modified           | Questions & Exceptions  |
 |---------------------------|--------------|--------------|-----------------------------|----------------------|------------|
