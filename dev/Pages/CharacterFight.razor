@@ -34,7 +34,7 @@
                     </div>
                 </MudListItem>
                 <MudListItem Text="Initiative" Icon=@Icons.Material.Filled.Sort>
-                         
+                    
                 </MudListItem>
             </MudList>
 
@@ -52,17 +52,15 @@
                         </MudText>
                         </div>
                         <MudSpacer/>
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
-                            OnClick=@(() => OnAttackCheck(w))
+                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.FrontHand
+                            OnClick=@(() => GrabWeapon(w, true))
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                         @if (w.CanParry)
                         {
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
-                            OnClick=@(() => OnParryCheck(w))
+                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.BackHand
+                            OnClick=@(() => GrabWeapon(w, false))
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                         }
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
-                            aria-label=@(l10n["lblView"] + " " + @l10n["Attack"]) />
                     </div>
                 </MudListItem>
                 }
@@ -73,7 +71,7 @@
             <MudPaper >
                 <MudGrid>
                     <MudItem xs=6>
-                        <MudCard Square=true >
+                        <MudCard Square=true Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Dominant hand</MudText>
@@ -81,9 +79,10 @@
                                     <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.MainWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
-                                    @if (Hero.Hands.IsBare(HandsViMo.Hand.Main))
+                                    @if (!Hero.Hands.IsBare(HandsViMo.Hand.Main))
                                     {
-                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
+                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default  
+                                        OnClick=@(() => StashWeapon(true))/>
                                     }
                                 </CardHeaderActions>
                             </MudCardHeader>
@@ -103,7 +102,7 @@
                         </MudCard>
                     </MudItem>
                     <MudItem xs=6>
-                        <MudCard>
+                        <MudCard Square=true Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Non-dominant hand</MudText>
@@ -111,9 +110,10 @@
                                     <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.OffWeapon)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
-                                    @if (Hero.Hands.IsBare(HandsViMo.Hand.Off))
+                                    @if (!Hero.Hands.IsBare(HandsViMo.Hand.Off))
                                     {
-                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
+                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default 
+                                        OnClick=@(() => StashWeapon(false))/>
                                     }
                                 </CardHeaderActions>
                              </MudCardHeader>
@@ -165,12 +165,81 @@ else
 
 
 @code {
-    private readonly string[] CheckIcons = new string[4] { Icons.Filled.Accessible, Icons.Filled.Elderly, Icons.Filled.Accessibility, Icons.Filled.AccessibilityNew };
+    private readonly string[] CheckIcons = new string[4] { 
+        Icons.Filled.Accessible, Icons.Filled.Elderly, Icons.Filled.Accessibility, Icons.Filled.AccessibilityNew };
 
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
 
+
+    /// <summary>
+    /// User puts a weapon into a character's hand'
+    /// </summary>
+    /// <param name="weapon">The weapon</param>
+    /// <param name="MainHand">The designated hand</param>
+    private void GrabWeapon(WeaponViMo weapon, bool MainHand)
+    {
+        if (MainHand)
+            Hero.Hands.MainWeapon = weapon;
+        else
+            Hero.Hands.OffWeapon = weapon;
+    }
+
+    /// <summary>
+    /// User empties a hand
+    /// </summary>
+    /// <param name="MainHand">The hand to empty</param>
+    private void StashWeapon(bool MainHand) 
+        => Hero.Hands.RemoveWeapon(MainHand ? HandsViMo.Hand.Main : HandsViMo.Hand.Off);
+
+
+    /// <summary>
+    /// User triggers a combat attack action
+    /// </summary>
+    /// <param name="weapon">Wielded weapon for this attack</param>
+    private void OnAttackCheck(WeaponViMo weapon)
+    {
+        const string ActionId = "AT"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        try
+        {
+            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
+        }
+        catch (NotImplementedException)
+        {
+            Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
+            return;
+        }
+        ActiveCheck.CheckModifier.Set(ModifyValue);
+        RollCheckResults.Enqueue(ActiveCheck);
+    }
+
+    /// <summary>
+    /// User triggers a combat parry action
+    /// </summary>
+    /// <param name="weapon">Wielded weapon for this attack</param>
+    private void OnParryCheck(WeaponViMo weapon)
+    {
+        const string ActionId = "PA"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        try
+        {
+            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
+        }
+        catch (NotImplementedException)
+        {
+            Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
+            return;
+        }
+        ActiveCheck.CheckModifier.Set(ModifyValue);
+        RollCheckResults.Enqueue(ActiveCheck);
+    }
+
+
+    /// <summary>
+    /// User has the character dodge something
+    /// </summary>
+    /// <param name="dodge"></param>
     private void OnDodgeCheck(DodgeDTO dodge)
     {
         ActiveCheck = RollHandler.OpenRollCheck(dodge.Id, dodge, null);
@@ -178,38 +247,7 @@ else
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
-    private void OnAttackCheck(WeaponViMo weapon)
-    {
-        const string ActionId = "AT"; /// TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        try
-        {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
-        }
-        catch (NotImplementedException)
-        {
-            Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
-            return;
-        }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
-        RollCheckResults.Enqueue(ActiveCheck);
-    }
-
-    private void OnParryCheck(WeaponViMo weapon)
-    {
-        const string ActionId = "PA"; /// TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        try
-        {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
-        }
-        catch (NotImplementedException)
-        {
-            Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
-            return;
-        }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
-        RollCheckResults.Enqueue(ActiveCheck);
-    }
 
 
 
@@ -237,6 +275,9 @@ else
     }
 
 
+
+    #region RENDERING /// /// ///
+
     private RenderFragment WeaponProps(WeaponViMo Weapon)
     {
         if (Weapon.DamageBonus == 0)
@@ -255,5 +296,6 @@ else
                 </span>;
     }
 
+    #endregion
 
 }

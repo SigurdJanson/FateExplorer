@@ -4,6 +4,9 @@ using System;
 
 namespace FateExplorer.ViewModel
 {
+    /// <summary>
+    /// Two hands of a character.
+    /// </summary>
     public class HandsViMo
     {
         public enum Hand { Main = 0, Off = 1 };
@@ -14,10 +17,10 @@ namespace FateExplorer.ViewModel
         protected WeaponViMo UnarmedMainHand, UnarmedOffHand;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
-        /// <param name="hero"></param>
-        /// <param name="gameData"></param>
+        /// <param name="hero">The hero (model) these hands belong to</param>
+        /// <param name="gameData">Access to the game data base</param>
         public HandsViMo(ICharacterM hero, IGameDataService gameData)
         {
             UnarmedMainHand = GetBareHandsAsWeapon(hero, gameData);
@@ -84,6 +87,7 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// Does the hand hold a weapon or is it bare?
         /// </summary>
+        /// <remarks>Technically, the hands hold an equipped weapon or a "bare-hands" weapon.</remarks>
         protected bool[] HoldsWeapon { get; set; }
 
 
@@ -104,13 +108,13 @@ namespace FateExplorer.ViewModel
 
         /// <summary>
         /// Empties the characters hand by removing the current weapon and "replacing" it with 
-        /// bare hands.
+        /// bare hands. So teechnically, the hands always carry a weapon.
         /// </summary>
         /// <param name="Which">Remove the weapon from which hand? 
         /// true is the dominant hand; false the non-domoinant.</param>
         public void RemoveWeapon(Hand Which)
         {
-            Weapon[(int)Which] = null;
+            Weapon[(int)Which] = (Which == Hand.Main) ? UnarmedMainHand : UnarmedOffHand;
             HoldsWeapon[(int)Which] = false;
         }
 
@@ -119,7 +123,7 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="Which">Which hand to look up</param>
         /// <returns>true if the hand is bare</returns>
-        public bool IsBare(Hand Which) => HoldsWeapon[(int)Which] = false;
+        public bool IsBare(Hand Which) => !HoldsWeapon[(int)Which];
 
     }
 }

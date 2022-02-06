@@ -96,7 +96,7 @@ namespace FateExplorer.GameLogic
 
             // Get template weapon from internal db
             string Template = WeaponData.Id;
-            //-WeaponMeleeDbEntry DbWeapon = gameData.WeaponsMelee[Template];
+            //-WeaponMeleeDbEntry DbWeapon = gameData.WeaponsMelee[Template]; // careful with unarmed combat!!!
 
 
             Name = WeaponData.Name ?? "unknown";
