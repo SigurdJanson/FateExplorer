@@ -12,7 +12,7 @@ namespace FateExplorer.ViewModel
         public enum Hand { Main = 0, Off = 1 };
 
         /// <summary>
-        /// Store the "bare hands weapons" for the main and off hand.
+        /// Store the "bare hands weapons" for main and off hand.
         /// </summary>
         protected WeaponViMo UnarmedMainHand, UnarmedOffHand;
 
@@ -58,12 +58,18 @@ namespace FateExplorer.ViewModel
                 {
                     Weapon[(int)Hand.Main] = value;
                     HoldsWeapon[(int)Hand.Main] = true;
+                    if (value.IsTwohanded)
+                    {
+                        Weapon[(int)Hand.Off] = null; // do not use `OffWeapon` here
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// The off hand weapon
+        /// The off hand weapon.
+        /// Setting a two-handed weapon as will set the main hand, too.
+        /// Can be null when the selected weapon is two-handed..
         /// </summary>
         public WeaponViMo OffWeapon
         {
@@ -77,10 +83,10 @@ namespace FateExplorer.ViewModel
                 }
                 else
                 {
+                    if (value.IsTwohanded) throw new ArgumentException("Two-Handed weapon cannot be put in off-hand");
                     Weapon[(int)Hand.Off] = value;
                     HoldsWeapon[(int)Hand.Off] = true;
                 }
-
             }
         }
 
@@ -89,6 +95,19 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <remarks>Technically, the hands hold an equipped weapon or a "bare-hands" weapon.</remarks>
         protected bool[] HoldsWeapon { get; set; }
+
+        /// <summary>
+        /// Is it possible to use the weapon in each hand?
+        /// A weapon may be disabled, e.g. when a character carries a two-handed
+        /// weapon and you put another item in the off-hand weapon.
+        /// </summary>
+        public bool IsDisabled(Hand Which)
+        {
+            if (Which == Hand.Off)
+                return false;
+            else
+                return HoldsWeapon[(int)Hand.Off] && MainWeapon.IsTwohanded;
+        }
 
 
         /// <summary>

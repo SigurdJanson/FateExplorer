@@ -55,12 +55,10 @@
                         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.FrontHand
                             OnClick=@(() => GrabWeapon(w, true))
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                        @if (w.CanParry)
-                        {
                         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.BackHand
                             OnClick=@(() => GrabWeapon(w, false))
+                            Disabled=w.IsTwohanded
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
-                        }
                     </div>
                 </MudListItem>
                 }
@@ -89,11 +87,13 @@
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon))
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.MainWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
                                     OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon))
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
@@ -101,6 +101,7 @@
                             </MudCardActions>
                         </MudCard>
                     </MudItem>
+
                     <MudItem xs=6>
                         <MudCard Square=true Class="mb-4">
                             <MudCardHeader>
@@ -120,11 +121,13 @@
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon))
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.OffWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
                                     OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon))
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
