@@ -8,9 +8,8 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs=12>
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudText Typo=Typo.body1 Class="mb-3">@l10n["lblShop"]</MudText>
-            </MudPaper>
+            <MudText Typo=Typo.h3 Align=Align.Center GutterBottom=true>@l10n["naviShop"]</MudText>
+
             @if (Stock is not null)
             {
             <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
@@ -36,7 +35,9 @@
                     <MudTh>@l10n["lblGroup"]</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Name">
+                        <MudHighlighter Text="@context.Name" HighlightedText="@searchString" />
+                    </MudTd>
                     <MudTd DataLabel="Price">@context.Price</MudTd>
                     <MudTd DataLabel="Weight">@context.Weight</MudTd>
                     <MudTd DataLabel="Group">@l10n[context.Group.ToString()]</MudTd>

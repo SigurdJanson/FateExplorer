@@ -403,6 +403,9 @@
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
   </data>
+  <data name="lblStone" xml:space="preserve">
+    <value>Stone</value>
+  </data>
   <data name="lblWealth" xml:space="preserve">
     <value>Funds</value>
   </data>
@@ -482,6 +485,9 @@
   </data>
   <data name="naviSettings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="naviShop" xml:space="preserve">
+    <value>Bazaar</value>
   </data>
   <data name="New Dice Cup" xml:space="preserve">
     <value>New Dice Cup</value>
