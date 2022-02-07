@@ -15,16 +15,15 @@
             <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
                       FixedHeader=true Hover=true Striped=true Height="600px">
                 <ToolBarContent>
-@*                  <MudText Typo="Typo.h6">@l10n[""]</MudText>
-                    <MudSpacer />ValueChanged=@(s => OnSearch(s)) 
-*@                  <MudTextField T=string Clearable=true TextUpdateSuppression=false
-                        DebounceInterval=200 OnDebounceIntervalElapsed="@(s=>OnSearch(s))"
+                    <MudTextField T=string Clearable=true TextUpdateSuppression=false
+                        DebounceInterval=250 OnDebounceIntervalElapsed=@(s=>OnSearch(s, selectedGroupId))
                         Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start
                         AdornmentIcon=@Icons.Material.Filled.Search IconSize=Size.Medium Class="mt-0" />
-                    <MudSelect T=ShopItemM.GroupId Class="mt-0" Clearable=true>
-                        @foreach (ShopItemM.GroupId item in Enum.GetValues(typeof(ShopItemM.GroupId)))
+                    <MudSelect T="int?" Class="mt-0" Clearable ValueChanged=@(g => OnSearch(searchString, g))
+                         Label=@l10n["lblSelectStockCategory"]>
+                        @foreach (var item in Stock.GetGroups())
                         {
-                            <MudSelectItem Value=@item>@l10n[item.ToString()]</MudSelectItem>
+                            <MudSelectItem Value=@((int?)item.id)>@item.name</MudSelectItem>
                         }
                     </MudSelect>
                 </ToolBarContent>
@@ -36,11 +35,15 @@
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Name">
-                        <MudHighlighter Text="@context.Name" HighlightedText="@searchString" />
+                        <MudHighlighter Text=@context.Name HighlightedText=@searchString 
+                            Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd DataLabel="Price">@context.Price</MudTd>
                     <MudTd DataLabel="Weight">@context.Weight</MudTd>
-                    <MudTd DataLabel="Group">@l10n[context.Group.ToString()]</MudTd>
+                    <MudTd DataLabel="Group">
+                        <MudHighlighter Text=@l10n[context.Group.ToString()] HighlightedText=@searchString 
+                            Style="background-color:transparent;font-weight:bold" />
+                    </MudTd>
                 </RowTemplate>
                 </MudTable>
             }
@@ -63,23 +66,32 @@
     private ShopInventoryViMo Stock { get; set; }
 
     private string searchString = null;
+    private int? selectedGroupId = null;
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
-        var data = await Task.Run(() => Stock.GetStock(searchString));
+        var data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
         return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = data };
     }
 
-    private void OnSearch(string text)
+    /// <summary>
+    /// Reload table data on changed search parameters
+    /// </summary>
+    /// <param name="text">Text defining the free text search; 
+    /// if <see cref="null"/> this value will not be updated</param>
+    /// <param name="group">Number identifying the selected product group; 
+    /// if <see cref="null"/> this value will not be updated</param>
+    private void OnSearch(string text, int? group)
     {
         searchString = text;
+        selectedGroupId = group;
         Table.ReloadServerData();
     }
 
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        Stock = new ShopInventoryViMo(httpClient);
+        Stock = new ShopInventoryViMo(httpClient, l10n);
         await Stock.InitializeGameDataAsync();
     }
 }
