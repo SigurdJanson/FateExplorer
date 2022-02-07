@@ -47,8 +47,8 @@
                         <MudHighlighter Text=@context.Name HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
-                    <MudTd DataLabel="Price">@context.Price</MudTd>
-                    <MudTd DataLabel="Weight">@context.Weight</MudTd>
+                    <MudTd DataLabel="Price" Style="text-align:right">@context.Price.ToString("N2")</MudTd>
+                    <MudTd DataLabel="Weight" Style="text-align:right">@context.Weight.ToString("N4")</MudTd>
                     <MudTd DataLabel="Group">
                         <MudHighlighter Text=@l10n[context.Group.ToString()] HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
@@ -102,9 +102,9 @@
     /// Reload table data on changed search parameters
     /// </summary>
     /// <param name="text">Text defining the free text search; 
-    /// if <see cref="null"/> this value will not be updated</param>
+    /// if <see cref="null"/> or empty no filter is applied</param>
     /// <param name="group">Number identifying the selected product group; 
-    /// if <see cref="null"/> this value will not be updated</param>
+    /// if <see cref="null"/> no group filter will be applied</param>
     private void OnSearch(string text, int? group)
     {
         searchString = text;

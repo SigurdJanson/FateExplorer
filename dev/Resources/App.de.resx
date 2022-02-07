@@ -394,6 +394,9 @@
     <value>Auswahl</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="lblSelectStockCategory" xml:space="preserve">
+    <value>Kategorie wählen</value>
+  </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
   </data>
