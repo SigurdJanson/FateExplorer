@@ -13,7 +13,8 @@
             @if (Stock is not null)
             {
             <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
-                      FixedHeader=true Hover=true Striped=true Height="600px">
+                    SortLabel=@l10n["Sort By"]
+                    FixedHeader=true Hover=true Striped=true Height="600px">
                 <ToolBarContent>
                     <MudTextField T=string Clearable=true TextUpdateSuppression=false
                         DebounceInterval=250 OnDebounceIntervalElapsed=@(s=>OnSearch(s, selectedGroupId))
@@ -28,10 +29,18 @@
                     </MudSelect>
                 </ToolBarContent>
                 <HeaderContent>
-                    <MudTh>@l10n["lblName"]</MudTh>
-                    <MudTh>@l10n["lblPrice"] (S)</MudTh>
-                    <MudTh>@l10n["lblWeight"] (@l10n["lblStone"])</MudTh>
-                    <MudTh>@l10n["lblGroup"]</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Name" T="ShopItemViMo">
+                        @l10n["lblName"]
+                    </MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
+                        @l10n["lblPrice"] (S)
+                    </MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Weight" T="ShopItemViMo">
+                        @l10n["lblWeight"] (@l10n["lblStone"])
+                    </MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Group" T="ShopItemViMo">
+                        @l10n["lblGroup"]
+                    </MudTableSortLabel></MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Name">
@@ -70,7 +79,22 @@
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
-        var data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
+        List<ShopItemViMo> data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
+        
+        // Sort
+        if (!string.IsNullOrEmpty(state.SortLabel))
+        {
+            IOrderedEnumerable<ShopItemViMo> SortedData = (state.SortLabel) switch
+            {
+                "Name" => data.OrderByDirection(state.SortDirection, o => o.Name),
+                "Price" => data.OrderByDirection(state.SortDirection, o => o.Price),
+                "Weight" =>data.OrderByDirection(state.SortDirection, o => o.Weight),
+                "Group" => data.OrderByDirection(state.SortDirection, o => l10n[o.Group.ToString()]),
+                _ => data as IOrderedEnumerable<ShopItemViMo>
+            };
+            return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = SortedData };
+        }
+
         return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = data };
     }
 
