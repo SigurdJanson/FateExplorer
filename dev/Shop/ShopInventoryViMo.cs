@@ -12,36 +12,31 @@ namespace FateExplorer.Shop
         protected HttpClient DataSource;
         protected IStringLocalizer<App> l10n;
 
-
         public ShopInventoryViMo(HttpClient dataSource, IStringLocalizer<App> localizer)
         {
             DataSource = dataSource;
             l10n = localizer;
         }
 
-        protected List<ShopItemM> Inventory { get; set; }
+        protected List<ShopItemViMo> Inventory { get; set; }
 
 
         public List<ShopItemViMo> GetStock(string Filter, int? GroupId)
         {
-            List<ShopItemM> Selected;
+            List<ShopItemViMo> Selected;
 
             Selected = (string.IsNullOrWhiteSpace(Filter), GroupId is null) switch
             {
                 (true, true) => Inventory,
-                (true, false) => Inventory.FindAll(i => (int)i.Group == GroupId),
+                (true, false) => Inventory.FindAll(i => (int)i.GroupId == GroupId),
                 (false, true) => Inventory.FindAll(i => i.Name.Contains(Filter, StringComparison.CurrentCultureIgnoreCase) ||
-                       l10n[i.Group.ToString()].Value.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)),
-                (false, false) => Inventory.FindAll(i => (int)i.Group == GroupId)
+                       i.Group.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)),
+                (false, false) => Inventory.FindAll(i => (int)i.GroupId == GroupId)
                                            .FindAll(i => i.Name.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
             };
             if (Selected is null) Selected = new();
 
-            List<ShopItemViMo> Result = new();
-            foreach (var item in Selected)
-                Result.Add(new ShopItemViMo(item));
-
-            return Result;
+            return Selected;
         }
 
 
@@ -71,10 +66,20 @@ namespace FateExplorer.Shop
                 Language = "de";
             else
                 Language = "en";
-
-
             string fileName = $"data/shop_{Language}.json";
-            Inventory = await DataSource.GetFromJsonAsync<List<ShopItemM>>(fileName);
+
+            List<ShopItemM> inventoryM;
+            inventoryM = await DataSource.GetFromJsonAsync<List<ShopItemM>>(fileName);
+
+            Inventory = new();
+            foreach (var item in inventoryM)
+            {
+                Inventory.Add(new ShopItemViMo(item) 
+                { 
+                    Group = l10n[item.Group.ToString()] // need to localise
+                } );
+
+            }
         }
 
     }

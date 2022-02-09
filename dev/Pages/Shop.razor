@@ -53,7 +53,7 @@
                     <MudTd DataLabel="Price" Style="text-align:right">@context.Price.ToString("N2")</MudTd>
                     <MudTd DataLabel="Weight" Style="text-align:right">@context.Weight.ToString("N4")</MudTd>
                     <MudTd DataLabel="Group">
-                        <MudHighlighter Text=@l10n[context.Group.ToString()] HighlightedText=@searchString 
+                        <MudHighlighter Text=@context.Group HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd>
@@ -87,14 +87,13 @@
 
     private string searchString = null;
     private int? selectedGroupId = null;
+    
+
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
-        if (searchString is null && selectedGroupId is null)
-            return new TableData<ShopItemViMo>() { TotalItems = 0, Items = new List<ShopItemViMo>() };
-
         List<ShopItemViMo> data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
-        
+
         // Sort
         if (!string.IsNullOrEmpty(state.SortLabel))
         {
@@ -103,7 +102,7 @@
                 "Name" => data.OrderByDirection(state.SortDirection, o => o.Name),
                 "Price" => data.OrderByDirection(state.SortDirection, o => o.Price),
                 "Weight" =>data.OrderByDirection(state.SortDirection, o => o.Weight),
-                "Group" => data.OrderByDirection(state.SortDirection, o => l10n[o.Group.ToString()].Value),
+                "Group" => data.OrderByDirection(state.SortDirection, o => o.Group), 
                 _ => data as IOrderedEnumerable<ShopItemViMo>
             };
             return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = SortedData };
@@ -123,9 +122,12 @@
     {
         searchString = text;
         selectedGroupId = group;
+
         Table.ReloadServerData();
     }
 
+
+    /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();

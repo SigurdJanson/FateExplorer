@@ -16,6 +16,12 @@
 
         public double Weight => ItemM.Weight ?? 0;
 
-        public ShopItemM.GroupId Group => ItemM.Group;
+        public ShopItemM.GroupId GroupId => ItemM.Group;
+
+        string group;
+        /// <summary>
+        /// The (localised) group. Localisation will not be handled by this class.
+        /// </summary>
+        public string Group { get => group ?? GroupId.ToString(); set => group = value; }
     }
 }
