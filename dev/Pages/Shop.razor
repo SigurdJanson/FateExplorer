@@ -90,6 +90,9 @@
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
+        if (searchString is null && selectedGroupId is null)
+            return new TableData<ShopItemViMo>() { TotalItems = 0, Items = new List<ShopItemViMo>() };
+
         List<ShopItemViMo> data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
         
         // Sort
@@ -100,7 +103,7 @@
                 "Name" => data.OrderByDirection(state.SortDirection, o => o.Name),
                 "Price" => data.OrderByDirection(state.SortDirection, o => o.Price),
                 "Weight" =>data.OrderByDirection(state.SortDirection, o => o.Weight),
-                "Group" => data.OrderByDirection(state.SortDirection, o => l10n[o.Group.ToString()]),
+                "Group" => data.OrderByDirection(state.SortDirection, o => l10n[o.Group.ToString()].Value),
                 _ => data as IOrderedEnumerable<ShopItemViMo>
             };
             return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = SortedData };
