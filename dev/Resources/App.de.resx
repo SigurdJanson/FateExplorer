@@ -435,6 +435,10 @@
   <data name="msgCriticalLost" xml:space="preserve">
     <value>Was ist nur los mit Dir?</value>
   </data>
+  <data name="msgFindAtUlissesWiki" xml:space="preserve">
+    <value>Suche den Gegenstand im Ulisses wiki</value>
+    <comment>Shop</comment>
+  </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>Du kannst Heldendateien aus der Optolith-App laden</value>
     <comment>No Character Skeleton</comment>

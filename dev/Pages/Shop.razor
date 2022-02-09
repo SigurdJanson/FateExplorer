@@ -21,7 +21,7 @@
                         Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start
                         AdornmentIcon=@Icons.Material.Filled.Search IconSize=Size.Medium Class="mt-0" />
                     <MudSelect T="int?" Class="mt-0" Clearable ValueChanged=@(g => OnSearch(searchString, g))
-                         Label=@l10n["lblSelectStockCategory"]>
+                        Label=@l10n["lblSelectStockCategory"]>
                         @foreach (var item in Stock.GetGroups())
                         {
                             <MudSelectItem Value=@((int?)item.id)>@item.name</MudSelectItem>
@@ -41,6 +41,9 @@
                     <MudTh><MudTableSortLabel SortLabel="Group" T="ShopItemViMo">
                         @l10n["lblGroup"]
                     </MudTableSortLabel></MudTh>
+                    <MudTh>
+                        -
+                    </MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Name">
@@ -52,6 +55,14 @@
                     <MudTd DataLabel="Group">
                         <MudHighlighter Text=@l10n[context.Group.ToString()] HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
+                    </MudTd>
+                    <MudTd>
+                        <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
+                            <MudIconButton Icon=@Icons.Sharp.Preview Size=Size.Small 
+                                Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
+                                Target="_blank"
+                                aria-label=@l10n["msgFindAtUlissesWiki"] />
+                        </MudTooltip>
                     </MudTd>
                 </RowTemplate>
                 </MudTable>

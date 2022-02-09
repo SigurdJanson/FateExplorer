@@ -441,6 +441,10 @@
   <data name="msgCriticalLost" xml:space="preserve">
     <value>How could you mess this up?</value>
   </data>
+  <data name="msgFindAtUlissesWiki" xml:space="preserve">
+    <value>Find item at Ulisses wiki</value>
+    <comment>Shop</comment>
+  </data>
   <data name="msgLoadCharacterToUse" xml:space="preserve">
     <value>You can import character files created by the Optolith app</value>
     <comment>No Character Skeleton</comment>
