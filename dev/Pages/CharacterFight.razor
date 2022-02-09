@@ -97,6 +97,7 @@
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblView"] + " " + @l10n["Attack"]) />
                             </MudCardActions>
                         </MudCard>
@@ -131,6 +132,7 @@
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
+                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblView"] + " " + @l10n["Attack"]) />
                             </MudCardActions>                        
                         </MudCard>

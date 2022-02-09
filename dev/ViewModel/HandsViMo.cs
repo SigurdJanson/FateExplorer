@@ -6,6 +6,11 @@ namespace FateExplorer.ViewModel
 {
     /// <summary>
     /// Two hands of a character.
+    /// <list type="bullet">Both hands can hold a weapon.</list>
+    /// <list type="bullet">If not they hold a virtual "bare-hands" weapon for brawling.</list>
+    /// <list type="bullet">In case of a two-handed weapon the off-hand cannot be used;
+    /// It carries the same two-handed weapon but cannot be used (i.e. it is disabled)</list>
+    /// PLeas note: even if the hand is en-abled, a weapon may not support every action.
     /// </summary>
     public class HandsViMo
     {
@@ -42,13 +47,17 @@ namespace FateExplorer.ViewModel
 
 
         /// <summary>
-        /// The main hand weapon
+        /// The main hand weapon.<br/>
+        /// Prefer <see cref="RemoveWeapon(Hand)" over setting this to null./>
         /// </summary>
         public WeaponViMo MainWeapon
         {
             get => Weapon[(int)Hand.Main];
             set
             {
+                // Remove 2-handed weapon from both hands
+                if (Weapon[(int)Hand.Main].IsTwohanded)
+                    Weapon[(int)Hand.Off] = UnarmedOffHand;
                 if (value is null)
                 {
                     Weapon[(int)Hand.Main] = UnarmedMainHand;
@@ -60,16 +69,16 @@ namespace FateExplorer.ViewModel
                     HoldsWeapon[(int)Hand.Main] = true;
                     if (value.IsTwohanded)
                     {
-                        Weapon[(int)Hand.Off] = null; // do not use `OffWeapon` here
+                        Weapon[(int)Hand.Off] = value; // do not use `OffWeapon` here, see IsDisabled()
                     }
                 }
             }
         }
 
         /// <summary>
-        /// The off hand weapon.
-        /// Setting a two-handed weapon as will set the main hand, too.
-        /// Can be null when the selected weapon is two-handed..
+        /// The off hand weapon. Cannot hold two-handed weapons.
+        /// <br/>
+        /// Prefer <see cref="RemoveWeapon(Hand)" over setting this to null./>
         /// </summary>
         public WeaponViMo OffWeapon
         {
@@ -104,9 +113,9 @@ namespace FateExplorer.ViewModel
         public bool IsDisabled(Hand Which)
         {
             if (Which == Hand.Off)
-                return false;
+                return OffWeapon.IsTwohanded; // in this case use the main hand to use the weapon
             else
-                return HoldsWeapon[(int)Hand.Off] && MainWeapon.IsTwohanded;
+                return (HoldsWeapon[(int)Hand.Off] && !OffWeapon.IsTwohanded) && MainWeapon.IsTwohanded;
         }
 
 
@@ -133,8 +142,18 @@ namespace FateExplorer.ViewModel
         /// true is the dominant hand; false the non-domoinant.</param>
         public void RemoveWeapon(Hand Which)
         {
-            Weapon[(int)Which] = (Which == Hand.Main) ? UnarmedMainHand : UnarmedOffHand;
-            HoldsWeapon[(int)Which] = false;
+            if (Weapon[(int)Hand.Main].IsTwohanded && Weapon[(int)Hand.Off].IsTwohanded)
+            {
+                Weapon[(int)Hand.Main] = UnarmedMainHand;
+                Weapon[(int)Hand.Off] = UnarmedOffHand;
+                HoldsWeapon[(int)Hand.Main] = false;
+                HoldsWeapon[(int)Hand.Off] = false;
+            }
+            else
+            {
+                Weapon[(int)Which] = (Which == Hand.Main) ? UnarmedMainHand : UnarmedOffHand;
+                HoldsWeapon[(int)Which] = false;
+            }
         }
 
         /// <summary>
