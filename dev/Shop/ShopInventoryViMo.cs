@@ -51,18 +51,11 @@ namespace FateExplorer.Shop
         /// <returns>The names as tupels with the id as int and the name</returns>
         public IEnumerable<(int id, string name)> GetGroups()
         {
-            //string[] Groups = Enum.GetNames(typeof(ShopItemM.GroupId));
-            //string[] GroupNames = new string[Groups.Length];
-            //for (int g = 0; g < Groups.Length; g++)
-            //{
-            //    GroupNames[g] = l10n[Groups[g]];
-            //}
-            //return GroupNames;
             List<(int id, string name)> Groups = new();
             foreach (var g in Enum.GetValues(typeof(ShopItemM.GroupId)))
-            {
                 Groups.Add(((int)g, l10n[g.ToString()]));
-            }
+            Groups.Sort((a, b) => a.name.CompareTo(b.name));
+
             return Groups;
         }
         
