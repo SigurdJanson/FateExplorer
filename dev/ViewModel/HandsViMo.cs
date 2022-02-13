@@ -1,5 +1,5 @@
 ﻿using FateExplorer.GameData;
-using FateExplorer.GameLogic;
+using FateExplorer.CharacterModel;
 using System;
 
 namespace FateExplorer.ViewModel

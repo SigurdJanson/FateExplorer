@@ -4,7 +4,7 @@ using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
     public class WeaponM
     {

@@ -2,7 +2,7 @@
 using FateExplorer.Shared;
 using System;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
 
     public class CombatTechM

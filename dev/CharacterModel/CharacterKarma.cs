@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
     public class CharacterKarma : CharacterEnergyM
     {

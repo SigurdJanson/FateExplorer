@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
     public class CharacterM : ICharacterM
     {

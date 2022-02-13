@@ -1,6 +1,6 @@
 ﻿using FateExplorer.CharacterData;
 using FateExplorer.GameData;
-using FateExplorer.GameLogic;
+using FateExplorer.CharacterModel;
 using FateExplorer.Shared;
 using Microsoft.Extensions.Configuration;
 using System;

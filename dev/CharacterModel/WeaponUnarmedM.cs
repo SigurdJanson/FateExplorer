@@ -1,7 +1,7 @@
 ﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
     public class WeaponUnarmedM : WeaponM
     {

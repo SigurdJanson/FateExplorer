@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
 
 

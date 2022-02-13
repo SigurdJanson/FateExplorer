@@ -1,4 +1,4 @@
-﻿namespace FateExplorer.GameLogic
+﻿namespace FateExplorer.CharacterModel
 {
     /// <summary>
     /// Represents the competence to dodge

@@ -1,4 +1,4 @@
-﻿namespace FateExplorer.GameLogic
+﻿namespace FateExplorer.CharacterModel
 {
     public interface IDerivedAttributeM
     {

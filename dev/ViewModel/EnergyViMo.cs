@@ -1,4 +1,4 @@
-﻿using FateExplorer.GameLogic;
+﻿using FateExplorer.CharacterModel;
 using FateExplorer.RollLogic;
 
 

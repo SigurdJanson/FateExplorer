@@ -1,6 +1,6 @@
 ﻿using FateExplorer.GameData;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
 
 

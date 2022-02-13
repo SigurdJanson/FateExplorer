@@ -3,7 +3,7 @@ using FateExplorer.GameData;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
 
 

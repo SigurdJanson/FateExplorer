@@ -1,7 +1,7 @@
 ﻿using FateExplorer.GameData;
 using System;
 
-namespace FateExplorer.GameLogic
+namespace FateExplorer.CharacterModel
 {
     /// <summary>
     /// A characters energy, either life, arcane or karma energy.
