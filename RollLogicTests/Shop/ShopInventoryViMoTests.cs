@@ -1,4 +1,7 @@
-﻿using FateExplorer.Shop;
+﻿using FateExplorer;
+using FateExplorer.Shop;
+using Microsoft.Extensions.Localization;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,6 +16,25 @@ namespace RollLogicTests.Shop
     public class ShopInventoryViMoTests
     {
         public string FilenameId { get => "shop"; }
+
+        #region Moq ==================
+        private MockRepository mockRepository;
+        private Mock<IStringLocalizer<App>> mockLl10n;
+        private Mock<HttpClient> mockHttpClient;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            this.mockRepository = new MockRepository(MockBehavior.Strict);
+            this.mockLl10n = mockRepository.Create<IStringLocalizer<App>>();
+            this.mockHttpClient = mockRepository.Create<HttpClient>();
+        }
+        #endregion ===================
+
+
+
+        #region Tests =================[Test]
 
         [Test]
         [TestCase("de")]
@@ -38,10 +60,10 @@ namespace RollLogicTests.Shop
         public void GetStock_ExactFilter_SingleHit(string Filter)
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(null);
+            var shopInventoryViMo = new ShopInventoryViMo(mockHttpClient.Object, mockLl10n.Object);
 
             // Act
-            var result = shopInventoryViMo.GetStock(Filter);
+            var result = shopInventoryViMo.GetStock(Filter, null);
 
             // Assert
             Assert.AreEqual(1, result.Count);
@@ -51,7 +73,7 @@ namespace RollLogicTests.Shop
         public async Task InitializeGameDataAsync_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(null);
+            var shopInventoryViMo = new ShopInventoryViMo(mockHttpClient.Object, mockLl10n.Object);
 
             // Act
             await shopInventoryViMo.InitializeGameDataAsync();
@@ -59,5 +81,7 @@ namespace RollLogicTests.Shop
             // Assert
             Assert.Fail();
         }
+
+        #endregion
     }
 }
