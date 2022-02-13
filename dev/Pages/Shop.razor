@@ -27,6 +27,14 @@
                             <MudSelectItem Value=@((int?)item.id)>@item.name</MudSelectItem>
                         }
                     </MudSelect>
+                    <MudSelect T=@((string, string)) Class="mt-0" ValueChanged=@(c => OnCurrencyChanged(c))
+                        Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
+                        @foreach (var item in Stock.GetCurrencies())
+                        {
+                            @*<MudSelectItem Value=@item>@item.name</MudSelectItem>*@
+                            <MudSelectItem Value=@item />
+                        }
+                    </MudSelect>                
                 </ToolBarContent>
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Name" T="ShopItemViMo">
@@ -34,6 +42,9 @@
                     </MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
                         @l10n["lblPrice"] (S)
+                    </MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
+                        @ComparisonCurrency
                     </MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Weight" T="ShopItemViMo">
                         @l10n["lblWeight"] (@l10n["lblStone"])
@@ -51,6 +62,7 @@
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd DataLabel="Price" Style="text-align:right">@context.Price.ToString("N2")</MudTd>
+                    <MudTd Style="text-align:right">@((context.Price * ComparisonCurrencyRate).ToString("N2"))</MudTd>
                     <MudTd DataLabel="Weight" Style="text-align:right">@context.Weight.ToString("N4")</MudTd>
                     <MudTd DataLabel="Group">
                         <MudHighlighter Text=@context.Group HighlightedText=@searchString 
@@ -87,8 +99,9 @@
 
     private string searchString = null;
     private int? selectedGroupId = null;
-    
 
+    private string ComparisonCurrency = "";
+    private double ComparisonCurrencyRate = 1.0;
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
@@ -124,6 +137,13 @@
         selectedGroupId = group;
 
         Table.ReloadServerData();
+    }
+
+
+    private void OnCurrencyChanged((string id, string name) currency)
+    {
+        ComparisonCurrency = currency.name;
+        ComparisonCurrencyRate = Stock.GetExchangeRate(currency.id);
     }
 
 

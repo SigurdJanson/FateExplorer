@@ -390,6 +390,10 @@
   <data name="lblSearch" xml:space="preserve">
     <value>Finden</value>
   </data>
+  <data name="lblSelectComaprisonCurrency" xml:space="preserve">
+    <value>Vergleichswährung wählen</value>
+    <comment>Shop</comment>
+  </data>
   <data name="lblSelection" xml:space="preserve">
     <value>Auswahl</value>
     <comment>Free Dice</comment>
