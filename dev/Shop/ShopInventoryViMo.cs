@@ -20,6 +20,8 @@ namespace FateExplorer.Shop
 
         protected List<ShopItemViMo> Inventory { get; set; }
 
+        protected List<CurrencyM> Currencies { get; set; }
+
 
         public List<ShopItemViMo> GetStock(string Filter, int? GroupId)
         {
@@ -56,6 +58,30 @@ namespace FateExplorer.Shop
         
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<(string id, string name)> GetCurrencies()
+        {
+            List<(string id, string name)> Result = new();
+            foreach (var c in Currencies)
+                Result.Add((id: c.Id, name: c.Name));
+            return Result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currencyId"></param>
+        /// <returns></returns>
+        public double GetExchangeRate(string currencyId)
+        {
+            return Currencies.Find(c => c.Id == currencyId).Rate;
+        }
+
+
+
+        /// <summary>
         /// Load the data
         /// </summary>
         /// <returns></returns>
@@ -66,8 +92,9 @@ namespace FateExplorer.Shop
                 Language = "de";
             else
                 Language = "en";
-            string fileName = $"data/shop_{Language}.json";
 
+
+            string fileName = $"data/shop_{Language}.json";
             List<ShopItemM> inventoryM;
             inventoryM = await DataSource.GetFromJsonAsync<List<ShopItemM>>(fileName);
 
@@ -80,6 +107,9 @@ namespace FateExplorer.Shop
                 } );
 
             }
+
+            fileName = $"data/currency_{Language}.json";
+            Currencies = await DataSource.GetFromJsonAsync<List<CurrencyM>>(fileName);
         }
 
     }

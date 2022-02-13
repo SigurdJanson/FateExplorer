@@ -1,0 +1,10 @@
+[
+    {"id": "aa1d", "origin": "Al'Anfa", "name": "Oreal", "rate": 1},
+    {"id": "a1d", "origin": "Aranien", "name": "Schekel", "rate": 1},
+    {"id": "b1d", "origin": "Bornland", "name": "Groschen", "rate": 1},
+    {"id": "h200d", "origin": "Horasreich", "name": "Horasdor", "rate": 0.005},
+    {"id": "h1", "origin": "Horasreich", "name": "Vinsalter Dukaten", "rate": 1},
+    {"id": "m10", "origin": "Mittelreich", "name": "Dukat", "rate": 0.1},
+    {"id": "k2d", "origin": "Khalifat", "name": "Zechine", "rate": 0.5},
+    {"id": "z2d", "origin": "Zwerge", "name": "Zwergenschilling", "rate": 0.5}
+]
