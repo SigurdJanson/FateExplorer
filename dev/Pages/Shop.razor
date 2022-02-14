@@ -20,6 +20,7 @@
                         DebounceInterval=250 OnDebounceIntervalElapsed=@(s=>OnSearch(s, selectedGroupId))
                         Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start
                         AdornmentIcon=@Icons.Material.Filled.Search IconSize=Size.Medium Class="mt-0" />
+                    <MudSpacer />
                     <MudSelect T="int?" Class="mt-0" Clearable ValueChanged=@(g => OnSearch(searchString, g))
                         Label=@l10n["lblSelectStockCategory"]>
                         @foreach (var item in Stock.GetGroups())
@@ -27,6 +28,7 @@
                             <MudSelectItem Value=@((int?)item.id)>@item.name</MudSelectItem>
                         }
                     </MudSelect>
+                    <MudSpacer /><MudSpacer />
                     <MudSelect T=@((string, string)) Class="mt-0" ValueChanged=@(c => OnCurrencyChanged(c))
                         Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
