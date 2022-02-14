@@ -18,11 +18,25 @@ namespace FateExplorer.Shop
             l10n = localizer;
         }
 
+
+        /// <summary>
+        /// List of available items
+        /// </summary>
         protected List<ShopItemViMo> Inventory { get; set; }
 
+        /// <summary>
+        /// List of available currencies
+        /// </summary>
         protected List<CurrencyM> Currencies { get; set; }
 
-
+        /// <summary>
+        /// Get a list of objects DSA allows to purchase.
+        /// </summary>
+        /// <param name="Filter">A free text filter. Will be applied to the inventory 
+        /// items' names and the group, unless a <see cref="this.GroupId"/> is given 
+        /// in which case only the item names will be used.</param>
+        /// <param name="GroupId">Limits the returned items to the desired group</param>
+        /// <returns>A list of items.</returns>
         public List<ShopItemViMo> GetStock(string Filter, int? GroupId)
         {
             List<ShopItemViMo> Selected;
@@ -58,9 +72,9 @@ namespace FateExplorer.Shop
         
 
         /// <summary>
-        /// 
+        /// Returns a list of available currencies
         /// </summary>
-        /// <returns></returns>
+        /// <returns>LIst of tupels with currency id and name</returns>
         public IEnumerable<(string id, string name)> GetCurrencies()
         {
             List<(string id, string name)> Result = new();
@@ -70,10 +84,10 @@ namespace FateExplorer.Shop
         }
 
         /// <summary>
-        /// 
+        /// Multiply silverthalers with this rate to get the value of the currency with the given id.
         /// </summary>
-        /// <param name="currencyId"></param>
-        /// <returns></returns>
+        /// <param name="currencyId">Currency id</param>
+        /// <returns>An exchange rate</returns>
         public double GetExchangeRate(string currencyId)
         {
             return Currencies.Find(c => c.Id == currencyId).Rate;
@@ -84,7 +98,6 @@ namespace FateExplorer.Shop
         /// <summary>
         /// Load the data
         /// </summary>
-        /// <returns></returns>
         public async Task InitializeGameDataAsync()
         {
             string Language = System.Globalization.CultureInfo.CurrentUICulture.Name;
