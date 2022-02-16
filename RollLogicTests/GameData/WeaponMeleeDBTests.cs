@@ -11,8 +11,8 @@ namespace RollLogicTests.GameData
 
 
         [Test]
-        [TestCase("de", "Basiliskenzunge", "Yeti-Keule")]
-        [TestCase("en", "Basilisk-tongue", "Yeti-Keule")]
+        [TestCase("de", "Basiliskenzunge", "Gildenmagische Magierkugel")]
+        [TestCase("en", "Basilisk-tongue", "Guild Magic Ball")]
         public void LoadFromFile_ParseSuccessful(string Language, string Weapon1, string WeaponLast)
         {
             // Arrange
@@ -20,7 +20,7 @@ namespace RollLogicTests.GameData
             WeaponMeleeDB Result = Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(184, Result.Count);
+            Assert.AreEqual(187, Result.Count);
             Assert.AreEqual(Weapon1, Result[0].Name);
             Assert.AreEqual(WeaponLast, Result[^1].Name);
         }
