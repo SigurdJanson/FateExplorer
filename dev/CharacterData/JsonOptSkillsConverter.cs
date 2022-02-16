@@ -5,17 +5,25 @@ using System.Text.Json.Serialization;
 
 namespace FateExplorer.CharacterData
 {
+    /// <summary>
+    /// Json converter optimised for optolith skills
+    /// </summary>
     public class JsonOptSkillsConverter : JsonConverter<Dictionary<string, int>>
     {
-        private string[] AllowedSkillNames = new string[] { "TAL", "CT", "SPELL", "LITURGY" };
+        private readonly string[] AllowedSkillNames = new string[] { "TAL", "CT", "SPELL", "LITURGY" };
 
         // This is used when you're converting the C# List back to a JSON format
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException" />
         public override void Write(Utf8JsonWriter writer, Dictionary<string, int> value, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }
 
+
+
         // This is when you're reading the JSON object and converting it to C#
+        /// <inheritdoc/>
         public override Dictionary<string, int> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject)
@@ -53,7 +61,6 @@ namespace FateExplorer.CharacterData
                         throw new JsonException("Numeric skill value was expected but not found");
 
                     int Value = reader.GetInt32();
-                    //SkillsEntryOpt Element = new() { Id = key, Value = Value };
 
                     Result.Add(Key, Value);
                 }
@@ -62,6 +69,8 @@ namespace FateExplorer.CharacterData
             return Result;
         }
 
+
+        /// <inheritdoc />
         public override bool CanConvert(Type objectType) => objectType == typeof(Dictionary<string, int>);
     }
 }

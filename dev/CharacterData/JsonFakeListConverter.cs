@@ -22,20 +22,21 @@ namespace FateExplorer.CharacterData
     /// </remarks>
     public class JsonFakeListConverter<T> : JsonConverter<List<T>>
     {
-        ///// <summary>
-        ///// Dummy to fool JsonSerializer into not using this converter recursively
-        ///// </summary>
-        //public T ToBeImported { get; set; }
-
-        //-private string[] AllowedNames = new string[] { "ITEM" };
-
-
-        // 
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException" />
         public override void Write(Utf8JsonWriter writer, List<T> value, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="typeToConvert"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="JsonException"></exception>
         //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         public override List<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -53,18 +54,9 @@ namespace FateExplorer.CharacterData
                 if (reader.TokenType == JsonTokenType.PropertyName)
                 {
                     // READ KEY
-                    string Key = reader.GetString();
+                    //string Key = reader.GetString();
+                    var _ = reader.GetString(); // skip "Key"
                     T Imported;
-
-                    //bool isValidKey = false;
-                    //foreach (var an in AllowedNames)
-                    //    if (Key.StartsWith(an))
-                    //    {
-                    //        isValidKey = true;
-                    //        break;
-                    //    }
-                    //if (!isValidKey)
-                    //    throw new JsonException("Unknow key. Cannot read it.");
 
                     // READ DATA
                     // Read the whole thing into a string and then pass it to
@@ -73,32 +65,12 @@ namespace FateExplorer.CharacterData
                     if (reader.TokenType == JsonTokenType.StartObject)
                     {
                         string RawJson = "";
-                        //-string Dummy = "";
                         using (var jsonDoc = JsonDocument.ParseValue(ref reader))
                         {
                             RawJson = jsonDoc.RootElement.GetRawText();
                         }
 
-                        //while (reader.TokenType != JsonTokenType.EndObject)
-                        //{
-                        //    switch (reader.TokenType)
-                        //    {
-                        //        case JsonTokenType.PropertyName: RawJson += "\"" + reader.GetString() + "\":"; break;
-                        //        case JsonTokenType.String: RawJson += "\"" + reader.GetString() + "\"" + ","; break;
-                        //        case JsonTokenType.Number: RawJson += reader.GetDouble() + ","; break;
-                        //        case JsonTokenType.True:
-                        //        case JsonTokenType.False: RawJson += reader.GetBoolean().ToString().ToLower() + ","; break;
-                        //        case JsonTokenType.StartArray: RawJson += "["; break;
-                        //        case JsonTokenType.EndArray: RawJson += "]" + ","; break;
-                        //        //case JsonTokenType.EndObject: RawJson += "}"; break;
-                        //        case JsonTokenType.StartObject: RawJson += "{"; break;
-                        //    }
-                        //    reader.Read();
-                        //}
-                        //RawJson += "}"; // Let us not forget the end token
                         Imported = JsonSerializer.Deserialize<T>(RawJson, options);
-
-                        //-T ObjectResult = JsonSerializer.Deserialize<T>(jsonString);
                     }
                     else
                         throw new JsonException("Object was expected but not found");
@@ -110,6 +82,8 @@ namespace FateExplorer.CharacterData
             return Result;
         }
 
+
+        /// <inheritdoc />
         public override bool CanConvert(Type objectType) => objectType == typeof(List<T>);
 
     }
