@@ -5,6 +5,14 @@ using System.Text.Json.Serialization;
 
 namespace FateExplorer.CharacterData
 {
+
+    public static class OptAdvantage
+    {
+        public const string Spellcaster = "ADV_50";
+        public const string Blessed = "ADV_12";
+    }
+
+
     /// <summary>
     /// Importer for the optolith json character sheet
     /// </summary>
@@ -99,8 +107,8 @@ namespace FateExplorer.CharacterData
         /// <summary>
         /// Container for (dis-) advantages and special abilities
         /// </summary>
-        [JsonIgnore, JsonPropertyName("activatable")] // TODO: is currently ignored
-        public Dictionary<string,ActivatableItemOpt> Activatable { get; set; }
+        [JsonPropertyName("activatable")]
+        public Dictionary<string,List<ActivatableItemOpt>> Activatable { get; set; }
 
         /// <summary>
         /// (Mundane) Skills; skills will be missing if their skill value is zero.
@@ -223,15 +231,19 @@ namespace FateExplorer.CharacterData
 
 
         /// <inheritdoc/>
-        public bool IsSpellcaster() // TODO: use the advantage here, not the crutch
+        public bool IsSpellcaster()
         {
-            return CountArcaneSkills() > 0;
+            if (Activatable is null || Activatable is null)
+                throw new NullReferenceException("There should be any (dis-) advantages or special abilities");
+            return Activatable.ContainsKey(OptAdvantage.Spellcaster);
         }
 
         /// <inheritdoc/>
-        public bool IsBlessed() // TODO: use the advantage here, not the crutch
+        public bool IsBlessed()
         {
-            return CountKarmaSkills() > 0;
+            if (Activatable is null || Activatable is null) 
+                throw new NullReferenceException("There should be any (dis-) advantages or special abilities");
+            return Activatable.ContainsKey(OptAdvantage.Blessed);
         }
 
         public string GetSpeciesId()
@@ -399,35 +411,14 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("sid")]
         public dynamic Sid { get; set; }
 
-        [JsonPropertyName("sid")]
-        public string Sid2 { get; set; }
+        [JsonPropertyName("sid2")]
+        public dynamic Sid2 { get; set; }
     }
 
 
     // TODO: advantages
     // TODO: disadvantages
     // TODO: special abilities
-
-    ///// <summary>
-    ///// List that holds advantages, disadvantages, and special abilities
-    ///// </summary>
-    //public class ActivatableOpt
-    //{
-    //    //[JsonPropertyName("ADV_50")]
-    //    //public List<ADV50> ADV50 { get; set; }
-
-    //    //[JsonPropertyName("ADV_36")]
-    //    //public List<object> ADV36 { get; set; }
-
-    //    //[JsonPropertyName("ADV_10")]
-    //    //public List<ADV10> ADV10 { get; set; }
-
-    //    //[JsonPropertyName("ADV_26")]
-    //    //public List<ADV26> ADV26 { get; set; }
-    //}
-
-
-
 
 
 
