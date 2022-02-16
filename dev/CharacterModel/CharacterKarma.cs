@@ -4,8 +4,16 @@ using System.Linq;
 
 namespace FateExplorer.CharacterModel
 {
+    /// <summary>
+    /// Instantiate this class only when the character has the advantage blessed.
+    /// </summary>
     public class CharacterKarma : CharacterEnergyM
     {
+        /// <summary>
+        /// Basic amount of karma energy granted by advantage "blessed"
+        /// </summary>
+        protected const int KarmaBaseEnergy = 20;
+
 
         public CharacterKarma(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
             : base(gameData, _Class, AddedEnergy, hero)
@@ -17,6 +25,7 @@ namespace FateExplorer.CharacterModel
             Max = RaceBaseValue;
             foreach (var a in gameData.DependantAbilities)
                 Max += Hero.Abilities[a].Value;
+            Max += KarmaBaseEnergy;
             Max += AddedEnergy;
 
             Min = 0;
