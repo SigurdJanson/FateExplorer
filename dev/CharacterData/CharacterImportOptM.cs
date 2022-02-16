@@ -5,9 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace FateExplorer.CharacterData
 {
+    /// <summary>
+    /// Importer for the optolith json character sheet
+    /// </summary>
     public class CharacterImportOptM : ICharacterImporter
     {
-        #region Optolith
+        #region Optolith meta data ====================
         [JsonPropertyName("clientVersion")]
         public string ClientVersion { get; set; }
 
@@ -93,9 +96,15 @@ namespace FateExplorer.CharacterData
         [JsonPropertyName("attr")]
         public Attributes Attr { get; set; }
 
+        /// <summary>
+        /// Container for (dis-) advantages and special abilities
+        /// </summary>
         [JsonIgnore, JsonPropertyName("activatable")] // TODO: is currently ignored
-        public Activatable Activatable { get; set; }
+        public Dictionary<string,ActivatableItemOpt> Activatable { get; set; }
 
+        /// <summary>
+        /// (Mundane) Skills; skills will be missing if their skill value is zero.
+        /// </summary>
         [JsonPropertyName("talents"), JsonConverter(typeof(JsonOptSkillsConverter))]
         public Dictionary<string, int> Talents { get; set; }
 
@@ -283,7 +292,7 @@ namespace FateExplorer.CharacterData
 
 
 
-    // Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
+
     public class ExperiencePointsOpt
     {
         [JsonPropertyName("total")]
@@ -377,206 +386,52 @@ namespace FateExplorer.CharacterData
 
 
 
-    //public class ADV50
-    //{
-    //}
-
-    //public class ADV10
-    //{
-    //}
-
-    //public class ADV26
-    //{
-    //}
-
-    //public class ADV40
-    //{
-    //}
-
-    //public class ADV48
-    //{
-    //}
-
-    //public class DISADV2
-    //{
-    //    [JsonPropertyName("tier")]
-    //    public int Tier { get; set; }
-    //}
-
-    //public class DISADV37
-    //{
-    //    [JsonPropertyName("sid")]
-    //    public int Sid { get; set; }
-    //}
-
-    //public class DISADV50
-    //{
-    //    [JsonPropertyName("sid")]
-    //    public string Sid { get; set; }
-
-    //    [JsonPropertyName("tier")]
-    //    public int Tier { get; set; }
-    //}
-
-    //public class DISADV71
-    //{
-    //}
-
-    //public class SA78
-    //{
-    //}
-
-    //public class SA76
-    //{
-    //}
-
-    //public class SA1
-    //{
-    //}
-
-    //public class SA3
-    //{
-    //    [JsonPropertyName("sid")]
-    //    public int Sid { get; set; }
-    //}
-
-    //public class SA27
-    //{
-    //    [JsonPropertyName("sid")]
-    //    public int Sid { get; set; }
-    //}
-
-    //public class SA29
-    //{
-    //    [JsonPropertyName("sid")]
-    //    public int Sid { get; set; }
-
-    //    [JsonPropertyName("tier")]
-    //    public int Tier { get; set; }
-    //}
-
-    //public class SA39
-    //{
-    //}
-
-    //public class SA70
-    //{
-    //}
-
-    //public class SA80
-    //{
-    //}
-
-    //public class SA233
-    //{
-    //}
-
-    //public class SA267
-    //{
-    //}
-
-    //public class SA315
-    //{
-    //}
 
 
-    // TODO
-    public class Activatable
+
+
+    public class ActivatableItemOpt
     {
-        //[JsonPropertyName("ADV_50")]
-        //public List<ADV50> ADV50 { get; set; }
 
-        //[JsonPropertyName("ADV_36")]
-        //public List<object> ADV36 { get; set; }
+        [JsonPropertyName("tier")]
+        public int Tier { get; set; }
 
-        //[JsonPropertyName("ADV_10")]
-        //public List<ADV10> ADV10 { get; set; }
+        [JsonPropertyName("sid")]
+        public dynamic Sid { get; set; }
 
-        //[JsonPropertyName("ADV_26")]
-        //public List<ADV26> ADV26 { get; set; }
-
-        //[JsonPropertyName("ADV_40")]
-        //public List<ADV40> ADV40 { get; set; }
-
-        //[JsonPropertyName("ADV_48")]
-        //public List<ADV48> ADV48 { get; set; }
-
-        //[JsonPropertyName("DISADV_5")]
-        //public List<object> DISADV5 { get; set; }
-
-        //[JsonPropertyName("DISADV_2")]
-        //public List<DISADV2> DISADV2 { get; set; }
-
-        //[JsonPropertyName("DISADV_37")]
-        //public List<DISADV37> DISADV37 { get; set; }
-
-        //[JsonPropertyName("DISADV_50")]
-        //public List<DISADV50> DISADV50 { get; set; }
-
-        //[JsonPropertyName("DISADV_71")]
-        //public List<DISADV71> DISADV71 { get; set; }
-
-        //[JsonPropertyName("DISADV_29")]
-        //public List<object> DISADV29 { get; set; }
-
-        //[JsonPropertyName("DISADV_48")]
-        //public List<object> DISADV48 { get; set; }
-
-        //[JsonPropertyName("DISADV_49")]
-        //public List<object> DISADV49 { get; set; }
-
-        //[JsonPropertyName("DISADV_46")]
-        //public List<object> DISADV46 { get; set; }
-
-        //[JsonPropertyName("SA_78")]
-        //public List<SA78> SA78 { get; set; }
-
-        //[JsonPropertyName("SA_76")]
-        //public List<SA76> SA76 { get; set; }
-
-        //[JsonPropertyName("SA_1")]
-        //public List<SA1> SA1 { get; set; }
-
-        //[JsonPropertyName("SA_3")]
-        //public List<SA3> SA3 { get; set; }
-
-        //[JsonPropertyName("SA_27")]
-        //public List<SA27> SA27 { get; set; }
-
-        //[JsonPropertyName("SA_29")]
-        //public List<SA29> SA29 { get; set; }
-
-        //[JsonPropertyName("SA_39")]
-        //public List<SA39> SA39 { get; set; }
-
-        //[JsonPropertyName("SA_681")]
-        //public List<object> SA681 { get; set; }
-
-        //[JsonPropertyName("SA_70")]
-        //public List<SA70> SA70 { get; set; }
-
-        //[JsonPropertyName("SA_80")]
-        //public List<SA80> SA80 { get; set; }
-
-        //[JsonPropertyName("SA_233")]
-        //public List<SA233> SA233 { get; set; }
-
-        //[JsonPropertyName("SA_267")]
-        //public List<SA267> SA267 { get; set; }
-
-        //[JsonPropertyName("SA_315")]
-        //public List<SA315> SA315 { get; set; }
-
-        //[JsonPropertyName("SA_421")]
-        //public List<object> SA421 { get; set; }
+        [JsonPropertyName("sid")]
+        public string Sid2 { get; set; }
     }
 
 
+    // TODO: advantages
+    // TODO: disadvantages
+    // TODO: special abilities
+
+    ///// <summary>
+    ///// List that holds advantages, disadvantages, and special abilities
+    ///// </summary>
+    //public class ActivatableOpt
+    //{
+    //    //[JsonPropertyName("ADV_50")]
+    //    //public List<ADV50> ADV50 { get; set; }
+
+    //    //[JsonPropertyName("ADV_36")]
+    //    //public List<object> ADV36 { get; set; }
+
+    //    //[JsonPropertyName("ADV_10")]
+    //    //public List<ADV10> ADV10 { get; set; }
+
+    //    //[JsonPropertyName("ADV_26")]
+    //    //public List<ADV26> ADV26 { get; set; }
+    //}
 
 
 
 
-    public class BelongingItem //TODO Next
+
+
+    public class BelongingItem
     {
         /// <summary>
         /// The item id in the characters' file (format "ITEM_1").
@@ -734,6 +589,7 @@ namespace FateExplorer.CharacterData
         public int? ArmorType { get; set; } //TODO
         #endregion
     }
+
 
     public class PrimaryThreshold
     {
