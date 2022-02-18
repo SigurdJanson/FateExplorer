@@ -8,6 +8,7 @@ namespace FateExplorer.CharacterModel
 {
     public class CharacterM : ICharacterM
     {
+
         public CharacterM(IGameDataService gameData, CharacterImportOptM characterImportOptM)
         {
             Name = characterImportOptM.GetName();
@@ -65,7 +66,7 @@ namespace FateExplorer.CharacterModel
                         if (!characterImportOptM.IsSpellcaster()) break;
                         _Class = CharacterEnergyClass.AE;
                         ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
-                        energyM = new CharacterEnergyM(energy, _Class, ExtraEnergy, this);
+                        energyM = new CharacterAstralEnergy(energy, _Class, ExtraEnergy, this);
                         break;
                     case "KP":
                         if (!characterImportOptM.IsBlessed()) break;
