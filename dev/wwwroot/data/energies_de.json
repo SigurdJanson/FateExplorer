@@ -7,23 +7,34 @@
     {"id": "R_3", "base": 5},
     {"id": "R_4", "base": 8}
 ]},
-{"id": "AE", "name": "Astralenergie", "shortname": "AE",
-"abilities": [],
-"racebase": [
-    {"id": "R_1", "base": 0},
-    {"id": "R_2", "base": 0},
-    {"id": "R_3", "base": 0},
-    {"id": "R_4", "base": 0}
-],
-"advmod": [
-{"id": "ADV_50", "base": 20}
+{
+    "id": "AE", "name": "Astralenergie", "shortname": "AE",
+    "abilities": [],
+    "traditionbonus": {
+        "SA_346": "ATTR_2", 
+        "SA_70": "ATTR_2", 
+        "SA_676": "ATTR_4"},
+    "racebase": [
+        {"id": "R_1", "base": 0},
+        {"id": "R_2", "base": 0},
+        {"id": "R_3", "base": 0},
+        {"id": "R_4", "base": 0}
+    ],
+    "advmod": [
+    {"id": "ADV_50", "base": 20}
 ]},
-{"id": "KP", "name": "Karmaenergie", "shortname": "KE", 
-"abilities": ["ATTR_1", "ATTR_2", "ATTR_3"],
-"racebase": [
-    {"id": "R_1", "base": 0},
-    {"id": "R_2", "base": 0},
-    {"id": "R_3", "base": 0},
-    {"id": "R_4", "base": 0}
-]}
+{
+    "id": "KP", "name": "Karmaenergie", "shortname": "KE", 
+    "abilities": [],
+    "traditionbonus": {
+        "SA_694": "ATTR_3",
+        "SA_683": "ATTR_1"},
+    "racebase": [
+        {"id": "R_1", "base": 0},
+        {"id": "R_2", "base": 0},
+        {"id": "R_3", "base": 0},
+        {"id": "R_4", "base": 0}
+    ],
+    "advmod": [{"id": "ADV_12", "base": 20}]
+}
 ]}

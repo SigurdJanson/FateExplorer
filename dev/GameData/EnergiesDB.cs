@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
@@ -27,6 +28,13 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("advmod")]
         public DisAdvantageBaseValue[] DisAdvBaseValue { get; set; }
+
+        /// <summary>
+        /// Many arcane or karma traditions add the value of an ability to the energy.
+        /// This is the list of traditions (keys) and their respective abilities (value).
+        /// </summary>
+        [JsonPropertyName("traditionbonus")]
+        public Dictionary<string,string> TraditionBonus { get; set; }
     }
 
 
