@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FateExplorer.CharacterData
+namespace FateExplorer.CharacterImport
 {
     /// <summary>
     /// Handles deserialisation of fake lists that are actually an array (which would be <c>[ ... ]</c> in json)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FateExplorer.CharacterData
+namespace FateExplorer.CharacterImport
 {
     /// <summary>
     /// Json converter optimised for optolith skills

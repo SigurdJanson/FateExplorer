@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FateExplorer.CharacterData
+namespace FateExplorer.CharacterImport
 {
     public interface ICharacterImporter
     {

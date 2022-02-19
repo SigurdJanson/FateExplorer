@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace FateExplorer.CharacterData
+namespace FateExplorer.CharacterImport
 {
 
     public static class OptAdvantage
@@ -217,23 +217,32 @@ namespace FateExplorer.CharacterData
 
 
         const string SpecialAbilityMarker = "SA_";
+        const string AdvantageMarker = "ADV_";
+        const string DisadvantageMarker = "DISADV_";
 
-        /// <summary>
-        /// Returns the ids of the listed 
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetSpecialAbilities()
+        public List<string> GetActivatables(string Id)
         {
             List<string> Result = new();
             foreach (var s in Activatable)
             {
-                if (s.Key.StartsWith(SpecialAbilityMarker) && s.Value.Count > 0)
+                if (s.Key.StartsWith(Id) && s.Value.Count > 0)
                     Result.Add(s.Key);
             }
             return Result;
         }
 
 
+        /// <summary>
+        /// Returns the ids of the listed 
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetSpecialAbilities()
+            => GetActivatables(SpecialAbilityMarker);
+
+        public List<string> GetAdvantages()
+            => GetActivatables(AdvantageMarker);
+        public List<string> GetDisadvantages()
+            => GetActivatables(DisadvantageMarker);
 
 
         public int GetAddedEnergy(CharacterEnergyClass energyClass) =>

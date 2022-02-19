@@ -1,4 +1,4 @@
-﻿using FateExplorer.CharacterData;
+﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
 using System.Collections.Generic;
 using System.Linq;
