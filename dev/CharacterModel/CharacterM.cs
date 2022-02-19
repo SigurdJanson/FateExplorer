@@ -165,6 +165,6 @@ namespace FateExplorer.CharacterModel
 
         public int GetAbility(string Id) => Abilities[Id].Value;
 
-        public bool HasSpecialAbility(string Id) => SpecialAbilities.Contains(Id);
+        public bool HasSpecialAbility(string Id) => SpecialAbilities?.Contains(Id) ?? false;
     }
 }
