@@ -15,9 +15,15 @@ namespace FateExplorer.ViewModel
 
         public string[] PrimaryAbilityId { get => WeaponM.PrimaryAbilityId; }
 
-        public int AtSkill { get => WeaponM.AtSkill; }
+        public int BaseAtSkill { get => WeaponM.BaseAtSkill; }
 
-        public int PaSkill { get => WeaponM.PaSkill; }
+        public int AtSkill(HandsViMo Hands, CombatBranch otherHand)
+            => WeaponM.AtSkill(Hands.MainWeapon == this, otherHand);
+
+        public int BasePaSkill { get => WeaponM.BasePaSkill; }
+
+        public int PaSkill(HandsViMo Hands, CombatBranch otherHand)
+            => WeaponM.PaSkill(Hands.MainWeapon == this, otherHand, 666/*TODO*/, false/*TODO*/);
 
 
         public string Name { get => WeaponM.Name; }

@@ -216,6 +216,25 @@ namespace FateExplorer.CharacterData
 
 
 
+        const string SpecialAbilityMarker = "SA_";
+
+        /// <summary>
+        /// Returns the ids of the listed 
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetSpecialAbilities()
+        {
+            List<string> Result = new();
+            foreach (var s in Activatable)
+            {
+                if (s.Key.StartsWith(SpecialAbilityMarker) && s.Value.Count > 0)
+                    Result.Add(s.Key);
+            }
+            return Result;
+        }
+
+
+
 
         public int GetAddedEnergy(CharacterEnergyClass energyClass) =>
             energyClass switch

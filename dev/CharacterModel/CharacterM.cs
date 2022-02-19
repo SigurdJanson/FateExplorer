@@ -6,9 +6,26 @@ using System.Collections.Generic;
 
 namespace FateExplorer.CharacterModel
 {
+    /// <summary>
+    /// Holds the strings to identify special abilities
+    /// </summary>
+    public static class SA
+    { 
+        public const string TwoHandedCombat = "SA_42";
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class CharacterM : ICharacterM
     {
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="gameData">Access to the data bases describing basic DSA5</param>
+        /// <param name="characterImportOptM">Importer</param>
         public CharacterM(IGameDataService gameData, CharacterImportOptM characterImportOptM)
         {
             Name = characterImportOptM.GetName();
@@ -147,5 +164,7 @@ namespace FateExplorer.CharacterModel
         public CharacterSkillsM Skills { get; set; }
 
         public int GetAbility(string Id) => Abilities[Id].Value;
+
+        public bool HasSpecialAbility(string Id) => SpecialAbilities.Contains(Id);
     }
 }

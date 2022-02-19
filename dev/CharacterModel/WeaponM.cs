@@ -17,13 +17,89 @@ namespace FateExplorer.CharacterModel
 
         public string[] PrimaryAbilityId { get; protected set; }
 
-        public int AtSkill { get; protected set; }
+        /// <summary>
+        /// Default ATTACK skill when use in main hand and no two-handed combat
+        /// </summary>
+        public int BaseAtSkill { get; protected set; }
 
-        public int PaSkill { get; protected set; }
+        /// <summary>
+        /// Default PARRY skill when use in main hand and no two-handed combat
+        /// </summary>
+        public int BasePaSkill { get; protected set; }
 
-        public bool Ranged { get; protected set; }
+        /// <summary>
+        /// The attack skill value after taking into account if the character carries a 
+        /// second weapon or even uses the non-dominant hand.
+        /// </summary>
+        /// <param name="MainHand">Is 'this' weapon carried in the main hand?</param>
+        /// <param name="otherHand">Combat branch of weapon in other hand.</param>
+        /// <returns></returns>
+        public int AtSkill(bool MainHand, CombatBranch otherHand)
+        {
+            int OffHandMod;
+            if (Branch != CombatBranch.Unarmed) 
+                OffHandMod = !MainHand ? -4 : 0;
+            else
+                OffHandMod = 0;
+            // TODO: compensate in case of advantage 'ambidexterous'
+
+            int TwoHandMod = otherHand switch
+            {
+                CombatBranch.Unarmed => 0,
+                CombatBranch.Shield => 0,
+                CombatBranch.Ranged => -2, // second weapon
+                CombatBranch.Melee => -2, // second weapon
+                _ => 0
+            };
+            // TODO: compensate in case of special ability 'two-handed combat'
+            if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
+                TwoHandMod = Math.Max(0, TwoHandMod - 1);
+
+            return BaseAtSkill + OffHandMod + TwoHandMod;
+        }
 
 
+        /// <summary>
+        /// The parry skill value after taking into account if the character carries a 
+        /// second weapon or even uses the non-dominant hand.
+        /// </summary>
+        /// <param name="MainHand">Is 'this' weapon carried in the main hand?</param>
+        /// <param name="otherHand">Combat branch of weapon in other hand.</param>
+        /// <param name="otherPaSkill">Parry skill of weapon carried by the other hand.</param>
+        /// <param name="otherIsParry">Is the other hand's weapon classified as parry weapon?</param>
+        /// <returns></returns>
+        public int PaSkill(bool MainHand, CombatBranch otherHand, int otherPaSkill, bool otherIsParry)
+        {
+            // Determine off-hand penalty
+            int OffHandMod;
+            if (Branch == CombatBranch.Shield)
+                OffHandMod = 0; // no off-hand penalty for shields
+            else
+                OffHandMod = !MainHand ? -4 : 0;
+            // TODO: compensate in case of advantage 'ambidexterous' 
+
+            // Determine penalty when carrying two weapons
+            int TwoHandMod = otherHand switch
+            {
+                CombatBranch.Unarmed => 0,
+                CombatBranch.Shield => 0,
+                CombatBranch.Ranged => -2,
+                CombatBranch.Melee => -2,
+                _ => 0
+            };
+            // TODO: compensate in case of special ability 'two-handed combat'
+
+            // Determine passive bonus of parry weapon or shield
+            int ParryMod;
+            if (otherHand == CombatBranch.Shield)
+                ParryMod = otherPaSkill;
+            else if (otherIsParry)
+                ParryMod = 1;
+            else
+                ParryMod = 0;
+
+            return BasePaSkill + OffHandMod + TwoHandMod + ParryMod;
+        }
 
 
 
@@ -46,6 +122,9 @@ namespace FateExplorer.CharacterModel
         public int ParryMod { get; set; }
 
         public int Range { get; set; }
+
+
+        public bool Ranged { get; protected set; }
 
         public bool Improvised { get; set; }
 
@@ -121,8 +200,8 @@ namespace FateExplorer.CharacterModel
             TwoHanded = DbWeapon?.TwoHanded ?? false;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 
-            AtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
-            PaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
+            BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
+            BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
         }
 
 

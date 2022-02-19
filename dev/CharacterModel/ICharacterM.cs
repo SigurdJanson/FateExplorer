@@ -42,6 +42,13 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
+        /// Check if the given special ability is activated for the character
+        /// </summary>
+        /// <param name="Id">A stringed </param>
+        /// <returns></returns>
+        bool HasSpecialAbility(string Id);
+
+        /// <summary>
         /// The total weight of the character's belongings
         /// </summary>
         double CarriedWeight { get; }
