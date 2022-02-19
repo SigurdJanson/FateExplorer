@@ -55,6 +55,18 @@ namespace FateExplorer.Shared
         public int EffectiveValue { get; set; }
     }
 
+
+    public struct SpecialAbilityDTO
+    {
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+    }
+
+
+
     public struct SkillsDTO : ICharacterAttributDTO
     {
         /// <inheritdoc />

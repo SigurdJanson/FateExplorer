@@ -130,6 +130,23 @@ namespace FateExplorer.ViewModel
         #endregion
 
 
+        public List<SpecialAbilityDTO> GetSpecialAbilities()
+        {
+            List<SpecialAbilityDTO> Result = new();
+            foreach (var sa in characterM?.SpecialAbilities)
+            {
+                SpecialAbilityDTO item = new()
+                {
+                    Id = sa,
+                    Name = ""
+                };
+                Result.Add(item);
+            }
+
+            return Result;
+        }
+
+
 
         #region SKILLS
 

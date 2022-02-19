@@ -35,6 +35,8 @@ namespace FateExplorer.ViewModel
 
         List<AbilityDTO> GetAbilites();
 
+        List<SpecialAbilityDTO> GetSpecialAbilities();
+
 
         //
         /// <summary>

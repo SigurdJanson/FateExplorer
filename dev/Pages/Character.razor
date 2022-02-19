@@ -89,6 +89,20 @@
                     </MudItem>
                 </MudGrid>
             </MudPaper>
+
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
+                <MudText Typo=Typo.body2 Class="mb-3">
+                @{
+                    var SpecialAbilities = Hero.GetSpecialAbilities();
+                    @for(int i = 0; i < SpecialAbilities.Count; i++)
+                    {
+                            @SpecialAbilities[i].Id;
+                            if (i != SpecialAbilities.Count-1) {<span>, </span>};
+                    }
+                }
+                </MudText>
+            </MudPaper>
         </MudItem>
 
         <MudItem xs=12 sm=6 md=7 lg=8>

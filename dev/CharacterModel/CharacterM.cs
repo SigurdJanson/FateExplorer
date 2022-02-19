@@ -26,6 +26,10 @@ namespace FateExplorer.CharacterModel
                 Abilities.Add(AbImport.Key, ab);
             }
 
+            // SPECIAL ABILITIES
+            SpecialAbilities = characterImportOptM.GetSpecialAbilities();
+            
+
             // SKILLS
             Skills = new(this, characterImportOptM, gameData);
 
@@ -129,6 +133,8 @@ namespace FateExplorer.CharacterModel
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
+
+        public List<string> SpecialAbilities { get; protected set; }
 
         public Dictionary<string, CharacterEnergyM> Energies { get; set; }
 
