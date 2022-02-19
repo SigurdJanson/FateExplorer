@@ -12,6 +12,7 @@
 "traditionbonus": {
     "SA_346": "ATTR_2", 
     "SA_70": "ATTR_2", 
+    "SA_255": "ATTR_4", 
     "SA_676": "ATTR_4"},
 "racebase": [
     {"id": "R_1", "base": 0},
