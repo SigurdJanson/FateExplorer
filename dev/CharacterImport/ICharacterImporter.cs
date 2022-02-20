@@ -57,7 +57,24 @@ namespace FateExplorer.CharacterImport
 
 
         // SPECIAL ABILITIES
+
+        /// <summary>
+        /// Returns the ids of the character's special abilities
+        /// </summary>
+        /// <returns>List of id strings of all special abilities</returns>
         List<string> GetSpecialAbilities();
+
+        /// <summary>
+        /// Returns the ids of the character's advantages
+        /// </summary>
+        /// <returns>List of id strings</returns>
+        List<string> GetAdvantages();
+
+        /// <summary>
+        /// Returns the ids of the character's disadvantages
+        /// </summary>
+        /// <returns>List of id strings</returns>
+        List<string> GetDisadvantages();
 
 
 

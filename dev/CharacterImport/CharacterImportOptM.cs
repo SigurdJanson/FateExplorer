@@ -215,11 +215,17 @@ namespace FateExplorer.CharacterImport
 
 
 
+        // (DIS-) ADVANTAGES & SPECIAL ABILITIES
 
         const string SpecialAbilityMarker = "SA_";
         const string AdvantageMarker = "ADV_";
         const string DisadvantageMarker = "DISADV_";
 
+        /// <summary>
+        /// Request item ids from the collection of (dis-) advantages and special abilities.
+        /// </summary>
+        /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
+        /// <returns>List of id strings that match the request</returns>
         public List<string> GetActivatables(string Id)
         {
             List<string> Result = new();
@@ -232,18 +238,21 @@ namespace FateExplorer.CharacterImport
         }
 
 
-        /// <summary>
-        /// Returns the ids of the listed 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public List<string> GetSpecialAbilities()
             => GetActivatables(SpecialAbilityMarker);
 
+        /// <inheritdoc />
         public List<string> GetAdvantages()
             => GetActivatables(AdvantageMarker);
+
+        /// <inheritdoc />
         public List<string> GetDisadvantages()
             => GetActivatables(DisadvantageMarker);
 
+
+
+        // ENERGIES
 
         public int GetAddedEnergy(CharacterEnergyClass energyClass) =>
             energyClass switch
@@ -281,6 +290,7 @@ namespace FateExplorer.CharacterImport
 
 
 
+        // BELONGINGS
 
         public double TotalWeightOfBelongings()
         {
