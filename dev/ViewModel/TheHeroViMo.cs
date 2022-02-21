@@ -135,10 +135,16 @@ namespace FateExplorer.ViewModel
             List<SpecialAbilityDTO> Result = new();
             foreach (var sa in characterM?.SpecialAbilities)
             {
+                string Name;
+                try
+                {
+                    Name = GameDataService.SpecialAbilities[sa].Name;
+                }
+                catch (Exception) { Name = "unknown";  }
                 SpecialAbilityDTO item = new()
                 {
                     Id = sa,
-                    Name = ""
+                    Name = Name
                 };
                 Result.Add(item);
             }
