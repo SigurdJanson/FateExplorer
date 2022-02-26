@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterImport;
+using FateExplorer.CharacterModel.SpecialAbilities;
 using FateExplorer.GameData;
 using System.Collections.Generic;
 
@@ -45,7 +46,7 @@ namespace FateExplorer.CharacterModel
 
             // SPECIAL ABILITIES
             SpecialAbilities = characterImportOptM.GetSpecialAbilities();
-            
+            Languages = characterImportOptM.GetLanguages();
 
             // SKILLS
             Skills = new(this, characterImportOptM, gameData);
@@ -152,6 +153,7 @@ namespace FateExplorer.CharacterModel
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
         public Dictionary<string, ISpecialAbilityM> SpecialAbilities { get; protected set; }
+        public Dictionary<string, LanguageM> Languages { get; protected set; }
 
         public Dictionary<string, CharacterEnergyM> Energies { get; set; }
 

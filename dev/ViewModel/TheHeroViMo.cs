@@ -138,13 +138,39 @@ namespace FateExplorer.ViewModel
                 string Name;
                 try
                 {
-                    Name = GameDataService.SpecialAbilities[sa].Name;
+                    Name = GameDataService.SpecialAbilities[sa.Key].Name;
                 }
                 catch (Exception) { Name = "unknown";  }
                 SpecialAbilityDTO item = new()
                 {
-                    Id = sa,
-                    Name = Name
+                    Id = sa.Key,
+                    Name = Name,
+                    Tier = sa.Value.Tier
+                };
+                Result.Add(item);
+            }
+
+            return Result;
+        }
+
+
+        public List<LanguageDTO> GetLanguages()
+        {
+            List<LanguageDTO> Result = new();
+            foreach (var sa in characterM?.Languages)
+            {
+                string Name;
+                try
+                {
+                    Name = GameDataService.SpecialAbilities[sa.Key].Name;
+                }
+                catch (Exception) { Name = "unknown"; }
+                LanguageDTO item = new()
+                {
+                    Id = sa.Key,
+                    Name = sa.Value.Language.ToString(),
+                    Tier = (LanguageAbility)sa.Value.Tier,
+                    Language = sa.Value.Language
                 };
                 Result.Add(item);
             }

@@ -259,11 +259,14 @@ namespace FateExplorer.CharacterImport
             {
                 if (s.Key == OptSpecialAbility.Language && s.Value.Count > 0)
                     foreach (var l in s.Value)
-                        Result.Add(s.Key, new LanguageM(s.Key, l.Tier, (LanguageId)l.Sid));
+                    {
+                        int LanguageId =  int.Parse(l.Sid.ToString()); // TODO: cast from dynamic seems like a bad crutch
+                        Result.Add(l.Sid.ToString(), new LanguageM(s.Key, l.Tier, (LanguageId)LanguageId));
+                    }
             }
             return Result;
         }
-            //=> GetActivatables(OptSpecialAbility.Language);
+
 
         /// <inheritdoc />
         public Dictionary<string, ISpecialAbilityM> GetSpecialAbilities()
@@ -482,7 +485,6 @@ namespace FateExplorer.CharacterImport
 
     // TODO: advantages
     // TODO: disadvantages
-    // TODO: special abilities
 
 
 

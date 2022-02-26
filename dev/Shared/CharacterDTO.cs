@@ -56,13 +56,43 @@ namespace FateExplorer.Shared
     }
 
 
+
     public struct SpecialAbilityDTO
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// The id of the special ability
+        /// </summary>
         public string Id { get; set; }
 
         /// <inheritdoc />
         public string Name { get; set; }
+
+        /// <summary>
+        /// The level of the special ability
+        /// </summary>
+        public int Tier { get; set; }
+    }
+
+    /// <summary>
+    /// DTO for a special ability of languages
+    /// </summary>
+    public struct LanguageDTO
+    {
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <summary>
+        /// The id of the language
+        /// </summary>
+        public LanguageId Language { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The fluency of the language
+        /// </summary>
+        public LanguageAbility Tier { get; set; }
     }
 
 

@@ -41,8 +41,8 @@
                 </div>
             </MudPaper>
 
-@*                            <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
-                            <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>*@
+@*          <MudText Typo=Typo.caption>@r.ShortName @AddMaxResilience(r)</MudText>
+            <MudText Typo=Typo.body1>@r.EffectiveValue</MudText>*@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
@@ -91,6 +91,19 @@
             </MudPaper>
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
+                <MudText Typo=Typo.body2 Class="mb-3">
+                @{
+                    var Langs = Hero.GetLanguages();
+                    @for(int i = 0; i < Langs.Count; i++)
+                    {
+                            @Langs[i].Name;
+                            <span> (@Langs[i].Tier.ToString())</span>
+                            if (i != Langs.Count-1) {<span>, </span>};
+                    }
+                }
+                </MudText>
+                
                 <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
                 <MudText Typo=Typo.body2 Class="mb-3">
                 @{
@@ -98,6 +111,7 @@
                     @for(int i = 0; i < SpecialAbilities.Count; i++)
                     {
                             @SpecialAbilities[i].Name;
+                            if (SpecialAbilities[i].Tier > 0) {<span>, </span>};
                             if (i != SpecialAbilities.Count-1) {<span>, </span>};
                     }
                 }

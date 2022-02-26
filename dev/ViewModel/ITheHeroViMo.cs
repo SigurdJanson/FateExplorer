@@ -36,7 +36,7 @@ namespace FateExplorer.ViewModel
         List<AbilityDTO> GetAbilites();
 
         List<SpecialAbilityDTO> GetSpecialAbilities();
-
+        List<LanguageDTO> GetLanguages();
 
         //
         /// <summary>
