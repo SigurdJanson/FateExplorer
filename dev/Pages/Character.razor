@@ -97,8 +97,8 @@
                     var Langs = Hero.GetLanguages();
                     @for(int i = 0; i < Langs.Count; i++)
                     {
-                            @Langs[i].Name;
-                            <span> (@Langs[i].Tier.ToString())</span>
+                            @l10n[Langs[i].Name];
+                            if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
                             if (i != Langs.Count-1) {<span>, </span>};
                     }
                 }
@@ -111,7 +111,6 @@
                     @for(int i = 0; i < SpecialAbilities.Count; i++)
                     {
                             @SpecialAbilities[i].Name;
-                            if (SpecialAbilities[i].Tier > 0) {<span>, </span>};
                             if (i != SpecialAbilities.Count-1) {<span>, </span>};
                     }
                 }

@@ -137,6 +137,34 @@
     <value>AGI</value>
     <comment>Abilities</comment>
   </data>
+  <data name="Alaani" xml:space="preserve">
+    <value>Alaani</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="AncientTulamidya" xml:space="preserve">
+    <value>Ancient Tulamidya</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Angram" xml:space="preserve">
+    <value>Angram</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Asdharia" xml:space="preserve">
+    <value>Asdharia</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Atak" xml:space="preserve">
+    <value>Atak</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Aureliani" xml:space="preserve">
+    <value>Aureliani</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Bosparano" xml:space="preserve">
+    <value>Bosparano</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="btnAdd" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -191,6 +219,10 @@
     <value>COU</value>
     <comment>Abilities</comment>
   </data>
+  <data name="Cyclopean" xml:space="preserve">
+    <value>Cyclopean</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="DEX" xml:space="preserve">
     <value>DEX</value>
     <comment>Abilities</comment>
@@ -198,6 +230,22 @@
   <data name="Dice Cups" xml:space="preserve">
     <value>Dice Cups</value>
     <comment>Free Dice</comment>
+  </data>
+  <data name="Dschuku" xml:space="preserve">
+    <value>Dschuku</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Fjarningish" xml:space="preserve">
+    <value>Fjarningish</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Garethi" xml:space="preserve">
+    <value>Garethi</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Goblinish" xml:space="preserve">
+    <value>Goblinish</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="iAlchimica" xml:space="preserve">
     <value>Alchemistic substances</value>
@@ -288,6 +336,10 @@
   </data>
   <data name="iSacredTools" xml:space="preserve">
     <value>Tools for the Blessed</value>
+  </data>
+  <data name="Isdira" xml:space="preserve">
+    <value>Isdira</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="iStationary" xml:space="preserve">
     <value>Stationaries</value>
@@ -426,6 +478,30 @@
     <value>Your Specialties</value>
     <comment>Character Act (Skills)</comment>
   </data>
+  <data name="lngBasic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngBroken" xml:space="preserve">
+    <value>Broken</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNative" xml:space="preserve">
+    <value>Native</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNoAccent" xml:space="preserve">
+    <value>Free of accent</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNone" xml:space="preserve">
+    <value>n/a</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="Mohish" xml:space="preserve">
+    <value>Mohish</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="msgBotchAvoided" xml:space="preserve">
     <value>You did not manage to get out of this one?</value>
   </data>
@@ -504,8 +580,36 @@
     <value>New Dice Cup</value>
     <comment>DlgFreeDiceCup</comment>
   </data>
+  <data name="Nujuka" xml:space="preserve">
+    <value>Nujuka</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ogrish" xml:space="preserve">
+    <value>Ogrish</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Oloarkh" xml:space="preserve">
+    <value>Oloarkh</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ologhaijan" xml:space="preserve">
+    <value>Ologhaijan</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Pardiral" xml:space="preserve">
+    <value>Pardiral</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="QL" xml:space="preserve">
     <value>QL</value>
+  </data>
+  <data name="RavenTongue" xml:space="preserve">
+    <value>Raven Tongue</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Rogolan" xml:space="preserve">
+    <value>Rogolan</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="Roll Free Dice" xml:space="preserve">
     <value>Roll Free Dice</value>
@@ -539,9 +643,21 @@
     <value>Success</value>
     <comment>RollSuccessLevel</comment>
   </data>
+  <data name="Rssahh" xml:space="preserve">
+    <value>Rssahh</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ruuz" xml:space="preserve">
+    <value>Ruuz</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="SAG" xml:space="preserve">
     <value>SAG</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="SagaThorwalian" xml:space="preserve">
+    <value>Saga Thorwalian</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="SkillDomain.Arcane" xml:space="preserve">
     <value>Arcane</value>
@@ -557,6 +673,18 @@
   <data name="STR" xml:space="preserve">
     <value>STR</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="Thorwalian" xml:space="preserve">
+    <value>Thorwalian</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Trollish" xml:space="preserve">
+    <value>Trollish</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Tulamidya" xml:space="preserve">
+    <value>Tulamidya</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="txtAbilities" xml:space="preserve">
     <value>Abilities</value>
@@ -609,5 +737,13 @@
   <data name="txtAboutWhatis" xml:space="preserve">
     <value>The Fate Explorer helps you play the Dark Eye table top games. Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
+  </data>
+  <data name="Zelemja" xml:space="preserve">
+    <value>Zelemja</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Zhayad" xml:space="preserve">
+    <value>Zhayad</value>
+    <comment>enum LanguageId</comment>
   </data>
 </root>

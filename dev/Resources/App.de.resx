@@ -131,6 +131,34 @@
     <value>GE</value>
     <comment>Abilities</comment>
   </data>
+  <data name="Alaani" xml:space="preserve">
+    <value>Alaani</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="AncientTulamidya" xml:space="preserve">
+    <value>Ur-Tulamidya</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Angram" xml:space="preserve">
+    <value>Angram</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Asdharia" xml:space="preserve">
+    <value>Asdharia</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Atak" xml:space="preserve">
+    <value>Atak</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Aureliani" xml:space="preserve">
+    <value>Aureliani</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Bosparano" xml:space="preserve">
+    <value>Bosparano</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="btnAdd" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
@@ -185,6 +213,10 @@
     <value>MU</value>
     <comment>Abilities</comment>
   </data>
+  <data name="Cyclopean" xml:space="preserve">
+    <value>Zyklopäisch</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="DEX" xml:space="preserve">
     <value>FF</value>
     <comment>Abilities</comment>
@@ -192,6 +224,22 @@
   <data name="Dice Cups" xml:space="preserve">
     <value>Würfelbecher</value>
     <comment>Free Dice</comment>
+  </data>
+  <data name="Dschuku" xml:space="preserve">
+    <value>Dschuku</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Fjarningish" xml:space="preserve">
+    <value>Fjarningisch</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Garethi" xml:space="preserve">
+    <value>Garethi</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Goblinish" xml:space="preserve">
+    <value>Goblinisch</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="iAlchimica" xml:space="preserve">
     <value>Alchimica</value>
@@ -282,6 +330,10 @@
   </data>
   <data name="iSacredTools" xml:space="preserve">
     <value>Ausrüstunge der Geweihtenschaft</value>
+  </data>
+  <data name="Isdira" xml:space="preserve">
+    <value>Isdira</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="iStationary" xml:space="preserve">
     <value>Schreibwaren</value>
@@ -420,6 +472,30 @@
     <value>Deine Spezialität</value>
     <comment>Character Act (Skills)</comment>
   </data>
+  <data name="lngBasic" xml:space="preserve">
+    <value>Basis</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngBroken" xml:space="preserve">
+    <value>Gebrochen</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNative" xml:space="preserve">
+    <value>Muttersprache</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNoAccent" xml:space="preserve">
+    <value>Akzentfrei</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="lngNone" xml:space="preserve">
+    <value>n.v.</value>
+    <comment>enum LanguageAbility</comment>
+  </data>
+  <data name="Mohish" xml:space="preserve">
+    <value>Mohisch</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="msgBotchAvoided" xml:space="preserve">
     <value>Wie bist Du da wieder raus gekommen?</value>
   </data>
@@ -502,8 +578,36 @@
     <value>New Dice Cup</value>
     <comment>DlgFreeDiceCup</comment>
   </data>
+  <data name="Nujuka" xml:space="preserve">
+    <value>Nujuka</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ogrish" xml:space="preserve">
+    <value>Ogrisch</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Oloarkh" xml:space="preserve">
+    <value>Oloarkh</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ologhaijan" xml:space="preserve">
+    <value>Ologhaijan</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Pardiral" xml:space="preserve">
+    <value>Pardiral</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="QL" xml:space="preserve">
     <value>QS</value>
+  </data>
+  <data name="RavenTongue" xml:space="preserve">
+    <value>Rabensprache</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Rogolan" xml:space="preserve">
+    <value>Rogolan</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="Roll Free Dice" xml:space="preserve">
     <value>Frei Würfeln</value>
@@ -537,9 +641,21 @@
     <value>Erfolg</value>
     <comment>RollSuccessLevel</comment>
   </data>
+  <data name="Rssahh" xml:space="preserve">
+    <value>Rssahh</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Ruuz" xml:space="preserve">
+    <value>Ruuz</value>
+    <comment>enum LanguageId</comment>
+  </data>
   <data name="SAG" xml:space="preserve">
     <value>KL</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="SagaThorwalian" xml:space="preserve">
+    <value>Saga-Thorwalsch</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="SkillDomain.Arcane" xml:space="preserve">
     <value>Magisch</value>
@@ -556,6 +672,18 @@
   <data name="STR" xml:space="preserve">
     <value>KK</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="Thorwalian" xml:space="preserve">
+    <value>Thorwalsch</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Trollish" xml:space="preserve">
+    <value>Trollisch</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Tulamidya" xml:space="preserve">
+    <value>Tulamidya</value>
+    <comment>enum LanguageId</comment>
   </data>
   <data name="txtAboutHonourableMentions" xml:space="preserve">
     <value>Dieses Stück Arbeit wäre niemals möglich gewesen ohne die Hilfe von Sadik al'Dudei, Moran Lichtpfeil, Meschok, Sohn des Ssok, Ahgans Guelden (R.I.P), Alassar von Tundrien, Anjin Siebenstich, Sina ibn Rushd, Junis Djelef ibn Yakuban, Torfin Hardsgersen &amp; Asleif Phileasson Foggwulf.</value>
@@ -604,5 +732,13 @@
   <data name="txtAboutWhatis" xml:space="preserve">
     <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5 Regeln. Er kümmert sich um die meisten Grundregeln. Aufeinanderfolgende Proben (wie baim Kampf) erledgt er von selbst und teilt das Ergebnis mit. </value>
     <comment>About</comment>
+  </data>
+  <data name="Zelemja" xml:space="preserve">
+    <value>Zelemja</value>
+    <comment>enum LanguageId</comment>
+  </data>
+  <data name="Zhayad" xml:space="preserve">
+    <value>Zhayad</value>
+    <comment>enum LanguageId</comment>
   </data>
 </root>
