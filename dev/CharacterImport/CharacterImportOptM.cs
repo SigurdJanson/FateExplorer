@@ -240,7 +240,8 @@ namespace FateExplorer.CharacterImport
             foreach (var s in Activatable)
             {
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
-                    Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, s.Value[0].Tier));
+                    if (s.Key != OptSpecialAbility.Language)
+                        Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, s.Value[0].Tier));
                 //foreach (var sub in s.Value)
                 //    Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, sub.Tier));
             }
