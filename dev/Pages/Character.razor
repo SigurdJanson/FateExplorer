@@ -111,6 +111,7 @@
                     @for(int i = 0; i < SpecialAbilities.Count; i++)
                     {
                             @SpecialAbilities[i].Name;
+                            if (SpecialAbilities[i].Tier > 0) {<span> (@SpecialAbilities[i].Tier)</span>};
                             if (i != SpecialAbilities.Count-1) {<span>, </span>};
                     }
                 }

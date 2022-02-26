@@ -400,6 +400,9 @@
     <value>Selected Skills</value>
     <comment>Character Act (Skills)</comment>
   </data>
+  <data name="lblLanguages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
   <data name="lblMaximum" xml:space="preserve">
     <value>Full</value>
   </data>
@@ -461,6 +464,9 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
+  </data>
+  <data name="lblSpecialAbilities" xml:space="preserve">
+    <value>Special Abilities</value>
   </data>
   <data name="lblStone" xml:space="preserve">
     <value>Stone</value>

@@ -394,6 +394,9 @@
     <value>Ausgewählte Fertigkeiten</value>
     <comment>Character Act (Skills)</comment>
   </data>
+  <data name="lblLanguages" xml:space="preserve">
+    <value>Sprachen</value>
+  </data>
   <data name="lblMaximum" xml:space="preserve">
     <value>Voll</value>
   </data>
@@ -455,6 +458,9 @@
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
+  </data>
+  <data name="lblSpecialAbilities" xml:space="preserve">
+    <value>Sonderfertigkeiten</value>
   </data>
   <data name="lblStone" xml:space="preserve">
     <value>Stein</value>
