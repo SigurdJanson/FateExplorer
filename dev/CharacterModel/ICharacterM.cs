@@ -20,7 +20,7 @@ namespace FateExplorer.CharacterModel
 
         Dictionary<string, AbilityM> Abilities { get; }
 
-        List<string> SpecialAbilities { get; }
+        Dictionary<string, ISpecialAbilityM> SpecialAbilities { get; }
 
         Dictionary<string, CharacterEnergyM> Energies { get; }
 

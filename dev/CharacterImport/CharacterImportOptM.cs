@@ -1,4 +1,6 @@
-﻿using FateExplorer.Shared;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.CharacterModel.SpecialAbilities;
+using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -10,6 +12,12 @@ namespace FateExplorer.CharacterImport
     {
         public const string Spellcaster = "ADV_50";
         public const string Blessed = "ADV_12";
+    }
+
+    public static class OptSpecialAbility
+    {
+        public const string Language = "SA_29";
+        //public const string Writing = "SA_27";
     }
 
 
@@ -226,28 +234,47 @@ namespace FateExplorer.CharacterImport
         /// </summary>
         /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
         /// <returns>List of id strings that match the request</returns>
-        public List<string> GetActivatables(string Id)
+        public Dictionary<string, ISpecialAbilityM> GetActivatables(string Id)
         {
-            List<string> Result = new();
+            Dictionary<string, ISpecialAbilityM> Result = new();
             foreach (var s in Activatable)
             {
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
-                    Result.Add(s.Key);
+                    Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, s.Value[0].Tier));
+                //foreach (var sub in s.Value)
+                //    Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, sub.Tier));
             }
             return Result;
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, LanguageM> GetLanguages()
+        {
+            Dictionary<string, LanguageM> Result = new();
+            foreach (var s in Activatable)
+            {
+                if (s.Key == OptSpecialAbility.Language && s.Value.Count > 0)
+                    foreach (var l in s.Value)
+                        Result.Add(s.Key, new LanguageM(s.Key, l.Tier, (LanguageId)l.Sid));
+            }
+            return Result;
+        }
+            //=> GetActivatables(OptSpecialAbility.Language);
+
         /// <inheritdoc />
-        public List<string> GetSpecialAbilities()
+        public Dictionary<string, ISpecialAbilityM> GetSpecialAbilities()
             => GetActivatables(SpecialAbilityMarker);
 
         /// <inheritdoc />
-        public List<string> GetAdvantages()
+        public Dictionary<string, ISpecialAbilityM> GetAdvantages()
             => GetActivatables(AdvantageMarker);
 
         /// <inheritdoc />
-        public List<string> GetDisadvantages()
+        public Dictionary<string, ISpecialAbilityM> GetDisadvantages()
             => GetActivatables(DisadvantageMarker);
 
 
@@ -442,7 +469,6 @@ namespace FateExplorer.CharacterImport
 
     public class ActivatableItemOpt
     {
-
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
 

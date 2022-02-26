@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.CharacterModel.SpecialAbilities;
+using System.Collections.Generic;
 
 namespace FateExplorer.CharacterImport
 {
@@ -62,19 +64,25 @@ namespace FateExplorer.CharacterImport
         /// Returns the ids of the character's special abilities
         /// </summary>
         /// <returns>List of id strings of all special abilities</returns>
-        List<string> GetSpecialAbilities();
+        Dictionary<string, ISpecialAbilityM> GetSpecialAbilities();
+
+        /// <summary>
+        /// Returns the collection of languages spoken by the character.
+        /// </summary>
+        /// <returns></returns>
+        Dictionary<string, LanguageM> GetLanguages();
 
         /// <summary>
         /// Returns the ids of the character's advantages
         /// </summary>
         /// <returns>List of id strings</returns>
-        List<string> GetAdvantages();
+        Dictionary<string, ISpecialAbilityM> GetAdvantages();
 
         /// <summary>
         /// Returns the ids of the character's disadvantages
         /// </summary>
         /// <returns>List of id strings</returns>
-        List<string> GetDisadvantages();
+        Dictionary<string, ISpecialAbilityM> GetDisadvantages();
 
 
 

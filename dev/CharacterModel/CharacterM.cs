@@ -151,7 +151,7 @@ namespace FateExplorer.CharacterModel
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
-        public List<string> SpecialAbilities { get; protected set; }
+        public Dictionary<string, ISpecialAbilityM> SpecialAbilities { get; protected set; }
 
         public Dictionary<string, CharacterEnergyM> Energies { get; set; }
 
@@ -165,6 +165,6 @@ namespace FateExplorer.CharacterModel
 
         public int GetAbility(string Id) => Abilities[Id].Value;
 
-        public bool HasSpecialAbility(string Id) => SpecialAbilities?.Contains(Id) ?? false;
+        public bool HasSpecialAbility(string Id) => SpecialAbilities?.ContainsKey(Id) ?? false;
     }
 }
