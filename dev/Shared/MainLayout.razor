@@ -20,7 +20,7 @@
         Fate Explorer
         
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
+    <MudDrawer @bind-Open=_drawerOpen ClipMode=DrawerClipMode.Always>
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
