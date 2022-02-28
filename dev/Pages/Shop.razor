@@ -14,7 +14,7 @@
             @if (Stock is not null)
             {
             <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
-                    SortLabel=@l10n["Sort By"]
+                    SortLabel=@l10n["Sort By"] Virtualize=true
                     FixedHeader=true Hover=true Striped=true Height="600px">
                 <ToolBarContent>
                     <MudTextField T=string Clearable=true TextUpdateSuppression=false
