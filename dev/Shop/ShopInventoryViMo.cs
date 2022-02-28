@@ -78,6 +78,7 @@ namespace FateExplorer.Shop
         public IEnumerable<(string id, string name)> GetCurrencies()
         {
             List<(string id, string name)> Result = new();
+            if (Currencies is null) return Result;
             foreach (var c in Currencies)
                 Result.Add((id: c.Id, name: c.Name));
             return Result;

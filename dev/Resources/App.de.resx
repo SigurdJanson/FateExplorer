@@ -329,7 +329,7 @@
     <value>Seile und Ketten</value>
   </data>
   <data name="iSacredTools" xml:space="preserve">
-    <value>Ausrüstunge der Geweihtenschaft</value>
+    <value>Ausrüstung der Geweihtenschaft</value>
   </data>
   <data name="Isdira" xml:space="preserve">
     <value>Isdira</value>
@@ -393,6 +393,9 @@
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Ausgewählte Fertigkeiten</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblItemLength" xml:space="preserve">
+    <value>Länge</value>
   </data>
   <data name="lblLanguages" xml:space="preserve">
     <value>Sprachen</value>
@@ -464,6 +467,9 @@
   </data>
   <data name="lblStone" xml:space="preserve">
     <value>Stein</value>
+  </data>
+  <data name="lblStruPoints" xml:space="preserve">
+    <value>Strukturpunkte</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
     <value>Vermögen</value>

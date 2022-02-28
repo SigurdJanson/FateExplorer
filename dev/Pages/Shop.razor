@@ -1,5 +1,6 @@
 ﻿@page "/shop"
 @using FateExplorer.Shop
+@using System.ComponentModel.DataAnnotations
 
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
@@ -71,6 +72,12 @@
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd>
+                        <MudTooltip Text=@l10n["msgShowDetails"]>
+                            <MudIconButton Icon=@Icons.Sharp.Pageview Size=Size.Small 
+                                OnClick=@(() => OpenDrawer(context))
+                                Target="_blank"
+                                aria-label=@l10n["msgShowDetails"] />
+                        </MudTooltip>
                         <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
                             <MudIconButton Icon=@Icons.Sharp.Preview Size=Size.Small 
                                 Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
@@ -92,7 +99,22 @@
 </MudContainer>
 
 
-
+<MudDrawer @bind-Open=@OpenDetailsDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="400px">
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs=12>
+    @if (ItemDetailsRender is not null)
+    {
+        @ItemDetailsRender
+    }
+    else
+    {
+        <span>No item details available</span>
+    }
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+</MudDrawer>
 
 @code {
     private MudTable<ShopItemViMo> Table;
@@ -156,4 +178,74 @@
         Stock = new ShopInventoryViMo(httpClient, l10n);
         await Stock.InitializeGameDataAsync();
     }
+
+
+    // DETAILS DRAWER
+    private bool OpenDetailsDrawer;
+    private ShopItemViMo ItemWithDetails;
+    private RenderFragment ItemDetailsRender { get; set; }
+
+    private void OpenDrawer(ShopItemViMo item)
+    {
+        ItemWithDetails = item;
+        ItemDetailsRender = RenderItemDetails();
+        OpenDetailsDrawer = true;
+    }
+
+    /// <summary>
+    /// Create dynamic list of item properties in the sidebar
+    /// </summary>
+    /// <returns>A list of item properties as RenderFragment</returns>
+    /// <remarks>Source:<br/>
+    /// * https://chrissainty.com/building-components-via-rendertreebuilder/
+    /// * https://codyanhorn.tech/blog/blazor/2020/04/26/Blazor-Class-Based-Component.html
+    /// * https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx
+    /// * https://docs.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-6.0
+    /// </remarks>
+    private RenderFragment RenderItemDetails() => builder =>
+    {
+        int seq = 0;
+        var proList = typeof(ShopItemViMo).GetProperties();
+        foreach (var prp in proList)
+        {
+            var displayLabel = (DisplayAttribute)prp.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
+            if (displayLabel is null || displayLabel.Name == "hide")
+                continue;
+
+            // Get the initial property value.
+            var propInfoValue = typeof(ShopItemViMo).GetProperty(prp.Name);
+
+            var defaultValue = propInfoValue.GetValue(ItemWithDetails);
+            if (defaultValue is null) continue;
+
+            string Value;
+            if (defaultValue is Array)
+                Value = string.Join(", ", defaultValue as IEnumerable<int>);
+            else
+                Value = defaultValue.ToString();
+
+            if (displayLabel.Name != "-")
+            {
+                builder.OpenComponent(++seq, typeof(MudField));
+                builder.AddAttribute(++seq, "Label", l10n[displayLabel.Name]);
+                builder.AddAttribute(++seq, "Variant", Variant.Text);
+                builder.AddAttribute(++seq, "InnerPadding", false);
+                builder.AddAttribute(++seq, "Class", "mb-4");
+                builder.AddAttribute(++seq, "ChildContent", (RenderFragment)((builder2) => {
+                    builder2.AddContent(++seq, Value);
+                }));
+                builder.CloseComponent();
+            }
+            else
+            {
+                builder.OpenComponent(++seq, typeof(MudText));
+                builder.AddAttribute(++seq, "Typo", Typo.h6);
+                builder.AddAttribute(++seq, "ChildContent", (RenderFragment)((builder2) => {
+                    builder2.AddContent(++seq, Value);
+                }));
+                builder.CloseComponent();
+            }
+        }
+    };    
+
 }

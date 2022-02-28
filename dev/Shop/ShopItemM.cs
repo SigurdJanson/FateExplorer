@@ -24,7 +24,6 @@ namespace FateExplorer.Shop
             iAnimalSupplies = 26, iTransport = 27, iSacredTools = 28, iCeremonialObjects = 29 };
 
 
-
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -37,8 +36,11 @@ namespace FateExplorer.Shop
         [JsonPropertyName("template")]
         public string Template { get; set; }
 
+        /// <summary>
+        /// Structure points
+        /// </summary>
         [JsonPropertyName("stp")]
-        public object Stp { get; set; }
+        public int[] StruPo { get; set; }
 
         [JsonPropertyName("weight")]
         public double? Weight { get; set; }
@@ -71,7 +73,7 @@ namespace FateExplorer.Shop
         public PrimaryThresholdM PrimaryThreshold { get; set; }
 
         [JsonPropertyName("reloadTime")]
-        public object ReloadTime { get; set; }
+        public int[] ReloadTime { get; set; }
 
         [JsonPropertyName("ammunition")]
         public string Ammunition { get; set; }

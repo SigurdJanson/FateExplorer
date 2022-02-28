@@ -4,7 +4,7 @@
     {"name": "Antidot", "gr": 20, "price": 65, "template": "ITEMTPL_298", "group": [1]},
     {"name": "Berserkerelixier", "gr": 20, "price": 140, "template": "ITEMTPL_791", "group": [1]},
     {
-        "name": "Charyb’Yzz’ Traum",
+        "name": "Charyb'Yzz' Traum",
         "gr": 20,
         "price": 50,
         "template": "ITEMTPL_734", "group": [1]
@@ -46,61 +46,61 @@
         "name": "Adlerfedern",
         "gr": 28,
         "price": 5,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_484", "group": [2]
     },
-    {"name": "Asche", "gr": 28, "price": 0.01, "stp": 1, "template": "ITEMTPL_485", "group": [2]},
-    {"name": "Blut", "gr": 28, "stp": 1, "template": "ITEMTPL_486", "group": [2]},
+    {"name": "Asche", "gr": 28, "price": 0.01, "stp": [1], "template": "ITEMTPL_485", "group": [2]},
+    {"name": "Blut", "gr": 28, "stp": [1], "template": "ITEMTPL_486", "group": [2]},
     {
         "name": "Echsen- oder Schlangenschuppen",
         "gr": 28,
         "price": 0.01,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_487", "group": [2]
     },
-    {"name": "Eigenblut", "gr": 28, "stp": 1, "template": "ITEMTPL_488", "group": [2]},
+    {"name": "Eigenblut", "gr": 28, "stp": [1], "template": "ITEMTPL_488", "group": [2]},
     {
         "name": "Eiskristalle, Eiswasser",
         "gr": 28,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_489", "group": [2]
     },
     {
         "name": "Kirschblüten",
         "gr": 28,
         "price": 0.01,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_490", "group": [2]
     },
-    {"name": "Mehl", "gr": 28, "price": 0.01, "stp": 1, "template": "ITEMTPL_491", "group": [2]},
+    {"name": "Mehl", "gr": 28, "price": 0.01, "stp": [1], "template": "ITEMTPL_491", "group": [2]},
     {
         "name": "Saatgut",
         "gr": 28,
         "price": 0.01,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_492", "group": [2]
     },
     {
         "name": "Salbungsöl",
         "gr": 28,
         "price": 0.01,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_493", "group": [2]
     },
     {
         "name": "Sternenstaub",
         "gr": 28,
         "price": 1,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_494", "group": [2]
     },
-    {"name": "Tharf", "gr": 28, "price": 1, "stp": 1, "template": "ITEMTPL_495", "group": [2]},
-    {"name": "Weihwasser", "gr": 28, "stp": 1, "template": "ITEMTPL_496", "group": [2]},
+    {"name": "Tharf", "gr": 28, "price": 1, "stp": [1], "template": "ITEMTPL_495", "group": [2]},
+    {"name": "Weihwasser", "gr": 28, "stp": [1], "template": "ITEMTPL_496", "group": [2]},
     {
         "name": "Zugvogelfedern",
         "gr": 28,
         "price": 0.03,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_497", "group": [2]
     },
     {
@@ -157,7 +157,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 8,
         "length": 200,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -381,7 +381,7 @@
         "gr": 14,
         "weight": 3.5,
         "price": 150,
-        "stp": 8,
+        "stp": [8],
         "template": "ITEMTPL_403"
     },
     {
@@ -416,7 +416,7 @@
         "gr": 14,
         "weight": 3,
         "price": 250,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_235"
     },
     {"name": "Aventurin", "gr": 16, "price": 2.5, "template": "ITEMTPL_265"},
@@ -452,7 +452,7 @@
         "damageDiceNumber": 2,
         "damageFlat": 2,
         "length": 80,
-        "reloadTime": 4,
+        "reloadTime": [4],
         "ammunition": "ITEMTPL_77",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -467,7 +467,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 4,
         "length": 40,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_77",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -482,7 +482,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 3,
         "length": 80,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_77",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -610,7 +610,7 @@
         "damageFlat": 2,
         "length": 40,
         "pa": -2,
-        "stp": 30,
+        "stp": [30],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -624,7 +624,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_426"
     },
     {
@@ -634,7 +634,7 @@
         "price": 40,
         "damageDiceNumber": 1,
         "length": 60,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_463",
         "combatTechnique": "CT_18",
         "damageDiceSides": 2,
@@ -648,7 +648,7 @@
         "gr": 24,
         "weight": 0.2,
         "price": 20,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_405"
     },
     {
@@ -656,7 +656,7 @@
         "gr": 24,
         "weight": 0.2,
         "price": 40,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_407"
     },
     {
@@ -664,7 +664,7 @@
         "gr": 24,
         "weight": 0.25,
         "price": 5,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_404"
     },
     {
@@ -672,7 +672,7 @@
         "gr": 24,
         "weight": 0.25,
         "price": 10,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_406"
     },
     {
@@ -701,7 +701,7 @@
         "damageFlat": 1,
         "length": 60,
         "pa": -2,
-        "stp": 50,
+        "stp": [50],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -719,7 +719,7 @@
         "damageFlat": 3,
         "length": 100,
         "pa": -3,
-        "stp": 100,
+        "stp": [100],
         "combatTechnique": "CT_15",
         "damageDiceSides": 6,
         "reach": 2,
@@ -742,7 +742,7 @@
         "at": -3,
         "damageDiceNumber": 1,
         "pa": 0,
-        "stp": 25,
+        "stp": [25],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -770,7 +770,7 @@
         "gr": 29,
         "weight": 1.5,
         "price": 90,
-        "stp": 18,
+        "stp": [18],
         "template": "ITEMTPL_503"
     },
     {"name": "Carlog", "gr": 22, "price": 2.2, "template": "ITEMTPL_837"},
@@ -795,7 +795,7 @@
         "gr": 18,
         "weight": 1,
         "price": 300,
-        "stp": 15,
+        "stp": [15],
         "template": "ITEMTPL_293"
     },
     {
@@ -925,7 +925,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 3,
         "length": 160,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_519",
@@ -953,7 +953,7 @@
         "gr": 29,
         "weight": 0.3,
         "price": 23,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_504"
     },
     {
@@ -976,7 +976,7 @@
         "gr": 18,
         "weight": 2,
         "price": 800,
-        "stp": 20,
+        "stp": [20],
         "template": "ITEMTPL_294"
     },
     {
@@ -988,7 +988,7 @@
         "damageDiceNumber": 1,
         "length": 40,
         "pa": -2,
-        "stp": 20,
+        "stp": [20],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -1043,7 +1043,7 @@
         "gr": 10,
         "weight": 0.25,
         "price": 6,
-        "stp": 12,
+        "stp": [12],
         "template": "ITEMTPL_199"
     },
     {
@@ -1067,7 +1067,7 @@
         "gr": 14,
         "weight": 1,
         "price": 400,
-        "stp": 18,
+        "stp": [18],
         "template": "ITEMTPL_410"
     },
     {
@@ -1075,7 +1075,7 @@
         "gr": 11,
         "weight": 0.25,
         "price": 0.3,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_217"
     },
     {
@@ -1125,7 +1125,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 5,
         "length": 50,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_540",
@@ -1136,7 +1136,7 @@
         "gr": 10,
         "weight": 0.1,
         "price": 2,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_201"
     },
     {
@@ -1163,7 +1163,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 10,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_567",
@@ -1212,7 +1212,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_425"
     },
     {
@@ -1220,7 +1220,7 @@
         "gr": 29,
         "weight": 1,
         "price": 10,
-        "stp": 12,
+        "stp": [12],
         "template": "ITEMTPL_506"
     },
     {"name": "Grüne Jade", "gr": 16, "price": 20, "template": "ITEMTPL_270"},
@@ -1229,7 +1229,7 @@
         "gr": 10,
         "weight": 0.25,
         "price": 4,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_202"
     },
     {
@@ -1237,7 +1237,7 @@
         "gr": 8,
         "weight": 0.75,
         "price": 1000,
-        "stp": 80,
+        "stp": [80],
         "template": "ITEMTPL_183"
     },
     {
@@ -1245,7 +1245,7 @@
         "gr": 8,
         "weight": 0.0008,
         "price": 1,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_732"
     },
     {
@@ -1321,7 +1321,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 3,
         "length": 40,
-        "reloadTime": 3,
+        "reloadTime": [3],
         "ammunition": "ITEMTPL_76",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -1504,7 +1504,7 @@
         "gr": 18,
         "weight": 1,
         "price": 250,
-        "stp": 15,
+        "stp": [15],
         "template": "ITEMTPL_416"
     },
     {
@@ -1512,7 +1512,7 @@
         "gr": 18,
         "weight": 2,
         "price": 150,
-        "stp": 20,
+        "stp": [20],
         "template": "ITEMTPL_295"
     },
     {
@@ -1687,7 +1687,7 @@
         "gr": 24,
         "weight": 1,
         "price": 5,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_417"
     },
     {
@@ -1695,7 +1695,7 @@
         "gr": 24,
         "weight": 1,
         "price": 20,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_418"
     },
     {"name": "Kamm", "gr": 24, "weight": 0.1, "price": 1, "template": "ITEMTPL_339"},
@@ -1729,7 +1729,7 @@
         "gr": 13,
         "weight": 0.25,
         "price": 50,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_230"
     },
     {
@@ -1771,7 +1771,7 @@
         "gr": 7,
         "weight": 1,
         "price": 27,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_161"
     },
     {
@@ -1779,7 +1779,7 @@
         "gr": 14,
         "weight": 0.25,
         "price": 6,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_238"
     },
     {
@@ -1787,7 +1787,7 @@
         "gr": 14,
         "weight": 0.3,
         "price": 60,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_422"
     },
     {
@@ -1795,7 +1795,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_427"
     },
     {
@@ -1874,7 +1874,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 8,
         "length": 200,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -1903,7 +1903,7 @@
         "gr": 8,
         "weight": 0.5,
         "price": 8,
-        "stp": 8,
+        "stp": [8],
         "template": "ITEMTPL_185"
     },
     {
@@ -1958,7 +1958,7 @@
         "gr": 10,
         "weight": 2,
         "price": 34,
-        "stp": 8,
+        "stp": [8],
         "template": "ITEMTPL_205"
     },
     {
@@ -1976,7 +1976,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 6,
         "length": 110,
-        "reloadTime": 8,
+        "reloadTime": [8],
         "ammunition": "ITEMTPL_76",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -1998,7 +1998,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_424"
     },
     {
@@ -2023,7 +2023,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_117"
     },
     {
@@ -2127,7 +2127,7 @@
         "gr": 6,
         "weight": 1.5,
         "price": 7,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_118"
     },
     {
@@ -2177,7 +2177,7 @@
         "gr": 13,
         "weight": 0.75,
         "price": 4,
-        "stp": 25,
+        "stp": [25],
         "template": "ITEMTPL_723"
     },
     {
@@ -2218,7 +2218,7 @@
         "gr": 29,
         "weight": 0.1,
         "price": 80,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_507"
     },
     {
@@ -2315,7 +2315,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 8,
         "length": 200,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -2343,7 +2343,7 @@
         "gr": 8,
         "weight": 0.25,
         "price": 0.5,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_186"
     },
     {"name": "Opal", "gr": 16, "price": 22, "template": "ITEMTPL_275"},
@@ -2433,7 +2433,7 @@
         "gr": 17,
         "weight": 0.05,
         "price": 0.1,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_286"
     },
     {
@@ -2441,7 +2441,7 @@
         "gr": 17,
         "weight": 0.05,
         "price": 0.3,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_429"
     },
     {
@@ -2465,7 +2465,7 @@
         "gr": 24,
         "weight": 0.1,
         "price": 120,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_343"
     },
     {
@@ -2473,7 +2473,7 @@
         "gr": 17,
         "weight": 0.05,
         "price": 1,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_287"
     },
     {
@@ -2481,7 +2481,7 @@
         "gr": 17,
         "weight": 0.05,
         "price": 3,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_430"
     },
     {"name": "Pfanne", "gr": 7, "weight": 2, "price": 12, "template": "ITEMTPL_169"},
@@ -2490,7 +2490,7 @@
         "gr": 7,
         "weight": 1.5,
         "price": 8,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_435"
     },
     {
@@ -2508,7 +2508,7 @@
         "gr": 29,
         "weight": 0.1,
         "price": 50,
-        "stp": 25,
+        "stp": [25],
         "template": "ITEMTPL_508"
     },
     {
@@ -2516,7 +2516,7 @@
         "gr": 7,
         "weight": 1.5,
         "price": 0.5,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_181"
     },
     {
@@ -2524,7 +2524,7 @@
         "gr": 14,
         "weight": 0.75,
         "price": 70,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_239"
     },
     {"name": "Quinja", "gr": 22, "price": 6.5, "template": "ITEMTPL_834"},
@@ -2593,7 +2593,7 @@
         "gr": 6,
         "weight": 3,
         "price": 120,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_428"
     },
     {
@@ -2708,7 +2708,7 @@
         "gr": 7,
         "weight": 2,
         "price": 7,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_172"
     },
     {
@@ -2738,7 +2738,7 @@
         "damageFlat": 3,
         "length": 70,
         "pa": -3,
-        "stp": 30,
+        "stp": [30],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -2761,7 +2761,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 4,
         "length": 50,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_66",
@@ -2816,7 +2816,7 @@
         "damageDiceNumber": 2,
         "damageFlat": 6,
         "length": 80,
-        "reloadTime": 15,
+        "reloadTime": [15],
         "ammunition": "ITEMTPL_76",
         "combatTechnique": "CT_1",
         "damageDiceSides": 6,
@@ -2844,7 +2844,7 @@
         "gr": 24,
         "weight": 0.5,
         "price": 5,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_432"
     },
     {
@@ -2904,7 +2904,7 @@
         "damageFlat": 4,
         "length": 90,
         "pa": -4,
-        "stp": 15,
+        "stp": [15],
         "combatTechnique": "CT_15",
         "damageDiceSides": 6,
         "reach": 2,
@@ -2955,7 +2955,7 @@
         "damageFlat": 5,
         "length": 70,
         "pa": -5,
-        "stp": 15,
+        "stp": [15],
         "combatTechnique": "CT_15",
         "damageDiceSides": 6,
         "reach": 2,
@@ -3065,7 +3065,7 @@
         "gr": 14,
         "weight": 0.25,
         "price": 800,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_241"
     },
     {
@@ -3077,7 +3077,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "pa": 2,
-        "stp": 25,
+        "stp": [25],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -3151,7 +3151,7 @@
         "gr": 10,
         "weight": 0.5,
         "price": 8.5,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_214"
     },
     {
@@ -3183,7 +3183,7 @@
         "gr": 18,
         "weight": 1,
         "price": 150,
-        "stp": 15,
+        "stp": [15],
         "template": "ITEMTPL_433"
     },
     {"name": "Vase", "gr": 10, "weight": 2, "price": 1, "template": "ITEMTPL_215"},
@@ -3192,7 +3192,7 @@
         "gr": 9,
         "weight": 0.05,
         "price": 12.5,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_197"
     },
     {
@@ -3292,7 +3292,7 @@
         "gr": 24,
         "weight": 1,
         "price": 30,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_358"
     },
     {
@@ -3300,7 +3300,7 @@
         "gr": 10,
         "weight": 0.25,
         "price": 5.5,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_216"
     },
     {
@@ -3327,7 +3327,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 2,
         "length": 50,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_398",
         "combatTechnique": "CT_11",
         "damageDiceSides": 6,
@@ -3341,7 +3341,7 @@
         "gr": 24,
         "weight": 0.06,
         "price": 3,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_437"
     },
     {
@@ -3349,7 +3349,7 @@
         "gr": 24,
         "weight": 0.07,
         "price": 12,
-        "stp": 6,
+        "stp": [6],
         "template": "ITEMTPL_438"
     },
     {
@@ -3357,7 +3357,7 @@
         "gr": 12,
         "weight": 1,
         "price": 7,
-        "stp": 20,
+        "stp": [20],
         "template": "ITEMTPL_224"
     },
     {
@@ -3382,7 +3382,7 @@
         "gr": 8,
         "weight": 0.1,
         "price": 10,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_420"
     },
     {
@@ -3390,7 +3390,7 @@
         "gr": 17,
         "weight": 0.1,
         "price": 10,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_423"
     },
     {
@@ -3417,7 +3417,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 10,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_892",
@@ -3513,7 +3513,7 @@
         "gr": 8,
         "weight": 0.2,
         "price": 1,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_192"
     },
     {
@@ -3584,7 +3584,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 2,
         "length": 45,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_672",
@@ -3600,7 +3600,7 @@
         "damageFlat": 2,
         "length": 50,
         "pa": -3,
-        "stp": 70,
+        "stp": [70],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -3643,7 +3643,7 @@
         "gr": 18,
         "weight": 1,
         "price": 75,
-        "stp": 15,
+        "stp": [15],
         "template": "ITEMTPL_292"
     },
     {
@@ -3685,7 +3685,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 5,
         "length": 180,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -3730,7 +3730,7 @@
         "damageFlat": 3,
         "length": 35,
         "pa": -3,
-        "stp": 25,
+        "stp": [25],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -3743,7 +3743,7 @@
         "gr": 29,
         "weight": 0.25,
         "price": 25,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_505"
     },
     {
@@ -3751,7 +3751,7 @@
         "gr": 10,
         "weight": 0.05,
         "price": 1,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_200"
     },
     {
@@ -3789,7 +3789,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 7,
         "length": 140,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -3804,7 +3804,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 4,
         "length": 130,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "ammunition": "ITEMTPL_75",
         "combatTechnique": "CT_2",
         "damageDiceSides": 6,
@@ -3838,7 +3838,7 @@
         "gr": 18,
         "weight": 1,
         "price": 250,
-        "stp": 15,
+        "stp": [15],
         "template": "ITEMTPL_431"
     },
     {
@@ -3972,7 +3972,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 3,
         "length": 40,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_68",
@@ -3986,7 +3986,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 10,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_72",
@@ -4004,7 +4004,7 @@
         "gr": 12,
         "weight": 0.25,
         "price": 5,
-        "stp": 20,
+        "stp": [20],
         "template": "ITEMTPL_222"
     },
     {
@@ -4012,7 +4012,7 @@
         "gr": 12,
         "weight": 1.5,
         "price": 50,
-        "stp": 20,
+        "stp": [20],
         "template": "ITEMTPL_409"
     },
     {
@@ -4116,7 +4116,7 @@
         "gr": 11,
         "weight": 0.25,
         "price": 0.4,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_413"
     },
     {
@@ -4124,7 +4124,7 @@
         "gr": 24,
         "weight": 0.2,
         "price": 3,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_334"
     },
     {
@@ -4136,7 +4136,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "pa": 3,
-        "stp": 30,
+        "stp": [30],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -4174,7 +4174,7 @@
         "at": -4,
         "damageDiceNumber": 1,
         "pa": 1,
-        "stp": 20,
+        "stp": [20],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -4186,7 +4186,7 @@
         "gr": 8,
         "weight": 0.5,
         "price": 6,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_184"
     },
     {
@@ -4217,7 +4217,7 @@
         "gr": 11,
         "weight": 0.5,
         "price": 0.3,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_219"
     },
     {
@@ -4255,7 +4255,7 @@
         "at": -4,
         "damageDiceNumber": 1,
         "pa": 1,
-        "stp": 20,
+        "stp": [20],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -4382,7 +4382,7 @@
         "gr": 29,
         "weight": 0.05,
         "price": 100,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_509"
     },
     {
@@ -4414,7 +4414,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 2,
         "length": 50,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "ammunition": "ITEMTPL_398",
         "combatTechnique": "CT_11",
         "damageDiceSides": 6,
@@ -4433,7 +4433,7 @@
         "gr": 7,
         "weight": 1,
         "price": 6.5,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_173"
     },
     {
@@ -4520,7 +4520,7 @@
         "gr": 11,
         "weight": 0.2,
         "price": 1,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_421"
     },
     {
@@ -4547,7 +4547,7 @@
         "damageFlat": 2,
         "length": 60,
         "pa": -2,
-        "stp": 12,
+        "stp": [12],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 1,
@@ -4591,7 +4591,7 @@
         "gr": 7,
         "weight": 0.5,
         "price": 2.5,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_176"
     },
     {
@@ -4599,7 +4599,7 @@
         "gr": 8,
         "weight": 0.1,
         "price": 3,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_419"
     },
     {
@@ -4620,7 +4620,7 @@
         "at": -4,
         "damageDiceNumber": 1,
         "pa": 1,
-        "stp": 25,
+        "stp": [25],
         "combatTechnique": "CT_10",
         "damageDiceSides": 6,
         "reach": 1,
@@ -4648,7 +4648,7 @@
         "gr": 11,
         "weight": 3,
         "price": 10,
-        "stp": 100,
+        "stp": [100],
         "template": "ITEMTPL_434"
     },
     {
@@ -4656,7 +4656,7 @@
         "gr": 7,
         "weight": 1.5,
         "price": 2,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_177"
     },
     {
@@ -4667,7 +4667,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 30,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_69",
@@ -4678,7 +4678,7 @@
         "gr": 24,
         "weight": 0.05,
         "price": 0.5,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_360"
     },
     {
@@ -4686,7 +4686,7 @@
         "gr": 24,
         "weight": 0.06,
         "price": 2,
-        "stp": 5,
+        "stp": [5],
         "template": "ITEMTPL_436"
     },
     {
@@ -4729,7 +4729,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 2,
         "length": 30,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "combatTechnique": "CT_19",
         "damageDiceSides": 6,
         "template": "ITEMTPL_464",
@@ -4786,7 +4786,7 @@
         "gr": 17,
         "weight": 0.05,
         "price": 0.2,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_285"
     },
     {
@@ -4824,7 +4824,7 @@
         "damageFlat": 1,
         "length": 40,
         "pa": -2,
-        "stp": 10,
+        "stp": [10],
         "combatTechnique": "CT_5",
         "damageDiceSides": 6,
         "reach": 2,
@@ -4930,7 +4930,7 @@
         "gr": 8,
         "weight": 0.025,
         "price": 0.2,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_191"
     },
     {
@@ -5002,7 +5002,7 @@
         "gr": 14,
         "weight": 1.25,
         "price": 150,
-        "stp": 25,
+        "stp": [25],
         "template": "ITEMTPL_237"
     },
     {
@@ -5010,7 +5010,7 @@
         "gr": 14,
         "weight": 5,
         "price": 1500,
-        "stp": 35,
+        "stp": [35],
         "template": "ITEMTPL_412"
     },
     {
@@ -5018,7 +5018,7 @@
         "gr": 14,
         "weight": 0.5,
         "price": 75,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_411"
     },
     {"name": "Feuersteinsplitter", "gr": 3, "price": 0.1, "template": "ITEMTPL_541"},
@@ -5091,7 +5091,7 @@
         "gr": 7,
         "weight": 20,
         "price": 200,
-        "stp": 60,
+        "stp": [60],
         "template": "ITEMTPL_440"
     },
     {"name": "Gugel", "gr": 6, "weight": 0.2, "price": 2, "template": "ITEMTPL_98"},
@@ -5100,7 +5100,7 @@
         "gr": 8,
         "weight": 0.075,
         "price": 100,
-        "stp": 40,
+        "stp": [40],
         "template": "ITEMTPL_415"
     },
     {
@@ -5108,7 +5108,7 @@
         "gr": 8,
         "weight": 0.0075,
         "price": 10,
-        "stp": 1,
+        "stp": [1],
         "template": "ITEMTPL_733"
     },
     {
@@ -5116,7 +5116,7 @@
         "gr": 8,
         "weight": 7.5,
         "price": 10000,
-        "stp": 120,
+        "stp": [120],
         "template": "ITEMTPL_414"
     },
     {
@@ -5131,7 +5131,7 @@
         "gr": 13,
         "weight": 0.25,
         "price": 1,
-        "stp": 10,
+        "stp": [10],
         "template": "ITEMTPL_722"
     },
     {
@@ -5260,7 +5260,7 @@
         "gr": 7,
         "weight": 4,
         "price": 24,
-        "stp": 60,
+        "stp": [60],
         "template": "ITEMTPL_163"
     },
     {"name": "Kutte", "gr": 6, "weight": 2, "price": 2.5, "template": "ITEMTPL_108"},
@@ -5375,7 +5375,7 @@
         "gr": 10,
         "weight": 0.1,
         "price": 2,
-        "stp": 2,
+        "stp": [2],
         "template": "ITEMTPL_206"
     },
     {
@@ -5391,7 +5391,7 @@
         "gr": 24,
         "weight": 0.5,
         "price": 1,
-        "stp": 4,
+        "stp": [4],
         "template": "ITEMTPL_349"
     },
     {
@@ -5470,7 +5470,7 @@
         "weight": 1,
         "damageDiceNumber": 1,
         "length": 45,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_67",
@@ -5550,7 +5550,7 @@
         "gr": 6,
         "weight": 0.5,
         "price": 1,
-        "stp": 3,
+        "stp": [3],
         "template": "ITEMTPL_133"
     },
     {
@@ -5592,7 +5592,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 2,
         "length": 50,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_70",
@@ -5604,7 +5604,7 @@
         "weight": 2,
         "price": 35,
         "length": 350,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "template": "ITEMTPL_465",
         "range": [1, 3, 5]
@@ -5617,7 +5617,7 @@
         "damageDiceNumber": 2,
         "damageFlat": 2,
         "length": 110,
-        "reloadTime": 2,
+        "reloadTime": [2],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_73",
@@ -5631,7 +5631,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 10,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_74",
@@ -5658,7 +5658,7 @@
         "gr": 7,
         "weight": 3,
         "price": 14.5,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_179"
     },
     {
@@ -5666,7 +5666,7 @@
         "gr": 7,
         "weight": 6,
         "price": 25,
-        "stp": 7,
+        "stp": [7],
         "template": "ITEMTPL_180"
     },
     {
@@ -5674,7 +5674,7 @@
         "gr": 7,
         "weight": 8,
         "price": 40,
-        "stp": 8,
+        "stp": [8],
         "template": "ITEMTPL_439"
     },
     {
@@ -5718,7 +5718,7 @@
         "damageDiceNumber": 1,
         "damageFlat": 1,
         "length": 10,
-        "reloadTime": 1,
+        "reloadTime": [1],
         "combatTechnique": "CT_14",
         "damageDiceSides": 6,
         "template": "ITEMTPL_71",
