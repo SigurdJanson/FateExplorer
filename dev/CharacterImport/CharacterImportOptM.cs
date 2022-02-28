@@ -242,8 +242,6 @@ namespace FateExplorer.CharacterImport
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
                     if (s.Key != OptSpecialAbility.Language)
                         Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, s.Value[0].Tier));
-                //foreach (var sub in s.Value)
-                //    Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, sub.Tier));
             }
             return Result;
         }
@@ -528,13 +526,11 @@ namespace FateExplorer.CharacterImport
         public string Where { get; set; }
 
 
-        #region Unclear
         /// <summary>
-        /// ?
+        /// Structure points
         /// </summary>
         [JsonPropertyName("stp")]
-        public int? Stp { get; set; }
-        #endregion
+        public int? StruPo { get; set; }
 
 
 
