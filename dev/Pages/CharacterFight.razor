@@ -48,7 +48,7 @@
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>
-                            @WeaponProps(w)
+                            @BaseWeaponProps(w)
                         </MudText>
                         </div>
                         <MudSpacer/>
@@ -74,7 +74,7 @@
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Dominant hand</MudText>
                                     <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.MainWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.MainWeapon)</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.MainWeapon, HandsViMo.Hand.Main)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
                                     @if (!Hero.Hands.IsBare(HandsViMo.Hand.Main))
@@ -109,7 +109,7 @@
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Non-dominant hand</MudText>
                                     <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.OffWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@WeaponProps(Hero.Hands.OffWeapon)</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.OffWeapon, HandsViMo.Hand.Off)</MudText>
                                 </CardHeaderContent>
                                 <CardHeaderActions>
                                     @if (!Hero.Hands.IsBare(HandsViMo.Hand.Off))
@@ -282,21 +282,42 @@ else
 
 
     #region RENDERING /// /// ///
-
-    private RenderFragment WeaponProps(WeaponViMo Weapon)
+    
+    
+    private RenderFragment BaseWeaponProps(WeaponViMo Weapon)
     {
         if (Weapon.DamageBonus == 0)
             return 
                 @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill) 
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill)
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.BaseAtSkill)
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.BasePaSkill)
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
                 </span>;
         else
             return
                 @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill)
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill)
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.BaseAtSkill)
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.BasePaSkill)
+                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
+                </span>;
+    }
+
+
+    private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
+    {
+        var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? Hero.Hands.OffWeapon : Hero.Hands.MainWeapon;
+        if (Weapon.DamageBonus == 0)
+            return 
+                @<span>
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(Hero.Hands, OtherWeapon.Branch))
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(Hero.Hands, OtherWeapon.Branch))
+                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
+                </span>;
+        else
+            return
+                @<span>
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(Hero.Hands, OtherWeapon.Branch))
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(Hero.Hands, OtherWeapon.Branch))
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
                 </span>;
     }

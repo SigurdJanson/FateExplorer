@@ -51,9 +51,14 @@ namespace FateExplorer.CharacterModel
                 CombatBranch.Melee => -2, // second weapon
                 _ => 0
             };
-            // TODO: compensate in case of special ability 'two-handed combat'
+            // Compensate penalty with special ability "twohanded combat"
             if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
-                TwoHandMod = Math.Max(0, TwoHandMod - 1);
+            {
+                if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 2)
+                    TwoHandMod = Math.Max(0, TwoHandMod + 2);
+                else if(Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 1)
+                    TwoHandMod = Math.Max(0, TwoHandMod + 1);
+            }
 
             return BaseAtSkill + OffHandMod + TwoHandMod;
         }
@@ -88,6 +93,8 @@ namespace FateExplorer.CharacterModel
                 _ => 0
             };
             // TODO: compensate in case of special ability 'two-handed combat'
+            if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
+                TwoHandMod = Math.Max(0, TwoHandMod + 1);
 
             // Determine passive bonus of parry weapon or shield
             int ParryMod;
