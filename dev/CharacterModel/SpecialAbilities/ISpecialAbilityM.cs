@@ -19,13 +19,5 @@
         /// and included in computations.
         /// </summary>
         bool IsRecognized { get; }
-
-
-        //string Sid { get; }
-        //bool HasSid();
-        //Type GetSid1Type();
-        //string Sid2 { get; }
-        //bool HasSid2();
-        //Type GetSid2Type();
     }
 }
