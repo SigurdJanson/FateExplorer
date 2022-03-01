@@ -1,5 +1,4 @@
-﻿using FateExplorer.CharacterModel.SpecialAbilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FateExplorer.CharacterModel
 {
@@ -21,8 +20,12 @@ namespace FateExplorer.CharacterModel
 
         Dictionary<string, AbilityM> Abilities { get; }
 
-        Dictionary<string, ISpecialAbilityM> SpecialAbilities { get; }
+        Dictionary<string, IActivatableM> SpecialAbilities { get; }
         Dictionary<string, LanguageM> Languages { get; }
+
+
+        Dictionary<string, IActivatableM> Advantages { get; }
+        Dictionary<string, IActivatableM> Disadvantages { get; }
 
 
         Dictionary<string, CharacterEnergyM> Energies { get; }

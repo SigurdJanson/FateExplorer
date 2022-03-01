@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace FateExplorer.CharacterModel.SpecialAbilities
+namespace FateExplorer.CharacterModel
 {
 
-    public class LanguageM : ISpecialAbilityM
+    public class LanguageM : IActivatableM
     {
         const string ExpectedId = "SA_29";
 

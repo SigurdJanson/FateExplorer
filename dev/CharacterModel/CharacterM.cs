@@ -1,5 +1,4 @@
 ﻿using FateExplorer.CharacterImport;
-using FateExplorer.CharacterModel.SpecialAbilities;
 using FateExplorer.GameData;
 using System.Collections.Generic;
 
@@ -11,7 +10,9 @@ namespace FateExplorer.CharacterModel
     /// Holds the strings to identify special abilities
     /// </summary>
     public static class SA
-    { 
+    {
+        public const string Writing = "SA_27";
+        public const string Language = "SA_29";
         public const string TwoHandedCombat = "SA_42";
     }
 
@@ -47,6 +48,10 @@ namespace FateExplorer.CharacterModel
             // SPECIAL ABILITIES
             SpecialAbilities = characterImportOptM.GetSpecialAbilities();
             Languages = characterImportOptM.GetLanguages();
+
+            // DIS-ADVANTAGES
+            Advantages = characterImportOptM.GetAdvantages();
+            Disadvantages = characterImportOptM.GetDisadvantages();
 
             // SKILLS
             Skills = new(this, characterImportOptM, gameData);
@@ -152,21 +157,28 @@ namespace FateExplorer.CharacterModel
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
-        public Dictionary<string, ISpecialAbilityM> SpecialAbilities { get; protected set; }
+        public int GetAbility(string Id) => Abilities[Id].Value;
+
+        public Dictionary<string, IActivatableM> SpecialAbilities { get; protected set; }
+
+        public bool HasSpecialAbility(string Id) => SpecialAbilities?.ContainsKey(Id) ?? false;
+
         public Dictionary<string, LanguageM> Languages { get; protected set; }
+
+
+        public Dictionary<string, IActivatableM> Advantages { get; protected set; }
+        public Dictionary<string, IActivatableM> Disadvantages { get; protected set; }
+
 
         public Dictionary<string, CharacterEnergyM> Energies { get; set; }
 
         public Dictionary<string, ResilienceM> Resiliences { get; set; }
+
 
         public Dictionary<string, CombatTechM> CombatTechs { get; set; }
 
         public DodgeM Dodge { get; set; }
 
         public CharacterSkillsM Skills { get; set; }
-
-        public int GetAbility(string Id) => Abilities[Id].Value;
-
-        public bool HasSpecialAbility(string Id) => SpecialAbilities?.ContainsKey(Id) ?? false;
     }
 }

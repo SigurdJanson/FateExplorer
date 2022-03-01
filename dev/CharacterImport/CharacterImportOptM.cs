@@ -1,5 +1,4 @@
 ﻿using FateExplorer.CharacterModel;
-using FateExplorer.CharacterModel.SpecialAbilities;
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
@@ -234,21 +233,21 @@ namespace FateExplorer.CharacterImport
         /// </summary>
         /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
         /// <returns>List of id strings that match the request</returns>
-        public Dictionary<string, ISpecialAbilityM> GetActivatables(string Id)
+        public Dictionary<string, IActivatableM> GetActivatables(string Id)
         {
-            Dictionary<string, ISpecialAbilityM> Result = new();
+            Dictionary<string, IActivatableM> Result = new();
             foreach (var s in Activatable)
             {
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
                     if (s.Key != OptSpecialAbility.Language)
-                        Result.Add(s.Key, new SpecialAbilitySwitchM(s.Key, s.Value[0].Tier));
+                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier));
             }
             return Result;
         }
 
 
         /// <summary>
-        /// 
+        /// Returns a list of all instances of the special ability "Language"
         /// </summary>
         /// <returns></returns>
         public Dictionary<string, LanguageM> GetLanguages()
@@ -268,15 +267,15 @@ namespace FateExplorer.CharacterImport
 
 
         /// <inheritdoc />
-        public Dictionary<string, ISpecialAbilityM> GetSpecialAbilities()
+        public Dictionary<string, IActivatableM> GetSpecialAbilities()
             => GetActivatables(SpecialAbilityMarker);
 
         /// <inheritdoc />
-        public Dictionary<string, ISpecialAbilityM> GetAdvantages()
+        public Dictionary<string, IActivatableM> GetAdvantages()
             => GetActivatables(AdvantageMarker);
 
         /// <inheritdoc />
-        public Dictionary<string, ISpecialAbilityM> GetDisadvantages()
+        public Dictionary<string, IActivatableM> GetDisadvantages()
             => GetActivatables(DisadvantageMarker);
 
 

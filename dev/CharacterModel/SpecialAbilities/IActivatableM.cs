@@ -1,6 +1,9 @@
 ﻿namespace FateExplorer.CharacterModel
 {
-    public interface ISpecialAbilityM
+    /// <summary>
+    /// An interface to represent advantages, disadvantages, and special abilities.
+    /// </summary>
+    public interface IActivatableM
     {
         /// <summary>
         /// A string id

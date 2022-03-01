@@ -1,13 +1,16 @@
 ﻿using System;
 
-namespace FateExplorer.CharacterModel.SpecialAbilities
+namespace FateExplorer.CharacterModel
 {
-    public class SpecialAbilitySwitchM : ISpecialAbilityM
+    /// <summary>
+    /// Represents a basic 
+    /// </summary>
+    public class TieredActivatableM : IActivatableM
     {
-        public SpecialAbilitySwitchM(string id, int tier)
+        public TieredActivatableM(string id, int tier)
         {
             if (id is null) throw new ArgumentNullException(nameof(id));
-            if (tier < 0 || tier > 4) throw new ArgumentException("Language allows skill only between 0-4", nameof(tier));
+            if (tier < 0) throw new ArgumentException("Language allows skill only between 0-4", nameof(tier));
 
             Id = id;
             Tier = tier;

@@ -153,7 +153,6 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
-
         public List<LanguageDTO> GetLanguages()
         {
             List<LanguageDTO> Result = new();
@@ -171,6 +170,30 @@ namespace FateExplorer.ViewModel
                     Name = sa.Value.Language.ToString(),
                     Tier = (LanguageAbility)sa.Value.Tier,
                     Language = sa.Value.Language
+                };
+                Result.Add(item);
+            }
+
+            return Result;
+        }
+
+
+        public List<SpecialAbilityDTO> GetAdvantages()
+        {
+            List<SpecialAbilityDTO> Result = new();
+            foreach (var adv in characterM?.Advantages)
+            {
+                string Name;
+                try
+                {
+                    Name = GameDataService.DisAdvantages[adv.Key].Name;
+                }
+                catch (Exception) { Name = "unknown"; }
+                SpecialAbilityDTO item = new()
+                {
+                    Id = adv.Key,
+                    Name = Name,
+                    Tier = adv.Value.Tier
                 };
                 Result.Add(item);
             }
