@@ -223,7 +223,7 @@ namespace FateExplorer.GameData
             fileName = $"data/specabs_{Language}.json";
             SpecialAbilities = await DataSource.GetFromJsonAsync<SpecialAbilityDB>(fileName);
 
-            fileName = $"data/dis-advantages{Language}.json";
+            fileName = $"data/dis-advantages_{Language}.json";
             DisAdvantages = await DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
 
 

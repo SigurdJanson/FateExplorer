@@ -1,4 +1,4 @@
-[
+{"Entries": [
 {"name": "Adel I-III", "id": "ADV_1", "type": 1},
 {"name": "Altersresistenz", "id": "ADV_2", "type": 1},
 {"name": "Angenehmer Geruch", "id": "ADV_3", "type": 1},
@@ -108,7 +108,7 @@
 {"name": "Schnell wieder auf den Beinen", "id": "", "type": 1},
 {"name": "Schutzgeist", "id": "", "type": 1},
 {"name": "Seesprache", "id": "", "type": 1},
-{"name": "Tierfreund", "id": "", "type": 1},
+{"name": "Tierfreund", "id": "ADV_70", "type": 1},
 {"name": "Tiergeistaura (Patron)", "id": "", "type": 1},
 {"name": "Tierische Kampfgefährten", "id": "", "type": 1},
 {"name": "Unbeschwertes Zaubern", "id": "", "type": 1},
@@ -138,7 +138,7 @@
 {"name": "Empfindlichkeit (unedle Metalle)", "id": "", "type": -1},
 {"name": "Hitzeempfindlich II", "id": "", "type": -1},
 {"name": "Instabiler Zauberer", "id": "", "type": -1},
-{"name": "Jagdwildgeruch", "id": "", "type": -1},
+{"name": "Jagdwildgeruch", "id": "DISADV_64", "type": -1},
 {"name": "Kleine Zauberauswahl I-II", "id": "", "type": -1},
 {"name": "Lächerlicher Name", "id": "", "type": -1},
 {"name": "Lästige Blütenfeen", "id": "", "type": -1},
@@ -209,5 +209,5 @@
 {"name": "Wahrer Name", "id": "DISADV_52", "type": -1},
 {"name": "Wilde Magie", "id": "DISADV_53", "type": -1},
 {"name": "Zauberanfällig I-II", "id": "DISADV_54", "type": -1},
-{"name": "Zerbrechlich", "id": "DISADV_55", "type": -1}]
+{"name": "Zerbrechlich", "id": "DISADV_55", "type": -1}]}
 

@@ -73,6 +73,23 @@ namespace FateExplorer.Shared
         public int Tier { get; set; }
     }
 
+
+    public struct DisAdvantageDTO
+    {
+        /// <summary>
+        /// The id of the special ability
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The level of the special ability
+        /// </summary>
+        public int Tier { get; set; }
+    }
+
     /// <summary>
     /// DTO for a special ability of languages
     /// </summary>

@@ -38,6 +38,9 @@ namespace FateExplorer.ViewModel
         List<SpecialAbilityDTO> GetSpecialAbilities();
         List<LanguageDTO> GetLanguages();
 
+        List<DisAdvantageDTO> GetAdvantages();
+        List<DisAdvantageDTO> GetDisadvantages();
+
         //
         /// <summary>
         /// Get the skills from a character.

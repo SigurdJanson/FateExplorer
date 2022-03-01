@@ -178,9 +178,13 @@ namespace FateExplorer.ViewModel
         }
 
 
-        public List<SpecialAbilityDTO> GetAdvantages()
+        /// <summary>
+        /// Returns a list with the characters advantages
+        /// </summary>
+        /// <returns>List</returns>
+        public List<DisAdvantageDTO> GetAdvantages()
         {
-            List<SpecialAbilityDTO> Result = new();
+            List<DisAdvantageDTO> Result = new();
             foreach (var adv in characterM?.Advantages)
             {
                 string Name;
@@ -189,7 +193,35 @@ namespace FateExplorer.ViewModel
                     Name = GameDataService.DisAdvantages[adv.Key].Name;
                 }
                 catch (Exception) { Name = "unknown"; }
-                SpecialAbilityDTO item = new()
+                DisAdvantageDTO item = new()
+                {
+                    Id = adv.Key,
+                    Name = Name,
+                    Tier = adv.Value.Tier
+                };
+                Result.Add(item);
+            }
+
+            return Result;
+        }
+
+
+        /// <summary>
+        /// Returns a list with the characters disadvantages
+        /// </summary>
+        /// <returns>List</returns>
+        public List<DisAdvantageDTO> GetDisadvantages()
+        {
+            List<DisAdvantageDTO> Result = new();
+            foreach (var adv in characterM?.Disadvantages)
+            {
+                string Name;
+                try
+                {
+                    Name = GameDataService.DisAdvantages[adv.Key].Name;
+                }
+                catch (Exception) { Name = "unknown"; }
+                DisAdvantageDTO item = new()
                 {
                     Id = adv.Key,
                     Name = Name,

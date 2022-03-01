@@ -1,4 +1,4 @@
-[{"name": "Ambidextrous", "id": "ADV_5", "type": 1},
+{"Entries": [{"name": "Ambidextrous", "id": "ADV_5", "type": 1},
 {"name": "Animal Friend", "id": "ADV_70", "type": 1},
 {"name": "Aptitude", "id": "ADV_4", "type": 1},
 {"name": "Aquatic Creature", "id": "", "type": 1},
@@ -110,4 +110,4 @@
 {"name": "Weak Regeneration (Arcane Energy) I-III", "id": "DISADV_38", "type": -1},
 {"name": "Weak Regeneration (Karma Points) I-III", "id": "DISADV_39", "type": -1},
 {"name": "Weak Regeneration (Life Points) I-III", "id": "DISADV_40", "type": -1},
-{"name": "Wild Magic", "id": "DISADV_53", "type": -1}]
+{"name": "Wild Magic", "id": "DISADV_53", "type": -1}]}
