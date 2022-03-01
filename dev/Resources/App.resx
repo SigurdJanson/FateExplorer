@@ -362,6 +362,9 @@
   <data name="lblAbility" xml:space="preserve">
     <value>Ability</value>
   </data>
+  <data name="lblAdvantages" xml:space="preserve">
+    <value>Advantages</value>
+  </data>
   <data name="lblAll" xml:space="preserve">
     <value>All</value>
   </data>
@@ -388,6 +391,9 @@
   </data>
   <data name="lblDie" xml:space="preserve">
     <value>Die</value>
+  </data>
+  <data name="lblDisadvantages" xml:space="preserve">
+    <value>Disadvantages</value>
   </data>
   <data name="lblFindSkill" xml:space="preserve">
     <value>Find a Skill</value>

@@ -116,6 +116,32 @@
                     }
                 }
                 </MudText>
+
+                <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
+                <MudText Typo=Typo.body2 Class="mb-3">
+                @{
+                    var Advantages = Hero.GetAdvantages();
+                    @for(int i = 0; i < Advantages.Count; i++)
+                    {
+                            @Advantages[i].Name;
+                            if (Advantages[i].Tier > 0) {<span> (@Advantages[i].Tier)</span>};
+                            if (i != Advantages.Count-1) {<span>, </span>};
+                    }
+                }
+                </MudText>
+
+                <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
+                <MudText Typo=Typo.body2 Class="mb-3">
+                @{
+                    var Disadvantages = Hero.GetDisadvantages();
+                    @for(int i = 0; i < Disadvantages.Count; i++)
+                    {
+                            @Disadvantages[i].Name;
+                            if (Disadvantages[i].Tier > 0) {<span> (@Disadvantages[i].Tier)</span>};
+                            if (i != Disadvantages.Count-1) {<span>, </span>};
+                    }
+                }
+                </MudText>
             </MudPaper>
         </MudItem>
 

@@ -356,6 +356,9 @@
   <data name="lblAbility" xml:space="preserve">
     <value>Eigenschaft</value>
   </data>
+  <data name="lblAdvantages" xml:space="preserve">
+    <value>Vorteile</value>
+  </data>
   <data name="lblAll" xml:space="preserve">
     <value>Alle</value>
   </data>
@@ -382,6 +385,9 @@
   </data>
   <data name="lblDie" xml:space="preserve">
     <value>Würfel</value>
+  </data>
+  <data name="lblDisadvantages" xml:space="preserve">
+    <value>Nachteile</value>
   </data>
   <data name="lblFindSkill" xml:space="preserve">
     <value>Fertigkeiten finden</value>
