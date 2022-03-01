@@ -16,6 +16,11 @@ namespace FateExplorer.CharacterModel
         public const string TwoHandedCombat = "SA_42";
     }
 
+    public static class ADV
+    {
+        public const string Ambidexterous = "ADV_5";
+    }
+
 
     /// <summary>
     /// 
@@ -167,7 +172,10 @@ namespace FateExplorer.CharacterModel
 
 
         public Dictionary<string, IActivatableM> Advantages { get; protected set; }
+        public bool HasAdvantage(string Id) => Advantages?.ContainsKey(Id) ?? false;
+
         public Dictionary<string, IActivatableM> Disadvantages { get; protected set; }
+        public bool HasDisadvantage(string Id) => Disadvantages?.ContainsKey(Id) ?? false;
 
 
         public Dictionary<string, CharacterEnergyM> Energies { get; set; }

@@ -25,7 +25,9 @@ namespace FateExplorer.CharacterModel
 
 
         Dictionary<string, IActivatableM> Advantages { get; }
+        bool HasAdvantage(string Id);
         Dictionary<string, IActivatableM> Disadvantages { get; }
+        bool HasDisadvantage(string Id);
 
 
         Dictionary<string, CharacterEnergyM> Energies { get; }

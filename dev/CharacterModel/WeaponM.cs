@@ -27,6 +27,8 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         public int BasePaSkill { get; protected set; }
 
+
+
         /// <summary>
         /// The attack skill value after taking into account if the character carries a 
         /// second weapon or even uses the non-dominant hand.
@@ -37,11 +39,13 @@ namespace FateExplorer.CharacterModel
         public int AtSkill(bool MainHand, CombatBranch otherHand)
         {
             int OffHandMod;
-            if (Branch != CombatBranch.Unarmed) 
+            if (Hero.HasAdvantage(ADV.Ambidexterous))
+                OffHandMod = 0;
+            else if (Branch != CombatBranch.Unarmed) 
                 OffHandMod = !MainHand ? -4 : 0;
             else
                 OffHandMod = 0;
-            // TODO: compensate in case of advantage 'ambidexterous'
+            
 
             int TwoHandMod = otherHand switch
             {
@@ -77,11 +81,13 @@ namespace FateExplorer.CharacterModel
         {
             // Determine off-hand penalty
             int OffHandMod;
-            if (Branch == CombatBranch.Shield)
+            if (Hero.HasAdvantage(ADV.Ambidexterous))
+                OffHandMod = 0;
+            else if (Branch == CombatBranch.Shield)
                 OffHandMod = 0; // no off-hand penalty for shields
             else
                 OffHandMod = !MainHand ? -4 : 0;
-            // TODO: compensate in case of advantage 'ambidexterous' 
+
 
             // Determine penalty when carrying two weapons
             int TwoHandMod = otherHand switch
@@ -92,9 +98,14 @@ namespace FateExplorer.CharacterModel
                 CombatBranch.Melee => -2,
                 _ => 0
             };
-            // TODO: compensate in case of special ability 'two-handed combat'
+            // Compensate penalty with special ability "twohanded combat"
             if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
-                TwoHandMod = Math.Max(0, TwoHandMod + 1);
+            {
+                if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 2)
+                    TwoHandMod = Math.Max(0, TwoHandMod + 2);
+                else if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 1)
+                    TwoHandMod = Math.Max(0, TwoHandMod + 1);
+            }
 
             // Determine passive bonus of parry weapon or shield
             int ParryMod;
