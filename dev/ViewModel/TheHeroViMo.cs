@@ -156,14 +156,9 @@ namespace FateExplorer.ViewModel
         public List<LanguageDTO> GetLanguages()
         {
             List<LanguageDTO> Result = new();
+            if (characterM?.Languages is null) return Result;
             foreach (var sa in characterM?.Languages)
             {
-                string Name;
-                try
-                {
-                    Name = GameDataService.SpecialAbilities[sa.Key].Name;
-                }
-                catch (Exception) { Name = "unknown"; }
                 LanguageDTO item = new()
                 {
                     Id = sa.Key,

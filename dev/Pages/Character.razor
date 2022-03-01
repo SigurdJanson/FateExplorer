@@ -90,20 +90,88 @@
                 </MudGrid>
             </MudPaper>
 
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
-                <MudText Typo=Typo.body2 Class="mb-3">
-                @{
-                    var Langs = Hero.GetLanguages();
-                    @for(int i = 0; i < Langs.Count; i++)
-                    {
-                            @l10n[Langs[i].Name];
-                            if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
-                            if (i != Langs.Count-1) {<span>, </span>};
-                    }
-                }
-                </MudText>
-                
+            <MudPaper Elevation=0 Outlined=true>   @*Class="pa-4"*@
+                <MudExpansionPanels DisableBorders=true Elevation=0 MultiExpansion=true >
+                    <MudExpansionPanel HideIcon=true>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
+                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Langs.Count</MudAvatar>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            @{
+                                @for(int i = 0; i < Langs.Count; i++)
+                                {
+                                    @l10n[Langs[i].Name];
+                                    if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
+                                    if (i != Langs.Count-1) {<span>, </span>};
+                                }
+                            }
+                        </ChildContent>
+                    </MudExpansionPanel>
+
+                    <MudExpansionPanel HideIcon=true>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
+                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@SpecialAbilities.Count</MudAvatar>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            @{
+                                @for(int i = 0; i < SpecialAbilities.Count; i++)
+                                {
+                                    @SpecialAbilities[i].Name;
+                                    if (SpecialAbilities[i].Tier > 0) {<span> (@SpecialAbilities[i].Tier)</span>};
+                                    if (i != SpecialAbilities.Count-1) {<span>, </span>};
+                                }
+                            }
+                        </ChildContent>
+                    </MudExpansionPanel>
+
+
+                    <MudExpansionPanel HideIcon=true>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
+                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Advantages.Count</MudAvatar>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            @{
+                                @for(int i = 0; i < Advantages.Count; i++)
+                                {
+                                    @Advantages[i].Name;
+                                    if (Advantages[i].Tier > 0) {<span> (@Advantages[i].Tier)</span>};
+                                    if (i != Advantages.Count-1) {<span>, </span>};
+                                }
+                            }
+                        </ChildContent>
+                    </MudExpansionPanel>
+
+
+                    <MudExpansionPanel HideIcon=true>
+                        <TitleContent>
+                            <div class="d-flex">
+                                <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
+                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Disadvantages.Count</MudAvatar>
+                            </div>
+                        </TitleContent>
+                        <ChildContent>
+                            @{
+                                @for(int i = 0; i < Disadvantages.Count; i++)
+                                {
+                                    @Disadvantages[i].Name;
+                                    if (Disadvantages[i].Tier > 0) {<span> (@Disadvantages[i].Tier)</span>};
+                                    if (i != Disadvantages.Count-1) {<span>, </span>};
+                                }
+                            }
+                        </ChildContent>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+
+@*                
                 <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
                 <MudText Typo=Typo.body2 Class="mb-3">
                 @{
@@ -115,8 +183,8 @@
                             if (i != SpecialAbilities.Count-1) {<span>, </span>};
                     }
                 }
-                </MudText>
-
+                </MudText>*@
+@*
                 <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
                 <MudText Typo=Typo.body2 Class="mb-3">
                 @{
@@ -128,9 +196,9 @@
                             if (i != Advantages.Count-1) {<span>, </span>};
                     }
                 }
-                </MudText>
+                </MudText>*@
 
-                <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
+@*                <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
                 <MudText Typo=Typo.body2 Class="mb-3">
                 @{
                     var Disadvantages = Hero.GetDisadvantages();
@@ -141,7 +209,7 @@
                             if (i != Disadvantages.Count-1) {<span>, </span>};
                     }
                 }
-                </MudText>
+                </MudText>*@
             </MudPaper>
         </MudItem>
 
@@ -182,12 +250,62 @@ else
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
 
+    private List<LanguageDTO> langs;
+    private List<LanguageDTO> Langs
+    {
+        get
+        {
+            if (langs is null || langs.Count == 0)
+                langs = Hero.GetLanguages();
+            return langs;
+        }
+    }
+
+    private List<SpecialAbilityDTO> specialAbilities;
+    private List<SpecialAbilityDTO> SpecialAbilities
+    {
+        get
+        {
+            if (specialAbilities is null || specialAbilities.Count == 0)
+                specialAbilities = Hero.GetSpecialAbilities();
+            return specialAbilities;
+        }
+    }
+
+
+    private List<DisAdvantageDTO> advantages;
+    private List<DisAdvantageDTO> Advantages
+    {
+        get
+        {
+            if (advantages is null || advantages.Count == 0)
+                advantages = Hero.GetAdvantages();
+            return advantages;
+        }
+    }
+
+
+    private List<DisAdvantageDTO> disadvantages;
+    private List<DisAdvantageDTO> Disadvantages
+    {
+        get
+        {
+            if (disadvantages is null || disadvantages.Count == 0)
+                disadvantages = Hero.GetDisadvantages();
+            return disadvantages;
+        }
+    }
+
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         if (RollCheckResults is null)
             RollCheckResults = new(4);
     }
+
+
+
 
     /// <summary>Reacts to any changes of the character view model</summary>
     protected void OnCharacterHasLoaded() => StateHasChanged();
@@ -211,6 +329,8 @@ else
     }
 
 
+    // RENDERING 
+
     RenderFragment AddMaxResilience(ResilienceDTO r)
     {
         if (r.Max != r.EffectiveValue)
@@ -219,4 +339,6 @@ else
         else
             return @<span></span>;
     }
+
+
 }
