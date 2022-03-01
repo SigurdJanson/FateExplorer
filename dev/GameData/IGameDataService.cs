@@ -8,6 +8,8 @@ namespace FateExplorer.GameData
 
         public SpecialAbilityDB SpecialAbilities { get; }
 
+        DisAdvantagesDB DisAdvantages { get; }
+
         public BotchEntry GetSkillBotch(SkillDomain domain, int DiceEyes);
 
         public BotchEntry GetAttackBotch(CombatBranch technique, int DiceEyes);

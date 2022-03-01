@@ -36,6 +36,19 @@ namespace FateExplorer.GameData
         }
 
 
+        private DisAdvantagesDB disAdvantages;
+        public DisAdvantagesDB DisAdvantages
+        {
+            get
+            {
+                if (disAdvantages is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return disAdvantages;
+            }
+            protected set => disAdvantages = value;
+        }
+
+
         private BotchDB botches;
         public BotchDB Botches // not part of interface IGameDataService
         {
@@ -209,7 +222,10 @@ namespace FateExplorer.GameData
 
             fileName = $"data/specabs_{Language}.json";
             SpecialAbilities = await DataSource.GetFromJsonAsync<SpecialAbilityDB>(fileName);
-            
+
+            fileName = $"data/dis-advantages{Language}.json";
+            DisAdvantages = await DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
+
 
             fileName = $"data/resiliences_{Language}.json";
             Resiliences = await DataSource.GetFromJsonAsync<ResiliencesDB>(fileName);
