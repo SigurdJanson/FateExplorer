@@ -481,9 +481,6 @@ namespace FateExplorer.CharacterImport
     }
 
 
-    // TODO: advantages
-    // TODO: disadvantages
-
 
 
     public class BelongingItem
@@ -639,7 +636,7 @@ namespace FateExplorer.CharacterImport
 
         // ?
         [JsonPropertyName("armorType")]
-        public int? ArmorType { get; set; } //TODO
+        public int? ArmorType { get; set; }
         #endregion
     }
 

@@ -59,7 +59,7 @@
                                             <MudChip Text="@d.ToString()" Label=true 
                                                      Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
                                                      @l10n["SkillDomain."+d.ToString()]
-                                            </MudChip>
+                                            </MudChip> @* do not use strings like that: use nameof(SkillDomain) or sth similar*@
                                         }
                                 </MudChipSet>
                                 }
