@@ -19,8 +19,10 @@
                     <MudListItem IconColor=Color.Error OnClick=@(() => OnCupClicked(Cup))>
                         <div class="d-flex">
                             <AvatarDiceCup DieSides=@Cup.Sides Class="mr-4" />
-                            <MudText>@Cup.Name</MudText>
-                            <MudText Class="ml-auto">@Cup.Description</MudText>
+                            <div class="d-block">
+                                <MudText Typo=Typo.caption>@l10n[Cup.Name]</MudText>
+                                <MudText Class="ml-auto">@l10n[Cup.Description]</MudText>
+                            </div>
                         </div>
                     </MudListItem>
                     }

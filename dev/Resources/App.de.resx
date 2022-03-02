@@ -217,6 +217,22 @@
     <value>Zyklopäisch</value>
     <comment>enum LanguageId</comment>
   </data>
+  <data name="descFreeAbility" xml:space="preserve">
+    <value>Einfache W20</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeBotch" xml:space="preserve">
+    <value>2W6 Würfe</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeSix" xml:space="preserve">
+    <value>Einfacher W6</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeSkill" xml:space="preserve">
+    <value>3W20 Würfe</value>
+    <comment>Free Dice</comment>
+  </data>
   <data name="DEX" xml:space="preserve">
     <value>FF</value>
     <comment>Abilities</comment>
@@ -371,6 +387,9 @@
   <data name="lblBelongings" xml:space="preserve">
     <value>Besitz</value>
   </data>
+  <data name="lblBotch" xml:space="preserve">
+    <value>Patzerwurf</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Anzahl</value>
   </data>
@@ -422,6 +441,10 @@
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="lblNewDiceCup" xml:space="preserve">
+    <value>Neuer Würfelbecher</value>
+    <comment>DlgFreeDiceCup</comment>
+  </data>
   <data name="lblNoCharacter" xml:space="preserve">
     <value>Keine Charakterdaten vorhanden</value>
     <comment>No Character Skeleton</comment>
@@ -464,6 +487,15 @@
   </data>
   <data name="lblSelectStockCategory" xml:space="preserve">
     <value>Kategorie wählen</value>
+  </data>
+  <data name="lblSides" xml:space="preserve">
+    <value>Seiten</value>
+  </data>
+  <data name="lblSix" xml:space="preserve">
+    <value>Sechser</value>
+  </data>
+  <data name="lblSkill" xml:space="preserve">
+    <value>Fertigkeit</value>
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
@@ -565,7 +597,7 @@
     <comment>Energy regeneration</comment>
   </data>
   <data name="msgRequired" xml:space="preserve">
-    <value>Der Wert brauche ich</value>
+    <value>Den Wert brauche ich</value>
   </data>
   <data name="msgWrongContentType" xml:space="preserve">
     <value>Diese App erwartet eine JSON Datei. Die angegebene Datei ist vom Typ  {0}.</value>
@@ -591,10 +623,6 @@
   </data>
   <data name="naviShop" xml:space="preserve">
     <value>Basar</value>
-  </data>
-  <data name="New Dice Cup" xml:space="preserve">
-    <value>New Dice Cup</value>
-    <comment>DlgFreeDiceCup</comment>
   </data>
   <data name="Nujuka" xml:space="preserve">
     <value>Nujuka</value>

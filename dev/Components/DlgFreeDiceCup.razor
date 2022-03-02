@@ -4,8 +4,8 @@
 
 <MudDialog>
     <TitleContent>
-        <MudText Typo="Typo.h6">
-            @l10n["New Dice Cup"]
+        <MudText Typo=Typo.h6>
+            @l10n["lblNewDiceCup"]
         </MudText>
     </TitleContent>
     <DialogContent>
@@ -18,9 +18,10 @@
             <MudItem xs=4 Class="d-inline-flex">
             <MudCard Outlined=true Square=true>
                 <MudCardContent>
-                    <MudNumericField Label="@l10n["lblDie"]" FullWidth=true Min=2 Max=8192
+                    <MudText Typo=Typo.body2>@l10n["lblDie"]</MudText>
+                    <MudNumericField Label=@l10n["lblSides"] FullWidth=true Min=2 Max=8192
                                      Value=cup.Sides ValueChanged=@((int i) => ModifyCup(i, cup, true)) />
-                    <MudNumericField Label="@l10n["lblCount"]" FullWidth=true Min=1 Max=8192
+                    <MudNumericField Label=@l10n["lblCount"] FullWidth=true Min=1 Max=8192
                                      Value=cup.Count  ValueChanged=@((int i) => ModifyCup(i, cup, false)) />
                 </MudCardContent>
                 <MudCardActions>
@@ -32,7 +33,7 @@
             </MudItem>
            }
         </MudGrid>
-        <MudButton Variant="Variant.Outlined" OnClick=AddCup> @l10n["btnAdd"] </MudButton>
+        @*<MudButton Variant="Variant.Outlined" OnClick=AddCup> @l10n["btnAdd"] </MudButton>*@
     </DialogContent>
     <DialogActions>
         <MudButton Class="mx-2" OnClick=Cancel Variant="Variant.Outlined" >@l10n["btnCancel"]</MudButton>

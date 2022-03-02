@@ -223,6 +223,22 @@
     <value>Cyclopean</value>
     <comment>enum LanguageId</comment>
   </data>
+  <data name="descFreeAbility" xml:space="preserve">
+    <value>Plain d20 rolls</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeBotch" xml:space="preserve">
+    <value>Rolls with 2d6</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeSix" xml:space="preserve">
+    <value>Plain d6 rolls</value>
+    <comment>Free Dice</comment>
+  </data>
+  <data name="descFreeSkill" xml:space="preserve">
+    <value>3d20 rolls</value>
+    <comment>Free Dice</comment>
+  </data>
   <data name="DEX" xml:space="preserve">
     <value>DEX</value>
     <comment>Abilities</comment>
@@ -377,6 +393,9 @@
   <data name="lblBelongings" xml:space="preserve">
     <value>Belongings</value>
   </data>
+  <data name="lblBotch" xml:space="preserve">
+    <value>Botch roll</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Count</value>
   </data>
@@ -428,6 +447,10 @@
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="lblNewDiceCup" xml:space="preserve">
+    <value>New Dice Cup</value>
+    <comment>DlgFreeDiceCup</comment>
+  </data>
   <data name="lblNoCharacter" xml:space="preserve">
     <value>No character data available</value>
     <comment>No Character Skeleton</comment>
@@ -470,6 +493,15 @@
   </data>
   <data name="lblSelectStockCategory" xml:space="preserve">
     <value>Choose category</value>
+  </data>
+  <data name="lblSides" xml:space="preserve">
+    <value>Sides</value>
+  </data>
+  <data name="lblSix" xml:space="preserve">
+    <value>Six-Sided</value>
+  </data>
+  <data name="lblSkill" xml:space="preserve">
+    <value>Skill</value>
   </data>
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>SP</value>
@@ -593,10 +625,6 @@
   </data>
   <data name="naviShop" xml:space="preserve">
     <value>Bazaar</value>
-  </data>
-  <data name="New Dice Cup" xml:space="preserve">
-    <value>New Dice Cup</value>
-    <comment>DlgFreeDiceCup</comment>
   </data>
   <data name="Nujuka" xml:space="preserve">
     <value>Nujuka</value>

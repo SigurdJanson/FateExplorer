@@ -9,10 +9,10 @@ namespace FateExplorer.FreeDiceCupViMo
         public DiceCupHolderViMo()
         {
             CupList = new();
-            CupList.Add(new DiceCupViMo("Ability", "Plain d20 rolls", new int[1] { 20 }, true));
-            CupList.Add(new DiceCupViMo("Skill", "3d20 rolls", new int[3] { 20, 20, 20 }, true));
-            CupList.Add(new DiceCupViMo("Six", "Plain d6 rolls", new int[1] { 6 }, true));
-            CupList.Add(new DiceCupViMo("Botch", "Rolls with 2d6", new int[2] { 6, 6 }, true));
+            CupList.Add(new DiceCupViMo("lblAbility", "descFreeAbility", new int[1] { 20 }, true));
+            CupList.Add(new DiceCupViMo("lblSkill", "descFreeSkill", new int[3] { 20, 20, 20 }, true));
+            CupList.Add(new DiceCupViMo("lblSix", "descFreeSix", new int[1] { 6 }, true));
+            CupList.Add(new DiceCupViMo("lblBotch", "descFreeBotch", new int[2] { 6, 6 }, true));
 
             CupRollResults = new();
         }
