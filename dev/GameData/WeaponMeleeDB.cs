@@ -8,7 +8,7 @@ namespace FateExplorer.GameData
         // inherited
 
         [JsonPropertyName("range")]
-        public int Range { get; set; }
+        public int Reach { get; set; }
     }
 
     public class WeaponMeleeDbEntry : WeaponDbEntry
