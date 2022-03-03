@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace RollLogicTests.GameLogic
+namespace vmCode_UnitTests.CharacterModel
 {
     [TestFixture]
     public class ResilienceMTests

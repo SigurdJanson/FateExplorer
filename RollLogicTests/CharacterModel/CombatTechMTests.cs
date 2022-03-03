@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 
-namespace RollLogicTests.GameLogic
+namespace vmCode_UnitTests.CharacterModel
 {
     [TestFixture]
     public class CombatTechMTests
