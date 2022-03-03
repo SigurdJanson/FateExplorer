@@ -56,10 +56,10 @@
                                     </MudChip>
                                         @foreach (var d in SkillDomains)
                                         {
-                                            <MudChip Text="@d.ToString()" Label=true 
+                                            <MudChip Text=@d.ToString() Label=true 
                                                      Size=Size.Large Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary>
-                                                     @l10n["SkillDomain."+d.ToString()]
-                                            </MudChip> @* do not use strings like that: use nameof(SkillDomain) or sth similar*@
+                                                     @l10n["SkillDomain."+d.ToString()] 
+                                            </MudChip>
                                         }
                                 </MudChipSet>
                                 }
@@ -138,7 +138,7 @@ else
         bool DomainMatch = SelectedDomain is null || 
             SelectedDomain.Text == "All" || 
             SelectedDomain.Text == d.ToString();
-
+        
         return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
     }
 

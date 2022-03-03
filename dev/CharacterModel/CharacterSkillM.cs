@@ -31,6 +31,7 @@ namespace FateExplorer.CharacterModel
             {
                 ModifyAgainst = Karma.ModAgainst;
                 Tradition = Karma.Tradition.Clone() as string[];
+                Domain = gameData.Domain;
             }
             //
             Value = value;
