@@ -10,7 +10,7 @@ namespace RollLogicTests.CharacterData
     public class CharacterImportOptMTests
     {
         [Test]
-        [TestCase("Character_Anjin Siebenstich_202012", "1.4.2")]
+        [TestCase("Character_Anjin Siebenstich_202202", "1.4.2")]
         [TestCase("Character_Junis_20200629", "1.3.2")]
         [TestCase("Character_LayarielWipfelglanz_20201025", "1.3.2")]
         [TestCase("Character_RhydderchDiistra_20220102", "1.4.2")]
@@ -33,7 +33,7 @@ namespace RollLogicTests.CharacterData
 
 
         [Test]
-        [TestCase("Character_Anjin Siebenstich_202012", false, false)]
+        [TestCase("Character_Anjin Siebenstich_202202", false, false)]
         [TestCase("Character_Junis_20200629", true, false)]
         [TestCase("Character_LayarielWipfelglanz_20201025", true, false)]
         [TestCase("Character_RhydderchDiistra_20220102", false, false)]

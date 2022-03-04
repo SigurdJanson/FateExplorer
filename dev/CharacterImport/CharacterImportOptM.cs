@@ -347,7 +347,7 @@ namespace FateExplorer.CharacterImport
             {
                 if (i.CombatTechnique is not null && i.Amount > 0)
                     yield return new WeaponDTO()
-                    { 
+                    {
                         Name = i.Name,
                         Id = i.Template,
                         AttackMod = i.AttackMod,

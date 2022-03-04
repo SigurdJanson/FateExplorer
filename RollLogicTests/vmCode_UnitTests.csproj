@@ -21,4 +21,8 @@
     <ProjectReference Include="..\dev\FateExplorer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GameLogic\" />
+  </ItemGroup>
+
 </Project>

@@ -16,7 +16,7 @@ namespace RollLogicTests.GameData
 
 
         [Test]
-        [TestCase("de", "Abgeschwächte Liturgie", "Weg d. Zofe")]
+        [TestCase("de", "*Aspektkenntnis", "Weg d. Zofe")]
         //[TestCase("en", "Basilisk-tongue", "Guild Magic Ball"), Ignore("")]
         public void LoadFromFile_ParseSuccessful(string Language, string SA1, string SALast)
         {
@@ -25,7 +25,7 @@ namespace RollLogicTests.GameData
             SpecialAbilityDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(1088, Result.Count);
+            Assert.AreEqual(1436, Result.Count);
             Assert.AreEqual(SA1, Result[0].Name);
             Assert.AreEqual(SALast, Result[^1].Name);
         }
