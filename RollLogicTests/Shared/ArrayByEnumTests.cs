@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FateExplorer.Shared;
+using NUnit.Framework;
 using System;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
-using RollLogicTests.Shared;
+
 
 namespace FateExplorer.RollLogic
 {
