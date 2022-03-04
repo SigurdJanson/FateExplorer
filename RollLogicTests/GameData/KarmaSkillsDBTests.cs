@@ -1,7 +1,7 @@
 ﻿using FateExplorer.GameData;
 using NUnit.Framework;
 
-namespace RollLogicTests.GameData
+namespace vmCode_UnitTests.GameData
 {
     [TestFixture]
     public class KarmaSkillsDBTests : GameDataTestsBase<KarmaSkillsDB, KarmaSkillDbEntry>

@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
 
     [TestFixture]

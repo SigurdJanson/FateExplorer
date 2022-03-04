@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace RollLogicTests.Shared
+namespace vmCode_UnitTests.Shared
 {
     [TestFixture]
     public class ArrayByEnumTests

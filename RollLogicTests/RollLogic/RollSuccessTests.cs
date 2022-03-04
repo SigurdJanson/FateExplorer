@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
     [TestFixture]
     public class RollSuccessTests

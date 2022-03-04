@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RollLogicTests.CharacterData
+namespace vmCode_UnitTests.CharacterData
 {
     [TestFixture]
     public class JsonOptSkillsConverterTests

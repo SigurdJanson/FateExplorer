@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace RollLogicTests.CharacterData
+namespace vmCode_UnitTests.CharacterData
 {
     [TestFixture]
     public class CharacterImportOptMTests

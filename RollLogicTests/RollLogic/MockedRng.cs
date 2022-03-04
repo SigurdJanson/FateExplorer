@@ -1,6 +1,6 @@
 ﻿using FateExplorer.RollLogic;
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
     public class MockedRng : IRandomNG
     {

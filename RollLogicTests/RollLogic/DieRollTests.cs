@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
     [TestFixture]
     public class DieRollTests

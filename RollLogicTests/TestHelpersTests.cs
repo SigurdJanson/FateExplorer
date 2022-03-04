@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace RollLogicTests
+namespace vmCode_UnitTests
 {
     [TestFixture]
     public class TestHelpers_Tests

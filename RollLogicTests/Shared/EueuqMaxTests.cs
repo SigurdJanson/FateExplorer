@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace RollLogicTests.ViewModel
+namespace vmCode_UnitTests.ViewModel
 {
     [TestFixture]
     public class EueuqMaxTests

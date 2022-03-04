@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RollLogicTests.ViewModel
+namespace vmCode_UnitTests.ViewModel
 {
     [TestFixture]
     public class RollHandlerViMoTests

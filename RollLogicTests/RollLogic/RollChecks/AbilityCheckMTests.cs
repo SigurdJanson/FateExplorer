@@ -3,7 +3,7 @@ using FateExplorer.Shared;
 using NUnit.Framework;
 
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
     [TestFixture]
     public class AbilityCheckMTests

@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using System.Linq;
 
-namespace RollLogicTests.RollLogic
+namespace vmCode_UnitTests.RollLogic
 {
 
 
