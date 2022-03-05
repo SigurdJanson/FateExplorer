@@ -7,7 +7,7 @@ namespace FateExplorer.GameData
     {
         // inherited
 
-        [JsonPropertyName("range")]
+        [JsonPropertyName("reach")]
         public int Reach { get; set; }
     }
 

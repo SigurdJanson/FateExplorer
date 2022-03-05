@@ -183,6 +183,16 @@ namespace FateExplorer.Shared
         public int DamageThreshold { get; set; }
 
         public bool Improvised { get; set; }
+
+        /// <summary>
+        /// Ranged weapons range indiciators for close, medium, far
+        /// </summary>
+        public int[] Range { get; set; }
+
+        /// <summary>
+        ///  Reach of melee weapon
+        /// </summary>
+        public int Reach { get; set; }
     }
 
 

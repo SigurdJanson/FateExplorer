@@ -140,6 +140,7 @@ namespace FateExplorer.CharacterModel
 
         public int Reach { get; set; }
 
+        public int[] Range { get; set; }
 
         public bool Ranged { get; protected set; }
 
@@ -209,9 +210,10 @@ namespace FateExplorer.CharacterModel
 
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
-            Reach = WeaponData.Reach; // TODO currently ignored because anmbiguous for ranged vs melee
+            Reach = WeaponData.Reach;
+            Range = (int[])WeaponData.Range.Clone();
 
-            Improvised = WeaponData.Improvised; // TODO: get "improvised" from DB
+            Improvised = WeaponData.Improvised; // TODO: get "improvised" from DB - no, do this in importer
             TwoHanded = DbWeapon?.TwoHanded ?? false;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 

@@ -357,7 +357,9 @@ namespace FateExplorer.CharacterImport
                         DamageDieCount = i.DamageDiceNumber,
                         DamageDieSides = i.DamageDiceSides,
                         DamageThreshold = i.PrimaryThreshold?.Threshold ?? 21,
-                        Improvised = false
+                        Improvised = false,
+                        Reach = i.Reach,
+                        Range = i.Range.ToArray()
                     };
             }
         }

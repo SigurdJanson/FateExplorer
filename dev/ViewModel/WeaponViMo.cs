@@ -50,7 +50,9 @@ namespace FateExplorer.ViewModel
 
         public int ParryMod { get => WeaponM.ParryMod; }
 
-        public int Range { get => WeaponM.Reach; }
+        public int Reach { get => WeaponM.Reach; }
+
+        public int[] Range { get => WeaponM.Range; }
 
         public bool IsImprovised { get => WeaponM.Improvised; }
 
