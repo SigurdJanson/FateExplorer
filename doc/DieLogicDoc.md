@@ -112,7 +112,8 @@ The FE distinguishes rolls and checks. A roll is whatever you can do with rollin
 * General **off-hand penalty** is -4.
   * The penalty is removed by advantage *Ambidextrous*.
   * QUESTION: does the off-hand penalty apply in unarmed combat actions? Assumption is: No.
-* General **two-weapon penalty** is -2; but it is only used for a second weapon of parry weapon, but not shields.
+* General **two-weapon penalty** is -2; 
+  * but it is only used for a second weapon or parry weapon, but not shields.
   * penalty is reduced with special ability *Two-Weapon Combat I-II*.
 * The **parry bonus** for shields is the parry modifier that is specified for each single item that can be used as a weapon.
 * When defending with a shield, it's important to decide whether you want to use the shield passively (adding its Parry to the base Parry stat of your main weapon), or actively, with the combat technique 'Shields', to receive double the shield's Parry bonus.
