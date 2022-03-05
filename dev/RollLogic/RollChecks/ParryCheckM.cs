@@ -1,6 +1,5 @@
-﻿using FateExplorer.GameData;
-using FateExplorer.Shared;
-using FateExplorer.ViewModel;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -47,7 +46,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="weapon"></param>
         /// <param name="modifier"></param>
-        public ParryCheckM(WeaponViMo weapon, ICheckModifierM modifier, IGameDataService gameData)
+        public ParryCheckM(WeaponM weapon, bool mainHand, CombatBranch otherHandBranch, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
@@ -56,13 +55,13 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
-            RollAttr[0] = weapon.PaSkill;
+            RollAttr[0] = weapon.PaSkill(mainHand, otherHandBranch, 0/*TODO*/, false/*TODO*/); //formerly .BasePaSkill;
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
             // specialised properties
             CombatTechType = weapon.Branch;
-            IsImprovised = weapon.IsImprovised;
+            IsImprovised = weapon.Improvised;
 
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add

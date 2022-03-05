@@ -1,5 +1,4 @@
 ﻿using FateExplorer.GameData;
-using FateExplorer.RollLogic;
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
@@ -41,7 +40,7 @@ namespace FateExplorer.CharacterModel
             int OffHandMod;
             if (Hero.HasAdvantage(ADV.Ambidexterous))
                 OffHandMod = 0;
-            else if (Branch != CombatBranch.Unarmed) 
+            else if (Branch != CombatBranch.Unarmed)
                 OffHandMod = !MainHand ? -4 : 0;
             else
                 OffHandMod = 0;
@@ -77,7 +76,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="otherPaSkill">Parry skill of weapon carried by the other hand.</param>
         /// <param name="otherIsParry">Is the other hand's weapon classified as parry weapon?</param>
         /// <returns></returns>
-        public int PaSkill(bool MainHand, CombatBranch otherHand, int otherPaSkill, bool otherIsParry)
+        public int PaSkill(bool MainHand, CombatBranch otherHand, int otherPaSkill, bool otherIsParry) // TODO: SIMPLE: switch bool and int parry args
         {
             // Determine off-hand penalty
             int OffHandMod;
@@ -139,7 +138,7 @@ namespace FateExplorer.CharacterModel
 
         public int ParryMod { get; set; }
 
-        public int Range { get; set; }
+        public int Reach { get; set; }
 
 
         public bool Ranged { get; protected set; }
@@ -164,13 +163,11 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="hero"></param>
+        /// <param name="hero">The character carrying this weapon</param>
         /// <exception cref="ArgumentNullException"></exception>
         public WeaponM(ICharacterM hero)
         {
             Hero = hero ?? throw new ArgumentNullException(nameof(hero));
-
-            // TODO: get "improvised" from DB
         }
 
 
@@ -208,13 +205,13 @@ namespace FateExplorer.CharacterModel
             //DamageDieCount = WeaponData.DamageDieCount != 0 ? WeaponData.DamageDieCount : (DbWeapon?.DamageDieCount ?? 0)
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;
-            DamageBonus = WeaponData.DamageBonus; //TODO: must this be re-calculated???
+            DamageBonus = WeaponData.DamageBonus + HitpointBonus(Hero.Abilities);
 
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
-            // Range = WeaponData.Range; // TODO currently ignored because anmbiguous for ranged vs melee
+            Reach = WeaponData.Reach; // TODO currently ignored because anmbiguous for ranged vs melee
 
-            Improvised = WeaponData.Improvised;
+            Improvised = WeaponData.Improvised; // TODO: get "improvised" from DB
             TwoHanded = DbWeapon?.TwoHanded ?? false;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 

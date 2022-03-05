@@ -32,7 +32,7 @@ namespace FateExplorer.CharacterModel
         }
 
         /// <summary>
-        /// THe type of weapon
+        /// The type of weapon
         /// </summary>
         public CombatBranch Branch { get; protected set; }
 
@@ -104,7 +104,7 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// Get the characters standard value of the primary ability
+        /// Get the characters maximum value of the primary ability
         /// </summary>
         /// <returns>Value</returns>
         protected int GetPrimaryAbilityValue()

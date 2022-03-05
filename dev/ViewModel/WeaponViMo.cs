@@ -12,6 +12,12 @@ namespace FateExplorer.ViewModel
             WeaponM = weapon;
         }
 
+        /// <summary>
+        /// Allow conversion of the view model to the model
+        /// </summary>
+        /// <returns>The weapon as model class</returns>
+        public WeaponM ToWeaponM() => WeaponM;
+
 
         public string[] PrimaryAbilityId { get => WeaponM.PrimaryAbilityId; }
 
@@ -44,7 +50,7 @@ namespace FateExplorer.ViewModel
 
         public int ParryMod { get => WeaponM.ParryMod; }
 
-        public int Range { get => WeaponM.Range; }
+        public int Range { get => WeaponM.Reach; }
 
         public bool IsImprovised { get => WeaponM.Improvised; }
 

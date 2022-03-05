@@ -142,6 +142,7 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc />
+        /// <exception cref="NotImplementedException"></exception>
         public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICharacterAttributDTO[] RollAttr = null)
         {
             string RollId = MatchAttributeToRollId(AttrId);
@@ -178,9 +179,11 @@ namespace FateExplorer.ViewModel
         }
 
 
-        public RollCheckResultViMo OpenCombatRollCheck(string combatTechId, string actionId, WeaponViMo weapon)
+        /// <inheritdoc />
+        /// <exception cref="NotImplementedException"></exception>
+        public RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, bool MainHand, CombatBranch otherBranch)
         {
-            string TargetAttrName = $"{combatTechId}/{actionId}";
+            string TargetAttrName = $"{weapon.CombatTechId}/{actionId}";
 
             string RollId = MatchAttributeToRollId(TargetAttrName);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -196,11 +199,11 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AttackCheckM):
-                    Checker = new AttackCheckM(weapon, new SimpleCheckModifierM(0), GameData);
+                    Checker = new AttackCheckM(weapon.ToWeaponM(), MainHand, otherBranch, new SimpleCheckModifierM(0), GameData);
                     break;
                 case
                     nameof(ParryCheckM):
-                    Checker = new ParryCheckM(weapon, new SimpleCheckModifierM(0), GameData);
+                    Checker = new ParryCheckM(weapon.ToWeaponM(), MainHand, otherBranch, new SimpleCheckModifierM(0), GameData);
                     break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");

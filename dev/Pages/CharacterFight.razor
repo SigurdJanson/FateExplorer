@@ -86,13 +86,13 @@
                             </MudCardHeader>
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
-                                    OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon))
+                                    OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.MainWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon))
+                                    OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
@@ -121,13 +121,13 @@
                              </MudCardHeader>
                             <MudCardActions>
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
-                                    OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon))
+                                    OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.OffWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon))
+                                    OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
@@ -191,6 +191,7 @@ else
             Hero.Hands.OffWeapon = weapon;
     }
 
+
     /// <summary>
     /// User empties a hand
     /// </summary>
@@ -200,16 +201,26 @@ else
 
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="MainHand"></param>
+    /// <returns></returns>
+    private CombatBranch GetCombatBranch(bool MainHand)
+        => MainHand ? Hero.Hands.MainWeapon.Branch : Hero.Hands.OffWeapon.Branch;
+
+
+    /// <summary>
     /// User triggers a combat attack action
     /// </summary>
     /// <param name="weapon">Wielded weapon for this attack</param>
-    private void OnAttackCheck(WeaponViMo weapon)
+    /// <param name="MainHand">THe hand the character holds the weapon with</param>
+    private void OnAttackCheck(WeaponViMo weapon, bool MainHand)
     {
         const string ActionId = "AT"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+        
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, MainHand, GetCombatBranch(!MainHand));
         }
         catch (NotImplementedException)
         {
@@ -224,12 +235,13 @@ else
     /// User triggers a combat parry action
     /// </summary>
     /// <param name="weapon">Wielded weapon for this attack</param>
-    private void OnParryCheck(WeaponViMo weapon)
+    /// <param name="MainHand">THe hand the character holds the weapon with</param>
+    private void OnParryCheck(WeaponViMo weapon, bool MainHand)
     {
         const string ActionId = "PA"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(weapon.CombatTechId, ActionId, weapon);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, MainHand, GetCombatBranch(!MainHand));
         }
         catch (NotImplementedException)
         {

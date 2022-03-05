@@ -1,6 +1,5 @@
-﻿using FateExplorer.GameData;
-using FateExplorer.Shared;
-using FateExplorer.ViewModel;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -40,8 +39,17 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public bool IsImprovised { get; protected set; }
 
+        /// <summary>
+        /// The number of dice used to determine hit points; i.e. the 2 in 2W6+3
+        /// </summary>
         public int DamageDieCount { get; protected set; }
+        /// <summary>
+        /// The die used to determine hit points; i.e. the 6 in 2W6+3
+        /// </summary>
         public int DamageDieSides { get; protected set; }
+        /// <summary>
+        /// The added constant used to determine hit points; i.e. the 3 in 2W6+3
+        /// </summary>
         public int DamageBonus { get; protected set; }
 
 
@@ -50,7 +58,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="weapon"></param>
         /// <param name="modifier"></param>
-        public AttackCheckM(WeaponViMo weapon, ICheckModifierM modifier, IGameDataService gameData)
+        public AttackCheckM(WeaponM weapon, bool mainHand, CombatBranch otherHandBranch, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
@@ -59,7 +67,7 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
-            RollAttr[0] = weapon.AtSkill;
+            RollAttr[0] = weapon.AtSkill(mainHand, otherHandBranch); //formerly BaseAtSkill
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
@@ -68,7 +76,7 @@ namespace FateExplorer.RollLogic
             DamageDieSides = weapon.DamageDieSides;
             DamageBonus = weapon.DamageBonus;
             CombatTechType = weapon.Branch;
-            IsImprovised = weapon.IsImprovised;
+            IsImprovised = weapon.Improvised;
 
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
