@@ -114,6 +114,7 @@
 {"id": "", "name": "Körperkontrolle", "group": 52},
 {"id": "", "name": "Überträger des Leids", "group": 52},
 
+{"id": "SA_345", "name": "Tradition (Elf)", "group": 53},
 {"id": "", "name": "Tradition (Angroschkirche)", "group": 53},
 {"id": "SA_694", "name": "Tradition (Aveskirche)", "group": 53},
 {"id": "SA_683", "name": "Tradition (Boronkirche)", "group": 53},
