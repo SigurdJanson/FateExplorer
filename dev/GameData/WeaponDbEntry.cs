@@ -7,12 +7,6 @@ namespace FateExplorer.GameData
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("combattech")]
-        public string CombatTech { get; set; }
-
-        [JsonPropertyName("primeattr")]
-        public string PrimeAttr { get; set; }
-
         [JsonPropertyName("threshold")]
         public int Threshold { get; set; }
 
