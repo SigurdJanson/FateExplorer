@@ -287,11 +287,11 @@ namespace FateExplorer.CharacterImport
             energyClass switch
             {
                 CharacterEnergyClass.LP =>
-                    Attr.Lp + Attr.PermanentLP.Lost + Attr.PermanentLP.Redeemed,
+                    Attr.Lp - Attr.PermanentLP.Lost + Attr.PermanentLP.Redeemed,
                 CharacterEnergyClass.AE =>
-                    Attr.Ae + Attr.PermanentAE.Lost + Attr.PermanentAE.Redeemed,
+                    Attr.Ae - Attr.PermanentAE.Lost + Attr.PermanentAE.Redeemed,
                 CharacterEnergyClass.KP =>
-                    Attr.Kp + Attr.PermanentKP.Lost + Attr.PermanentKP.Redeemed,
+                    Attr.Kp - Attr.PermanentKP.Lost + Attr.PermanentKP.Redeemed,
                 _ => 0
             };
 
