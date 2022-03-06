@@ -29,7 +29,7 @@ namespace FateExplorer.CharacterModel
     {
 
         /// <summary>
-        /// Constructor
+        /// Constructor using an Optoloith import
         /// </summary>
         /// <param name="gameData">Access to the data bases describing basic DSA5</param>
         /// <param name="characterImportOptM">Importer</param>
@@ -122,7 +122,7 @@ namespace FateExplorer.CharacterModel
             CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
 
             Weapons = new Dictionary<string, WeaponM>();
-            foreach (var w in characterImportOptM.GetWeaponsDetails())
+            foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged))
             {
                 WeaponM weaponM = new (this);
                 weaponM.Initialise(w, gameData);

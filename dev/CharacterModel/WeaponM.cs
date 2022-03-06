@@ -178,7 +178,7 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         public void Initialise(WeaponDTO WeaponData, IGameDataService gameData)
         {
-            CombatTechId = WeaponData.CombatTechId ?? CombatTechM.Unarmed;
+            CombatTechId = WeaponData.CombatTechId;
 
             CombatTechM combatTech;
             if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
@@ -203,17 +203,19 @@ namespace FateExplorer.CharacterModel
 
             Name = WeaponData.Name ?? "unknown";
             DamageDieCount = WeaponData.DamageDieCount;
-            //DamageDieCount = WeaponData.DamageDieCount != 0 ? WeaponData.DamageDieCount : (DbWeapon?.DamageDieCount ?? 0)
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;
             DamageBonus = WeaponData.DamageBonus + HitpointBonus(Hero.Abilities);
 
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
-            Reach = WeaponData.Reach;
-            Range = (int[])WeaponData.Range.Clone();
+            if (Ranged)
+                Range = (int[])WeaponData.Range.Clone();
+            else
+                Reach = WeaponData.Reach;
+            
 
-            Improvised = WeaponData.Improvised; // TODO: get "improvised" from DB - no, do this in importer
+            Improvised = WeaponData.Improvised;
             TwoHanded = DbWeapon?.TwoHanded ?? false;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 

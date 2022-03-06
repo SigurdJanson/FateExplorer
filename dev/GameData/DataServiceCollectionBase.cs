@@ -27,6 +27,14 @@ namespace FateExplorer.GameData
         public T this[string IdString] => Data.First(i => i.Id == IdString);
 
         /// <summary>
+        /// Determines whether the data base contains an item with the specified key.
+        /// </summary>
+        /// <param name="IdString">The key to locate</param>
+        /// <returns><c>true</c> if the <c>DataServiceCollectionBase<T></c> contains an element 
+        /// with the specified key; otherwise, <c>false</c>.</returns>
+        public bool Contains(string IdString) => Data.FirstOrDefault(i => i.Id == IdString) is not null;
+
+        /// <summary>
         /// Number of entries in the data base
         /// </summary>
         [JsonIgnore]

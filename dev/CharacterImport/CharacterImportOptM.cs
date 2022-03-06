@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
@@ -332,35 +333,60 @@ namespace FateExplorer.CharacterImport
 
 
 
-        public IEnumerable<KeyValuePair<string, string>> GetWeapons()
+        public IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB)
         {
             foreach (var i in Belongings.Items)
             {
-                if (i.CombatTechnique is not null)
+                if (i.CombatTechnique is not null || 
+                    meleeDB.Contains(i.Id) || 
+                    rangedDB.Contains(i.Id))
                     yield return new KeyValuePair<string, string>(i.Template, i.Name);
             }
         }
 
-        public IEnumerable<WeaponDTO> GetWeaponsDetails()
+        public IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB)
         {
             foreach (var i in Belongings.Items)
             {
-                if (i.CombatTechnique is not null && i.Amount > 0)
-                    yield return new WeaponDTO()
+                WeaponDbEntry weaponDb = default;
+                WeaponMeleeDbEntry Melee = default;
+                WeaponRangedDbEntry Ranged = default;
+                
+                if (meleeDB.Contains(i.Template))
+                {
+                    Melee = meleeDB[i.Template];
+                    weaponDb = Melee;
+                }
+                else if (rangedDB.Contains(i.Template))
+                {
+                    Ranged = rangedDB[i.Template];
+                    weaponDb = Ranged;
+                }
+
+                if ((i.CombatTechnique is not null ||
+                    weaponDb is not null) && 
+                    i.Amount > 0)
+                {
+                    var Result = new WeaponDTO()
                     {
-                        Name = i.Name,
+                        Name = i.Name ?? weaponDb?.Name,
                         Id = i.Template,
-                        AttackMod = i.AttackMod,
-                        ParryMod = i.ParryMod,
-                        CombatTechId = i.CombatTechnique,
-                        DamageBonus = i.DamageFlat,
-                        DamageDieCount = i.DamageDiceNumber,
-                        DamageDieSides = i.DamageDiceSides,
-                        DamageThreshold = i.PrimaryThreshold?.Threshold ?? 21,
-                        Improvised = false,
-                        Reach = i.Reach,
-                        Range = i.Range.ToArray()
+                        AttackMod = i.AttackMod ?? weaponDb?.At ?? 0,
+                        ParryMod = i.ParryMod ?? weaponDb?.Pa ?? 0,
+                        CombatTechId = i.CombatTechnique ?? weaponDb?.CombatTechID ?? CombatTechM.Unarmed,
+                        DamageDieCount = i.DamageDiceNumber ?? weaponDb?.DamageDieCount() ?? 1,
+                        DamageDieSides = i.DamageDiceSides ?? weaponDb?.DamageDieSides() ?? 6,
+                        DamageBonus = i.DamageFlat ?? weaponDb?.Bonus ?? 0,
+                        DamageThreshold = i.PrimaryThreshold?.Threshold ?? weaponDb?.Threshold ?? 21,
+                        Improvised = weaponDb?.Improvised ?? false
                     };
+                    if (Melee != default)
+                        Result.Reach = i.Reach ?? Melee.Reach;
+                    else if (Ranged != default)
+                        Result.Range = i.Range?.ToArray() ?? Ranged.Range.ToArray();
+
+                    yield return Result;
+                }
             }
         }
 
@@ -562,25 +588,32 @@ namespace FateExplorer.CharacterImport
         /// AT-Mod
         /// </summary>
         [JsonPropertyName("at")]
-        public int AttackMod { get; set; }
+        public int? AttackMod { get; set; }
 
         /// <summary>
         /// PA-Mod
         /// </summary>
         [JsonPropertyName("pa")]
-        public int ParryMod { get; set; }
+        public int? ParryMod { get; set; }
 
         /// <summary>
         /// Number of dice to get the damage, i.e. the N in "Nd6 + 3".
         /// </summary>
         [JsonPropertyName("damageDiceNumber")]
-        public int DamageDiceNumber { get; set; }
+        public int? DamageDiceNumber { get; set; }
 
         /// <summary>
-        /// Damage bonus for a hit with a weapon, i.e. the N in "1d6 + N".
+        /// Sides of the hit point dice
+        /// </summary>
+        [JsonPropertyName("damageDiceSides")]
+        public int? DamageDiceSides { get; set; }
+
+
+        /// <summary>
+        /// Constant damage bonus for a hit with a weapon, i.e. the N in "1d6 + N".
         /// </summary>
         [JsonPropertyName("damageFlat")]
-        public int DamageFlat { get; set; }
+        public int? DamageFlat { get; set; }
 
         /// <summary>
         /// Length of the item in half fingers (Halbfinger = 1 cm)
@@ -595,16 +628,10 @@ namespace FateExplorer.CharacterImport
         public string CombatTechnique { get; set; }
 
         /// <summary>
-        /// Sides of the hit point dice
-        /// </summary>
-        [JsonPropertyName("damageDiceSides")]
-        public int DamageDiceSides { get; set; }
-
-        /// <summary>
         /// Weapon's reach. Close combat only.
         /// </summary>
         [JsonPropertyName("reach")]
-        public int Reach { get; set; }
+        public int? Reach { get; set; }
 
         /// <summary>
         /// Distances that define the weapons range short / middle / far. 

@@ -38,6 +38,8 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("far")]
         public int Far { get; set; }
+
+        public int[] ToArray() => new int[3] { Close, Medium, Far };
     }
 
 }

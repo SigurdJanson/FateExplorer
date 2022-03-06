@@ -1,4 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 
 namespace FateExplorer.CharacterImport
@@ -89,7 +91,8 @@ namespace FateExplorer.CharacterImport
 
         double TotalWeightOfBelongings();
 
-        IEnumerable<KeyValuePair<string, string>> GetWeapons();
+        IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB);
 
+        IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB);
     }
 }
