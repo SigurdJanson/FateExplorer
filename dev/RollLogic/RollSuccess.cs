@@ -31,8 +31,6 @@ namespace FateExplorer.RollLogic
             BotchThreshold = botchThreshold;
         }
 
-        public static implicit operator Level(RollSuccess s) 
-            => CheckSuccess(s.PrimaryLevel, s.ConfirmationLevel);
 
         public enum Level
         {

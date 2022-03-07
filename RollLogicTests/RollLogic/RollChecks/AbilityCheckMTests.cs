@@ -46,7 +46,7 @@ namespace vmCode_UnitTests.RollLogic
             Assert.AreEqual(RollSuccess.Level.na, abilityCheckM.SuccessOfRoll(RollType.Confirm));
 
             // Assert total check
-            Assert.AreEqual(result, (RollSuccess.Level)abilityCheckM.Success);
+            Assert.AreEqual(result, abilityCheckM.Success.CurrentLevel);
         }
 
 

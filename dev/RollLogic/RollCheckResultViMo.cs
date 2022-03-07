@@ -47,7 +47,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public RollSuccess.Level SuccessLevel
         {
-            get => RollCheck.Success;
+            get => RollCheck.Success.CurrentLevel;
         }
 
 

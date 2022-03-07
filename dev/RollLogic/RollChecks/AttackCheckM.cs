@@ -67,7 +67,7 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
-            RollAttr[0] = weapon.AtSkill(mainHand, otherHandBranch); //formerly BaseAtSkill
+            RollAttr[0] = weapon.AtSkill(mainHand, otherHandBranch);
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
@@ -124,9 +124,9 @@ namespace FateExplorer.RollLogic
                     int RollResult;
                     RollResult = RollList[RollType.Damage].OpenRollCombined();
                     // TODO: Move the damage assessment to the weapon
-                    if (Success == RollSuccess.Level.Success)
+                    if (Success.CurrentLevel == RollSuccess.Level.Success)
                         Result = RollResult + DamageBonus;
-                    if (Success == RollSuccess.Level.Critical)
+                    if (Success.CurrentLevel == RollSuccess.Level.Critical)
                         Result = (RollResult + DamageBonus) * 2;
 
                     return Result is null ? null : $"{Result}";
@@ -179,8 +179,8 @@ namespace FateExplorer.RollLogic
         /// </summary>
         public override bool NeedsDamage
         {
-            get => (Success == RollSuccess.Level.Success ||
-                Success == RollSuccess.Level.Critical) &&
+            get => (Success.CurrentLevel == RollSuccess.Level.Success ||
+                Success.CurrentLevel == RollSuccess.Level.Critical) &&
                 RollList[RollType.Damage] is null;
         }
 
@@ -188,7 +188,6 @@ namespace FateExplorer.RollLogic
         // ROLL /////////////////////////////////
 
         /// <inheritdoc />
-        /// <exception cref="ArgumentOutOfRangeException" />
         public override RollSuccess.Level SuccessOfRoll(RollType Which)
         {
             return Which switch
@@ -215,7 +214,7 @@ namespace FateExplorer.RollLogic
                 RollType.Confirm => NeedsConfirmation ? new D20Roll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
                 RollType.Damage => NeedsDamage ? new MultiDieRoll(DamageDieSides, DamageDieCount) : null,
-                _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
+                _ => throw new ArgumentException("Combat rolls only support primary and confirmation rolls")
             };
             RollList[Which] = roll;
 

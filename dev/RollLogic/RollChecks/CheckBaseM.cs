@@ -170,7 +170,7 @@ namespace FateExplorer.RollLogic
         public virtual bool NeedsBotchEffect
         { get => RollList[RollType.Confirm] is not null &&
                 RollList[RollType.Botch] is null &&
-                Success == RollSuccess.Level.Botch;
+                Success.CurrentLevel == RollSuccess.Level.Botch;
         }
 
         /// <summary>

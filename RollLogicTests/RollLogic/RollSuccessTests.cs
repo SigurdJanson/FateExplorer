@@ -65,7 +65,7 @@ namespace vmCode_UnitTests.RollLogic
             rollSuccess.Update(P, C);
 
             // Assert
-            Assert.AreEqual(expectedResult, (RollSuccess.Level)rollSuccess);
+            Assert.AreEqual(expectedResult, rollSuccess.CurrentLevel);
         }
 
 
@@ -103,7 +103,7 @@ namespace vmCode_UnitTests.RollLogic
             rollSuccess.Update(pRoll, cRoll, Attr);
 
             // Assert
-            Assert.AreEqual(expectedResult, (RollSuccess.Level)rollSuccess);
+            Assert.AreEqual(expectedResult, rollSuccess.CurrentLevel);
         }
 
 
