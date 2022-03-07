@@ -81,3 +81,20 @@ public enum LanguageAbility
 {
     lngNone = 0, lngBroken = 1, lngBasic = 2, lngNoAccent = 3, lngNative = 4
 }
+
+
+public enum MagicProperty
+{
+    Antimagic = 1,
+    Clairvoyance = 2,
+    Demonic = 3,
+    Elemental = 4,
+    Healing = 5,
+    Illusion = 6,
+    Influence = 7,
+    Object = 8,
+    Spheres = 9,
+    Telekinesis = 10,
+    Transformation = 11,
+    Temporal = 12
+}

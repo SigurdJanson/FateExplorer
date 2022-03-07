@@ -14,7 +14,6 @@ namespace FateExplorer.CharacterModel
             //
             Id = gameData.Id;
             Name = gameData.Name;
-            ClassName = gameData.Class;
             ClassId = gameData.ClassId;
             Abilities = new string[3];
             Abilities[0] = gameData.Ab1;
@@ -24,7 +23,7 @@ namespace FateExplorer.CharacterModel
             if (gameData is ArcaneSkillDbEntry Arcane)
             {
                 ModifyAgainst = Arcane.ModAgainst;
-                Tradition = new string[1] { Arcane.Category };
+                Tradition = new string[1] { Arcane.Property.ToString() };
                 Domain = gameData.Domain;
             }
             else if (gameData is KarmaSkillDbEntry Karma)
@@ -40,8 +39,6 @@ namespace FateExplorer.CharacterModel
         public string Id { get; protected set; }
 
         public string Name { get; protected set; }
-
-        public string ClassName { get; protected set; }
 
         public int ClassId { get; protected set; }
 

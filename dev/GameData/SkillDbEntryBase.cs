@@ -10,9 +10,6 @@ namespace FateExplorer.GameData
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("class")]
-        public string Class { get; set; }
-
         [JsonPropertyName("classID")]
         public int ClassId { get; set; }
 

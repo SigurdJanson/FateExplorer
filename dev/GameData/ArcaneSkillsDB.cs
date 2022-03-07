@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
+
 namespace FateExplorer.GameData
 {
     public class ArcaneSkillsDB : DataServiceCollectionBase<ArcaneSkillDbEntry>
@@ -14,8 +15,8 @@ namespace FateExplorer.GameData
         [JsonPropertyName("modagainst")]
         public string ModAgainst { get; set; }
 
-        [JsonPropertyName("category")] // TODO: most entries in file have not category
-        public string Category { get; set; }
+        [JsonPropertyName("property")]
+        public MagicProperty Property { get; set; }
 
         [JsonIgnore]
         public override SkillDomain Domain { get => SkillDomain.Arcane; }
