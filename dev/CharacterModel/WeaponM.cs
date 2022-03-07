@@ -44,24 +44,21 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
             else
                 OffHandMod = 0;
-            
 
+
+            int TwoHandedCombatTier =  Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            {
+                false => 0,
+                true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
+            };
             int TwoHandMod = otherHand switch
             {
                 CombatBranch.Unarmed => 0,
                 CombatBranch.Shield => 0,
-                CombatBranch.Ranged => -2, // second weapon
-                CombatBranch.Melee => -2, // second weapon
+                CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
+                CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
                 _ => 0
             };
-            // Compensate penalty with special ability "twohanded combat"
-            if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
-            {
-                if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 2)
-                    TwoHandMod = Math.Max(0, TwoHandMod + 2);
-                else if(Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 1)
-                    TwoHandMod = Math.Max(0, TwoHandMod + 1);
-            }
 
             // Return the result which shall not be < 0
             return Math.Max(BaseAtSkill + OffHandMod + TwoHandMod, 0);
@@ -91,30 +88,27 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
 
 
-            // Determine penalty when carrying two weapons
+            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            {
+                false => 0,
+                true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
+            };
             int TwoHandMod = otherHand switch
             {
                 CombatBranch.Unarmed => 0,
                 CombatBranch.Shield => 0,
-                CombatBranch.Ranged => -2,
-                CombatBranch.Melee => -2,
+                CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
+                CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
                 _ => 0
             };
-            // Compensate penalty with special ability "twohanded combat"
-            if (Hero.HasSpecialAbility(SA.TwoHandedCombat))
-            {
-                if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 2)
-                    TwoHandMod = Math.Max(0, TwoHandMod + 2);
-                else if (Hero.SpecialAbilities[SA.TwoHandedCombat].Tier == 1)
-                    TwoHandMod = Math.Max(0, TwoHandMod + 1);
-            }
+
 
             // Determine passive bonus of parry weapon or shield
             int ParryMod;
-            if (otherHand == CombatBranch.Shield)
-                ParryMod = otherPaSkill;
-            else if (otherIsParry)
+            if (otherIsParry)
                 ParryMod = 1;
+            else if(otherHand == CombatBranch.Shield)
+                ParryMod = otherPaSkill;
             else
                 ParryMod = 0;
 
