@@ -63,7 +63,8 @@ namespace FateExplorer.CharacterModel
                     TwoHandMod = Math.Max(0, TwoHandMod + 1);
             }
 
-            return BaseAtSkill + OffHandMod + TwoHandMod;
+            // Return the result which shall not be < 0
+            return Math.Max(BaseAtSkill + OffHandMod + TwoHandMod, 0);
         }
 
 
@@ -84,6 +85,8 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = 0;
             else if (Branch == CombatBranch.Shield)
                 OffHandMod = 0; // no off-hand penalty for shields
+            else if (Branch == CombatBranch.Unarmed)
+                OffHandMod = 0; // no off-hand penalty for unarmed
             else
                 OffHandMod = !MainHand ? -4 : 0;
 
@@ -115,7 +118,8 @@ namespace FateExplorer.CharacterModel
             else
                 ParryMod = 0;
 
-            return BasePaSkill + OffHandMod + TwoHandMod + ParryMod;
+            // Return the result which shall not be < 0
+            return Math.Max(BasePaSkill + OffHandMod + TwoHandMod + ParryMod, 0);
         }
 
 
@@ -191,7 +195,7 @@ namespace FateExplorer.CharacterModel
             }
             Ranged = combatTech.IsRanged;
 
-            // Get template weapon from internal db
+            // Get template weapon from internal db // TODO: remove after twohanded is handled
             string Template = WeaponData.Id;
             WeaponMeleeDbEntry DbWeapon = null;
             try
@@ -201,7 +205,7 @@ namespace FateExplorer.CharacterModel
             
 
 
-            Name = WeaponData.Name ?? "unknown";
+            Name = WeaponData.Name;
             DamageDieCount = WeaponData.DamageDieCount;
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;
@@ -216,7 +220,7 @@ namespace FateExplorer.CharacterModel
             
 
             Improvised = WeaponData.Improvised;
-            TwoHanded = DbWeapon?.TwoHanded ?? false;
+            TwoHanded = DbWeapon?.TwoHanded ?? false; // TODO: get from WeaponDTO
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
