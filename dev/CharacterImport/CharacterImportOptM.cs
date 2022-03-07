@@ -369,7 +369,7 @@ namespace FateExplorer.CharacterImport
                 {
                     var Result = new WeaponDTO()
                     {
-                        Name = i.Name ?? weaponDb?.Name,
+                        Name = i.Name ?? weaponDb?.Name ?? "Unknown",
                         Id = i.Template,
                         AttackMod = i.AttackMod ?? weaponDb?.At ?? 0,
                         ParryMod = i.ParryMod ?? weaponDb?.Pa ?? 0,
@@ -378,7 +378,8 @@ namespace FateExplorer.CharacterImport
                         DamageDieSides = i.DamageDiceSides ?? weaponDb?.DamageDieSides() ?? 6,
                         DamageBonus = i.DamageFlat ?? weaponDb?.Bonus ?? 0,
                         DamageThreshold = i.PrimaryThreshold?.Threshold ?? weaponDb?.Threshold ?? 21,
-                        Improvised = weaponDb?.Improvised ?? false
+                        Improvised = weaponDb?.Improvised ?? false,
+                        Twohanded = weaponDb?.TwoHanded ?? false
                     };
                     if (Melee != default)
                         Result.Reach = i.Reach ?? Melee.Reach;

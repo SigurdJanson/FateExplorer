@@ -195,16 +195,6 @@ namespace FateExplorer.CharacterModel
             }
             Ranged = combatTech.IsRanged;
 
-            // Get template weapon from internal db // TODO: remove after twohanded is handled
-            string Template = WeaponData.Id;
-            WeaponMeleeDbEntry DbWeapon = null;
-            try
-            {
-                DbWeapon = gameData.WeaponsMelee[Template];
-            } catch (Exception) { }
-            
-
-
             Name = WeaponData.Name;
             DamageDieCount = WeaponData.DamageDieCount;
             DamageDieSides = WeaponData.DamageDieSides;
@@ -220,7 +210,7 @@ namespace FateExplorer.CharacterModel
             
 
             Improvised = WeaponData.Improvised;
-            TwoHanded = DbWeapon?.TwoHanded ?? false; // TODO: get from WeaponDTO
+            TwoHanded = WeaponData.Twohanded;
             Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);

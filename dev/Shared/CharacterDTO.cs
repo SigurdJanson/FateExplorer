@@ -184,6 +184,8 @@ namespace FateExplorer.Shared
 
         public bool Improvised { get; set; }
 
+        public bool Twohanded { get; set; }
+
         /// <summary>
         /// Ranged weapons range indiciators for close, medium, far
         /// </summary>
