@@ -167,13 +167,25 @@ namespace FateExplorer.Shared
         /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// Identifies the combat technique
+        /// </summary>
         public string CombatTechId { get; set; }
 
+        /// <summary>
+        /// Idenitifies the primary ability that may grant a special bonus on hit points
+        /// </summary>
+        public string[] PrimaryAbilityId { get; set; }
+
+        /// <summary>
+        /// Identifies the basic weapons type (melee, ranged, umarmed, shields)
+        /// </summary>
         public CombatBranch Branch { get; set; }
 
         public string Name { get; set; }
 
         public int AttackMod { get; set; }
+
         public int ParryMod { get; set; }
 
         public int DamageBonus { get; set; }
@@ -187,6 +199,8 @@ namespace FateExplorer.Shared
         public bool Improvised { get; set; }
 
         public bool Twohanded { get; set; }
+
+        public bool Ranged { get; set; }
 
         /// <summary>
         /// Ranged weapons range indiciators for close, medium, far

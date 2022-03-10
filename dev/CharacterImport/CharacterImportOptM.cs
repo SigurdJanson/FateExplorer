@@ -380,7 +380,9 @@ namespace FateExplorer.CharacterImport
                         DamageDieSides = i.DamageDiceSides ?? weaponDb?.DamageDieSides() ?? 6,
                         DamageBonus = i.DamageFlat ?? weaponDb?.Bonus ?? 0,
                         DamageThreshold = i.PrimaryThreshold?.Threshold ?? weaponDb?.Threshold ?? 21,
+                        PrimaryAbilityId = combatTechDB[CombatTechnique].PrimeAttrID.Split("/"),
                         Improvised = weaponDb?.Improvised ?? false,
+                        Ranged = combatTechDB[CombatTechnique].IsRanged,
                         Twohanded = weaponDb?.TwoHanded ?? false
                     };
                     if (Melee != default)

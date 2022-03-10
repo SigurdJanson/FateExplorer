@@ -13,7 +13,9 @@ namespace FateExplorer.CharacterModel
 
 
 
-
+        /// <summary>
+        /// Idenitifies the primary ability that may grant a special bonus on hit points
+        /// </summary>
         public string[] PrimaryAbilityId { get; protected set; }
 
         /// <summary>
@@ -176,24 +178,19 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         public void Initialise(WeaponDTO WeaponData, IGameDataService gameData)
         {
-            CombatTechId = WeaponData.CombatTechId;
-
-            CombatTechM combatTech;
-            if (Hero.CombatTechs.TryGetValue(CombatTechId, out combatTech))
-                PrimaryAbilityId = combatTech.PrimeAbilityId.Split("/");
-            else
-            {
-                string Temp = gameData.WeaponsMelee[WeaponData.Id].PrimeAttrID;
-                CombatTechId = gameData.WeaponsMelee[WeaponData.Id].CombatTechID;
-                PrimaryAbilityId = Temp.Split("/");
-            }
-            Ranged = combatTech.IsRanged;
-
             Name = WeaponData.Name;
+            CombatTechId = WeaponData.CombatTechId;
+            PrimaryAbilityId = (string[])WeaponData.PrimaryAbilityId.Clone();
+
             DamageDieCount = WeaponData.DamageDieCount;
             DamageDieSides = WeaponData.DamageDieSides;
             DamageThreshold = WeaponData.DamageThreshold;
             DamageBonus = WeaponData.DamageBonus + HitpointBonus(Hero.Abilities);
+
+            Improvised = WeaponData.Improvised;
+            TwoHanded = WeaponData.Twohanded;
+            Branch = WeaponData.Branch;
+            Ranged = WeaponData.Ranged;
 
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
@@ -201,11 +198,6 @@ namespace FateExplorer.CharacterModel
                 Range = (int[])WeaponData.Range.Clone();
             else
                 Reach = WeaponData.Reach;
-            
-
-            Improvised = WeaponData.Improvised;
-            TwoHanded = WeaponData.Twohanded;
-            Branch = WeaponData.Branch;
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
             BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);

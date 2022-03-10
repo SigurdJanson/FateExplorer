@@ -93,6 +93,17 @@ namespace FateExplorer.CharacterImport
 
         IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB);
 
+        /// <summary>
+        /// Get the weapons of the character.
+        /// </summary>
+        /// <param name="meleeDB">The melee weapons from a central data base</param>
+        /// <param name="rangedDB">The ranged weapons from a central data base</param>
+        /// <param name="combatTechDB">The combat techniques coming from a central data base</param>
+        /// <returns>A list of weapons</returns>
+        /// <remarks>
+        /// All properties must be set. None may be left <c>null</c>, except for <c>Ranged</c> 
+        /// which is only set if it is a ranged weapon.
+        /// </remarks>
         IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB, CombatTechDB combatTechDB);
     }
 }

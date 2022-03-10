@@ -26,7 +26,13 @@ namespace FateExplorer.CharacterModel
                 DamageDieCount = 1,
                 DamageDieSides = 6,
                 DamageThreshold = 21,
-                Improvised = false
+                PrimaryAbilityId = gameData.CombatTechs[CombatTechM.Unarmed].PrimeAttrID.Split('/'),
+                Ranged = false,
+                Range = null,
+                Reach = 1,
+                Twohanded = false,
+                Improvised = false,
+                Branch = CombatBranch.Unarmed
             };
             base.Initialise(weaponDTO, gameData);
         }
