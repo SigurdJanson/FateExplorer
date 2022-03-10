@@ -205,7 +205,7 @@ namespace FateExplorer.CharacterModel
 
             Improvised = WeaponData.Improvised;
             TwoHanded = WeaponData.Twohanded;
-            Branch = gameData.CombatTechs[CombatTechId].WeaponsBranch;
+            Branch = WeaponData.Branch;
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
             BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);

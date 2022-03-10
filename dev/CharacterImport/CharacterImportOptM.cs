@@ -344,7 +344,7 @@ namespace FateExplorer.CharacterImport
             }
         }
 
-        public IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB)
+        public IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB, CombatTechDB combatTechDB)
         {
             foreach (var i in Belongings.Items)
             {
@@ -367,13 +367,15 @@ namespace FateExplorer.CharacterImport
                     weaponDb is not null) && 
                     i.Amount > 0)
                 {
+                    string CombatTechnique = i.CombatTechnique ?? weaponDb?.CombatTechID ?? CombatTechM.Unarmed;
                     var Result = new WeaponDTO()
                     {
                         Name = i.Name ?? weaponDb?.Name ?? "Unknown",
                         Id = i.Template,
                         AttackMod = i.AttackMod ?? weaponDb?.At ?? 0,
                         ParryMod = i.ParryMod ?? weaponDb?.Pa ?? 0,
-                        CombatTechId = i.CombatTechnique ?? weaponDb?.CombatTechID ?? CombatTechM.Unarmed,
+                        CombatTechId = CombatTechnique,
+                        Branch = combatTechDB[CombatTechnique].WeaponsBranch,
                         DamageDieCount = i.DamageDiceNumber ?? weaponDb?.DamageDieCount() ?? 1,
                         DamageDieSides = i.DamageDiceSides ?? weaponDb?.DamageDieSides() ?? 6,
                         DamageBonus = i.DamageFlat ?? weaponDb?.Bonus ?? 0,

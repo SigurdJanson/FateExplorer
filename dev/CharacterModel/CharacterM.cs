@@ -122,7 +122,7 @@ namespace FateExplorer.CharacterModel
             CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
 
             Weapons = new Dictionary<string, WeaponM>();
-            foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged))
+            foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged, gameData.CombatTechs))
             {
                 WeaponM weaponM = new (this);
                 weaponM.Initialise(w, gameData);

@@ -169,6 +169,8 @@ namespace FateExplorer.Shared
 
         public string CombatTechId { get; set; }
 
+        public CombatBranch Branch { get; set; }
+
         public string Name { get; set; }
 
         public int AttackMod { get; set; }
