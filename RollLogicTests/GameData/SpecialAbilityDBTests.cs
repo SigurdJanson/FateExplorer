@@ -25,7 +25,7 @@ namespace vmCode_UnitTests.GameData
             SpecialAbilityDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(1436, Result.Count);
+            Assert.AreEqual(1437, Result.Count);
             Assert.AreEqual(SA1, Result[0].Name);
             Assert.AreEqual(SALast, Result[^1].Name);
         }

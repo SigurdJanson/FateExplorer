@@ -49,7 +49,7 @@ namespace vmCode_UnitTests.Shop
             List<ShopItemM> Result = JsonSerializer.Deserialize<List<ShopItemM>>(jsonString);
 
             // Assert
-            Assert.AreEqual(637, Result.Count);
+            Assert.AreEqual(642, Result.Count);
 
         }
 
