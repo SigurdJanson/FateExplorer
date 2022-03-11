@@ -199,8 +199,8 @@ namespace FateExplorer.CharacterModel
             else
                 Reach = WeaponData.Reach;
 
-            BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs);
-            BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs);
+            BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);
+            BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);
         }
 
 
@@ -212,7 +212,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="Abilities">A data frame containing the characters abilities</param>
         /// <param name="CombatTecSkill">Skill value(s) of combat techniques</param>
         /// <returns></returns>
-        public int ComputeAttackVal(Dictionary<string, AbilityM> Abilities, Dictionary<string, CombatTechM> CombatTecSkill)
+        public int ComputeAttackVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
             int PrimeAbility;
 
@@ -227,9 +227,9 @@ namespace FateExplorer.CharacterModel
             // Ability "Courage" is default for attack
             int Courage = Abilities[AbilityM.COU].Value;
 
-            CombatTechM technique = CombatTecSkill[CombatTechId];
+            //-CombatTechM technique = CombatTecSkill[CombatTechId];
 
-            int Attack = technique.ComputeAttack(Courage); // no weapons modifier
+            int Attack = CombatTecSkill.ComputeAttack(Courage); // no weapons modifier
             Attack += AttackMod; // attack modifier of the weapon
             //- does not apply here but on damage Attack += Math.Max(PrimeAbility - DamageThreshold, 0); // if primary attribute > damage threshold ...
 
@@ -246,7 +246,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="Abilities">A data frame containing the characters abilities</param>
         /// <param name="CombatTecSkill">Skill value(s) of combat techniques</param>
         /// <returns></returns>
-        public int ComputeParryVal(Dictionary<string, AbilityM> Abilities, Dictionary<string, CombatTechM> CombatTecSkill)
+        public int ComputeParryVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
             int PrimeAbility;
 
@@ -258,9 +258,9 @@ namespace FateExplorer.CharacterModel
                     PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Value);
             }
 
-            CombatTechM technique = CombatTecSkill[CombatTechId];
+            //-CombatTechM technique = CombatTecSkill[CombatTechId];
 
-            int Parry = technique.ComputeParry(PrimeAbility); // no weapons modifier
+            int Parry = CombatTecSkill.ComputeParry(PrimeAbility); // no weapons modifier
             Parry += ParryMod; // attack modifier of the weapon
             Parry += Math.Max(PrimeAbility - DamageThreshold, 0); // if primary attribute > damage threshold ...
 

@@ -13,6 +13,8 @@ namespace vmCode_UnitTests.CharacterModel
     /// </summary>
     internal static class HeroWipfelglanz
     {
+        public const int UnarmedSkill = 6;
+
         public static WeaponDTO LayarielsDagger
             => new()
             {
