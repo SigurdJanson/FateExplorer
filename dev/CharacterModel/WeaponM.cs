@@ -42,10 +42,8 @@ namespace FateExplorer.CharacterModel
             int OffHandMod;
             if (Hero.HasAdvantage(ADV.Ambidexterous))
                 OffHandMod = 0;
-            else if (Branch != CombatBranch.Unarmed)
-                OffHandMod = !MainHand ? -4 : 0;
             else
-                OffHandMod = 0;
+                OffHandMod = !MainHand ? -4 : 0;
 
 
             int TwoHandedCombatTier =  Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
@@ -84,8 +82,6 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = 0;
             else if (Branch == CombatBranch.Shield)
                 OffHandMod = 0; // no off-hand penalty for shields
-            else if (Branch == CombatBranch.Unarmed)
-                OffHandMod = 0; // no off-hand penalty for unarmed
             else
                 OffHandMod = !MainHand ? -4 : 0;
 

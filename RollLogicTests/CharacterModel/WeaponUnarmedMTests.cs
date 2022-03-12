@@ -2,6 +2,7 @@
 using FateExplorer.GameData;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace vmCode_UnitTests.CharacterModel
@@ -70,6 +71,24 @@ namespace vmCode_UnitTests.CharacterModel
         }
 
 
+        /// <summary>
+        /// Set up mocks for special abilities and advantages
+        /// </summary>
+        private void MockCompensation(bool IsAmbidext, int TwoHandedTier)
+        {
+            if (TwoHandedTier < 0 || TwoHandedTier > 2) 
+                throw new ArgumentOutOfRangeException(nameof(TwoHandedTier));
+
+            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidexterous)))
+                .Returns(IsAmbidext);
+            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoHandedCombat)))
+                .Returns(TwoHandedTier > 0);
+            mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(MockSpecialAbilities(TwoHandedTier));
+        }
+
+
+
+
         private WeaponUnarmedM CreateLayarielsWeaponUnarmedM()
         {
             //mockCharacterM.SetupGet(x => x.Name).Returns("Layariel Wipfelglanz"); // just for show
@@ -96,16 +115,13 @@ namespace vmCode_UnitTests.CharacterModel
         [TestCase(true, false)]
         [TestCase(false, true)]
         [TestCase(true, true)]
-        public void Points_RightHand_UnarmedLeft_BaseValues(bool IsAmbidext, bool isTwoHanded)
+        public void WeaponStats_RightHand_UnarmedLeft_BaseValues(bool IsAmbidext, bool isTwoHanded)
         {
             const bool MainHand = true;
             // Arrange
             var Fist = this.CreateLayarielsWeaponUnarmedM();
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidexterous)))
-                .Returns(IsAmbidext);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoHandedCombat)))
-                .Returns(isTwoHanded);
-            mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(MockSpecialAbilities(2));
+
+            MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
 
             // Act
             Fist.Initialise(mockGameDB.Object);
@@ -133,26 +149,109 @@ namespace vmCode_UnitTests.CharacterModel
         [TestCase(true, false, 0)]
         [TestCase(false, true, -4)]
         [TestCase(true, true, 0)]
-        public void Points_LeftHand_UnarmedRight_YieldsOffhandPenalty(bool IsAmbidext, bool isTwoHanded, int ExpectedPenalty)
+        public void WeaponStats_LeftHand_UnarmedRight_YieldsOffhandPenalty(bool IsAmbidext, bool isTwoHanded, int ExpectedPenalty)
         {
             const bool OffHand = true;
             // Arrange
             var Fist = this.CreateLayarielsWeaponUnarmedM();
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidexterous)))
-                .Returns(IsAmbidext);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoHandedCombat)))
-                .Returns(isTwoHanded);
-            mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(MockSpecialAbilities(2));
+
+            this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
 
             // Act
             Fist.Initialise(mockGameDB.Object);
 
             // Assert
             Assert.AreEqual(7, Fist.BaseAtSkill);
-            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(OffHand, CombatBranch.Unarmed));
+            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!OffHand, CombatBranch.Unarmed));
 
             Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(OffHand, CombatBranch.Unarmed, 0, false));
+            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(!OffHand, CombatBranch.Unarmed, 0, false));
+
+            Assert.AreEqual(1, Fist.DamageDieCount);
+            Assert.AreEqual(6, Fist.DamageDieSides);
+            Assert.AreEqual(0, Fist.DamageBonus);
+
+            //this.mockRepository.VerifyAll();
+        }
+
+
+        // Two-handed weapon fighting is crucial
+        // Advantage Ambidexterous makes no difference
+        // 
+        [Test] // Layariel: Unarmed TP 1W6, AT 7, PA 5
+        [TestCase(false, false, CombatBranch.Melee, -2)]
+        [TestCase(false, false, CombatBranch.Ranged, -2)]
+        [TestCase(false, false, CombatBranch.Shield, 0)]
+        [TestCase(true, false, CombatBranch.Melee, -2)]
+        [TestCase(true, false, CombatBranch.Ranged, -2)]
+        [TestCase(true, false, CombatBranch.Shield, 0)]
+        [TestCase(false, true, CombatBranch.Melee, 0)]
+        [TestCase(false, true, CombatBranch.Ranged, 0)]
+        [TestCase(false, true, CombatBranch.Shield, 0)]
+        [TestCase(true, true, CombatBranch.Melee, 0)]
+        [TestCase(true, true, CombatBranch.Ranged, 0)]
+        [TestCase(true, true, CombatBranch.Shield, 0)]
+        public void WeaponStats_RightHand_ArmedLeft_YieldsTwohandPenalty(bool IsAmbidext, bool isTwoHanded, CombatBranch OffHandWeapon, int ExpectedPenalty)
+        {
+            const bool MainHand = true;
+            // Arrange
+            var Fist = this.CreateLayarielsWeaponUnarmedM();
+
+            this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+
+            // Act
+            Fist.Initialise(mockGameDB.Object);
+
+            // Assert
+            Assert.AreEqual(7, Fist.BaseAtSkill);
+            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(MainHand, OffHandWeapon));
+
+            Assert.AreEqual(5, Fist.BasePaSkill);
+            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(MainHand, OffHandWeapon, 0, false));
+
+            Assert.AreEqual(1, Fist.DamageDieCount);
+            Assert.AreEqual(6, Fist.DamageDieSides);
+            Assert.AreEqual(0, Fist.DamageBonus);
+
+            //this.mockRepository.VerifyAll();
+        }
+
+
+
+
+        // Two-handed weapon fighting is in effect
+        // Advantage Ambidexterous is in effect
+        // 
+        [Test] // Layariel: Unarmed TP 1W6, AT 7, PA 5
+        [TestCase(false, false, CombatBranch.Melee, -6)]
+        [TestCase(false, false, CombatBranch.Ranged, -6)]
+        [TestCase(false, false, CombatBranch.Shield, -4)]
+        [TestCase(true, false, CombatBranch.Melee, -2)]
+        [TestCase(true, false, CombatBranch.Ranged, -2)]
+        [TestCase(true, false, CombatBranch.Shield, 0)]
+        [TestCase(false, true, CombatBranch.Melee, -4)]
+        [TestCase(false, true, CombatBranch.Ranged, -4)]
+        [TestCase(false, true, CombatBranch.Shield, -4)]
+        [TestCase(true, true, CombatBranch.Melee, 0)]
+        [TestCase(true, true, CombatBranch.Ranged, 0)]
+        [TestCase(true, true, CombatBranch.Shield, 0)]
+        public void WeaponStats_OffHand_ArmedMain_YieldsBothPenalties(bool IsAmbidext, bool isTwoHanded, CombatBranch OffHandWeapon, int ExpectedPenalty)
+        {
+            const bool MainHand = true;
+            // Arrange
+            var Fist = this.CreateLayarielsWeaponUnarmedM();
+
+            this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+
+            // Act
+            Fist.Initialise(mockGameDB.Object);
+
+            // Assert
+            Assert.AreEqual(7, Fist.BaseAtSkill);
+            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!MainHand, OffHandWeapon));
+
+            Assert.AreEqual(5, Fist.BasePaSkill);
+            Assert.AreEqual(Math.Max(5 + ExpectedPenalty, 0), Fist.PaSkill(!MainHand, OffHandWeapon, 0, false));
 
             Assert.AreEqual(1, Fist.DamageDieCount);
             Assert.AreEqual(6, Fist.DamageDieSides);
