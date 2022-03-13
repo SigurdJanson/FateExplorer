@@ -82,22 +82,6 @@ namespace FateExplorer.RollLogic
         }
 
 
-
-        //public static int[] ComputeAttributeRemainder(int[] Eyes, int[] Attributes, int Mod) //- is this needed???
-        //{
-        //    int DieCount = Eyes.Length;
-
-        //    int[] EffectiveAttr = new int[DieCount], Check = new int[DieCount];
-        //    for (int i = 0; i < Attributes.Length; i++)
-        //        EffectiveAttr[i] = Attributes[i] + Mod;
-
-        //    for (int i = 0; i < Attributes.Length; i++)
-        //        Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
-
-        //    return Check;
-        //}
-
-
         /// <summary>
         /// Computes how many skill points remain after compensating all rolls that
         /// exceeded their according attribute.

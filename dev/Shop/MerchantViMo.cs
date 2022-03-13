@@ -39,21 +39,52 @@ namespace FateExplorer.Shop
 
 
         public enum ExperienceLevel { Novice = 0, Advanced, Competent, Proficient, Expert, Legend }
-        public int Experience { get; protected set; }
+        public int TradeSkillValue { get; protected set; }
 
-        public void SetExperience(ExperienceLevel Level)
+        public ExperienceLevel TradeExperience
         {
-            Experience = Level switch
+            get
             {
-                ExperienceLevel.Novice => 3,
-                ExperienceLevel.Advanced => 6,
-                ExperienceLevel.Competent => 9,
-                ExperienceLevel.Proficient => 12,
-                ExperienceLevel.Expert => 15,
-                ExperienceLevel.Legend => 18,
-                _ => 0
-            };
+                if (TradeSkillValue <= 3)
+                    return ExperienceLevel.Novice;
+                else if (TradeSkillValue <= 6)
+                    return ExperienceLevel.Advanced;
+                else if (TradeSkillValue <= 9)
+                    return ExperienceLevel.Competent;
+                else if (TradeSkillValue <= 12)
+                    return ExperienceLevel.Proficient;
+                else if (TradeSkillValue <= 15)
+                    return ExperienceLevel.Expert;
+                else
+                    return ExperienceLevel.Legend;
+            }
+            set
+            {
+                TradeSkillValue = value switch
+                {
+                    ExperienceLevel.Novice => 3,
+                    ExperienceLevel.Advanced => 6,
+                    ExperienceLevel.Competent => 9,
+                    ExperienceLevel.Proficient => 12,
+                    ExperienceLevel.Expert => 15,
+                    ExperienceLevel.Legend => 18,
+                    _ => 0
+                };
+            }
         }
+        //public void SetExperience(ExperienceLevel Level)
+        //{
+        //    Experience = Level switch
+        //    {
+        //        ExperienceLevel.Novice => 3,
+        //        ExperienceLevel.Advanced => 6,
+        //        ExperienceLevel.Competent => 9,
+        //        ExperienceLevel.Proficient => 12,
+        //        ExperienceLevel.Expert => 15,
+        //        ExperienceLevel.Legend => 18,
+        //        _ => 0
+        //    };
+        //}
 
         #endregion
 
@@ -78,7 +109,7 @@ namespace FateExplorer.Shop
             SkillsDTO skill = new ()
             {
                 Id = CommerceId,
-                EffectiveValue = Experience,
+                EffectiveValue = TradeSkillValue,
                 Min = 0,
                 Max = 20,
                 Name = "Commerce (Haggle)", 

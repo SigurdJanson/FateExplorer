@@ -62,7 +62,7 @@ namespace vmCode_UnitTests.Shop
 
             // Assert
             this.mockRepository.VerifyAll();
-            return merchantViMo.Experience; ;
+            return merchantViMo.TradeSkillValue; ;
         }
 
 

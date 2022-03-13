@@ -546,6 +546,9 @@
     <value>Mohisch</value>
     <comment>enum LanguageId</comment>
   </data>
+  <data name="msgAdd2Cart" xml:space="preserve">
+    <value>Zum Einkauf hinzufügem</value>
+  </data>
   <data name="msgBotchAvoided" xml:space="preserve">
     <value>Wie bist Du da wieder raus gekommen?</value>
   </data>
@@ -598,6 +601,9 @@
   </data>
   <data name="msgRequired" xml:space="preserve">
     <value>Den Wert brauche ich</value>
+  </data>
+  <data name="msgShowDetails" xml:space="preserve">
+    <value>Details anzeigen</value>
   </data>
   <data name="msgWrongContentType" xml:space="preserve">
     <value>Diese App erwartet eine JSON Datei. Die angegebene Datei ist vom Typ  {0}.</value>

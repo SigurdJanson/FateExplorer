@@ -1,16 +1,32 @@
 ﻿@page "/shop"
+@using FateExplorer.GameData
 @using FateExplorer.Shop
 @using System.ComponentModel.DataAnnotations
 
+@inject IGameDataService GameData
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
 @inject HttpClient httpClient
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
-        <MudItem xs=12>
+        <MudItem xs=3>
+        </MudItem>
+        <MudItem xs=6>
             <MudText Typo=Typo.h3 Align=Align.Center GutterBottom=true>@l10n["naviShop"]</MudText>
+        </MudItem>
+        <MudItem xs=3>
+            <MudBadge Content=@(ShoppingCart?.ItemCount ?? 0) Visible=@(ShoppingCart?.ItemCount != 0)
+                      Color=Color.Info Overlap=true Bordered=true>
+                <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@(() => OpenShopCartDrawer = !OpenShopCartDrawer)
+                    StartIcon=@Icons.Material.Sharp.ShoppingCart IconColor=Color.Dark Size=Size.Large>
+                    lblShoppingCart
+                </MudButton>
+            </MudBadge>
+        </MudItem>
 
+
+        <MudItem xs=12>
             @if (Stock is not null)
             {
             <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
@@ -72,10 +88,14 @@
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd>
+                        <MudTooltip Text=@l10n["msgAdd2Cart"]>
+                            <MudIconButton Icon=@Icons.Sharp.PlusOne Size=Size.Small 
+                                OnClick=@(() => ShoppingCart.Add( (context, 1) ))
+                                aria-label=@l10n["msgAdd2Cart"] />
+                        </MudTooltip>
                         <MudTooltip Text=@l10n["msgShowDetails"]>
                             <MudIconButton Icon=@Icons.Sharp.Pageview Size=Size.Small 
                                 OnClick=@(() => OpenDrawer(context))
-                                Target="_blank"
                                 aria-label=@l10n["msgShowDetails"] />
                         </MudTooltip>
                         <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
@@ -99,18 +119,73 @@
 </MudContainer>
 
 
-<MudDrawer @bind-Open=@OpenDetailsDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="400px">
+<MudDrawer @bind-Open=@OpenDetailsDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="500px">
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs=12>
-    @if (ItemDetailsRender is not null)
-    {
-        @ItemDetailsRender
-    }
-    else
-    {
-        <span>No item details available</span>
-    }
+        @if (ItemDetailsRender is not null)
+        {
+            @ItemDetailsRender
+        }
+        else
+        {
+            <span>@l10n["msgEmptyItemDetails"]@*No item details available*@</span>
+        }
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+</MudDrawer>
+
+<MudDrawer @bind-Open=@OpenShopCartDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="500px">
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs=12>
+            @if (ShoppingCart.Count > 0)
+            {
+            <MudText Typo=Typo.caption>lblShoppingCartItems</MudText>
+            <MudSimpleTable Hover=true Dense=true FixedHeader=true Elevation=0>
+                <thead>
+                    <tr>
+                        <th>@l10n["lblName"]</th>
+                        <th>@l10n["lblPrice"]</th>
+                        <th>@l10n["lblCount"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in ShoppingCart)
+                    {
+                        <tr>
+                            <td>@row.Item.Name</td>
+                            <td>@row.Item.Price</td>
+                            <td>@row.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </MudSimpleTable>
+            <MudField Label="lblTotalListPrice" Variant=Variant.Text Class="ma-4">
+                @ShoppingCart.TotalPrice
+            </MudField>
+            <MudField Label="lblNegotiatedPrice" Variant=Variant.Text Class="ma-4">
+                @ShoppingCart.TotalPrice
+            </MudField>
+            <MudPaper Class="pa-4">
+                <MudText Typo=Typo.caption>lblMerchant</MudText>
+                <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3>lblKlug</MudSlider>
+                <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3>lblGerissen</MudSlider>
+                <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3>lblCharmant</MudSlider>
+                <MudSelect @bind-Value=Merchant.TradeExperience Label="lblMerchantXp">
+                    @foreach (MerchantViMo.ExperienceLevel item in Enum.GetValues(typeof(MerchantViMo.ExperienceLevel)))
+                    {
+                        <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudButton>lblHaggle</MudButton>
+            </MudPaper>            
+            }
+            else
+            {
+                <MudText Typo=Typo.body2>@l10n["msgEmptyShoppingCart"]</MudText>
+            }
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -136,10 +211,10 @@
         {
             IOrderedEnumerable<ShopItemViMo> SortedData = (state.SortLabel) switch
             {
-                "Name" => data.OrderByDirection(state.SortDirection, o => o.Name),
-                "Price" => data.OrderByDirection(state.SortDirection, o => o.Price),
-                "Weight" =>data.OrderByDirection(state.SortDirection, o => o.Weight),
-                "Group" => data.OrderByDirection(state.SortDirection, o => o.Group), 
+                "Name"   => data.OrderByDirection(state.SortDirection, o => o.Name),
+                "Price"  => data.OrderByDirection(state.SortDirection, o => o.Price),
+                "Weight" => data.OrderByDirection(state.SortDirection, o => o.Weight),
+                "Group"  => data.OrderByDirection(state.SortDirection, o => o.Group), 
                 _ => data as IOrderedEnumerable<ShopItemViMo>
             };
             return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = SortedData };
@@ -176,6 +251,8 @@
     {
         base.OnInitialized();
         Stock = new ShopInventoryViMo(httpClient, l10n);
+        ShoppingCart = new ShoppingCartViMo();
+        Merchant = new MerchantViMo(GameData);
         await Stock.InitializeGameDataAsync();
     }
 
@@ -246,6 +323,14 @@
                 builder.CloseComponent();
             }
         }
-    };    
+    };
+
+
+    // SHOPPING CART DRAWER
+    private ShoppingCartViMo ShoppingCart { get; set; }
+    private MerchantViMo Merchant { get; set; }
+
+    private bool OpenShopCartDrawer { get; set; }
+
 
 }
