@@ -83,19 +83,19 @@ namespace FateExplorer.RollLogic
 
 
 
-        public static int[] ComputeAttributeRemainder(int[] Eyes, int[] Attributes, int Mod) //- is this needed???
-        {
-            int DieCount = Eyes.Length;
+        //public static int[] ComputeAttributeRemainder(int[] Eyes, int[] Attributes, int Mod) //- is this needed???
+        //{
+        //    int DieCount = Eyes.Length;
 
-            int[] EffectiveAttr = new int[DieCount], Check = new int[DieCount];
-            for (int i = 0; i < Attributes.Length; i++)
-                EffectiveAttr[i] = Attributes[i] + Mod;
+        //    int[] EffectiveAttr = new int[DieCount], Check = new int[DieCount];
+        //    for (int i = 0; i < Attributes.Length; i++)
+        //        EffectiveAttr[i] = Attributes[i] + Mod;
 
-            for (int i = 0; i < Attributes.Length; i++)
-                Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
+        //    for (int i = 0; i < Attributes.Length; i++)
+        //        Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
 
-            return Check;
-        }
+        //    return Check;
+        //}
 
 
         /// <summary>
@@ -109,7 +109,9 @@ namespace FateExplorer.RollLogic
         /// <returns></returns>
         public static int ComputeSkillRemainder(int[] Eyes, int[] Attributes, int Skill, int Mod)
         {
-            int DieCount = Eyes.Length;
+            //-int DieCount = Eyes.Length;
+            if (Eyes.Length != Attributes.Length) 
+                throw new ArgumentException("Skill checks need as many rolled dice as abilities");
 
             int Count20s = 0, Count1s = 0;
             foreach (int e in Eyes)
@@ -121,16 +123,22 @@ namespace FateExplorer.RollLogic
             else if (Count20s >= 2)
                 return 0;
 
-            int[] EffectiveAttr = new int[DieCount], Check = new int[DieCount];
+            //-int EffectiveAttr; // = new int[DieCount];
+            //-int[] Check = new int[DieCount];
+            // Determine how many points must be compensated by the skill value
+            int ToCompensate = 0;
             for (int i = 0; i < Attributes.Length; i++)
-                EffectiveAttr[i] = Attributes[i] + Mod;
+            {
+                int EffectiveAttr = Attributes[i] + Mod;
+                //-int Check = Math.Max(Eyes[i] - EffectiveAttr, 0);
+                ToCompensate += Math.Max(Eyes[i] - EffectiveAttr, 0); //-Check;
+            }
+            //-for (int i = 0; i < Attributes.Length; i++)
+            //-    Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
 
-            for (int i = 0; i < Attributes.Length; i++)
-                Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
-
-            int CheckSum = 0;
-            Array.ForEach(Check, (int i) => CheckSum += i);
-            return Skill - CheckSum;
+            // Subtract 
+            //-Array.ForEach(Check, (int i) => ToCompensate += i);
+            return Skill - ToCompensate;
         }
 
 
