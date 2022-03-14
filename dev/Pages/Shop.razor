@@ -1,4 +1,5 @@
 ﻿@page "/shop"
+@using FateExplorer.Components
 @using FateExplorer.GameData
 @using FateExplorer.Shop
 @using System.ComponentModel.DataAnnotations
@@ -165,22 +166,8 @@
             <MudField Label="lblTotalListPrice" Variant=Variant.Text Class="ma-4">
                 @ShoppingCart.TotalPrice
             </MudField>
-            <MudField Label="lblNegotiatedPrice" Variant=Variant.Text Class="ma-4">
-                @ShoppingCart.TotalPrice
-            </MudField>
-            <MudPaper Class="pa-4">
-                <MudText Typo=Typo.caption>lblMerchant</MudText>
-                <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3>lblKlug</MudSlider>
-                <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3>lblGerissen</MudSlider>
-                <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3>lblCharmant</MudSlider>
-                <MudSelect @bind-Value=Merchant.TradeExperience Label="lblMerchantXp">
-                    @foreach (MerchantViMo.ExperienceLevel item in Enum.GetValues(typeof(MerchantViMo.ExperienceLevel)))
-                    {
-                        <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudButton>lblHaggle</MudButton>
-            </MudPaper>            
+
+            <CompetitiveMerchantCheck ListPrice=@ShoppingCart.TotalPrice Merchant=@Merchant />
             }
             else
             {
