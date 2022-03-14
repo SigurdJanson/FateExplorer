@@ -4,38 +4,39 @@
 
 
 <MudPaper Class="pa-4" Outlined=true>
-    <div class="d-flex mb-4">
-        <div>
-            <MudIcon Icon=@Icons.Material.Sharp.Balance Size=Size.Large/>
-        </div>
-        <div>
-            <MudText Typo=Typo.caption>lblMerchant</MudText>
-            <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3>@l10n["lblSmart"]</MudSlider>@*Klug*@
-            <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3>@l10n["lblSly"]</MudSlider>@*Gerissen*@
-            <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3>@l10n["lblCharming"]</MudSlider>@*Charmant*@
-            <MudSelect @bind-Value=Merchant.TradeExperience Label=@l10n["lblMerchantXp"]>
-                @foreach (MerchantViMo.ExperienceLevel item in Enum.GetValues(typeof(MerchantViMo.ExperienceLevel)))
-                {
-                    <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
-                }
-            </MudSelect>
-        </div>
-    </div>
-    <MudButton OnClick=@(() => Merchant.Haggle()) FullWidth=true Variant=Variant.Filled Color=Color.Primary StartIcon=@Icons.Material.Sharp.Balance>
+    <MudIcon Icon=@Icons.Material.Sharp.Storefront Size=Size.Large />
+    <MudText Typo=Typo.caption>lblMerchant</MudText>
+    <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3>@l10n["lblSmart"]</MudSlider>@*Klug*@
+    <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3>@l10n["lblSly"]</MudSlider>@*Gerissen*@
+    <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3>@l10n["lblCharming"]</MudSlider>@*Charmant*@
+    <MudSelect @bind-Value=Merchant.TradeExperience Label=@l10n["lblMerchantXp"]>
+        @foreach (MerchantViMo.ExperienceLevel item in Enum.GetValues(typeof(MerchantViMo.ExperienceLevel)))
+        {
+            <MudSelectItem Value="@item">@item.ToString()</MudSelectItem>
+        }
+    </MudSelect>
+
+    <MudButton OnClick=@(() => Merchant.Haggle()) FullWidth=true Variant=Variant.Filled Color=Color.Primary 
+        StartIcon=@Icons.Material.Sharp.Balance>
         @l10n["lblHaggle"]
     </MudButton>
-    <div class="d-flex mt-8 mb-4">
+
+    <MudText Typo=Typo.caption Class="mt-8 ">lblResult</MudText>
+    <div class="d-flex mb-4">
         <div>
-            Merchant 
-            <MudNumericField Value=@Merchant.HaggleQL Label="lblQualityLevel" Variant=Variant.Text Class="ma-4" HideSpinButtons=true/>
+            <MudText Typo=Typo.body1>lblMerchant</MudText>
+            <MudNumericField Value=@Merchant.HaggleQL Label=@l10n["lblQualityLevel"] 
+                Variant=Variant.Text Class="ma-4" HideSpinButtons=true/>
         </div>
         <div>
-            Player
-            <MudNumericField @bind-Value=PlayerHaggleQL Label="QL" Variant=Variant.Text Min=0 Max=6 Class="ma-4"/>
+            <MudText Typo=Typo.body1>lblPlayer</MudText>
+            <MudNumericField @bind-Value=PlayerHaggleQL Label=@l10n["lblQualityLevel"] 
+                Variant=Variant.Text Min=0 Max=6 Class="ma-4"/>
         </div>
     </div>
-    <MudField Label="lblNegotiatedPrice" Variant=Variant.Text Class="ma-4">
-        @Merchant.DeterminePrice(ListPrice, PlayerHaggleQL)
+    <MudField Label="lblNegotiatedPrice" Variant=Variant.Text Class="ma-4"
+              Adornment="Adornment.End" AdornmentText="ST" AdornmentColor=Color.Secondary>
+        @string.Format("{0:0,0.00}", Merchant.DeterminePrice(ListPrice, PlayerHaggleQL))
     </MudField>
 </MudPaper>
 
