@@ -839,7 +839,7 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutMoreMentions" xml:space="preserve">
-    <value>Außerdem danken wir dem {0}, den {1} einschließlich {2}, dem {3} auf dieser Seite, all den Helden vom {4} und der {5}.</value>
+    <value>Außerdem danken wir dem {0}, den {1} einschließlich {2}, dem {3} auf dieser Seite, all den Helden vom {4} und dem {5}.</value>
     <comment>About</comment>
   </data>
   <data name="txtAboutTitleMentions" xml:space="preserve">

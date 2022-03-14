@@ -90,17 +90,20 @@
                     </MudTd>
                     <MudTd>
                         <MudTooltip Text=@l10n["msgAdd2Cart"]>
-                            <MudIconButton Icon=@Icons.Sharp.PlusOne Size=Size.Small 
+                            <MudIconButton Icon=@Icons.Sharp.PlusOne Size=Size.Small Variant=Variant.Filled
+                                Color=Color.Secondary
                                 OnClick=@(() => ShoppingCart.Add( (context, 1) ))
-                                aria-label=@l10n["msgAdd2Cart"] />
+                                aria-label=@l10n["msgAdd2Cart"] Class="px-2" />
                         </MudTooltip>
                         <MudTooltip Text=@l10n["msgShowDetails"]>
-                            <MudIconButton Icon=@Icons.Sharp.Pageview Size=Size.Small 
+                            <MudIconButton Icon=@Icons.Sharp.Pageview Size=Size.Small Variant=Variant.Outlined
+                                Color=Color.Tertiary
                                 OnClick=@(() => OpenDrawer(context))
                                 aria-label=@l10n["msgShowDetails"] />
                         </MudTooltip>
                         <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
-                            <MudIconButton Icon=@Icons.Sharp.Preview Size=Size.Small 
+                            <MudIconButton Icon=@Icons.Sharp.Preview Size=Size.Small Variant=Variant.Outlined
+                                Color=Color.Tertiary
                                 Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
                                 Target="_blank"
                                 aria-label=@l10n["msgFindAtUlissesWiki"] />
