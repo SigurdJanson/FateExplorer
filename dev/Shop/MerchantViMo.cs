@@ -18,6 +18,9 @@ namespace FateExplorer.Shop
         public MerchantViMo(IGameDataService gameData)
         {
             GameData = gameData ?? throw new ArgumentNullException(nameof(gameData));
+            Sagacity = 0;
+            Intuition = 0;
+            Charisma = 0;
         }
 
 
@@ -41,7 +44,7 @@ namespace FateExplorer.Shop
 
 
         public enum ExperienceLevel { Novice = 0, Advanced, Competent, Proficient, Expert, Legend }
-        public int TradeSkillValue { get; protected set; }
+        public int TradeSkillValue { get; protected set; } = 9;
 
         public ExperienceLevel TradeExperience
         {
