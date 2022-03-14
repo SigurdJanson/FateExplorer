@@ -127,6 +127,10 @@
     <value>Würfelbecher erstellen</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Fortgeschritten</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
+  </data>
   <data name="AGI" xml:space="preserve">
     <value>GE</value>
     <comment>Abilities</comment>
@@ -183,6 +187,9 @@
   <data name="btnFullyRestore" xml:space="preserve">
     <value>Voll wiederherstellen</value>
   </data>
+  <data name="btnHaggle" xml:space="preserve">
+    <value>Handel [Feilschen]</value>
+  </data>
   <data name="btnOpenMenu" xml:space="preserve">
     <value>Menü öffnen</value>
     <comment>NavMenu</comment>
@@ -204,6 +211,10 @@
   <data name="CHA" xml:space="preserve">
     <value>CH</value>
     <comment>Abilities</comment>
+  </data>
+  <data name="Competent" xml:space="preserve">
+    <value>Kompetent</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
   </data>
   <data name="CON" xml:space="preserve">
     <value>KO</value>
@@ -244,6 +255,10 @@
   <data name="Dschuku" xml:space="preserve">
     <value>Dschuku</value>
     <comment>enum LanguageId</comment>
+  </data>
+  <data name="Expert" xml:space="preserve">
+    <value>Experte</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
   </data>
   <data name="Fjarningish" xml:space="preserve">
     <value>Fjarningisch</value>
@@ -390,6 +405,9 @@
   <data name="lblBotch" xml:space="preserve">
     <value>Patzerwurf</value>
   </data>
+  <data name="lblCharming" xml:space="preserve">
+    <value>Charmant</value>
+  </data>
   <data name="lblCount" xml:space="preserve">
     <value>Anzahl</value>
   </data>
@@ -428,6 +446,12 @@
   <data name="lblMaximum" xml:space="preserve">
     <value>Voll</value>
   </data>
+  <data name="lblMerchant" xml:space="preserve">
+    <value>Händler</value>
+  </data>
+  <data name="lblMerchantXp" xml:space="preserve">
+    <value>Erfahrung des Händlers</value>
+  </data>
   <data name="lblMinimum" xml:space="preserve">
     <value>Minimal</value>
   </data>
@@ -441,6 +465,9 @@
   <data name="lblName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="lblNegotiatedPrice" xml:space="preserve">
+    <value>Ausgehandelter Gesamtpreis</value>
+  </data>
   <data name="lblNewDiceCup" xml:space="preserve">
     <value>Neuer Würfelbecher</value>
     <comment>DlgFreeDiceCup</comment>
@@ -452,12 +479,21 @@
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Geburtsort</value>
   </data>
+  <data name="lblPlayer" xml:space="preserve">
+    <value>Spieler</value>
+  </data>
   <data name="lblPrice" xml:space="preserve">
     <value>Preis</value>
+  </data>
+  <data name="lblQualityLevel" xml:space="preserve">
+    <value>Qualitätsstufe</value>
   </data>
   <data name="lblRegenerate6Hours" xml:space="preserve">
     <value>Regeneration für mindestens 6 Stunden</value>
     <comment>Energy regeneration</comment>
+  </data>
+  <data name="lblResult" xml:space="preserve">
+    <value>Ergebnis</value>
   </data>
   <data name="lblResultCardCombined" xml:space="preserve">
     <value>Kombiniert</value>
@@ -488,6 +524,12 @@
   <data name="lblSelectStockCategory" xml:space="preserve">
     <value>Kategorie wählen</value>
   </data>
+  <data name="lblShoppingCart" xml:space="preserve">
+    <value>Einkaufskorb</value>
+  </data>
+  <data name="lblShoppingCartItems" xml:space="preserve">
+    <value>Dinge im Einkaufskorb</value>
+  </data>
   <data name="lblSides" xml:space="preserve">
     <value>Seiten</value>
   </data>
@@ -500,6 +542,12 @@
   <data name="lblSkillAbbr" xml:space="preserve">
     <value>FW</value>
   </data>
+  <data name="lblSly" xml:space="preserve">
+    <value>Gerissen</value>
+  </data>
+  <data name="lblSmart" xml:space="preserve">
+    <value>Klug</value>
+  </data>
   <data name="lblSpecialAbilities" xml:space="preserve">
     <value>Sonderfertigkeiten</value>
   </data>
@@ -508,6 +556,9 @@
   </data>
   <data name="lblStruPoints" xml:space="preserve">
     <value>Strukturpunkte</value>
+  </data>
+  <data name="lblSumTotal" xml:space="preserve">
+    <value>Gesamtpreis</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
     <value>Vermögen</value>
@@ -521,6 +572,10 @@
   <data name="lblYourBestSkills" xml:space="preserve">
     <value>Deine Spezialität</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Legendär</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
   </data>
   <data name="lngBasic" xml:space="preserve">
     <value>Basis</value>
@@ -567,6 +622,12 @@
   </data>
   <data name="msgCriticalLost" xml:space="preserve">
     <value>Was ist nur los mit Dir?</value>
+  </data>
+  <data name="msgEmptyItemDetails" xml:space="preserve">
+    <value>Eigenschaften sind für das DIng keine vorhanden.</value>
+  </data>
+  <data name="msgEmptyShoppingCart" xml:space="preserve">
+    <value>Der Einkaufskorb ist leer. Lege was rein.</value>
   </data>
   <data name="msgFindAtUlissesWiki" xml:space="preserve">
     <value>Suche den Gegenstand im Ulisses wiki</value>
@@ -630,6 +691,10 @@
   <data name="naviShop" xml:space="preserve">
     <value>Basar</value>
   </data>
+  <data name="Novice" xml:space="preserve">
+    <value>Neuling</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
+  </data>
   <data name="Nujuka" xml:space="preserve">
     <value>Nujuka</value>
     <comment>enum LanguageId</comment>
@@ -649,6 +714,10 @@
   <data name="Pardiral" xml:space="preserve">
     <value>Pardiral</value>
     <comment>enum LanguageId</comment>
+  </data>
+  <data name="Proficient" xml:space="preserve">
+    <value>Gewandt</value>
+    <comment>MerchantViMo.ExperienceLevel</comment>
   </data>
   <data name="QL" xml:space="preserve">
     <value>QS</value>
