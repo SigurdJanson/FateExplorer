@@ -12,7 +12,7 @@ namespace FateExplorer.Shop
 
         private const string CommerceId = "TAL_46";
         private const int IncompleteBargain = -1;
-
+        private const int AbilityDefault = 13;
 
 
         public MerchantViMo(IGameDataService gameData)
@@ -21,21 +21,23 @@ namespace FateExplorer.Shop
         }
 
 
-        
+
         #region CHARACTER DATA
+
+        private int sagacity, intuition, charisma;
 
         /// <summary>
         /// The merchant's sagacity. Use -3 to +3 from a merchant's default.
         /// </summary>
-        public int Sagacity { get; set; }
+        public int Sagacity { get => sagacity - AbilityDefault; set => sagacity = AbilityDefault + value; }
         /// <summary>
         /// The merchant's intuition. Use -3 to +3 from a merchant's default.
         /// </summary>
-        public int Intuition { get; set; }
+        public int Intuition { get => intuition - AbilityDefault; set => intuition = AbilityDefault + value; }
         /// <summary>
         /// The merchant's charme. Use -3 to +3 from a merchant's default.
         /// </summary>
-        public int Charisma { get; set; }
+        public int Charisma { get => charisma - AbilityDefault; set => charisma = AbilityDefault + value; }
 
 
         public enum ExperienceLevel { Novice = 0, Advanced, Competent, Proficient, Expert, Legend }
@@ -72,19 +74,6 @@ namespace FateExplorer.Shop
                 };
             }
         }
-        //public void SetExperience(ExperienceLevel Level)
-        //{
-        //    Experience = Level switch
-        //    {
-        //        ExperienceLevel.Novice => 3,
-        //        ExperienceLevel.Advanced => 6,
-        //        ExperienceLevel.Competent => 9,
-        //        ExperienceLevel.Proficient => 12,
-        //        ExperienceLevel.Expert => 15,
-        //        ExperienceLevel.Legend => 18,
-        //        _ => 0
-        //    };
-        //}
 
         #endregion
 
@@ -124,9 +113,9 @@ namespace FateExplorer.Shop
                 var aData = GameData.Abilities[FindAbs[a]];
                 int AbilityValue = FindAbs[a] switch
                 {
-                    AbilityM.SGC => this.Sagacity,
-                    AbilityM.INT => this.Intuition,
-                    AbilityM.CHA => this.Charisma,
+                    AbilityM.SGC => this.sagacity, // use value *incl.* ability default
+                    AbilityM.INT => this.intuition,
+                    AbilityM.CHA => this.charisma,
                     _ => 0
                 };
                 ability[a] = new AbilityDTO()

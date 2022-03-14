@@ -58,7 +58,7 @@ namespace vmCode_UnitTests.Shop
             var merchantViMo = this.CreateMerchantViMo();
 
             // Act
-            merchantViMo.SetExperience(Level);
+            merchantViMo.TradeExperience = Level;
 
             // Assert
             this.mockRepository.VerifyAll();
@@ -86,7 +86,7 @@ namespace vmCode_UnitTests.Shop
             merchantViMo.Sagacity = 21;
             merchantViMo.Intuition = 21;
             merchantViMo.Charisma = 21;
-            merchantViMo.SetExperience(Level);
+            merchantViMo.TradeExperience = Level;
 
             // Act
             var result = merchantViMo.Haggle();
@@ -113,7 +113,7 @@ namespace vmCode_UnitTests.Shop
             merchantViMo.Sagacity = 0;
             merchantViMo.Intuition = 0;
             merchantViMo.Charisma = 0;
-            merchantViMo.SetExperience(Level);
+            merchantViMo.TradeExperience = Level;
 
             // Act
             var result = merchantViMo.Haggle();
@@ -148,7 +148,7 @@ namespace vmCode_UnitTests.Shop
             merchantViMo.Sagacity = 21;
             merchantViMo.Intuition = 21;
             merchantViMo.Charisma = 21;
-            merchantViMo.SetExperience(Level);
+            merchantViMo.TradeExperience = Level;
             merchantViMo.Haggle();
             Assume.That(merchantViMo.HaggleQL, Is.EqualTo(ExpectedQL));
 
