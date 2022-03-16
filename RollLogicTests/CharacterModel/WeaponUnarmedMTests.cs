@@ -131,7 +131,7 @@ namespace vmCode_UnitTests.CharacterModel
             Assert.AreEqual(7, Fist.AtSkill(MainHand, CombatBranch.Unarmed));
 
             Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5, Fist.PaSkill(MainHand, CombatBranch.Unarmed, 0, false));
+            Assert.AreEqual(5, Fist.PaSkill(MainHand, CombatBranch.Unarmed, false, 0));
 
             Assert.AreEqual(1, Fist.DamageDieCount);
             Assert.AreEqual(6, Fist.DamageDieSides);
@@ -165,7 +165,7 @@ namespace vmCode_UnitTests.CharacterModel
             Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!OffHand, CombatBranch.Unarmed));
 
             Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(!OffHand, CombatBranch.Unarmed, 0, false));
+            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(!OffHand, CombatBranch.Unarmed, false, 0));
 
             Assert.AreEqual(1, Fist.DamageDieCount);
             Assert.AreEqual(6, Fist.DamageDieSides);
@@ -207,7 +207,7 @@ namespace vmCode_UnitTests.CharacterModel
             Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(MainHand, OffHandWeapon));
 
             Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(MainHand, OffHandWeapon, 0, false));
+            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(MainHand, OffHandWeapon, false, 0));
 
             Assert.AreEqual(1, Fist.DamageDieCount);
             Assert.AreEqual(6, Fist.DamageDieSides);
@@ -251,7 +251,7 @@ namespace vmCode_UnitTests.CharacterModel
             Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!MainHand, OffHandWeapon));
 
             Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(Math.Max(5 + ExpectedPenalty, 0), Fist.PaSkill(!MainHand, OffHandWeapon, 0, false));
+            Assert.AreEqual(Math.Max(5 + ExpectedPenalty, 0), Fist.PaSkill(!MainHand, OffHandWeapon, false, 0));
 
             Assert.AreEqual(1, Fist.DamageDieCount);
             Assert.AreEqual(6, Fist.DamageDieSides);

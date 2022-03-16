@@ -856,8 +856,11 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">
-    <value>The Fate Explorer helps you play the Dark Eye table top games. Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules. Consecutive checks are done automatically and checked.</value>
+    <value>The Fate Explorer helps you play the Dark Eye* table top games (rule system 5). Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules and can be described as an intelligent character sheet. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
+  </data>
+  <data name="txtRegisteredTrademark" xml:space="preserve">
+    <value>The Dark Eye is a registered trade mark of the  &lt;a href="https://ulisses-spiele.de/"&gt;Ulisses Spiele GmbH&lt;/a&gt;.</value>
   </data>
   <data name="Zelemja" xml:space="preserve">
     <value>Zelemja</value>

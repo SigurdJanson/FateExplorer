@@ -3,23 +3,21 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
         <MudItem xs=12 xxl=12>
-            <MudContainer Fixed="true">
+            <MudContainer Fixed=true>
                 <div Class="pa-4" Style="height: 12rem; align-content:center">
-                    <img src="img/FateExplorer_Blood_Logo.svg" style="width:100%;max-width:100%;max-height:100%;vertical-align: middle;" alt="TODO" />
+                    <img src="img/FateExplorer_Blood_Logo.svg" style="width:100%;max-width:100%;max-height:100%;vertical-align: middle;" alt="Fate Explorer Logo" />
                 </div>
             </MudContainer>
         </MudItem>
 
-        <MudItem xs=12 sm=4 md=3>
-            <div Class="pa-4" Style="height: 200px; align-content:center">
-                <img src="img/fe_magic.webp" style="height:100%" alt="@l10n["imgAltSorcerer"]"/>
-            </div>
+        <MudItem xs=12 sm=4 md=3 Style="text-align: center;">
+            <img src="img/fe_magic.webp" style="height:240px" alt="@l10n["imgAltSorcerer"]"/>
         </MudItem>
         <MudItem xs=12 sm=4 md=6>
-            <MudPaper Elevation="1" Class="pa-4" Style="height: 200px;">
+            <MudPaper Elevation=1 Class="pa-4">
                 <MudText Typo="Typo.body1" GutterBottom=true>
                     @l10n["txtAboutWhatis"]
                 </MudText>
@@ -31,19 +29,15 @@
                 </MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs=12 sm=4 md=3>
-            <div Class="pa-4" Style="height: 200px; align-content:center">
-                <img src="img/fe_skeletons.webp" style="height:100%" alt="@l10n["imgAltSkeletons"]" />
-            </div>
+        <MudItem xs=6 sm=4 md=3 Style="text-align: center;">
+            <img src="img/fe_skeletons.webp" style="height:240px" alt="@l10n["imgAltSkeletons"]" />
         </MudItem>
 
-        <MudItem xs=12 sm=4 md=3>
-            <div Class="pa-4" Style="height: 200px; align-content:center">
-                <img src="img/fe_bat.webp" style="height:100%" alt="@l10n["imgAltBat"]" />
-            </div>
+        <MudItem xs=6 sm=4 md=3 Style="text-align: center;">
+            <img src="img/fe_bat.webp"  style="height:240px" alt="@l10n["imgAltBat"]" />
         </MudItem>
         <MudItem xs=12 sm=4 md=6>
-            <MudPaper Elevation="1" Class="pa-4" Style="height: 200px;">
+            <MudPaper Elevation=1 Class="pa-4">
                 <MudText Typo="Typo.h5" GutterBottom=true>
                     @l10n["txtAboutTitleMentions"]
                 </MudText>
@@ -59,17 +53,23 @@
                         string.Format("<a href=\"https://www.wiki-aventurica.de/\">{0}</a>", l10n["txtAboutMention4"]), 
                         string.Format("<a href=\"https://ulisses-spiele.de/\">{0}</a>", l10n["txtAboutMention5"])))
                 </MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs=12 sm=4 md=3 Style="text-align: center;">
+            <img src="img/fe_barbarian.webp" style="height:240px" alt=@l10n["imgAltBarbarian"] />
+        </MudItem>
+
+        <MudItem xs=12 sm=4 md=3>
+        </MudItem>
+        <MudItem xs=12 sm=4 md=6>
+            <MudPaper Elevation=1 Class="pa-4" >
                 <MudText Typo="Typo.body2">
-                    Das schwarze Auge ist eine eingetragene Marke der <a href="https://ulisses-spiele.de/">Ulisses Spiele GmbH</a>.
+                    @((MarkupString)(string)l10n["txtRegisteredTrademark"])
                 </MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs=12 sm=4 md=3>
-            <div Class="pa-4" Style="height: 200px; align-content:center">
-                <img src="img/fe_barbarian.webp" style="height:100%" alt="@l10n["imgAltBarbarian"]" />
-            </div>
         </MudItem>
-
     </MudGrid>
 </MudContainer>
 

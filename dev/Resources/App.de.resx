@@ -851,8 +851,11 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">
-    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5 Regeln. Er kümmert sich um die meisten Grundregeln. Aufeinanderfolgende Proben (wie baim Kampf) erledgt er von selbst und teilt das Ergebnis mit. </value>
+    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit. </value>
     <comment>About</comment>
+  </data>
+  <data name="txtRegisteredTrademark" xml:space="preserve">
+    <value>Das schwarze Auge ist eine eingetragene Marke der &lt;a href="https://ulisses-spiele.de/"&gt;Ulisses Spiele GmbH&lt;/a&gt;.</value>
   </data>
   <data name="Zelemja" xml:space="preserve">
     <value>Zelemja</value>
