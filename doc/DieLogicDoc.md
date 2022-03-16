@@ -111,20 +111,21 @@ The FE distinguishes rolls and checks. A roll is whatever you can do with rollin
 
 * General **off-hand penalty** is -4.
   * The penalty is removed by advantage *Ambidextrous*.
-  * QUESTION: does the off-hand penalty apply in unarmed combat actions? Assumption is: No.
+  * QUESTION: does the off-hand penalty apply in unarmed combat actions? Assumption is: Yes.
 * General **two-weapon penalty** is -2; 
   * but it is only used for a second weapon or parry weapon, but not shields.
   * penalty is reduced with special ability *Two-Weapon Combat I-II*.
+  * QUESTION: does the off-hand penalty apply in unarmed combat actions? Assumption is: No.
 * The **parry bonus** for shields is the parry modifier that is specified for each single item that can be used as a weapon.
 * When defending with a shield, it's important to decide whether you want to use the shield passively (adding its Parry to the base Parry stat of your main weapon), or actively, with the combat technique 'Shields', to receive double the shield's Parry bonus.
-* The only documented parry weapons (that is technically a weapon) seems to be the **main-gauche** (parrying dagger).
+* The only documented parry weapon (that is technically a weapon) seems to be the **main-gauche** (parrying dagger).
 * Other parry weapons are technically shields (most of all bucklers). Their 'PA-bonus' is 0 but an addtional PA-bonus is documented in the comments. This bonus of +1 will be called *PW1*.
 
 
 | Situation                 | Right hand   | Left hand    | R Modified                  | L Modified           | Questions & Exceptions  |
 |---------------------------|--------------|--------------|-----------------------------|----------------------|------------|
-| Unarmed                   | &#8709;      | &#8709;      | *Regular brawling*          | *Regular brawling*   |            |
-| Dominant                  | Weapon       | &#8709;      | no mods                     | *Regular brawling*   |            |
+| Unarmed                   | &#8709;      | &#8709;      | *Regular brawling*          | AT -4 / PA -4        | -4 penalty is removed by advantage *Ambidextrous* |
+| Dominant                  | Weapon       | &#8709;      | no mods                     | AT -4 / PA -4        | -4 penalty is removed by advantage *Ambidextrous* |
 | Non-Dominant              | &#8709;      | Weapon       | *Regular brawling*          | AT -4 / PA -4        | -4 penalty is removed by advantage *Ambidextrous* |
 | Two-weapon                | Weapon       | Weapon       | AT -2 / PA -2               | AT -2 -4 / PA -2 -4  | -2 applies per combat round<br>-2 penalty is reduced with special ability *Two-Weapon Combat I-II*<br>-4 penalty is removed by advantage *Ambidextrous* |
 | Dominant                  | &#8709;      | Shield       | AT &pm;0 / PA +PA-bonus     | AT -4 / PA &pm;0     | -4 penalty is removed by advantage *Ambidextrous*<br>Shields do not suffer the off-hand penalty for parades |
