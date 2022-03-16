@@ -138,12 +138,30 @@ namespace FateExplorer.CharacterModel
 
         public int[] Range { get; set; }
 
-        public bool Ranged { get; protected set; }
 
-        public bool Improvised { get; set; }
+        /// <summary>
+        /// Identifies a ranged weapon
+        /// </summary>
+        public bool IsRanged { get; protected set; }
 
-        public bool TwoHanded { get; set; }
+        /// <summary>
+        ///  Identifies an improvised weapon
+        /// </summary>
+        public bool IsImprovised { get; set; }
 
+        /// <summary>
+        ///  Identifies a two-handed weapon
+        /// </summary>
+        public bool IsTwoHanded { get; set; }
+
+        /// <summary>
+        /// Identifies a parry weapon (like a main-gauche or a buckler)
+        /// </summary>
+        public bool IsParry { get; set; }
+
+        /// <summary>
+        /// Does the weapon allow a parry action?
+        /// </summary>
         public bool CanParry
         {
             get
@@ -183,14 +201,15 @@ namespace FateExplorer.CharacterModel
             DamageThreshold = WeaponData.DamageThreshold;
             DamageBonus = WeaponData.DamageBonus + HitpointBonus(Hero.Abilities);
 
-            Improvised = WeaponData.Improvised;
-            TwoHanded = WeaponData.Twohanded;
             Branch = WeaponData.Branch;
-            Ranged = WeaponData.Ranged;
+            IsImprovised = WeaponData.IsImprovised;
+            IsTwoHanded = WeaponData.IsTwohanded;
+            IsRanged = WeaponData.IsRanged;
+            IsParry = WeaponData.IsParry;
 
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
-            if (Ranged)
+            if (IsRanged)
                 Range = (int[])WeaponData.Range.Clone();
             else
                 Reach = WeaponData.Reach;

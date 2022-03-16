@@ -54,12 +54,14 @@ namespace FateExplorer.ViewModel
 
         public int[] Range { get => WeaponM.Range; }
 
-        public bool IsImprovised { get => WeaponM.Improvised; }
+        public bool IsImprovised { get => WeaponM.IsImprovised; }
 
-        public bool Ranged { get => WeaponM.Ranged; }
+        public bool IsRanged { get => WeaponM.IsRanged; }
+
+        public bool IsTwohanded { get => WeaponM.IsTwoHanded; }
+
+        public bool IsParry { get => WeaponM.IsParry; }
 
         public bool CanParry { get => WeaponM.CanParry; }
-
-        public bool IsTwohanded { get => WeaponM.TwoHanded; }
     }
 }

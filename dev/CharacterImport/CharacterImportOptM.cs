@@ -381,14 +381,20 @@ namespace FateExplorer.CharacterImport
                         DamageBonus = i.DamageFlat ?? weaponDb?.Bonus ?? 0,
                         DamageThreshold = i.PrimaryThreshold?.Threshold ?? weaponDb?.Threshold ?? 21,
                         PrimaryAbilityId = combatTechDB[CombatTechnique].PrimeAttrID.Split("/"),
-                        Improvised = weaponDb?.Improvised ?? false,
-                        Ranged = combatTechDB[CombatTechnique].IsRanged,
-                        Twohanded = weaponDb?.TwoHanded ?? false
+                        IsImprovised = weaponDb?.Improvised ?? false,
+                        IsRanged = combatTechDB[CombatTechnique].IsRanged,
+                        IsTwohanded = weaponDb?.TwoHanded ?? false
                     };
                     if (Melee != default)
+                    {
                         Result.Reach = i.Reach ?? Melee.Reach;
+                        Result.IsParry = Melee.Parry;
+                    }
                     else if (Ranged != default)
+                    {
                         Result.Range = i.Range?.ToArray() ?? Ranged.Range.ToArray();
+                        Result.IsParry = false; // ranged weapons can't be parry weapons
+                    }
 
                     yield return Result;
                 }

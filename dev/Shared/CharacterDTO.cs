@@ -196,11 +196,26 @@ namespace FateExplorer.Shared
 
         public int DamageThreshold { get; set; }
 
-        public bool Improvised { get; set; }
+        /// <summary>
+        ///  Identifies an improvised weapon
+        /// </summary>
+        public bool IsImprovised { get; set; }
 
-        public bool Twohanded { get; set; }
+        /// <summary>
+        ///  Identifies a two-handed weapon
+        /// </summary>
+        public bool IsTwohanded { get; set; }
 
-        public bool Ranged { get; set; }
+        /// <summary>
+        /// Identifies a ranged weapon
+        /// </summary>
+        public bool IsRanged { get; set; }
+
+        /// <summary>
+        ///  Identifies a parry weapon
+        /// </summary>
+        public bool IsParry { get; set; }
+
 
         /// <summary>
         /// Ranged weapons range indiciators for close, medium, far
