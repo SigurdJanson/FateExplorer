@@ -74,7 +74,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="otherPaSkill">Parry skill of weapon carried by the other hand.</param>
         /// <param name="otherIsParry">Is the other hand's weapon classified as parry weapon?</param>
         /// <returns></returns>
-        public int PaSkill(bool MainHand, CombatBranch otherHand, int otherPaSkill, bool otherIsParry) // TODO: SIMPLE: switch bool and int parry args
+        public int PaSkill(bool MainHand, CombatBranch otherHand, bool otherIsParry, int otherPaSkill)
         {
             // Determine off-hand penalty
             int OffHandMod;

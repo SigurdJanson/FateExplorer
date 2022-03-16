@@ -55,7 +55,7 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
-            RollAttr[0] = weapon.PaSkill(mainHand, otherHandBranch, 0/*TODO*/, false/*TODO*/); //formerly .BasePaSkill;
+            RollAttr[0] = weapon.PaSkill(mainHand, otherHandBranch, false/*TODO*/, 0/*TODO*/); //formerly .BasePaSkill;
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
