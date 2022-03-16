@@ -372,8 +372,8 @@ namespace FateExplorer.CharacterImport
                     {
                         Name = i.Name ?? weaponDb?.Name ?? "Unknown",
                         Id = i.Template,
-                        AttackMod = i.AttackMod ?? weaponDb?.At ?? 0,
-                        ParryMod = i.ParryMod ?? weaponDb?.Pa ?? 0,
+                        AttackMod = i.AttackMod ?? weaponDb?.AtMod ?? 0,
+                        ParryMod = i.ParryMod ?? weaponDb?.PaMod ?? 0,
                         CombatTechId = CombatTechnique,
                         Branch = combatTechDB[CombatTechnique].WeaponsBranch,
                         DamageDieCount = i.DamageDiceNumber ?? weaponDb?.DamageDieCount() ?? 1,

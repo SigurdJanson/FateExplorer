@@ -27,13 +27,13 @@ namespace FateExplorer.GameData
         /// Attack modifier added by the weapon
         /// </summary>
         [JsonPropertyName("at")]
-        public int At { get; set; }
+        public int AtMod { get; set; }
 
         /// <summary>
         /// Parry modifier added by the weapon
         /// </summary>
         [JsonPropertyName("pa")]
-        public int Pa { get; set; }
+        public int PaMod { get; set; }
 
         /// <summary>
         /// Weight of weapon in stone

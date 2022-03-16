@@ -15,5 +15,10 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("reach")]
         public int Reach { get; set; }
+
+
+        [JsonPropertyName("isparry")]
+        public bool Parry { get; set; }
+
     }
 }
