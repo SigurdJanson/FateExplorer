@@ -46,17 +46,7 @@ namespace FateExplorer.ViewModel
         /// <param name="MainHand">In which hand does the character hold the weapon? true = main hand; false = off hand.</param>
         /// <param name="otherBranch">Combat branch of the weapon in the OTHER hand.</param>
         /// <returns>The result of the roll check</returns>
-        RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, bool MainHand, CombatBranch otherBranch);
+        RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, HandsViMo Hands);
 
-        ///// <summary>
-        ///// Creates and returns a new roll check with the first roll already done. The modifier 
-        ///// will be applied.
-        ///// </summary>
-        ///// <param name="AttrId">The attribute id</param>
-        ///// <param name="AttrData"></param>
-        ///// <param name="Modifier"></param>
-        ///// <param name="Args">Additional arguments sent to the constructor of the instantiated check</param>
-        ///// <returns>A roll check</returns>
-        //RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICheckModifierM Modifier, ICharacterAttributDTO[] RollAttr = null);
     }
 }

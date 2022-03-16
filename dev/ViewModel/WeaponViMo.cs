@@ -29,7 +29,11 @@ namespace FateExplorer.ViewModel
         public int BasePaSkill { get => WeaponM.BasePaSkill; }
 
         public int PaSkill(HandsViMo Hands, CombatBranch otherHand)
-            => WeaponM.PaSkill(Hands.MainWeapon == this, otherHand, false/*TODO*/, 666/*TODO*/);
+        {
+            bool IsMainWeapon = Hands.MainWeapon == this;
+            WeaponViMo OtherWeapon = IsMainWeapon ? Hands.OffWeapon : Hands.MainWeapon;
+            return WeaponM.PaSkill(IsMainWeapon, otherHand, OtherWeapon.IsParry, OtherWeapon.ParryMod);
+        }
 
 
         public string Name { get => WeaponM.Name; }

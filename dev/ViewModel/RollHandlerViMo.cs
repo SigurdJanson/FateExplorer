@@ -181,7 +181,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, bool MainHand, CombatBranch otherBranch)
+        public RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, HandsViMo Hands)
         {
             string TargetAttrName = $"{weapon.CombatTechId}/{actionId}";
 
@@ -193,17 +193,22 @@ namespace FateExplorer.ViewModel
             if (!ListOfChecks.TryGetValue(RollId, out CheckType))
                 throw new NotImplementedException($"A check for {TargetAttrName} has not yet been implemented");
 
+            bool IsMainWeapon = Hands.MainWeapon == weapon;
+            WeaponViMo OtherWeapon = IsMainWeapon ? Hands.OffWeapon : Hands.MainWeapon;
+
             CheckBaseM Checker;
             RollCheckResultViMo Result;
             switch (CheckType.Name)
             {
                 case
                     nameof(AttackCheckM):
-                    Checker = new AttackCheckM(weapon.ToWeaponM(), MainHand, otherBranch, new SimpleCheckModifierM(0), GameData);
+                    Checker = new AttackCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
+                        new SimpleCheckModifierM(0), GameData);
                     break;
                 case
                     nameof(ParryCheckM):
-                    Checker = new ParryCheckM(weapon.ToWeaponM(), MainHand, otherBranch, new SimpleCheckModifierM(0), GameData);
+                    Checker = new ParryCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
+                        new SimpleCheckModifierM(0), GameData);
                     break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");

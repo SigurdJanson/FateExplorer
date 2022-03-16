@@ -71,10 +71,10 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="MainHand">Is 'this' weapon carried in the main hand?</param>
         /// <param name="otherHand">Combat branch of weapon in other hand.</param>
-        /// <param name="otherPaSkill">Parry skill of weapon carried by the other hand.</param>
         /// <param name="otherIsParry">Is the other hand's weapon classified as parry weapon?</param>
-        /// <returns></returns>
-        public int PaSkill(bool MainHand, CombatBranch otherHand, bool otherIsParry, int otherPaSkill)
+        /// <param name="otherPaMod">Passive parry modifier of weapon carried by the other hand.</param>
+        /// <returns>The effective parry skill to roll against</returns>
+        public int PaSkill(bool MainHand, CombatBranch otherHand, bool otherIsParry, int otherPaMod)
         {
             // Determine off-hand penalty
             int OffHandMod;
@@ -106,7 +106,7 @@ namespace FateExplorer.CharacterModel
             if (otherIsParry)
                 ParryMod = 1;
             else if(otherHand == CombatBranch.Shield)
-                ParryMod = otherPaSkill;
+                ParryMod = otherPaMod;
             else
                 ParryMod = 0;
 

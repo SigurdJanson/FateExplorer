@@ -56,9 +56,12 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="weapon"></param>
-        /// <param name="modifier"></param>
-        public AttackCheckM(WeaponM weapon, bool mainHand, CombatBranch otherHandBranch, ICheckModifierM modifier, IGameDataService gameData)
+        /// <param name="weapon">The weapon to strike with</param>
+        /// <param name="mainHand">Does the character carry this weapon in the main hand (true) or off (false)?</param>
+        /// <param name="otherWeapon">The weapon in the other hand</param>
+        /// <param name="modifier">A modifier to be applied to the roll check</param>
+        /// <param name="gameData">Access to the data base</param>
+        public AttackCheckM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
@@ -67,7 +70,7 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
 
-            RollAttr[0] = weapon.AtSkill(mainHand, otherHandBranch);
+            RollAttr[0] = weapon.AtSkill(mainHand, otherWeapon.Branch);
             RollAttrName[0] = weapon.Name;
             Name = weapon.Name;
 
