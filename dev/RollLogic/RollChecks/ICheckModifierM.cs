@@ -1,9 +1,11 @@
-﻿namespace FateExplorer.RollLogic
+﻿using FateExplorer.Shared;
+
+namespace FateExplorer.RollLogic
 {
     /// <summary>
     /// This is the common interface for different kinds of roll/check modifiers.
     /// </summary>
-    public interface ICheckModifierM
+    public interface ICheckModifierM : IStateContainer
     {
         /// <summary>
         /// Creates a copy before modifying it.
@@ -49,5 +51,7 @@
         /// </summary>
         /// <param name="value"></param>
         void Set(int value);
+
+
     }
 }

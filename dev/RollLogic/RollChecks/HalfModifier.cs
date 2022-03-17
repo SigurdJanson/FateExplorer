@@ -61,6 +61,11 @@ namespace FateExplorer.RollLogic
         {
             throw new NotImplementedException("User-defined values not supported for half modifier");
         }
+
+
+        /// <inheritdoc/>
+        /// <remarks>Not used for this type of modifier because <see cref="Set"/> is not implemented.</remarks>
+        public event Action OnStateChanged;
     }
 }
 

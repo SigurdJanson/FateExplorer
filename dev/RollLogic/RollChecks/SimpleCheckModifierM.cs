@@ -74,7 +74,15 @@ namespace FateExplorer.RollLogic
         public void Set(int value)
         {
             if (value < -30 || value > +30) throw new ArgumentOutOfRangeException(nameof(value));
+            var old = Value;
             Value = value;
+            if (Value != old) NotifyStateChange();
         }
+
+
+        /// <inheritdoc/>
+        public event Action OnStateChanged;
+
+        private void NotifyStateChange() => OnStateChanged.Invoke();
     }
 }

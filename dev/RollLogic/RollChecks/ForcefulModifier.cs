@@ -1,4 +1,6 @@
-﻿namespace FateExplorer.RollLogic
+﻿using System;
+
+namespace FateExplorer.RollLogic
 {
     /// Modifier that forces a roll to a certain value. Used mostly when rolls yield no 
     /// result (like no regeneration during the night, ...).
@@ -63,8 +65,15 @@
         /// <inheritdoc/>
         public void Set(int value)
         {
+            var old = Value;
             Value = value;
+            if (Value != old) NotifyStateChange();
         }
 
+
+        /// <inheritdoc/>
+        public event Action OnStateChanged;
+
+        private void NotifyStateChange() => OnStateChanged.Invoke();
     }
 }
