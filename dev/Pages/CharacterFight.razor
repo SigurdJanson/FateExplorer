@@ -220,7 +220,7 @@ else
         
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, MainHand, GetCombatBranch(!MainHand));
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
         }
         catch (NotImplementedException)
         {
@@ -241,7 +241,7 @@ else
         const string ActionId = "PA"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, MainHand, GetCombatBranch(!MainHand));
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
         }
         catch (NotImplementedException)
         {
