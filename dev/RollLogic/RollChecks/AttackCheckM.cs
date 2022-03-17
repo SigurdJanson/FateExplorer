@@ -4,7 +4,7 @@ using System;
 
 namespace FateExplorer.RollLogic
 {
-    public class AttackCheckM : CheckBaseM
+    public class AttackCheckM : CheckBaseM, IDisposable
     {
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/combat/attack";
@@ -69,6 +69,7 @@ namespace FateExplorer.RollLogic
             RollAttr = new int[1];
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
+            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.AtSkill(mainHand, otherWeapon.Branch);
             RollAttrName[0] = weapon.Name;
@@ -85,6 +86,18 @@ namespace FateExplorer.RollLogic
             ThrowCup(RollType.Primary); // directly roll first roll and add
         }
 
+
+        /// <summary>
+        /// Update the check assessment after a modifier update
+        /// </summary>
+        public void UpdateAfterModifierChange() 
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+
+        public void Dispose()
+        {
+            CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+            GC.SuppressFinalize(this); // TODO: is `SuppressFinalize(this)` this really needed???
+        }
 
 
         /// <inheritdoc />
