@@ -39,7 +39,7 @@
                 @if (DiceCups.CupRollResults is not null)
                     @foreach(var r in DiceCupHolderViMo.ReverseResults(DiceCups.CupRollResults))
                     {
-                        <RollResultCard Name=@r.Name RollResult=@r />
+                        <RollResultCard Name=@l10n[r.Name] RollResult=@r />
                     }
             </MudPaper>
         </MudItem>
