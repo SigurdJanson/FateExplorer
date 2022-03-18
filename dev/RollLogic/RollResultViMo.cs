@@ -1,5 +1,4 @@
 ﻿using FateExplorer.FreeDiceCupViMo;
-using FateExplorer.Shared;
 using System.Linq;
 
 namespace FateExplorer.RollLogic
@@ -34,7 +33,6 @@ namespace FateExplorer.RollLogic
             RollResult = roll.OpenRoll.Clone() as int[];
             CombinedResult = roll.OpenRollCombined();
             Modifier = roll.ModifiedBy;
-            //SuccessLevel = ...
         }
 
         /// <summary>
@@ -80,17 +78,19 @@ namespace FateExplorer.RollLogic
         public int[] DieSides { get; set; } = null;
 
         /// <summary>
-        /// Returns the roll in the format "3d20".
+        /// Returns the roll in the format ndM (e.g. "3d20").
         /// </summary>
-        /// <returns></returns>
-        public string RollToString()
+        /// <param name="DieCharacter">The character representing the die 
+        /// ("W" for German, "d" for English, ...)</param>
+        /// <returns>A string representing the dice used in the roll</returns>
+        public string RollToString(char DieCharacter = 'd')
         {
             if (CupType == CupType.MixedMulti)
             {
                 return string.Join(", ", DieSides.Distinct());
             }
             else
-                return $"{DieSides.Length}d{DieSides[0]}"; // TODO: i18n
+                return $"{DieSides.Length}{DieCharacter}{DieSides[0]}";
         }
     }
 }
