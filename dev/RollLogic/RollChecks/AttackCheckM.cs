@@ -4,7 +4,7 @@ using System;
 
 namespace FateExplorer.RollLogic
 {
-    public class AttackCheckM : CheckBaseM, IDisposable
+    public class AttackCheckM : CheckBaseM
     {
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/combat/attack";
@@ -90,13 +90,19 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Update the check assessment after a modifier update
         /// </summary>
-        public void UpdateAfterModifierChange() 
+        public override void UpdateAfterModifierChange() 
             => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
 
-        public void Dispose()
+        protected override void Dispose(bool disposedStatus)
         {
-            CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
-            GC.SuppressFinalize(this); // TODO: is `SuppressFinalize(this)` this really needed???
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                // release unmanaged resources
+                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+
+                if (disposedStatus) {/*Released managed resources*/}
+            }
         }
 
 

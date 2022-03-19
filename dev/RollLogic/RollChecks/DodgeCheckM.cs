@@ -41,6 +41,7 @@ namespace FateExplorer.RollLogic
             RollAttr = new int[1];
             RollAttrName = new string[1];
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
+            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;
             RollAttrName[0] = dodge.Name;
@@ -49,6 +50,26 @@ namespace FateExplorer.RollLogic
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
         }
+
+
+        /// <summary>
+        /// Update the check assessment after a modifier update
+        /// </summary>
+        public override void UpdateAfterModifierChange()
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+               
+        protected override void Dispose(bool disposedStatus)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                // release unmanaged resources
+                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+
+                if (disposedStatus) {/*Released managed resources*/}
+            }
+        }
+
 
 
 

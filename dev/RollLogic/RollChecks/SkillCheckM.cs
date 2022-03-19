@@ -54,6 +54,7 @@ namespace FateExplorer.RollLogic
                 RollAttrName[a] = ability[a].ShortName;
             }
             CheckModifier = modifier ?? new SimpleCheckModifierM(0);
+            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             TargetAttr = skill.EffectiveValue;
             TargetAttrName = skill.Name;
@@ -65,6 +66,30 @@ namespace FateExplorer.RollLogic
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
         }
+
+
+
+
+
+        /// <summary>
+        /// Update the check assessment after a modifier update
+        /// </summary>
+        public override void UpdateAfterModifierChange()
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+
+        /// <inheritdoc />
+        protected override void Dispose(bool disposedStatus)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                // release unmanaged resources
+                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+
+                if (disposedStatus) {/*Released managed resources*/}
+            }
+        }
+
 
 
 

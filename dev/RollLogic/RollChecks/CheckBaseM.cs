@@ -1,13 +1,18 @@
 ﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
-
+using System;
 
 namespace FateExplorer.RollLogic
 {
-    public abstract class CheckBaseM
+    public abstract class CheckBaseM : IDisposable
     {
         protected IGameDataService GameData { get; set; }  // injected
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="gameData">Access to the data base with basic game data(injection)</param>
         protected CheckBaseM(IGameDataService gameData)
         {
             GameData = gameData;
@@ -51,12 +56,12 @@ namespace FateExplorer.RollLogic
 
         #endregion
 
+
+
         /// <summary>
         /// A string describing the nature of the check (human-readable, no id)
         /// </summary>
         public string Name { get; set; }
-
-
 
 
         /// <summary>
@@ -77,6 +82,7 @@ namespace FateExplorer.RollLogic
         /// they have been rolled against.
         /// </summary>
         public abstract int? TargetAttr { get; protected set; }
+
         /// <summary>
         /// The target value is to compensate for rolls exceeding the attibute value 
         /// they have been rolled against. This is it's name.
@@ -181,5 +187,86 @@ namespace FateExplorer.RollLogic
         {
             get => false;
         }
+
+
+        #region Update when modifier has changed
+
+        public abstract void UpdateAfterModifierChange();
+
+
+
+        #endregion
+
+        //
+        #region IDisposable implementation
+
+        /// <summary>
+        /// Flag that tells if <see cref="Dispose()"/> has been called successfully
+        /// </summary>
+        protected bool IsDisposed = false;
+
+        //public void Free()
+        //{
+        //    if (IsDisposed)
+        //        throw new ObjectDisposedException(GetType().ToString());
+        //}
+
+        /// <summary>
+        /// Call <c>Dispose()</c> to free resources explicitly.
+        /// </summary>
+        public void Dispose()
+        {
+            // Pass true in dispose method to clean managed resources too and say GC to skip finalize in next line.
+            Dispose(true);
+            // If dispose is called already then say GC to skip finalize on this instance.
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Makes sure the unmanaged resources will be disposed eventually.
+        /// </summary>
+        ~CheckBaseM()
+        {
+            // Pass false as param because no need to free managed resources when
+            // you call finalize it will be done by GC itself as its work of
+            // finalize to manage managed resources.
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Derived classes shall implement <c>Dispose(bool)</c> to free 
+        /// unmanaged resources.
+        /// <example>
+        /// Do it like this:
+        /// <code>
+        /// if (!IsDisposed)
+        /// {
+        ///     IsDisposed = true;
+        ///     // Released unmanaged Resources
+        ///     if (disposedStatus)
+        ///     {
+        ///         // Released managed Resources
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="disposedStatus">If true the method will managed resources, too 
+        /// (which it does when called from <see cref="Dispose()"/>). If false only unmanaged 
+        /// resources will be removed.</param>
+        protected virtual void Dispose(bool disposedStatus)
+        {
+            //if (!IsDisposed)
+            //{
+            //    IsDisposed = true;
+            //    // Released unmanaged Resources
+            //    if (disposedStatus)
+            //    {
+            //        // Released managed Resources
+            //    }
+            //}
+        }
+
+        #endregion
     }
 }
