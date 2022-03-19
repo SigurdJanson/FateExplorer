@@ -16,24 +16,24 @@
     <MudGrid>
         <MudItem xs=12 sm=6 md=4>
             <MudList Clickable=true>
-                <MudListItem Text="Dodge" Icon=@Icons.Material.Filled.PersonOff DisableRipple=true>
+                <MudListItem Text="Dodge" Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n["Dodge"]</MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblDodgeAbbr"] @Hero.GetDodge().EffectiveValue @Hero.GetDodge().Id</MudText>
                         </div>
                     <MudSpacer/>
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Edit
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
                         aria-label=@(l10n["lblEdit"] + " " + @l10n["Dodge"]) />
                     <MudSpacer/>
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Casino
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
                         OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
                         aria-label=@(l10n["lblRoll"] + " " + @l10n["Dodge"]) />
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                         aria-label=@(l10n["lblView"] + " " + @l10n["Dodge"]) />
                     </div>
                 </MudListItem>
-                <MudListItem Text="Initiative" Icon=@Icons.Material.Filled.Sort>
+                <MudListItem Text="Initiative" Icon=@Icons.Material.Sharp.Sort>
                     
                 </MudListItem>
             </MudList>
@@ -52,10 +52,10 @@
                         </MudText>
                         </div>
                         <MudSpacer/>
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.FrontHand
+                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.FrontHand
                             OnClick=@(() => GrabWeapon(w, true))
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.BackHand
+                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.BackHand
                             OnClick=@(() => GrabWeapon(w, false))
                             Disabled=w.IsTwohanded
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
@@ -79,24 +79,24 @@
                                 <CardHeaderActions>
                                     @if (!Hero.Hands.IsBare(HandsViMo.Hand.Main))
                                     {
-                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default  
+                                    <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
                                         OnClick=@(() => StashWeapon(true))/>
                                     }
                                 </CardHeaderActions>
                             </MudCardHeader>
                             <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Carpenter
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.MainWeapon.CanParry)
                                 {
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
                                     OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblView"] + " " + @l10n["Attack"]) />
                             </MudCardActions>
@@ -114,24 +114,24 @@
                                 <CardHeaderActions>
                                     @if (!Hero.Hands.IsBare(HandsViMo.Hand.Off))
                                     {
-                                    <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default 
+                                    <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default 
                                         OnClick=@(() => StashWeapon(false))/>
                                     }
                                 </CardHeaderActions>
                              </MudCardHeader>
                             <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Carpenter
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Carpenter
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
                                 @if (Hero.Hands.OffWeapon.CanParry)
                                 {
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Shield
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
                                     OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
                                 }
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Filled.Visibility
+                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblView"] + " " + @l10n["Attack"]) />
                             </MudCardActions>                        

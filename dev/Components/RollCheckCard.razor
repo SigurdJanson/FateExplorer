@@ -17,7 +17,7 @@
         <CardHeaderActions>
             @if (CanClose)
             {
-                <MudIconButton Icon=@Icons.Material.Filled.Close Color=Color.Default />
+                <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default />
             }
         </CardHeaderActions>
     </MudCardHeader>
@@ -92,15 +92,6 @@
         </MudButton>
     </MudCardContent>
     }
-@*    @if (Result.GetBotchResult() is not null)
-    {
-    <MudCardContent>
-        <MudText Typo=Typo.body1 Class="d-inline">"msgMessage"</MudText>
-        <MudText Typo=Typo.body1 Class="d-inline">
-            [@l10n["lblRoll"] @(Result.GetBotchResult().CombinedResult)]
-        </MudText>
-    </MudCardContent>
-    }*@
 
     @if (Result.NeedsDamage())
     {
@@ -150,7 +141,7 @@
     /// levels.
     /// </summary>
     [Parameter]
-    public string[] AvatarIcon { get; set; } = { Icons.Material.Filled.HelpCenter };
+    public string[] AvatarIcon { get; set; } = { Icons.Material.Sharp.HelpCenter };
 
 
 
@@ -198,7 +189,7 @@
                 RollSuccess.Level.Critical => AvatarIcon[1],
                 RollSuccess.Level.Success => AvatarIcon[1],
                 RollSuccess.Level.PendingCritical => AvatarIcon[1],
-                _ => Icons.Material.Filled.HelpCenter
+                _ => Icons.Material.Sharp.HelpCenter
             };
         }        
         if (AvatarIcon.Length == 4)
@@ -211,7 +202,7 @@
                 RollSuccess.Level.Success => AvatarIcon[2],
                 RollSuccess.Level.PendingCritical => AvatarIcon[3],
                 RollSuccess.Level.Critical => AvatarIcon[3],
-                _ => Icons.Material.Filled.HelpCenter
+                _ => Icons.Material.Sharp.HelpCenter
             };
         }
         if (AvatarIcon.Length == 6)
@@ -224,10 +215,10 @@
                 RollSuccess.Level.Success => AvatarIcon[3],
                 RollSuccess.Level.PendingCritical => AvatarIcon[4],
                 RollSuccess.Level.Critical => AvatarIcon[5],
-                _ => Icons.Material.Filled.HelpCenter
+                _ => Icons.Material.Sharp.HelpCenter
             };
         }
-        return Icons.Material.Filled.HelpCenter;
+        return Icons.Material.Sharp.HelpCenter;
     }
 
 

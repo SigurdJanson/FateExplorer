@@ -12,8 +12,8 @@
 
     <MudCardContent>
         <div class="d-flex flex-row">
-        <MudIconButton OnClick=@(() => ChangeEffValue(-2)) Icon=@Icons.Material.Filled.ExposureNeg2 aria-label="Reduce by 2"></MudIconButton> @*l10n*@
-        <MudIconButton OnClick=@(() => ChangeEffValue(-1)) Icon=@Icons.Material.Filled.ExposureNeg1 aria-label="Reduce by 1"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(-2)) Icon=@Icons.Material.Sharp.ExposureNeg2 aria-label="Reduce by 2"></MudIconButton> @*l10n*@
+        <MudIconButton OnClick=@(() => ChangeEffValue(-1)) Icon=@Icons.Material.Sharp.ExposureNeg1 aria-label="Reduce by 1"></MudIconButton>
         <div>
         <MudNumericField Value=@EffValue ValueChanged=@((int i) => SetEffValue(i)) Label="@l10n["lblAvailable"]"
             Variant=Variant.Text Min=@Energy.Min Max=99 HideSpinButtons=true Style="min-width:4rem;" />
@@ -21,8 +21,8 @@
             |
         </MudProgressLinear>
         </div>
-        <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon=@Icons.Material.Filled.ExposurePlus1 aria-label="Increase by 1"></MudIconButton>
-        <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon=@Icons.Material.Filled.ExposurePlus2 aria-label="Increase by 2"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+1)) Icon=@Icons.Material.Sharp.ExposurePlus1 aria-label="Increase by 1"></MudIconButton>
+        <MudIconButton OnClick=@(() => ChangeEffValue(+2)) Icon=@Icons.Material.Sharp.ExposurePlus2 aria-label="Increase by 2"></MudIconButton>
         </div>
 
         <MudText Typo=Typo.caption Align="Align.Center">@l10n["lblCrossedThresholds"]</MudText>
@@ -48,7 +48,7 @@
             @if (Energy.EffMax != Energy.Max) @* The maximum value != the effective Max *@
             {
                 <MudIconButton OnClick=@(() => SetEffMaxValue(Energy.Max))
-                    Icon=@Icons.Material.Filled.SettingsBackupRestore Color=Color.Default Size=Size.Small 
+                    Icon=@Icons.Material.Sharp.SettingsBackupRestore Color=Color.Default Size=Size.Small 
                         Title=@l10n["btnReset"] aria-label=@l10n["btnReset"] />
             }
         </div>
@@ -60,7 +60,7 @@
 @*    <MudCardActions>
         <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
             <MudButton OnClick=@(() => ChangeEffValue(-1))>-1</MudButton>
-            <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
+            <MudMenu Icon=@Icons.Material.Sharp.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-2)) >-2</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-3)) >-3</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(-4)) >-4</MudMenuItem>
@@ -70,7 +70,7 @@
         <MudSpacer/>
         <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
             <MudButton OnClick=@(() => ChangeEffValue(1))>+1</MudButton>
-            <MudMenu Icon=@Icons.Material.Filled.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
+            <MudMenu Icon=@Icons.Material.Sharp.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(2))>+2</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(3))>+3</MudMenuItem>
                 <MudMenuItem OnClick=@(() => ChangeEffValue(4))>+4</MudMenuItem>

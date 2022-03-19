@@ -17,10 +17,10 @@
         <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblSkillAbbr"] @Skill.Max</MudText>
     </div>
     <MudSpacer/>
-    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Casino" 
+    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Sharp.Casino" 
             OnClick=@(() => RollSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblRoll"] + " " + Skill.Name) />
-    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.Visibility"  
+    <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Sharp.Visibility"  
             OnClick=@(() => ViewSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblView"] + " " + Skill.Name) />
     </div>
