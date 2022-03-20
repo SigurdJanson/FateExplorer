@@ -4,7 +4,7 @@
 
 
 <MudCard Elevation=2 Class="pa-1 ma-1">
-    <MudCardHeader>
+    <MudCardHeader Style=@($"background:{GetHeaderColor(Result.SuccessLevel)};")> @*color:{Theme.Palette.Dark}; *@
         <CardHeaderAvatar>
             <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
                 <MudIcon Color=@GetAvatarIconColor(Result.SuccessLevel) Icon=@GetAvatarIcon(Result.SuccessLevel) Size=Size.Large />
@@ -160,7 +160,7 @@
         Result.GetRollResult(RollType.Confirm, true);
         this.StateHasChanged();
     }    
-    
+
     private void RollBotchEffect()
     {
         Result.GetRollResult(RollType.Botch, true);
@@ -227,13 +227,23 @@
         Success switch
         {
             RollSuccess.Level.Botch => Color.Error,
-            RollSuccess.Level.Fail => Color.Dark,
+            RollSuccess.Level.Fail => Color.Error,
             RollSuccess.Level.Critical => Color.Success,
-            RollSuccess.Level.Success => Color.Dark,
+            RollSuccess.Level.Success => Color.Success,
             RollSuccess.Level.PendingBotch => Color.Warning,
             RollSuccess.Level.PendingCritical => Color.Warning,
             _ => Color.Info
         };
+
+
+    private string GetHeaderColor(RollSuccess.Level Success)
+    {
+        if (Success == RollSuccess.Level.Critical || Success == RollSuccess.Level.Botch)
+            return $"var(--mud-palette-{GetAvatarColor(Success).ToString().ToLower()})";
+        else
+            return "inherited";
+    }
+    
 
     private Color GetAvatarIconColor(RollSuccess.Level Success) =>
         Success switch
