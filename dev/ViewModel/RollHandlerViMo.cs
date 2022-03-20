@@ -166,12 +166,37 @@ namespace FateExplorer.ViewModel
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
                     Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0), GameData);
                     break;
-                case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM((DodgeDTO)TargetAttr, new SimpleCheckModifierM(0), GameData);
-                    break;
                 default:
                     Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM; //TODO: make this: throw new NotImplementedException();
                     break;
+            };
+
+            Result = new(Checker);
+            return Result;
+        }
+
+
+        /// <inheritdoc />
+        /// <exception cref="NotImplementedException"></exception>
+        public RollCheckResultViMo OpenDodgeRollCheck(string AttrId, DodgeDTO TargetAttr, bool CarriesWeapon)
+        {
+            string RollId = MatchAttributeToRollId(AttrId);
+            if (string.IsNullOrWhiteSpace(RollId))
+                throw new NotImplementedException($"A check for {TargetAttr.Name} has not yet been implemented");
+
+            Type CheckType;
+            if (!ListOfChecks.TryGetValue(RollId, out CheckType))
+                throw new NotImplementedException($"A check for {TargetAttr.Name} has not yet been implemented");
+
+            CheckBaseM Checker;
+            RollCheckResultViMo Result;
+            switch (CheckType.Name)
+            {
+                case nameof(DodgeCheckM):
+                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModifierM(0), GameData);
+                    break;
+                default:
+                    throw new NotImplementedException();
             };
 
             Result = new(Checker);

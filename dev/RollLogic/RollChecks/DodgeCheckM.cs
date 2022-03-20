@@ -27,13 +27,18 @@ namespace FateExplorer.RollLogic
         /// <remarks>In this context the ability values</remarks>
         public override string[] RollAttrName { get; protected set; }
 
+        /// <summary>
+        /// Does the dodging character carry a weapon?
+        /// </summary>
+        /// <remarks>Needed for botch effects.</remarks>
+        public bool CarriesWeapon { get; protected set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="dodge"></param>
         /// <param name="modifier"></param>
-        public DodgeCheckM(DodgeDTO dodge, ICheckModifierM modifier, IGameDataService gameData)
+        public DodgeCheckM(DodgeDTO dodge, bool carriesWeapon, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
@@ -46,6 +51,7 @@ namespace FateExplorer.RollLogic
             RollAttr[0] = dodge.EffectiveValue;
             RollAttrName[0] = dodge.Name;
             Name = dodge.Name;
+            CarriesWeapon = carriesWeapon;
 
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
@@ -86,7 +92,8 @@ namespace FateExplorer.RollLogic
                 if (RollList[RollType.Botch] is not null)
                 {
                     int Result = RollList[RollType.Botch].OpenRollCombined();
-                    var Botch = GameData.GetDodgeBotch(CombatBranch.Unarmed /*TODO*/, Result);
+                    var WeaponBranch = CarriesWeapon ? CombatBranch.Melee : CombatBranch.Unarmed;
+                    var Botch = GameData.GetDodgeBotch(WeaponBranch, Result);
 
                     return Botch.Label;
                 }
@@ -94,6 +101,8 @@ namespace FateExplorer.RollLogic
                     return null;
             }
         }
+
+
         /// <inheritdoc />
         /// <remarks>Dodge rolls do not provide a classification</remarks>
         public override string Classification
@@ -118,7 +127,8 @@ namespace FateExplorer.RollLogic
                 if (RollList[RollType.Botch] is not null)
                 {
                     int Result = RollList[RollType.Botch].OpenRollCombined();
-                    var Botch = GameData.GetAttackBotch(CombatBranch.Unarmed /*TODO*/, (int)Result);
+                    var WeaponBranch = CarriesWeapon ? CombatBranch.Melee : CombatBranch.Unarmed;
+                    var Botch = GameData.GetDodgeBotch(WeaponBranch, Result);
 
                     return Botch.Descr;
                 }

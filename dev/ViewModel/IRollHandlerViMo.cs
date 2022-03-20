@@ -33,7 +33,7 @@ namespace FateExplorer.ViewModel
         /// <param name="AttrData">The skill or ability to be used</param>
         /// <param name="RollAttr">Additional ability or skill values needed to 
         /// perform the roll (a skill roll e.g. needs 3 abilities)</param>
-        /// <returns>The result of the roll check</returns>
+        /// <returns>The result object of the roll check</returns>
         RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
 
 
@@ -43,10 +43,19 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="actionId">String distinguising a type of combat action, i.e. attack or parry</param>
         /// <param name="weapon">The weapon to be used for the action</param>
-        /// <param name="MainHand">In which hand does the character hold the weapon? true = main hand; false = off hand.</param>
-        /// <param name="otherBranch">Combat branch of the weapon in the OTHER hand.</param>
-        /// <returns>The result of the roll check</returns>
+        /// <param name="Hands">The Hands object of the character.</param>
+        /// <returns>The result object of the roll check</returns>
         RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, HandsViMo Hands);
 
+
+        /// <summary>
+        /// Creates and returns a new dodge roll check with the first roll
+        /// already done.
+        /// </summary>
+        /// <param name="AttrId">The attribute id</param>
+        /// <param name="TargetAttr">The skill or ability to be used</param>
+        /// <param name="CarriesWeapon">Does the character carry a weapon?.</param>
+        /// <returns>The result object of the roll check</returns>
+        RollCheckResultViMo OpenDodgeRollCheck(string AttrId, DodgeDTO TargetAttr, bool CarriesWeapon);
     }
 }

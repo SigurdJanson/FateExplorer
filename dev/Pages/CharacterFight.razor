@@ -151,7 +151,7 @@
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons ShowValueLabel=@l10n["lblAbility"]/>
+                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons ShowValueLabel=@l10n["lblAbility"] />
                     }
                 }
                 else
@@ -171,7 +171,10 @@ else
 
 @code {
     private readonly string[] CheckIcons = new string[4] { 
-        Icons.Filled.Accessible, Icons.Filled.Elderly, Icons.Filled.Accessibility, Icons.Filled.AccessibilityNew };
+        Icons.Filled.Accessible, 
+        Icons.Filled.Elderly, 
+        Icons.Filled.Accessibility, 
+        Icons.Filled.AccessibilityNew };
 
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
@@ -217,7 +220,7 @@ else
     private void OnAttackCheck(WeaponViMo weapon, bool MainHand)
     {
         const string ActionId = "AT"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
+
         try
         {
             ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
@@ -259,7 +262,8 @@ else
     /// <param name="dodge"></param>
     private void OnDodgeCheck(DodgeDTO dodge)
     {
-        ActiveCheck = RollHandler.OpenRollCheck(dodge.Id, dodge, null);
+        bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
+        ActiveCheck = RollHandler.OpenDodgeRollCheck(dodge.Id, dodge, !Barehands);
         ActiveCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveCheck);
     }
@@ -271,9 +275,9 @@ else
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(ModifyValue);
-        //-StateHasChanged();
+        ActiveCheck?.CheckModifier.Set(ModifyValue);    
     }
+
 
     private void LoadHeroData()
     {
