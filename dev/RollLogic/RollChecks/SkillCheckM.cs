@@ -202,16 +202,61 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        public override string ClassificationLabel => "QL";
+        public override string ClassificationLabel
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetSkillBotch(Domain, Result);
+
+                    return Botch.Label;
+                }
+                else
+                    return "QL";
+            }
+        }
 
         /// <inheritdoc />
-        public override string Classification => ComputeSkillQuality(Remainder).ToString();
+        public override string Classification
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
+                }
+                else
+                    return ComputeSkillQuality(Remainder).ToString();
+            }
+        }
+
 
         /// <inheritdoc />
-        public override string ClassificationDescr => null;
+        public override string ClassificationDescr
+        {
+            get
+            {
+                if (RollList[RollType.Botch] is not null)
+                {
+                    int Result = RollList[RollType.Botch].OpenRollCombined();
+                    var Botch = GameData.GetSkillBotch(Domain, (int)Result);
+
+                    return Botch.Descr;
+                }
+                return null;
+            }
+        }
 
 
         // ROLLS  ////////////////////////
+
+        public override bool NeedsBotchEffect
+        {
+            get => base.NeedsBotchEffect && Domain != SkillDomain.Basic;
+        }
 
         /// <inheritdoc/>
         public override int[] RollRemainder(RollType Which)
