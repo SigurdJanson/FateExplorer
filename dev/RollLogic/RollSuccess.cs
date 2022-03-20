@@ -5,12 +5,14 @@ namespace FateExplorer.RollLogic
 
     public class RollSuccess
     {
-        const int Min = 1, Max = 20;
-        const int DefaultBotchThreshold = Max;
+        protected const int Min = 1, Max = 20;
+        protected const int DefaultBotchThreshold = Max;
 
         public int BotchThreshold { get; set; }
 
-
+        /// <summary>
+        /// Cosntructor
+        /// </summary>
         public RollSuccess()
         {
             BotchThreshold = DefaultBotchThreshold;
@@ -46,6 +48,9 @@ namespace FateExplorer.RollLogic
         public Level PrimaryLevel { get; set; } = Level.na;
         public Level ConfirmationLevel { get; set; } = Level.na;
 
+        /// <summary>
+        /// The success level according to the current state of the <b>complete</b> check
+        /// </summary>
         public Level CurrentLevel
         {
             get => CheckSuccess(PrimaryLevel, ConfirmationLevel);
@@ -63,9 +68,10 @@ namespace FateExplorer.RollLogic
         /// Update the status of the success evaluation after a new roll in the series.
         /// This method works for 1d20 roll checks. 
         /// </summary>
-        /// <param name="Primary">Success level of the primary roll</param>
-        /// <param name="Confirm"></param>
-        public void Update(IRollM Primary, IRollM Confirm, int Attr)
+        /// <param name="Primary">Primary roll</param>
+        /// <param name="Confirm">Confirmation roll (may be null)</param>
+        /// <param name="Attr">The attribute value to roll against (e.g. COU or AT).</param>
+        public virtual void Update(IRollM Primary, IRollM Confirm, int Attr)
         {
             if (Primary is null)
                 PrimaryLevel = Level.na;
@@ -77,6 +83,8 @@ namespace FateExplorer.RollLogic
             else
                 ConfirmationLevel = D20Success(Confirm.OpenRoll[0], Attr);
         }
+
+
 
 
         /// <summary>
@@ -99,7 +107,7 @@ namespace FateExplorer.RollLogic
         /// <param name="Eyes">The result of the roll</param>
         /// <param name="Attribute">The criterion the roll goes against</param>
         /// <returns>The result; criticals/botches are given as *pending*</returns>
-        public Level PrimaryD20Success(int Eyes, int Attribute)
+        private Level PrimaryD20Success(int Eyes, int Attribute)
         {
             if (Eyes > Max || Eyes < Min) throw new ArgumentOutOfRangeException(nameof(Eyes));
             if (Eyes == 1)
@@ -119,7 +127,7 @@ namespace FateExplorer.RollLogic
         /// <param name="Eyes">The result of the roll</param>
         /// <param name="Attribute">The criterion the roll goes against</param>
         /// <returns>The result</returns>
-        public Level D20Success(int Eyes, int Attribute)
+        private Level D20Success(int Eyes, int Attribute)
         {
             if (Eyes == 1)
                 return Level.Critical;
