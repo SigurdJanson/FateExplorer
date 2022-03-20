@@ -75,7 +75,12 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+        {
+            // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
+            //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+            Success.Update(s, s);
+        }
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -118,7 +123,6 @@ namespace FateExplorer.RollLogic
         /// <returns></returns>
         public static int ComputeSkillRemainder(int[] Eyes, int[] Attributes, int Skill, int Mod)
         {
-            //-int DieCount = Eyes.Length;
             if (Eyes.Length != Attributes.Length) 
                 throw new ArgumentException("Skill checks need as many rolled dice as abilities");
 
@@ -132,21 +136,15 @@ namespace FateExplorer.RollLogic
             else if (Count20s >= 2)
                 return 0;
 
-            //-int EffectiveAttr; // = new int[DieCount];
-            //-int[] Check = new int[DieCount];
             // Determine how many points must be compensated by the skill value
             int ToCompensate = 0;
             for (int i = 0; i < Attributes.Length; i++)
             {
                 int EffectiveAttr = Attributes[i] + Mod;
-                //-int Check = Math.Max(Eyes[i] - EffectiveAttr, 0);
                 ToCompensate += Math.Max(Eyes[i] - EffectiveAttr, 0); //-Check;
             }
-            //-for (int i = 0; i < Attributes.Length; i++)
-            //-    Check[i] = Math.Max(Eyes[i] - EffectiveAttr[i], 0);
 
             // Subtract 
-            //-Array.ForEach(Check, (int i) => ToCompensate += i);
             return Skill - ToCompensate;
         }
 
@@ -237,7 +235,6 @@ namespace FateExplorer.RollLogic
             IRollM roll = Which switch
             {
                 RollType.Primary => new SkillRoll(),
-                //RollType.Confirm => NeedsConfirmation ? new SkillRoll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
                 _ => throw new ArgumentException("Skill rolls only support primary and confirmation rolls")
             };
@@ -245,6 +242,7 @@ namespace FateExplorer.RollLogic
 
             if (Which == RollType.Primary)
             {
+                // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
                 RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
                 Success.Update(s, s);
             }
