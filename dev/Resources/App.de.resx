@@ -610,6 +610,9 @@
   <data name="msgBotchConfirmed" xml:space="preserve">
     <value>Verlierer!</value>
   </data>
+  <data name="msgCallToAction4Rolls" xml:space="preserve">
+    <value>Würfle etwas</value>
+  </data>
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
   </data>

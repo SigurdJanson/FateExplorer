@@ -15,6 +15,7 @@
 <MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
         <MudItem xs=12 sm=6 md=4>
+            <MudPaper Elevation=0 Outlined=true>
             <MudList Clickable=true>
                 <MudListItem Text="Dodge" Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
                     <div class="d-flex align-center" >
@@ -63,13 +64,15 @@
                 </MudListItem>
                 }
             </MudList>
-
+            </MudPaper>
         </MudItem>
+
+
         <MudItem  xs=12 sm=6 md=8>
-            <MudPaper >
+            <MudPaper Class="pa-2">
                 <MudGrid>
                     <MudItem xs=6>
-                        <MudCard Square=true Class="mb-4">
+                        <MudCard Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Dominant hand</MudText>
@@ -104,7 +107,7 @@
                     </MudItem>
 
                     <MudItem xs=6>
-                        <MudCard Square=true Class="mb-4">
+                        <MudCard Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Non-dominant hand</MudText>
@@ -139,14 +142,16 @@
                     </MudItem>
                 </MudGrid>
             </MudPaper>
-            <MudPaper Square=true Outlined=false Elevation=0 Class="d-flex justify-space-around">
+
+
+            <MudPaper Outlined=false Elevation=0 Class="pa-2 d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
                 <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8">
                     @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
-            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
+            <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
                 @if (RollCheckResults is not null && RollCheckResults.Count > 0)
                 {
                     @foreach(var r in RollCheckResults.Reverse())
@@ -156,7 +161,9 @@
                 }
                 else
                 {
-                    <span>Roll something</span>
+                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.Palette.TextDisabled}")>
+                        @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
+                    </MudText>                
                 }
             </MudPaper>
         </MudItem>
@@ -170,6 +177,8 @@ else
 
 
 @code {
+    private MudTheme Theme = new MudTheme(); // Grant access to the theme
+
     private readonly string[] CheckIcons = new string[4] { 
         Icons.Filled.Accessible, 
         Icons.Filled.Elderly, 
