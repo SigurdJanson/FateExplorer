@@ -36,5 +36,17 @@ namespace vmCode_UnitTests.Shared
             // Assert
             return result;
         }
+
+        [Test]
+        public void Fitness_TargerIsNull_Return0()
+        {
+            // Arrange
+            string a = "Anything you want";
+            // Act
+            var result = a.Fitness(null);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
     }
 }
