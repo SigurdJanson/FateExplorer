@@ -17,23 +17,24 @@ namespace FateExplorer.CharacterModel
         /// unarmed combat</remarks>
         public void Initialise(IGameDataService gameData)
         {
+            var Unarmed = gameData.WeaponsMelee["WEAPONLESS"];
             WeaponDTO weaponDTO = new()
             {
-                Id = "Unarmed", Name = "Brawling", 
-                CombatTechId = CombatTechM.Unarmed,
-                AttackMod = 0, ParryMod = 0,
-                DamageBonus = 0,
-                DamageDieCount = 1,
-                DamageDieSides = 6,
-                DamageThreshold = 21,
+                Id = Unarmed.Id, Name = Unarmed.Name, 
+                CombatTechId = Unarmed.CombatTechID,
+                AttackMod = Unarmed.AtMod, ParryMod = Unarmed.PaMod,
+                DamageBonus = Unarmed.Bonus,
+                DamageDieCount = Unarmed.DamageDieCount(),
+                DamageDieSides = Unarmed.DamageDieSides(),
+                DamageThreshold = Unarmed.Threshold,
                 PrimaryAbilityId = gameData.CombatTechs[CombatTechM.Unarmed].PrimeAttrID.Split('/'),
                 Range = null,
-                Reach = 1,
-                IsRanged = false,
-                IsTwohanded = false,
-                IsImprovised = false,
-                IsParry = false,
-                Branch = CombatBranch.Unarmed
+                Reach = Unarmed.Reach,
+                IsRanged = !Unarmed.CloseRange,
+                IsTwohanded = Unarmed.TwoHanded,
+                IsImprovised = Unarmed.Improvised,
+                IsParry = Unarmed.Parry,
+                Branch = gameData.CombatTechs[CombatTechM.Unarmed].WeaponsBranch
             };
             base.Initialise(weaponDTO, gameData);
         }
