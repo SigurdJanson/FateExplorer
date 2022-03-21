@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -60,7 +61,7 @@ namespace FateExplorer.RollLogic
             CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.PaSkill(mainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
-            RollAttrName[0] = weapon.Name;
+            RollAttrName[0] = ResourceId.ParryLabelId;
             Name = weapon.Name;
 
             // specialised properties

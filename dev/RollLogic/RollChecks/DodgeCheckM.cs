@@ -49,7 +49,7 @@ namespace FateExplorer.RollLogic
             CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;
-            RollAttrName[0] = dodge.Name;
+            RollAttrName[0] = ResourceId.DodgeLabelId;
             Name = dodge.Name;
             CarriesWeapon = carriesWeapon;
 

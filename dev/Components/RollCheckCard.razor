@@ -12,7 +12,7 @@
         </CardHeaderAvatar>
         <CardHeaderContent>
             <MudText Typo="Typo.body1">@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
-            <MudText Typo="Typo.caption">@Result.Name</MudText>
+            <MudText Typo="Typo.subtitle2">@Result.Name</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (CanClose)
@@ -31,7 +31,7 @@
                     <tr>
                         <td>@*AttributeLabel*@</td>
                         @if (ShowValueLabel is null)
-                            @AttrHead(Result.RollAttrName)
+                            @AttrHead(AttributeHeader)
                         else
                         {
                             <td><MudText Typo=Typo.caption>
@@ -146,12 +146,16 @@
 
 
     protected RollResultViMo PrimRollResult { get; set; }
+    protected string[] AttributeHeader;
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
         PrimRollResult = Result.GetPrimaryResult();
+        AttributeHeader = new string[Result.RollAttrName.Length];
+        for (int a = 0; a < Result.RollAttrName.Length; a++)
+            AttributeHeader[a] = l10n[Result.RollAttrName[a]];
     }
 
 
@@ -290,7 +294,7 @@
     {
         if (Name is not null)
         {
-            foreach (var n in Name)
+            foreach (string n in Name)
             {
             <td><MudText Typo=Typo.caption>@n</MudText></td>
             }

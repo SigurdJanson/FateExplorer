@@ -17,21 +17,23 @@
         <MudItem xs=12 sm=6 md=4>
             <MudPaper Elevation=0 Outlined=true>
             <MudList Clickable=true>
-                <MudListItem Text="Dodge" Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
+                <MudListItem Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>@*Text=@ResourceId.DodgeLabelId*@ 
                     <div class="d-flex align-center" >
                         <div>
-                        <MudText Typo=Typo.body1 GutterBottom=false>@l10n["Dodge"]</MudText>
-                        <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblDodgeAbbr"] @Hero.GetDodge().EffectiveValue @Hero.GetDodge().Id</MudText>
+                        <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.DodgeLabelId]</MudText>
+                        <MudText Typo=Typo.body2 GutterBottom=false>
+                            @l10n["abbrDodge"] @Hero.GetDodge().EffectiveValue @*@Hero.GetDodge().Id*@
+                        </MudText>
                         </div>
                     <MudSpacer/>
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
-                        aria-label=@(l10n["lblEdit"] + " " + @l10n["Dodge"]) />
+                        aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
                     <MudSpacer/>
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
                         OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
-                        aria-label=@(l10n["lblRoll"] + " " + @l10n["Dodge"]) />
+                        aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.DodgeLabelId]) />
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                        aria-label=@(l10n["lblView"] + " " + @l10n["Dodge"]) />
+                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />
                     </div>
                 </MudListItem>
                 <MudListItem Text="Initiative" Icon=@Icons.Material.Sharp.Sort>
@@ -44,7 +46,7 @@
             <MudList Clickable=true>
                 @foreach (var w in Hero.Weapons)
                 {
-                <MudListItem Text=@w.Name DisableRipple=true>
+                <MudListItem DisableRipple=true>  @*Text=@w.Name*@
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
@@ -75,7 +77,7 @@
                         <MudCard Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
-                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Dominant hand</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
                                     <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.MainWeapon.Name</MudText>
                                     <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.MainWeapon, HandsViMo.Hand.Main)</MudText>
                                 </CardHeaderContent>
@@ -110,7 +112,7 @@
                         <MudCard Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
-                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>Non-dominant hand</MudText>
+                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblNondominantHand"]</MudText>
                                     <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.OffWeapon.Name</MudText>
                                     <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.OffWeapon, HandsViMo.Hand.Off)</MudText>
                                 </CardHeaderContent>
@@ -156,7 +158,7 @@
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons ShowValueLabel=@l10n["lblAbility"] />
+                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons /> @* ShowValueLabel=@l10n["lblAbility"] *@
                     }
                 }
                 else

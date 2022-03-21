@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="abbrDodge" xml:space="preserve">
+    <value>AW</value>
+  </data>
+  <data name="abbrvAttack" xml:space="preserve">
+    <value>AT</value>
+  </data>
   <data name="abbrvDie" xml:space="preserve">
     <value>W</value>
   </data>
   <data name="abbrvHP" xml:space="preserve">
     <value>Trefferpunkte</value>
+  </data>
+  <data name="abbrvParry" xml:space="preserve">
+    <value>PA</value>
   </data>
   <data name="Add Dice Cup" xml:space="preserve">
     <value>Würfelbecher erstellen</value>
@@ -393,6 +402,9 @@
   <data name="lblAll" xml:space="preserve">
     <value>Alle</value>
   </data>
+  <data name="lblAttack" xml:space="preserve">
+    <value>Attacke</value>
+  </data>
   <data name="lblAttributeValue" xml:space="preserve">
     <value>Wert</value>
   </data>
@@ -425,6 +437,15 @@
   </data>
   <data name="lblDisadvantages" xml:space="preserve">
     <value>Nachteile</value>
+  </data>
+  <data name="lblDodge" xml:space="preserve">
+    <value>Ausweichen</value>
+  </data>
+  <data name="lblDominantHand" xml:space="preserve">
+    <value>Dominante Hand</value>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Editiere</value>
   </data>
   <data name="lblFindSkill" xml:space="preserve">
     <value>Fertigkeiten finden</value>
@@ -475,6 +496,12 @@
   <data name="lblNoCharacter" xml:space="preserve">
     <value>Keine Charakterdaten vorhanden</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="lblNondominantHand" xml:space="preserve">
+    <value>Nicht-dominante Hand</value>
+  </data>
+  <data name="lblParry" xml:space="preserve">
+    <value>Parade</value>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Geburtsort</value>
@@ -559,6 +586,9 @@
   </data>
   <data name="lblSumTotal" xml:space="preserve">
     <value>Gesamtpreis</value>
+  </data>
+  <data name="lblView" xml:space="preserve">
+    <value>Betrachte</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
     <value>Vermögen</value>

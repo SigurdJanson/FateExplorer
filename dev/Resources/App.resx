@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="abbrDodge" xml:space="preserve">
+    <value>DO</value>
+  </data>
   <data name="abbrvAttack" xml:space="preserve">
     <value>AT</value>
   </data>
@@ -399,6 +402,9 @@
   <data name="lblAll" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="lblAttack" xml:space="preserve">
+    <value>Attack</value>
+  </data>
   <data name="lblAttributeValue" xml:space="preserve">
     <value>Value</value>
   </data>
@@ -431,6 +437,15 @@
   </data>
   <data name="lblDisadvantages" xml:space="preserve">
     <value>Disadvantages</value>
+  </data>
+  <data name="lblDodge" xml:space="preserve">
+    <value>Dodge</value>
+  </data>
+  <data name="lblDominantHand" xml:space="preserve">
+    <value>Dominant hand</value>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="lblFindSkill" xml:space="preserve">
     <value>Find a Skill</value>
@@ -481,6 +496,12 @@
   <data name="lblNoCharacter" xml:space="preserve">
     <value>No character data available</value>
     <comment>No Character Skeleton</comment>
+  </data>
+  <data name="lblNondominantHand" xml:space="preserve">
+    <value>Non-dominant hand</value>
+  </data>
+  <data name="lblParry" xml:space="preserve">
+    <value>Parry</value>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Place of Birth</value>
@@ -565,6 +586,9 @@
   </data>
   <data name="lblSumTotal" xml:space="preserve">
     <value>Total Price</value>
+  </data>
+  <data name="lblView" xml:space="preserve">
+    <value>View</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
     <value>Funds</value>

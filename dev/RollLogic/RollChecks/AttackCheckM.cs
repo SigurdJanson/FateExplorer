@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -72,7 +73,7 @@ namespace FateExplorer.RollLogic
             CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.AtSkill(mainHand, otherWeapon.Branch);
-            RollAttrName[0] = weapon.Name;
+            RollAttrName[0] = ResourceId.AttackLabelId;
             Name = weapon.Name;
 
             // specialised properties
