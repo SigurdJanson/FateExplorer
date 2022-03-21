@@ -51,16 +51,23 @@
                         Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
                         {
-                            @*<MudSelectItem Value=@item>@item.name</MudSelectItem>*@
                             <MudSelectItem Value=@item />
                         }
                     </MudSelect>                
                 </ToolBarContent>
+                <ColGroup>
+                    <col style="width:40%" />
+                    <col style="width:12rem"/>
+                    <col style="width:12rem" />
+                    <col style="width:25rem" />
+                    <col style="width:20%"/>
+                    <col style="width:24rem" />
+                </ColGroup>
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Name" T="ShopItemViMo">
                         @l10n["lblName"]
                     </MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
+                    <MudTh ><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
                         @l10n["lblPrice"] (S)
                     </MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
@@ -251,6 +258,7 @@
         ShoppingCart = new ShoppingCartViMo();
         Merchant = new MerchantViMo(GameData);
         await Stock.InitializeGameDataAsync();
+        OnCurrencyChanged(Stock.GetDefaultCurrency());
     }
 
 

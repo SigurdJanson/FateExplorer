@@ -74,7 +74,7 @@ namespace FateExplorer.Shop
         /// <summary>
         /// Returns a list of available currencies
         /// </summary>
-        /// <returns>LIst of tupels with currency id and name</returns>
+        /// <returns>List of tupels with currency id and name</returns>
         public IEnumerable<(string id, string name)> GetCurrencies()
         {
             List<(string id, string name)> Result = new();
@@ -83,6 +83,17 @@ namespace FateExplorer.Shop
                 Result.Add((id: c.Id, name: c.Name));
             return Result;
         }
+
+        /// <summary>
+        /// Returns the default value for the currency
+        /// </summary>
+        /// <returns>A tupel <c>(id, name)</c> containing the currency data</returns>
+        public (string id, string name) GetDefaultCurrency()
+        {
+            CurrencyM Default = Currencies.Find(c => c.Id == "m10"); // TODO: get this from settings?
+            return (id: Default.Id, name: Default.Name);
+        }
+
 
         /// <summary>
         /// Multiply silverthalers with this rate to get the value of the currency with the given id.
