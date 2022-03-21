@@ -62,6 +62,12 @@ namespace FateExplorer.CharacterModel
         double CarriedWeight { get; }
 
         /// <summary>
+        /// The characters money in silver thalers
+        /// </summary>
+        double Money { get; }
+
+
+        /// <summary>
         /// The weight a character can carry over longer periods of time without effects of encumbrance
         /// (see VR1, p. 348).
         /// </summary>

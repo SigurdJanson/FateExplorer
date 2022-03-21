@@ -100,6 +100,18 @@ namespace FateExplorer.ViewModel
 
         public double CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
 
+        public double Money { get => characterM?.Money ?? 0; }
+
+        public string FormatMoney()
+        {
+            string Result;
+            if (Money >= 100)
+                Result = $"{Money / 100} D {Money % 100:N2} S";
+            else
+                Result = $"{Money:N2}";
+            return Result;
+        }
+
         public double WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
         public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }

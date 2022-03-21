@@ -332,6 +332,21 @@ namespace FateExplorer.CharacterImport
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Less clarity")]
+        public double TotalMoney()
+        {
+            double Ducats, Thalers, Farthings, Kreutzer;
+            if (!double.TryParse(Belongings.Purse.D, out Ducats))
+                Ducats = 0;
+            if (!double.TryParse(Belongings.Purse.D, out Thalers))
+                Thalers = 0;
+            if (!double.TryParse(Belongings.Purse.D, out Farthings))
+                Farthings = 0;
+            if (!double.TryParse(Belongings.Purse.D, out Kreutzer))
+                Kreutzer = 0;
+            return Ducats * 10 + Thalers + Farthings / 10 + Kreutzer / 100;
+        }
+
 
         public IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB)
         {

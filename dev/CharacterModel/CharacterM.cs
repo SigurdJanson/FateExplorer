@@ -120,6 +120,7 @@ namespace FateExplorer.CharacterModel
 
             // BELONGINGS
             CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
+            Money = characterImportOptM.TotalMoney();
 
             Weapons = new Dictionary<string, WeaponM>();
             foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged, gameData.CombatTechs))
@@ -144,6 +145,9 @@ namespace FateExplorer.CharacterModel
 
         /// <inheritdoc />
         public double CarriedWeight { get; protected set; }
+
+        /// <inheritdoc />
+        public double Money { get; protected set; }
 
         /// <inheritdoc />
         public double WhatCanCarry(int EffectiveStrength)

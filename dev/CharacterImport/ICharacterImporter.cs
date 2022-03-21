@@ -91,6 +91,12 @@ namespace FateExplorer.CharacterImport
 
         double TotalWeightOfBelongings();
 
+        /// <summary>
+        /// Get the money the character has in silver thalers
+        /// </summary>
+        /// <returns></returns>
+        double TotalMoney();
+
         IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB);
 
         /// <summary>

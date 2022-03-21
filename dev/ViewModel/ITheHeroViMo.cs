@@ -32,6 +32,13 @@ namespace FateExplorer.ViewModel
         double WhatCanCarry { get; }
         double WhatCanLift { get; }
 
+        double Money { get; }
+
+        /// <summary>
+        /// Get the character's money as formatted string
+        /// </summary>
+        /// <returns></returns>
+        string FormatMoney();
 
         List<AbilityDTO> GetAbilites();
 
