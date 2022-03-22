@@ -2,6 +2,9 @@
 
 namespace FateExplorer.Shop
 {
+    /// <summary>
+    /// The shopping cart for the "bazaar" (i.e. shop). It stores the items in the cart as tupels.
+    /// </summary>
     public class ShoppingCartViMo : List<(ShopItemViMo Item, int Count)>
     {
         /// <summary>
@@ -20,6 +23,9 @@ namespace FateExplorer.Shop
             }
         }
 
+        /// <summary>
+        /// The total count of items in the shoppings cart. Duplicates are counted twice.
+        /// </summary>
         public int ItemCount
         {
             get
@@ -34,17 +40,25 @@ namespace FateExplorer.Shop
             }
         }
 
+
+        ///// <summary>
+        ///// Removes all items with a count of 0.
+        ///// </summary>
+        // CURRENTLY NOT NEEDED
+        //public void ClearEmptyItems()
+        //{
+        //    for (int i = 0; i < Count; i++)
+        //        if (this[i].Count == 0)
+        //            RemoveAt(i);
+        //}
+
+
         /// <summary>
-        /// Removes all items with a count of 0.
+        /// Adds a new item to the cart. Duplicates are checked for. In case of
+        /// duplicates there will be no new item but the count of existing items
+        /// is increased.
         /// </summary>
-        public void ClearEmptyItems()
-        {
-            for (int i = 0; i < Count; i++)
-                if (this[i].Count == 0)
-                    RemoveAt(i);
-        }
-
-
+        /// <param name="item">The item to add.</param>
         public new void Add((ShopItemViMo Item, int Count) item)
         {
             if (item.Count == 0) return;
