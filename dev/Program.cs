@@ -1,4 +1,5 @@
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.ViewModel;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,8 @@ namespace FateExplorer
             // Services of Fate Explorer
             builder.Services
                 .AddScoped<IGameDataService, DataServiceDSA5>()
-                .AddScoped<ITheHeroViMo, TheHeroViMo>();
+                .AddScoped<ITheHeroViMo, TheHeroViMo>()
+                .AddSingleton<AppSettings>();
             builder.Services.AddScoped<IRollHandlerViMo, RollHandlerViMo>();
 
             var host = builder.Build();

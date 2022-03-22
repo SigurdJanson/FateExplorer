@@ -1,0 +1,33 @@
+﻿@using Microsoft.Extensions.Configuration
+
+@page "/settings"
+
+@inject IStringLocalizer<Settings> l10n
+@inject AppSettings Config
+
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">@l10n["lblSettings"]</MudText>
+    <MudGrid Spacing="6" Class="mt-16">
+        <MudItem xs=12 md=6>
+            <MudText Typo="Typo.h5" GutterBottom=true>@l10n["lblWeapons"]</MudText>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudCheckBox T="bool" Checked=@Config.ShowImprovisedWeapons Required=false Class="ml-n2" Label=@l10n["chbShowImprovisedWeapons"]/>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+
+        <MudItem xs=12 md=6>
+            <MudText Typo="Typo.h5" GutterBottom=true>@l10n["lblSkills"]</MudText>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudText>@l10n["lblNoSettings"]</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    
+}
