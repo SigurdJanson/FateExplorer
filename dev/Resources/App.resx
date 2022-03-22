@@ -447,6 +447,9 @@
   <data name="lblEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="lblEmptyBasket" xml:space="preserve">
+    <value>Empty the basket</value>
+  </data>
   <data name="lblFindSkill" xml:space="preserve">
     <value>Find a Skill</value>
     <comment>Character Act (Skills)</comment>
