@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="230"
    height="48"
    viewBox="0 0 60.854186 12.7"
    version="1.1"
    id="svg850"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="FateExplorer_Blood_Logo.svg">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="FateExplorer_Blood_Logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs844">
     <pattern
@@ -31,9 +31,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="128.16653"
-     inkscape:cy="49.48432"
+     inkscape:zoom="16"
+     inkscape:cx="14.15625"
+     inkscape:cy="31.96875"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -54,7 +54,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,7 +63,7 @@
      id="layer1">
     <path
        id="rect1443"
-       style="fill:#dadada;fill-opacity:1;stroke:none;stroke-width:5.00967;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:14"
+       style="fill:#dadada;fill-opacity:0.789823;stroke:none;stroke-width:5.00967;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:14"
        d="M 1.310464,8.853897 C 5.3875372,4.9517415 6.7761715,4.4549428 7.7425872,4.4929545 L 7.6308352,5.4655886 C 3.3205211,6.9275479 2.3999659,8.1146617 1.9203328,9.266025 Z"
        sodipodi:nodetypes="ccccc" />
     <path
