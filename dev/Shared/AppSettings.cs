@@ -19,6 +19,17 @@ namespace FateExplorer.Shared
         }
 
 
+        private string[] mostUsedSkills;
+        public string[] MostUsedSkills
+        {
+            get 
+            { 
+                if (mostUsedSkills is null)
+                    mostUsedSkills = Config.GetSection("FE:Skills:MostUsedSkills").Get<string[]>();
+                return mostUsedSkills; 
+            }
+            set { mostUsedSkills = value; } 
+        }
 
 
         public AppSettings(IConfiguration config)

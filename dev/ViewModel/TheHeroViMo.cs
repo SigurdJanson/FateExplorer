@@ -14,7 +14,7 @@ namespace FateExplorer.ViewModel
     public class TheHeroViMo : ITheHeroViMo
     {
         protected IGameDataService GameDataService; // injected
-        protected IConfiguration AppConfig; // injected
+        protected AppSettings AppConfig; // injected
         protected ICharacterM characterM;
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace FateExplorer.ViewModel
         /// Constructor
         /// </summary>
         /// <param name="gameData"></param>
-        public TheHeroViMo(IGameDataService gameData, IConfiguration appConfig)
+        public TheHeroViMo(IGameDataService gameData, AppSettings appConfig)
         {
             GameDataService = gameData;
             AppConfig = appConfig;
@@ -278,7 +278,7 @@ namespace FateExplorer.ViewModel
         /// <returns>List as DTO for the View</returns>
         public List<SkillsDTO> GetFavoriteSkills()
         {
-            string[] Favs = AppConfig.GetSection("MostUsedSkills").Get<string[]>();
+            string[] Favs = AppConfig.MostUsedSkills;
 
             List<SkillsDTO> Result = new();
 
