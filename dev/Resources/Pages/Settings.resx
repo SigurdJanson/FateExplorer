@@ -120,6 +120,9 @@
   <data name="chbShowImprovisedWeapons" xml:space="preserve">
     <value>Show improvised weapons</value>
   </data>
+  <data name="lblMostUsedSkills" xml:space="preserve">
+    <value>Commonly Used Skills</value>
+  </data>
   <data name="lblNoSettings" xml:space="preserve">
     <value>No settings available</value>
   </data>
@@ -131,5 +134,8 @@
   </data>
   <data name="lblWeapons" xml:space="preserve">
     <value>Weapons</value>
+  </data>
+  <data name="txtMostUsedSkills" xml:space="preserve">
+    <value>Skills shown in the category 'commonly used'</value>
   </data>
 </root>

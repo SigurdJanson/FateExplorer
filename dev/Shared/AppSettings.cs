@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace FateExplorer.Shared
 {
@@ -19,13 +20,13 @@ namespace FateExplorer.Shared
         }
 
 
-        private string[] mostUsedSkills;
-        public string[] MostUsedSkills
+        private List<string> mostUsedSkills;
+        public List<string> MostUsedSkills
         {
             get 
             { 
                 if (mostUsedSkills is null)
-                    mostUsedSkills = Config.GetSection("FE:Skills:MostUsedSkills").Get<string[]>();
+                    mostUsedSkills = Config.GetSection("FE:Skills:MostUsedSkills").Get<List<string>>();
                 return mostUsedSkills; 
             }
             set { mostUsedSkills = value; } 

@@ -120,6 +120,9 @@
   <data name="chbShowImprovisedWeapons" xml:space="preserve">
     <value>Improvisierte Waffen anzeigen</value>
   </data>
+  <data name="lblMostUsedSkills" xml:space="preserve">
+    <value>Meistverwendeten Fertigkeiten</value>
+  </data>
   <data name="lblNoSettings" xml:space="preserve">
     <value>Keine Einstellungen vorhanden</value>
   </data>
@@ -131,5 +134,8 @@
   </data>
   <data name="lblWeapons" xml:space="preserve">
     <value>Waffen</value>
+  </data>
+  <data name="txtMostUsedSkills" xml:space="preserve">
+    <value>Fertigkeiten angezeigt in der Kategorie 'Meistverwendet'</value>
   </data>
 </root>

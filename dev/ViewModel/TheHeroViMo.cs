@@ -278,7 +278,7 @@ namespace FateExplorer.ViewModel
         /// <returns>List as DTO for the View</returns>
         public List<SkillsDTO> GetFavoriteSkills()
         {
-            string[] Favs = AppConfig.MostUsedSkills;
+            string[] Favs = AppConfig.MostUsedSkills.ToArray();
 
             List<SkillsDTO> Result = new();
 
