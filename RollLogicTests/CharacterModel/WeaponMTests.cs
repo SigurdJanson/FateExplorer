@@ -13,15 +13,15 @@ namespace vmCode_UnitTests.CharacterModel
         private static CombatTechDbEntry CombatTechDaggers
         {
             get => new()
-                {
-                    Name = "Dolche",
-                    Id = "CT_3",
-                    PrimeAttrID = "ATTR_6",
-                    CanAttack = true,
-                    CanParry = true,
-                    IsRanged = false,
-                    WeaponsBranch = CombatBranch.Melee
-                };
+            {
+                Name = "Dolche",
+                Id = "CT_3",
+                PrimeAttrID = "ATTR_6",
+                CanAttack = true,
+                CanParry = true,
+                IsRanged = false,
+                WeaponsBranch = CombatBranch.Melee
+            };
         }
 
         private static CombatTechDbEntry CombatTechSwords
@@ -52,7 +52,7 @@ namespace vmCode_UnitTests.CharacterModel
             };
         }
 
-        private CombatTechM MakeCombatTechM(CombatTechDbEntry ct, int Skill, ICharacterM hero)
+        private static CombatTechM MakeCombatTechM(CombatTechDbEntry ct, int Skill, ICharacterM hero)
         {
             CombatTechM Result = new(ct, Skill, hero);
             return Result;
@@ -69,51 +69,33 @@ namespace vmCode_UnitTests.CharacterModel
             return Result;
         }
 
-        private static IEnumerable<TestCaseData> LayarielsDagger
+
+
+        private static IEnumerable<TestCaseData> LayarielsWeapons
         {
             get
             {
-                WeaponDTO w = new()
-                {
-                    Id = "ITEM_9999",
-                    Name = "Layariels Dagger",
-                    CombatTechId = "CT_3",
-                    Improvised = false,
-                    AttackMod = 0,
-                    ParryMod = 0,
-                    DamageThreshold = 14,
-                    DamageDieCount = 1,
-                    DamageDieSides = 6,
-                    DamageBonus = 1
-                };
-                yield return new TestCaseData(w);
+                yield return new TestCaseData(HeroWipfelglanz.LayarielsDagger);
+                yield return new TestCaseData(HeroWipfelglanz.LayarielsElvenBow);
             }
         }
 
-        /// <summary>
-        /// The abilities of Layariel Wipfelglanz
-        /// </summary>
-        private static Dictionary<string, int> AbilityValues
+
+        private static IEnumerable<TestCaseData> LayarielsWeaponsHitPointBonus
         {
-            get 
+            get
             {
-                Dictionary<string, int> Result = new();
-                Result.Add(AbilityM.COU, 11);
-                Result.Add(AbilityM.SGC, 10);
-                Result.Add(AbilityM.INT, 15);
-                Result.Add(AbilityM.CHA, 13);
-                Result.Add(AbilityM.DEX, 14);
-                Result.Add(AbilityM.AGI, 15);
-                Result.Add(AbilityM.CON, 11);
-                Result.Add(AbilityM.STR, 11);
-                return Result;
+                yield return new TestCaseData(HeroWipfelglanz.LayarielsDagger, 1);
+                yield return new TestCaseData(HeroWipfelglanz.LayarielsElvenBow, 0);
             }
         }
+
     }
 
 
 
     [TestFixture]
+    [TestOf(typeof(WeaponM))]
     public partial class WeaponMTests
     {
         private MockRepository mockRepository;
@@ -128,7 +110,7 @@ namespace vmCode_UnitTests.CharacterModel
 
             this.mockCharacterM = this.mockRepository.Create<ICharacterM>();
             mockCharacterM.SetupGet(x => x.Name).Returns("Layariel Wipfelglanz");
-            var Abs = AbilityValues;
+            var Abs = HeroWipfelglanz.AbilityValues;
             foreach(var a in Abs)
                 mockCharacterM.Setup(x => x.GetAbility(It.Is<string>(s => s == a.Key)))
                     .Returns(a.Value);
@@ -147,22 +129,24 @@ namespace vmCode_UnitTests.CharacterModel
 
 
 
-        [Test, Ignore("nyi")]
-        public void AtSkill_DamageThreshold_IncreasedDAmageBy1(
-            [ValueSourceAttribute(nameof(LayarielsDagger))] WeaponDTO WeaponData)
+        [Test, Description("Layariels primary ability increase dagger hit points")]
+        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1(
+            [ValueSource(typeof(HeroWipfelglanz), nameof(HeroWipfelglanz.LayarielsDagger))] WeaponDTO WeaponData)
         {
             // Arrange
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
-            bool MainHand = false;
-            CombatBranch otherHand = default;
+            //bool MainHand = true;
+            //CombatBranch otherHand = CombatBranch.Unarmed;
 
             // Act
-            var result = weaponM.AtSkill(MainHand, otherHand);
+            //var result = weaponM.AtSkill(MainHand, otherHand);
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(1, weaponM.DamageDieCount);
+            Assert.AreEqual(6, weaponM.DamageDieSides);
+            Assert.AreEqual(HeroWipfelglanz.LayarielsDagger.DamageBonus+1, weaponM.DamageBonus);
             this.mockRepository.VerifyAll();
         }
 
@@ -178,7 +162,7 @@ namespace vmCode_UnitTests.CharacterModel
             bool otherIsParry = false;
 
             // Act
-            var result = weaponM.PaSkill(MainHand, otherHand, otherPaSkill, otherIsParry);
+            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
 
             // Assert
             Assert.Fail();
@@ -207,7 +191,8 @@ namespace vmCode_UnitTests.CharacterModel
             // Arrange
             var weaponM = this.CreateWeaponM();
             Dictionary<string,AbilityM> Abilities = null;
-            Dictionary<string,CombatTechM> CombatTecSkill = null;
+            //Dictionary<string,CombatTechM> CombatTecSkill = null;
+            CombatTechM CombatTecSkill = null;
 
             // Act
             var result = weaponM.ComputeAttackVal(Abilities, CombatTecSkill);
@@ -223,11 +208,13 @@ namespace vmCode_UnitTests.CharacterModel
         {
             // Arrange
             var weaponM = this.CreateWeaponM();
-            Dictionary<string, AbilityM> Abilities = null;
-            Dictionary<string, CombatTechM> CombatTecSkill = null;
+            weaponM.Initialise(HeroWipfelglanz.LayarielsDagger, mockGameDataM.Object);
+            //Dictionary<string, AbilityM> Abilities = null;
+            //Dictionary<string, CombatTechM> CombatTecSkill = MakeCombatTechDict(10, mockCharacterM.Object);
+            CombatTechM CombatTecSkill = null;
 
             // Act
-            var result = weaponM.ComputeParryVal(Abilities, CombatTecSkill);
+            var result = weaponM.ComputeParryVal(HeroWipfelglanz.Abilities, CombatTecSkill);
 
             // Assert
             Assert.Fail();
@@ -235,21 +222,22 @@ namespace vmCode_UnitTests.CharacterModel
         }
 
 
-        [Test, Ignore("nyi")]
-        [TestCase()]
-        public void HitpointBonus_VaryingPrimaryAbility(int Threshold, string PrimaryAbility)
+        [Test]
+        [TestCaseSource(nameof(LayarielsWeaponsHitPointBonus))]
+        public void HitpointBonus_VaryingPrimaryAbility(
+            WeaponDTO Weapon,
+            int Expected)
         {
             // Arrange
             var weaponM = this.CreateWeaponM();
-            weaponM.DamageThreshold = Threshold;
-            //weaponM.PrimaryAbilityId = PrimaryAbility;
-            Dictionary<string, AbilityM> Abilities = null;
+            weaponM.Initialise(Weapon, mockGameDataM.Object);
+            // TODO: mock combat techs
 
             // Act
-            var result = weaponM.HitpointBonus(Abilities);
+            var result = weaponM.HitpointBonus(HeroWipfelglanz.Abilities);
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(Expected, result);
             this.mockRepository.VerifyAll();
         }
 
