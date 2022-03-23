@@ -6,6 +6,7 @@
 
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
+@inject AppSettings Config
 @inject ITheHeroViMo Hero
 @inject IRollHandlerViMo RollHandler
 
@@ -46,6 +47,8 @@
             <MudList Clickable=true>
                 @foreach (var w in Hero.Weapons)
                 {
+                @if (w.IsImprovised && !Config.ShowImprovisedWeapons) continue;
+
                 <MudListItem DisableRipple=true>  @*Text=@w.Name*@
                     <div class="d-flex align-center" >
                         <div>
