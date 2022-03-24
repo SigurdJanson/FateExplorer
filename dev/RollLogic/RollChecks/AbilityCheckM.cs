@@ -11,11 +11,11 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        /// <remarks>In this context it is the skill value.</remarks>
+        /// <remarks>Not used in this context</remarks>
         public override int? TargetAttr { get; protected set; }
 
         /// <inheritdoc />
-        /// <remarks>In this context it is the skill.</remarks>
+        /// <remarks>Not used in this context</remarks>
         public override string TargetAttrName { get; protected set; }
 
 
@@ -40,6 +40,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="ability"></param>
         /// <param name="modifier"></param>
+        /// <param name="gameData"></param>
         public AbilityCheckM(AbilityDTO ability, ICheckModifierM modifier, IGameDataService gameData)
             :base(gameData)
         {
@@ -59,11 +60,10 @@ namespace FateExplorer.RollLogic
         }
 
 
-        /// <summary>
-        /// Update the check assessment after a modifier update
-        /// </summary>
+        /// <inheritdoc />
         public override void UpdateAfterModifierChange()
             => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(AbilityValue));
+
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)

@@ -191,6 +191,9 @@ namespace FateExplorer.RollLogic
 
         #region Update when modifier has changed
 
+        /// <summary>
+        /// Update the check assessment after a modifier update
+        /// </summary>
         public abstract void UpdateAfterModifierChange();
 
 
