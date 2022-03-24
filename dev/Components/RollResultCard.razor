@@ -9,13 +9,13 @@
             <AvatarDiceCup DieSides=@RollResult.DieSides />
         </CardHeaderAvatar>
         <CardHeaderContent>
-            <MudText Typo="Typo.body1">@Name</MudText>
-            <MudText Typo="Typo.body2">@RollResult.RollToString(l10n["abbrvDie"].ToString()[0])</MudText>
+            <MudText Typo=Typo.body1>@Name</MudText>
+            <MudText Typo=Typo.body2>@RollResult.RollToString(l10n["abbrvDie"].ToString()[0])</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (CanClose)
             {
-                <MudIconButton Icon="@Icons.Material.Sharp.Close" Color="Color.Default" />
+                <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default />
             }
         </CardHeaderActions>
     </MudCardHeader>
@@ -24,13 +24,12 @@
         <MudGrid Spacing=0 Class="my-1">
             @if (RollResult.SuccessLevel != RollSuccess.Level.na)
             {
-            <MudItem xs="4">
+            <MudItem xs=4>
                 <p>@l10n[RollResult.SuccessLevel.ToString()]</p>
             </MudItem>
             }
-            <MudItem xs="8">
+            <MudItem xs=8>
                 <MudSimpleTable Dense=true Hover=false Bordered=false Striped=false Elevation=0 >
-                @* Style="overflow-x: auto;" *@
                 <tbody>
                     <tr>
                         <td>@l10n["lblResultCardResult"]</td>
@@ -55,32 +54,48 @@
             </MudItem>
         </MudGrid>
     </MudCardContent>
-    <MudCardContent>
-        <MudText Typo="Typo.body2"></MudText>
-    </MudCardContent>
-    @*<MudCardActions>
-        <MudIconButton Icon="@Icons.Material.Sharp.Favorite" Color="Color.Default" />
-        <MudIconButton Icon="@Icons.Material.Sharp.Share" Color="Color.Default" />
-    </MudCardActions>*@
 </MudCard>
 
 
 @code {
-    [Parameter]
-    public string Name { get; set; } = "Roll";
-    [Parameter]
-    public bool CanClose { get; set; } = false;
+    /// <summary>
+    /// A result object carrying the required data to display the card
+    /// </summary>
     [Parameter]
     public RollResultViMo RollResult { get; set; }
 
+    /// <summary>
+    /// Displays an extra x-Icon users can close the card with.
+    /// </summary>    [Parameter]
+    public bool CanClose { get; set; } = false;
 
+    /// <summary>
+    /// Display name of the roll
+    /// </summary>
+    [Parameter]
+    public string Name { get; set; } = "Roll";
+
+
+    const string ValueDivider = " \u00B7 ";
+
+
+    /// <summary>
+    ///  Create an avatar content to be used in the Razor code.
+    /// </summary>
+    /// <returns>A render fragment that should yield an avatar content</returns>
     private RenderFragment MakeAvatar()
     {
         switch (RollResult.CupType)
         {
-            case FreeDiceCupViMo.CupType.Single: return @<span>@RollResult.DieSides[0]</span>;
-            case FreeDiceCupViMo.CupType.Multi:  return @<span>@RollResult.DieSides[0]</span>;
-            case FreeDiceCupViMo.CupType.MixedMulti: return @<span>MIX</span>;
+            case FreeDiceCupViMo.CupType.Single: 
+                return @<span>@RollResult.DieSides[0]</span>;
+
+            case FreeDiceCupViMo.CupType.Multi:  
+                return @<span>@RollResult.DieSides[0]</span>;
+
+            case FreeDiceCupViMo.CupType.MixedMulti: 
+                return @<span>MIX</span>;
+
             default: return @<span>MIX</span>; //@(<MudIcon Icon=Icons.Material.Sharp.FormatListNumbered />);
         }
     }
