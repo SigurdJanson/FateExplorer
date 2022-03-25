@@ -18,27 +18,44 @@
         <MudItem xs=12 sm=6 md=4>
             <MudPaper Elevation=0 Outlined=true>
             <MudList Clickable=true>
-                <MudListItem Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>@*Text=@ResourceId.DodgeLabelId*@ 
+                <MudListItem Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.DodgeLabelId]</MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>
-                            @l10n["abbrDodge"] @Hero.GetDodge().EffectiveValue @*@Hero.GetDodge().Id*@
+                            @l10n["abbrDodge"] @Hero.GetDodge().EffectiveValue
                         </MudText>
                         </div>
                     <MudSpacer/>
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
                         aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
-                    <MudSpacer/>
+                    <MudSpacer/>*@
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
                         OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
                         aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.DodgeLabelId]) />
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
                     </div>
                 </MudListItem>
-                <MudListItem Text="Initiative" Icon=@Icons.Material.Sharp.Sort>
-                    
+
+                <MudListItem Icon=@Icons.Material.Sharp.Sort DisableRipple=true>
+                    <div class="d-flex align-center" >
+                        <div>
+                        <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.IniLabelId]</MudText>
+                        <MudText Typo=Typo.body2 GutterBottom=false>
+                            @l10n["abbrInitiative"] @Hero.GetInitiative().EffectiveValue
+                        </MudText>
+                        </div>
+                    <MudSpacer/>
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
+                        aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
+                    <MudSpacer/>*@
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
+                        OnClick=@(() => OnInitiativeCheck(Hero.GetInitiative()))
+                        aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.IniLabelId]) />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
+                    </div>
                 </MudListItem>
             </MudList>
 
@@ -274,7 +291,7 @@ else
     /// User has the character dodge something
     /// </summary>
     /// <param name="dodge"></param>
-    private void OnDodgeCheck(DodgeDTO dodge)
+    private void OnDodgeCheck(CharacterAttrDTO dodge)
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
         ActiveCheck = RollHandler.OpenDodgeRollCheck(dodge.Id, dodge, !Barehands);
@@ -283,7 +300,16 @@ else
     }
 
 
-
+    /// <summary>
+    /// Character needs to show initiative
+    /// </summary>
+    /// <param name="initiative"></param>
+    private void OnInitiativeCheck(CharacterAttrDTO initiative)
+    {
+        ActiveCheck = RollHandler.OpenRollCheck(initiative.Id, initiative);
+        //-ActiveCheck.CheckModifier.Set(ModifyValue);
+        RollCheckResults.Enqueue(ActiveCheck);
+    }
 
 
     private void OnModChanged(int NewValue)

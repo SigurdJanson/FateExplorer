@@ -38,7 +38,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="dodge"></param>
         /// <param name="modifier"></param>
-        public DodgeCheckM(DodgeDTO dodge, bool carriesWeapon, ICheckModifierM modifier, IGameDataService gameData)
+        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties

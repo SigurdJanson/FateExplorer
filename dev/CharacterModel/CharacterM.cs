@@ -142,7 +142,6 @@ namespace FateExplorer.CharacterModel
         /// <inheritdoc />
         public string SpeciesId { get; protected set; }
 
-
         /// <inheritdoc />
         public double CarriedWeight { get; protected set; }
 
@@ -160,6 +159,18 @@ namespace FateExplorer.CharacterModel
         {
             return EffectiveStrength * 10;
         }
+
+
+        /// <inheritdoc />
+        public int GetInitiative(int courage, int agility)
+        {
+            return (courage + agility + 1) / 2;
+        }
+
+        /// <inheritdoc />
+        public int Initiative
+            => GetInitiative(Abilities[AbilityM.COU].Value, Abilities[AbilityM.AGI].Value);
+
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
 

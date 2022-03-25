@@ -88,7 +88,8 @@ namespace FateExplorer.ViewModel
                 { DodgeCheckM.checkTypeId, typeof(DodgeCheckM) },
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) },
                 { AttackCheckM.checkTypeId, typeof(AttackCheckM) },
-                { ParryCheckM.checkTypeId, typeof(ParryCheckM) }
+                { ParryCheckM.checkTypeId, typeof(ParryCheckM) },
+                { InitiativeCheckM.checkTypeId, typeof(InitiativeCheckM) }
             };
         }
 
@@ -166,6 +167,10 @@ namespace FateExplorer.ViewModel
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
                     Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0), GameData);
                     break;
+                case
+                    nameof(InitiativeCheckM):
+                    Checker = new InitiativeCheckM((CharacterAttrDTO)TargetAttr, GameData);
+                    break;
                 default:
                     Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM; //TODO: make this: throw new NotImplementedException();
                     break;
@@ -178,7 +183,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenDodgeRollCheck(string AttrId, DodgeDTO TargetAttr, bool CarriesWeapon)
+        public RollCheckResultViMo OpenDodgeRollCheck(string AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))

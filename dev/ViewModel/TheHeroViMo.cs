@@ -116,6 +116,22 @@ namespace FateExplorer.ViewModel
 
         public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
+        /// <inheritdoc/>
+        public int Initiative
+            => characterM.GetInitiative(AbilityEffValues[AbilityM.COU], AbilityEffValues[AbilityM.AGI]);
+
+        /// <inheritdoc/>
+        public CharacterAttrDTO GetInitiative()
+            => new()
+            {
+                Id = "INI", // TODO: no stringed APIs
+                Name = ResourceId.IniLabelId,
+                EffectiveValue = Initiative,
+                Max = 40,
+                Min = 1
+            };
+
+
 
         #region ABILITIES
         Dictionary<string, int> AbilityEffValues { get; set; }
@@ -405,7 +421,7 @@ namespace FateExplorer.ViewModel
         int DodgeEffMod { get; set; }
 
         /// <inheritdoc />
-        public DodgeDTO GetDodge()
+        public CharacterAttrDTO GetDodge()
         {
             int DodgeVal;
             var dodgeM = characterM.Dodge;
@@ -426,7 +442,7 @@ namespace FateExplorer.ViewModel
                     DodgeVal = DodgeM.ComputeDodge(characterM.GetAbility(Dependencies[0])) + DodgeEffMod;
             }
 
-            return new DodgeDTO()
+            return new CharacterAttrDTO()
             {
                 Id = "DO"/*TODO*/,
                 Name = "Dodge"/*TODO*/, 

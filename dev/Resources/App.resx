@@ -120,6 +120,9 @@
   <data name="abbrDodge" xml:space="preserve">
     <value>DO</value>
   </data>
+  <data name="abbrInitiative" xml:space="preserve">
+    <value>INI</value>
+  </data>
   <data name="abbrvAttack" xml:space="preserve">
     <value>AT</value>
   </data>
@@ -460,6 +463,9 @@
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Selected Skills</value>
     <comment>Character Act (Skills)</comment>
+  </data>
+  <data name="lblInitiative" xml:space="preserve">
+    <value>Initiative</value>
   </data>
   <data name="lblItemLength" xml:space="preserve">
     <value>Length</value>

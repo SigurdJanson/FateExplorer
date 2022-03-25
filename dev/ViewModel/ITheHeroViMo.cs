@@ -40,6 +40,17 @@ namespace FateExplorer.ViewModel
         /// <returns></returns>
         string FormatMoney();
 
+        /// <summary>
+        /// (Effective) Initiative value of the character
+        /// </summary>
+        int Initiative { get; }
+
+        /// <summary>
+        /// Get the 
+        /// </summary>
+        /// <returns></returns>
+        CharacterAttrDTO GetInitiative();
+
         List<AbilityDTO> GetAbilites();
 
         List<SpecialAbilityDTO> GetSpecialAbilities();
@@ -87,7 +98,7 @@ namespace FateExplorer.ViewModel
         /// Returns the effective dodge value
         /// </summary>
         /// <returns>The effective dodge value</returns>
-        DodgeDTO GetDodge();
+        CharacterAttrDTO GetDodge();
 
 
         /// <summary>

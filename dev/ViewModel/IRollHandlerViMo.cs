@@ -56,6 +56,6 @@ namespace FateExplorer.ViewModel
         /// <param name="TargetAttr">The skill or ability to be used</param>
         /// <param name="CarriesWeapon">Does the character carry a weapon?.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenDodgeRollCheck(string AttrId, DodgeDTO TargetAttr, bool CarriesWeapon);
+        RollCheckResultViMo OpenDodgeRollCheck(string AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon);
     }
 }

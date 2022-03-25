@@ -6,6 +6,6 @@
         public const string AttackLabelId = "lblAttack";
         public const string ParryLabelId = "lblParry";
         public const string DodgeLabelId = "lblDodge";
-
+        public const string IniLabelId = "lblInitiative";
     }
 }

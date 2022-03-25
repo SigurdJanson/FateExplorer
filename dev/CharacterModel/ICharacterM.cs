@@ -15,6 +15,24 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         string SpeciesId { get; }
 
+
+        /// <summary>
+        /// Compute initiative based on given character abilities.
+        /// </summary>
+        /// <param name="courage">Character's courage value</param>
+        /// <param name="agility">Character's agility value</param>
+        /// <returns>Initiative value</returns>
+        public int GetInitiative(int courage, int agility);
+
+
+        /// <summary>
+        /// The (imported) initiative value
+        /// </summary>
+        /// <remarks>Definition: (COU + AGI) / 2 +/– points from dis-/advantages</remarks>
+        public int Initiative { get; }
+
+
+
         Dictionary<string, WeaponM> Weapons { get; }
 
 

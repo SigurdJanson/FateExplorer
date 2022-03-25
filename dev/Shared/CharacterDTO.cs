@@ -32,6 +32,32 @@ namespace FateExplorer.Shared
         public int EffectiveValue { get; set; }
     }
 
+
+    /// <summary>
+    /// Most basic implementation for <see cref="ICharacterAttributDTO"/>.
+    /// Used for all attributes that do not require any further properties
+    /// like initiative or dodge.
+    /// </summary>
+    public struct CharacterAttrDTO : ICharacterAttributDTO
+    {
+        /// <inheritdoc />
+        public string Id { get; set; }
+
+        /// <inheritdoc />
+        public string Name { get; set; }
+
+        /// <inheritdoc />
+        public int Max { get; set; }
+
+        /// <inheritdoc />
+        public int Min { get; set; }
+
+        /// <inheritdoc />
+        public int EffectiveValue { get; set; }
+    }
+
+
+
     public struct AbilityDTO : ICharacterAttributDTO
     {
         /// <inheritdoc />
@@ -137,6 +163,7 @@ namespace FateExplorer.Shared
         public SkillDomain Domain;
     }
 
+
     public struct ResilienceDTO
     {
         /// <inheritdoc />
@@ -159,6 +186,7 @@ namespace FateExplorer.Shared
         /// <inheritdoc />
         public int EffectiveValue { get; set; }
     }
+
 
     public struct WeaponDTO
     {
@@ -229,31 +257,5 @@ namespace FateExplorer.Shared
     }
 
 
-    public struct CombatDTO : ICharacterAttributDTO
-    {
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Max { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Min { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int EffectiveValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    }
 
-
-    public struct DodgeDTO : ICharacterAttributDTO
-    {
-        /// <inheritdoc />
-        public string Id { get; set; }
-
-        /// <inheritdoc />
-        public string Name { get; set; }
-
-        /// <inheritdoc />
-        public int Max { get; set; }
-
-        /// <inheritdoc />
-        public int Min { get; set; }
-
-        /// <inheritdoc />
-        public int EffectiveValue { get; set; }
-    }
 }
