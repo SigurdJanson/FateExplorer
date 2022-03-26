@@ -51,7 +51,37 @@ namespace vmCode_UnitTests.CharacterModel
                 WeaponsBranch = CombatBranch.Unarmed
             };
 
-
+        private WeaponMeleeDB MockGameDataWeaponMelee()
+        {
+            var Result = new WeaponMeleeDB();
+            List<WeaponMeleeDbEntry> Weapons = new List<WeaponMeleeDbEntry>();
+            var Entry = new WeaponMeleeDbEntry()
+            {
+                Id = "WEAPONLESS",
+                TemplateID = "WEAPONLESS",
+                Name = "Brawling",
+                CombatTechID = "CT_9",
+                AtMod = 0,
+                PaMod = 0,
+                Bonus = 0,
+                Reach = 1,
+                Damage = "1W6",
+                Threshold = 21,
+                CloseRange = true,
+                TwoHanded = false,
+                Improvised = false,
+                Parry = false,
+                Armed = false,
+                PrimeAttrID = "ATTR_6/ATTR_8",
+                Price = 0,
+                Sf = 12,
+                Url = "",
+                Weight = 0
+            };
+            Weapons.Add(Entry);
+            Result.Data = Weapons;
+            return Result;
+        }
 
         private Dictionary<string,CombatTechM> MockCombatTechCollection(int SkillValue)
         {
@@ -122,6 +152,8 @@ namespace vmCode_UnitTests.CharacterModel
             var Fist = this.CreateLayarielsWeaponUnarmedM();
 
             MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+            mockGameDB.SetupGet(p => p.WeaponsMelee)
+                .Returns(MockGameDataWeaponMelee());
 
             // Act
             Fist.Initialise(mockGameDB.Object);
@@ -156,6 +188,8 @@ namespace vmCode_UnitTests.CharacterModel
             var Fist = this.CreateLayarielsWeaponUnarmedM();
 
             this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+            mockGameDB.SetupGet(p => p.WeaponsMelee)
+                .Returns(MockGameDataWeaponMelee());
 
             // Act
             Fist.Initialise(mockGameDB.Object);
@@ -198,6 +232,8 @@ namespace vmCode_UnitTests.CharacterModel
             var Fist = this.CreateLayarielsWeaponUnarmedM();
 
             this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+            mockGameDB.SetupGet(p => p.WeaponsMelee)
+                .Returns(MockGameDataWeaponMelee());
 
             // Act
             Fist.Initialise(mockGameDB.Object);
@@ -242,6 +278,8 @@ namespace vmCode_UnitTests.CharacterModel
             var Fist = this.CreateLayarielsWeaponUnarmedM();
 
             this.MockCompensation(IsAmbidext, isTwoHanded ? 2 : 0);
+            mockGameDB.SetupGet(p => p.WeaponsMelee)
+                .Returns(MockGameDataWeaponMelee());
 
             // Act
             Fist.Initialise(mockGameDB.Object);

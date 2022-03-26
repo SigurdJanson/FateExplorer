@@ -229,24 +229,11 @@ namespace FateExplorer.CharacterModel
         /// <returns></returns>
         public int ComputeAttackVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
-            int PrimeAbility;
-
-            // Get value for primary ability/attribute
-            PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0;
-            if (PrimaryAbilityId.Length > 1) // more than 1 primary attribute
-            {   
-                for (int i = 1; i < PrimaryAbilityId.Length; i++)
-                    PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Value);
-            }
-
             // Ability "Courage" is default for attack
             int Courage = Abilities[AbilityM.COU].Value;
 
-            //-CombatTechM technique = CombatTecSkill[CombatTechId];
-
             int Attack = CombatTecSkill.ComputeAttack(Courage); // no weapons modifier
             Attack += AttackMod; // attack modifier of the weapon
-            //- does not apply here but on damage Attack += Math.Max(PrimeAbility - DamageThreshold, 0); // if primary attribute > damage threshold ...
 
             return Attack;
         }
@@ -263,21 +250,24 @@ namespace FateExplorer.CharacterModel
         /// <returns></returns>
         public int ComputeParryVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
-            int PrimeAbility;
-
             // Get value for primary ability/attribute
-            PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0;
-            if (PrimaryAbilityId.Length > 1) // more than 1 primary attribute
-            {
+            int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0; ; // Ability value
+            
+            // More than 1 primary attribute? Get the highest one.
+            if (PrimaryAbilityId.Length > 1)
                 for (int i = 1; i < PrimaryAbilityId.Length; i++)
+                {
                     PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Value);
-            }
+                }
 
-            //-CombatTechM technique = CombatTecSkill[CombatTechId];
-
+            //
+            // Build the parry value using all boni/penalties
             int Parry = CombatTecSkill.ComputeParry(PrimeAbility); // no weapons modifier
-            Parry += ParryMod; // attack modifier of the weapon
-            Parry += Math.Max(PrimeAbility - DamageThreshold, 0); // if primary attribute > damage threshold ...
+
+            if (Branch == CombatBranch.Shield)
+                Parry += 2*ParryMod; // active parry with shield gives the double weapon modifier
+            else
+                Parry += ParryMod; // attack modifier of the weapon
 
             return Parry;
         }
