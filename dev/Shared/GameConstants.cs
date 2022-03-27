@@ -16,11 +16,53 @@ public enum CharacterEnergyClass
     LP = 1, AE = 2, KP = 3
 }
 
+
+/// <summary>
+/// <list type="bullet">
+///     <item>
+///         <term>Terrible</term>
+///         <description>Terrible surroundings (extremely bad weather)</description>
+///     </item>
+///     <item>
+///         <term>Bad</term>
+///         <description>Bad surroundings (wet, cold)</description>
+///     </item>
+///     <item>
+///         <term>Poor</term>
+///         <description>Poor campsite, failed Survival (Find Campsite) check</description>
+///     </item>
+///     <item>
+///         <term>Default</term>
+///         <description>Basic regeneration for 6 hours of sleep</description>
+///     </item>
+///     <item>
+///         <term>Good</term>
+///         <description>Good accommodations (single room in an inn)</description>
+///     </item>
+/// </list>
+/// </summary>
 public enum RegenerationSite
 {
     Terrible = -3, Bad = -2, Poor = -1, Default = 0, Good = 1
 }
 
+
+/// <summary>
+/// <list type="bullet">
+///     <item>
+///         <term>None</term>
+///         <description>No interruption during the night</description>
+///     </item>
+///     <item>
+///         <term>Brief</term>
+///         <description>Interruption of nightly rest (e.g.dog watch, nighttime disturbance)</description>
+///     </item>
+///     <item>
+///         <term>Prolonged</term>
+///         <description>Lengthier interruption of nightly rest(e.g. sentry duty, night ambush)</description>
+///     </item >
+/// </list>
+/// </summary>
 public enum RegenerationDisturbance
 {
     None = 0, Brief = -1, Prolonged = -2
