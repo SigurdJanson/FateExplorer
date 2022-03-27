@@ -55,16 +55,19 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// 
+        /// Determine a new value without exceeding lower/upper limits
         /// </summary>
-        /// <param name="NewValue"></param>
-        /// <returns></returns>
+        /// <param name="newValue">The value to be set</param>
+        /// <param name="EffMin">The effective minimum that cannot be crossed</param>
+        /// <param name="EffMax">The effective maximum that cannot be crossed</param>
+        /// <returns>The new value</returns>
         public int ResolveValue(int newValue, int EffMax, int EffMin)
         {
             if (newValue > EffMax) return EffMax;
             if (newValue < EffMin) return EffMin;
             return newValue;
         }
+
 
         /// <summary>
         /// Apply a modifier to the given value using an operation and a modifier.

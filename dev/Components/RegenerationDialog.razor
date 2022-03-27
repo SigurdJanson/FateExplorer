@@ -3,46 +3,46 @@
 <MudDialog>
     <TitleContent>
         <MudText Typo=Typo.h6>
-            <MudIcon Icon=@Icons.Material.Sharp.Nightlight Class="mr-3"/> @l10n["titleRegenerationDialog"]
+            <MudIcon Icon=@Icons.Material.Sharp.NightsStay Class="mr-3"/> @l10n["titleRegenerationDialog"]
         </MudText>
     </TitleContent>
     <DialogContent>
         <MudGrid>
-                @if (Values is not null)
-                    @foreach (var v in Values)
+                @if (Names is not null)
+                    @foreach (var n in Names)
                     {
-                    <MudItem xs=12 md=4>
-                        <MudAvatar Square=true Variant=Variant.Filled>@v.Name</MudAvatar>
-                        <MudAvatar Square=true Variant=Variant.Outlined>@v.RegenerateBy</MudAvatar>
-                        <MudSlider Min=-6 Max=6 Step=1 Value=0>@l10n["lblModifier"]</MudSlider>
+                    <MudItem sm=12 md=4>
+                        <MudAvatar Square=true Variant=Variant.Filled>@n</MudAvatar>
+@*                      <MudAvatar Square=true Variant=Variant.Outlined>@v.RegenerateBy</MudAvatar>*@
+                        <MudTooltip Text=@l10n["txtModifierTip"]>
+                            <MudSlider Min=-6 Max=6 Step=1 @bind-Value=Modifier[n]>
+                                @($"{l10n["lblModifier"]} {Modifier[n]}")
+                            </MudSlider>
+                        </MudTooltip>
                     </MudItem>
                     <MudDivider/>
                     }
             <MudItem xs=12 md=6>
                 <MudRadioGroup @bind-SelectedOption=DialogSiteSetting>
-                    <MudRadio Option=RegenerationSite.Good Dense=true>Gute Unterkunft (Einzelzimmer Reisegasthof)</MudRadio>
-                    <MudRadio Option=RegenerationSite.Default Dense=true>Normale Regeneration bei 6 Stunden Schlaf</MudRadio>
-                    <MudRadio Option=RegenerationSite.Poor Dense=true>Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)</MudRadio>
-                    <MudRadio Option=RegenerationSite.Bad  Dense=true>Schlechte Umgebung (feucht, kalt)</MudRadio>
-                    <MudRadio Option=RegenerationSite.Terrible Dense=true>Furchtbare Umgebung (extrem schlechtes Wetter)</MudRadio>
+                    <MudRadio Option=RegenerationSite.Good Dense=true>@l10n["lblRegenerationSite.Good"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Default Dense=true>@l10n["lblRegenerationSite.Default"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Poor Dense=true>@l10n["lblRegenerationSite.Poor"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Bad  Dense=true>@l10n["lblRegenerationSite.Bad"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Terrible Dense=true>@l10n["lblRegenerationSite.Terrible"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem xs=12 md=6>
                 <MudRadioGroup @bind-SelectedOption=DialogDisturbSetting>
-                    <MudRadio Option=RegenerationDisturbance.None  Dense=true>Keine Unterbrechung</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true>"Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)"</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true>"Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall)"</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.None  Dense=true>@l10n["lblRegenerationDisturbance.None"]</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true>@l10n["lblRegenerationDisturbance.Brief"]</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true>@l10n["lblRegenerationDisturbance.Prolonged"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem xs=12>
-                <MudCheckBox @bind-Checked=DialogSickness Label=@l10n["lblRegenerateSick"] StopClickPropagation=true></MudCheckBox>
+                <MudText><MudIcon Icon=@Icons.Material.Sharp.Sick /></MudText>
+                <MudCheckBox @bind-Checked=DialogSickness Dense=true Label=@l10n["lblRegenerateSick"] StopClickPropagation=true  />
             </MudItem>
         </MudGrid>
-            @**
-            <MudSelect T="string" Label="Situation" AnchorOrigin="Origin.BottomCenter" MultiSelection="true">
-                <MudSelectItem Value="@("Held ist erkrankt/vergiftet")" />
-            </MudSelect>
-            @**@
     </DialogContent>
     <DialogActions>
         <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@ResetDialog Class="px-10">
@@ -50,7 +50,7 @@
         </MudButton>
         <MudSpacer />
         <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@CancelDialog Class="px-10">
-            @l10n["btnClose"]
+            @l10n["btnCancel"]
         </MudButton>
         <MudButton Variant=Variant.Filled  Color=Color.Primary OnClick=@SubmitDialog Class="px-10">
             @l10n["btnRegenerate"]
@@ -64,17 +64,39 @@
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
-    [Parameter] public (string Name, int RegenerateBy)[] Values { get; set; }
+    /// <summary>
+    /// Tupel with the name of an energy and the roll result to increase it.
+    /// </summary>
+    [Parameter] public string[] Names { get; set; }
+
+
+    private Dictionary<string, int> Modifier { get; set; }
 
     private RegenerationSite DialogSiteSetting { get; set; } = RegenerationSite.Default;
+
     private RegenerationDisturbance DialogDisturbSetting { get; set; } = RegenerationDisturbance.None;
+
     private bool DialogSickness = false;
+
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        Modifier = new();
+        foreach (var n in Names)
+            Modifier.Add(n, 0);
+    }
+
+
 
     private void SubmitDialog()
     {
-        MudDialog.Close(DialogResult.Ok(true));
+        var Result = (DialogSiteSetting, DialogDisturbSetting, DialogSickness, Modifier.Values.ToArray());
+        MudDialog.Close(DialogResult.Ok( Result ));
     }    
-    
+
     private void CancelDialog()
     {
         MudDialog.Close(DialogResult.Cancel());
@@ -84,5 +106,8 @@
     {
         DialogSiteSetting = RegenerationSite.Default;
         DialogDisturbSetting = RegenerationDisturbance.None;
+        DialogSickness = false;
+        foreach (var Key in Modifier.Keys)
+            Modifier[Key] = 0;
     }
 }

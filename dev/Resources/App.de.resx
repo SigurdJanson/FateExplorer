@@ -214,7 +214,7 @@
     <value>Entfernen</value>
   </data>
   <data name="btnReset" xml:space="preserve">
-    <value>Wiederherstellen</value>
+    <value>Zurücksetzen</value>
   </data>
   <data name="btnUploadFile" xml:space="preserve">
     <value>Datei laden</value>
@@ -528,6 +528,42 @@
     <value>Regeneration für mindestens 6 Stunden</value>
     <comment>Energy regeneration</comment>
   </data>
+  <data name="lblRegenerateSick" xml:space="preserve">
+    <value>Held ist erkrankt/vergiftet</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.Brief" xml:space="preserve">
+    <value>Unterbrechung der Nachtruhe (z.B. Wache halten/Ruhestörung)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.None" xml:space="preserve">
+    <value>Keine Unterbrechung</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.Prolonged" xml:space="preserve">
+    <value>Längere Unterbrechung der Nachtruhe (z.B. Hundswache, nächtlicher Überfall)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Bad" xml:space="preserve">
+    <value>Schlechte Umgebung (feucht, kalt)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Default" xml:space="preserve">
+    <value>Normale Regeneration bei 6 Stunden Schlaf</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Good" xml:space="preserve">
+    <value>Gute Unterkunft (Einzelzimmer Reisegasthof)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Poor" xml:space="preserve">
+    <value>Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Terrible" xml:space="preserve">
+    <value>Furchtbare Umgebung (extrem schlechtes Wetter)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
   <data name="lblResult" xml:space="preserve">
     <value>Ergebnis</value>
   </data>
@@ -840,6 +876,10 @@
     <value>Thorwalsch</value>
     <comment>enum LanguageId</comment>
   </data>
+  <data name="titleRegenerationDialog" xml:space="preserve">
+    <value>Regenerieren ...</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
   <data name="Trollish" xml:space="preserve">
     <value>Trollisch</value>
     <comment>enum LanguageId</comment>
@@ -895,6 +935,10 @@
   <data name="txtAboutWhatis" xml:space="preserve">
     <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit. </value>
     <comment>About</comment>
+  </data>
+  <data name="txtModifierTip" xml:space="preserve">
+    <value>Verwende den Modifikator, um Vor-/Nachteile zu berücksichtigen</value>
+    <comment>Regeneration Dialog</comment>
   </data>
   <data name="txtRegisteredTrademark" xml:space="preserve">
     <value>Das schwarze Auge ist eine eingetragene Marke der &lt;a href="https://ulisses-spiele.de/"&gt;Ulisses Spiele GmbH&lt;/a&gt;.</value>

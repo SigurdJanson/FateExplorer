@@ -8,8 +8,21 @@ namespace FateExplorer.RollLogic
 
         public ICheckModifierM SiteModifier { get; protected set; }
         public ICheckModifierM DisturbModifier { get; protected set; }
+        public ICheckModifierM SicknessModifier { get; protected set; }
+        public ICheckModifierM OtherModifier { get; protected set; }
 
-        public EnergyRollM(RegenerationSite site, RegenerationDisturbance disturb) : base(_Sides)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="site">Classifcation of the accomodation for the resting period</param>
+        /// <param name="disturb">Classifcation of the amount of disturbance</param>
+        /// <param name="poisonedSick">Is the character poisoned or sick?</param>
+        /// <param name="modifier">An additional free modifier (usually to factor unrecognised (dis-)advantages in</param>
+        /// <exception cref="NotImplementedException"></exception>
+        public EnergyRollM(
+            RegenerationSite site, RegenerationDisturbance disturb, 
+            bool sickPoisoned, int modifier)
+            : base(_Sides)
         {
             SiteModifier = site switch
             {
@@ -27,8 +40,13 @@ namespace FateExplorer.RollLogic
                 RegenerationDisturbance.Prolonged => new SimpleCheckModifierM(-2),
                 _ => throw new NotImplementedException()
             };
-
+            if (sickPoisoned)
+                SicknessModifier = new ForcefulModifier(0);
+            else
+                SicknessModifier = new SimpleCheckModifierM(0);
+            OtherModifier = new SimpleCheckModifierM(modifier);
         }
+
 
         /// <inheritdoc/>
         public override int[] Roll()
@@ -36,8 +54,11 @@ namespace FateExplorer.RollLogic
             base.Roll(); // executes the roll
 
             int BeforeMod = OpenRoll[0];
+            OpenRoll[0] = OtherModifier.Apply(OpenRoll[0]);
             OpenRoll[0] = DisturbModifier.Apply(OpenRoll[0]);
             OpenRoll[0] = SiteModifier.Apply(OpenRoll[0]);
+            OpenRoll[0] = SicknessModifier.Apply(OpenRoll[0]);
+
             // energy regeneration cannot be below 0
             if (OpenRoll[0] < 0) OpenRoll[0] = 0;
 

@@ -528,6 +528,42 @@
     <value>Regenerate for at least 6 hours</value>
     <comment>Energy regeneration</comment>
   </data>
+  <data name="lblRegenerateSick" xml:space="preserve">
+    <value>Hero is diseased/poisoned</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.Brief" xml:space="preserve">
+    <value>Interruption of nightly rest (e.g.dog watch, nighttime disturbance)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.None" xml:space="preserve">
+    <value>No interruption during the night</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationDisturbance.Prolonged" xml:space="preserve">
+    <value>Lengthier interruption of nightly rest(e.g. sentry duty, night ambush)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Bad" xml:space="preserve">
+    <value>Bad surroundings (wet, cold)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Default" xml:space="preserve">
+    <value>Basic regeneration for 6 hours of sleep</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Good" xml:space="preserve">
+    <value>Good accommodations (single room in an inn)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Poor" xml:space="preserve">
+    <value>Poor campsite, failed Survival (Find Campsite) check</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
+  <data name="lblRegenerationSite.Terrible" xml:space="preserve">
+    <value>Terrible surroundings (extremely bad weather)</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
   <data name="lblResult" xml:space="preserve">
     <value>Result</value>
   </data>
@@ -835,6 +871,10 @@
     <value>Thorwalian</value>
     <comment>enum LanguageId</comment>
   </data>
+  <data name="titleRegenerationDialog" xml:space="preserve">
+    <value>Regenerate ...</value>
+    <comment>Regeneration Dialog</comment>
+  </data>
   <data name="Trollish" xml:space="preserve">
     <value>Trollish</value>
     <comment>enum LanguageId</comment>
@@ -894,6 +934,10 @@
   <data name="txtAboutWhatis" xml:space="preserve">
     <value>The Fate Explorer helps you play the Dark Eye* table top games (rule system 5). Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules and can be described as an intelligent character sheet. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
+  </data>
+  <data name="txtModifierTip" xml:space="preserve">
+    <value>Use the modifier to factor (dis-) advantages in</value>
+    <comment>Regeneration Dialog</comment>
   </data>
   <data name="txtRegisteredTrademark" xml:space="preserve">
     <value>The Dark Eye is a registered trade mark of the  &lt;a href="https://ulisses-spiele.de/"&gt;Ulisses Spiele GmbH&lt;/a&gt;.</value>

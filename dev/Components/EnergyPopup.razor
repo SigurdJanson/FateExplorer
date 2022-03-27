@@ -9,7 +9,7 @@
 
 
 <MudPopover @bind-Open=IsOpen Square=true RelativeWidth=true
-            OverflowBehavior="OverflowBehavior.FlipAlways" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" 
+            OverflowBehavior=OverflowBehavior.FlipAlways AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter 
             Class="px-6 pt-4">
 
 <div class="d-flex flex-row">
@@ -17,7 +17,7 @@
 </div>
 
 <MudContainer>
-    <MudGrid Justify="Justify.Center">
+    <MudGrid Justify=Justify.Center>
         @foreach (var energy in Energies)
         {
         <MudItem xs=4 xl=4 xxl=2>
@@ -82,28 +82,50 @@
     }
 
 
+
+    private bool CanRegenerate(EnergyViMo e) => e.EffectiveValue < e.EffMax;
+
+
     private bool CanRegenerate()
     {
         foreach (var e in Energies)
-            if (e.EffectiveValue < e.EffMax) 
-                return true;
+            if (CanRegenerate(e)) return true;
         return false;
     }
 
 
-    private void Regenerate(RegenerationSite site, RegenerationDisturbance disturb)
+    /// <summary>
+    /// Regerate the character's energies
+    /// </summary>
+    /// <param name="site">Quality of the accomodations</param>
+    /// <param name="disturb">list character disturbed during rest?</param>
+    /// <param name="isSick">list character sick or poisoned?</param>
+    /// <param name="mod">An arbitrary modifier; null or array with same length as available energies</param>
+    private void Regenerate(RegenerationSite site, RegenerationDisturbance disturb, bool isSick = false, int[] mod = null)
     {
+        if (mod is not null && mod.Length != Energies.Count)
+            throw new ArgumentException("If modifiers are given, there should be as many as ther are energies", nameof(mod));
+
         List<RollResultViMo> Rolls = new();
+        int i = 0;
         foreach (var e in Energies)
         {
+            int Modifier = mod?[i++] ?? 0;
             // Check if regeneration is meaningfull (it is not if the value is at max already)
-            var Result = e.Regenerate(site, disturb);
+            var Result = e.Regenerate(site, disturb, isSick, Modifier);
             if (Result is null) continue;
 
             Rolls.Add(Result);
             string Message;
             if (Rolls.Last().CombinedResult > 0)
-                Message = $"Regenerate {e.ShortName} by 1d6 + {Rolls.Last().Modifier[0]} = {Rolls.Last().CombinedResult}";
+            {
+                string Sign = Math.Sign(Rolls.Last().Modifier[0]) switch
+                {
+                    -1 => " - ", +1 => " + ", _ => string.Empty
+                };
+                string Value = Rolls.Last().Modifier[0] == 0 ? "" : Math.Abs(Rolls.Last().Modifier[0]).ToString();
+                Message = $"Regenerate {e.ShortName} by 1d6{Sign}{Value} = {Rolls.Last().CombinedResult}";
+            }
             else
                 Message = $"No regeneration for {e.ShortName}";
             Snackbar.Add(Message, Severity.Info, config =>
@@ -120,21 +142,41 @@
     private DialogOptions dialogOptions = new() 
     { 
         FullWidth = true,
-        CloseOnEscapeKey = true 
+        CloseOnEscapeKey = true
     };
 
 
     private async Task OpenDialog()
     {
         var parameters = new DialogParameters();
-        parameters.Add("Values", new (string,int)[] { ("LE", 2), ("AE", 3) } );
+        List<string> tbd = new();
+        foreach (var e in Energies)
+            if (CanRegenerate(e)) tbd.Add(e.ShortName);
+
+        parameters.Add("Names", tbd.ToArray() );
 
         var dialog = DialogService.Show<RegenerationDialog>("", parameters, dialogOptions);
         var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
-            //Regenerate(DialogSiteSetting, DialogDisturbSetting);
+            (RegenerationSite, RegenerationDisturbance, bool, int[]) Settings;
+            Settings = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
+            // Create a new array of modifiers with one for each energy
+            if (Settings.Item4.Length < Energies.Count)
+            {
+                int[] Replace = new int[Energies.Count];
+                int j = 0;
+                for (int i = 0; i < Energies.Count; i++)
+                {
+                    if (CanRegenerate(Energies[i])) 
+                        Replace[i] = Settings.Item4[j++];
+                    else
+                        Replace[i] = 0;
+                }
+                Settings.Item4 = Replace;
+            }
+            Regenerate(Settings.Item1, Settings.Item2, Settings.Item3, Settings.Item4);
         }
     }
 

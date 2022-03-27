@@ -112,20 +112,22 @@ namespace FateExplorer.ViewModel
 
 
         /// <summary>
-        /// 
+        /// Roll for regeneration given these specs in the parameters
         /// </summary>
-        /// <param name="site"></param>
-        /// <param name="disturb"></param>
+        /// <param name="site">Classifcation of the accomodation for the resting period</param>
+        /// <param name="disturb">Classifcation of the amount of disturbance</param>
+        /// <param name="poisonedSick">Is the character poisoned or sick?</param>
+        /// <param name="modifier">An additional free modifier (usually to factor unrecognised (dis-)advantages in</param>
         /// <returns>The complete roll result; null if the errective value is already at max.</returns>
-        public RollResultViMo Regenerate(RegenerationSite site, RegenerationDisturbance disturb)
+        public RollResultViMo Regenerate(RegenerationSite site, RegenerationDisturbance disturb, bool poisonedSick, int modifier)
         {
             if (effectiveValue == Max) return null;
 
-            EnergyRollM energyRoll = new(site, disturb);
+            EnergyRollM energyRoll = new(site, disturb, poisonedSick, modifier);
             energyRoll.Roll();
             RollResultViMo Result = new(energyRoll);
 
-            effectiveValue = Energy.ResolveValue(effectiveValue + Result.RollResult[0], EffMax, Min); ;
+            effectiveValue = Energy.ResolveValue(effectiveValue + Result.RollResult[0], EffMax, Min);
 
             return Result;
         }
