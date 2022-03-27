@@ -6,9 +6,15 @@
 <MudPaper Class="pa-4" Outlined=true>
     <MudIcon Icon=@Icons.Material.Sharp.Storefront Size=Size.Large />
     <MudText Typo=Typo.caption>@l10n["lblMerchant"]</MudText>
-    <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3>@l10n["lblSmart"]</MudSlider>@*Klug*@
-    <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3>@l10n["lblSly"]</MudSlider>@*Gerissen*@
-    <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3>@l10n["lblCharming"]</MudSlider>@*Charmant*@
+    <MudSlider T=int @bind-Value=Merchant.Sagacity Min=-3 Max=3 TickMarks=true Size=Size.Small Variant=Variant.Filled>
+        @l10n["lblSmart"]
+    </MudSlider>@*Klug*@
+    <MudSlider T=int @bind-Value=Merchant.Intuition Min=-3 Max=3 TickMarks=true Size=Size.Small Variant=Variant.Filled>
+        @l10n["lblSly"]
+    </MudSlider>@*Gerissen*@
+    <MudSlider T=int @bind-Value=Merchant.Charisma Min=-3 Max=3 TickMarks=true Size=Size.Small Variant=Variant.Filled>
+        @l10n["lblCharming"]
+    </MudSlider>@*Charmant*@
     <MudSelect @bind-Value=Merchant.TradeExperience Label=@l10n["lblMerchantXp"]>
         @foreach (MerchantViMo.ExperienceLevel item in Enum.GetValues(typeof(MerchantViMo.ExperienceLevel)))
         {
