@@ -545,7 +545,7 @@
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="lblRegenerationSite.Bad" xml:space="preserve">
-    <value>Schlechte Umgebung (feucht, kalt)</value>
+    <value>Schlechte Umgebung (feucht, kalt/heiß, lärmend)</value>
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="lblRegenerationSite.Default" xml:space="preserve">
@@ -937,7 +937,7 @@
     <comment>About</comment>
   </data>
   <data name="txtModifierTip" xml:space="preserve">
-    <value>Verwende den Modifikator, um Vor-/Nachteile zu berücksichtigen</value>
+    <value>Verwende den Modifikator, um Vor-/Nachteile, Heilkunde- oder Heiltränke-Boni zu berücksichtigen</value>
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="txtRegisteredTrademark" xml:space="preserve">

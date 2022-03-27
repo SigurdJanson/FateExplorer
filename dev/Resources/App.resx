@@ -545,7 +545,7 @@
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="lblRegenerationSite.Bad" xml:space="preserve">
-    <value>Bad surroundings (wet, cold)</value>
+    <value>Bad surroundings (wet, cold/hot, noisy)</value>
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="lblRegenerationSite.Default" xml:space="preserve">
@@ -936,7 +936,7 @@
     <comment>About</comment>
   </data>
   <data name="txtModifierTip" xml:space="preserve">
-    <value>Use the modifier to factor (dis-) advantages in</value>
+    <value>Use the modifier to factor (dis-) advantages in, any treat wounds boni or potions</value>
     <comment>Regeneration Dialog</comment>
   </data>
   <data name="txtRegisteredTrademark" xml:space="preserve">
