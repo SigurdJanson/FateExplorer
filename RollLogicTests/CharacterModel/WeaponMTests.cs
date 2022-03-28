@@ -171,7 +171,9 @@ namespace UnitTests.CharacterModel
 
 
         [Test]
-        public void AtSkill_CtDagger_EmptyOffhand_GivesSkillValue()
+        [TestCase(CombatBranch.Unarmed)]
+        [TestCase(CombatBranch.Shield)]
+        public void AtSkill_CtDagger_EmptyOffhand_GivesSkillValue(CombatBranch otherHand)
         {
             const int LayarielsDaggerAttackVal = 9;
 
@@ -189,7 +191,6 @@ namespace UnitTests.CharacterModel
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
             bool MainHand = true;
-            CombatBranch otherHand = CombatBranch.Unarmed;
 
             // Act
             var result = weaponM.AtSkill(MainHand, otherHand);
@@ -250,6 +251,48 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
+
+
+
+        [Test, Description("A shield in the other hand adds the passive weapon bonus to the parry value")]
+        public void PaSkill_CtDagger_OffhandShield_AddsPassiveShieldToParry([Values(1, 2, 4)] int shieldPaSkill)
+        {
+            const int LayarielsDaggerParryVal = 6;
+            const bool MainHand = true;
+            const bool otherIsParry = false;
+            const CombatBranch otherHand = CombatBranch.Shield;
+
+            // Arrange
+            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
+            mockCharacterM.SetupGet(p => p.CombatTechs).
+                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
+                .Returns(false);
+            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
+                .Returns(false);
+
+            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            var weaponM = this.CreateWeaponM();
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            // Act
+            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, shieldPaSkill);
+
+
+            // Assert
+            Assert.AreEqual(LayarielsDaggerParryVal + shieldPaSkill, result);
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+        }
+
 
 
         [Test, Ignore("nyi")]
