@@ -176,32 +176,55 @@ namespace UnitTests.CharacterModel
             const int LayarielsDaggerAttackVal = 9;
 
             // Arrange
+            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
+            mockCharacterM.SetupGet(p => p.CombatTechs).
+                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
+                .Returns(false);
+            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
+                .Returns(false);
+
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
             bool MainHand = true;
             CombatBranch otherHand = CombatBranch.Unarmed;
-            bool otherIsParry = false;
-            int otherPaSkill = 0;
 
             // Act
-            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
+            var result = weaponM.AtSkill(MainHand, otherHand);
 
             // Assert
             Assert.AreEqual(LayarielsDaggerAttackVal, result);
-            this.mockRepository.VerifyAll();
+
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
 
 
         [Test]
         public void PaSkill_CtDagger_EmptyOffhand_GivesSkillValue()
-            //[ValueSource(typeof(HeroWipfelglanz), nameof(HeroWipfelglanz.LayarielsDagger))] WeaponDTO WeaponData)
         {
             const int LayarielsDaggerParryVal = 6;
 
             // Arrange
+            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
+            mockCharacterM.SetupGet(p => p.CombatTechs).
+                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
+                .Returns(false);
+            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
+                .Returns(false);
+
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
@@ -216,14 +239,25 @@ namespace UnitTests.CharacterModel
 
             // Assert
             Assert.AreEqual(LayarielsDaggerParryVal, result);
-            this.mockRepository.VerifyAll();
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
 
         [Test, Ignore("nyi")]
-        public void Initialise_StateUnderTest_ExpectedBehavior(WeaponDTO WeaponData)
+        public void Initialise_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
+            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+
             var weaponM = this.CreateWeaponM();
 
             // Act
@@ -259,8 +293,6 @@ namespace UnitTests.CharacterModel
             // Arrange
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(HeroWipfelglanz.LayarielsDagger, mockGameDataM.Object);
-            //Dictionary<string, AbilityM> Abilities = null;
-            //Dictionary<string, CombatTechM> CombatTecSkill = MakeCombatTechDict(10, mockCharacterM.Object);
             CombatTechM CombatTecSkill = null;
 
             // Act
@@ -279,16 +311,26 @@ namespace UnitTests.CharacterModel
             int Expected)
         {
             // Arrange
+            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
+            mockCharacterM.SetupGet(p => p.CombatTechs).
+                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(Weapon, mockGameDataM.Object);
-            // TODO: mock combat techs
 
             // Act
             var result = weaponM.HitpointBonus(HeroWipfelglanz.Abilities);
 
             // Assert
             Assert.AreEqual(Expected, result);
-            this.mockRepository.VerifyAll();
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
         }
 
 
