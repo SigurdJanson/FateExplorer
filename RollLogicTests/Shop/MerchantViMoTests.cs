@@ -97,7 +97,6 @@ namespace UnitTests.Shop
         }
 
 
-        // Careful: this test may fail in case of an extremely extraordinary roll result
         [Test]
         [TestCase(MerchantViMo.ExperienceLevel.Novice, ExpectedResult = 0)]
         [TestCase(MerchantViMo.ExperienceLevel.Advanced, ExpectedResult = 0)]
@@ -110,16 +109,17 @@ namespace UnitTests.Shop
 
             // Arrange abilities: important to set them to max to
             // receive a predictable QL
-            merchantViMo.Sagacity = 0;
-            merchantViMo.Intuition = 0;
-            merchantViMo.Charisma = 0;
+            merchantViMo.Sagacity = -13;
+            merchantViMo.Intuition = -13;
+            merchantViMo.Charisma = -13;
             merchantViMo.TradeExperience = Level;
 
             // Act
             var result = merchantViMo.Haggle();
-            Assume.That(result, Is.Zero);
+            //Assume.That(result, Is.Zero);
 
             // Assert
+            Assert.AreEqual(0, result);
             this.mockRepository.VerifyAll();
             return result;
         }
