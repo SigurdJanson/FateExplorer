@@ -29,7 +29,7 @@ namespace UnitTests.RollLogic
         public void Roll_NoModifier_ExpectedRange1to6()
         {
             // Arrange
-            var energyRollM = new EnergyRollM(RegenerationSite.Default, RegenerationDisturbance.None);
+            var energyRollM = new EnergyRollM(RegenerationSite.Default, RegenerationDisturbance.None, false, 0);
 
             // Act
             var result = energyRollM.Roll();
@@ -57,7 +57,7 @@ namespace UnitTests.RollLogic
         {
             const RegenerationDisturbance Disturb = RegenerationDisturbance.None; // no added modifier
             // Arrange
-            var energyRollM = new EnergyRollM(Site, Disturb);
+            var energyRollM = new EnergyRollM(Site, Disturb, false, 0);
 
             MoqRng.Setup(Rng => Rng.IRandom(It.Is<int>(i => i == 1), It.Is<int>(i => i == 6)))
                 .Returns(Roll);
