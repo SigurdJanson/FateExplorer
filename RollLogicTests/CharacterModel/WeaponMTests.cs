@@ -10,7 +10,7 @@ namespace UnitTests.CharacterModel
 {
 
     [TestFixture]
-    [TestOf(typeof(WeaponM))]
+    //[TestOf(typeof(WeaponM))]
     public partial class WeaponMTests
     {
         //
@@ -141,43 +141,81 @@ namespace UnitTests.CharacterModel
         //
         // TESTS
 
-        [Test, Description("Layariels primary ability increase dagger hit points")]
-        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1(
-            [ValueSource(typeof(HeroWipfelglanz), nameof(HeroWipfelglanz.LayarielsDagger))] WeaponDTO WeaponData)
+        [Test, Description("Layariels primary ability increase *dagger* hit points by 1")]
+        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1()
         {
             // Arrange
+            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
+            mockCharacterM.SetupGet(p => p.CombatTechs).
+                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+
+            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
-            //bool MainHand = true;
-            //CombatBranch otherHand = CombatBranch.Unarmed;
-
             // Act
-            //var result = weaponM.AtSkill(MainHand, otherHand);
+            var result = weaponM.DamageBonus;
 
             // Assert
+            Assert.AreEqual(HeroWipfelglanz.LayarielsDagger.DamageBonus + 1, result);
             Assert.AreEqual(1, weaponM.DamageDieCount);
             Assert.AreEqual(6, weaponM.DamageDieSides);
-            Assert.AreEqual(HeroWipfelglanz.LayarielsDagger.DamageBonus+1, weaponM.DamageBonus);
-            this.mockRepository.VerifyAll();
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
         }
 
 
-        [Test, Ignore("nyi")]
-        public void PaSkill_StateUnderTest_ExpectedBehavior()
+        [Test]
+        public void AtSkill_CtDagger_EmptyOffhand_GivesSkillValue()
         {
+            const int LayarielsDaggerAttackVal = 9;
+
             // Arrange
+            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
-            bool MainHand = false;
-            CombatBranch otherHand = default;
-            int otherPaSkill = 0;
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            bool MainHand = true;
+            CombatBranch otherHand = CombatBranch.Unarmed;
             bool otherIsParry = false;
+            int otherPaSkill = 0;
 
             // Act
             var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(LayarielsDaggerAttackVal, result);
+            this.mockRepository.VerifyAll();
+        }
+
+
+
+        [Test]
+        public void PaSkill_CtDagger_EmptyOffhand_GivesSkillValue()
+            //[ValueSource(typeof(HeroWipfelglanz), nameof(HeroWipfelglanz.LayarielsDagger))] WeaponDTO WeaponData)
+        {
+            const int LayarielsDaggerParryVal = 6;
+
+            // Arrange
+            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            var weaponM = this.CreateWeaponM();
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            bool MainHand = true;
+            CombatBranch otherHand = CombatBranch.Unarmed;
+            bool otherIsParry = false;
+            int otherPaSkill = 0;
+
+            // Act
+            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
+
+            // Assert
+            Assert.AreEqual(LayarielsDaggerParryVal, result);
             this.mockRepository.VerifyAll();
         }
 
