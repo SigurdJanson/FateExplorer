@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace vmCode_UnitTests.ViewModel
+namespace UnitTests.ViewModel
 {
     [TestFixture]
     public class EueuqMaxTests

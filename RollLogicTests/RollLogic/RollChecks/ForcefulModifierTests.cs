@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 
-namespace vmCode_UnitTests.RollLogic
+namespace UnitTests.RollLogic
 {
     [TestFixture]
     public class ForcefulModifierTests

@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace vmCode_UnitTests.RollLogic
+namespace UnitTests.RollLogic
 {
     
     [TestFixture]

@@ -1,7 +1,7 @@
 ﻿using FateExplorer.Shared;
 using NUnit.Framework;
 
-namespace vmCode_UnitTests.Shared
+namespace UnitTests.Shared
 {
     [TestFixture]
     public class StringHelpersTests

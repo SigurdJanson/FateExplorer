@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace vmCode_UnitTests
+namespace UnitTests
 {
 
 

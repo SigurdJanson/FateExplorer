@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vmCode_UnitTests.CharacterModel
+namespace UnitTests.CharacterModel
 {
     /// <summary>
     /// Data source class for the character Layariel Wipfelglanz (taken from the quick start guide, not VR1)

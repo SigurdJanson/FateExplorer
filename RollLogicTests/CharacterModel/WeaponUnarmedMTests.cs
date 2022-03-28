@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace vmCode_UnitTests.CharacterModel
+namespace UnitTests.CharacterModel
 {
     [TestFixture]
     public class WeaponUnarmedMTests

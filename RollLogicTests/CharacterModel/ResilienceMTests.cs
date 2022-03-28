@@ -2,7 +2,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace vmCode_UnitTests.CharacterModel
+namespace UnitTests.CharacterModel
 {
     [TestFixture]
     public class ResilienceMTests

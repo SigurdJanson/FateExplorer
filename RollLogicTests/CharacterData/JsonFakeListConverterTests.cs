@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace vmCode_UnitTests.CharacterData
+namespace UnitTests.CharacterData
 {
     [TestFixture]
     public class JsonFakeListConverterTests

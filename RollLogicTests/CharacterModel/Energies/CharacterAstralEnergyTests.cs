@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace vmCode_UnitTests.CharacterModel.Energies
+namespace UnitTests.CharacterModel.Energies
 {
     [TestFixture]
     public class CharacterAstralEnergyTests

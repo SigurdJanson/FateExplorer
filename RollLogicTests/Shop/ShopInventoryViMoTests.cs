@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace vmCode_UnitTests.Shop
+namespace UnitTests.Shop
 {
     [TestFixture]
     public class ShopInventoryViMoTests

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 
-namespace vmCode_UnitTests.GameData
+namespace UnitTests.GameData
 {
 
 

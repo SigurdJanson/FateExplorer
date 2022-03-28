@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 
-namespace vmCode_UnitTests.CharacterModel
+namespace UnitTests.CharacterModel
 {
     [TestFixture]
     public class CombatTechMTests

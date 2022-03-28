@@ -7,7 +7,7 @@ using FateExplorer.GameData;
 using NUnit.Framework;
 
 
-namespace vmCode_UnitTests.GameData
+namespace UnitTests.GameData
 {
     [TestFixture]
     public class SpecialAbilityDBTests : GameDataTestsBase<SpecialAbilityDB, SpecialAbilityDbEntry>

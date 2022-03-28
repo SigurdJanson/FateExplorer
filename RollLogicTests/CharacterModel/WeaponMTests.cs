@@ -6,10 +6,18 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace vmCode_UnitTests.CharacterModel
+namespace UnitTests.CharacterModel
 {
+
+    [TestFixture]
+    [TestOf(typeof(WeaponM))]
     public partial class WeaponMTests
     {
+        //
+        //
+        // 
+        #region DATA SOURCES ###############
+
         private static CombatTechDbEntry CombatTechDaggers
         {
             get => new()
@@ -90,14 +98,15 @@ namespace vmCode_UnitTests.CharacterModel
             }
         }
 
-    }
+        #endregion
 
 
 
-    [TestFixture]
-    [TestOf(typeof(WeaponM))]
-    public partial class WeaponMTests
-    {
+
+        //
+        //
+        // SETTING UP THE TEST FIXTURE
+        #region SETUP ###############
         private MockRepository mockRepository;
 
         private Mock<ICharacterM> mockCharacterM;
@@ -124,10 +133,13 @@ namespace vmCode_UnitTests.CharacterModel
             return new WeaponM(this.mockCharacterM.Object);
         }
 
+        #endregion
 
 
 
-
+        //
+        //
+        // TESTS
 
         [Test, Description("Layariels primary ability increase dagger hit points")]
         public void AT_SingleWeapon_MainHand_DamageIncreasedBy1(

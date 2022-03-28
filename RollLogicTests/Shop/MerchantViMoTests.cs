@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.Json;
 using static FateExplorer.Shop.MerchantViMo;
 
-namespace vmCode_UnitTests.Shop
+namespace UnitTests.Shop
 {
     [TestFixture]
     public class MerchantViMoTests

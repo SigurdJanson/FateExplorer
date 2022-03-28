@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace vmCode_UnitTests.GameData
+namespace UnitTests.GameData
 {
     [TestFixture]
     public class GameDataTestsBase<TDB, TEntry>

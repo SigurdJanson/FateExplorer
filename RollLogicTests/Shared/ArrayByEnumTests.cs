@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace vmCode_UnitTests.Shared
+namespace UnitTests.Shared
 {
     [TestFixture]
     public class ArrayByEnumTests

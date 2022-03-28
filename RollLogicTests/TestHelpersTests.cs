@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace vmCode_UnitTests
+namespace UnitTests
 {
     [TestFixture]
     public class TestHelpers_Tests
