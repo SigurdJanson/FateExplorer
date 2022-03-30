@@ -116,14 +116,6 @@ namespace UnitTests.CharacterModel
         public void SetUp()
         {
             this.mockRepository = new MockRepository(MockBehavior.Strict);
-
-            this.mockCharacterM = this.mockRepository.Create<ICharacterM>();
-            mockCharacterM.SetupGet(x => x.Name).Returns("Layariel Wipfelglanz");
-            var Abs = HeroWipfelglanz.AbilityValues;
-            foreach(var a in Abs)
-                mockCharacterM.Setup(x => x.GetAbility(It.Is<string>(s => s == a.Key)))
-                    .Returns(a.Value);
-
             this.mockGameDataM = this.mockRepository.Create<IGameDataService>();
         }
 
@@ -131,6 +123,69 @@ namespace UnitTests.CharacterModel
         private WeaponM CreateWeaponM()
         {
             return new WeaponM(this.mockCharacterM.Object);
+        }
+
+
+        enum TestHeroes { Layariel, Arbosch }
+
+        private void MockHero(TestHeroes Hero, 
+            bool mockAbs, bool mockCT, 
+            bool? isAmbi = null, bool? is2Handed = null)
+        {
+            this.mockCharacterM = this.mockRepository.Create<ICharacterM>();
+
+            string Name = Hero switch
+            {
+                TestHeroes.Layariel => "Layariel Wipfelglanz",
+                TestHeroes.Arbosch => "Arbosch Sohn des Angrax",
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
+            mockCharacterM.SetupGet(x => x.Name).Returns(Name);
+
+            // AbilityValues
+            var AbVals = Hero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.AbilityValues,
+                TestHeroes.Arbosch => HeroArbosch.AbilityValues,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
+            foreach (var a in AbVals)
+                mockCharacterM.Setup(x => x.GetAbility(It.Is<string>(s => s == a.Key)))
+                    .Returns(a.Value);
+
+            // Abiltities
+            if (mockAbs)
+            {
+                var Abs = Hero switch
+                {
+                    TestHeroes.Layariel => HeroWipfelglanz.Abilities,
+                    TestHeroes.Arbosch => HeroArbosch.Abilities,
+                    _ => throw new NotImplementedException("Hero does not exist")
+                };
+                mockCharacterM.SetupGet(p => p.Abilities).Returns(Abs);
+            }
+
+            // Combat techs
+            if (mockCT)
+            {
+                mockCharacterM.SetupGet(p => p.CombatTechs).
+                    Returns(Hero switch
+                    {
+                        TestHeroes.Layariel => HeroWipfelglanz.CombatTechs(mockCharacterM.Object),
+                        TestHeroes.Arbosch => HeroArbosch.CombatTechs(mockCharacterM.Object),
+                        _ => throw new NotImplementedException("Hero does not exist")
+                    });
+            }
+
+            // Activatables
+            if (isAmbi is not null)
+                mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
+                    .Returns(isAmbi ?? false);
+
+            if (is2Handed is not null)
+                mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
+                    .Returns(is2Handed ?? false);
+
         }
 
         #endregion
@@ -145,9 +200,7 @@ namespace UnitTests.CharacterModel
         public void AT_SingleWeapon_MainHand_DamageIncreasedBy1()
         {
             // Arrange
-            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
-            mockCharacterM.SetupGet(p => p.CombatTechs).
-                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+            MockHero(TestHeroes.Layariel, true, true);
 
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
@@ -178,13 +231,7 @@ namespace UnitTests.CharacterModel
             const int LayarielsDaggerAttackVal = 9;
 
             // Arrange
-            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
-            mockCharacterM.SetupGet(p => p.CombatTechs).
-                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
-                .Returns(false);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
-                .Returns(false);
+            MockHero(TestHeroes.Layariel, true, true, false, false);
 
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
@@ -218,13 +265,7 @@ namespace UnitTests.CharacterModel
             const int LayarielsDaggerParryVal = 6;
 
             // Arrange
-            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
-            mockCharacterM.SetupGet(p => p.CombatTechs).
-                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
-                .Returns(false);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
-                .Returns(false);
+            MockHero(TestHeroes.Layariel, true, true, false, false);
 
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
@@ -263,13 +304,8 @@ namespace UnitTests.CharacterModel
             const CombatBranch otherHand = CombatBranch.Shield;
 
             // Arrange
-            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
-            mockCharacterM.SetupGet(p => p.CombatTechs).
-                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
-                .Returns(false);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
-                .Returns(false);
+            MockHero(TestHeroes.Layariel, true, true, false, false);
+
 
             WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
             var weaponM = this.CreateWeaponM();
@@ -354,9 +390,7 @@ namespace UnitTests.CharacterModel
             int Expected)
         {
             // Arrange
-            mockCharacterM.SetupGet(p => p.Abilities).Returns(HeroWipfelglanz.Abilities);
-            mockCharacterM.SetupGet(p => p.CombatTechs).
-                Returns(HeroWipfelglanz.CombatTechs(mockCharacterM.Object));
+            MockHero(TestHeroes.Layariel, true, true);
 
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(Weapon, mockGameDataM.Object);
