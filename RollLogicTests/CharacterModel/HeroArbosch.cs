@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace UnitTests.CharacterModel
 {
     /// <summary>
-    /// Data source class for the character Layariel Wipfelglanz (taken from the quick start guide, not VR1)
+    /// Data source class for the character Arbosch, Son of Angrax (taken from the quick start guide)
     /// </summary>
     internal static class HeroArbosch
     {

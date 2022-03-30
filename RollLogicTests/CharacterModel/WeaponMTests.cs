@@ -232,16 +232,21 @@ namespace UnitTests.CharacterModel
 
 
         [Test]
-        [TestCase(CombatBranch.Unarmed)]
-        [TestCase(CombatBranch.Shield)]
-        public void AtSkill_CtDagger_EmptyOffhand_GivesSkillValue(CombatBranch otherHand)
+        [TestCase(TestHeroes.Layariel, 9, CombatBranch.Unarmed)]
+        [TestCase(TestHeroes.Layariel, 9, CombatBranch.Shield)]
+        [TestCase(TestHeroes.Arbosch, 8, CombatBranch.Unarmed)]
+        [TestCase(TestHeroes.Arbosch, 8, CombatBranch.Shield)]
+        public void AtSkill_CtDagger_EmptyOffhand_GivesUnmodifiedSkillValue(TestHeroes testHero, int AtVal, CombatBranch otherHand)
         {
-            const int LayarielsDaggerAttackVal = 9;
-
             // Arrange
-            MockHero(TestHeroes.Layariel, true, true, false, false);
+            MockHero(testHero, true, true, false, false);
 
-            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.LayarielsDagger,
+                TestHeroes.Arbosch => HeroArbosch.ArboschsDagger,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
@@ -251,7 +256,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.AtSkill(MainHand, otherHand);
 
             // Assert
-            Assert.AreEqual(LayarielsDaggerAttackVal, result);
+            Assert.AreEqual(AtVal, result);
 
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
@@ -268,14 +273,19 @@ namespace UnitTests.CharacterModel
 
 
         [Test]
-        public void PaSkill_CtDagger_EmptyOffhand_GivesSkillValue()
+        [TestCase(TestHeroes.Layariel, 6)]
+        [TestCase(TestHeroes.Arbosch, 4)]
+        public void PaSkill_CtDagger_EmptyOffhand_GivesSkillValue(TestHeroes testHero, int PaVal)
         {
-            const int LayarielsDaggerParryVal = 6;
-
             // Arrange
-            MockHero(TestHeroes.Layariel, true, true, false, false);
+            MockHero(testHero, true, true, false, false);
 
-            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.LayarielsDagger,
+                TestHeroes.Arbosch => HeroArbosch.ArboschsDagger,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
@@ -288,7 +298,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
 
             // Assert
-            Assert.AreEqual(LayarielsDaggerParryVal, result);
+            Assert.AreEqual(PaVal, result);
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -304,18 +314,27 @@ namespace UnitTests.CharacterModel
 
 
         [Test, Description("A shield in the other hand adds the passive weapon bonus to the parry value")]
-        public void PaSkill_CtDagger_OffhandShield_AddsPassiveShieldToParry([Values(1, 2, 4)] int shieldPaSkill)
+        [TestCase(TestHeroes.Layariel, 6, 1)]
+        [TestCase(TestHeroes.Layariel, 6, 2)]
+        [TestCase(TestHeroes.Layariel, 6, 4)]
+        [TestCase(TestHeroes.Arbosch, 4, 1)]
+        [TestCase(TestHeroes.Arbosch, 4, 5)]
+        public void PaSkill_CtDagger_OffhandShield_AddsPassiveShieldToParry(TestHeroes testHero, int PaVal, int shieldPaSkill)
         {
-            const int LayarielsDaggerParryVal = 6;
             const bool MainHand = true;
             const bool otherIsParry = false;
             const CombatBranch otherHand = CombatBranch.Shield;
 
             // Arrange
-            MockHero(TestHeroes.Layariel, true, true, false, false);
+            MockHero(testHero, true, true, false, false);
 
 
-            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.LayarielsDagger,
+                TestHeroes.Arbosch => HeroArbosch.ArboschsDagger,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
@@ -324,7 +343,7 @@ namespace UnitTests.CharacterModel
 
 
             // Assert
-            Assert.AreEqual(LayarielsDaggerParryVal + shieldPaSkill, result);
+            Assert.AreEqual(PaVal + shieldPaSkill, result);
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -356,46 +375,17 @@ namespace UnitTests.CharacterModel
         }
 
 
-        [Test, Ignore("nyi")]
-        public void ComputeAttackVal_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var weaponM = this.CreateWeaponM();
-            Dictionary<string,AbilityM> Abilities = null;
-            //Dictionary<string,CombatTechM> CombatTecSkill = null;
-            CombatTechM CombatTecSkill = null;
-
-            // Act
-            var result = weaponM.ComputeAttackVal(Abilities, CombatTecSkill);
-
-            // Assert
-            Assert.Fail();
-            this.mockRepository.VerifyAll();
-        }
+        // Implicitely tested by calling `AtSkill(...)`
+        //public void ComputeAttackVal_StateUnderTest_ExpectedBehavior()
 
 
-        [Test, Ignore("nyi")]
-        public void ComputeParryVal_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var weaponM = this.CreateWeaponM();
-            weaponM.Initialise(HeroWipfelglanz.LayarielsDagger, mockGameDataM.Object);
-            CombatTechM CombatTecSkill = null;
-
-            // Act
-            var result = weaponM.ComputeParryVal(HeroWipfelglanz.Abilities, CombatTecSkill);
-
-            // Assert
-            Assert.Fail();
-            this.mockRepository.VerifyAll();
-        }
+        // Implicitely tested by calling `PaSkill(...)`
+        //public void ComputeParryVal_StateUnderTest_ExpectedBehavior()
 
 
         [Test]
         [TestCaseSource(nameof(LayarielsWeaponsHitPointBonus))]
-        public void HitpointBonus_VaryingPrimaryAbility(
-            WeaponDTO Weapon,
-            int Expected)
+        public void HitpointBonus_VaryingPrimaryAbility(WeaponDTO Weapon, int Expected)
         {
             // Arrange
             MockHero(TestHeroes.Layariel, true, true);
@@ -426,6 +416,7 @@ namespace UnitTests.CharacterModel
         [TestCase("CT_2", ExpectedResult = false)]
         public bool CanParry(string CombatTechId)
         {
+            MockHero(TestHeroes.Layariel, false, false);
             Assume.That(mockCharacterM.Object, Is.Not.Null);
 
             // Arrange collection combat technique in the character
