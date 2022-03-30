@@ -184,8 +184,11 @@ namespace UnitTests.CharacterModel
                     .Returns(isAmbi ?? false);
 
             if (is2Handed is not null)
+            {
+                // Add mocked call like this: Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
                 mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
                     .Returns(is2Handed ?? false);
+            }
 
         }
 
@@ -344,6 +347,50 @@ namespace UnitTests.CharacterModel
 
             // Assert
             Assert.AreEqual(PaVal + shieldPaSkill, result);
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+        }
+
+
+
+        [Test, Description("A shield in the other hand adds the passive weapon bonus to the parry value")]
+        [TestCase(TestHeroes.Layariel, 6)]
+        [TestCase(TestHeroes.Arbosch, 4)]
+        public void PaSkill_CtDagger_OffhandParryWeapon_AddsPassiveBonusToParryAnd2HandedPenalty(TestHeroes testHero, int PaVal)
+        {
+            const bool MainHand = true;
+            const bool otherIsParry = true;
+            const CombatBranch otherHand = CombatBranch.Melee;
+            const int ParryWeaponBonus = 1;
+            const int Penalty4TwohandedCombat = -2;
+
+            // Arrange
+            MockHero(testHero, true, true, false, false);
+
+
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.LayarielsDagger,
+                TestHeroes.Arbosch => HeroArbosch.ArboschsDagger,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
+            var weaponM = this.CreateWeaponM();
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            // Act
+            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, ParryWeaponBonus);
+
+
+            // Assert
+            Assert.AreEqual(PaVal + ParryWeaponBonus + Penalty4TwohandedCombat, result);
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
