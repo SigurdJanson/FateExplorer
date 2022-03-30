@@ -131,7 +131,7 @@ namespace UnitTests.CharacterModel
 
         private void MockHero(TestHeroes Hero, 
             bool mockAbs, bool mockCT, 
-            bool? isAmbi = null, bool? is2Handed = null)
+            bool? isAmbi = null, int? TwoHandedTier = null)
         {
             this.mockCharacterM = this.mockRepository.Create<ICharacterM>();
 
@@ -183,11 +183,14 @@ namespace UnitTests.CharacterModel
                 mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
                     .Returns(isAmbi ?? false);
 
-            if (is2Handed is not null)
+            if (TwoHandedTier is not null)
             {
-                // Add mocked call like this: Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
                 mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
-                    .Returns(is2Handed ?? false);
+                    .Returns(TwoHandedTier > 0);
+                // Add mocked call like this: Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
+                Dictionary<string, IActivatableM> SpecAbs = new();
+                SpecAbs.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, TwoHandedTier ?? 0));
+                mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(SpecAbs);
             }
 
         }
@@ -242,7 +245,7 @@ namespace UnitTests.CharacterModel
         public void AtSkill_CtDagger_EmptyOffhand_GivesUnmodifiedSkillValue(TestHeroes testHero, int AtVal, CombatBranch otherHand)
         {
             // Arrange
-            MockHero(testHero, true, true, false, false);
+            MockHero(testHero, true, true, false, 0);
 
             WeaponDTO WeaponData = testHero switch
             {
@@ -281,7 +284,7 @@ namespace UnitTests.CharacterModel
         public void PaSkill_CtDagger_EmptyOffhand_GivesSkillValue(TestHeroes testHero, int PaVal)
         {
             // Arrange
-            MockHero(testHero, true, true, false, false);
+            MockHero(testHero, true, true, false, 0);
 
             WeaponDTO WeaponData = testHero switch
             {
@@ -316,6 +319,7 @@ namespace UnitTests.CharacterModel
 
 
 
+        // Note: for a shield the two-handed penalty is not effective
         [Test, Description("A shield in the other hand adds the passive weapon bonus to the parry value")]
         [TestCase(TestHeroes.Layariel, 6, 1)]
         [TestCase(TestHeroes.Layariel, 6, 2)]
@@ -329,7 +333,7 @@ namespace UnitTests.CharacterModel
             const CombatBranch otherHand = CombatBranch.Shield;
 
             // Arrange
-            MockHero(testHero, true, true, false, false);
+            MockHero(testHero, true, true, false, 0);
 
 
             WeaponDTO WeaponData = testHero switch
@@ -362,18 +366,22 @@ namespace UnitTests.CharacterModel
 
 
         [Test, Description("A shield in the other hand adds the passive weapon bonus to the parry value")]
-        [TestCase(TestHeroes.Layariel, 6)]
-        [TestCase(TestHeroes.Arbosch, 4)]
-        public void PaSkill_CtDagger_OffhandParryWeapon_AddsPassiveBonusToParryAnd2HandedPenalty(TestHeroes testHero, int PaVal)
+        [TestCase(TestHeroes.Layariel, 6, 0, -2, Description = "No special ability 'Two-Handed Combat'")]
+        [TestCase(TestHeroes.Layariel, 6, 1, -1)]
+        [TestCase(TestHeroes.Layariel, 6, 2, 0)]
+        [TestCase(TestHeroes.Arbosch, 4, 0, -2, Description = "No special ability 'Two-Handed Combat'")]
+        [TestCase(TestHeroes.Arbosch, 4, 1, -1)]
+        [TestCase(TestHeroes.Arbosch, 4, 2, 0)]
+        public void PaSkill_CtDagger_OffhandParryWeapon_AddsPassiveBonusToParryAnd2HandedPenalty(
+            TestHeroes testHero, int PaVal, int SATwoHandedTier, int Penalty4TwohandedCombat)
         {
             const bool MainHand = true;
             const bool otherIsParry = true;
             const CombatBranch otherHand = CombatBranch.Melee;
             const int ParryWeaponBonus = 1;
-            const int Penalty4TwohandedCombat = -2;
 
             // Arrange
-            MockHero(testHero, true, true, false, false);
+            MockHero(testHero, true, true, false, SATwoHandedTier);
 
 
             WeaponDTO WeaponData = testHero switch
