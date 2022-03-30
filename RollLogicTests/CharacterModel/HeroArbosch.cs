@@ -16,9 +16,9 @@ namespace UnitTests.CharacterModel
         {
             get => new()
             {
-                Id = "ITEM_9998",
+                Id = "ITEMTPL_2",
                 Name = "Arbosch Dagger",
-                CombatTechId = "ITEMTPL_2",
+                CombatTechId = "CT_3",
                 IsImprovised = false,
                 AttackMod = 0,
                 ParryMod = 0,
@@ -40,7 +40,7 @@ namespace UnitTests.CharacterModel
         public static WeaponDTO ArboschsDwarfCudgel
             => new()
             {
-                Id = "ITEM_9998",
+                Id = "ITEMTPL_56",
                 Name = "Arboschs Dwarf Cudgel",
                 CombatTechId = "CT_15",
                 IsImprovised = false,
@@ -83,7 +83,7 @@ namespace UnitTests.CharacterModel
                 IsRanged = false,
                 WeaponsBranch = CombatBranch.Melee,
                 Name = "Zweihandhiebwaffen",
-                PrimeAttrID = "ATTR_6"
+                PrimeAttrID = "ATTR_8"
             };
             result.Add("CT_15", new CombatTechM(CT_15, 12, mockCharacter));
 
@@ -92,7 +92,7 @@ namespace UnitTests.CharacterModel
 
 
         /// <summary>
-        /// The abilities of Layariel Wipfelglanz
+        /// The abilities of Arbosch
         /// </summary>
         public static Dictionary<string, int> AbilityValues
         {
