@@ -10,8 +10,8 @@ namespace UnitTests.CharacterModel
 {
 
     [TestFixture]
-    //[TestOf(typeof(WeaponM))]
-    public partial class WeaponMTests
+    [TestOf(typeof(WeaponM))]
+    public class WeaponMTests
     {
         //
         //
@@ -107,6 +107,7 @@ namespace UnitTests.CharacterModel
         //
         // SETTING UP THE TEST FIXTURE
         #region SETUP ###############
+
         private MockRepository mockRepository;
 
         private Mock<ICharacterM> mockCharacterM;
@@ -115,18 +116,18 @@ namespace UnitTests.CharacterModel
         [SetUp]
         public void SetUp()
         {
-            this.mockRepository = new MockRepository(MockBehavior.Strict);
-            this.mockGameDataM = this.mockRepository.Create<IGameDataService>();
+            mockRepository = new MockRepository(MockBehavior.Strict);
+            mockGameDataM = mockRepository.Create<IGameDataService>();
         }
 
 
         private WeaponM CreateWeaponM()
         {
-            return new WeaponM(this.mockCharacterM.Object);
+            return new WeaponM(mockCharacterM.Object);
         }
 
 
-        enum TestHeroes { Layariel, Arbosch }
+        public enum TestHeroes { Layariel, Arbosch }
 
         private void MockHero(TestHeroes Hero, 
             bool mockAbs, bool mockCT, 
@@ -196,13 +197,20 @@ namespace UnitTests.CharacterModel
         //
         // TESTS
 
-        [Test, Description("Layariels primary ability increase *dagger* hit points by 1")]
-        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1()
+        [Test, Description("Does the primary ability increase *dagger* hit points?")]
+        [TestCase(TestHeroes.Layariel, 1, Description = "Layariels primary ability AGI increase *dagger* hit points by 1")]
+        [TestCase(TestHeroes.Arbosch, 0, Description = "Arbosch has only 11; that is not enough for a bonus")]
+        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1(TestHeroes testHero, int Mod)
         {
             // Arrange
-            MockHero(TestHeroes.Layariel, true, true);
+            MockHero(testHero, true, true);
 
-            WeaponDTO WeaponData = HeroWipfelglanz.LayarielsDagger;
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Layariel => HeroWipfelglanz.LayarielsDagger,
+                TestHeroes.Arbosch => HeroArbosch.ArboschsDagger,
+                _ => throw new NotImplementedException("Hero does not exist")
+            };
             var weaponM = this.CreateWeaponM();
             weaponM.Initialise(WeaponData, mockGameDataM.Object);
 
@@ -210,7 +218,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.DamageBonus;
 
             // Assert
-            Assert.AreEqual(HeroWipfelglanz.LayarielsDagger.DamageBonus + 1, result);
+            Assert.AreEqual(WeaponData.DamageBonus + Mod, result);
             Assert.AreEqual(1, weaponM.DamageDieCount);
             Assert.AreEqual(6, weaponM.DamageDieSides);
             //
