@@ -722,6 +722,10 @@
     <value>You have not loaded any characters</value>
     <comment>No Character Skeleton</comment>
   </data>
+  <data name="msgNoRegeneration" xml:space="preserve">
+    <value>No regeneration for {0}</value>
+    <comment>Energy regeneration</comment>
+  </data>
   <data name="msgRegenerationSite.Default" xml:space="preserve">
     <value>Basic regeneration for 6 hours of sleep</value>
     <comment>Energy regeneration</comment>
@@ -732,6 +736,10 @@
   </data>
   <data name="msgRegenerationSite.Poor" xml:space="preserve">
     <value>Poor campsite, failed Survival (Find Campsite) check</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSuccess" xml:space="preserve">
+    <value>Regenerate {0} by 1d6{1}{2} = {3}</value>
     <comment>Energy regeneration</comment>
   </data>
   <data name="msgRequired" xml:space="preserve">
@@ -937,9 +945,11 @@
   </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
     <value>Reduce by {0}</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="txtEnergyIncrease" xml:space="preserve">
     <value>Increase by {0}</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="txtModifierTip" xml:space="preserve">
     <value>Use the modifier to factor (dis-) advantages in, any treat wounds boni or potions</value>

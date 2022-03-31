@@ -726,6 +726,10 @@
     <value>You have not loaded any characters</value>
     <comment>No Character Skeleton</comment>
   </data>
+  <data name="msgNoRegeneration" xml:space="preserve">
+    <value>Keine Regeneration für {0}</value>
+    <comment>Energy regeneration</comment>
+  </data>
   <data name="msgRegenerationSite.Default" xml:space="preserve">
     <value>Grundregeneration für 6 Stunden Schlaf</value>
     <comment>Energy regeneration</comment>
@@ -736,6 +740,10 @@
   </data>
   <data name="msgRegenerationSite.Poor" xml:space="preserve">
     <value>Schlechter Lagerplatz, misslungene Probe auf Wildnisleben (Lagersuche)</value>
+    <comment>Energy regeneration</comment>
+  </data>
+  <data name="msgRegenerationSuccess" xml:space="preserve">
+    <value>Regeneriere {0} um 1W6{1}{2} = {3}</value>
     <comment>Energy regeneration</comment>
   </data>
   <data name="msgRequired" xml:space="preserve">
@@ -938,9 +946,11 @@
   </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
     <value>Um {0} reduzieren</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="txtEnergyIncrease" xml:space="preserve">
     <value>Um {0} erhöhen</value>
+    <comment>Energy regeneration</comment>
   </data>
   <data name="txtModifierTip" xml:space="preserve">
     <value>Verwende den Modifikator, um Vor-/Nachteile, Heilkunde- oder Heiltränke-Boni zu berücksichtigen</value>

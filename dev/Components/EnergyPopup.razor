@@ -124,10 +124,10 @@
                     -1 => " - ", +1 => " + ", _ => string.Empty
                 };
                 string Value = Rolls.Last().Modifier[0] == 0 ? "" : Math.Abs(Rolls.Last().Modifier[0]).ToString();
-                Message = $"Regenerate {e.ShortName} by 1d6{Sign}{Value} = {Rolls.Last().CombinedResult}";
+                Message = String.Format(l10n["msgRegenerationSuccess"], e.ShortName, Sign, Value, Rolls.Last().CombinedResult);
             }
             else
-                Message = $"No regeneration for {e.ShortName}";
+                Message = String.Format(l10n["msgNoRegeneration"], e.ShortName);
             Snackbar.Add(Message, Severity.Info, config =>
                 {
                     config.SnackbarVariant = Variant.Outlined;
