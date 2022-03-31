@@ -935,6 +935,12 @@
     <value>The Fate Explorer helps you play the Dark Eye* table top games (rule system 5). Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules and can be described as an intelligent character sheet. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
   </data>
+  <data name="txtEnergyDecrease" xml:space="preserve">
+    <value>Reduce by {0}</value>
+  </data>
+  <data name="txtEnergyIncrease" xml:space="preserve">
+    <value>Increase by {0}</value>
+  </data>
   <data name="txtModifierTip" xml:space="preserve">
     <value>Use the modifier to factor (dis-) advantages in, any treat wounds boni or potions</value>
     <comment>Regeneration Dialog</comment>
