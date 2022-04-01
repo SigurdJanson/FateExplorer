@@ -35,7 +35,7 @@ namespace FateExplorer.GameData
                         return t;
             }
 
-            throw new KeyNotFoundException("Unknown botch table");
+            throw new KeyNotFoundException($"Unknown botch table {Type}: {Roll}");
         }
 
 

@@ -103,7 +103,7 @@
     {"dr":[12], "ref": "FMBL_11"}]
 },
 {
-    "Roll": ["Parry"],
+    "Roll": ["Attack", "Parry"],
     "Type": "Shield",
     "Url": "Opt_Verteidigung-Patzertabelle-Schild.html",
     "Effect": [
