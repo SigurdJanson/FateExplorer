@@ -12,6 +12,29 @@ Skills are basic, mundane skills (like perception, ...). But arcane and karma sk
 The combat technique describes the basic skill with a certain weapon's branch. Each particular weapon may modify the attack and parry skill, as well as the hit points.
 
 
+**Overview**: 
+
+* Attributes
+  * Abilities: COU, SAG, ...
+  * Energies<sup>1</sup>: LP, AE, KP
+  * Resilience<sup>1</sup>: SPI, TOU
+  * Skills
+    * basic/mundane: ...
+    * Arcane: ...
+    * Karma: ...
+    * Combat technique
+  * Physical feats<sup>1</sup>:
+    * INI²
+    * DO² (Dodge)
+    * MOV²
+    * CW<sup>*</sup> (Carrying weight)
+    * LW<sup>*</sup> (Lifting weight)
+
+<sup>*</sup> attribute specific to Fate Explorer
+<sup>1</sup> derived from ability
+
+
+
 ## Kinds of Values
 
 * **Imported** value: the value as it was understood by importing a character sheet.
@@ -20,6 +43,7 @@ The combat technique describes the basic skill with a certain weapon's branch. E
   * by a modification at the GMs discretion.
   * by temporary states and conditions.
   * for dependent attributes when the dependencies change.
+
 
 
 # Rolls & Checks

@@ -1,0 +1,62 @@
+@startuml RollClasses
+!theme vibrant
+
+title Basic Structure
+
+namespace CharacterData #EEEEEE {
+    interface ICharacterImporter
+
+note as N1
+    Imports character sheets
+end note
+}
+
+
+namespace GameData #EEEEEE {
+    interface IGameDataService
+
+note as GameDataNote
+    Provides access to basic data of the rule engine.
+    The database of weapon, character skills, ...
+end note
+}
+
+
+
+namespace RollLogic #EEEEEE {
+    interface IRollM
+    abstract CheckBaseM
+}
+
+namespace GameLogic #EEEEEE {
+    interface CharacterM
+}
+
+namespace ViewModel #EEEEEE {
+    interface IRollHandler
+    interface ITheHeroViMo
+}
+
+
+namespace Views #EEEEEE {
+
+note as N1
+    Pages and ui components
+end note
+}
+
+
+
+GameData <|-- GameLogic
+GameData <|-- RollLogic
+
+CharacterData.ICharacterImporter <|-- GameLogic.CharacterM
+
+ViewModel <|-- Views
+GameLogic.CharacterM <|-- ViewModel.ITheHeroViMo
+RollLogic.IRollM <|-- ViewModel.IRollHandler
+RollLogic.CheckBaseM <|-- ViewModel.IRollHandler
+
+
+
+@enduml
