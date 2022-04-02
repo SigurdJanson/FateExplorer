@@ -407,6 +407,7 @@
   </data>
   <data name="lblAttack" xml:space="preserve">
     <value>Attacke</value>
+    <comment>Fight</comment>
   </data>
   <data name="lblAttributeValue" xml:space="preserve">
     <value>Wert</value>
@@ -446,6 +447,9 @@
   </data>
   <data name="lblDominantHand" xml:space="preserve">
     <value>Dominante Hand</value>
+  </data>
+  <data name="lblDoRoll" xml:space="preserve">
+    <value>Würfle</value>
   </data>
   <data name="lblEdit" xml:space="preserve">
     <value>Editiere</value>
@@ -511,6 +515,15 @@
   </data>
   <data name="lblParry" xml:space="preserve">
     <value>Parade</value>
+    <comment>Fight</comment>
+  </data>
+  <data name="lblPickItemWithDominantHand" xml:space="preserve">
+    <value>Nimms in die nicht-dominante Hand</value>
+    <comment>Fight</comment>
+  </data>
+  <data name="lblPickItemWithNondominantHand" xml:space="preserve">
+    <value>Nimms in die dominante Hand</value>
+    <comment>Fight</comment>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">
     <value>Geburtsort</value>
