@@ -66,7 +66,7 @@
                 {
                 @if (w.IsImprovised && !Config.ShowImprovisedWeapons) continue;
 
-                <MudListItem DisableRipple=true>  @*Text=@w.Name*@
+                <MudListItem DisableRipple=true> 
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
@@ -77,8 +77,8 @@
                         <MudSpacer/>
                         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.FrontHand
                             OnClick=@(() => GrabWeapon(w, true))
-                            aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.BackHand
+                            aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) /> @*TODO: *@
+                        <MudIconButton Color=Color.Dark Icon="fe fe-BackHandLeft"
                             OnClick=@(() => GrabWeapon(w, false))
                             Disabled=w.IsTwohanded
                             aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
@@ -109,8 +109,8 @@
                                     }
                                 </CardHeaderActions>
                             </MudCardHeader>
-                            <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Carpenter
+                            <MudCardActions> @*@Icons.Material.Sharp.Carpenter*@
+                                <MudIconButton Color=Color.Dark Icon="fe fe-Sword" 
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
@@ -145,7 +145,7 @@
                                 </CardHeaderActions>
                              </MudCardHeader>
                             <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Carpenter
+                                <MudIconButton Color=Color.Dark Icon="fe fe-Sword"
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
                                     aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
@@ -202,10 +202,10 @@ else
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
 
     private readonly string[] CheckIcons = new string[4] { 
-        Icons.Filled.Accessible, 
+        "fe fe-Botch",
         Icons.Filled.Elderly, 
         Icons.Filled.Accessibility, 
-        Icons.Filled.AccessibilityNew };
+        "fe fe-Success"};
 
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }

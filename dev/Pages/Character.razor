@@ -58,31 +58,35 @@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
-                    @*<MudItem xs=6 Class="mb-3">
-                    <MudField Label=@l10n["lblBelongings"] Variant=Variant.Text DisableUnderLine=true>
-                        n/a
-                    </MudField>
-                    </MudItem>*@
-
-                    <MudItem xs=6 Class="mb-3">
-                    <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
-                        @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
-                        <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
-                            <MudIcon Icon=@Icons.Filled.Info Color=Color.Info/>
-                        </MudTooltip>
-                        @if (Hero.CarriedWeight > Hero.WhatCanCarry)
-                        {
-                        <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
-                            <MudIcon Icon=@Icons.Filled.Info Color=Color.Error />
-                        </MudTooltip>
-                        }
-                    </MudField>
+@*                    <MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblMovement"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.Movement()
+                        </MudField>
+                    </MudItem>
+*@                    <MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
+                            <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
+                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Info/>
+                            </MudTooltip>
+                            @if (Hero.CarriedWeight > Hero.WhatCanCarry)
+                            {
+                            <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
+                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Error />
+                            </MudTooltip>
+                            }
+                        </MudField>
                     </MudItem>
 
+                    @*<MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblBelongings"] Variant=Variant.Text DisableUnderLine=true>
+                            n/a
+                        </MudField>
+                    </MudItem>*@
                     <MudItem xs=6 Class="mb-3">
-                    <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
-                        @Hero.FormatMoney()
-                    </MudField>
+                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.FormatMoney()
+                        </MudField>
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -205,8 +209,10 @@ else
 
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
-    private readonly string[] CheckIcons = new string[4] { Icons.Filled.Accessible, Icons.Filled.Elderly, Icons.Filled.Accessibility, Icons.Filled.AccessibilityNew };
-
+    private readonly string[] CheckIcons = new string[4] { 
+        "fe fe-Botch", Icons.Filled.Elderly, 
+        Icons.Filled.Accessibility, "fe fe-Success"
+    };
     private RollCheckResultViMo ActiveAbilityCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
