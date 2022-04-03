@@ -38,10 +38,7 @@ namespace UnitTests.GameData
             // Act
             BotchDB Result = JsonSerializer.Deserialize<BotchDB>(jsonString);
 
-            // Assert
-            if (Roll == "Attack" && Type == "Shield")
-                Assert.Throws<KeyNotFoundException>(() => Result.GetBotch(Roll, Type, DiceEyes));
-            else if (Roll == "Parry" && Type == "Ranged")
+            if (Roll == "Parry" && Type == "Ranged")
                 Assert.Throws<KeyNotFoundException>(() => Result.GetBotch(Roll, Type, DiceEyes));
             else
                 Assert.NotNull(Result.GetBotch(Roll, Type, DiceEyes));
