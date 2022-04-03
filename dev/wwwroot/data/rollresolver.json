@@ -32,8 +32,8 @@
 
     "CT_9/AT":  {"id": "CT_9/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
 
-    "CT_10/AT": {"id": "CT_10/AT", "roll": "DSA5/0/combat/shield/attack", "name": "Attack", "type": "compare"},
-    "CT_20/AT": {"id": "CT_20/AT", "roll": "DSA5/0/combat/shield/attack", "name": "Attack", "type": "compare"},
+    "CT_10/AT": {"id": "CT_10/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
+    "CT_20/AT": {"id": "CT_20/AT", "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
 
 
     "CT_3/PA":  {"id": "CT_3/PA",  "roll": "DSA5/0/combat/parry", "name": "Parry", "type": "compare"},
@@ -48,6 +48,6 @@
     "CT_21/PA": {"id": "CT_21/PA", "roll": "DSA5/0/combat/parry", "name": "Parry", "type": "compare"},
 
 
-    "CT_10/PA": {"id": "CT_10/PA", "roll": "DSA5/0/combat/shield/parry", "name": "Parry", "type": "compare"},
-    "CT_20/PA": {"id": "CT_20/PA", "roll": "DSA5/0/combat/shield/parry", "name": "Parry", "type": "compare"}
+    "CT_10/PA": {"id": "CT_10/PA", "roll": "DSA5/0/combat/parry", "name": "Parry", "type": "compare"},
+    "CT_20/PA": {"id": "CT_20/PA", "roll": "DSA5/0/combat/parry", "name": "Parry", "type": "compare"}
 }
