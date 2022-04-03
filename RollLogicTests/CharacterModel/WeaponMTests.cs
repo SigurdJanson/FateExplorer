@@ -127,7 +127,7 @@ namespace UnitTests.CharacterModel
         }
 
 
-        public enum TestHeroes { Layariel, Arbosch }
+        public enum TestHeroes { Layariel, Arbosch, Grassberger }
 
         private void MockHero(TestHeroes Hero, 
             bool mockAbs, bool mockCT, 
@@ -139,6 +139,7 @@ namespace UnitTests.CharacterModel
             {
                 TestHeroes.Layariel => "Layariel Wipfelglanz",
                 TestHeroes.Arbosch => "Arbosch Sohn des Angrax",
+                TestHeroes.Grassberger => "Ulf Grassberger",
                 _ => throw new NotImplementedException("Hero does not exist")
             };
             mockCharacterM.SetupGet(x => x.Name).Returns(Name);
@@ -148,6 +149,7 @@ namespace UnitTests.CharacterModel
             {
                 TestHeroes.Layariel => HeroWipfelglanz.AbilityValues,
                 TestHeroes.Arbosch => HeroArbosch.AbilityValues,
+                TestHeroes.Grassberger => HeroGrassberger.AbilityValues,
                 _ => throw new NotImplementedException("Hero does not exist")
             };
             foreach (var a in AbVals)
@@ -161,6 +163,7 @@ namespace UnitTests.CharacterModel
                 {
                     TestHeroes.Layariel => HeroWipfelglanz.Abilities,
                     TestHeroes.Arbosch => HeroArbosch.Abilities,
+                    TestHeroes.Grassberger => HeroGrassberger.Abilities,
                     _ => throw new NotImplementedException("Hero does not exist")
                 };
                 mockCharacterM.SetupGet(p => p.Abilities).Returns(Abs);
@@ -174,6 +177,7 @@ namespace UnitTests.CharacterModel
                     {
                         TestHeroes.Layariel => HeroWipfelglanz.CombatTechs(mockCharacterM.Object),
                         TestHeroes.Arbosch => HeroArbosch.CombatTechs(mockCharacterM.Object),
+                        TestHeroes.Grassberger => HeroGrassberger.CombatTechs(mockCharacterM.Object),
                         _ => throw new NotImplementedException("Hero does not exist")
                     });
             }
@@ -206,7 +210,7 @@ namespace UnitTests.CharacterModel
         [Test, Description("Does the primary ability increase *dagger* hit points?")]
         [TestCase(TestHeroes.Layariel, 1, Description = "Layariels primary ability AGI increase *dagger* hit points by 1")]
         [TestCase(TestHeroes.Arbosch, 0, Description = "Arbosch has only 11; that is not enough for a bonus")]
-        public void AT_SingleWeapon_MainHand_DamageIncreasedBy1(TestHeroes testHero, int Mod)
+        public void Damage_SingleWeapon_MainHand_DamageIncreasedBy1(TestHeroes testHero, int Mod)
         {
             // Arrange
             MockHero(testHero, true, true);
@@ -278,6 +282,47 @@ namespace UnitTests.CharacterModel
 
 
 
+        // The wooden shield has a attack penalty of -4.
+        // Additional -2 for two-handed combat without special ability
+        // ONly parrying does not suffer from the off-hand penalty. So here additional -4 must be added.
+        [Test]
+        [TestCase(TestHeroes.Grassberger, 14-4-4, CombatBranch.Unarmed)]
+        [TestCase(TestHeroes.Grassberger, 14-4-4-2, CombatBranch.Melee)]
+        public void AtSkill_CtShields_SwordInMainHand_(TestHeroes testHero, int AtVal, CombatBranch otherHand)
+        {
+            // Arrange
+            MockHero(testHero, true, true, false, 0);
+
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Grassberger => HeroGrassberger.WoodenShield,
+                _ => throw new NotImplementedException("Hero is not implemented for this test")
+            };
+            var weaponM = this.CreateWeaponM();
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            bool MainHand = false;
+
+            // Act
+            var result = weaponM.AtSkill(MainHand, otherHand);
+
+            // Assert
+            Assert.AreEqual(AtVal, result);
+
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // STR to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+        }
+
+
+
         [Test]
         [TestCase(TestHeroes.Layariel, 6)]
         [TestCase(TestHeroes.Arbosch, 4)]
@@ -312,6 +357,49 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
+
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+        }
+
+
+        // Parry bonus of the wooden shield is added twice (VR1.de, p. 233)
+        // No parry penalty for using the off-hand
+        // No penalty for fighting two-handed
+        [Test, Description("")]
+        [TestCase(TestHeroes.Grassberger, 8+2*1, CombatBranch.Unarmed)]
+        [TestCase(TestHeroes.Grassberger, 8+2*1, CombatBranch.Melee)]
+        public void PaSkill_CtShield_OffhandShield_AddsPassiveShieldToParry(TestHeroes testHero, int PaVal, CombatBranch otherHand)
+        {
+            const bool MainHand = false;
+            const bool otherIsParry = false;
+            const int otherPaSkill = 0;
+
+            // Arrange
+            MockHero(testHero, true, true, false, 0);
+
+
+            WeaponDTO WeaponData = testHero switch
+            {
+                TestHeroes.Grassberger => HeroGrassberger.WoodenShield,
+                _ => throw new NotImplementedException("Hero not used in this test")
+            };
+            var weaponM = this.CreateWeaponM();
+            weaponM.Initialise(WeaponData, mockGameDataM.Object);
+
+            // Act
+            var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
+
+
+            // Assert
+            Assert.AreEqual(PaVal, result);
+            //
+            mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
+            mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
+            // COU to determine the attack value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_1")), Times.AtLeastOnce);
+            // AGI to determine the parry value
+            mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);

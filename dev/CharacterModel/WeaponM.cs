@@ -91,14 +91,18 @@ namespace FateExplorer.CharacterModel
                 false => 0,
                 true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
             };
-            int TwoHandMod = otherHand switch
-            {
-                CombatBranch.Unarmed => 0,
-                CombatBranch.Shield => 0,
-                CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
-                CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
-                _ => 0
-            };
+            int TwoHandMod;
+            if (Branch != CombatBranch.Shield)
+                TwoHandMod = otherHand switch
+                {
+                    CombatBranch.Unarmed => 0,
+                    CombatBranch.Shield => 0,
+                    CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
+                    CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
+                    _ => 0
+                };
+            else
+                TwoHandMod = 0;
 
 
             // Determine passive bonus of parry weapon or shield
