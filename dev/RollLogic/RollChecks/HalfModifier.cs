@@ -65,7 +65,9 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc/>
         /// <remarks>Not used for this type of modifier because <see cref="Set"/> is not implemented.</remarks>
+#pragma warning disable CS0067 // The event is never used
         public event Action OnStateChanged;
+#pragma warning restore CS0067
     }
 }
 
