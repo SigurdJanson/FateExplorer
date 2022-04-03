@@ -109,7 +109,7 @@
                                 aria-label=@l10n["msgShowDetails"] />
                         </MudTooltip>
                         <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
-                            <MudIconButton Icon=@Icons.Sharp.Preview Size=Size.Small Variant=Variant.Outlined
+                            <MudIconButton Icon=@IconsFE.Ulisses Size=Size.Small Variant=Variant.Outlined
                                 Color=Color.Tertiary
                                 Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
                                 Target="_blank"
@@ -155,12 +155,16 @@
             @if (ShoppingCart.Count > 0)
             {
             <MudPaper Class="pa-4" Outlined=true>
-                <MudIcon Icon=@Icons.Material.Sharp.LocalMall Size=Size.Large/>
-                <MudText Typo=Typo.caption>@l10n["lblShoppingCartItems"]</MudText>
-                <MudButton OnClick=@(() => ShoppingCart.Clear())
-                    Variant=Variant.Text StartIcon=@Icons.Material.Sharp.RemoveShoppingCart>
-                    @l10n["lblEmptyBasket"]
-                </MudButton>
+                <div class="d-flex justify-space-between">
+                    <div>
+                        <MudIcon Icon=@Icons.Material.Sharp.LocalMall Size=Size.Large/>
+                        <MudText Typo=Typo.caption>@l10n["lblShoppingCartItems"]</MudText>
+                    </div>
+                    <MudButton OnClick=@(() => ShoppingCart.Clear())
+                        Variant=Variant.Text StartIcon=@IconsFE.LocalMallClear>
+                        @l10n["lblEmptyBasket"]
+                    </MudButton>
+                </div>
                 <MudSimpleTable Hover=true Dense=true FixedHeader=true Elevation=0>
                     <thead class="mud-table-head">
                         <tr>
