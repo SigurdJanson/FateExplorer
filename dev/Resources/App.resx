@@ -949,7 +949,7 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutVersion" xml:space="preserve">
-    <value>Fate Explorer has been created by {0}. This is release {1} code named {2}.</value>
+    <value>Fate Explorer has been created by {0}. This is release {1} code named {2} (build {3}).</value>
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">

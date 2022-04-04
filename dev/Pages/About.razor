@@ -25,7 +25,7 @@
                     @l10n["txtAboutLimitations"]
                 </MudText>
                 <MudText Typo="Typo.body1" GutterBottom=true>
-                    @string.Format(l10n["txtAboutVersion"], Author, Version, Codename)
+                    @string.Format(l10n["txtAboutVersion"], Author, AppVersion.Major, Codename, $"{AppVersion.Minor}{AppVersion.Build}-{AppVersion.Revision}")
                 </MudText>
             </MudPaper>
         </MudItem>
@@ -76,7 +76,10 @@
 
 
 @code {
-    string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+    Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
+    //string MajorVersion = AppVersion.Major.ToString();
+    //string BuildXVersion = string.Format("{0}{1}-{2}", AppVersion.Minor, AppVersion.Revision); $"{}{}-{AppVersion.Build}";
+
     string Author = "Jan Seifert"; // TODO
-    string Codename = "Aves Bootheel";// TODO
+    string Codename = "Aves Boot Heel";// TODO
 }
