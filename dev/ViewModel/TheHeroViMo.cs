@@ -445,7 +445,7 @@ namespace FateExplorer.ViewModel
             return new CharacterAttrDTO()
             {
                 Id = ChrAttrId.DO,
-                Name = "Dodge"/*TODO*/, 
+                Name = "Dodge"/*TODO: Magic string, no l10n*/, 
                 EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
             };
         }
