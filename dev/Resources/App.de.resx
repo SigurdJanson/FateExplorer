@@ -704,6 +704,14 @@
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
   </data>
+  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
+    <value>Beim Import gepatzert. Ursache: {0}</value>
+    <comment>SkeletonNoCharacterData</comment>
+  </data>
+  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
+    <value>Beim Import gepatzert. Ursache unbekannt.</value>
+    <comment>SkeletonNoCharacterData</comment>
+  </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} für {1} ist nicht implementiert</value>
     <comment>Fight</comment>

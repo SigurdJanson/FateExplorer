@@ -71,28 +71,35 @@
         //Snackbar.Add($"This files starts with letter {CharacterFile.Name.Substring(0, 1)}", Severity.Warning);
         //Snackbar.Add($"This file has the extension: {CharacterFile.Name.Split(".").Last()}", Severity.Info);
 
-        var memoryStream = new MemoryStream();
-        if (IsExceptionFree)
+        using (var memoryStream = new MemoryStream())
         {
-            await CharacterFile.OpenReadStream().CopyToAsync(memoryStream);
-            memoryStream.Dispose();
-        }
-
-        if(IsExceptionFree)
-        {
-            try
+            if (IsExceptionFree)
             {
-                Hero.ReadCharacterFile(memoryStream.ToArray());
+                await CharacterFile.OpenReadStream().CopyToAsync(memoryStream);
             }
-            catch(Exception error)
-            {
-                IsExceptionFree = false;
-                Snackbar.Add(l10n[error.Message], Severity.Error);
-            }
-        }
 
-        if (IsExceptionFree)
-            await OnCharacterHasLoaded.InvokeAsync();
+            if(IsExceptionFree)
+            {
+                try
+                {
+                    Hero.ReadCharacterFile(memoryStream.ToArray());
+                }
+                catch(ChrImportException error)
+                {
+                    IsExceptionFree = false;
+                    string Msg = string.Format(l10n["msgCharacterImportErrorDefined"], error.GetCause());
+                    Snackbar.Add(Msg, Severity.Error);
+                }
+                catch(Exception)
+                {
+                    IsExceptionFree = false;
+                    Snackbar.Add(l10n["msgCharacterImportErrorUndefined"], Severity.Error);
+                }
+            }
+
+            if (IsExceptionFree)
+                await OnCharacterHasLoaded.InvokeAsync();
+        }
     }
 
 }

@@ -704,6 +704,14 @@
   <data name="msgCanCarry" xml:space="preserve">
     <value>This character can carry up to {0} stone for a longer period time and lift things with a weight up to {1} stone.</value>
   </data>
+  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
+    <value>Import botch. Source of the error: {0}</value>
+    <comment>SkeletonNoCharacterData</comment>
+  </data>
+  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
+    <value>Import botch. Reason unclear.</value>
+    <comment>SkeletonNoCharacterData</comment>
+  </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} for {1} has not been implemented</value>
     <comment>Fight</comment>
