@@ -89,7 +89,7 @@ namespace FateExplorer.CharacterModel
                 int ExtraEnergy;
                 switch (energy.Id)
                 {
-                    case "LP":
+                    case "LP":// TODO: magic id string
                         _Class = CharacterEnergyClass.LP;
                         ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
                         energyM = new CharacterHealth(energy, _Class, ExtraEnergy, this);
