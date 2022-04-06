@@ -8,21 +8,21 @@
 
 
 <MudContainer Class="mt-16">
-    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Character</MudText>
-    <MudText Align="Align.Center">@l10n["msgNoCharacterData"]</MudText>
+    <MudText Typo=Typo.h3 Align=Align.Center GutterBottom=true>@l10n["lblCharacter"]</MudText>
+    <MudText Align=Align.Center>@l10n["msgNoCharacterData"]</MudText>
     <MudGrid Class="mt-8">
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs=12 sm=6 md=4>
             <MudCard>
-                <MudCardMedia Image="img/skeleton.webp" Height="200" />
+                <MudCardMedia Image="img/skeleton.webp" Height=200 />
                 <MudCardContent>
-                    <MudText Typo="Typo.h5">@l10n["lblNoCharacter"]</MudText>
-                    <MudText Typo="Typo.body2">@l10n["msgLoadCharacterToUse"]</MudText>
+                    <MudText Typo=Typo.h5>@l10n["lblNoCharacter"]</MudText>
+                    <MudText Typo=Typo.body2>@l10n["msgLoadCharacterToUse"]</MudText>
                 </MudCardContent>
                 <MudCardActions>
                     <InputFile id="CharacterFileInput" OnChange="UploadCharacterFile" hidden  />
                     <MudButton HtmlTag="label"
-                               Variant="Variant.Filled" Color="Color.Primary" Class="rounded-0"
-                               StartIcon="@Icons.Filled.CloudUpload"
+                               Variant=Variant.Filled Color=Color.Primary Class="rounded-0"
+                               StartIcon=@Icons.Filled.CloudUpload
                                for="CharacterFileInput">
                         @l10n["btnUploadFile"]
                     </MudButton>
@@ -32,10 +32,10 @@
 
         @for(int i = 0; i < 2; i++)
         {
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs=12 sm=6 md=4>
             <MudCard>
                 <MudCardContent>
-                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="190px" Animation="Animation.Wave"/>
+                    <MudSkeleton SkeletonType=SkeletonType.Rectangle Height="190px" Animation=Animation.Wave/>
                         <MudSkeleton Width="50%" Height="42px;" Class="rounded-0" />
                         <MudSkeleton Width="80%" Class="rounded-0"/>
                 </MudCardContent>

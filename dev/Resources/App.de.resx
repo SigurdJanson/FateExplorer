@@ -421,6 +421,9 @@
   <data name="lblBotch" xml:space="preserve">
     <value>Patzerwurf</value>
   </data>
+  <data name="lblCharacter" xml:space="preserve">
+    <value>Charakter</value>
+  </data>
   <data name="lblCharming" xml:space="preserve">
     <value>Charmant</value>
   </data>

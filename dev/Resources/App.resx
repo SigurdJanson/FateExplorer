@@ -421,6 +421,9 @@
   <data name="lblBotch" xml:space="preserve">
     <value>Botch roll</value>
   </data>
+  <data name="lblCharacter" xml:space="preserve">
+    <value>Character</value>
+  </data>
   <data name="lblCharming" xml:space="preserve">
     <value>Charming</value>
   </data>
@@ -706,11 +709,11 @@
   </data>
   <data name="msgCharacterImportErrorDefined" xml:space="preserve">
     <value>Import botch. Source of the error: {0}</value>
-    <comment>SkeletonNoCharacterData</comment>
+    <comment>No Character Skeleton</comment>
   </data>
   <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
     <value>Import botch. Reason unclear.</value>
-    <comment>SkeletonNoCharacterData</comment>
+    <comment>No Character Skeleton</comment>
   </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} for {1} has not been implemented</value>
