@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 
 
@@ -89,18 +90,18 @@ namespace FateExplorer.CharacterModel
                 int ExtraEnergy;
                 switch (energy.Id)
                 {
-                    case "LP":// TODO: magic id string
+                    case ChrAttrId.LP:
                         _Class = CharacterEnergyClass.LP;
                         ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
                         energyM = new CharacterHealth(energy, _Class, ExtraEnergy, this);
                         break;
-                    case "AE":
+                    case ChrAttrId.AE:
                         if (!characterImportOptM.IsSpellcaster()) break;
                         _Class = CharacterEnergyClass.AE;
                         ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
                         energyM = new CharacterAstralEnergy(energy, _Class, ExtraEnergy, this);
                         break;
-                    case "KP":
+                    case ChrAttrId.KP:
                         if (!characterImportOptM.IsBlessed()) break;
                         _Class = CharacterEnergyClass.KP;
                         ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);

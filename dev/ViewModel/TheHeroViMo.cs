@@ -124,7 +124,7 @@ namespace FateExplorer.ViewModel
         public CharacterAttrDTO GetInitiative()
             => new()
             {
-                Id = "INI", // TODO: no stringed APIs
+                Id = ChrAttrId.INI,
                 Name = ResourceId.IniLabelId,
                 EffectiveValue = Initiative,
                 Max = 40,
@@ -444,7 +444,7 @@ namespace FateExplorer.ViewModel
 
             return new CharacterAttrDTO()
             {
-                Id = "DO"/*TODO*/,
+                Id = ChrAttrId.DO,
                 Name = "Dodge"/*TODO*/, 
                 EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
             };

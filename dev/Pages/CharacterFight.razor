@@ -256,7 +256,7 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnAttackCheck(WeaponViMo weapon, bool MainHand)
     {
-        const string ActionId = "AT"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const string ActionId = ChrAttrId.AT;
 
         try
         {
@@ -278,7 +278,7 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnParryCheck(WeaponViMo weapon, bool MainHand)
     {
-        const string ActionId = "PA"; // TODO no string typed APIs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const string ActionId = ChrAttrId.PA;
         try
         {
             ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
