@@ -746,10 +746,6 @@
     <value>Du hast noch keinen Charakter geladen</value>
     <comment>No Character Skeleton</comment>
   </data>
-  <data name="msgNoCharacterData1" xml:space="preserve">
-    <value>You have not loaded any characters</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="msgNoRegeneration" xml:space="preserve">
     <value>Keine Regeneration für {0}</value>
     <comment>Energy regeneration</comment>
@@ -965,7 +961,7 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">
-    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit. </value>
+    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit.</value>
     <comment>About</comment>
   </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
@@ -990,5 +986,8 @@
   <data name="Zhayad" xml:space="preserve">
     <value>Zhayad</value>
     <comment>enum LanguageId</comment>
+  </data>
+  <data name="txtAbilities" xml:space="preserve">
+    <value>Eigenschaften</value>
   </data>
 </root>

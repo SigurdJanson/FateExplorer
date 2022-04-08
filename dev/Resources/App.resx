@@ -726,7 +726,7 @@
     <value>How could you mess this up?</value>
   </data>
   <data name="msgEmptyItemDetails" xml:space="preserve">
-    <value>No properties are available for this item</value>
+    <value>No properties are available for this item.</value>
   </data>
   <data name="msgEmptyShoppingCart" xml:space="preserve">
     <value>Shopping cart is still empty. Put something in.</value>
@@ -740,7 +740,7 @@
     <comment>No Character Skeleton</comment>
   </data>
   <data name="msgMaxCarryExceeded" xml:space="preserve">
-    <value>The character may suffer a penalty for too much weight</value>
+    <value>The character may suffer a penalty for too much weight.</value>
   </data>
   <data name="msgNoCharacterData" xml:space="preserve">
     <value>You have not loaded any characters</value>
