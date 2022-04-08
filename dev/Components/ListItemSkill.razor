@@ -17,22 +17,41 @@
         <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblSkillAbbr"] @Skill.Max</MudText>
     </div>
     <MudSpacer/>
+    @if (RollSkill.HasDelegate)
+    {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
             OnClick=@(() => RollSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblRoll"] + " " + Skill.Name) />
+    }
+    @if (ViewSkill.HasDelegate)
+    {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
             OnClick=@(() => ViewSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblView"] + " " + Skill.Name) />
+    }
     </div>
 </MudListItem>
 
 
 @code {
+    /// <summary>
+    /// The skill value to be displayed
+    /// </summary>
     [Parameter] public SkillsDTO Skill { get; set; }
 
+    /// <summary>
+    /// An event that will be called in case the user rolls a skill check
+    /// </summary>
     [Parameter] public EventCallback<SkillsDTO> RollSkill { get; set; }
 
+    /// <summary>
+    /// An event that will be called in case the user requests details about the skill check
+    /// </summary>
     [Parameter] public EventCallback<SkillsDTO> ViewSkill { get; set; }
 
+    /// <summary>
+    /// If the list container of this item applies a text filter to the list,
+    /// this is the according filter string.
+    /// </summary>
     [Parameter] public string TextFilter { get; set; }
 }

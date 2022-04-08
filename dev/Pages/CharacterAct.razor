@@ -24,7 +24,7 @@
                             @if (FavoriteSkills is not null)
                                 @foreach (var skill in FavoriteSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView />
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -33,7 +33,7 @@
                             @if (BestSkills is not null)
                                 @foreach (var skill in BestSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView/>
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -72,7 +72,7 @@
                                 {
                                     @if (CheckFilter(skill.Domain, skill.Name))
                                     {
-                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck ViewSkill=OnSkillView TextFilter=@FilterTerm />
+                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck TextFilter=@FilterTerm /> @*ViewSkill=OnSkillView*@
                                     }
                                 }
                         </MudList>
