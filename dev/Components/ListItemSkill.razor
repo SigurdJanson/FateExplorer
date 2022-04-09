@@ -43,7 +43,7 @@
     [Parameter] public SkillsDTO Skill { get; set; }
 
     /// <summary>
-    /// 
+    /// The abilities needed to roll a check on that skill
     /// </summary>
     [Parameter] public AbilityDTO[]  Abilities { get; set; }
 
@@ -63,10 +63,18 @@
     /// </summary>
     [Parameter] public string TextFilter { get; set; }
 
-    
 
+    #region RENDERING
+    // Re-render only if...
+    private bool shouldRender;
+    protected override bool ShouldRender() => shouldRender;
+    // re-render when these skill properties change:
+    private string prevId = string.Empty;
+    private int prevEffective = 0;
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     RenderFragment<AbilityDTO[]> RenderAbilities = Value => __builder =>
     {
         if (Value is not null)
@@ -87,8 +95,24 @@
                 {
                 <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;❱</span>
                 }
-                
+
             }
         }
     };
+
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        // Only re-render component if ...
+        if (Skill.Id != prevId || Skill.EffectiveValue != prevEffective)
+        {
+            shouldRender = true;
+            // Save state to avoid frequent rendering
+            prevId = Skill.Id;
+            prevEffective = Skill.EffectiveValue;
+        }
+    }
+
+    #endregion
 }
