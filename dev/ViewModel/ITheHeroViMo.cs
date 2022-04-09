@@ -92,7 +92,12 @@ namespace FateExplorer.ViewModel
         List<SkillDomain> GetMasteredSkillDomains();
 
 
-        List<AbilityDTO> GetSkillAbilities(SkillsDTO skill);
+        /// <summary>
+        /// Returns the 3 abilities required to do a skill check.
+        /// </summary>
+        /// <param name="skillId">The identifier of the requested skill</param>
+        /// <returns>An array with exactly three abilities</returns>
+        AbilityDTO[] GetSkillAbilities(string skillId);
 
         /// <summary>
         /// Returns the effective dodge value

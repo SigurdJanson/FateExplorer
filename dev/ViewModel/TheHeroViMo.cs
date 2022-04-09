@@ -380,14 +380,16 @@ namespace FateExplorer.ViewModel
         }
 
 
-        public List<AbilityDTO> GetSkillAbilities(SkillsDTO skill)
+        public AbilityDTO[] GetSkillAbilities(string skillId)
         {
-            List<AbilityDTO> Result = new();
-            var s = characterM.Skills.Skills[skill.Id];
+            AbilityDTO[] Result = new AbilityDTO[3];
+            var s = characterM.Skills.Skills[skillId];
+
+            int Index = 0;
             foreach (var AbilityId in s.Abilities)
             {
                 var Ability = characterM?.Abilities[AbilityId];
-                Result.Add(new AbilityDTO()
+                Result[Index++] = new AbilityDTO()
                 {
                     Id = Ability.Id,
                     Name = Ability.Name,
@@ -395,7 +397,7 @@ namespace FateExplorer.ViewModel
                     EffectiveValue = AbilityEffValues[Ability.Id],
                     Max = Ability.Value,
                     Min = 0
-                });
+                };
             }
             return Result;
         }

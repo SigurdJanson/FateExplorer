@@ -14,7 +14,10 @@
         {
         <MudText Typo=Typo.body1 GutterBottom=false>@Skill.Name</MudText>
         }
-        <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblSkillAbbr"] @Skill.Max</MudText>
+        <MudText Typo=Typo.body2 GutterBottom=false>
+            <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
+            @Skill.Max @RenderAbilities(Abilities)
+        </MudText>
     </div>
     <MudSpacer/>
     @if (RollSkill.HasDelegate)
@@ -40,6 +43,11 @@
     [Parameter] public SkillsDTO Skill { get; set; }
 
     /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public AbilityDTO[]  Abilities { get; set; }
+
+    /// <summary>
     /// An event that will be called in case the user rolls a skill check
     /// </summary>
     [Parameter] public EventCallback<SkillsDTO> RollSkill { get; set; }
@@ -54,4 +62,33 @@
     /// this is the according filter string.
     /// </summary>
     [Parameter] public string TextFilter { get; set; }
+
+    
+
+
+
+    RenderFragment<AbilityDTO[]> RenderAbilities = Value => __builder =>
+    {
+        if (Value is not null)
+        {
+            for (int i = 0; i < Value.Length; i++)
+            {
+
+                if (i == 0)
+                {
+                <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;&nbsp;❰&nbsp;</span>
+                }
+                else
+                {
+                <span>&nbsp;·&nbsp</span>
+                }
+                <span style=@($"color:var(--mud-palette-grey-default);")>@Value[i].ShortName </span>@($"{Value[i].EffectiveValue}")
+                if (i == Value.Length-1)
+                {
+                <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;❱</span>
+                }
+                
+            }
+        }
+    };
 }
