@@ -121,7 +121,7 @@ namespace FateExplorer.ViewModel
         /// <returns>The complete roll result; null if the errective value is already at max.</returns>
         public RollResultViMo Regenerate(RegenerationSite site, RegenerationDisturbance disturb, bool poisonedSick, int modifier)
         {
-            if (effectiveValue == Max) return null;
+            if (effectiveValue >= EffMax) return null;
 
             EnergyRollM energyRoll = new(site, disturb, poisonedSick, modifier);
             energyRoll.Roll();
