@@ -702,7 +702,7 @@
     <value>Loser!</value>
   </data>
   <data name="msgCallToAction4Rolls" xml:space="preserve">
-    <value>Roll something</value>
+    <value>You haven't done anything, yet.</value>
   </data>
   <data name="msgCanCarry" xml:space="preserve">
     <value>This character can carry up to {0} stone for a longer period time and lift things with a weight up to {1} stone.</value>
