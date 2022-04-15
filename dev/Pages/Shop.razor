@@ -47,8 +47,8 @@
                         }
                     </MudSelect>
                     <MudSpacer /><MudSpacer />
-                    <MudSelect T=@((string, string)) Class="mt-0" ValueChanged=@(c => OnCurrencyChanged(c))
-                        Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
+                    <MudSelect T=@((string, string)) ValueChanged=@(c => OnCurrencyChanged(c))
+                        Class="mt-0" Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
                         {
                             <MudSelectItem Value=@item />
@@ -130,6 +130,7 @@
 </MudContainer>
 
 
+@* EMPTY SHOPPING CART *@
 <MudDrawer @bind-Open=@OpenDetailsDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="500px">
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
@@ -204,6 +205,8 @@
 </MudContainer>
 </MudDrawer>
 
+
+
 @code {
     private MudTable<ShopItemViMo> Table;
 
@@ -214,6 +217,7 @@
 
     private string ComparisonCurrency = "";
     private double ComparisonCurrencyRate = 1.0;
+
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
     {
@@ -235,6 +239,7 @@
 
         return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = data };
     }
+
 
     /// <summary>
     /// Reload table data on changed search parameters
