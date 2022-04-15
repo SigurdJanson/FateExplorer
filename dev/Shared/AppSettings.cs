@@ -33,6 +33,23 @@ namespace FateExplorer.Shared
         }
 
 
+        private string defaultCurrency;
+        /// <summary>
+        /// Get the id of the default currency
+        /// </summary>
+        public string DefaultCurrency
+        {
+            get
+            {
+                if (defaultCurrency is null)
+                    defaultCurrency = Config.GetValue<string>("FE:DefaultCurrency");
+                return defaultCurrency;
+            }
+            set { defaultCurrency = value; }
+        }
+
+
+
         public AppSettings(IConfiguration config)
         {
             Config = config;
