@@ -3,6 +3,7 @@
 @using FateExplorer.GameData
 @using FateExplorer.Shop
 @using System.ComponentModel.DataAnnotations
+@using System.Windows.Input;
 
 @inject IGameDataService GameData
 @inject AppSettings AppCfg
@@ -10,7 +11,7 @@
 @inject ISnackbar Snackbar
 @inject HttpClient httpClient
 
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
         <MudItem xs=3>
         </MudItem>
@@ -57,12 +58,12 @@
                     </MudSelect>                
                 </ToolBarContent>
                 <ColGroup>
-                    <col style="width:40%" />
+                    <col style="width:35%" />
                     <col style="width:12rem"/>
                     <col style="width:12rem" />
                     <col style="width:25rem" />
                     <col style="width:20%"/>
-                    <col style="width:24rem" />
+                    <col style="width:36rem" />
                 </ColGroup>
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Name" T="ShopItemViMo">
@@ -89,32 +90,31 @@
                         <MudHighlighter Text=@context.Name HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
-                    <MudTd DataLabel="Price" Style="text-align:right">@context.Price.ToString("N2")</MudTd>
+                    <MudTd DataLabel="Price" Style="text-align:right">@context.PriceStr</MudTd>
                     <MudTd Style="text-align:right">@((context.Price * ComparisonCurrencyRate).ToString("N2"))</MudTd>
-                    <MudTd DataLabel="Weight" Style="text-align:right">@context.Weight.ToString("N4")</MudTd>
+                    <MudTd DataLabel="Weight" Style="text-align:right">@context.WeightStr</MudTd>
                     <MudTd DataLabel="Group">
                         <MudHighlighter Text=@context.Group HighlightedText=@searchString 
                             Style="background-color:transparent;font-weight:bold" />
                     </MudTd>
                     <MudTd>
-                        <MudTooltip Text=@l10n["msgAdd2Cart"]>
-                            <MudIconButton Icon=@Icons.Sharp.PlusOne Size=Size.Small Variant=Variant.Filled
+                        <MudTooltip Text=@Tooltips[msgAdd2Cart]>
+                            <MudButton Size=Size.Small Variant=Variant.Filled
                                 Color=Color.Secondary
-                                OnClick=@(() => ShoppingCart.Add( (context, 1) ))
-                                aria-label=@l10n["msgAdd2Cart"] Class="px-2" />
+                                OnClick=@context.Add2Cart
+                                aria-label=@Tooltips[msgAdd2Cart] Class="px-2">+1</MudButton>
                         </MudTooltip>
-                        <MudTooltip Text=@l10n["msgShowDetails"]>
-                            <MudIconButton Icon=@Icons.Sharp.Pageview Size=Size.Small Variant=Variant.Outlined
-                                Color=Color.Tertiary
-                                OnClick=@(() => OpenDrawer(context))
-                                aria-label=@l10n["msgShowDetails"] />
+                        <MudTooltip Text=@Tooltips[msgShowDetails]>
+                            <MudButton Size=Size.Small Variant=Variant.Outlined Color=Color.Tertiary
+                                OnClick=@context.OpenItemDetails
+                                aria-label=@Tooltips[msgShowDetails]>Details</MudButton>
                         </MudTooltip>
-                        <MudTooltip Text=@l10n["msgFindAtUlissesWiki"]>
-                            <MudIconButton Icon=@IconsFE.Ulisses Size=Size.Small Variant=Variant.Outlined
+                        <MudTooltip Text=@Tooltips[msgFindAtUlissesWiki]>
+                            <MudButton Size=Size.Small Variant=Variant.Outlined 
                                 Color=Color.Tertiary
                                 Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
                                 Target="_blank"
-                                aria-label=@l10n["msgFindAtUlissesWiki"] />
+                                aria-label=@Tooltips[msgFindAtUlissesWiki]>&#x2754;</MudButton>
                         </MudTooltip>
                     </MudTd>
                 </RowTemplate>
@@ -209,7 +209,11 @@
 
 
 @code {
+    // TABLE
     private MudTable<ShopItemViMo> Table;
+    private string[] Tooltips;
+    const int msgAdd2Cart = 0, msgShowDetails = 1, msgFindAtUlissesWiki = 2;
+
 
     private ShopInventoryViMo Stock { get; set; }
 
@@ -271,9 +275,22 @@
         await base.OnInitializedAsync();
         Stock = new ShopInventoryViMo(GameData, AppCfg, httpClient, l10n);
         await Stock.InitializeGameDataAsync();
+
+        foreach(var item in Stock.GetStock(null, null))
+        {
+            item.OpenItemDetails = (e) => OpenDrawer(item);
+            item.Add2Cart = (e) => ShoppingCart.Add((item, 1));
+        }
+
         ShoppingCart = new ShoppingCartViMo();
         Merchant = new MerchantViMo(GameData);
         OnCurrencyChanged(Stock.GetDefaultCurrency());
+
+        // Avoid translating this thousands of times
+        Tooltips = new string[3];
+        Tooltips[msgAdd2Cart] = l10n["msgAdd2Cart"];
+        Tooltips[msgShowDetails] = l10n["msgShowDetails"];
+        Tooltips[msgFindAtUlissesWiki] = l10n["msgFindAtUlissesWiki"];
     }
 
 
@@ -289,6 +306,7 @@
         ItemDetailsRender = RenderItemDetails();
         OpenDetailsDrawer = true;
     }
+
 
 
     /// <summary>
@@ -311,8 +329,8 @@
             if (displayLabel is null || displayLabel.Name == "hide")
                 continue;
 
-            // Get the initial property value.
-            var propInfoValue = typeof(ShopItemViMo).GetProperty(prp.Name);
+        // Get the initial property value.
+        var propInfoValue = typeof(ShopItemViMo).GetProperty(prp.Name);
 
             var defaultValue = propInfoValue.GetValue(ItemWithDetails);
             if (defaultValue is null) continue;
@@ -353,6 +371,5 @@
     private MerchantViMo Merchant { get; set; }
 
     private bool OpenShopCartDrawer { get; set; }
-
 
 }
