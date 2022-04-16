@@ -21,7 +21,7 @@ namespace UnitTests.GameData
         /// Defines the white list to exclude properties from the deep comparison when
         /// the language files are compared.See <seealso cref="CompareLanguages_Equality"/>.
         /// </summary>
-        public string[] DeepComparisonWhiteList = { "Name", "ShortName" };
+        public string[] DeepComparisonWhiteList = { "Name", "ShortName", "Origin" };
 
 
 

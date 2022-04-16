@@ -194,6 +194,24 @@ namespace FateExplorer.GameData
         #endregion
 
 
+
+        #region Things
+
+        private CurrenciesDB currencies;
+        public CurrenciesDB Currencies
+        {
+            get
+            {
+                if (currencies is null) // load on demand
+                    throw new HttpRequestException("Data has not been loaded");
+                return currencies;
+            }
+            protected set => currencies = value;
+        }
+
+        #endregion
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -205,17 +223,27 @@ namespace FateExplorer.GameData
 
 
         /// <summary>
-        /// Load the data
+        /// Determines which language should be used.
         /// </summary>
-        /// <returns></returns>
-        public async Task InitializeGameDataAsync()
+        /// <returns>An ISO-639-1 language code. If the requested app language is not supported it returns English ("en")</returns>
+        protected string GetAppLanguageCode()
         {
             string Language = System.Globalization.CultureInfo.CurrentUICulture.Name;
             if (Language.StartsWith("de"))
                 Language = "de";
             else
                 Language = "en";
+            return Language;
+        }
 
+
+        /// <summary>
+        /// Load the data
+        /// </summary>
+        /// <returns></returns>
+        public async Task InitializeGameDataAsync()
+        {
+            string Language = GetAppLanguageCode();
 
             string fileName = $"data/attributes_{Language}.json";
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
@@ -257,6 +285,11 @@ namespace FateExplorer.GameData
 
             fileName = $"data/karmaskills_{Language}.json";
             KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
+
+            // Things
+            fileName = $"data/currency_{Language}.json";
+            currencies = await DataSource.GetFromJsonAsync<CurrenciesDB>(fileName);
+
         }
     }
 }

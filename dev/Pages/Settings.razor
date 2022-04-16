@@ -25,7 +25,7 @@
             <MudGrid>
                 <MudItem xs=12>
                     <MudSelect Label=@l10n["lblMostUsedSkills"] MultiSelection=true 
-                        SelectedValues=AppCfg.MostUsedSkills ToStringFunc=@convertFunc 
+                        SelectedValues=AppCfg.MostUsedSkills ToStringFunc=@convertSkillFunc 
                         SelectedValuesChanged=@((IEnumerable<string> s) => SetMostUsedSkills(s)) HelperText=@l10n["txtMostUsedSkills"]>
                         @foreach (var skill in GameDB.Skills.Data)
                         {
@@ -35,11 +35,37 @@
                 </MudItem>
             </MudGrid>
         </MudItem>
+
+        <MudItem xs=12 md=6>
+            <MudText Typo=Typo.h5 GutterBottom=true>@l10n["lblSkills"]</MudText>
+            <MudGrid>
+                <MudItem xs=12>
+                    <MudSelect Label=@l10n["lblDefaultCurrency"]
+                        Value=AppCfg.DefaultCurrency ToStringFunc=@convertCurrencyFunc 
+                        ValueChanged=@((string cid) => SetDefaultCurrency(cid))>
+                        @foreach (var c in GameDB.Currencies.Data)
+                        {
+                            <MudSelectItem Value=@c.Id/>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
     </MudGrid>
 </MudContainer>
 
 @code {
-    private string convertFunc(string skillId) => GameDB.Skills[skillId].Name;
+    // CURRENCY
+    private string convertCurrencyFunc(string currency) =>GameDB.Currencies[currency].Name;
+    
+    private void SetDefaultCurrency(string currencyId)
+    {
+        AppCfg.DefaultCurrency = currencyId;
+    }
+
+
+    // SKILLS
+    private string convertSkillFunc(string skillId) => GameDB.Skills[skillId].Name;
 
     private void SetMostUsedSkills(IEnumerable<string> Used)
     {

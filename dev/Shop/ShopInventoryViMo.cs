@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,11 +13,22 @@ namespace FateExplorer.Shop
     {
         protected HttpClient DataSource;
         protected IStringLocalizer<App> l10n;
+        protected IGameDataService GameData;
+        protected AppSettings AppCfg;
 
-        public ShopInventoryViMo(HttpClient dataSource, IStringLocalizer<App> localizer)
+
+        public ShopInventoryViMo(IGameDataService gameData, AppSettings appCfg, HttpClient dataSource, IStringLocalizer<App> localizer)
         {
+            GameData = gameData;
+            AppCfg = appCfg;
             DataSource = dataSource;
             l10n = localizer;
+
+            Currencies = new();
+            foreach (var c in GameData.Currencies.Data)
+            {
+                Currencies.Add(new CurrencyM(c));
+            }
         }
 
 
@@ -90,8 +103,11 @@ namespace FateExplorer.Shop
         /// <returns>A tupel <c>(id, name)</c> containing the currency data</returns>
         public (string id, string name) GetDefaultCurrency()
         {
-            CurrencyM Default = Currencies.Find(c => c.Id == "m10"); // TODO: get this from settings?
-            return (id: Default.Id, name: Default.Name);
+            CurrencyM Default = Currencies.Find(c => c.Id == AppCfg.DefaultCurrency);
+            if (Default != default)
+                return (id: Default.Id, name: Default.Name);
+            else
+                return (id: "", name: "");
         }
 
 
@@ -129,12 +145,8 @@ namespace FateExplorer.Shop
                 Inventory.Add(new ShopItemViMo(item) 
                 { 
                     Group = l10n[item.Group.ToString()] // need to localise
-                } );
-
+                });
             }
-
-            fileName = $"data/currency_{Language}.json";
-            Currencies = await DataSource.GetFromJsonAsync<List<CurrencyM>>(fileName);
         }
 
     }

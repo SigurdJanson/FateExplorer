@@ -5,6 +5,7 @@
 @using System.ComponentModel.DataAnnotations
 
 @inject IGameDataService GameData
+@inject AppSettings AppCfg
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
 @inject HttpClient httpClient
@@ -47,7 +48,7 @@
                         }
                     </MudSelect>
                     <MudSpacer /><MudSpacer />
-                    <MudSelect T=@((string, string)) ValueChanged=@(c => OnCurrencyChanged(c))
+                    <MudSelect T=@((string, string)) Value=@Stock.GetDefaultCurrency() ValueChanged=@(c => OnCurrencyChanged(c))
                         Class="mt-0" Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
                         {
@@ -153,7 +154,7 @@
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs=12>
-            @if (ShoppingCart.Count > 0)
+            @if ((ShoppingCart?.Count ?? 0) > 0)
             {
             <MudPaper Class="pa-4" Outlined=true>
                 <div class="d-flex justify-space-between">
@@ -267,13 +268,14 @@
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
-        Stock = new ShopInventoryViMo(httpClient, l10n);
+        await base.OnInitializedAsync();
+        Stock = new ShopInventoryViMo(GameData, AppCfg, httpClient, l10n);
+        await Stock.InitializeGameDataAsync();
         ShoppingCart = new ShoppingCartViMo();
         Merchant = new MerchantViMo(GameData);
-        await Stock.InitializeGameDataAsync();
         OnCurrencyChanged(Stock.GetDefaultCurrency());
     }
+
 
 
     // DETAILS DRAWER
@@ -287,6 +289,7 @@
         ItemDetailsRender = RenderItemDetails();
         OpenDetailsDrawer = true;
     }
+
 
     /// <summary>
     /// Create dynamic list of item properties in the sidebar
