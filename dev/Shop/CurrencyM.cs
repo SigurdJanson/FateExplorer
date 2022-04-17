@@ -1,33 +1,24 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.GameData;
 
 namespace FateExplorer.Shop
 {
     public class CurrencyM
     {
-        [JsonConstructor]
-        public CurrencyM(
-            string id,
-            string origin,
-            string name,
-             double rate
-        )
+        public CurrencyM(CurrencyDbEntry currencyDbEntry)
         {
-            this.Id = id;
-            this.Origin = origin;
-            this.Name = name;
-            this.Rate = rate;
+            this.Id = currencyDbEntry.Id;
+            this.Origin = currencyDbEntry.Origin;
+            this.Name = currencyDbEntry.Name;
+            this.Rate = currencyDbEntry.Rate;
         }
 
-        [JsonPropertyName("id")]
+
         public string Id { get; }
 
-        [JsonPropertyName("origin")]
         public string Origin { get; }
 
-        [JsonPropertyName("name")]
         public string Name { get; }
 
-        [JsonPropertyName("rate")]
         public double Rate { get; }
     }
 }

@@ -14,25 +14,105 @@
         {
         <MudText Typo=Typo.body1 GutterBottom=false>@Skill.Name</MudText>
         }
-        <MudText Typo=Typo.body2 GutterBottom=false>@l10n["lblSkillAbbr"] @Skill.Max</MudText>
+        <MudText Typo=Typo.body2 GutterBottom=false>
+            <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
+            @Skill.Max @RenderAbilities(Abilities)
+        </MudText>
     </div>
     <MudSpacer/>
+    @if (RollSkill.HasDelegate)
+    {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
             OnClick=@(() => RollSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblRoll"] + " " + Skill.Name) />
+    }
+    @if (ViewSkill.HasDelegate)
+    {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
             OnClick=@(() => ViewSkill.InvokeAsync(Skill))
             aria-label=@(l10n["lblView"] + " " + Skill.Name) />
+    }
     </div>
 </MudListItem>
 
 
 @code {
+    /// <summary>
+    /// The skill value to be displayed
+    /// </summary>
     [Parameter] public SkillsDTO Skill { get; set; }
 
+    /// <summary>
+    /// The abilities needed to roll a check on that skill
+    /// </summary>
+    [Parameter] public AbilityDTO[]  Abilities { get; set; }
+
+    /// <summary>
+    /// An event that will be called in case the user rolls a skill check
+    /// </summary>
     [Parameter] public EventCallback<SkillsDTO> RollSkill { get; set; }
 
+    /// <summary>
+    /// An event that will be called in case the user requests details about the skill check
+    /// </summary>
     [Parameter] public EventCallback<SkillsDTO> ViewSkill { get; set; }
 
+    /// <summary>
+    /// If the list container of this item applies a text filter to the list,
+    /// this is the according filter string.
+    /// </summary>
     [Parameter] public string TextFilter { get; set; }
+
+
+    #region RENDERING
+    // Re-render only if...
+    private bool shouldRender;
+    protected override bool ShouldRender() => shouldRender;
+    // re-render when these skill properties change:
+    private string prevId = string.Empty;
+    private int prevEffective = 0;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    RenderFragment<AbilityDTO[]> RenderAbilities = Value => __builder =>
+    {
+        if (Value is not null)
+        {
+            for (int i = 0; i < Value.Length; i++)
+            {
+
+                if (i == 0)
+                {
+                <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;&nbsp;❰&nbsp;</span>
+                }
+                else
+                {
+                <span>&nbsp;·&nbsp</span>
+                }
+                <span style=@($"color:var(--mud-palette-grey-default);")>@Value[i].ShortName </span>@($"{Value[i].EffectiveValue}")
+                if (i == Value.Length-1)
+                {
+                <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;❱</span>
+                }
+
+            }
+        }
+    };
+
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        // Only re-render component if ...
+        if (Skill.Id != prevId || Skill.EffectiveValue != prevEffective)
+        {
+            shouldRender = true;
+            // Save state to avoid frequent rendering
+            prevId = Skill.Id;
+            prevEffective = Skill.EffectiveValue;
+        }
+    }
+
+    #endregion
 }

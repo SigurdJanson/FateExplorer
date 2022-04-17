@@ -3,6 +3,7 @@ using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace FateExplorer.CharacterImport
@@ -147,6 +148,14 @@ namespace FateExplorer.CharacterImport
 
         [JsonPropertyName("pact")]
         public PactOptM Pact { get; set; }
+
+
+        /// <summary>
+        /// Deserialize properties that aren’t explicitely part of this class
+        /// </summary>
+        /// <remarks><see href="https://shorturl.gg/txKWfp"/></remarks>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; }
 
         #endregion
 

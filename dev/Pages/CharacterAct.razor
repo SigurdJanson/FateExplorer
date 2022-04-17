@@ -24,7 +24,7 @@
                             @if (FavoriteSkills is not null)
                                 @foreach (var skill in FavoriteSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView />
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Hero.GetSkillAbilities(skill.Id) /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -33,7 +33,7 @@
                             @if (BestSkills is not null)
                                 @foreach (var skill in BestSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck ViewSkill=OnSkillView/>
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Hero.GetSkillAbilities(skill.Id) /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -72,7 +72,7 @@
                                 {
                                     @if (CheckFilter(skill.Domain, skill.Name))
                                     {
-                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck ViewSkill=OnSkillView TextFilter=@FilterTerm />
+                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck TextFilter=@FilterTerm Abilities=@Hero.GetSkillAbilities(skill.Id)/> @*ViewSkill=OnSkillView*@
                                     }
                                 }
                         </MudList>
@@ -176,7 +176,7 @@ else
         bool CheckSucceeded = true;
         try
         {
-            var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s).ToArray(), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
+            var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
             ActiveCheck = RollHandler.OpenRollCheck(s.Id, s, cnv);
         }
         catch(NotImplementedException error)

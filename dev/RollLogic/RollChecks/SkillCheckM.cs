@@ -134,7 +134,7 @@ namespace FateExplorer.RollLogic
             if (Count1s >= 2)
                 return Skill;
             else if (Count20s >= 2)
-                return 0;
+                return -1;
 
             // Determine how many points must be compensated by the skill value
             int ToCompensate = 0;

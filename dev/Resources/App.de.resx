@@ -421,6 +421,9 @@
   <data name="lblBotch" xml:space="preserve">
     <value>Patzerwurf</value>
   </data>
+  <data name="lblCharacter" xml:space="preserve">
+    <value>Charakter</value>
+  </data>
   <data name="lblCharming" xml:space="preserve">
     <value>Charmant</value>
   </data>
@@ -699,10 +702,18 @@
     <value>Verlierer!</value>
   </data>
   <data name="msgCallToAction4Rolls" xml:space="preserve">
-    <value>Würfle etwas</value>
+    <value>Du hast noch nichts gewürfelt.</value>
   </data>
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
+  </data>
+  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
+    <value>Beim Import gepatzert. Ursache: {0}</value>
+    <comment>SkeletonNoCharacterData</comment>
+  </data>
+  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
+    <value>Beim Import gepatzert. Ursache unbekannt.</value>
+    <comment>SkeletonNoCharacterData</comment>
   </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} für {1} ist nicht implementiert</value>
@@ -733,10 +744,6 @@
   </data>
   <data name="msgNoCharacterData" xml:space="preserve">
     <value>Du hast noch keinen Charakter geladen</value>
-    <comment>No Character Skeleton</comment>
-  </data>
-  <data name="msgNoCharacterData1" xml:space="preserve">
-    <value>You have not loaded any characters</value>
     <comment>No Character Skeleton</comment>
   </data>
   <data name="msgNoRegeneration" xml:space="preserve">
@@ -954,7 +961,7 @@
     <comment>About</comment>
   </data>
   <data name="txtAboutWhatis" xml:space="preserve">
-    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit. </value>
+    <value>Der Fate Explorer unterstützt beim Spielen von Pen&amp;Paper Rollenspielen nach DSA5* Regeln. Er kümmert sich um die meisten Grundregeln in einer Art intelligentem Charakterbogen.. Aufeinanderfolgende Proben (wie beim Kampf) erledigt er auf Tastendruck und teilt das Ergebnis mit.</value>
     <comment>About</comment>
   </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
@@ -979,5 +986,8 @@
   <data name="Zhayad" xml:space="preserve">
     <value>Zhayad</value>
     <comment>enum LanguageId</comment>
+  </data>
+  <data name="txtAbilities" xml:space="preserve">
+    <value>Eigenschaften</value>
   </data>
 </root>

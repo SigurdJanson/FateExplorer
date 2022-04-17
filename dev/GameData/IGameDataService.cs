@@ -42,6 +42,8 @@ namespace FateExplorer.GameData
 
         public EnergiesDB Energies { get; }
 
+        public CurrenciesDB Currencies { get; }
+
         public Task InitializeGameDataAsync();
     }
 }

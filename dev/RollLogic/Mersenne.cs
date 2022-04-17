@@ -4,7 +4,8 @@
 namespace FateExplorer.RollLogic
 {
     /// <summary>
-    /// The Mersenne Twister is a pseudorandom number generator (PRNG). It is by far the most widely used general-purpose PRNG (quote by Wikipedia).
+    /// The Mersenne Twister is a pseudorandom number generator (PRNG). 
+    /// It is by far the most widely used general-purpose PRNG (quote by Wikipedia).
     /// </summary>
     /// <remarks>As implemented by https://www.prowaretech.com/Computer/DotNet/Mersenne</remarks>
     public class RandomMersenne : IRandomNG
@@ -45,7 +46,7 @@ namespace FateExplorer.RollLogic
         {
             mt[0] = seed;
             for (mti = 1; mti < MERS_N; mti++)
-                mt[mti] = (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
+                mt[mti] = 1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti;
         }
 
         /// <summary>
@@ -80,13 +81,14 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc/>
         public int IRandom(int min, int max)
         {
+            if (max <= min) 
+                throw new ArgumentException("max argument shall be greater than min", nameof(max));
             // output random integer in the interval min <= x <= max
             int r;
             r = (int)((max - min + 1) * Random()) + min; // multiply interval with random and truncate
             if (r > max)
                 r = max;
-            if (max < min)
-                return -2147483648;
+
             return r;
         }
 

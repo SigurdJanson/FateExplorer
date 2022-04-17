@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 
 
@@ -29,106 +30,154 @@ namespace FateExplorer.CharacterModel
     {
 
         /// <summary>
-        /// Constructor using an Optoloith import
+        /// Constructor using an Optolith import
         /// </summary>
         /// <param name="gameData">Access to the data bases describing basic DSA5</param>
         /// <param name="characterImportOptM">Importer</param>
         public CharacterM(IGameDataService gameData, CharacterImportOptM characterImportOptM)
         {
-            Name = characterImportOptM.GetName();
-            PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
-            DateOfBirth = characterImportOptM.GetDateOfBirth();
-            SpeciesId = characterImportOptM.GetSpeciesId();
+            try
+            {
+                Name = characterImportOptM.GetName();
+                PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
+                DateOfBirth = characterImportOptM.GetDateOfBirth();
+                SpeciesId = characterImportOptM.GetSpeciesId();
+            }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Specification); }
 
             // ABILITIES
-            Abilities = new();
-            foreach (var AbImport in characterImportOptM.GetAbilities())
+            try
             {
-                string AbilityName = gameData.Abilities[AbImport.Key].Name;
-                string AbilityShortName = gameData.Abilities[AbImport.Key].ShortName;
-                AbilityM ab = new(AbImport.Key, AbilityName, AbilityShortName, AbImport.Value);
-                Abilities.Add(AbImport.Key, ab);
+                Abilities = new();
+                foreach (var AbImport in characterImportOptM.GetAbilities())
+                {
+                    string AbilityName = gameData.Abilities[AbImport.Key].Name;
+                    string AbilityShortName = gameData.Abilities[AbImport.Key].ShortName;
+                    AbilityM ab = new(AbImport.Key, AbilityName, AbilityShortName, AbImport.Value);
+                    Abilities.Add(AbImport.Key, ab);
+                }
             }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+
 
             // SPECIAL ABILITIES
-            SpecialAbilities = characterImportOptM.GetSpecialAbilities();
-            Languages = characterImportOptM.GetLanguages();
+            try
+            {
+                SpecialAbilities = characterImportOptM.GetSpecialAbilities();
+                Languages = characterImportOptM.GetLanguages();
+            }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+
 
             // DIS-ADVANTAGES
-            Advantages = characterImportOptM.GetAdvantages();
-            Disadvantages = characterImportOptM.GetDisadvantages();
+            try
+            {
+                Advantages = characterImportOptM.GetAdvantages();
+                Disadvantages = characterImportOptM.GetDisadvantages();
+            }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+
 
             // SKILLS
-            Skills = new(this, characterImportOptM, gameData);
+            try
+            {
+                Skills = new(this, characterImportOptM, gameData);
+            }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Skills); }
+
 
             // COMBAT TECHNIQUES
-            CombatTechs = new();
-            foreach (var CtImport in characterImportOptM.GetCombatSkills())
+            try
             {
-                CombatTechM ct = new(gameData.CombatTechs[CtImport.Key], CtImport.Value, this);
-                CombatTechs.Add(CtImport.Key, ct);
-            }
-            foreach (var ct in gameData.CombatTechs.Data)
-            {
-                if (!CombatTechs.ContainsKey(ct.Id))
+                CombatTechs = new();
+                foreach (var CtImport in characterImportOptM.GetCombatSkills())
                 {
-                    CombatTechM newCt = new(ct, CombatTechM.DefaultSkillValue, this);
-                    CombatTechs.Add(ct.Id, newCt);
+                    CombatTechM ct = new(gameData.CombatTechs[CtImport.Key], CtImport.Value, this);
+                    CombatTechs.Add(CtImport.Key, ct);
+                }
+                foreach (var ct in gameData.CombatTechs.Data)
+                {
+                    if (!CombatTechs.ContainsKey(ct.Id))
+                    {
+                        CombatTechM newCt = new(ct, CombatTechM.DefaultSkillValue, this);
+                        CombatTechs.Add(ct.Id, newCt);
+                    }
                 }
             }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Skills); }
+
 
             // DODGE
-            Dodge = new DodgeM(this);
+            try
+            {
+                Dodge = new DodgeM(this);
+            }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+
 
             // ENERGIES
-            Energies = new();
-            foreach (var energy in gameData.Energies.Data)
+            try
             {
-                CharacterEnergyM energyM = null;
-                CharacterEnergyClass _Class;
-                int ExtraEnergy;
-                switch (energy.Id)
+                Energies = new();
+                foreach (var energy in gameData.Energies.Data)
                 {
-                    case "LP":// TODO: magic id string
-                        _Class = CharacterEnergyClass.LP;
-                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
-                        energyM = new CharacterHealth(energy, _Class, ExtraEnergy, this);
-                        break;
-                    case "AE":
-                        if (!characterImportOptM.IsSpellcaster()) break;
-                        _Class = CharacterEnergyClass.AE;
-                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
-                        energyM = new CharacterAstralEnergy(energy, _Class, ExtraEnergy, this);
-                        break;
-                    case "KP":
-                        if (!characterImportOptM.IsBlessed()) break;
-                        _Class = CharacterEnergyClass.KP;
-                        ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
-                        energyM = new CharacterKarma(energy, _Class, ExtraEnergy, this);
-                        break;
+                    CharacterEnergyM energyM = null;
+                    CharacterEnergyClass _Class;
+                    int ExtraEnergy;
+                    switch (energy.Id)
+                    {
+                        case ChrAttrId.LP:
+                            _Class = CharacterEnergyClass.LP;
+                            ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                            energyM = new CharacterHealth(energy, _Class, ExtraEnergy, this);
+                            break;
+                        case ChrAttrId.AE:
+                            if (!characterImportOptM.IsSpellcaster()) break;
+                            _Class = CharacterEnergyClass.AE;
+                            ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                            energyM = new CharacterAstralEnergy(energy, _Class, ExtraEnergy, this);
+                            break;
+                        case ChrAttrId.KP:
+                            if (!characterImportOptM.IsBlessed()) break;
+                            _Class = CharacterEnergyClass.KP;
+                            ExtraEnergy = characterImportOptM.GetAddedEnergy(_Class);
+                            energyM = new CharacterKarma(energy, _Class, ExtraEnergy, this);
+                            break;
+                    }
+                    if (energyM is not null)
+                        Energies.Add(energy.Id, energyM);
                 }
-                if (energyM is not null)
-                    Energies.Add(energy.Id, energyM);
             }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+
 
             // RESILIENCES
-            Resiliences = new();
-            foreach (var Res in gameData.Resiliences.Data)
+            try
             {
-                Resiliences.Add(Res.Id, new ResilienceM(Res, this));
+                Resiliences = new();
+                foreach (var Res in gameData.Resiliences.Data)
+                {
+                    Resiliences.Add(Res.Id, new ResilienceM(Res, this));
+                }
             }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+
 
             // BELONGINGS
-            CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
-            Money = characterImportOptM.TotalMoney();
-
-            Weapons = new Dictionary<string, WeaponM>();
-            foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged, gameData.CombatTechs))
+            try
             {
-                WeaponM weaponM = new (this);
-                weaponM.Initialise(w, gameData);
-                Weapons.Add(w.Id, weaponM);
+                CarriedWeight = characterImportOptM.TotalWeightOfBelongings();
+                Money = characterImportOptM.TotalMoney();
+
+                Weapons = new Dictionary<string, WeaponM>();
+                foreach (var w in characterImportOptM.GetWeaponsDetails(gameData.WeaponsMelee, gameData.WeaponsRanged, gameData.CombatTechs))
+                {
+                    WeaponM weaponM = new(this);
+                    weaponM.Initialise(w, gameData);
+                    Weapons.Add(w.Id, weaponM);
+                }
             }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Belonging); }
         }
 
 

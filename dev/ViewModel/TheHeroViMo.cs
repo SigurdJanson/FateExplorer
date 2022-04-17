@@ -124,7 +124,7 @@ namespace FateExplorer.ViewModel
         public CharacterAttrDTO GetInitiative()
             => new()
             {
-                Id = "INI", // TODO: no stringed APIs
+                Id = ChrAttrId.INI,
                 Name = ResourceId.IniLabelId,
                 EffectiveValue = Initiative,
                 Max = 40,
@@ -380,14 +380,16 @@ namespace FateExplorer.ViewModel
         }
 
 
-        public List<AbilityDTO> GetSkillAbilities(SkillsDTO skill)
+        public AbilityDTO[] GetSkillAbilities(string skillId)
         {
-            List<AbilityDTO> Result = new();
-            var s = characterM.Skills.Skills[skill.Id];
+            AbilityDTO[] Result = new AbilityDTO[3];
+            var s = characterM.Skills.Skills[skillId];
+
+            int Index = 0;
             foreach (var AbilityId in s.Abilities)
             {
                 var Ability = characterM?.Abilities[AbilityId];
-                Result.Add(new AbilityDTO()
+                Result[Index++] = new AbilityDTO()
                 {
                     Id = Ability.Id,
                     Name = Ability.Name,
@@ -395,7 +397,7 @@ namespace FateExplorer.ViewModel
                     EffectiveValue = AbilityEffValues[Ability.Id],
                     Max = Ability.Value,
                     Min = 0
-                });
+                };
             }
             return Result;
         }
@@ -444,8 +446,8 @@ namespace FateExplorer.ViewModel
 
             return new CharacterAttrDTO()
             {
-                Id = "DO"/*TODO*/,
-                Name = "Dodge"/*TODO*/, 
+                Id = ChrAttrId.DO,
+                Name = "Dodge"/*TODO: Magic string, no l10n*/, 
                 EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
             };
         }
