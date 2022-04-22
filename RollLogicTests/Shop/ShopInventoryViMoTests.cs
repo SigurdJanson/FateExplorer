@@ -1,5 +1,6 @@
 ﻿using FateExplorer;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using FateExplorer.Shop;
 using Microsoft.Extensions.Localization;
 using Moq;
@@ -22,6 +23,7 @@ namespace UnitTests.Shop
         private MockRepository mockRepository;
         private Mock<IStringLocalizer<App>> mockLl10n;
         private Mock<HttpClient> mockHttpClient;
+        private Mock<AppSettings> mockAppCfg;
         private Mock<IGameDataService> mockGameData;
 
 
@@ -31,6 +33,7 @@ namespace UnitTests.Shop
             this.mockRepository = new MockRepository(MockBehavior.Strict);
             this.mockLl10n = mockRepository.Create<IStringLocalizer<App>>();
             this.mockHttpClient = mockRepository.Create<HttpClient>();
+            this.mockAppCfg = mockRepository.Create<AppSettings>();
             this.mockGameData = mockRepository.Create<IGameDataService>();
         }
         #endregion ===================
@@ -63,7 +66,7 @@ namespace UnitTests.Shop
         public void GetStock_ExactFilter_SingleHit(string Filter)
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockHttpClient.Object, mockLl10n.Object);
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
 
             // Act
             var result = shopInventoryViMo.GetStock(Filter, null);
@@ -76,7 +79,7 @@ namespace UnitTests.Shop
         public async Task InitializeGameDataAsync_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockHttpClient.Object, mockLl10n.Object);
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
 
             // Act
             await shopInventoryViMo.InitializeGameDataAsync();

@@ -125,7 +125,7 @@ namespace UnitTests.RollLogic
         }
 
         [Test]
-        public void ComputeSkillRemainder_Botch_RemainderEquals0(
+        public void ComputeSkillRemainder_Botch_RemainderEqualsMinus1(
             [Values(20)] int v1, [Values(20)] int v2, [Random(1, 20, 10)] int v3,
             [Random(0, 20, 5)] int Skill, [Random(-6, 6, 5)] int Mod)
         {
@@ -137,7 +137,7 @@ namespace UnitTests.RollLogic
                 new int[3] { v1, v2, v3 }, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(-1, result);
         }
 
 
