@@ -347,11 +347,11 @@ namespace FateExplorer.CharacterImport
             double Ducats, Thalers, Farthings, Kreutzer;
             if (!double.TryParse(Belongings.Purse.D, out Ducats))
                 Ducats = 0;
-            if (!double.TryParse(Belongings.Purse.D, out Thalers))
+            if (!double.TryParse(Belongings.Purse.S, out Thalers))
                 Thalers = 0;
-            if (!double.TryParse(Belongings.Purse.D, out Farthings))
+            if (!double.TryParse(Belongings.Purse.H, out Farthings))
                 Farthings = 0;
-            if (!double.TryParse(Belongings.Purse.D, out Kreutzer))
+            if (!double.TryParse(Belongings.Purse.K, out Kreutzer))
                 Kreutzer = 0;
             return Ducats * 10 + Thalers + Farthings / 10 + Kreutzer / 100;
         }

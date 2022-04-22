@@ -106,9 +106,13 @@ namespace FateExplorer.ViewModel
         {
             string Result;
             if (Money >= 100)
-                Result = $"{Money / 100} D {Money % 100:N2} S";
+            {
+                int Doucats = (int)Math.Floor(Money / 10);
+                double Silvers = Money % 10;
+                Result = $"{Doucats} D {Silvers:N2} S";
+            }
             else
-                Result = $"{Money:N2}";
+                Result = $"{Money:N2} S";
             return Result;
         }
 
