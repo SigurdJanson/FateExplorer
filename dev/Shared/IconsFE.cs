@@ -6,7 +6,13 @@ namespace MudBlazor
     {
         const string Ligaturisation = "fe ";
         const string Prefix = "fe-";
-        public static string Success => Ligaturisation + Prefix + nameof(Success);
+
+
+        public static string Concat(string IconName) => Ligaturisation + Prefix + IconName;
+
+        // ICONS
+
+        public static string Success => Concat(nameof(Success));
         public static string Botch => Ligaturisation + Prefix + nameof(Botch);
         public static string PotionArcane => Ligaturisation + Prefix + nameof(PotionArcane);
         public static string PotionLife => Ligaturisation + Prefix + nameof(PotionLife);
@@ -20,5 +26,21 @@ namespace MudBlazor
         public static string Ulisses => Ligaturisation + Prefix + nameof(Ulisses);
         public static string BackHandLeft => Ligaturisation + Prefix + nameof(BackHandLeft);
         public static string Sword => Ligaturisation + Prefix + nameof(Sword);
+
+        // DEITIES
+        public static string Boron => Ligaturisation + Prefix + nameof(Boron);
+        public static string Efferd => Ligaturisation + Prefix + nameof(Efferd);
+        public static string Firun => Ligaturisation + Prefix + nameof(Firun);
+        public static string Hesinde => Ligaturisation + Prefix + nameof(Hesinde);
+        public static string Ingerimm => Ligaturisation + Prefix + nameof(Ingerimm);
+        public static string Peraine => Ligaturisation + Prefix + nameof(Peraine);
+        public static string Phex => Ligaturisation + Prefix + nameof(Phex);
+        public static string Praios => Ligaturisation + Prefix + nameof(Praios);
+        public static string Rahja => Ligaturisation + Prefix + nameof(Rahja);
+        public static string Rondra => Ligaturisation + Prefix + nameof(Rondra);
+        public static string Travia => Ligaturisation + Prefix + nameof(Travia);
+        public static string Tsa => Ligaturisation + Prefix + nameof(Tsa);
+        //public static string Nameless => Ligaturisation + Prefix + nameof(Nameless);
+
     }
 }
