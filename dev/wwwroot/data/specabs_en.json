@@ -1,0 +1,34 @@
+{
+"groups":[
+    {"id": 1, "name":"General Special Abilities"},
+    {"id": 2, "name":"Advanced Skills"},
+    {"id": 3, "name":"Skill Styles"},
+    {"id": 4, "name":"Commands"},
+    {"id": 5, "name":"Combat Special Abilities"},
+    {"id": 6, "name":"Combat Styles"},
+    {"id": 7, "name":"Advanced Combat Styles"},
+    {"id": 8, "name":"-Prügel-Sonderfertigkeiten"},
+    {"id": 9, "name":"Fate Point Special Abilities"},
+
+    {"id": 51, "name":"General Karma"},
+    {"id": 52, "name":"Advanced Karma"},
+    {"id": 53, "name":"Blessed Traditions"},
+    {"id": 54, "name":"-Liturgiestile"},
+    {"id": 55, "name":"-Predigten"},
+    {"id": 56, "name":"Visions"},
+    {"id": 57, "name":"-Zeremonialgegenstandssonderfertigkeiten"},
+
+    {"id": 21, "name":"General Magical"},
+    {"id": 22, "name":"Advanced Magical"},
+    {"id": 23, "name":"Magical Traditions"},
+    {"id": 24, "name":"Magic Styles"},
+    {"id": 25, "name":"-Zauberzeichen"},
+    {"id": 26, "name":"-Traditionsartefakte"},
+    {"id": 27, "name":"-Lykanthropische Gaben"},
+    {"id": 28, "name":"-Homunculusfähigkeiten"},
+    {"id": 29, "name":"-Sikaryan-Raub"},
+    {"id": 30, "name":"-Paktgeschenke-Covenant Gift"}
+],
+"Entries": [
+]
+}
