@@ -1,0 +1,106 @@
+﻿@using FateExplorer.Calendar
+@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+
+<MudTooltip Text=@LongDate>
+    <MudChip Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
+             Icon=@Calendar.MonthIcon
+             OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+             @RenderShortDate(Calendar)
+    </MudChip>
+</MudTooltip>
+
+<MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
+    <MudGrid>
+        <MudItem xs=6>
+            <MudCard Outlined=true>
+                <MudCardContent Class="d-flex flex-column justify-center">
+                    <MudPaper Class="d-flex pa-21 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Month (@Calendar.MonthNr)</MudText>
+                    </MudPaper>
+                    <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 mud-theme-primary" Width="64px" Height="64px">
+                        <MudIconButton OnClick=@Calendar.GotoYesterday Icon=@Icons.Material.Sharp.ArrowBackIos />
+                        <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
+                        <MudIconButton OnClick=@Calendar.GotoTomorrow Icon=@Icons.Material.Sharp.ArrowForwardIos />
+                    </MudPaper>
+                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Weekday</MudText>
+                    </MudPaper>
+                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Year @Calendar.Reckoning</MudText>
+                    </MudPaper>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant=Variant.Text Color=Color.Primary>Setze Datum</MudButton>
+                    <MudButton OnClick=@Calendar.GotoEarthDate  Variant=Variant.Text>Setze Erddatum</MudButton>
+                </MudCardActions>
+            </MudCard>
+            <MudText></MudText>
+            @*<MudText>@LongeDate</MudText>*@
+        </MudItem>
+        <MudItem xs=6>
+            <MudText>Content of the popover can be anything.</MudText>
+            <table>
+                <tr>
+                    <td>Jahreszeit</td>
+                    <td>@Calendar.Season</td>
+                </tr>
+                <tr>
+                    <td>Feiertag</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Mondphase</td>
+                    <td>-</td>
+                </tr>
+            </table>
+        </MudItem>
+    </MudGrid>
+    <div class="d-flex flex-column">
+        <MudButton OnClick=@ToggleOpen Class="ml-auto mr-n3 mb-1" Color=Color.Error>Close</MudButton>
+    </div>
+</MudPopover>
+
+@code {
+    private CalendarViMo Calendar { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Calendar = new();
+        //ShortDate = $"{Calendar.DayOfMonth}, {Calendar.Weekday}";
+        //LongeDate = $"{Calendar.Weekday}, der {Calendar.DayOfMonth}. {Calendar.Month} {Calendar.Year}";
+    }
+
+
+    // 
+    #region POPOVER
+    public bool IsPopupOpen;
+
+    public void ToggleOpen()
+    {
+        if (IsPopupOpen)
+            IsPopupOpen = false;
+        else
+            IsPopupOpen = true;
+    }
+
+    //private void GotoEarthDate()
+    //{
+    //    Calendar.GotoEarthDate();
+    //}
+    #endregion
+
+
+    #region RENDERING
+    RenderFragment<CalendarViMo> RenderShortDate = Value => __builder =>
+    {
+        <span>@($"{Value.DayOfMonth}, {Value.Weekday}")</span>
+    };
+
+    private string LongDate => $"{Calendar?.Weekday}, der {Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year}";
+
+
+    #endregion
+}
