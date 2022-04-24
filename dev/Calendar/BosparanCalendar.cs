@@ -14,6 +14,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	protected const int MonthsInYear = 13;
 	protected const int YearCorrectionFromGregorian = -977; // make this virtual to adapt all kinds of other calendars
 															// TODO: Add public virtual bool HasYear0 => true/false; // to adapt all kinds of other calendars
+	protected const int AssumedEra = 11;
 
 	/// <summary>
 	/// Determines the difference of FULL years between two dates.
@@ -203,19 +204,31 @@ public class BosparanCalendar : System.Globalization.Calendar
 	public override bool IsLeapYear(int year, int era) => false;
 
 
-	public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
+	/// <inheritdoc/>
+	/// <remarks>Assumes current 11th era</remarks>
+	public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
+    {
+        return ToDateTime(year, month, day, hour, minute, second, millisecond, AssumedEra);
+    }
+
+
+    public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
 	{
+		if (day < 1 || day > 30)
+			throw new ArgumentOutOfRangeException(nameof(day), day, "Day of month must be between 1 and 30");
 		if (month < 1 || month > 13)
 			throw new ArgumentOutOfRangeException(nameof(month), month, "Calendar knows 12 months and 1 pseudo-month of 5 days of the Nameless One");
 		if (era < 1 || era > 12)
 			throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras from 1 to 12");
 
-		GregorianCalendar EarthCalendar = new(); // Needed to determine leap years
-
 		int EarthYear = year - YearCorrectionFromGregorian;
+		if (EarthYear < 1)
+			throw new ArgumentOutOfRangeException(nameof(year), year, "Calendar is limited to earth years later than year 1");
+
 		DateTime result = new(EarthYear, 1, 1, hour, minute, second, millisecond, DateTimeKind.Local);
 		int DaysToAdd = (day - 1) + (month - 1) * DaysInMonth; // correct day by 1 because we already have the 1. of Jan.
 		// Add extra leap day that does not exist in Aventuria
+		GregorianCalendar EarthCalendar = new(); // Needed to determine leap years
 		if (EarthCalendar.IsLeapYear(EarthYear) && DaysToAdd >= 31+28) DaysToAdd++;
 
 		return result.AddDays(DaysToAdd);
