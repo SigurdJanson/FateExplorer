@@ -127,6 +127,8 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 
+
+
 	/// <inheritdoc/>
 	public override int GetDayOfYear(DateTime time)
 	{
@@ -250,5 +252,31 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+
+	/// <summary>
+	/// Get icons by moon phase
+	/// </summary>
+	/// <returns>0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
+	/// 9 is half, 11 the phase before new moon</returns>
+	public int GetMoonPhase(DateTime time)
+    {
+		// the 14.04.2022 on Earth; in Aventuria it's the 17th (16! with 1. index == 0) day of the moon phase
+		DateTime Reference = new(2022, 4, 14);
+		const int MoonPhaseRef = 16;
+		const int MoonCycle = 28;
+
+		int Days = DeltaInDays(time, Reference);
+		int Offset = Days % MoonCycle;
+
+		int Result;
+		if (time >= Reference)
+			Result = Offset + MoonPhaseRef;
+		else
+			Result = (Offset == 0 ? 0 : MoonCycle - Offset) + MoonPhaseRef;
+
+		if (Result >= MoonCycle) Result -= MoonCycle;
+		return Result;
+	}
 }
 

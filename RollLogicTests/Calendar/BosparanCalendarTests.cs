@@ -514,6 +514,48 @@ public class BosparanCalendarTests
         // Assert
         return result;
     }
+
+
+    [TestCase("14.4.2022", ExpectedResult = 16)] // 14. Travia 1045; same day as reference date
+    [TestCase("14.5.2022", ExpectedResult = 18)] // 14. Boron
+    [TestCase("14.6.2022", ExpectedResult = 21)] // 
+    [TestCase("14.4.2023", ExpectedResult = 17)] // 14. Travia 1046
+    [TestCase("29.9.2123", ExpectedResult = 5)] // 2. Peraine 1146
+    [TestCase("8.11.2022", ExpectedResult = 0)] // 12. Ingerimm 1045, new moon
+    [TestCase("5.12.2022", ExpectedResult = 27)] // 9. Rahja 1045
+    public int GetMoonPhase_FutureToRef(string Date)
+    {
+        var bosparanCalendar = new BosparanCalendar();
+        DateTime time;
+        Assume.That(DateTime.TryParse(Date, out time));
+
+        // Act
+        var result = bosparanCalendar.GetMoonPhase(time);
+
+        // Assert
+        return result;
+    }
+
+
+
+    [TestCase("13.4.2022", ExpectedResult = 15)] // 13. Travia 1045; day prior to reference date
+    [TestCase("15.3.2022", ExpectedResult = 14)] // 14. Efferd = Month-1
+    [TestCase("14.1.2022", ExpectedResult = 10)] // 14. Praios = Month-3
+    [TestCase("14.4.2021", ExpectedResult = 15)] // 14. Travia 1044; Year-1
+    [TestCase("1.1.1997", ExpectedResult = 0)] // 1. Praios 1020, new moon
+    [TestCase("31.12.1996", ExpectedResult = 27)] // 1. Praios 1020, new moon
+    public int GetMoonPhase_PastToRef(string Date)
+    {
+        var bosparanCalendar = new BosparanCalendar();
+        DateTime time;
+        Assume.That(DateTime.TryParse(Date, out time));
+
+        // Act
+        var result = bosparanCalendar.GetMoonPhase(time);
+
+        // Assert
+        return result;
+    }
 }
 
 #pragma warning restore IDE0018 // Inlinevariablendeklaration
