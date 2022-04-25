@@ -503,11 +503,11 @@ public class BosparanCalendarTests
     [TestCase(2000, 3, 1, 2011, 2, 28, ExpectedResult = 10)]
     [TestCase(2000, 3, 1, 2011, 3, 1, ExpectedResult = 11)]
     [TestCase(2022, 4, 14, 2025, 9, 28, ExpectedResult = 3)]//"28.9.2025"
-    public int DeltaInYears(int Year1, int Month1, int Day1, int Year2, int Month2, int Day2)
+    public int AbsDeltaInYears(int Year1, int Month1, int Day1, int Year2, int Month2, int Day2)
     {
         // Arrange
         // Act
-        var result = BosparanCalendar.DeltaInYears(
+        var result = BosparanCalendar.AbsDeltaInYears(
             new DateTime(Year1, Month1, Day1),
             new DateTime(Year2, Month2, Day2));
 

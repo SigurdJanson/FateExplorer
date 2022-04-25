@@ -17,28 +17,64 @@ public class BosparanCalendar : System.Globalization.Calendar
 	protected const int AssumedEra = 11;
 
 	/// <summary>
-	/// Determines the difference of FULL years between two dates.
+	/// Determines the ABSOLUTE difference of FULL years between two dates.
 	/// Leap days are ignored; the 29th of February is treated as if it was the 28th
 	/// (conforming with Aventurian calendars).
 	/// </summary>
 	/// <param name="Early">The earlier date</param>
 	/// <param name="Late">THe later date</param>
-	/// <returns>Difference in full years</returns>
-	public static int DeltaInYears(DateTime Early, DateTime Late)
+	/// <returns>Difference in full years (absolute value >= 0)</returns>
+	public static int AbsDeltaInYears(DateTime Early, DateTime Late)
 	{
 		if (Early > Late) throw new ArgumentException("'Late' must be greater or equal to 'Early'");
 
-		// Aventurian calendars do not have leap years
-		if (Early.Day == 29 && Early.Month == 2) Early = Early.AddDays(-1);
-		if (Late.Day == 29 && Late.Month == 2) Late = Late.AddDays(-1);
+		// Aventurian calendars do not have leap years: check for Feb, 29th
+		const int Feb = 2;
+		const int LeapDay = 29;
+		if (Early.Day == LeapDay && Early.Month == Feb) Early = Early.AddDays(-1);
+		if (Late.Day == LeapDay && Late.Month == Feb) Late = Late.AddDays(-1);
 
 		int Delta = Late.Year - Early.Year;
 
+		// correction if the one year is not a full year
 		if (Late.Month < Early.Month || (Late.Month == Early.Month && Late.Day < Early.Day))
 			Delta--;
 
 		return Delta;
 	}
+
+
+	/// <summary>
+	/// Calculate the difference in days.
+	/// </summary>
+	/// <param name="time"></param>
+	/// <param name="reference"></param>
+	/// <returns></returns>
+	public static int DeltaInDays(DateTime time, DateTime reference)
+    {
+		// Needed to determine leap years
+		GregorianCalendar EarthCalendar = new();
+
+		DateTime Early = time <= reference ? time : reference;
+		DateTime Late = time > reference ? time : reference;
+		int Years = AbsDeltaInYears(Early, Late);
+
+		// skip leap days by using whole years
+		int Days = Years * DaysInYear;
+		// add remaining interval
+		DateTime EarlyPlusYears = Early.AddYears(Years);
+		Days += (Late - EarlyPlusYears).Days;
+		// One leap day may be left, remove if necessary
+		if (EarthCalendar.IsLeapYear(EarlyPlusYears.Year) && EarlyPlusYears.DayOfYear < 31 + 29)
+			Days--;
+		else
+		{
+			if (EarthCalendar.IsLeapYear(Late.Year) && Late.DayOfYear > 31 + 28)
+				Days--;
+		}
+		return Days;
+	}
+
 
 
 	/// <inheritdoc/>
@@ -76,30 +112,9 @@ public class BosparanCalendar : System.Globalization.Calendar
 	/// <inheritdoc/>
 	public override DayOfWeek GetDayOfWeek(DateTime time)
 	{
-		// Needed to determine leap years
-		GregorianCalendar EarthCalendar = new();
-
 		// the 14.04.2022 on Earth is a Thursday; in Aventuria it is a Day of Praios (Sunday)
-		DateTime Reference = new (2022, 4, 14);
-	
-		DateTime Early = time <= Reference ? time : Reference;
-		DateTime Late  = time > Reference ? time : Reference;
-		int Years = DeltaInYears(Early, Late);
-
-		// skip leap days by using whole years
-		int Days = Years * DaysInYear; 
-		// add remaining interval
-		DateTime EarlyPlusYears = Early.AddYears(Years);
-		Days += (Late - EarlyPlusYears).Days;
-		// One leap day may be left, remove if necessary
-		if (EarthCalendar.IsLeapYear(EarlyPlusYears.Year) && EarlyPlusYears.DayOfYear < 31 + 29)
-			Days--;
-		else
-				{
-			if (EarthCalendar.IsLeapYear(Late.Year) && Late.DayOfYear > 31 + 28)
-				Days--;
-		}
-		
+		DateTime Reference = new(2022, 4, 14);
+		int Days = DeltaInDays(time, Reference);
 		int Offset = Days % 7;
 
 		DayOfWeek Result;
