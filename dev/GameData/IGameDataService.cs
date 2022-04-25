@@ -44,6 +44,8 @@ namespace FateExplorer.GameData
 
         public CurrenciesDB Currencies { get; }
 
+        public CalendarDB Calendar { get; }
+
         public Task InitializeGameDataAsync();
     }
 }
