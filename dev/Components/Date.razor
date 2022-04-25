@@ -13,7 +13,7 @@
 
 <MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
     <MudGrid>
-        <MudItem xs=6>
+        <MudItem sm=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
                     <MudPaper Class="d-flex pa-21 justify-center" Elevation=0 Width="100%">
@@ -32,33 +32,33 @@
                     </MudPaper>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant=Variant.Text Color=Color.Primary>Setze Datum</MudButton>
-                    <MudButton OnClick=@Calendar.GotoEarthDate  Variant=Variant.Text>Setze Erddatum</MudButton>
+                    <MudButton OnClick=@SetDate Variant=Variant.Text Color=Color.Primary>@BtnLabelSetDate</MudButton>
+                    <MudButton OnClick=@Calendar.GotoEarthDate  Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
                 </MudCardActions>
             </MudCard>
-            <MudText></MudText>
-            @*<MudText>@LongeDate</MudText>*@
+            <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
+                Placeholder="tt Monat yyyy BF" Class=@DateOpenClass />
         </MudItem>
-        <MudItem xs=6>
+        <MudItem sm=12 md=6>
             <MudText>Content of the popover can be anything.</MudText>
             <table>
                 <tr>
-                    <td>Jahreszeit</td>
+                    <td>@l10n["lblSeason"] Jahreszeit</td>
                     <td>@Calendar.Season</td>
                 </tr>
                 <tr>
-                    <td>Feiertag</td>
+                    <td>@l10n["lblHoliday"] Feiertag</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Mondphase</td>
+                    <td>@l10n["lblMoonPhase"] Mondphase</td>
                     <td>-</td>
                 </tr>
             </table>
         </MudItem>
     </MudGrid>
     <div class="d-flex flex-column">
-        <MudButton OnClick=@ToggleOpen Class="ml-auto mr-n3 mb-1" Color=Color.Error>Close</MudButton>
+        <MudButton OnClick=@ToggleOpen Class="ml-auto mr-n3 mb-1" Color=Color.Primary>@l10n["btnClose"]</MudButton>
     </div>
 </MudPopover>
 
@@ -69,8 +69,6 @@
     {
         base.OnInitialized();
         Calendar = new();
-        //ShortDate = $"{Calendar.DayOfMonth}, {Calendar.Weekday}";
-        //LongeDate = $"{Calendar.Weekday}, der {Calendar.DayOfMonth}. {Calendar.Month} {Calendar.Year}";
     }
 
 
@@ -86,10 +84,44 @@
             IsPopupOpen = true;
     }
 
-    //private void GotoEarthDate()
-    //{
-    //    Calendar.GotoEarthDate();
-    //}
+
+
+    private const string BtnLabelSetDateSet = "btnSetDate";
+    private const string BtnLabelSetDateConfirm = "btnSetDateConfirm";
+    private string BtnLabelSetDate { get; set; } = BtnLabelSetDateSet;
+    private bool SetDateOpen = false;
+    private string DateOpenClass => SetDateOpen ? "" : "d-none";
+    private string dateInputStr = string.Empty;
+
+
+    private void SetDate()
+    {
+        if (!SetDateOpen)
+        {
+            dateInputStr = $"{Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year} BF";
+            SetDateOpen = true;
+            BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
+        }
+        else
+        {
+            DateTime ParseSuccess = DateTime.MinValue;
+            if (!string.IsNullOrWhiteSpace(dateInputStr))
+            {
+                try
+                {
+                    ParseSuccess = Calendar.Parse(dateInputStr);
+                }
+                catch (Exception) { };
+            }
+            if (ParseSuccess != DateTime.MinValue)
+            {
+                Calendar.GotoDate(ParseSuccess);
+                SetDateOpen = false;
+                BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+            }
+        }
+}
+
     #endregion
 
 
