@@ -14,7 +14,7 @@
 </MudTooltip>
 
 <MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
-    <MudGrid>
+    <MudGrid >
         <MudItem sm=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
@@ -33,38 +33,39 @@
                         <MudText Typo=Typo.body2>@Calendar.Year @Calendar.Reckoning</MudText>
                     </MudPaper>
                 </MudCardContent>
-                <MudCardActions>
-                    <MudButton OnClick=@SetDate Variant=Variant.Text Color=Color.Primary>@BtnLabelSetDate</MudButton>
+                <MudCardActions Class="d-block">
+                    <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
+                    <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
+                        Placeholder=@l10n["txtDateFormatPlaceholder"] Class=@DateOpenClass />
                     <MudButton OnClick=@Calendar.GotoEarthDate  Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
                 </MudCardActions>
             </MudCard>
-            <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
-                Placeholder="tt Monat yyyy BF" Class=@DateOpenClass />
         </MudItem>
         <MudItem sm=12 md=6>
-            <MudText></MudText>
+            <MudPaper Elevation=0 Outlined=true Class="d-flex flex-nowrap">
             <MudSimpleTable Elevation=0>
                 <tbody>
                 <tr>
                     <td><MudIcon Icon=@Calendar.SeasonIcon Title=@Calendar.Season /> </td>
-                    <td>@l10n["lblSeason"] Jahreszeit</td>
-                    <td>@Calendar.Season</td>
+                    <td>@l10n["lblSeason"]</td>
+                    <td width="200px">@Calendar.Season</td>
                 </tr>
                 <tr>
                     <td>
                         <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
                         @*<MudIcon Icon=@Icons.Material.Sharp.Cake Title="Holidy" />*@
                     </td>
-                    <td>@l10n["lblHoliday"] Feiertag</td>
+                    <td>@l10n["lblHoliday"]</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td><MudIcon Icon=@Calendar.MoonPhaseIcon Title=@Calendar.MoonPhaseName /> </td>
-                    <td>@l10n["lblMoonPhase"] Mondphase</td>
+                    <td>@l10n["lblMoonPhase"]</td>
                     <td>@Calendar.MoonPhaseName</td>
                 </tr>
                 </tbody>
             </MudSimpleTable>
+            </MudPaper>
         </MudItem>
     </MudGrid>
     <div class="d-flex flex-column">
@@ -79,6 +80,7 @@
     {
         base.OnInitialized();
         Calendar = new(GameData.Calendar);
+        BtnLabelSetDate = l10n[BtnLabelSetDateSet];
     }
 
 
@@ -96,11 +98,14 @@
 
 
 
+    // SET DATE Button
     private const string BtnLabelSetDateSet = "btnSetDate";
     private const string BtnLabelSetDateConfirm = "btnSetDateConfirm";
-    private string BtnLabelSetDate { get; set; } = BtnLabelSetDateSet;
-    private bool SetDateOpen = false;
+    private string BtnLabelSetDate { get; set; }
     private string DateOpenClass => SetDateOpen ? "" : "d-none";
+    private Variant ButtonVariant = Variant.Text;
+    //
+    private bool SetDateOpen = false;
     private string dateInputStr = string.Empty;
 
 
@@ -111,6 +116,7 @@
             dateInputStr = $"{Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year} BF";
             SetDateOpen = true;
             BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
+            ButtonVariant = Variant.Filled;
         }
         else
         {
@@ -128,6 +134,7 @@
                 Calendar.GotoDate(ParseSuccess);
                 SetDateOpen = false;
                 BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+                ButtonVariant = Variant.Text;
             }
         }
 }

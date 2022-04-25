@@ -187,6 +187,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="btnClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="btnConfirm" xml:space="preserve">
     <value>Confirm it</value>
   </data>
@@ -215,6 +218,18 @@
   </data>
   <data name="btnReset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="btnSetDate" xml:space="preserve">
+    <value>Set date</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetDateConfirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetEarthDate" xml:space="preserve">
+    <value>To official date</value>
+    <comment>Calendar</comment>
   </data>
   <data name="btnUploadFile" xml:space="preserve">
     <value>Upload file</value>
@@ -467,6 +482,10 @@
   <data name="lblGroup" xml:space="preserve">
     <value>Group</value>
   </data>
+  <data name="lblHoliday" xml:space="preserve">
+    <value>Holiday</value>
+    <comment>Calendar</comment>
+  </data>
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Selected Skills</value>
     <comment>Character Act (Skills)</comment>
@@ -494,6 +513,10 @@
   </data>
   <data name="lblModifier" xml:space="preserve">
     <value>Modifier</value>
+  </data>
+  <data name="lblMoonPhase" xml:space="preserve">
+    <value>Moon phase</value>
+    <comment>Calendar</comment>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
     <value>Commonly Used</value>
@@ -600,6 +623,10 @@
   </data>
   <data name="lblSearch" xml:space="preserve">
     <value>Find</value>
+  </data>
+  <data name="lblSeason" xml:space="preserve">
+    <value>Season</value>
+    <comment>Calendar</comment>
   </data>
   <data name="lblSelectComaprisonCurrency" xml:space="preserve">
     <value>Select comparison currency</value>
@@ -966,6 +993,10 @@
   <data name="txtAboutWhatis" xml:space="preserve">
     <value>The Fate Explorer helps you play the Dark Eye* table top games (rule system 5). Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules and can be described as an intelligent character sheet. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
+  </data>
+  <data name="txtDateFormatPlaceholder" xml:space="preserve">
+    <value>dd Month yyyy BF</value>
+    <comment>Calendar</comment>
   </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
     <value>Reduce by {0}</value>
