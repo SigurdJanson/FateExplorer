@@ -1,4 +1,5 @@
 ﻿using FateExplorer.Calendar;
+using FateExplorer.GameData;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -35,7 +36,7 @@ namespace UnitTests.Calendar
         }
 
         private MockRepository mockRepository;
-
+        private Mock<CalendarDB> mockCalendarDB;
 
 
         [SetUp]
@@ -47,7 +48,7 @@ namespace UnitTests.Calendar
 
         private CalendarViMo CreateCalendarViMo()
         {
-            return new CalendarViMo();
+            return new CalendarViMo(mockCalendarDB.Object);
         }
 
 

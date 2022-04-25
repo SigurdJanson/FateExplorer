@@ -89,7 +89,6 @@ public class BosparanCalendar : System.Globalization.Calendar
 		int Days = time.DayOfYear;
 		if (EarthCalendar.IsLeapYear(time.Year) && Days > 31 + 28) Days--;
 		return ((Days - 1) / DaysInMonth) + 1;
-
 	}
 
 	public override int GetYear(DateTime time) => time.Year + YearCorrectionFromGregorian; // TODO: use HasYear0

@@ -1,6 +1,8 @@
 ﻿@using FateExplorer.Calendar
+@using FateExplorer.GameData
 @using FateExplorer.ViewModel
 
+@inject IGameDataService GameData
 @inject IStringLocalizer<App> l10n
 
 <MudTooltip Text=@LongDate>
@@ -40,21 +42,29 @@
                 Placeholder="tt Monat yyyy BF" Class=@DateOpenClass />
         </MudItem>
         <MudItem sm=12 md=6>
-            <MudText>Content of the popover can be anything.</MudText>
-            <table>
+            <MudText></MudText>
+            <MudSimpleTable Elevation=0>
+                <tbody>
                 <tr>
+                    <td><MudIcon Icon=@Calendar.SeasonIcon Title=@Calendar.Season /> </td>
                     <td>@l10n["lblSeason"] Jahreszeit</td>
                     <td>@Calendar.Season</td>
                 </tr>
                 <tr>
+                    <td>
+                        <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
+                        @*<MudIcon Icon=@Icons.Material.Sharp.Cake Title="Holidy" />*@
+                    </td>
                     <td>@l10n["lblHoliday"] Feiertag</td>
                     <td>-</td>
                 </tr>
                 <tr>
+                    <td><MudIcon Icon=@Calendar.MoonPhaseIcon Title=@Calendar.MoonPhaseName /> </td>
                     <td>@l10n["lblMoonPhase"] Mondphase</td>
-                    <td>-</td>
+                    <td>@Calendar.MoonPhaseName</td>
                 </tr>
-            </table>
+                </tbody>
+            </MudSimpleTable>
         </MudItem>
     </MudGrid>
     <div class="d-flex flex-column">
@@ -68,7 +78,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Calendar = new();
+        Calendar = new(GameData.Calendar);
     }
 
 

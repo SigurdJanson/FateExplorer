@@ -172,3 +172,9 @@ public enum MoonPhase
     Helmet,
     SmallHelmet
 }
+
+
+public enum Season
+{
+    Summer = 1, Autumn, Winter, Spring
+}

@@ -11,11 +11,17 @@ public class CalendarDB
     public Generic Generic { get; set; }
 
     public string GetWeekday(DayOfWeek day) => Generic.WeekDays.Find(i => (int)day == i.Earthid).Name;
+    public string GetWeekdayAbbr(DayOfWeek day) => Generic.WeekDays.Find(i => (int)day == i.Earthid).Abbr;
     public string[] WeekdayNames => Generic.WeekDays.OrderBy(i => i.Earthid).Select(i => i.Name).ToArray();
     public string[] WeekdayAbbrs => Generic.WeekDays.OrderBy(i => i.Earthid).Select(i => i.Abbr).ToArray();
 
+    public string GetMonth(int month) => Generic.Month.Find(i => month == i.Iid).Name;
     public string[] MonthNames => Generic.Month.Select(i => i.Name).ToArray();
     public string[] MonthAbbr => Generic.Month.Select(i => i.Abbr).ToArray();
+
+
+    public Season GetSeasonId(int MonthId) => (Season)Generic.Month.Find(i => i.Iid == MonthId).SeasonId;
+   
 
     /// <summary>
     /// 
@@ -27,6 +33,7 @@ public class CalendarDB
         int SeasonId = Generic.Month.Find(i => i.Iid == MonthId).SeasonId;
         return Generic.Season.Find(i => i.Iid == SeasonId).Name;
     }
+
 
     /// <summary>
     /// Get the moon phase based on an offset of days
@@ -42,6 +49,7 @@ public class CalendarDB
         return (MoonPhase)Generic.MoonphaseDays[DaysFromDeath];
     }
 
+
     /// <summary>
     /// 
     /// </summary>
@@ -49,7 +57,7 @@ public class CalendarDB
     /// <returns></returns>
     public string GetMoonPhaseName(MoonPhase phase)
     {
-        return Generic.Moonphase[(int)phase].Name;
+        return Generic.Moonphase.Find(i => i.Iid == (int)phase).Name;
     }
 }
 
@@ -127,6 +135,7 @@ public class ReckoningEntry
     public bool HasYear0 { get; set; }
 }
 
+
 public class SeasonEntry
 {
     [JsonPropertyName("iid")]
@@ -135,6 +144,7 @@ public class SeasonEntry
     [JsonPropertyName("name")]
     public string Name { get; set; }
 }
+
 
 public class HolidayEntry
 {
@@ -150,6 +160,7 @@ public class HolidayEntry
     [JsonPropertyName("descr")]
     public string Descr { get; set; }
 }
+
 
 public class MoonphaseEntry
 {
