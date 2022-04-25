@@ -1,13 +1,13 @@
 {
     "generic": {
         "week": [
-            {"iid": 1, "name": "Windstag", "abbr": "Wi", "earthday": "Donnerstag"},
-            {"iid": 2, "name": "Erdtag", "abbr": "Er", "earthday": "Freitag"},
-            {"iid": 3, "name": "Markttag", "abbr": "Ma", "earthday": "Samstag"},
-            {"iid": 4, "name": "Praiostag", "abbr": "Pr", "earthday": "Sonntag"},
-            {"iid": 5, "name": "Rohalstag", "abbr": "Ro", "earthday": "Montag"},
-            {"iid": 6, "name": "Feuertag", "abbr": "Fe", "earthday": "Dienstag"},
-            {"iid": 7, "name": "Wassertag", "abbr": "Wa", "earthday": "Mittwoch"}
+            {"iid": 1, "name": "Windstag", "abbr": "Wi", "earthday": "Donnerstag", "earthid": 4},
+            {"iid": 2, "name": "Erdtag", "abbr": "Er", "earthday": "Freitag", "earthid": 5},
+            {"iid": 3, "name": "Markttag", "abbr": "Ma", "earthday": "Samstag", "earthid": 6},
+            {"iid": 4, "name": "Praiostag", "abbr": "Pr", "earthday": "Sonntag", "earthid": 0},
+            {"iid": 5, "name": "Rohalstag", "abbr": "Ro", "earthday": "Montag", "earthid": 1},
+            {"iid": 6, "name": "Feuertag", "abbr": "Fe", "earthday": "Dienstag", "earthid": 2},
+            {"iid": 7, "name": "Wassertag", "abbr": "Wa", "earthday": "Mittwoch", "earthid": 3}
         ],
         "month": [
             {"iid": 1, "name": "Praios", "abbr": "Pra"}, 
@@ -92,7 +92,7 @@
             {"month":  9, "day":  1, "duration": 18, "descr": "Basiliskentag - Punin: Hässliches Gemetzel an harmlosen Schleichen und Schlangen durch die örtliche Jugend"},
             {"month":  9, "day":  1, "duration": 24, "descr": "Glückstag: Kleine Geschenke an gute Freunde, Späße und Schelmenstreiche"},
             {"month":  9, "day":  1, "duration": 30, "descr": "Versenkungsfest: Meditation der Hesindegläubigen"},
-            {"month":  9, "day":  1, "duration": 30, "descr": "nachts Hexenzirkel Nacht vor Tag- und Nachtgleiche"},
+            {"month":  9, "day":  1, "duration": 30, "descr": "Nachts Hexenzirkel Nacht vor Tag- und Nachtgleiche"},
             {"month": 10, "day":  1, "duration": 1,  "descr": "Frühlingsanfang"},
             {"month": 10, "day":  1, "duration": 1,  "descr": "Saatfest"},
             {"month": 10, "day":  4, "duration": 1,  "descr": "Thalionmeltag: Gedenken an die heilige Thalionmel von Neetha"},
@@ -113,17 +113,18 @@
             {"month": 12, "day": 30, "duration": 1,  "descr": "Reinigungsfest: Rituelle Reinigung der Kunstschätze in Hesindetempeln; überall Hausputz und rituelle Selbstreinigung"},
             {"month": 13, "day":  1, "duration": 1,  "descr": "Dritter Rastullahelah: Tag der Blutrache"}
         ],
-        "moonphasedays": [1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8, 9, 10, 10, 11, 11, 12, 12],
-        "MoonPhase": [
+        "moonphasedays": [1, 2, 2, 2, 3, 3, 3, 4, 5, 5, 5, 6, 6, 6, 
+                          7, 8, 8, 8, 9, 9, 9, 10, 11, 11, 11, 12, 12, 12],
+        "moonphase": [
             {"iid": 1, "name": "Tote Mada"},
             {"iid": 2, "name": "Kleiner Kelch"},
             {"iid": 3, "name": "Kelch"},
             {"iid": 4, "name": "großer Kelch"},
-            {"iid": 5, "name": "zun. Halbmond"},
-            {"iid": 6, "name": "zun. Mond"},
+            {"iid": 5, "name": "zunehmender Halbmond"},
+            {"iid": 6, "name": "zunehmender Mond"},
             {"iid": 7, "name": "Rad"},
-            {"iid": 8, "name": "abn. Mond"},
-            {"iid": 9, "name": "abn. Halbmond"},
+            {"iid": 8, "name": "abnehmender Mond"},
+            {"iid": 9, "name": "abnehmender Halbmond"},
             {"iid": 10, "name": "großer Helm"},
             {"iid": 11, "name": "Helm"},
             {"iid": 12, "name": "kleiner Helm"}
