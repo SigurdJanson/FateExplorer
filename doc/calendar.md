@@ -243,4 +243,8 @@ The date  1. Praios 1000 BF is the 18. Tag of 219. month in the section of the D
 Dating this back to the first day of the Saurian calendar should be: 14. Rahja 50217 v. BF.
 
 
+# Holidays not in Data Base
 
+* Market and Games in Lowangen - last week of Phex
+* Great Trade Fair of Festum - first week of INgerimm
+* Oxen Market of Baliho (18th-22nd)
