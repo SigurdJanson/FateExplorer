@@ -14,7 +14,10 @@
 </MudTooltip>
 
 <MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
-    <MudGrid >
+    <div class="d-flex flex-row">
+        <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=@ToggleOpen />
+    </div>
+    <MudGrid Class="pb-2">
         <MudItem sm=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
@@ -51,31 +54,54 @@
                     <td width="200px">@Calendar.Season</td>
                 </tr>
                 <tr>
-                    <td>
-                        <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
-                        @*<MudIcon Icon=@Icons.Material.Sharp.Cake Title="Holidy" />*@
-                    </td>
-                    <td>@l10n["lblHoliday"]</td>
-                    <td>-</td>
-                </tr>
-                <tr>
                     <td><MudIcon Icon=@Calendar.MoonPhaseIcon Title=@Calendar.MoonPhaseName /> </td>
                     <td>@l10n["lblMoonPhase"]</td>
                     <td>@Calendar.MoonPhaseName</td>
                 </tr>
+                <tr>
+                    <td>
+                        <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
+                    </td>
+                    <td>@l10n["lblHoliday"]</td>
+                    <td></td>
+                </tr>
+                @foreach(var h in Calendar.GetHolidays())
+                {
+                <tr>
+                    <td colspan="3">
+                        <MudTooltip>
+                            <ChildContent>
+                                <div class="d-flex flex-row flex-grow-1">
+                                <MudText Typo=Typo.body2>@h.Item1</MudText>
+                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Info style="z-index:1303;"/>
+                                </div>
+                            </ChildContent>
+                            <TooltipContent >
+                                <MudText Typo=Typo.body2>@h.Item2</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+@*                        @if (!string.IsNullOrWhiteSpace(h.Item2))
+                        {
+                        }
+*@                    </td>
+                </tr>
+                }
                 </tbody>
             </MudSimpleTable>
             </MudPaper>
         </MudItem>
     </MudGrid>
     <div class="d-flex flex-column">
-        <MudButton OnClick=@ToggleOpen Class="ml-auto mr-n3 mb-1" Color=Color.Primary>@l10n["btnClose"]</MudButton>
+
     </div>
 </MudPopover>
 
 @code {
     private CalendarViMo Calendar { get; set; }
 
+
+
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         base.OnInitialized();

@@ -51,13 +51,54 @@ public class CalendarDB
 
 
     /// <summary>
-    /// 
+    /// Get the name that describes the given moon phase.
     /// </summary>
-    /// <param name="phase"></param>
-    /// <returns></returns>
+    /// <param name="phase">Moon phase</param>
+    /// <returns>A string with the localized name</returns>
     public string GetMoonPhaseName(MoonPhase phase)
     {
         return Generic.Moonphase.Find(i => i.Iid == (int)phase).Name;
+    }
+
+
+
+    //public bool HasHoliday(int Month, int Day)
+    //{
+    //    int DayOfYear = Day + (Month - 1) * 30;
+
+    //    foreach(var h in Generic.Holiday)
+    //    {
+    //        int DayStart = h.Day + (h.Month - 1) * 30;
+    //        int DayEnd = DayStart + h.Duration - 1;
+    //        if (DayOfYear >= DayStart && DayOfYear <= DayEnd)
+    //            return true;
+    //    }
+    //    return false;
+    //}
+
+
+    /// <summary>
+    /// Get a list of fixed holidays held on a given day
+    /// </summary>
+    /// <param name="Month">Month according to FB reckoning</param>
+    /// <param name="Day">Day in month according to FB reckoning</param>
+    /// <returns>A list of tupels with name and description of the holidays</returns>
+    public (string Name, string Descr)[] GetHolidays(int Month, int Day)
+    {
+        if (Month < 1 || Month > 13) 
+            throw new ArgumentOutOfRangeException(nameof(Month), Month, "Months must be 1-13");
+
+        int DayOfYear = Day + (Month - 1) * 30;
+
+        List<(string Name, string Descr)> Holidays = new();
+        foreach (var h in Generic.Holiday)
+        {
+            int DayStart = h.Day + (h.Month - 1) * 30;
+            int DayEnd = DayStart + h.Duration - 1;
+            if (DayOfYear >= DayStart && DayOfYear <= DayEnd)
+                Holidays.Add((h.Name, h.Descr));
+        }
+        return Holidays.ToArray();
     }
 }
 
@@ -156,6 +197,9 @@ public class HolidayEntry
 
     [JsonPropertyName("duration")]
     public int Duration { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
 
     [JsonPropertyName("descr")]
     public string Descr { get; set; }

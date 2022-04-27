@@ -70,6 +70,9 @@ public class CalendarViMo
     public void GotoDate(DateTime date) => EffectiveDate = date;
 
 
+    public (string, string)[] GetHolidays() 
+        => GameData.GetHolidays(Calendar.GetMonth(EffectiveDate), DayOfMonth);
+
     /// <summary>
     /// 
     /// </summary>
