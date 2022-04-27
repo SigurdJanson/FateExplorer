@@ -169,6 +169,12 @@ public class ReckoningEntry
     [JsonPropertyName("id")]
     public string Id { get; set; }
 
+    [JsonPropertyName("txt+")]
+    public string LabelPos { get; set; }
+
+    [JsonPropertyName("txt-")]
+    public string LabelNeg { get; set; }
+
     [JsonPropertyName("correction")]
     public int Correction { get; set; }
 
