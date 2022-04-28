@@ -544,11 +544,11 @@
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithDominantHand" xml:space="preserve">
-    <value>Pick up with non-dominant hand</value>
+    <value>Pick up with dominant hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithNondominantHand" xml:space="preserve">
-    <value>Pick up with dominant hand</value>
+    <value>Pick up with non-dominant hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">

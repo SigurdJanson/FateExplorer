@@ -118,14 +118,14 @@
                                     OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     Title=@(l10n["lblRoll"] + " " + l10n["lblAttack"])
-                                    aria-label=@(l10n["lblRoll"] + " " + l10n["lblAttack"]) />
+                                    aria-label=@($"{l10n["lblAttack"]} {l10n["lblRoll"]} {Hero.Hands.MainWeapon.Name}") />
                                 @if (Hero.Hands.MainWeapon.CanParry)
                                 {
                                 <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
                                     OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
                                     Title=@(l10n["lblRoll"] + " " + l10n["lblParry"])
-                                    aria-label=@(l10n["lblRoll"] + " " + l10n["lblParry"]) />
+                                    aria-label=@($"{l10n["lblParry"]} {l10n["lblRoll"]} {Hero.Hands.MainWeapon.Name}") />
                                 }
 @*                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
