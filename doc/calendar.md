@@ -246,11 +246,7 @@ Dating this back to the first day of the Saurian calendar should be: 14. Rahja 5
 # Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
-* PRA 12.	Großes Turnier, Hôt-Alem
 * Nacht der Ahnen (AGF Seite 84), Havena; TRA 30. (Nacht auf den 1. Boron)
-* BOR 8. Feterdhinstag,	Khunchom
-* PHE 1. Fest der Reife, Sylla
-* RON 1.-3.	Gladiatorenkämpfe, Punin
 * RON 13.	Stadtfest Alriks des Starken, Warunk
 * RON 15.	Herzogenturney	Rondra, Trallop
 * RON 22.	Parade zu Ehren des Kaisers, Elenvina
