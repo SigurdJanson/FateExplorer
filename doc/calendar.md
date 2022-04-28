@@ -245,6 +245,49 @@ Dating this back to the first day of the Saurian calendar should be: 14. Rahja 5
 
 # Holidays not in Data Base
 
-* Market and Games in Lowangen - last week of Phex
-* Great Trade Fair of Festum - first week of INgerimm
+* Several trade fairs of the Almanach.
+* PRA 12.	Großes Turnier, Hôt-Alem
+* Nacht der Ahnen (AGF Seite 84), Havena; TRA 30. (Nacht auf den 1. Boron)
+* BOR 8. Feterdhinstag,	Khunchom
+* PHE 1. Fest der Reife, Sylla
+* RON 1.-3.	Gladiatorenkämpfe, Punin
+* RON 13.	Stadtfest Alriks des Starken, Warunk
+* RON 15.	Herzogenturney	Rondra, Trallop
+* RON 22.	Parade zu Ehren des Kaisers, Elenvina
+* TRA 5.	Jagdturnier, Zorgan
+* ING 16.	Tag der Großen Flut, Havena
+* ING 22.	Trollpfortengedenken
+
+## Floating Holidays
+
+| Holiday  | When? | Descr |
+|---|---|---|
+| Madatag (Madaday) | 1st Earthday in Praios | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
+| Wahl der Fischkönigin | First new moon in Efferd | 
+| Großes Turnier in Gareth | Starts at 1st Praiosday in Praios; 8 days | |
+| Bukenbrinn () | Ingerimm, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Festumer Warenschau | TRA und ING, starts with 1. Marketday, lasts 1 week | |
+| Purgatoria | TRA, last Praiosday |  |
+| Warenschau und große Sklavenauktion | BOR ab dem 2. Boronstag vier Tage lang |  |
+| Avestag | PHE, last Windsday |  |
+|	Aves-Rennen, Gareth | PER 2. Windsday | |
+
+
+| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+
+* Great Trade Fair of Festum - first week of Ingerimm
 * Oxen Market of Baliho (18th-22nd)
+* | Immanmeisterschaften | TRA Ab 2. Rohalstag zwei Wochen lang | |
+* | Regatta der Sieben Winde auf den Zyklopeninseln | PER letzter Windstag | |
+* PER Mitte	Viehmarkt in Andergast (UdW S. 145)		Andergast
+
+{"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
+{"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
+
+## Requirements
+
+* n-th weekday W in month M (e.g. Madaday)
+* Last weekday W in month M (e.g. Purgatoria)
+* \1. Moon phase in month
+* (Last-n)th week in month M
+* n-th week in month M
