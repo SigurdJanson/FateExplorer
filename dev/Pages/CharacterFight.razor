@@ -98,7 +98,7 @@
             <MudPaper Class="pa-2">
                 <MudGrid>
                     <MudItem xs=6>
-                        <MudCard Class="mb-4">
+                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Main) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Main)>
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
@@ -135,7 +135,7 @@
                     </MudItem>
 
                     <MudItem xs=6>
-                        <MudCard Class="mb-4">
+                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Off) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Off)>
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblNondominantHand"]</MudText>
@@ -381,7 +381,16 @@ else
                 &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(Hero.Hands, OtherWeapon.Branch))
                 &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(Hero.Hands, OtherWeapon.Branch))
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-                </span>;
+    </span>
+    ;
+    }
+
+    private int HandCardElevation(HandsViMo Hands, HandsViMo.Hand Which)
+    {
+        if (Hands?.IsBare(Which) ?? true)
+            return 0;
+        else
+            return 3;
     }
 
     #endregion
