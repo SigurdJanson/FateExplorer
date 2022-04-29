@@ -4,15 +4,24 @@
 
 
 <MudCard Elevation=2 Class="pa-1 ma-1">
-    <MudCardHeader Style=@($"background:{GetHeaderColor(Result.SuccessLevel)};")> @*color:{Theme.Palette.Dark}; *@
+    <MudCardHeader Style=@($"background:{GetHeaderColor(Result.SuccessLevel)};")>
         <CardHeaderAvatar>
+            @if (Result.SuccessLevel != RollSuccess.Level.na)
+            {
             <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
                 <MudIcon Color=@GetAvatarIconColor(Result.SuccessLevel) Icon=@GetAvatarIcon(Result.SuccessLevel) Size=Size.Large />
             </MudAvatar>
+            }
+            else
+            {
+            <MudAvatar Color=@GetAvatarColor(Result.SuccessLevel) Square=true Size=Size.Large>
+                <MudIcon Color=@GetAvatarIconColor(Result.SuccessLevel) Icon=@IconsFE.D6(PrimRollResult.RollResult[0]) Size=Size.Large />
+            </MudAvatar>
+            }
         </CardHeaderAvatar>
         <CardHeaderContent>
-            <MudText Typo="Typo.body1">@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
-            <MudText Typo="Typo.subtitle2">@Result.Name</MudText>
+            <MudText Typo=Typo.body2>@l10n["roll"+Result.SuccessLevel.ToString()]</MudText>
+            <MudText Typo=Typo.subtitle1>@l10n[Result.Name]</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (CanClose)
@@ -258,7 +267,7 @@
             RollSuccess.Level.Success => Color.Surface,
             RollSuccess.Level.PendingBotch => Color.Dark,
             RollSuccess.Level.PendingCritical => Color.Dark,
-            _ => Color.Info
+            _ => Color.Surface
         };
 
     private string GetConfirmationMessage(RollSuccess.Level Outcome) =>

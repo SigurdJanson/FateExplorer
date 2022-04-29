@@ -1021,4 +1021,7 @@
     <value>tt. Monat jjjj BF</value>
     <comment>Calendar</comment>
   </data>
+  <data name="rollna" xml:space="preserve">
+    <value>Wurf</value>
+  </data>
 </root>
