@@ -243,30 +243,83 @@ The date  1. Praios 1000 BF is the 18. Tag of 219. month in the section of the D
 Dating this back to the first day of the Saurian calendar should be: 14. Rahja 50217 v. BF.
 
 
-# Holidays not in Data Base
+# Holidays
+
+Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
+
+
+## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
-* Nacht der Ahnen (AGF Seite 84), Havena; TRA 30. (Nacht auf den 1. Boron)
-* RON 13.	Stadtfest Alriks des Starken, Warunk
-* RON 15.	Herzogenturney	Rondra, Trallop
-* RON 22.	Parade zu Ehren des Kaisers, Elenvina
-* TRA 5.	Jagdturnier, Zorgan
-* ING 16.	Tag der Großen Flut, Havena
-* ING 22.	Trollpfortengedenken
+* PRA 2 "Fürstlich Gnaden, Kosch", "der Fürst spendiert ein Festmahl und Freibier für die Lehrlinge der Stadt Angbar."
+* PRA 7. "Leomarstag, Baburin", "An diesem Tag soll der Heilige Leomar Rondra herausgefordert haben; Wagenrennen."
+* PRA 30. "Ratstag, Kosch", "die Bürgermeister der Städte müssen Rechenschaft über das vergangene Jahr ablegen."
+* RON 13.	"Stadtfest Alriks des Starken, Warunk"
+* RON 15.	"Herzogenturney Rondra, Trallop"
+* RON 15.	"Knappenturnier, Elenvina", "Jährliches Knappenturnier an der herzoglichen Knappenschule zu Elenvina"
+* RON 22.	"Parade zu Ehren des Kaisers, Elenvina"
+* RON 30. "Tag des Ritterschlags, Nordmarken", "Abschlussfeier der herzoglichen Knappenschule zu Elenvina, Ruhmestag: man gedenkt erfolgreicher Heerzüge der Vergangenheit."
+* TRA 1-3. "Zehntfest, Havena/Albernia/Windhag", "Abgaben werden fällig, Feierlichkeiten zum Dank für fruchtbare Ernte, wichtige Gerichtstage, Zukunftsdeutung aus dem Flug der Vögel"
+* TRA 5. "Jagdturnier, Zorghana", "Jagdwettbewerbe des Adels"
+* TRA 21. "Fest des Hl. Kupperus, Kosch", "Schutzherr gegen böse Magie und die Kräfte der Berge"
+* TRA 29. "Todestag des Hl. Gilborn von Punin, Nordmarken"
+* TRA 30. "Nacht der Ahnen, Kosch", "Man gedenkt der Toten und lässt am Tisch einen Platz für sie frei"
+* BOR 23. "Tsatag Kaiser Hals, Kosch", "Man gedenkt des ehemaligen Kaisers"
+* HES 5. "Eslaminstag, Zorgan", "Gedenktag für die Heilige Eslamin Phraisop, es wird der Seuchenopfer gedacht und der Perainekirche Kerzen geopfert."
+* FIR 11. "Day of the Crowned Stag, Nostria", "Often with bowyer’s celebration"
+* FIR 13. "Hlûthars Fall, Nordmarken", "Todestag des Hl. Hlûthar"
+* FIR 16. "Tag der Hingabe, Aranien", "Feiertag des Heiligen Ascandear von Baburin, in Palmyramis bekommen Frauen süßes Gebäck in Blütenform, in Baburin werden im Rahjatempel Süßspeisen und Blumen geopfert."
+* EFF 1. "Flussfest, großer Fluss", "An den Ufern des Großen Flusses begangenes Freudenfest (vor allem Albenhus)."
+* EFF 5. "Fest des Flussvaters, Havena/Albernia/Windhag", "Ehrungen des Feenkönigs, nächtliche Bootsprozession mit Laternen auf dem Elderlif."
+* PHE 22.-24. "Twergenhausener Metallwarenmesse"
+* PER 18. "Hasenfest, Kosch", "Fest der Dankbarkeit am Ende der Aussaat"
+* PER 21. "Tag der Befreiung, Havena",  "Niamads Sieg über die Magiertyrannen, Zielschießen auf \"Hexenscheiben\", Verbrennung von Strohpuppen mit Zauberergewändern, Zerstörung konfiszierter magischer Artefakte und Alchimika, Ritterturnier"
+* ING 6.-8. "Wengenholmer Schwurbundfest"
+* ING 16.	"Tag der Großen Flut, Havena"
+* ING 21. "Bergfest, Albenhus und Isenhag", "Feier des Zusammenlebens von Mensch und Zwerg"
+* ING 22.	"Trollpfortengedenken"
+* ING 29. "Todestag der Hl. Lechmin von Weiseprein, Nordmarken"
+* RAH 03. "Delphinregatta, Havena", "Vom Rat der Kapitäne ausgerichtete Wettfahrt von Havena nach Arvun mit der Bewältigung von drei Aufgaben nach Visionen von Efferdgeweihten."
+* RAH 15. "Elidasfahrt, Havena", "Aufbruch von Efferdpilgern zur Elidasfahrt, die per Schiff nach Brabak führt, wo man in den Namenlosen Tagen ankommt. Zu Ehren der Hl. Elida von Salza, die Brabak mit einer solchen Sturmfahrt vor einer Hungersnot rettete."
+* RAH 30. "Jahresscheid, Kosch", "Es werden Kerzen verteilt, deren Licht die Schrecken der Namenlosen Tage vertreiben soll"
+* Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
 
-## Floating Holidays
+??
+* Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
+* Mitte Phex - Albenhuser Fassfest
+* PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
+
+            {"month": 12, "day":  2, "duration": 1,  "name": "", "descr": ""},
+
+
+
+
+
+
+
+
+## Floating Holidays (not in Data Base)
 
 | Holiday  | When? | Descr |
 |---|---|---|
-| Madatag (Madaday) | 1st Earthday in Praios | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
-| Wahl der Fischkönigin | First new moon in Efferd | 
-| Großes Turnier in Gareth | Starts at 1st Praiosday in Praios; 8 days | |
-| Bukenbrinn () | Ingerimm, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Madatag (Madaday) | PRA, 1st Earthday | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
+| Großes Turnier in Gareth | PRA, Starts at 1st Praiosday; 8 days | |
+| Koschtaler Bierfest | TRA, 1st Marketday | Koschtaler Bierfest; beliebtes Volksfest mit Märkten, Auktionen und vor allem Bier |
+| Wahl der Fischkönigin | EFF, first new moon | 
+| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Horse Market in Teshkal | ING, 1. full moon |  |
 | Festumer Warenschau | TRA und ING, starts with 1. Marketday, lasts 1 week | |
 | Purgatoria | TRA, last Praiosday |  |
 | Warenschau und große Sklavenauktion | BOR ab dem 2. Boronstag vier Tage lang |  |
-| Avestag | PHE, last Windsday |  |
+| Avestag | PHE, last Windsday | Avestag, guter Tag für die erste große Schiffsreise nach dem Winter, Begrüßung der zurückkehrenden Zugvögel |
 |	Aves-Rennen, Gareth | PER 2. Windsday | |
+| Election of the Fisher Queen, Nostria | EFF, 1st New Moon | by the Stone of Nosteria |
+| Day of Andra’s Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
+| Big Cattle Market, Andergast | PER, 1st Week | |
+| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
+| Elenviner Ross- und Wagenmarkt, Elenvina | PHE, 1. Windsday | |
+| Tolles Treiben, Angbar | PHE, 1st Marketday | Blumengeschmücktes Vieh wird durch die Gassen getrieben |
+| Elenviner Handelshallenausstellung, Elenvina | PHE, 2. Marketday |  |
 
 
 | Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
@@ -280,10 +333,26 @@ Dating this back to the first day of the Saurian calendar should be: 14. Rahja 5
 {"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
 {"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
 
-## Requirements
+## Possible Local Additions
+
+* TRA 30. "Nacht der Ahnen (AGF Seite 84), Havena", "Nacht auf den 1. Boron" - ***Das Totenfest ist bereits berücksichtigt, hat aber eine besondere Bedeutung in Havena***.
+
+
+## Requirements for Floating Holidays
 
 * n-th weekday W in month M (e.g. Madaday)
 * Last weekday W in month M (e.g. Purgatoria)
 * \1. Moon phase in month
 * (Last-n)th week in month M
 * n-th week in month M
+* (Last-n)th day in month, e.g. Aves day
+
+
+## Questions
+
+* Can local customs for country-wide be handled?
+* How to handle dates that are likely to change often?
+  * e.g. Tsatag des Fürsten, Kosch", "Trinken auf das Wohl des Fürsten"
+  * RAH 26. Tsatag der Kaiserin (Kosch); man trinkt auf Rohajas Wohl
+  * TRA 7. "Befreiungstag, Elburische Halbinsel", "Feiert das Ende der oronischen Herrschaft"
+
