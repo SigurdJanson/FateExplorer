@@ -10,24 +10,61 @@ public class CalendarDB
     [JsonPropertyName("generic")]
     public Generic Generic { get; set; }
 
+    /// <summary>
+    /// Reuturn the weekday name to a given day number of the week.
+    /// </summary>
+    /// <param name="day">The day's number in the week starting with 1 being a Windsday (1-7)</param>
+    /// <returns>The localised week day name</returns>
     public string GetWeekday(DayOfWeek day) => Generic.WeekDays.Find(i => (int)day == i.Earthid).Name;
+
+    /// <summary>
+    /// Reuturn the abbreaviated weekday name to a given day number of the week.
+    /// </summary>
+    /// <param name="day">The day's number in the week starting with 1 being a Windsday (1-7)</param>
+    /// <returns>The localised week day abbreviation</returns>
     public string GetWeekdayAbbr(DayOfWeek day) => Generic.WeekDays.Find(i => (int)day == i.Earthid).Abbr;
+
+    /// <summary>
+    /// Get all the week day names as array
+    /// </summary>
     public string[] WeekdayNames => Generic.WeekDays.OrderBy(i => i.Earthid).Select(i => i.Name).ToArray();
+
+    /// <summary>
+    /// Get all the week day abbreviations as array
+    /// </summary>
     public string[] WeekdayAbbrs => Generic.WeekDays.OrderBy(i => i.Earthid).Select(i => i.Abbr).ToArray();
 
+    /// <summary>
+    /// The the month's name tht fits the number in the year.
+    /// </summary>
+    /// <param name="month">The number of the month in the year (1-13)</param>
+    /// <returns>The localised month name</returns>
     public string GetMonth(int month) => Generic.Month.Find(i => month == i.Iid).Name;
+
+    /// <summary>
+    /// Get all the month names as array
+    /// </summary>
     public string[] MonthNames => Generic.Month.Select(i => i.Name).ToArray();
+
+    /// <summary>
+    /// Get all the month abbreviations as array
+    /// </summary>
     public string[] MonthAbbr => Generic.Month.Select(i => i.Abbr).ToArray();
 
 
+    /// <summary>
+    /// Returns the id of the season the given month lies in.
+    /// </summary>
+    /// <param name="MonthId">The number of the month in the year (1-13)</param>
+    /// <returns>Id of the season</returns>
     public Season GetSeasonId(int MonthId) => (Season)Generic.Month.Find(i => i.Iid == MonthId).SeasonId;
    
 
     /// <summary>
-    /// 
+    /// Returns the name of the season the given month lies in.
     /// </summary>
-    /// <param name="MonthId"></param>
-    /// <returns></returns>
+    /// <param name="MonthId">The number of the month in the year (1-13)</param>
+    /// <returns>Localised name of the season</returns>
     public string GetSeason(int MonthId)
     {
         int SeasonId = Generic.Month.Find(i => i.Iid == MonthId).SeasonId;
@@ -60,21 +97,6 @@ public class CalendarDB
         return Generic.Moonphase.Find(i => i.Iid == (int)phase).Name;
     }
 
-
-
-    //public bool HasHoliday(int Month, int Day)
-    //{
-    //    int DayOfYear = Day + (Month - 1) * 30;
-
-    //    foreach(var h in Generic.Holiday)
-    //    {
-    //        int DayStart = h.Day + (h.Month - 1) * 30;
-    //        int DayEnd = DayStart + h.Duration - 1;
-    //        if (DayOfYear >= DayStart && DayOfYear <= DayEnd)
-    //            return true;
-    //    }
-    //    return false;
-    //}
 
 
     /// <summary>
