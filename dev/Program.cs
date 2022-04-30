@@ -1,3 +1,4 @@
+using FateExplorer.Calendar;
 using FateExplorer.GameData;
 using FateExplorer.Shared;
 using FateExplorer.ViewModel;
@@ -30,6 +31,7 @@ namespace FateExplorer
             builder.Services
                 .AddScoped<IGameDataService, DataServiceDSA5>()
                 .AddScoped<ITheHeroViMo, TheHeroViMo>()
+                .AddScoped<IDateOfPlay, DateOfPlayM>()
                 .AddSingleton<AppSettings>();
             builder.Services.AddScoped<IRollHandlerViMo, RollHandlerViMo>();
 
@@ -42,7 +44,6 @@ namespace FateExplorer
             var RollHandlerService = host.Services.GetRequiredService<IRollHandlerViMo>();
             await RollHandlerService.ReadRollMappingsAsync();
             RollHandlerService.RegisterChecks();
-
 
             // Run
             await host.RunAsync();

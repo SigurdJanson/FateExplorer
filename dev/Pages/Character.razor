@@ -1,15 +1,21 @@
 ﻿@page "/overview"
 
+@using FateExplorer.Calendar
 @using FateExplorer.Components
+@using FateExplorer.GameData
 @using FateExplorer.RollLogic
 @using FateExplorer.ViewModel
 @using FateExplorer.Shared
 @using System.IO
 @using System
 
+@implements IDisposable
+
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
+@inject IGameDataService GameData
 @inject ITheHeroViMo Hero
+@inject IDateOfPlay CurrentDate
 @inject IRollHandlerViMo RollHandler
 
 @if (Hero.HasBorn)
@@ -20,13 +26,17 @@
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudText Typo=Typo.body1 Class="mb-3">@Hero.Name</MudText>
                 <MudGrid>
-                    <MudItem xs=6>
+                    <MudItem xs=6 md=4>
                         <MudText Typo=Typo.caption>@l10n["lblPlaceOfBirth"]</MudText>
                         <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
                     </MudItem>
-                    <MudItem xs=6>
+                    <MudItem xs=6 md=4>
                         <MudText Typo=Typo.caption>@l10n["lblDateOfBirth"]</MudText>
-                        <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>
+                        <MudText Typo=Typo.body2>@DateOfBirthStr</MudText>
+                    </MudItem>
+                    <MudItem xs=6 md=4>
+                        <MudText Typo=Typo.caption>@l10n["lblAge"]</MudText>
+                        <MudText Typo=Typo.body2>@AgeStr</MudText>
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -217,6 +227,11 @@ else
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
 
+    private CalendarViMo Calendar { get; set; }
+    private DateTime DateOfBirth { get; set; }
+    private string DateOfBirthStr { get; set; }
+    private string AgeStr { get; set; }
+
     private List<LanguageDTO> langs;
     private List<LanguageDTO> Langs
     {
@@ -264,20 +279,54 @@ else
     }
 
 
+    private void UpdateDate()
+    {
+        if (Calendar is null) return;
+
+        bool DateHasBeenSet = false;
+        try{
+            DateOfBirth = Calendar.Parse(Hero.DateOfBirth);
+        }
+        catch(FormatException)
+        {
+            DateOfBirthStr = Hero.DateOfBirth;
+            AgeStr = "n/a";
+            DateHasBeenSet = true;
+        }
+        // if DateOfBirth has been parsed successfully
+        if (!DateHasBeenSet)
+        {
+            DateOfBirthStr = Calendar.GetDateAsString(true, DateOfBirth);
+            AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.GetDate()).ToString();
+        }
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         if (RollCheckResults is null)
             RollCheckResults = new(4);
+
+        CurrentDate.OnChange += OnDateChanged;
+        Calendar = new(GameData.Calendar, CurrentDate);
     }
 
 
 
 
     /// <summary>Reacts to any changes of the character view model</summary>
-    protected void OnCharacterHasLoaded() => StateHasChanged();
+    protected void OnCharacterHasLoaded()
+    {
+        UpdateDate();
+        StateHasChanged();
+    }
 
-
+    /// <summary>Respond to a change of the current date</summary>
+    protected void OnDateChanged()
+    {
+        UpdateDate();
+        StateHasChanged();
+    }
 
 
     private void OnAbilityCheck(AbilityDTO ability)
@@ -293,6 +342,14 @@ else
         ModifyValue = NewValue;
         ActiveAbilityCheck?.CheckModifier.Set(ModifyValue);
         StateHasChanged();
+    }
+
+
+    // IDISPOSABLE
+
+    public void Dispose()
+    {
+        CurrentDate.OnChange -= OnDateChanged;
     }
 
 

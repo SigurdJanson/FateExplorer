@@ -13,23 +13,50 @@ namespace FateExplorer.Calendar;
 /// <remarks>In this early version the CalendarViMo can only be used with reckoning of Bosparan's Fall</remarks>
 public class CalendarViMo
 {
-    private CalendarDB GameData { get; set; }
+    private CalendarDB GameData { get; set; } // injected
+    private IDateOfPlay DateOfPlay { get; set; } // injected
+
+
 
     private BosparanCalendar Calendar { get; set; }
     private DateTime CurrentDate { get; set; }
-    private DateTime EffectiveDate { get; set; }
+    private DateTime EffectiveDate { get => DateOfPlay.Date; set => DateOfPlay.Date = value; }
 
-    public CalendarViMo(CalendarDB gameData)
+    /// <summary>Regular expression used to parse dates represented as strings (Bosparan calendar only)</summary>
+    public const string DateRegex = @"^\s*(?<day>\d{1,2})\.?\s*(?<month>[A-Z]*)\s*(?<year>-?\d{1,4})\s*(?<reck>[A-Z]*)\s*$";
+
+
+    public CalendarViMo(CalendarDB gameData, IDateOfPlay dateOfPlay)
     {
         GameData = gameData; // Inject
+        DateOfPlay = dateOfPlay; // Inject
 
         CurrentDate = DateTime.Now;
         EffectiveDate = new DateTime(CurrentDate.Ticks);
         Calendar = new();
     }
 
-    public const string DateRegex = @"^\s*(?<day>\d{1,2})\.?\s*(?<month>[A-Z]*)\s*(?<year>-?\d{1,4})\s*(?<reck>[A-Z]*)\s*$";
 
+    public DateTime GetDate() => EffectiveDate;
+
+    public string GetDateAsString(bool Long, DateTime? date = null)
+    {
+        DateTime Value = date ?? EffectiveDate;
+        if (Long)
+        {
+            string weekDay = GameData.GetWeekday(Calendar.GetDayOfWeek(Value));
+            int dayOfMonth = Calendar.GetDayOfMonth(Value);
+            string month = GameData.GetMonth(Calendar.GetMonth(Value));
+            int year = Calendar.GetYear(Value);
+            return $"{weekDay}, {dayOfMonth}. {month} {year}";
+        }
+        else
+        {
+            string weekDay = GameData.GetWeekday(Calendar.GetDayOfWeek(Value));
+            int dayOfMonth = Calendar.GetDayOfMonth(Value);
+            return $"{dayOfMonth}, {weekDay}";
+        }
+    }
 
     public string WeekdayShort => GameData.GetWeekdayAbbr(Calendar.GetDayOfWeek(EffectiveDate));
     public string Weekday => GameData.GetWeekday(Calendar.GetDayOfWeek(EffectiveDate));

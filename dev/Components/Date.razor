@@ -3,6 +3,7 @@
 @using FateExplorer.ViewModel
 
 @inject IGameDataService GameData
+@inject IDateOfPlay CurrentDate
 @inject IStringLocalizer<App> l10n
 
 <MudTooltip Text=@LongDate>
@@ -99,18 +100,16 @@
 @code {
     private CalendarViMo Calendar { get; set; }
 
-
-
     /// <inheritdoc />
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Calendar = new(GameData.Calendar);
+        Calendar = new(GameData.Calendar, CurrentDate);
         BtnLabelSetDate = l10n[BtnLabelSetDateSet];
     }
 
 
-    // 
+    // POPOVER
     #region POPOVER
     public bool IsPopupOpen;
 
@@ -135,6 +134,9 @@
     private string dateInputStr = string.Empty;
 
 
+    /// <summary>
+    /// Respond to abstract click of the Modify Date button
+    /// </summary>
     private void SetDate()
     {
         if (!SetDateOpen)
@@ -168,13 +170,16 @@
     #endregion
 
 
+
+    // RENDERING
     #region RENDERING
+
     RenderFragment<CalendarViMo> RenderShortDate = Value => __builder =>
     {
-        <span>@($"{Value.DayOfMonth}, {Value.Weekday}")</span>
+    <span>@Value.GetDateAsString(false)</span>
     };
 
-    private string LongDate => $"{Calendar?.Weekday}, der {Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year}";
+    private string LongDate => Calendar?.GetDateAsString(true) ?? ""; //$"{Calendar?.Weekday}, der {Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year}";
 
 
     #endregion
