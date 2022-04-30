@@ -25,7 +25,7 @@
             {"iid": 13, "name": "Namenlose Tage", "abbr": "Nal", "seasoniid": 1}
         ],
         "reckoning": [
-            {"id": "BF",    "txt+": "BF", "txt-": "v. BF", "correction": -977, "has0": true},
+            {"id": "FB",    "txt+": "BF", "txt-": "v. BF", "correction": -977, "has0": true},
             {"id": "Hal",   "txt+": "Hal", "txt-": "v. Hal", "correction": -1970, "has0": true},
             {"id": "Horas", "txt+": "Horas", "txt-": "v. Horas", "correction": 515, "has0": false}
         ],

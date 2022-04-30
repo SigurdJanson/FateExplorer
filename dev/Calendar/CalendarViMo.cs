@@ -48,7 +48,8 @@ public class CalendarViMo
             int dayOfMonth = Calendar.GetDayOfMonth(Value);
             string month = GameData.GetMonth(Calendar.GetMonth(Value));
             int year = Calendar.GetYear(Value);
-            return $"{weekDay}, {dayOfMonth}. {month} {year}";
+            string Reckoning = GameData.GetFBReckoning(year);
+            return $"{weekDay}, {dayOfMonth}. {month} {Math.Abs(year)} {Reckoning}";
         }
         else
         {
@@ -71,7 +72,7 @@ public class CalendarViMo
 
     public int Year => Calendar.GetYear(EffectiveDate);
 
-    public string Reckoning => "BF";
+    public string Reckoning => GameData.GetFBReckoning(Calendar.GetYear(EffectiveDate));
 
     public string Season => GameData.GetSeason(Calendar.GetMonth(EffectiveDate));
     public string SeasonIcon => GameData.GetSeasonId(Calendar.GetMonth(EffectiveDate)) switch
@@ -123,7 +124,7 @@ public class CalendarViMo
 
         string Reckoning = match.Groups[ReckoningName].Value;
         if (!string.IsNullOrEmpty(Reckoning))
-            if (!Reckoning.Equals("bf", StringComparison.InvariantCultureIgnoreCase))
+            if (!Reckoning.Equals("bf", StringComparison.InvariantCultureIgnoreCase)) // TODO: handle "BF" and "v. BF"
                 throw new FormatException($"String {dateStr} could not be interpreted as date. Reckoning not recognized.");
 
         int Day = int.Parse(match.Groups[DayName].Value);

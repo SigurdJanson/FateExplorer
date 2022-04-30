@@ -25,7 +25,7 @@
             {"iid": 13, "name": "Nameless Days", "abbr": "Nal", "seasoniid": 1}
         ],
         "reckoning": [
-            {"id": "BF",    "txt+": "FB", "txt-": "b. FB", "correction": -977, "has0": true},
+            {"id": "FB",    "txt+": "FB", "txt-": "b. FB", "correction": -977, "has0": true},
             {"id": "Hal",   "txt+": "Hal", "txt-": "b. Hal", "correction": -1970, "has0": true},
             {"id": "Horas", "txt+": "Horas", "txt-": "b. Horas", "correction": 515, "has0": false}
         ],

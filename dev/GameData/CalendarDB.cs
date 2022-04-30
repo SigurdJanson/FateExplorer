@@ -10,6 +10,9 @@ public class CalendarDB
     [JsonPropertyName("generic")]
     public Generic Generic { get; set; }
 
+
+    private const string FBReckoningId = "FB";
+
     /// <summary>
     /// Reuturn the weekday name to a given day number of the week.
     /// </summary>
@@ -51,6 +54,20 @@ public class CalendarDB
     /// </summary>
     public string[] MonthAbbr => Generic.Month.Select(i => i.Abbr).ToArray();
 
+    /// <summary>
+    /// Get the string identifying the Middenrealm calendar of the Fall Bosparans.
+    /// </summary>
+    /// <param name="year">The year</param>
+    /// <returns>An abbreviated string that identifies a year of the Fall Bosparans</returns>
+    public string GetFBReckoning(int year)
+    {
+        var Default = Generic.Reckoning.Find(i => i.Id == FBReckoningId);
+        if (year < 0)
+            return Default?.LabelNeg ?? string.Empty;
+        else
+            return Default?.LabelPos ?? string.Empty;
+    }
+
 
     /// <summary>
     /// Returns the id of the season the given month lies in.
@@ -70,6 +87,8 @@ public class CalendarDB
         int SeasonId = Generic.Month.Find(i => i.Iid == MonthId).SeasonId;
         return Generic.Season.Find(i => i.Iid == SeasonId).Name;
     }
+
+
 
 
     /// <summary>

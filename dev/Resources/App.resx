@@ -450,6 +450,7 @@
   </data>
   <data name="lblDateOfBirth" xml:space="preserve">
     <value>Date of Birth</value>
+    <comment>Character</comment>
   </data>
   <data name="lblDescription" xml:space="preserve">
     <value>Description</value>
@@ -1024,5 +1025,9 @@
   <data name="rollna" xml:space="preserve">
     <value>Roll</value>
     <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="lblAge" xml:space="preserve">
+    <value>Age</value>
+    <comment>Character</comment>
   </data>
 </root>

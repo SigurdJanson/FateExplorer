@@ -1024,4 +1024,7 @@
   <data name="rollna" xml:space="preserve">
     <value>Wurf</value>
   </data>
+  <data name="lblAge" xml:space="preserve">
+    <value>Alter</value>
+  </data>
 </root>
