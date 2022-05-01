@@ -176,10 +176,10 @@
 
     RenderFragment<CalendarViMo> RenderShortDate = Value => __builder =>
     {
-    <span>@Value.GetDateAsString(false)</span>
+    <span>@Value.DateToString('x')</span>
     };
 
-    private string LongDate => Calendar?.GetDateAsString(true) ?? ""; //$"{Calendar?.Weekday}, der {Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year}";
+    private string LongDate => Calendar?.DateToString('D') ?? "";
 
 
     #endregion

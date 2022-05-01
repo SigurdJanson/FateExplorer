@@ -279,6 +279,9 @@ else
     }
 
 
+    /// <summary>
+    /// Update the fields once the date of play of the app has changed
+    /// </summary>
     private void UpdateDate()
     {
         if (Calendar is null) return;
@@ -296,11 +299,13 @@ else
         // if DateOfBirth has been parsed successfully
         if (!DateHasBeenSet)
         {
-            DateOfBirthStr = Calendar.GetDateAsString(true, DateOfBirth);
+            DateOfBirthStr = Calendar.DateToString('p', DateOfBirth);
             AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.GetDate()).ToString();
         }
     }
 
+
+    /// <inheritdoc/>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -314,7 +319,7 @@ else
 
 
 
-    /// <summary>Reacts to any changes of the character view model</summary>
+    /// <summary>Respond to any changes of the character view model</summary>
     protected void OnCharacterHasLoaded()
     {
         UpdateDate();

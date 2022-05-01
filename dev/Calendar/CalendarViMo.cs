@@ -39,24 +39,41 @@ public class CalendarViMo
 
     public DateTime GetDate() => EffectiveDate;
 
-    public string GetDateAsString(bool Long, DateTime? date = null)
+
+
+    /// <summary>
+    /// Converts the given date to a string with the desired standard format.
+    /// If no date is given, the current effective date will be used.
+    /// </summary>
+    /// <param name="Format">
+    /// A <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings">
+    /// standard format specifier</see> or on of these: x = "dd, dddd" and p = "dd. MMMM yyyy"</param>
+    /// <param name="date">A date to convert or null to use the current date</param>
+    /// <returns>A formatted date as string</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="FormatException"></exception>
+    public string DateToString(char Format, DateTime? date = null)
     {
         DateTime Value = date ?? EffectiveDate;
-        if (Long)
+
+        string weekDay = GameData.GetWeekday(Calendar.GetDayOfWeek(Value));
+        string dayOfMonth = Calendar.GetDayOfMonth(Value).ToString(); // `.ToString` to avoid boxing
+        string month = GameData.GetMonth(Calendar.GetMonth(Value));
+        int year = Calendar.GetYear(Value);
+
+        return Format switch
         {
-            string weekDay = GameData.GetWeekday(Calendar.GetDayOfWeek(Value));
-            int dayOfMonth = Calendar.GetDayOfMonth(Value);
-            string month = GameData.GetMonth(Calendar.GetMonth(Value));
-            int year = Calendar.GetYear(Value);
-            string Reckoning = GameData.GetFBReckoning(year);
-            return $"{weekDay}, {dayOfMonth}. {month} {Math.Abs(year)} {Reckoning}";
-        }
-        else
-        {
-            string weekDay = GameData.GetWeekday(Calendar.GetDayOfWeek(Value));
-            int dayOfMonth = Calendar.GetDayOfMonth(Value);
-            return $"{dayOfMonth}, {weekDay}";
-        }
+            'd' => $"{dayOfMonth}.{Calendar.GetMonth(Value)}.{year}",
+            'D' => $"{weekDay}, {dayOfMonth}. {month} {Math.Abs(year)} {GameData.GetFBReckoning(year)}",
+            'm' or 'M' => $"{dayOfMonth}. {month}",
+            's' => $"{year}-{Calendar.GetMonth(Value)}-{dayOfMonth}",
+            'y' or 'Y' => $"{month} {Math.Abs(year)}",
+            'p' => $"{dayOfMonth}. {month} {year}",
+            'x' => $"{dayOfMonth}, {weekDay}",
+            'g' or 'G' or 'f' or 'F' or 'o' or 'O' or 'r' or 'R' or 't' or 'T' or 'u' or 'U' 
+                => throw new ArgumentException("Time formats not available"),
+            _ => throw new FormatException("Unknown format specifier. Method does not support custom specifiers."),
+        };
     }
 
     public string WeekdayShort => GameData.GetWeekdayAbbr(Calendar.GetDayOfWeek(EffectiveDate));
