@@ -19,11 +19,21 @@ public class CalendarViMo
 
 
     private BosparanCalendar Calendar { get; set; }
-    private DateTime CurrentDate { get; set; }
-    private DateTime EffectiveDate { get => DateOfPlay.Date; set => DateOfPlay.Date = value; }
+  
+    public DateTime EffectiveDate 
+    { 
+        get => DateOfPlay.Date;
+        protected set => DateOfPlay.Date = value;
+    }
+
 
     /// <summary>Regular expression used to parse dates represented as strings (Bosparan calendar only)</summary>
-    public const string DateRegex = @"^\s*(?<day>\d{1,2})\.?\s*(?<month>[A-Z]*)\s*(?<year>-?\d{1,4})\s*(?<reck>[A-Z]*)\s*$";
+    protected const string DayRegex = @"(?<day>\d{1,2})\.?"; // interprets the day in month
+    protected const string MonthRegex = @"(?<month>[A-Za-z]*)"; // interprets the month
+    protected const string YearRegex = @"(?<year>-?\d{1,4})"; // interprets the day in month
+    protected const string ReckoningRegex = @"(?<reck>[vVbB]?\.?\s*[A-Za-z]*)"; // interprets the calendar designation
+    protected const string BeforeReckoningRegex = @"(?<reck>[vVbB]\.?\s*[A-Za-z]*)"; // interprets the calendar designation
+    public const string DateRegex = @"^\s*" + DayRegex + @"\s*" + MonthRegex + @"\s*" + YearRegex + @"\s*" + ReckoningRegex + @"\s*$";
 
 
     public CalendarViMo(CalendarDB gameData, IDateOfPlay dateOfPlay)
@@ -31,13 +41,8 @@ public class CalendarViMo
         GameData = gameData; // Inject
         DateOfPlay = dateOfPlay; // Inject
 
-        CurrentDate = DateTime.Now;
-        EffectiveDate = new DateTime(CurrentDate.Ticks);
         Calendar = new();
     }
-
-
-    public DateTime GetDate() => EffectiveDate;
 
 
 
@@ -128,7 +133,6 @@ public class CalendarViMo
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Readibility")]
     public DateTime Parse(string dateStr)
     {
-        //string pattern = @"^\s * (? 'day'\d{ 1,2})\.?\s * (? 'month'[A - Za - z] *)\s * (? 'year'\d{ 1,4})\s * (? 'Reck'[A - Za - z] *)\s *$";
         const string DayName = "day";
         const string MonthName = "month";
         const string YearName = "year";
@@ -139,13 +143,15 @@ public class CalendarViMo
         if (!match.Success)
             throw new FormatException($"String {dateStr} could not be interpreted as date");
 
-        string Reckoning = match.Groups[ReckoningName].Value;
-        if (!string.IsNullOrEmpty(Reckoning))
-            if (!Reckoning.Equals("bf", StringComparison.InvariantCultureIgnoreCase)) // TODO: handle "BF" and "v. BF"
+        string xReckoning = match.Groups[ReckoningName].Value; // the eXtracted reckoning
+        if (!string.IsNullOrEmpty(xReckoning))
+            if (!xReckoning.Contains(Reckoning, StringComparison.InvariantCultureIgnoreCase)) // TODO: handle "BF" and "v. BF"
                 throw new FormatException($"String {dateStr} could not be interpreted as date. Reckoning not recognized.");
 
         int Day = int.Parse(match.Groups[DayName].Value);
         int Year = int.Parse(match.Groups[YearName].Value);
+        if (Regex.Match(xReckoning, BeforeReckoningRegex).Success) // if calendar is "b.FB"
+            Year *= -1;
 
         int Month;
         string MonthStr = match.Groups[MonthName].Value;

@@ -300,7 +300,7 @@ else
         if (!DateHasBeenSet)
         {
             DateOfBirthStr = Calendar.DateToString('p', DateOfBirth);
-            AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.GetDate()).ToString();
+            AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.EffectiveDate).ToString();
         }
     }
 

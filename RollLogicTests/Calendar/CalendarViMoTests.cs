@@ -4,6 +4,8 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace UnitTests.Calendar
 {
@@ -28,6 +30,16 @@ namespace UnitTests.Calendar
             yield return "4. Tsa -976"; // earliest possible year
         }
 
+        static IEnumerable<string> ValidBeforeFBStringDates()
+        {
+            yield return "4. Tsa 654 BF";
+            yield return "11 Rondra654 v. BF";
+            yield return "    27. Efferd 654 vBF";
+            yield return " 27.Efferd 654  v   BF   ";
+            yield return "4. Tsa 654 V.bf";
+            yield return "4. Tsa 1 v. BF";
+        }
+
         static IEnumerable<string> InvalidRangeStringDates()
         {
             yield return "4. Tsa -977"; // latest invalid year
@@ -36,62 +48,76 @@ namespace UnitTests.Calendar
         }
 
         private MockRepository mockRepository;
-        private Mock<CalendarDB> mockCalendarDB;
+        private Mock<IDateOfPlay> mockDateOfPlay;
+        CalendarDB CalendarData;
 
 
         [SetUp]
         public void SetUp()
         {
             this.mockRepository = new MockRepository(MockBehavior.Strict);
+            mockDateOfPlay = mockRepository.Create<IDateOfPlay>();
+            mockDateOfPlay.SetupProperty(c => c.Date, DateTime.Now);
+
+            string BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestHelpers.Path2wwwrootData));
+            string fileName = Path.GetFullPath(Path.Combine(BasePath, $"calendar_de.json"));
+            string jsonString = File.ReadAllText(fileName);
+            CalendarData = JsonSerializer.Deserialize<CalendarDB>(jsonString);
         }
 
 
         private CalendarViMo CreateCalendarViMo()
         {
-            return new CalendarViMo(mockCalendarDB.Object);
+            return new CalendarViMo(CalendarData, mockDateOfPlay.Object);
         }
 
 
 
         [Test]
-        public void GotoTomorrow_StateUnderTest_ExpectedBehavior()
+        public void GotoTomorrow()
         {
             // Arrange
             var calendarViMo = this.CreateCalendarViMo();
+            DateTime Before = calendarViMo.EffectiveDate;
 
             // Act
             calendarViMo.GotoTomorrow();
 
             // Assert
-            //Assert.AreEqual();
+            Assert.Greater(calendarViMo.EffectiveDate, Before);
             this.mockRepository.VerifyAll();
         }
 
+
         [Test]
-        public void GotoYesterday_StateUnderTest_ExpectedBehavior()
+        public void GotoYesterday()
         {
             // Arrange
             var calendarViMo = this.CreateCalendarViMo();
+            DateTime After = calendarViMo.EffectiveDate;
 
             // Act
             calendarViMo.GotoYesterday();
 
             // Assert
-            Assert.Fail();
+            Assert.Less(calendarViMo.EffectiveDate, After);
             this.mockRepository.VerifyAll();
         }
 
+
         [Test]
-        public void GotoEarthDate_StateUnderTest_ExpectedBehavior()
+        public void GotoEarthDate()
         {
             // Arrange
             var calendarViMo = this.CreateCalendarViMo();
+            calendarViMo.GotoYesterday();
 
             // Act
+            Assume.That(calendarViMo.EffectiveDate.Date, Is.Not.EqualTo(DateTime.Today));
             calendarViMo.GotoEarthDate();
 
             // Assert
-            Assert.Fail();
+            Assert.AreEqual(DateTime.Today, calendarViMo.EffectiveDate.Date);
             this.mockRepository.VerifyAll();
         }
 
@@ -110,6 +136,24 @@ namespace UnitTests.Calendar
 
             // Assert
             Assert.Greater(result, DateTime.MinValue);
+            mockRepository.VerifyAll();
+        }
+
+
+        [Test]
+        [TestCaseSource(nameof(ValidBeforeFBStringDates))]
+        public void Parse_ValidDateTime_BeforeFB(string dateStr)
+        {
+            // Arrange
+            var calendarViMo = this.CreateCalendarViMo();
+            DateTime result = DateTime.MinValue;
+
+            // Act
+            Assert.DoesNotThrow(() => result = calendarViMo.Parse(dateStr));
+
+            // Assert
+            Assert.Greater(result, DateTime.MinValue);
+            Assert.Less(result.Year, 977);
             mockRepository.VerifyAll();
         }
 
