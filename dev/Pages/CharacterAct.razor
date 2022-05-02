@@ -24,7 +24,9 @@
                             @if (FavoriteSkills is not null)
                                 @foreach (var skill in FavoriteSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Hero.GetSkillAbilities(skill.Id) /> @*ViewSkill=OnSkillView*@
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
+                                    
+                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@ @*CanRoutine=false  RoutineSkillCheck=OnRoutineSkillCheck *@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -33,7 +35,7 @@
                             @if (BestSkills is not null)
                                 @foreach (var skill in BestSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Hero.GetSkillAbilities(skill.Id) /> @*ViewSkill=OnSkillView*@
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -72,7 +74,7 @@
                                 {
                                     @if (CheckFilter(skill.Domain, skill.Name))
                                     {
-                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck TextFilter=@FilterTerm Abilities=@Hero.GetSkillAbilities(skill.Id)/> @*ViewSkill=OnSkillView*@
+                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck TextFilter=@FilterTerm Abilities=@Abilities[skill.Id]/> @*ViewSkill=OnSkillView*@
                                     }
                                 }
                         </MudList>
@@ -129,6 +131,8 @@ else
 
     private IEnumerable<SkillsDTO> FavoriteSkills { get; set; }
 
+    private Dictionary<string,AbilityDTO[]> Abilities { get; set; }
+
     /// <summary></summary>
     private string FilterTerm = "";
 
@@ -143,7 +147,7 @@ else
         bool DomainMatch = SelectedDomain is null || 
             SelectedDomain.Text == "All" || 
             SelectedDomain.Text == d.ToString();
-        
+
         return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
     }
 
@@ -192,6 +196,13 @@ else
     }
 
 
+    private void OnRoutineSkillCheck(SkillsDTO s)
+    {
+
+    }
+
+
+
     private void OnSkillView(SkillsDTO s)
     {
 
@@ -227,6 +238,9 @@ else
             SkillList = Hero.GetSkills();
             BestSkills = Hero.GetBestSkills();
             FavoriteSkills = Hero.GetFavoriteSkills();
+            Abilities = new();
+            foreach(var s in SkillList)
+                Abilities.Add(s.Id, Hero.GetSkillAbilities(s.Id));
         }
     }
 
