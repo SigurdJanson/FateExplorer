@@ -26,6 +26,16 @@ namespace FateExplorer.ViewModel
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Skill">The skill to be used</param>
+        /// <param name="Abilities">THe abilities needed to check that skill</param>
+        /// <param name="Modifier"></param>
+        /// <returns>Quality level achieved by the routine check</returns>
+        int RoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+
+
+        /// <summary>
         /// Creates and returns a new (unmodified) roll check with the first roll
         /// already done.
         /// </summary>

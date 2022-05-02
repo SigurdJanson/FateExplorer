@@ -100,5 +100,97 @@ namespace UnitTests.ViewModel
             // Assert
             Assert.NotNull(Result);
         }
+
+
+
+        static IEnumerable<int[]> Routine_InsufficientAbility()
+        {
+            // 3 abilities
+            yield return new int[] { 13, 13, 12 };
+            yield return new int[] { 13, 13, 12 };
+            yield return new int[] { 13, 13, 12 };
+        }
+        static IEnumerable<int[]> Routine_EnoughAbility()
+        {
+            // 3 abilities
+            yield return new int[] { 13, 13, 13 };
+            yield return new int[] { 19, 13, 13 };
+            yield return new int[] { 19, 19, 13 };
+            yield return new int[] { 19, 19, 19 };
+        }
+
+
+        // Ability values < 13 do not support routine skill checks of this type.
+        [Test]
+        public void RoutineSkillCheck_AbilitiesTooSmall_0(
+            [ValueSource(nameof(Routine_InsufficientAbility))] int[] AbilityVal,
+            [Values(0, 10, 20)] int SkillVal,
+            [Values(0, 10, 20)] int Modifier )
+        {
+            // Arrange
+            string jsonString = GetMappingDataFromWWWroot();
+            RollHandlerViMo ClassUnderTest = CreateRollHandlerViMo(jsonString);
+
+            SkillsDTO skill = new() { Id = "Any", Name = "Any", EffectiveValue = SkillVal };
+            AbilityDTO[] ability = new AbilityDTO[3];
+            for (int ai = 0; ai < 3; ai++)
+                ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
+
+            // Act
+            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+
+        // Skill value of 0 does not support routine skill checks of this type.
+        [Test]
+        public void RoutineSkillCheck_SkillTooSmall_0(
+            [ValueSource(nameof(Routine_EnoughAbility))] int[] AbilityVal,
+            [Values(0)] int SkillVal,
+            [Values(0, 10, 20)] int Modifier)
+        {
+            // Arrange
+            string jsonString = GetMappingDataFromWWWroot();
+            RollHandlerViMo ClassUnderTest = CreateRollHandlerViMo(jsonString);
+
+            SkillsDTO skill = new() { Id = "Any", Name = "Any", EffectiveValue = SkillVal };
+            AbilityDTO[] ability = new AbilityDTO[3];
+            for (int ai = 0; ai < 3; ai++)
+                ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
+
+            // Act
+            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+
+
+        [Test, Sequential]
+        public void RoutineSkillCheck_Enough_QS1(
+            [ValueSource(nameof(Routine_EnoughAbility))] int[] AbilityVal,
+            [Values(19, 13, 10, 1)] int SkillVal,
+            [Values(-3, -1, 0, 3)] int Modifier,
+            [Values(4, 3, 2, 1)] int Expected)
+        {
+            // Arrange
+            string jsonString = GetMappingDataFromWWWroot();
+            RollHandlerViMo ClassUnderTest = CreateRollHandlerViMo(jsonString);
+
+            SkillsDTO skill = new() { Id = "Any", Name = "Any", EffectiveValue = SkillVal };
+            AbilityDTO[] ability = new AbilityDTO[3];
+            for (int ai = 0; ai < 3; ai++)
+                ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
+
+            // Act
+            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+
+            // Assert
+            Assert.Less(0, result);
+            Assert.AreEqual(Expected, result);
+        }
     }
 }

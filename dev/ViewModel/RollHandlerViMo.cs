@@ -12,20 +12,6 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.ViewModel
 {
-    public class RollMappingViMo
-    {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        [JsonPropertyName("roll")]
-        public string Roll { get; set; }
-
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
 
 
     /// <summary>
@@ -140,6 +126,25 @@ namespace FateExplorer.ViewModel
                 return null;
             }
         }
+
+
+        /// <inheritdoc />
+        public int RoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        {
+            foreach (var Ability in Abilities)
+                if (Ability.EffectiveValue < 13) 
+                    return 0;
+            bool SufficientSkill = (Skill.EffectiveValue > 0) && (Skill.EffectiveValue >= (-Modifier + 4) * 3 - 2);
+            if (!SufficientSkill)
+                return 0;
+            else
+            {
+                int RemainingSkillPoints = (Skill.EffectiveValue + 1) / 2; // correct rounding
+                return SkillCheckM.ComputeSkillQuality(RemainingSkillPoints);
+            }
+        }
+
+
 
 
         /// <inheritdoc />
