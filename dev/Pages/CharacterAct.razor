@@ -25,8 +25,8 @@
                                 @foreach (var skill in FavoriteSkills)
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
-                                    
-                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@ @*CanRoutine=false  RoutineSkillCheck=OnRoutineSkillCheck *@
+                                    CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -35,7 +35,9 @@
                             @if (BestSkills is not null)
                                 @foreach (var skill in BestSkills)
                                 {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
+                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
+                                    CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -74,7 +76,9 @@
                                 {
                                     @if (CheckFilter(skill.Domain, skill.Name))
                                     {
-                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck TextFilter=@FilterTerm Abilities=@Abilities[skill.Id]/> @*ViewSkill=OnSkillView*@
+                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
+                                            CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
+                                            TextFilter=@FilterTerm Abilities=@Abilities[skill.Id]/> @*ViewSkill=OnSkillView*@
                                     }
                                 }
                         </MudList>
@@ -133,6 +137,8 @@ else
 
     private Dictionary<string,AbilityDTO[]> Abilities { get; set; }
 
+    private Dictionary<string,bool> CanRoutineCheck { get; set; }
+
     /// <summary></summary>
     private string FilterTerm = "";
 
@@ -172,6 +178,7 @@ else
     {
         ModifyValue = NewValue;
         ActiveCheck?.CheckModifier.Set(ModifyValue);
+        UpdateCanRoutineCheck();
     }
 
 
@@ -208,6 +215,15 @@ else
 
     }
 
+    private void UpdateCanRoutineCheck()
+    {
+        foreach (var s in SkillList)
+        {
+            int Level = RollHandler.RoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
+            CanRoutineCheck[s.Id] = Level > 0;
+        }
+    }
+
 
 
     // INITIALISATION REGION
@@ -216,7 +232,7 @@ else
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        LoadHeroData();
+        LoadHeroData(false);
         if (RollCheckResults is null)
             RollCheckResults = new(4);
     }
@@ -225,24 +241,38 @@ else
     /// <summary>Reacts to any changes of the character view model</summary>
     protected void OnCharacterHasLoaded()
     {
-        LoadHeroData();
+        LoadHeroData(true);
         StateHasChanged();
     }
 
 
-    private void LoadHeroData()
+    private void LoadHeroData(bool ForceReload)
     {
         if (Hero.HasBorn)
         {
-            SkillDomains = Hero.GetMasteredSkillDomains();
-            SkillList = Hero.GetSkills();
-            BestSkills = Hero.GetBestSkills();
-            FavoriteSkills = Hero.GetFavoriteSkills();
-            Abilities = new();
-            foreach(var s in SkillList)
-                Abilities.Add(s.Id, Hero.GetSkillAbilities(s.Id));
+            if (SkillDomains is null || ForceReload)
+                SkillDomains = Hero.GetMasteredSkillDomains();
+            if (SkillList is null || ForceReload)
+                SkillList = Hero.GetSkills();
+            if (BestSkills is null || ForceReload)
+                BestSkills = Hero.GetBestSkills();
+            if (FavoriteSkills is null || ForceReload)
+                FavoriteSkills = Hero.GetFavoriteSkills();
+            if (Abilities is null || ForceReload)
+            {
+                Abilities = new();
+                foreach (var s in SkillList)
+                    Abilities.Add(s.Id, Hero.GetSkillAbilities(s.Id));
+            }
+            if (CanRoutineCheck is null ||ForceReload)
+            {
+                CanRoutineCheck = new();
+                foreach (var s in SkillList)
+                {
+                    int Level = RollHandler.RoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
+                    CanRoutineCheck.Add(s.Id, Level > 0);
+                }
+            }
         }
     }
-
-
 }
