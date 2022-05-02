@@ -251,6 +251,7 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 ## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
+* PRA 3. "Große Bärenhatz, Trallop", "Der Gewinner erhält das Fell des Tieres, einen goldenen Stirnreif und den Ehrentitel Edler von Pandlarilsquell. Sie steht auch Bürgerlichen offen."
 * TRA 1-3. "Zehntfest, Havena/Albernia/Windhag", "Abgaben werden fällig, Feierlichkeiten zum Dank für fruchtbare Ernte, wichtige Gerichtstage, Zukunftsdeutung aus dem Flug der Vögel"
 * TRA 5. "Jagdturnier, Zorghana", "Jagdwettbewerbe des Adels"
 * TRA 21. "Fest des Hl. Kupperus, Kosch", "Schutzherr gegen böse Magie und die Kräfte der Berge"
