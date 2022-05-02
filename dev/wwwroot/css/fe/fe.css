@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'fateexplorer';
   src:
-    url('fonts/fateexplorer.ttf?epmwhr') format('truetype'),
-    url('fonts/fateexplorer.woff?epmwhr') format('woff'),
-    url('fonts/fateexplorer.svg?epmwhr#fateexplorer') format('svg');
+    url('fonts/fateexplorer.ttf?lq9m80') format('truetype'),
+    url('fonts/fateexplorer.woff?lq9m80') format('woff'),
+    url('fonts/fateexplorer.svg?lq9m80#fateexplorer') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -71,84 +71,87 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 .fe-Skull:before {
   content: "\e90e";
 }
-.fe-Boron:before {
-  content: "\e90f";
-}
-.fe-Efferd:before {
-  content: "\e911";
-}
-.fe-Firun:before {
-  content: "\e913";
-}
-.fe-Hesinde:before {
-  content: "\e914";
-}
-.fe-Ingerimm:before {
-  content: "\e915";
-}
-.fe-Peraine:before {
-  content: "\e916";
-}
-.fe-Phex:before {
-  content: "\e910";
-}
 .fe-Praios:before {
   content: "\e91b";
 }
-.fe-Rahja:before {
-  content: "\e91c";
-}
 .fe-Rondra:before {
-  content: "\e91d";
+  content: "\e928";
+}
+.fe-Efferd:before {
+  content: "\e900";
 }
 .fe-Travia:before {
   content: "\e91e";
 }
+.fe-Boron:before {
+  content: "\e90f";
+}
+.fe-Hesinde:before {
+  content: "\e914";
+}
+.fe-Firun:before {
+  content: "\e913";
+}
 .fe-Tsa:before {
   content: "\e91f";
+}
+.fe-Phex:before {
+  content: "\e910";
+}
+.fe-Peraine:before {
+  content: "\e916";
+}
+.fe-Ingerimm:before {
+  content: "\e915";
+}
+.fe-Rahja:before {
+  content: "\e91c";
 }
 .fe-NamelessOne:before {
   content: "\e927";
 }
 .fe-Success:before {
-  content: "\e900";
-}
-.fe-Botch:before {
   content: "\e901";
 }
-.fe-PotionArcane:before {
+.fe-Botch:before {
   content: "\e902";
 }
-.fe-PotionLife:before {
+.fe-PotionArcane:before {
   content: "\e903";
 }
-.fe-D6_1:before {
+.fe-PotionLife:before {
   content: "\e904";
 }
-.fe-D6_2:before {
+.fe-D6_1:before {
   content: "\e905";
 }
-.fe-D6_3:before {
+.fe-D6_2:before {
   content: "\e906";
 }
-.fe-D6_4:before {
+.fe-D6_3:before {
   content: "\e907";
 }
-.fe-D6_5:before {
+.fe-D6_4:before {
   content: "\e908";
 }
-.fe-D6_6:before {
+.fe-D6_5:before {
   content: "\e909";
 }
-.fe-LocalMallClear:before {
+.fe-D6_6:before {
   content: "\e90a";
 }
-.fe-Ulisses:before {
+.fe-LocalMallClear:before {
   content: "\e90b";
 }
-.fe-BackHandLeft:before {
+.fe-Ulisses:before {
   content: "\e90c";
 }
-.fe-Sword:before {
+.fe-BackHandLeft:before {
   content: "\e90d";
+}
+.fe-Sword:before {
+  content: "\e911";
+}
+.fe-Blindfold:before {
+  content: "\e929";
 }
