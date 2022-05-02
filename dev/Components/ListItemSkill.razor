@@ -16,7 +16,7 @@
     @if (CanRoutine && RoutineSkillCheck.HasDelegate)
     {
     <MudIconButton Color=Color.Dark Icon=@IconsFE.Blindfold
-            OnClick=@(() => RollSkill.InvokeAsync(Skill))
+            OnClick=@(() => RoutineSkillCheck.InvokeAsync(Skill))
             Title=@(l10n["lblRoutineCheck"])
             aria-label=@($"{Skill.Name} {l10n["lblRoutineCheck"]}") />
     }    
