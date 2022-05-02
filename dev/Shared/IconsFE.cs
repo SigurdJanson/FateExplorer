@@ -29,6 +29,7 @@ namespace MudBlazor
         public static string Ulisses => Ligaturisation + Prefix + nameof(Ulisses);
         public static string BackHandLeft => Ligaturisation + Prefix + nameof(BackHandLeft);
         public static string Sword => Ligaturisation + Prefix + nameof(Sword);
+        public static string Blindfold => Ligaturisation + Prefix + nameof(Blindfold);
 
         // DEITIES
         public static string Boron => Ligaturisation + Prefix + nameof(Boron);
