@@ -1030,4 +1030,8 @@
     <value>Age</value>
     <comment>Character</comment>
   </data>
+  <data name="lblRoutineCheck" xml:space="preserve">
+    <value>Routine Check</value>
+    <comment>Skill</comment>
+  </data>
 </root>

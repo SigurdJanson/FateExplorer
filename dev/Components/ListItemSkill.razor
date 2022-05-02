@@ -5,15 +5,8 @@
 <MudListItem @key=Skill.Id DisableRipple=true>
     <div class="d-flex align-center" >
     <div>
-        @if (TextFilter is not null)
-        {
         <MudHighlighter Class="mud-primary-text" Style="background-color:transparent;font-weight:bold"
                         Text=@Skill.Name HighlightedText=@TextFilter />
-        }
-        else
-        {
-        <MudText Typo=Typo.body1 GutterBottom=false>@Skill.Name</MudText>
-        }
         <MudText Typo=Typo.body2 GutterBottom=false>
             <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
             @Skill.Max @RenderAbilities(Abilities)

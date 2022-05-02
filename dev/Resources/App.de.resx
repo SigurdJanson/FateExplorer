@@ -1027,4 +1027,7 @@
   <data name="lblAge" xml:space="preserve">
     <value>Alter</value>
   </data>
+  <data name="lblRoutineCheck" xml:space="preserve">
+    <value>Routineprobe</value>
+  </data>
 </root>
