@@ -252,9 +252,6 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 
 * Several trade fairs of the Almanach.
 * PRA 3. "Große Bärenhatz, Trallop", "Der Gewinner erhält das Fell des Tieres, einen goldenen Stirnreif und den Ehrentitel Edler von Pandlarilsquell. Sie steht auch Bürgerlichen offen."
-* TRA 1-3. "Zehntfest, Havena/Albernia/Windhag", "Abgaben werden fällig, Feierlichkeiten zum Dank für fruchtbare Ernte, wichtige Gerichtstage, Zukunftsdeutung aus dem Flug der Vögel"
-* TRA 5. "Jagdturnier, Zorghana", "Jagdwettbewerbe des Adels"
-* TRA 21. "Fest des Hl. Kupperus, Kosch", "Schutzherr gegen böse Magie und die Kräfte der Berge"
 * TRA 29. "Todestag des Hl. Gilborn von Punin, Nordmarken", "Gedenken an den Märtyrer und Praios-Geweihten Gilborn von Punin, der von Borbarad getötet wurde."
 * TRA 30. "Nacht der Ahnen, Kosch", "Man gedenkt der Toten und lässt am Tisch einen Platz für sie frei"
 * BOR 23. "Tsatag Kaiser Hals, Kosch", "Man gedenkt des ehemaligen Kaisers"
@@ -269,7 +266,7 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 * PER 21. "Tag der Befreiung, Havena",  "Niamads Sieg über die Magiertyrannen, Zielschießen auf \"Hexenscheiben\", Verbrennung von Strohpuppen mit Zauberergewändern, Zerstörung konfiszierter magischer Artefakte und Alchimika, Ritterturnier"
 * ING 6.-8. "Wengenholmer Schwurbundfest"
 * ING 16.	"Tag der Großen Flut, Havena"
-* ING 21. "Bergfest, Albenhus und Isenhag", "Feier des Zusammenlebens von Mensch und Zwerg"
+* 
 
 * Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
 
@@ -279,6 +276,7 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 * PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
 
             {"month":  2, "day": 22, "duration": 1,  "name": "", "descr": ""},
+
 
 
 
