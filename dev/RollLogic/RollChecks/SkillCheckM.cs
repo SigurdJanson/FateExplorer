@@ -40,8 +40,10 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="skill"></param>
-        /// <param name="ability"></param>
+        /// <param name="skill">The skill to check</param>
+        /// <param name="ability">The abilities needed for the check</param>
+        /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
+        /// <param name="gameData">Access to the game data base</param>
         public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData)
             : base(gameData)
         {
@@ -81,6 +83,7 @@ namespace FateExplorer.RollLogic
             var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
             Success.Update(s, s);
         }
+
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
