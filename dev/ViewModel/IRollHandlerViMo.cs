@@ -26,13 +26,24 @@ namespace FateExplorer.ViewModel
 
 
         /// <summary>
-        /// 
+        /// Does a skill support a routine check?
         /// </summary>
         /// <param name="Skill">The skill to be used</param>
-        /// <param name="Abilities">THe abilities needed to check that skill</param>
-        /// <param name="Modifier"></param>
-        /// <returns>Quality level achieved by the routine check</returns>
-        int RoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        /// <param name="Abilities">Abilities needed to check that skill</param>
+        /// <param name="Modifier">The check's modifier</param>
+        /// <returns>true if the routine check can be performed; otherwise false</returns>
+        bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+
+
+        /// <summary>
+        /// Does a skill support a routine check?
+        /// </summary>
+        /// <param name="Skill">The skill to be used</param>
+        /// <param name="Abilities">Abilities needed to check that skill</param>
+        /// <param name="Modifier">The check's modifier</param>
+        /// <returns>true if the routine check can be performed; otherwise false</returns>
+        RollCheckResultViMo OpenRoutineSkillCheck(string AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+
 
 
         /// <summary>

@@ -137,10 +137,10 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(false, result);
         }
 
 
@@ -161,10 +161,10 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(false, result);
         }
 
 
@@ -173,8 +173,7 @@ namespace UnitTests.ViewModel
         public void RoutineSkillCheck_Enough_QS1(
             [ValueSource(nameof(Routine_EnoughAbility))] int[] AbilityVal,
             [Values(19, 13, 10, 1)] int SkillVal,
-            [Values(-3, -1, 0, 3)] int Modifier,
-            [Values(4, 3, 2, 1)] int Expected)
+            [Values(-3, -1, 0, 3)] int Modifier)
         {
             // Arrange
             string jsonString = GetMappingDataFromWWWroot();
@@ -186,11 +185,10 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            int result = ClassUnderTest.RoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
 
             // Assert
-            Assert.Less(0, result);
-            Assert.AreEqual(Expected, result);
+            Assert.Less(false, result);
         }
     }
 }

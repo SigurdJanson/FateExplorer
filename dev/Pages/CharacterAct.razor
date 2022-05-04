@@ -186,7 +186,7 @@ else
     {
         bool CheckSucceeded = true;
         try
-        {
+        { // TODO: 1: use Abilities[s.Id]
             var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
             ActiveCheck = RollHandler.OpenRollCheck(s.Id, s, cnv);
         }
@@ -203,9 +203,29 @@ else
     }
 
 
+    /// <summary>
+    /// Performs a routine check
+    /// </summary>
+    /// <param name="s">The skill to check</param>
     private void OnRoutineSkillCheck(SkillsDTO s)
     {
-
+        bool CheckSucceeded = true;
+        try
+        {
+            //var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
+            var cnv = Abilities[s.Id];
+            ActiveCheck = RollHandler.OpenRoutineSkillCheck(s.Id, s, cnv);
+        }
+        catch(NotImplementedException error)
+        {
+            Snackbar.Add(l10n[error.Message], Severity.Error);
+            CheckSucceeded = false;
+        }
+        if (CheckSucceeded)
+        {
+            ActiveCheck.CheckModifier.Set(ModifyValue);
+            RollCheckResults.Enqueue(ActiveCheck);
+        }
     }
 
 
@@ -218,10 +238,7 @@ else
     private void UpdateCanRoutineCheck()
     {
         foreach (var s in SkillList)
-        {
-            int Level = RollHandler.RoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
-            CanRoutineCheck[s.Id] = Level > 0;
-        }
+            CanRoutineCheck[s.Id] = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
     }
 
 
@@ -269,8 +286,8 @@ else
                 CanRoutineCheck = new();
                 foreach (var s in SkillList)
                 {
-                    int Level = RollHandler.RoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
-                    CanRoutineCheck.Add(s.Id, Level > 0);
+                    bool CanDo = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
+                    CanRoutineCheck.Add(s.Id, CanDo);
                 }
             }
         }

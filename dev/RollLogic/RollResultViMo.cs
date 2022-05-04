@@ -35,6 +35,7 @@ namespace FateExplorer.RollLogic
             Modifier = roll.ModifiedBy;
         }
 
+
         /// <summary>
         /// Describes the roll.
         /// </summary>

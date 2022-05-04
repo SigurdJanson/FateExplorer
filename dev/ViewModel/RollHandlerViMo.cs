@@ -73,6 +73,7 @@ namespace FateExplorer.ViewModel
                 { AbilityCheckM.checkTypeId, typeof(AbilityCheckM) },
                 { DodgeCheckM.checkTypeId, typeof(DodgeCheckM) },
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) },
+                { RoutineSkillCheckM.checkTypeId, typeof(RoutineSkillCheckM) },
                 { AttackCheckM.checkTypeId, typeof(AttackCheckM) },
                 { ParryCheckM.checkTypeId, typeof(ParryCheckM) },
                 { InitiativeCheckM.checkTypeId, typeof(InitiativeCheckM) }
@@ -129,19 +130,40 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc />
-        public int RoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        public bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
         {
-            foreach (var Ability in Abilities)
-                if (Ability.EffectiveValue < 13) 
-                    return 0;
-            bool SufficientSkill = (Skill.EffectiveValue > 0) && (Skill.EffectiveValue >= (-Modifier + 4) * 3 - 2);
-            if (!SufficientSkill)
-                return 0;
-            else
+            int[] AbilityVals = new int[3] { Abilities[0].EffectiveValue, Abilities[1].EffectiveValue, Abilities[2].EffectiveValue };
+            int Remainder = RoutineSkillCheckM.RoutineSkillCheckRemainder(Skill.EffectiveValue, AbilityVals, Modifier);
+            return Remainder > 0;
+        }
+
+
+
+        /// <inheritdoc />
+        /// <exception cref="NotImplementedException"></exception>
+        public RollCheckResultViMo OpenRoutineSkillCheck(string AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        {
+            AttrId = $"RC/{AttrId}";
+            string RollId = MatchAttributeToRollId(AttrId);
+            if (string.IsNullOrWhiteSpace(RollId))
+                throw new NotImplementedException($"A check for {Skill.Name} has not yet been implemented");
+
+            Type CheckType;
+            if (!ListOfChecks.TryGetValue(RollId, out CheckType))
+                throw new NotImplementedException($"A check for {Skill.Name} has not yet been implemented");
+
+            CheckBaseM Checker;
+            switch (CheckType.Name)
             {
-                int RemainingSkillPoints = (Skill.EffectiveValue + 1) / 2; // correct rounding
-                return SkillCheckM.ComputeSkillQuality(RemainingSkillPoints);
-            }
+                case
+                    nameof(RoutineSkillCheckM):
+                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModifierM(Modifier), GameData);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            };
+
+            return new RollCheckResultViMo(Checker);
         }
 
 
