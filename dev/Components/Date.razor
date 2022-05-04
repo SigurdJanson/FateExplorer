@@ -22,14 +22,21 @@
         <MudItem sm=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
+                    @* Month *@
                     <MudPaper Class="d-flex pa-21 justify-center" Elevation=0 Width="100%">
                         <MudText Typo=Typo.body2>@Calendar.Month (@Calendar.MonthNr)</MudText>
-                    </MudPaper>
-                    <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 mud-theme-primary" Width="64px" Height="64px">
-                        <MudIconButton OnClick=@Calendar.GotoYesterday Icon=@Icons.Material.Sharp.ArrowBackIos />
-                        <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
-                        <MudIconButton OnClick=@Calendar.GotoTomorrow Icon=@Icons.Material.Sharp.ArrowForwardIos />
-                    </MudPaper>
+                    </MudPaper> 
+                    @* Current Day *@
+                    <div class="d-flex justify-space-between align-center flex-grow-1 gap-4">
+                        <MudIconButton OnClick=@Calendar.GotoYesterday aria-label=@l10n[""]
+                            Size=Size.Large Icon=@Icons.Material.Sharp.ArrowBackIos />
+                        <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 mud-theme-primary" Width="64px" Height="64px">
+                            <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
+                        </MudPaper>
+                        <MudIconButton OnClick=@Calendar.GotoTomorrow  aria-label=@l10n[""]
+                            Icon=@Icons.Material.Sharp.ArrowForwardIos Size=Size.Large />
+                    </div>
+                    @* ------ *@
                     <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
                         <MudText Typo=Typo.body2>@Calendar.Weekday</MudText>
                     </MudPaper>
@@ -37,6 +44,7 @@
                         <MudText Typo=Typo.body2>@Calendar.Year @Calendar.Reckoning</MudText>
                     </MudPaper>
                 </MudCardContent>
+
                 <MudCardActions Class="d-block">
                     <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
                     <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
