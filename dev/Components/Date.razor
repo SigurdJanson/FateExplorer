@@ -67,33 +67,37 @@
                     <td>@l10n["lblMoonPhase"]</td>
                     <td>@Calendar.MoonPhaseName</td>
                 </tr>
-                <tr>
-                    <td>
-                        <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
-                    </td>
-                    <td>@l10n["lblHoliday"]</td>
-                    <td></td>
-                </tr>
-                @foreach(var h in Calendar.GetHolidays())
+                @{var holidays = Calendar.GetHolidays();}
+                @if (holidays.Count() > 0)
                 {
-                <tr>
-                    <td colspan="3">
-                        <MudTooltip>
-                            <ChildContent>
-                                <div class="d-flex flex-row flex-grow-1">
-                                <MudText Typo=Typo.body2>@h.Item1</MudText>
-                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Info style="z-index:1303;"/>
-                                </div>
-                            </ChildContent>
-                            <TooltipContent >
-                                <MudText Typo=Typo.body2>@h.Item2</MudText>
-                            </TooltipContent>
-                        </MudTooltip>
-@*                        @if (!string.IsNullOrWhiteSpace(h.Item2))
-                        {
-                        }
-*@                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title="Regular day" /> 
+                        </td>
+                        <td>@l10n["lblHoliday"]</td>
+                        <td></td>
+                    </tr>
+                    @foreach(var h in Calendar.GetHolidays())
+                    {
+                    <tr>
+                        <td colspan="3">
+                            <MudTooltip>
+                                <ChildContent>
+                                    <div class="d-flex flex-row flex-grow-1">
+                                    <MudText Typo=Typo.body2>@h.Item1</MudText>
+                                    <MudIcon Icon=@Icons.Filled.Info Color=Color.Info style="z-index:1303;"/>
+                                    </div>
+                                </ChildContent>
+                                <TooltipContent >
+                                    <MudText Typo=Typo.body2>@h.Item2</MudText>
+                                </TooltipContent>
+                            </MudTooltip>
+    @*                        @if (!string.IsNullOrWhiteSpace(h.Item2))
+                            {
+                            }
+    *@                    </td>
+                    </tr>
+                    }
                 }
                 </tbody>
             </MudSimpleTable>
