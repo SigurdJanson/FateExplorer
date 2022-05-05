@@ -6,14 +6,19 @@
     {"id": "R_2", "base": 2},
     {"id": "R_3", "base": 5},
     {"id": "R_4", "base": 8}
+],
+"advmod": [
+    {"id": "ADV_25", "base": 1, "multitier": true},
+    {"id": "DISADV_28", "base": -1, "multitier": true}
 ]},
 {"id": "AE", "name": "Arcane Energy", "shortname": "AE",
 "abilities": [],
 "traditionbonus": {
-    "SA_346": "ATTR_2", 
-    "SA_70": "ATTR_2", 
-    "SA_255": "ATTR_4", 
-    "SA_676": "ATTR_4"},
+    "SA_346": "ATTR_2",
+    "SA_70": "ATTR_2",
+    "SA_255": "ATTR_4",
+    "SA_676": "ATTR_4",
+    "SA_345": "ATTR_3"},
 "racebase": [
     {"id": "R_1", "base": 0},
     {"id": "R_2", "base": 0},
@@ -21,7 +26,9 @@
     {"id": "R_4", "base": 0}
 ],
 "advmod": [
-{"id": "ADV_50", "base": 20}
+{"id": "ADV_50", "base": 20},
+{"id": "ADV_23", "base": 1, "multitier": true},
+{"id": "DISADV_26", "base": -1, "multitier": true}
 ]},
 {"id": "KP", "name": "Karma Energy", "shortname": "KP", 
 "abilities": [],
@@ -33,5 +40,9 @@
     {"id": "R_2", "base": 0},
     {"id": "R_3", "base": 0},
     {"id": "R_4", "base": 0}
-]}
+],
+"advmod": [
+    {"id": "ADV_12", "base": 20},
+    {"id": "ADV_24", "base": 1, "multitier": true},
+    {"id": "DISADV_27", "base": -1, "multitier": true}]}
 ]}

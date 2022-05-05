@@ -19,6 +19,7 @@ namespace FateExplorer.CharacterModel
             foreach (var a in gameData.DependantAbilities)
                 Max += Hero.Abilities[a].Value;
             Max += AddedEnergy;
+            Max += GetDisAdvantageModifier(gameData);
 
             // If a character’s LP total ever drops below zero by an amount equal to
             // or greater than the character’s Constitution stat, the character dies

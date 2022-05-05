@@ -12,7 +12,8 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// Basic amount of karma energy granted by advantage "blessed"
         /// </summary>
-        protected const int KarmaBaseEnergy = 20;
+        //-Next statement removed bauce it is now handled by `GetDisAdvantageModifier`
+        //-protected const int KarmaBaseEnergy = 20;
 
 
         public CharacterKarma(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero)
@@ -27,8 +28,10 @@ namespace FateExplorer.CharacterModel
             foreach (var (specialability, ability) in gameData.TraditionBonus)
                 if (hero.HasSpecialAbility(specialability))
                     Max += Hero.Abilities[ability].Value;
-            Max += KarmaBaseEnergy;
+            //-Next statement removed bauce it is now handled by `GetDisAdvantageModifier`
+            //-Max += KarmaBaseEnergy;
             Max += AddedEnergy;
+            Max += GetDisAdvantageModifier(gameData);
 
             Min = 0;
 

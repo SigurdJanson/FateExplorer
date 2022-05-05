@@ -53,8 +53,11 @@ namespace FateExplorer.GameData
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("tier")]
-        public string Tier { get; set; }
+        /// <summary>
+        /// (Dis-)Advantage has a cumulative effect with multiple tiers
+        /// </summary>
+        [JsonPropertyName("multitier")]
+        public bool MultiTier { get; set; }
 
         [JsonPropertyName("base")]
         public int Value { get; set; }
