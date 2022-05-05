@@ -130,41 +130,41 @@ SA_663 ??? Liturgieerweiterung?
 
 ### Magic Traditions
 
-| Magic tradition | Id | Primary ability | Ability Id | 
+| Magic tradition | Id | Primary ability | Ability Id | Energies.Json |
 | -- | -- | -- | -- |
 | Runenschöpfer |  | - | &nbsp; |
-| Animisten     | na | Intuition / 2 | `ATTR_3` |
-| Brobim-Geode  | na | Charisma | `ATTR_4` |
-| Druide        | `SA_346` | Klugheit | `ATTR_2` |
-| Dämonen       | - | Mut | `ATTR_1` |
-| Einhorn       | - | Intuition | `ATTR_3` |
-| Elfen         |   | Intuition | `ATTR_3` |
-| Feen          | - | Charisma | `ATTR_4` |
-| Geoden        | na | Charisma | `ATTR_4` |
-| Gildenmagier  | `SA_70` | Klugheit | `ATTR_2` |
-| Goblinzauberinnen  | - | Intuition | `ATTR_3` |
-| Hexe          | `SA_255` | Charisma | `ATTR_4` |
-| Meistertalentierte |  | - | &nbsp; |
-| Nachtalben    | - | Mut | `ATTR_1` |
-| Necker        | - | Charisma | `ATTR_4` |
-| Qabalyamagier | na | Klugheit | `ATTR_2` |
-| Scharlatane   | `SA_676` | Charisma | `ATTR_4` |
-| Schelme       | `SA_726` | Intuition | `ATTR_3` |
-| Sphinx        | - | Intuition | `ATTR_3` |
-| Tsatuara-Anhängerin | na | Charisma | `ATTR_4` |
-| Zauberalchimisten   | `SA_750` | Klugheit / 2 | `ATTR_2` |
-| Zauberbarden  | na | Charisma / 2 | `ATTR_4` |
-| Zaubertänzer  | na | Charisma / 2 | `ATTR_4` |
-| Zibiljas      | na | Intuition | `ATTR_3` |
-| Intuitive Zauberer | `SA_679` | - | &nbsp; |
+| Animisten     | na | Intuition / 2 | `ATTR_3` | HALF |
+| Brobim-Geode  | na | Charisma | `ATTR_4` | ________ |
+| Druide        | `SA_346` | Klugheit | `ATTR_2` | Ok |
+| Dämonen       | - | Mut | `ATTR_1` | - |
+| Einhorn       | - | Intuition | `ATTR_3` | - |
+| Elfen         |   | Intuition | `ATTR_3` | ________ |
+| Feen          | - | Charisma | `ATTR_4` | - |
+| Geoden        | na | Charisma | `ATTR_4` | ________ |
+| Gildenmagier  | `SA_70` | Klugheit | `ATTR_2` | Ok |
+| Goblinzauberinnen  | - | Intuition | `ATTR_3` | - |
+| Hexe          | `SA_255` | Charisma | `ATTR_4` | Ok |
+| Meistertalentierte |  | - | &nbsp; | - |
+| Nachtalben    | - | Mut | `ATTR_1` | - |
+| Necker        | - | Charisma | `ATTR_4` | - |
+| Qabalyamagier | na | Klugheit | `ATTR_2` | ________ |
+| Scharlatane   | `SA_676` | Charisma | `ATTR_4` | Ok |
+| Schelme       | `SA_726` | Intuition | `ATTR_3` | Ok |
+| Sphinx        | - | Intuition | `ATTR_3` | - |
+| Tsatuara-Anhängerin | na | Charisma | `ATTR_4` | ________ |
+| Zauberalchimisten   | `SA_750` | Klugheit / 2 | `ATTR_2` | HALF |
+| Zauberbarden  | na | Charisma / 2 | `ATTR_4` | HALF |
+| Zaubertänzer  | na | Charisma / 2 | `ATTR_4` | HALF |
+| Zibiljas      | na | Intuition | `ATTR_3` | ________ |
+| Intuitive Zauberer | `SA_679` | - | &nbsp; | - |
 
 
 ### Religious Traditions
 
-| Karma tradition | Id | Primary ability | Id | 
+| Karma tradition | Id | Primary ability | Id | Energies.Json |
 | -- | -- | -- | -- |
 | Tradition (Angroschkirche) | na | Intuition | `ATTR_3` |
-| Tradition (Aveskirche)     | `SA_694` | Intuition | `ATTR_3` |
+| Tradition (Aveskirche)     | `SA_694` | Intuition | `ATTR_3` | Ok |
 | Tradition (Boronkirche)    | `SA_683` | Mut | `ATTR_1` |
 | Tradition (Efferdkirche)   | `SA_687` | Charisma | `ATTR_4` |
 | Tradition (Ferkinaschamanen) | na     | Intuition | `ATTR_3` |
