@@ -5,9 +5,18 @@ using System.Globalization;
 namespace FateExplorer.Calendar;
 
 
-
+/// <summary>
+/// Provides functions to convert an earthen DateTime into a date of an Aventurian calendar.
+/// </summary>
+/// <remarks>
+/// Can  handle dates starting with the 11th era after 977 b. FB.
+/// 11th era is fixed at the moment because we do not know, yet, when the 12th starts.
+/// </remarks>
 public class BosparanCalendar : System.Globalization.Calendar
 {
+	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+
 	protected const int DaysInYear = 365;
 	protected const int DaysInMonth = 30;
 	protected const int NamelessDays = 5;
@@ -96,7 +105,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	/// <inheritdoc/>
 	/// <remarks>The Karmakortheon is included in the previous era. At the moment 
 	/// the class assumes that we always play in the 11th age.</remarks>
-	public override int GetEra(DateTime time) => 11; // TODO: determine the era https://de.wiki-aventurica.de/wiki/Zeitalter
+	public override int GetEra(DateTime time) => 11;
 
 	public override int GetDayOfMonth(DateTime time)
 			{
@@ -234,6 +243,8 @@ public class BosparanCalendar : System.Globalization.Calendar
 			throw new ArgumentOutOfRangeException(nameof(day), day, "Day of month must be between 1 and 30");
 		if (month < 1 || month > 13)
 			throw new ArgumentOutOfRangeException(nameof(month), month, "Calendar knows 12 months and 1 pseudo-month of 5 days of the Nameless One");
+		if (month == 13 && day > 5)
+			throw new ArgumentOutOfRangeException(nameof(day), day, "Day of 13th month must be between 1 and 5");
 		if (era < 1 || era > 12)
 			throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras from 1 to 12");
 
@@ -250,7 +261,6 @@ public class BosparanCalendar : System.Globalization.Calendar
 		return result.AddDays(DaysToAdd);
 	}
 
-	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
 
 	/// <summary>
