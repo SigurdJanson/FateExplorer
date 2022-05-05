@@ -15,6 +15,9 @@ namespace UnitTests.Calendar
         static IEnumerable<string> ValidStringDates()
         {
             yield return "4. Tsa 1028";
+            yield return "4. TSA 1028";
+            yield return "4. tsA 1028";
+            yield return "4. tsa 1028";
             yield return "22. Boron 1045";
             yield return "22. Bor 1045";
             yield return "22. B 1045";
@@ -32,19 +35,26 @@ namespace UnitTests.Calendar
 
         static IEnumerable<string> ValidBeforeFBStringDates()
         {
-            yield return "4. Tsa 654 BF";
             yield return "11 Rondra654 v. BF";
             yield return "    27. Efferd 654 vBF";
             yield return " 27.Efferd 654  v   BF   ";
             yield return "4. Tsa 654 V.bf";
             yield return "4. Tsa 1 v. BF";
+            yield return "5. Boron 28 v.BF";
+            yield return "5. Boron 28v.BF";
         }
 
         static IEnumerable<string> InvalidRangeStringDates()
         {
             yield return "4. Tsa -977"; // latest invalid year
-            yield return " 31. Efferd 12 BF";
-            yield return " 0. Namenlos 12";
+            yield return " 0. Efferd 12 BF"; // invalid day
+            yield return " 31. Efferd 12 BF"; // invalid day
+            yield return " 0. Namenlos 12";   // invalid day
+            yield return " 6. Namenlos 12";   // invalid day
+        }
+        static IEnumerable<string> InvalidNameStringDates()
+        {
+            yield return " 2. MonthWithoutAName 1045";   // invalid month
         }
 
         private MockRepository mockRepository;
@@ -173,16 +183,17 @@ namespace UnitTests.Calendar
             mockRepository.VerifyAll();
         }
 
+
         [Test]
-        [TestCaseSource(nameof(InvalidRangeStringDates))]
-        public void Parse_InvalidMonthName_Exception(string dateStr)
+        [TestCaseSource(nameof(InvalidNameStringDates))]
+        public void Parse_InvalidNames_FormatException(string dateStr)
         {
             // Arrange
             var calendarViMo = this.CreateCalendarViMo();
             DateTime result = DateTime.MinValue;
 
             // Act
-            Assert.Throws<ArgumentOutOfRangeException>(() => result = calendarViMo.Parse(dateStr));
+            Assert.Throws<FormatException>(() => result = calendarViMo.Parse(dateStr));
 
             // Assert
             mockRepository.VerifyAll();

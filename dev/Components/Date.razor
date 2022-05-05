@@ -153,7 +153,7 @@
     {
         if (!SetDateOpen)
         {
-            dateInputStr = $"{Calendar?.DayOfMonth}. {Calendar?.Month} {Calendar?.Year} BF";
+            dateInputStr = Calendar.DateToString('p');
             SetDateOpen = true;
             BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
             ButtonVariant = Variant.Filled;
@@ -177,7 +177,7 @@
                 ButtonVariant = Variant.Text;
             }
         }
-}
+    }
 
     #endregion
 

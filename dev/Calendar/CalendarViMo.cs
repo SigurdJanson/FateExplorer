@@ -32,7 +32,7 @@ public class CalendarViMo
     protected const string MonthRegex = @"(?<month>[A-Za-z]*)"; // interprets the month
     protected const string YearRegex = @"(?<year>-?\d{1,4})"; // interprets the day in month
     protected const string ReckoningRegex = @"(?<reck>[vVbB]?\.?\s*[A-Za-z]*)"; // interprets the calendar designation
-    protected const string BeforeReckoningRegex = @"(?<reck>[vVbB]\.?\s*[A-Za-z]*)"; // interprets the calendar designation
+    protected const string BeforeReckoningRegex = @"(?<reck>[vVbB][\.\s]?\s*[bfBF]{2})$"; // interprets the calendar designation
     public const string DateRegex = @"^\s*" + DayRegex + @"\s*" + MonthRegex + @"\s*" + YearRegex + @"\s*" + ReckoningRegex + @"\s*$";
 
 
