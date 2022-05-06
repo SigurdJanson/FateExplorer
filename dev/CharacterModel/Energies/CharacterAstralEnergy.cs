@@ -19,7 +19,8 @@ namespace FateExplorer.CharacterModel
             if (_Class != CharacterEnergyClass.AE)
                 throw new ArgumentException($"Class has been instantiated with the wrong type of energy", nameof(_Class));
 
-            Max = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
+            Max = gameData.RaceBaseValue.FirstOrDefault(bv => bv.RaceId == Hero.SpeciesId)?.Value ?? 0;
+
             // Some traditions (coded as special abilities) allow adding the value of an
             // basic ability (COU, SAG, ...) to the energy level
             foreach (var (specialability, ability) in gameData.TraditionBonus)
