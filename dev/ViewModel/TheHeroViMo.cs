@@ -100,8 +100,35 @@ namespace FateExplorer.ViewModel
 
         public double CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
 
-        public double Money { get => characterM?.Money ?? 0; }
 
+        #region POSESSIONS ------
+
+        /// <summary>
+        /// The effective amount of money if it deviates from the (imported) amount; otherwise <c>null</c>.
+        /// </summary>
+        private double? EffectiveMoney = null;
+
+        /// <summary>
+        /// The cash money carried by the character.
+        /// Must be 
+        /// </summary>
+        public double Money
+        { 
+            get => EffectiveMoney is null ? characterM?.Money ?? 0 : EffectiveMoney!.Value;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                if (value == characterM?.Money)
+                    EffectiveMoney = null;
+                else
+                    EffectiveMoney = value;
+            }
+        }
+
+        /// <summary>
+        /// Get a formatted representation of the character's cash money
+        /// </summary>
+        /// <returns></returns>
         public string FormatMoney()
         {
             string Result;
@@ -119,6 +146,9 @@ namespace FateExplorer.ViewModel
         public double WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
         public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
+        #endregion
+
 
         /// <inheritdoc/>
         public int Initiative

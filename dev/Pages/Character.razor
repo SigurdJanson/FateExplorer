@@ -13,6 +13,7 @@
 
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject IGameDataService GameData
 @inject ITheHeroViMo Hero
 @inject IDateOfPlay CurrentDate
@@ -95,7 +96,9 @@
                     </MudItem>*@
                     <MudItem xs=6 Class="mb-3">
                         <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.FormatMoney()
+                            @Hero.FormatMoney() 
+                            <MudIconButton OnClick=OnEditMoney aria-label=""
+                                Icon=@Icons.Material.Sharp.EditAttributes Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
                         </MudField>
                     </MudItem>
                 </MudGrid>
@@ -303,6 +306,26 @@ else
             AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.EffectiveDate).ToString();
         }
     }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private async Task OnEditMoney()
+    {
+        var parameters = new DialogParameters { ["Amount"]=Hero.Money };
+
+        var dialog = DialogService.Show<DlgMoney>("Edit Cash", parameters );
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            Hero.Money = (double)result.Data;
+        }
+    }
+
+
 
 
     /// <inheritdoc/>
