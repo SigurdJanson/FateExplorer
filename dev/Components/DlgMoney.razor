@@ -1,0 +1,105 @@
+﻿@inject IStringLocalizer<App> l10n
+
+
+<MudDialog>
+    <DialogContent>
+        <div class="d-flex justify-space-between align-center flex-grow-1 gap-4">
+            <MudIconButton OnClick=OnMinusClick aria-label=""
+                Size=Size.Large Icon=@Icons.Material.Sharp.IndeterminateCheckBox />
+            <MudField Label=@l10n["lblCashAmount"] Variant=Variant.Text >
+                <MudChipSet @bind-SelectedChip=Selected MultiSelection=false Filter=false Mandatory=true>
+                    <MudChip Text=DucatId Default=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Ducats.ToString().PadLeft(6, ' ')} {DucatId}")
+                    </MudChip>
+                    <MudChip Text=SilverId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Silvers.ToString().PadLeft(6, ' ')} {SilverId}")
+                    </MudChip>
+                    <MudChip Text=HalerId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Halers.ToString().PadLeft(6, ' ')} {HalerId}")
+                    </MudChip>
+                    <MudChip Text=KreutzerId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Kreutzers.ToString().PadLeft(6, ' ')} {KreutzerId}")
+                    </MudChip>
+                </MudChipSet>
+            </MudField>
+            <MudIconButton OnClick=OnPlusClick aria-label=""
+                Icon=@Icons.Material.Sharp.AddBox Size=Size.Large />
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">@l10n["btnCancel"]</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">@l10n["btnApply"]</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    // API
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public double Amount { get; set; }
+
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(Amount));
+    void Cancel() => MudDialog.Cancel();
+
+
+    // 
+
+    private const string DucatId = "D"; 
+    private const string SilverId = "S"; 
+    private const string HalerId = "H"; 
+    private const string KreutzerId = "K"; 
+    private const string Currency = "Mittelreichische Dukaten";
+
+    private MudChip Selected;
+
+    private int Ducats  => (int)Math.Floor(Amount / 10);
+    private int Silvers => (int)Math.Floor(Amount % 10);
+    private int Halers  => (int)Math.Floor(Amount % 1 * 10);
+    private int Kreutzers => (int)Math.Round(Amount * 10 % 1 * 10);
+
+
+    /// <summary>
+    /// Compute a new value after adding a step.
+    /// </summary>
+    /// <param name="OldValue"></param>
+    /// <param name="Id"></param>
+    /// <param name="Sign"></param>
+    /// <returns></returns>
+    private double NewValue(double OldValue, string Id, int Sign)
+    {
+        double Delta = Id switch
+        {
+            "D" => 10,
+            "S" => 1,
+            "H" => 0.1,
+            "K" => 0.01,
+            _ => 0
+        };
+        Delta *= Math.Sign(Sign);
+        double newVal = OldValue + Math.Round(Delta, 2);
+        return Math.Max(newVal, 0);
+    }
+
+    /// <summary>
+    /// Decrease the amount of the selected coin
+    /// </summary>
+    private void OnMinusClick()
+    {
+        Amount = NewValue(Amount, Selected.Text, -1);
+    } 
+
+    
+    /// <summary>
+    /// Increase the amount of the selected coin
+    /// </summary>
+    private void OnPlusClick()
+    {
+        Amount = NewValue(Amount, Selected.Text, +1);
+    }
+
+
+}

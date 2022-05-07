@@ -1030,4 +1030,10 @@
   <data name="lblRoutineCheck" xml:space="preserve">
     <value>Routineprobe</value>
   </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="lblCashAmount" xml:space="preserve">
+    <value>Barschaft</value>
+  </data>
 </root>

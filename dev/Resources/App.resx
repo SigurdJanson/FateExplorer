@@ -1034,4 +1034,10 @@
     <value>Routine Check</value>
     <comment>Skill</comment>
   </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="lblCashAmount" xml:space="preserve">
+    <value>Cash on Hand</value>
+  </data>
 </root>
