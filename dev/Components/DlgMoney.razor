@@ -29,7 +29,9 @@
         <MudText Typo=Typo.caption>@l10n["lblModifyByAmount"]</MudText>
         </div>
         <div class="d-flex justify-space-between align-end flex-grow-1 gap-4 py-4 px-16">
-            <MudNumericField @bind-Value=Delta Clearable=true Step=1 Label=@l10n["lblSilverthalers"]/>
+            <MudPaper Width="25%" Elevation=0>
+                <MudNumericField @bind-Value=Delta Clearable=false Step=1 Label=@l10n["lblSilverthalers"] Format="N2"/>
+            </MudPaper>
             <MudButton OnClick=OnAdd StartIcon=@Icons.Material.Sharp.Add Variant=Variant.Filled Disabled=@(Delta == 0)>
                 @l10n["btnAdd"]
             </MudButton>
