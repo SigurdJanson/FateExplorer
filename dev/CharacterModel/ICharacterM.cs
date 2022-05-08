@@ -82,7 +82,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// The characters money in silver thalers
         /// </summary>
-        double Money { get; }
+        decimal Money { get; }
 
 
         /// <summary>

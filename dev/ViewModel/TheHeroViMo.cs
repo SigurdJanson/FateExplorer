@@ -106,13 +106,13 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// The effective amount of money if it deviates from the (imported) amount; otherwise <c>null</c>.
         /// </summary>
-        private double? EffectiveMoney = null;
+        private decimal? EffectiveMoney = null;
 
         /// <summary>
         /// The cash money carried by the character.
         /// Must be 
         /// </summary>
-        public double Money
+        public decimal Money
         { 
             get => EffectiveMoney is null ? characterM?.Money ?? 0 : EffectiveMoney!.Value;
             set
@@ -135,7 +135,7 @@ namespace FateExplorer.ViewModel
             if (Money >= 100)
             {
                 int Doucats = (int)Math.Floor(Money / 10);
-                double Silvers = Money % 10;
+                decimal Silvers = Money % 10;
                 Result = $"{Doucats} D {Silvers:N2} S";
             }
             else

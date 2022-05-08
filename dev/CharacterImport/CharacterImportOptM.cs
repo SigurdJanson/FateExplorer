@@ -342,16 +342,16 @@ namespace FateExplorer.CharacterImport
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Less clarity")]
-        public double TotalMoney()
+        public decimal TotalMoney()
         {
-            double Ducats, Thalers, Farthings, Kreutzer;
-            if (!double.TryParse(Belongings.Purse.D, out Ducats))
+            decimal Ducats, Thalers, Farthings, Kreutzer;
+            if (!decimal.TryParse(Belongings.Purse.D, out Ducats))
                 Ducats = 0;
-            if (!double.TryParse(Belongings.Purse.S, out Thalers))
+            if (!decimal.TryParse(Belongings.Purse.S, out Thalers))
                 Thalers = 0;
-            if (!double.TryParse(Belongings.Purse.H, out Farthings))
+            if (!decimal.TryParse(Belongings.Purse.H, out Farthings))
                 Farthings = 0;
-            if (!double.TryParse(Belongings.Purse.K, out Kreutzer))
+            if (!decimal.TryParse(Belongings.Purse.K, out Kreutzer))
                 Kreutzer = 0;
             return Ducats * 10 + Thalers + Farthings / 10 + Kreutzer / 100;
         }

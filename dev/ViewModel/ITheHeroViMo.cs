@@ -32,7 +32,7 @@ namespace FateExplorer.ViewModel
         double WhatCanCarry { get; }
         double WhatCanLift { get; }
 
-        double Money { get; set; }
+        decimal Money { get; set; }
 
         /// <summary>
         /// Get the character's money as formatted string

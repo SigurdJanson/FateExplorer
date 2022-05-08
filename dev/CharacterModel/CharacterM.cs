@@ -205,7 +205,7 @@ namespace FateExplorer.CharacterModel
         public double CarriedWeight { get; protected set; }
 
         /// <inheritdoc />
-        public double Money { get; protected set; }
+        public decimal Money { get; protected set; }
 
         /// <inheritdoc />
         public double WhatCanCarry(int EffectiveStrength)
