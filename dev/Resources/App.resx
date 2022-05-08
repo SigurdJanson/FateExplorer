@@ -680,7 +680,8 @@
     <value>View</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
-    <value>Funds</value>
+    <value>Ready money</value>
+    <comment>Character, Money</comment>
   </data>
   <data name="lblWeight" xml:space="preserve">
     <value>Carried Weight</value>
@@ -1039,5 +1040,25 @@
   </data>
   <data name="lblCashAmount" xml:space="preserve">
     <value>Cash on Hand</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblEditCash" xml:space="preserve">
+    <value>Change Ready Money</value>
+  </data>
+  <data name="lblSubtractAmount1" xml:space="preserve">
+    <value>Subtract one</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblAddAmount1" xml:space="preserve">
+    <value>Add one</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblModifyByAmount" xml:space="preserve">
+    <value>Per Difference Amount</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblSilverthalers" xml:space="preserve">
+    <value>Silverthaler</value>
+    <comment>DlgMoney</comment>
   </data>
 </root>

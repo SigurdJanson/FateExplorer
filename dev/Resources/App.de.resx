@@ -652,7 +652,7 @@
     <value>Betrachte</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
-    <value>Vermögen</value>
+    <value>Barschaft</value>
   </data>
   <data name="lblWeight" xml:space="preserve">
     <value>Traggewicht</value>
@@ -1035,5 +1035,20 @@
   </data>
   <data name="lblCashAmount" xml:space="preserve">
     <value>Barschaft</value>
+  </data>
+  <data name="lblEditCash" xml:space="preserve">
+    <value>Barschaft  anpassen</value>
+  </data>
+  <data name="lblAddAmount1" xml:space="preserve">
+    <value>Eins hinzufügen</value>
+  </data>
+  <data name="lblSubtractAmount1" xml:space="preserve">
+    <value>Eins abziehen</value>
+  </data>
+  <data name="lblModifyByAmount" xml:space="preserve">
+    <value>Per Differenzbetrag</value>
+  </data>
+  <data name="lblSilverthalers" xml:space="preserve">
+    <value>Silbertaler</value>
   </data>
 </root>

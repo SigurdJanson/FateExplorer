@@ -97,8 +97,8 @@
                     <MudItem xs=6 Class="mb-3">
                         <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
                             @Hero.FormatMoney() 
-                            <MudIconButton OnClick=OnEditMoney aria-label=""
-                                Icon=@Icons.Material.Sharp.EditAttributes Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                            <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
+                                Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
                         </MudField>
                     </MudItem>
                 </MudGrid>
@@ -315,13 +315,14 @@ else
     private async Task OnEditMoney()
     {
         var parameters = new DialogParameters { ["Amount"]=Hero.Money };
+        DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
 
-        var dialog = DialogService.Show<DlgMoney>("Edit Cash", parameters );
+        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth );
         var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
-            Hero.Money = (double)result.Data;
+            Hero.Money = (decimal)result.Data;
         }
     }
 
