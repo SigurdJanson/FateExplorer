@@ -11,6 +11,8 @@ namespace FateExplorer.Calendar;
 /// <remarks>
 /// Can  handle dates starting with the 11th era after 977 b. FB.
 /// 11th era is fixed at the moment because we do not know, yet, when the 12th starts.
+/// Some methods may work independent of those restrictions but that is guaranteed if those methods do not
+/// need to use the DateTime struct to work.
 /// </remarks>
 public class BosparanCalendar : System.Globalization.Calendar
 {
@@ -165,7 +167,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 		if (era < 1 || era > 12)
 			throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras from 1 to 12");
 
-		return (month <= 12 ? DaysInMonth : NamelessDays); // TODO check argument ranges
+		return (month <= 12 ? DaysInMonth : NamelessDays);
 	}
     
 

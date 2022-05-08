@@ -2,6 +2,9 @@
 
 namespace FateExplorer.Calendar
 {
+    /// <summary>
+    /// Interface that provides the current date for the game play.
+    /// </summary>
     public interface IDateOfPlay
     {
         /// <summary>
