@@ -49,7 +49,7 @@
                         }
                     </MudSelect>
                     <MudSpacer /><MudSpacer />
-                    <MudSelect T=@((string, string)) Value=@Stock.GetDefaultCurrency() ValueChanged=@(c => OnCurrencyChanged(c))
+                    <MudSelect T=@((string, string)) Value=@ComparisonCurrency ValueChanged=@(c => OnCurrencyChanged(c))
                         Class="mt-0" Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
                         {
@@ -73,7 +73,7 @@
                         @l10n["lblPrice"] (S)
                     </MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
-                        @ComparisonCurrency
+                        @ComparisonCurrency.name
                     </MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Weight" T="ShopItemViMo">
                         @l10n["lblWeight"] (@l10n["lblStone"])
@@ -220,7 +220,7 @@
     private string searchString = null;
     private int? selectedGroupId = null;
 
-    private string ComparisonCurrency = "";
+    private (string id, string name) ComparisonCurrency = ("", "");
     private double ComparisonCurrencyRate = 1.0;
 
 
@@ -264,7 +264,7 @@
 
     private void OnCurrencyChanged((string id, string name) currency)
     {
-        ComparisonCurrency = currency.name;
+        ComparisonCurrency = currency;
         ComparisonCurrencyRate = Stock.GetExchangeRate(currency.id);
     }
 
