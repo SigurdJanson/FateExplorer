@@ -36,9 +36,11 @@ public class CookieStorage : IClientSideStorage
     /// <param name="days">Set the number of days the cookie should survive. 
     /// If <c>null</c> use the default <see cref="DefaultExpirationDays"/>.</param>
     /// <exception cref="ArgumentException"/>
+    /// <remarks>Each value is a cookie. Note that the number of cookies per site is restricted.</remarks>
     /// <inheritdoc/>
     public async Task SetValue(string key, string value, int? days = null)
     {
+        //Uri.EscapeDataString("Stack +  Overflow")
         if (HasNonASCIIChars(key)) 
             throw new ArgumentException("Only ascii characters are allowed in key string", nameof(key));
         if (HasNonASCIIChars(value)) 
@@ -49,6 +51,7 @@ public class CookieStorage : IClientSideStorage
     }
 
 
+    /// <inheritdoc/>
     public async Task<string> GetValue(string key, string defaultVal = "")
     {
         var cValue = await GetCookie();
@@ -59,7 +62,25 @@ public class CookieStorage : IClientSideStorage
             if (!string.IsNullOrEmpty(val) && val.IndexOf('=') > 0)
                 if (val[..val.IndexOf('=')].Trim().Equals(key, StringComparison.OrdinalIgnoreCase))
                     return val[(val.IndexOf('=') + 1)..];
+
         return defaultVal;
+    }
+
+
+
+    /// <inheritdoc/>
+    public async Task DeleteValue(string key)
+    {
+        // Delete cookie by setting max-age to a sec ago
+        // "document.cookie = "user=John; max-age=-1"";
+        await SetCookie($"{key}=; max-age=-1");
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<bool> Exists(string key)
+    {
+        return await GetValue(key, null) is not null;
     }
 
 

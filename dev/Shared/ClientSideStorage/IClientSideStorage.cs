@@ -5,7 +5,7 @@ namespace FateExplorer.Shared.ClientSideStorage;
 public interface IClientSideStorage
 {
     /// <summary>
-    /// Write a value into storage. Overwrites existing values.
+    /// Write a value into storage.
     /// </summary>
     /// <param name="key">A key to identify (and later retrieve) the stored data.</param>
     /// <param name="value">The value to store.</param>
@@ -23,4 +23,20 @@ public interface IClientSideStorage
     /// not found. Default of the default is an empty string.</param>
     /// <returns>The stored value as string</returns>
     public Task<string> GetValue(string key, string defaultVal = "");
+
+
+    /// <summary>
+    /// Remove value from storage
+    /// </summary>
+    /// <param name="key">The key to identify the value</param>
+    /// <returns></returns>
+    public Task DeleteValue(string key);
+
+
+    /// <summary>
+    /// Check if value exists
+    /// </summary>
+    /// <param name="key">A key to identify the stored data.</param>
+    /// <returns><c>true</c> if it exists; otherwise <c>false</c>.</returns>
+    public Task<bool> Exists(string key);
 }
