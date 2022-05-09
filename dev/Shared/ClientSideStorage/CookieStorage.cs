@@ -40,14 +40,12 @@ public class CookieStorage : IClientSideStorage
     /// <inheritdoc/>
     public async Task SetValue(string key, string value, int? days = null)
     {
-        //Uri.EscapeDataString("Stack +  Overflow")
         if (HasNonASCIIChars(key)) 
             throw new ArgumentException("Only ascii characters are allowed in key string", nameof(key));
-        if (HasNonASCIIChars(value)) 
-            throw new ArgumentException("Only ascii characters are allowed in value string", nameof(value));
 
+        string EncValue = Uri.EscapeDataString(value);
         var curExp = (days != null) ? (days > 0 ? DateToUTC(days.Value) : "") : expires;
-        await SetCookie($"{key}={value}; expires={curExp}; path=/");
+        await SetCookie($"{key}={EncValue}; expires={curExp}; path=/");
     }
 
 
@@ -61,7 +59,7 @@ public class CookieStorage : IClientSideStorage
         foreach (var val in vals)
             if (!string.IsNullOrEmpty(val) && val.IndexOf('=') > 0)
                 if (val[..val.IndexOf('=')].Trim().Equals(key, StringComparison.OrdinalIgnoreCase))
-                    return val[(val.IndexOf('=') + 1)..];
+                    return Uri.UnescapeDataString(val[(val.IndexOf('=') + 1)..]);
 
         return defaultVal;
     }

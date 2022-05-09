@@ -61,12 +61,12 @@ namespace UnitTests.Shared.ClientSideStorage
         [TestCase("a", "object1")]
         [TestCase("b", " object2")]
         [TestCase("c", "object3")]
-        [TestCase("d", " object4")]
-        [TestCase("e", " obj with space")]
+        [TestCase("d", " obj@ct4")]
+        [TestCase("e", " obj {with} space")]
         [TestCase("f", "f+object")]
         public async Task GetValue_ParseListCorrectly_ReturnsValue(string key, string expected)
         {
-            const string TestCookie = "a=object1; b= object2; c =object3; d = object4; e = obj with space; f=f+object";
+            const string TestCookie = "a=object1; b= object2; c =object3; d =%20obj%40ct4; e =%20obj%20%7Bwith%7D%20space; f=f+object";
             // Arrange
             var cookieStorage = CreateCookieStorage();
             mockJSRuntime.Setup(o
