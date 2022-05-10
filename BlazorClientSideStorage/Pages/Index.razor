@@ -1,0 +1,103 @@
+﻿@page "/"
+
+@using FateExplorer.Shared.ClientSideStorage
+
+@inject IClientSideStorage cookie  
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>Test Client-Side Storage</h1>
+
+<p>Welcome to your new WASM app.</p>
+
+
+<h2>Strings</h2>
+
+<EditForm Model=@FormData>
+    <InputText @bind-Value=@(FormData.SomeStringProperty) />
+</EditForm>
+
+<button class="btn btn-primary" @onclick=StoreValue>Store the String</button>
+<button class="btn" @onclick=RetrieveValue>Retrieve the String</button>
+
+<p>This is the stored string:</p>
+<p>@StoredString</p>
+
+
+<hr />
+
+<h2>Whole Objects</h2>
+
+@*<EditForm Model=@FormData>
+    <InputDate @bind-Value=FormData.SomeDateTimeProperty ParsingErrorMessage="Must be a date" />
+    <InputNumber @bind-Value=FormData.SomeIntegerProperty id="MyInputNumber1" class="form-control" ParsingErrorMessage="Must be an integer value" />
+    <InputNumber @bind-Value=FormData.SomeDecimalProperty id="MyInputNumber2" class="form-control" ParsingErrorMessage="Must be a decimal value" />
+    <p>@(FormData?.SomeStringProperty ?? "")</p>
+	<InputSelect @bind-Value=FormData?.SomeSelectProperty id="MyInputSelect" class="form-control">
+		<option value="Pending">Pending</option>
+		<option value="Active">Active</option>
+		<option value="Suspended">Suspended</option>
+	</InputSelect>
+</EditForm>*@
+
+@*<button class="btn btn-primary" @onclick=StoreObject>Store whole Object</button>
+*@
+@*<p>This is the stored object:</p>
+<ul>
+    <li>@(FormData?.SomeDateTimeProperty ?? DateTime.MinValue)</li>
+    <li>@(FormData?.SomeIntegerProperty ?? 0)</li>
+    <li>@(FormData?.SomeDecimalProperty ?? 0)</li>
+    <li>@(FormData?.SomeStringProperty ?? "")</li>
+    <li>@(FormData?.SomeSelectProperty ?? 0)</li>
+</ul>*@
+
+@code
+{
+    //
+    // DATA
+    //
+
+    public enum SomeStateEnum { Pending, Active, Suspended };
+
+    SomeModel FormData = new SomeModel();
+
+    class SomeModel
+    {
+        public DateTime? SomeDateTimeProperty { get; set; } = DateTime.Today;
+        public int SomeIntegerProperty { get; set; } = 4123;
+        public decimal SomeDecimalProperty { get; set; } = 1.098765432m;
+        public string SomeStringProperty { get; set; } = "Bruce can't speak!";
+        public SomeStateEnum SomeSelectProperty { get; set; } = SomeStateEnum.Active;
+    }
+
+
+    //
+    // Logic
+    //
+
+    private string StoredString = "";
+
+
+    private async Task StoreValue()
+    {
+        await cookie.Store(nameof(FormData.SomeStringProperty), FormData.SomeStringProperty);
+    }
+
+    private async Task<string> RetrieveValue()
+    {
+        var s = await cookie.Retrieve(nameof(FormData.SomeStringProperty));
+        StoredString = s ?? "";
+        StateHasChanged();
+        return StoredString;
+    }
+
+
+
+    private async Task StoreObject()
+    {
+        //await cookie.Store<SomeModel>(nameof(FormData), FormData);
+        await cookie.Store(nameof(FormData.SomeStringProperty), FormData.SomeStringProperty);
+    }
+}
+
