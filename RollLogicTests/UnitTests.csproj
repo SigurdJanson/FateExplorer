@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorClientSideStorage\BlazorClientSideStorage.csproj" />
+    <ProjectReference Include="..\BlazorClientSideStorage\TestBlazorClientSideStorage.csproj" />
     <ProjectReference Include="..\dev\FateExplorer.csproj" />
   </ItemGroup>
 
