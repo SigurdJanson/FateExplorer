@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "..\RollLogicTe
 		{8A27F2B1-BBA4-4E25-9266-B4F247F49E25} = {8A27F2B1-BBA4-4E25-9266-B4F247F49E25}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorClientSideStorage", "..\BlazorClientSideStorage\BlazorClientSideStorage.csproj", "{2D570820-EA6D-48CC-933B-A50FFB99F636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{D8DFC54F-D414-4B20-8EA8-1A334A3C65D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8DFC54F-D414-4B20-8EA8-1A334A3C65D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8DFC54F-D414-4B20-8EA8-1A334A3C65D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D570820-EA6D-48CC-933B-A50FFB99F636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D570820-EA6D-48CC-933B-A50FFB99F636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D570820-EA6D-48CC-933B-A50FFB99F636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D570820-EA6D-48CC-933B-A50FFB99F636}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

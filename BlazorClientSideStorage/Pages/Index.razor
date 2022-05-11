@@ -29,28 +29,29 @@
 
 <h2>Whole Objects</h2>
 
-@*<EditForm Model=@FormData>
+<EditForm Model=@FormData>
     <InputDate @bind-Value=FormData.SomeDateTimeProperty ParsingErrorMessage="Must be a date" />
     <InputNumber @bind-Value=FormData.SomeIntegerProperty id="MyInputNumber1" class="form-control" ParsingErrorMessage="Must be an integer value" />
     <InputNumber @bind-Value=FormData.SomeDecimalProperty id="MyInputNumber2" class="form-control" ParsingErrorMessage="Must be a decimal value" />
-    <p>@(FormData?.SomeStringProperty ?? "")</p>
-	<InputSelect @bind-Value=FormData?.SomeSelectProperty id="MyInputSelect" class="form-control">
+    <p>@StoredString</p>
+	<InputSelect @bind-Value=FormData.SomeSelectProperty id="MyInputSelect" class="form-control">
 		<option value="Pending">Pending</option>
 		<option value="Active">Active</option>
 		<option value="Suspended">Suspended</option>
 	</InputSelect>
-</EditForm>*@
+</EditForm>
 
-@*<button class="btn btn-primary" @onclick=StoreObject>Store whole Object</button>
-*@
-@*<p>This is the stored object:</p>
+<button class="btn btn-primary" @onclick=StoreObject>Store whole Object</button>
+<button class="btn" @onclick=RetrieveObject>Retrieve whole Object</button>
+
+<p>This is the stored object:</p>
 <ul>
-    <li>@(FormData?.SomeDateTimeProperty ?? DateTime.MinValue)</li>
-    <li>@(FormData?.SomeIntegerProperty ?? 0)</li>
-    <li>@(FormData?.SomeDecimalProperty ?? 0)</li>
-    <li>@(FormData?.SomeStringProperty ?? "")</li>
-    <li>@(FormData?.SomeSelectProperty ?? 0)</li>
-</ul>*@
+    <li>@(RetrievedOne.SomeDateTimeProperty)</li>
+    <li>@(RetrievedOne.SomeIntegerProperty)</li>
+    <li>@(RetrievedOne.SomeDecimalProperty)</li>
+    <li>@(RetrievedOne?.SomeStringProperty ?? "")</li>
+    <li>@(RetrievedOne?.SomeSelectProperty ?? 0)</li>
+</ul>
 
 @code
 {
@@ -61,6 +62,7 @@
     public enum SomeStateEnum { Pending, Active, Suspended };
 
     SomeModel FormData = new SomeModel();
+    SomeModel RetrievedOne = new SomeModel();
 
     class SomeModel
     {
@@ -97,7 +99,15 @@
     private async Task StoreObject()
     {
         //await cookie.Store<SomeModel>(nameof(FormData), FormData);
-        await cookie.Store(nameof(FormData.SomeStringProperty), FormData.SomeStringProperty);
+        await cookie.Store<SomeModel>(nameof(FormData), FormData);
+    }
+
+    private async Task<SomeModel> RetrieveObject()
+    {
+        var s = await cookie.Retrieve<SomeModel>(nameof(FormData), null);
+        RetrievedOne = s ?? new SomeModel();
+        StateHasChanged();
+        return RetrievedOne;
     }
 }
 
