@@ -55,7 +55,7 @@ public class CookieStorage : IClientSideStorage
 
 
     /// <inheritdoc/>
-    public async Task Store<T>(string key, T value, int? days = null) where T : ISerializable
+    public async Task Store<T>(string key, T value, int? days = null)
     {
         string jsonString = JsonSerializer.Serialize(value);
         string ValueB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
@@ -84,7 +84,7 @@ public class CookieStorage : IClientSideStorage
 
     /// <exception cref="JsonException" />
     /// <inheritdoc/>
-    public async Task<T?> Retrieve<T>(string key, T? defaultVal = default) where T : ISerializable
+    public async Task<T?> Retrieve<T>(string key, T? defaultVal = default)
     {
         string resultStr = await Retrieve(key, string.Empty);
         if (string.IsNullOrEmpty(resultStr)) return defaultVal;

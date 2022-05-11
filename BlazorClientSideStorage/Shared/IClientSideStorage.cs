@@ -22,7 +22,7 @@ public interface IClientSideStorage
     /// </summary>
     /// <typeparam name="T">Any serialisable type; preferably a mere data transfer object.</typeparam>
     /// <inheritdoc cref = "Store" />
-    public Task Store<T>(string key, T value, int? days = null) where T : ISerializable;
+    public Task Store<T>(string key, T value, int? days = null);
 
 
 
@@ -42,7 +42,7 @@ public interface IClientSideStorage
     /// </summary>
     /// <typeparam name="T">Any serialisable type; preferably a mere data transfer object.</typeparam>
     /// <inheritdoc cref = "Retrieve" />
-    public Task<T?> Retrieve<T>(string key, T? defaultVal) where T : ISerializable;
+    public Task<T?> Retrieve<T>(string key, T? defaultVal);
 
 
 
