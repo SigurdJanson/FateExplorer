@@ -1,7 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Threading.Tasks;
-
-namespace FateExplorer.Shared.ClientSideStorage;
+﻿namespace FateExplorer.Shared.ClientSideStorage;
 
 public interface IClientSideStorage
 {

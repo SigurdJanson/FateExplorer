@@ -35,7 +35,7 @@ namespace UnitTests.Shared.ClientSideStorage
 
         [Test]
         [TestCase("Any", "Setthis")]
-        public async Task SetValue_ExpectedBehavior(string key, string value)
+        public async Task SetValue_ValidContent(string key, string value)
         {
             int? days = null;
 
@@ -48,14 +48,39 @@ namespace UnitTests.Shared.ClientSideStorage
                 .Returns(new ValueTask<jsVoidResult>());
 
             // Act
-            await cookieStorage.SetValue(key, value, days);
+            await cookieStorage.Store(key, value, days);
 
             // Assert
             mockRepository.VerifyAll();
-            mockJSRuntime.Verify(m 
-                => m.InvokeAsync<jsVoidResult>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()), 
+            mockJSRuntime.Verify(o 
+                => o.InvokeAsync<jsVoidResult>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()), 
                 Times.Once);
         }
+
+
+
+        [Test]
+        [TestCase("Any/Ω/this", "Setthis", Description = "Test with non-ascii character in key throws exception.")]
+        public void SetValue_NonAsciiKey_Exception(string key, string value)
+        {
+            int? days = null;
+
+            // Arrange
+            var cookieStorage = this.CreateCookieStorage();
+            mockJSRuntime.Setup(o
+                => o.InvokeAsync<jsVoidResult>(
+                    It.Is<string>(s => s == "eval"), It.IsAny<object[]>()))
+                .Returns(new ValueTask<jsVoidResult>());
+
+            // Act
+            Assert.ThrowsAsync<ArgumentException>(async () => await cookieStorage.Store(key, value, days));
+
+            // Assert
+            mockJSRuntime.Verify(o
+                => o.InvokeAsync<jsVoidResult>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
+                Times.Never);
+        }
+
 
         [Test]
         [TestCase("a", "object1")]
@@ -77,13 +102,13 @@ namespace UnitTests.Shared.ClientSideStorage
             string myDefault = null;
 
             // Act
-            var result = await cookieStorage.GetValue(key, myDefault);
+            var result = await cookieStorage.Retrieve(key, myDefault);
 
             // Assert
             Assert.AreEqual(expected, result);
             mockRepository.VerifyAll();
-            mockJSRuntime.Verify(m
-                => m.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
+            mockJSRuntime.Verify(o
+                => o.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
                 Times.Once);
         }
 
@@ -101,13 +126,13 @@ namespace UnitTests.Shared.ClientSideStorage
                 .Returns(new ValueTask<string>(TestCookie));
 
             // Act
-            var result = await cookieStorage.GetValue(key, defaultVal: expected);
+            var result = await cookieStorage.Retrieve(key, defaultVal: expected);
 
             // Assert
             Assert.AreEqual(expected, result);
             mockRepository.VerifyAll();
-            mockJSRuntime.Verify(m
-                => m.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
+            mockJSRuntime.Verify(o
+                => o.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
                 Times.Once);
         }
     }

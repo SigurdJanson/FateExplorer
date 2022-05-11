@@ -1,9 +1,6 @@
 ﻿using Microsoft.JSInterop;
-using System;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FateExplorer.Shared.ClientSideStorage;
 
