@@ -1,5 +1,4 @@
 ﻿using FateExplorer.GameData;
-using FateExplorer.Shared;
 using MudBlazor;
 using System;
 using System.Text.RegularExpressions;
@@ -45,6 +44,7 @@ public class CalendarViMo
     }
 
 
+    #region SPECIFIC DATE
 
     /// <summary>
     /// Converts the given date to a string with the desired standard format.
@@ -119,15 +119,20 @@ public class CalendarViMo
 
     public void GotoDate(DateTime date) => EffectiveDate = date;
 
+    public void GotoDate(int Day, int Month, int Year) 
+        => EffectiveDate = Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
+
 
     public (string, string)[] GetHolidays() 
         => GameData.GetHolidays(Calendar.GetMonth(EffectiveDate), DayOfMonth);
 
+
+
     /// <summary>
-    /// 
+    /// Parse a string of an Aventurian date and translate it into DateTime.
     /// </summary>
-    /// <param name="dateStr"></param>
-    /// <returns></returns>
+    /// <param name="dateStr">A string that can be interpreted as date.</param>
+    /// <returns>A DateTime representation of the given date.</returns>
     /// <exception cref="FormatException"></exception>
     // https://stackoverflow.com/questions/56065683/regex-for-matching-dates-month-day-year-or-m-d-yy?msclkid=f2b2cd08c3af11ec8681f35279f46fe3
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Readibility")]
@@ -169,5 +174,29 @@ public class CalendarViMo
 
         return Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
     }
-    
+
+    #endregion
+
+
+
+
+    #region General Calendar Data
+
+    public string[] ListOfMonths => GameData.MonthNames;
+
+    public int DaysInMonth(int year, string month)
+    {
+        if (string.IsNullOrWhiteSpace(month)) return 0;
+        int monthInt = -1;
+        for (int m = 0; m < GameData.MonthNames.Length; m++)
+            if (GameData.MonthNames[m].StartsWith(month))
+            {
+                monthInt = m + 1;
+                break;
+            }
+        if (monthInt < 0) throw new ArgumentException("Unknown month", nameof(month));
+        return Calendar.GetDaysInMonth(year, monthInt);
+    }
+
+    #endregion
 }
