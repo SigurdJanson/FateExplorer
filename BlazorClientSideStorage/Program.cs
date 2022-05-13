@@ -1,4 +1,4 @@
-using BlazorClientSideStorage;
+using TestBlazorClientSideStorage;
 using FateExplorer.Shared.ClientSideStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

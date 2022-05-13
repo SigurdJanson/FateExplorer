@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorClientSideStorage\TestBlazorClientSideStorage.csproj" />
     <ProjectReference Include="..\dev\FateExplorer.csproj" />
+    <ProjectReference Include="..\LibClientSideStorage\LibClientSideStorage.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "..\RollLogicTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBlazorClientSideStorage", "..\BlazorClientSideStorage\TestBlazorClientSideStorage.csproj", "{2D570820-EA6D-48CC-933B-A50FFB99F636}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibClientSideStorage", "..\LibClientSideStorage\LibClientSideStorage.csproj", "{D165FF3A-B5DB-4373-8406-FF85948DB864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibClientSideStorage", "..\LibClientSideStorage\LibClientSideStorage.csproj", "{D165FF3A-B5DB-4373-8406-FF85948DB864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
