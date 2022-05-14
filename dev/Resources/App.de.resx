@@ -1018,7 +1018,7 @@
     <comment>Calendar</comment>
   </data>
   <data name="txtDateFormatPlaceholder" xml:space="preserve">
-    <value>tt. Monat jjjj BF</value>
+    <value>tt Monat jjjj BF</value>
     <comment>Calendar</comment>
   </data>
   <data name="rollna" xml:space="preserve">
@@ -1050,5 +1050,23 @@
   </data>
   <data name="lblSilverthalers" xml:space="preserve">
     <value>Silbertaler</value>
+  </data>
+  <data name="btnDateChange" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
+  <data name="lblDateDay" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="lblDateMonth" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="lblDateYear" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="lblEditDate" xml:space="preserve">
+    <value>Datum ändern</value>
+  </data>
+  <data name="msgDayOutOfRange" xml:space="preserve">
+    <value>Der gewählte Tag im Monat ist zu groß für den gewählten Monat</value>
   </data>
 </root>
