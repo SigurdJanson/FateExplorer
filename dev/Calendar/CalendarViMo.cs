@@ -84,15 +84,49 @@ public class CalendarViMo
     public string WeekdayShort => GameData.GetWeekdayAbbr(Calendar.GetDayOfWeek(EffectiveDate));
     public string Weekday => GameData.GetWeekday(Calendar.GetDayOfWeek(EffectiveDate));
 
+    /// <summary>
+    /// Get the current (effective) day of the month
+    /// </summary>
     public int DayOfMonth => Calendar.GetDayOfMonth(EffectiveDate);
 
+    /// <summary>
+    /// Get the day of the month of the give date
+    /// </summary>
+    /// <param name="Date">A date</param>
+    public int GetDayOfMonth(DateTime Date) => Calendar.GetDayOfMonth(Date);
+
+
+    /// <summary>
+    /// Get current (effective) month as long name
+    /// </summary>
     public string Month => GameData.GetMonth(Calendar.GetMonth(EffectiveDate));
 
+    /// <summary>
+    /// Get current (effective) month as deity icon
+    /// </summary>
     public string MonthIcon => IconsFE.Concat(Month);
 
+    /// <summary>
+    /// Get current (effective) month number
+    /// </summary>
     public int MonthNr => Calendar.GetMonth(EffectiveDate);
 
+    /// <summary>
+    /// Get the month number of a give date
+    /// </summary>
+    /// <param name="Date">A date</param>
+    public int GetMonthNr(DateTime Date) => Calendar.GetMonth(Date);
+
+    /// <summary>
+    /// Get the current (effective) year
+    /// </summary>
     public int Year => Calendar.GetYear(EffectiveDate);
+
+    /// <summary>
+    /// Get the year of a given date
+    /// </summary>
+    /// <param name="Date">A date</param>
+    public int GetYear(DateTime Date) => Calendar.GetYear(Date);
 
     public string Reckoning => GameData.GetFBReckoning(Calendar.GetYear(EffectiveDate));
 
@@ -121,6 +155,9 @@ public class CalendarViMo
 
     public void GotoDate(int Day, int Month, int Year) 
         => EffectiveDate = Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
+
+    public DateTime ToDateTime(int Day, int Month, int Year)
+        => Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
 
 
     public (string, string)[] GetHolidays() 
@@ -184,18 +221,9 @@ public class CalendarViMo
 
     public string[] ListOfMonths => GameData.MonthNames;
 
-    public int DaysInMonth(int year, string month)
+    public int DaysInMonth(int year, int month)
     {
-        if (string.IsNullOrWhiteSpace(month)) return 0;
-        int monthInt = -1;
-        for (int m = 0; m < GameData.MonthNames.Length; m++)
-            if (GameData.MonthNames[m].StartsWith(month))
-            {
-                monthInt = m + 1;
-                break;
-            }
-        if (monthInt < 0) throw new ArgumentException("Unknown month", nameof(month));
-        return Calendar.GetDaysInMonth(year, monthInt);
+        return Calendar.GetDaysInMonth(year, month);
     }
 
     #endregion

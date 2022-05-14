@@ -145,7 +145,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 		GregorianCalendar EarthCal = new();
 
 		if (EarthCal.IsLeapYear(time.Year))
-			if (time.DayOfYear > 31 + 28)
+			if (time.DayOfYear > 31 + 28) // days Jan. + Feb.
 				return time.DayOfYear - 1;
 		return time.DayOfYear;
 	}
@@ -158,11 +158,16 @@ public class BosparanCalendar : System.Globalization.Calendar
 	/// <remarks>Treats the days of the Nameless One as 13th month</remarks>
 	public override int GetMonthsInYear(int year, int era) => MonthsInYear;
 
+
+	public override int GetDaysInMonth(int year, int month) 
+		=> GetDaysInMonth(year, month, AssumedEra);
+
+
 	/// <inheritdoc/>
 	/// <remarks>Accepts the days of the Nameless One as 13th month</remarks>
 	public override int GetDaysInMonth(int year, int month, int era)
-		{
-		if (month < 1 || month > 13) 
+	{
+		if (month < 1 || month > MonthsInYear) 
 			throw new ArgumentOutOfRangeException(nameof(month), month, "Calendar knows 12 months and 1 pseudo-month of 5 days of the Nameless One");
 		if (era < 1 || era > 12)
 			throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras from 1 to 12");

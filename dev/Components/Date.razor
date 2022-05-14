@@ -47,9 +47,8 @@
 
                 <MudCardActions Class="d-block">
                     <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
-                    <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
-                        Placeholder=@l10n["txtDateFormatPlaceholder"] Class=@DateOpenClass />
-                    <MudButton OnClick=@Calendar.GotoEarthDate  Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
+                    @*<DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=@DateEditIsVisible />*@
+                    <MudButton OnClick=@Calendar.GotoEarthDate Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -92,10 +91,7 @@
                                     <MudText Typo=Typo.body2>@h.Item2</MudText>
                                 </TooltipContent>
                             </MudTooltip>
-    @*                        @if (!string.IsNullOrWhiteSpace(h.Item2))
-                            {
-                            }
-    *@                    </td>
+                        </td>
                     </tr>
                     }
                 }
@@ -104,10 +100,20 @@
             </MudPaper>
         </MudItem>
     </MudGrid>
-    <div class="d-flex flex-column">
-
-    </div>
 </MudPopover>
+
+<MudDialog @bind-IsVisible=DateEditIsVisible>   @*Options="dialogOptions"*@
+    <TitleContent>
+        <MudText Typo="Typo.h6">@l10n["lblEditDate"]</MudText>
+    </TitleContent>
+    <DialogContent>
+        <DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=true />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color=Color.Primary OnClick=@CancelDateEdit Class="px-10">@l10n["btnCancel"]</MudButton>
+        <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@SubmitDateEdit Class="px-10">@l10n["btnDateChange"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
     private CalendarViMo Calendar { get; set; }
@@ -139,45 +145,43 @@
     private const string BtnLabelSetDateSet = "btnSetDate";
     private const string BtnLabelSetDateConfirm = "btnSetDateConfirm";
     private string BtnLabelSetDate { get; set; }
-    private string DateOpenClass => SetDateOpen ? "" : "d-none";
+    private bool DateEditIsVisible;
+    private DateTime EditedDate { get; set; }
     private Variant ButtonVariant = Variant.Text;
-    //
-    private bool SetDateOpen = false;
-    private string dateInputStr = string.Empty;
+
 
 
     /// <summary>
-    /// Respond to abstract click of the Modify Date button
+    /// Respond to a click of the Modify Date button
     /// </summary>
     private void SetDate()
     {
-        if (!SetDateOpen)
+        if (!DateEditIsVisible)
         {
-            dateInputStr = Calendar.DateToString('p');
-            SetDateOpen = true;
+            //dateInputStr = Calendar.DateToString('p');
+            EditedDate = Calendar.EffectiveDate;
+            DateEditIsVisible = true;
             BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
             ButtonVariant = Variant.Filled;
         }
         else
         {
-            DateTime ParseSuccess = DateTime.MinValue;
-            if (!string.IsNullOrWhiteSpace(dateInputStr))
-            {
-                try
-                {
-                    ParseSuccess = Calendar.Parse(dateInputStr);
-                }
-                catch (Exception) { };
-            }
-            if (ParseSuccess != DateTime.MinValue)
-            {
-                Calendar.GotoDate(ParseSuccess);
-                SetDateOpen = false;
-                BtnLabelSetDate = l10n[BtnLabelSetDateSet];
-                ButtonVariant = Variant.Text;
-            }
+            Calendar.GotoDate(EditedDate);
+            DateEditIsVisible = false;
+            BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+            ButtonVariant = Variant.Text;
         }
     }
+
+    protected void SubmitDateEdit() => SetDate();
+
+    protected void CancelDateEdit()
+    {
+        DateEditIsVisible = false;
+        BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+        ButtonVariant = Variant.Text;
+    }
+
 
     #endregion
 
