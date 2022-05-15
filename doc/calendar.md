@@ -252,36 +252,26 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 
 * Several trade fairs of the Almanach.
 * PRA 3. "Große Bärenhatz, Trallop", "Der Gewinner erhält das Fell des Tieres, einen goldenen Stirnreif und den Ehrentitel Edler von Pandlarilsquell. Sie steht auch Bürgerlichen offen."
-* TRA 29. "Todestag des Hl. Gilborn von Punin, Nordmarken", "Gedenken an den Märtyrer und Praios-Geweihten Gilborn von Punin, der von Borbarad getötet wurde."
-* TRA 30. "Nacht der Ahnen, Kosch", "Man gedenkt der Toten und lässt am Tisch einen Platz für sie frei"
 * BOR 23. "Tsatag Kaiser Hals, Kosch", "Man gedenkt des ehemaligen Kaisers"
-* HES 5. "Eslaminstag, Zorgan", "Gedenktag für die Heilige Eslamin Phraisop, es wird der Seuchenopfer gedacht und der Perainekirche Kerzen geopfert."
 * FIR 11. "Day of the Crowned Stag, Nostria", "Often with bowyer’s celebration"
-* FIR 13. "Hlûthars Fall, Nordmarken", "Todestag des Hl. Hlûthar"
 * FIR 16. "Tag der Hingabe, Aranien", "Feiertag des Heiligen Ascandear von Baburin, in Palmyramis bekommen Frauen süßes Gebäck in Blütenform, in Baburin werden im Rahjatempel Süßspeisen und Blumen geopfert."
-* EFF 1. "Flussfest, großer Fluss", "An den Ufern des Großen Flusses begangenes Freudenfest (vor allem Albenhus)."
 * EFF 5. "Fest des Flussvaters, Havena/Albernia/Windhag", "Ehrungen des Feenkönigs, nächtliche Bootsprozession mit Laternen auf dem Elderlif."
-* PHE 22.-24. "Twergenhausener Metallwarenmesse"
-* PER 18. "Hasenfest, Kosch", "Fest der Dankbarkeit am Ende der Aussaat"
-* PER 21. "Tag der Befreiung, Havena",  "Niamads Sieg über die Magiertyrannen, Zielschießen auf \"Hexenscheiben\", Verbrennung von Strohpuppen mit Zauberergewändern, Zerstörung konfiszierter magischer Artefakte und Alchimika, Ritterturnier"
-* ING 6.-8. "Wengenholmer Schwurbundfest"
-* ING 16.	"Tag der Großen Flut, Havena"
-* 
+* PER 18. "Fest der Dankbarkeit am Ende der Aussaat"
+
+
 
 * Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
 
 ??
 * Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
 * Mitte Phex - Albenhuser Fassfest
-* PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
 
             {"month":  2, "day": 22, "duration": 1,  "name": "", "descr": ""},
 
+* PHE 22.-24. "Twergenhausener Metallwarenmesse"
 
-
-
-
-
+            {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Metallwarenmesse", "descr": ""},
+            {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Hardware SHow", "descr": ""},
 
 
 
@@ -320,6 +310,10 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 {"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
 {"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
 
+* PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
+
+
+
 ## Possible Local Additions
 
 * TRA 30. "Nacht der Ahnen (AGF Seite 84), Havena", "Nacht auf den 1. Boron" - ***Das Totenfest ist bereits berücksichtigt, hat aber eine besondere Bedeutung in Havena***.
@@ -333,6 +327,10 @@ Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 * (Last-n)th week in month M
 * n-th week in month M
 * (Last-n)th day in month, e.g. Aves day
+
+## Special Holidays
+
+* Fixed day but only once every N years; reference year required (e.g. Gratenfelser Schützenfest)
 
 
 ## Questions
