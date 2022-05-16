@@ -16,9 +16,10 @@ Coins, weight, and value:
 
 # Requirements
 
-* Each currencies is split into various coins
-* One of the coins must be the reference coin 
-  * for conversions between currencies
+* Each currencies is split into various **coins**
+* One of the coins must be the **reference coin**
+  * For **conversions** between currencies use reference coin
+  * Each currency knows it's exchange rate to/from Middenrealm Ducats.
   * Coins add up to a total amount
   * Total amount should be expressed in reference coin unless explicitly requested.
 * Each coin has a weight
@@ -34,9 +35,18 @@ Coins, weight, and value:
     * (Aventurian) Native language
   * An object should include the currency
     * Currency conversion creates new object with equivalent money in new currency
-* Constructors
+    * (Future req.) Regions where the currencies is used
+* Setters / Constructors
   * One with total amount
   * One with an amount for each coin
+  * One with object of same type (for conversions)
+* Add, subtract, compare
+  * `Add(Money)`
+  * `Add(Decimal)`
+  * `AddTenths(Decimal)`, `AddHundredths(Decimal)`
+* Get weight
+* Computations are all done in par value (Nennwert); allow access to real value (Realwert); see esp. the outdated coins of the Khalifat; that mean that inside the native region of the currency the value is higher than anywhere else.
+
 
 
 
