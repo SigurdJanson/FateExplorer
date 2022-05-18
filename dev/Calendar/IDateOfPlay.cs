@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace FateExplorer.Calendar
 {
@@ -11,6 +12,11 @@ namespace FateExplorer.Calendar
         /// Notify registered components when the hero has changed.
         /// </summary>
         public event Action OnChange;
+
+        /// <summary>
+        /// Read the date from some form of storage.
+        /// </summary>
+        Task RestoreSavedState();
 
         /// <summary>
         /// The current date

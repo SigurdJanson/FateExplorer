@@ -44,5 +44,8 @@ var RollHandlerService = host.Services.GetRequiredService<IRollHandlerViMo>();
 await RollHandlerService.ReadRollMappingsAsync();
 RollHandlerService.RegisterChecks();
 
+var DateOfPlay = host.Services.GetRequiredService<IDateOfPlay>();
+await DateOfPlay.RestoreSavedState();
+
 // Run
 await host.RunAsync();
