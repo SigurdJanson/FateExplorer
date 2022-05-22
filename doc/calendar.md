@@ -245,30 +245,28 @@ Dating this back to the first day of the Saurian calendar should be: 14. Rahja 5
 
 # Holidays
 
-Source: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
+Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 
 
 ## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
-* PRA 3. "Große Bärenhatz, Trallop", "Der Gewinner erhält das Fell des Tieres, einen goldenen Stirnreif und den Ehrentitel Edler von Pandlarilsquell. Sie steht auch Bürgerlichen offen."
-* BOR 23. "Tsatag Kaiser Hals, Kosch", "Man gedenkt des ehemaligen Kaisers"
-* FIR 11. "Day of the Crowned Stag, Nostria", "Often with bowyer’s celebration"
-* FIR 16. "Tag der Hingabe, Aranien", "Feiertag des Heiligen Ascandear von Baburin, in Palmyramis bekommen Frauen süßes Gebäck in Blütenform, in Baburin werden im Rahjatempel Süßspeisen und Blumen geopfert."
-* EFF 5. "Fest des Flussvaters, Havena/Albernia/Windhag", "Ehrungen des Feenkönigs, nächtliche Bootsprozession mit Laternen auf dem Elderlif."
-* PER 18. "Fest der Dankbarkeit am Ende der Aussaat"
 
 
+**Template**
+            {"month":  2, "day": 22, "duration": 1,  "name": "", "descr": ""},
+
+
+**??**
 
 * Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
-
-??
 * Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
 * Mitte Phex - Albenhuser Fassfest
 
-            {"month":  2, "day": 22, "duration": 1,  "name": "", "descr": ""},
 
-* PHE 22.-24. "Twergenhausener Metallwarenmesse"
+**? Translation of Twergenhus**
+
+PHE 22.-24. "Twergenhausener Metallwarenmesse"
 
             {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Metallwarenmesse", "descr": ""},
             {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Hardware SHow", "descr": ""},
