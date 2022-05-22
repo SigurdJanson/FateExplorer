@@ -6,16 +6,27 @@ namespace FateExplorer.Calendar;
 
 public class DateOfPlayM : IDateOfPlay
 {
-    protected IClientSideStorage Storage;
+    protected IClientSideStorage Storage; // injected storage
 
+    /// <inheritdoc/>
     public event Action OnChange;
+
     private void NotifyStateChanged() => OnChange?.Invoke();  // this method hides the OnChange to simplify it
 
 
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    /// <param name="storage">A storage to keep the date across sessions</param>
     public DateOfPlayM(IClientSideStorage storage) : this(DateTime.Now, storage) 
     {}
 
 
+    /// <summary>
+    /// Date constructor
+    /// </summary>
+    /// <param name="date">A date to be initialised with</param>
+    /// <param name="storage">A storage to keep the date across sessions</param>
     public DateOfPlayM(DateTime date, IClientSideStorage storage)
     {
         Storage = storage; // injection
@@ -23,6 +34,7 @@ public class DateOfPlayM : IDateOfPlay
     }
 
 
+    /// <inheritdoc/>
     public async Task RestoreSavedState()
     {
         string StoredItem = await Storage.Retrieve(GetType().ToString());
@@ -33,6 +45,8 @@ public class DateOfPlayM : IDateOfPlay
 
 
     private DateTime date;
+
+    /// <inheritdoc/>
     public DateTime Date 
     { 
         get => date; 
