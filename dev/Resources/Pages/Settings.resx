@@ -138,4 +138,10 @@
   <data name="txtMostUsedSkills" xml:space="preserve">
     <value>Skills shown in the category 'commonly used'</value>
   </data>
+  <data name="lblBazaar" xml:space="preserve">
+    <value>Bazaar</value>
+  </data>
+  <data name="lblDefaultCurrency" xml:space="preserve">
+    <value>Default comparison currency</value>
+  </data>
 </root>
