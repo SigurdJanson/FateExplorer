@@ -104,7 +104,7 @@ public class CalendarViMo
     /// <summary>
     /// Get current (effective) month as deity icon
     /// </summary>
-    public string MonthIcon => IconsFE.Concat(Month);
+    public string MonthIcon => MonthNr != 13 ? IconsFE.Concat(Month) : IconsFE.NamelessOne;
 
     /// <summary>
     /// Get current (effective) month number
