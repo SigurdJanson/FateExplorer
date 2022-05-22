@@ -46,6 +46,8 @@ RollHandlerService.RegisterChecks();
 
 var DateOfPlay = host.Services.GetRequiredService<IDateOfPlay>();
 await DateOfPlay.RestoreSavedState();
+var AppSettings = host.Services.GetRequiredService<AppSettings>();
+await AppSettings.RestoreSavedState();
 
 // Run
 await host.RunAsync();

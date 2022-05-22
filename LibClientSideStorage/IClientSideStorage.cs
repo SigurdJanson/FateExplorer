@@ -38,6 +38,7 @@ public interface IClientSideStorage
     /// Retrieve an object from storage.
     /// </summary>
     /// <typeparam name="T">Any serialisable type; preferably a mere data transfer object.</typeparam>
+    /// <returns>The stored object</returns>
     /// <inheritdoc cref = "Retrieve" />
     public Task<T?> Retrieve<T>(string key, T? defaultVal);
 
