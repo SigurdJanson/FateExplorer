@@ -685,7 +685,7 @@
     <comment>enum LanguageAbility</comment>
   </data>
   <data name="lngNone" xml:space="preserve">
-    <value>n.v.</value>
+    <value>n/v</value>
     <comment>enum LanguageAbility</comment>
   </data>
   <data name="Mohish" xml:space="preserve">
