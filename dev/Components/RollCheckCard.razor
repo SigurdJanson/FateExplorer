@@ -117,6 +117,12 @@
         <MudText Typo=Typo.subtitle1>
             @l10n[Result.ClassificationLabel ?? ""] @Result.Classification
         </MudText>
+        @if (Result.ClassificationDescr is not null)
+        {
+        <MudText Typo=Typo.subtitle1>
+            @Result.ClassificationDescr
+        </MudText>
+        }
     </MudCardContent>
     }
 

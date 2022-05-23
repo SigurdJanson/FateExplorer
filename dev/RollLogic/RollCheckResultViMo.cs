@@ -82,6 +82,7 @@ namespace FateExplorer.RollLogic
         public int Remainder { get => RollCheck.Remainder; }
 
 
+        public string ClassificationDescr => RollCheck.ClassificationDescr;
         public string ClassificationLabel => RollCheck.ClassificationLabel;
 
         public string Classification => RollCheck.Classification;
