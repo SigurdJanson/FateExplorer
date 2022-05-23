@@ -76,6 +76,10 @@ namespace FateExplorer.RollLogic
             RollAttrName[0] = ResourceId.AttackLabelId;
             Name = weapon.Name;
 
+            // improvised weapons: 19 AND 20 are botches
+            if (weapon.IsImprovised)
+                Success.BotchThreshold = 19;
+
             // specialised properties
             DamageDieCount = weapon.DamageDieCount;
             DamageDieSides = weapon.DamageDieSides;
