@@ -57,7 +57,6 @@ namespace FateExplorer.RollLogic
                 OpenRoll[i] = RNG.IRandom(1, Sides[i]);
             }
             PrevRoll = OpenRoll;
-            //OpenRoll = OpenRollVals.Aggregate(AggregateFunc);
 
             return OpenRoll;
         }
@@ -84,14 +83,5 @@ namespace FateExplorer.RollLogic
             protected set => modifiedBy = value;
         }
 
-
-        //
-        #region ENTRY
-
-        public bool EntryConfirmed(params object[] Args)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
     }
 }
