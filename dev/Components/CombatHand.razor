@@ -1,0 +1,87 @@
+﻿@using FateExplorer.ViewModel
+@inject IStringLocalizer<App> l10n
+
+
+<MudCard Class="mb-4" Outlined=BareHand Elevation=@(BareHand ? 0 : 3)>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
+            <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
+            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(HeroHands.MainWeapon, WhichHand)</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            @if (!BareHand)
+            {
+            <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
+                OnClick=StashWeapon/>  @*StashWeapon(true)*@
+            }
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardActions> @*OnAttackCheck(Weapon, WhichHand == HandsViMo.Hand.Main)*@
+        <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
+            OnClick=OnAttackCheck
+            Disabled=HeroHands.IsDisabled(WhichHand)
+            Title=TitleAttack aria-label=@AriaAttack />
+        @if (Weapon.CanParry)
+        { @*OnParryCheck(Weapon, WhichHand == HandsViMo.Hand.Main))*@
+        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
+            OnClick=OnParryCheck
+            Disabled=HeroHands.IsDisabled(WhichHand)
+            Title=TitleParry aria-label=@AriaParry />
+        }
+@*      <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+            Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
+            Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />*@
+    </MudCardActions>
+</MudCard>
+
+
+
+@code {
+    [Parameter] public HandsViMo HeroHands { get; set; }
+    [Parameter] public HandsViMo.Hand WhichHand  { get; set; }
+    [Parameter] public bool BareHand  { get; set; }
+    [Parameter] public WeaponViMo Weapon { get; set; }
+
+    [Parameter] public EventCallback OnAttackCheck { get; set; }
+    [Parameter] public EventCallback OnParryCheck { get; set; }
+    [Parameter] public EventCallback StashWeapon { get; set; }
+
+    protected string TitleAttack;
+    protected string TitleParry;
+    protected string AriaAttack;
+    protected string AriaParry;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
+        TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
+        AriaAttack = $"{l10n["lblAttack"]} {l10n["lblRoll"]} {Weapon.Name}";
+        AriaParry = $"{l10n["lblParry"]} {l10n["lblRoll"]} {Weapon.Name}";
+    }
+
+
+    private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
+    {
+        var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? HeroHands.OffWeapon : HeroHands.MainWeapon;
+        if (Weapon.DamageBonus == 0)
+            return 
+                @<span>
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
+                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
+                </span>;
+        else
+            return
+                @<span>
+                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
+                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
+                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
+                </span>;
+    }
+
+
+   
+}

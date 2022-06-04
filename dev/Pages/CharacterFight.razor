@@ -94,11 +94,17 @@
         </MudItem>
 
 
-        <MudItem  xs=12 sm=6 md=8>
+        <MudItem xs=12 sm=6 md=8>
             <MudPaper Class="pa-2">
                 <MudGrid>
                     <MudItem xs=6>
-                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Main) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Main)>
+                        <CombatHand 
+                            HeroHands=Hero.Hands Weapon=Hero.Hands.MainWeapon
+                            WhichHand=HandsViMo.Hand.Main BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Main) 
+                            OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true)) 
+                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
+                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
+@*                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Main) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Main)>
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
@@ -129,13 +135,25 @@
                                 }
 @*                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
-                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />*@
+                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />
+                                <MudSelect Dense="true" T="string" Label="Coffee" Variant=Variant.Text>
+                                    <MudSelectItem Value="@("Tyrannosaur")" />
+                                    <MudSelectItem Value="@("Triceratops")" />
+                                    <MudSelectItem Value="@("Mike Rex")" />
+                                </MudSelect>
                             </MudCardActions>
-                        </MudCard>
+                        </MudCard>*@
                     </MudItem>
 
                     <MudItem xs=6>
-                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Off) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Off)>
+                        <CombatHand 
+                            HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
+                            WhichHand=HandsViMo.Hand.Off BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Off) 
+                            OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false)) 
+                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
+                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
+
+@*                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Off) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Off)>
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblNondominantHand"]</MudText>
@@ -164,10 +182,10 @@
                                 }
                                 @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                                     Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
-                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />*@
+                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />
                             </MudCardActions>                        
                         </MudCard>
-                    </MudItem>
+*@                    </MudItem>
                 </MudGrid>
             </MudPaper>
 
@@ -232,19 +250,12 @@ else
     }
 
 
-    /// <summary>
-    /// User empties a hand
-    /// </summary>
-    /// <param name="MainHand">The hand to empty</param>
-    private void StashWeapon(bool MainHand) 
-        => Hero.Hands.RemoveWeapon(MainHand ? HandsViMo.Hand.Main : HandsViMo.Hand.Off);
-
 
     /// <summary>
-    /// 
+    /// Wraps access to the weapons branch
     /// </summary>
-    /// <param name="MainHand"></param>
-    /// <returns></returns>
+    /// <param name="MainHand">Ask for main hand weapon (true) or off-hand weapon</param>
+    /// <returns>The combat branch of the weapon in the requested hand</returns>
     private CombatBranch GetCombatBranch(bool MainHand)
         => MainHand ? Hero.Hands.MainWeapon.Branch : Hero.Hands.OffWeapon.Branch;
 
@@ -313,7 +324,6 @@ else
     private void OnInitiativeCheck(CharacterAttrDTO initiative)
     {
         ActiveCheck = RollHandler.OpenRollCheck(initiative.Id, initiative);
-        //-ActiveCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
