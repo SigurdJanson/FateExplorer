@@ -38,9 +38,24 @@
 
 
 @code {
+    /// <summary>
+    /// Both hands of the character
+    /// </summary>
     [Parameter] public HandsViMo HeroHands { get; set; }
+
+    /// <summary>
+    /// Which of the hands does thi component represent? Main or off-hand?
+    /// </summary>
     [Parameter] public HandsViMo.Hand WhichHand  { get; set; }
+
+    /// <summary>
+    /// Does the character carry a weapon or fight with bare hands?
+    /// </summary>
     [Parameter] public bool BareHand  { get; set; }
+
+    /// <summary>
+    /// The carried weapon (is either a data base weapon or the character's bare hand as weapon). Not null.
+    /// </summary>
     [Parameter] public WeaponViMo Weapon { get; set; }
 
     [Parameter] public EventCallback OnAttackCheck { get; set; }
@@ -55,6 +70,8 @@
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        if (HeroHands is null) throw new ArgumentNullException(nameof(HeroHands));
+        if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
 
         TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
         TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
@@ -63,6 +80,12 @@
     }
 
 
+    /// <summary>
+    /// Prints attack, parry, and damage points
+    /// </summary>
+    /// <param name="Weapon">The weapon</param>
+    /// <param name="CarriedBy">The hand carrying the weapon</param>
+    /// <returns></returns>
     private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
     {
         var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? HeroHands.OffWeapon : HeroHands.MainWeapon;
