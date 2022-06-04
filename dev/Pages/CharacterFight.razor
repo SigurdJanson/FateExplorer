@@ -104,47 +104,7 @@
                             OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
-@*                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Main) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Main)>
-                            <MudCardHeader>
-                                <CardHeaderContent>
-                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
-                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.MainWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.MainWeapon, HandsViMo.Hand.Main)</MudText>
-                                </CardHeaderContent>
-                                <CardHeaderActions>
-                                    @if (!Hero.Hands.IsBare(HandsViMo.Hand.Main))
-                                    {
-                                    <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
-                                        OnClick=@(() => StashWeapon(true))/>
-                                    }
-                                </CardHeaderActions>
-                            </MudCardHeader>
-                            <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
-                                    OnClick=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true))
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
-                                    Title=@(l10n["lblRoll"] + " " + l10n["lblAttack"])
-                                    aria-label=@($"{l10n["lblAttack"]} {l10n["lblRoll"]} {Hero.Hands.MainWeapon.Name}") />
-                                @if (Hero.Hands.MainWeapon.CanParry)
-                                {
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
-                                    Title=@(l10n["lblRoll"] + " " + l10n["lblParry"])
-                                    aria-label=@($"{l10n["lblParry"]} {l10n["lblRoll"]} {Hero.Hands.MainWeapon.Name}") />
-                                }
-@*                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
-                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />
-                                <MudSelect Dense="true" T="string" Label="Coffee" Variant=Variant.Text>
-                                    <MudSelectItem Value="@("Tyrannosaur")" />
-                                    <MudSelectItem Value="@("Triceratops")" />
-                                    <MudSelectItem Value="@("Mike Rex")" />
-                                </MudSelect>
-                            </MudCardActions>
-                        </MudCard>*@
                     </MudItem>
-
                     <MudItem xs=6>
                         <CombatHand 
                             HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
@@ -152,40 +112,7 @@
                             OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
-
-@*                        <MudCard Class="mb-4" Outlined=Hero.Hands.IsBare(HandsViMo.Hand.Off) Elevation=@HandCardElevation(Hero.Hands, HandsViMo.Hand.Off)>
-                            <MudCardHeader>
-                                <CardHeaderContent>
-                                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblNondominantHand"]</MudText>
-                                    <MudText Typo=Typo.body1 GutterBottom=false>@Hero.Hands.OffWeapon.Name</MudText>
-                                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Hero.Hands.OffWeapon, HandsViMo.Hand.Off)</MudText>
-                                </CardHeaderContent>
-                                <CardHeaderActions>
-                                    @if (!Hero.Hands.IsBare(HandsViMo.Hand.Off))
-                                    {
-                                    <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default 
-                                        OnClick=@(() => StashWeapon(false))/>
-                                    }
-                                </CardHeaderActions>
-                             </MudCardHeader>
-                            <MudCardActions>
-                                <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
-                                    OnClick=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false))
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
-                                    aria-label=@(l10n["lblRoll"] + " " + @l10n["Attack"]) />
-                                @if (Hero.Hands.OffWeapon.CanParry)
-                                {
-                                <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
-                                    OnClick=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
-                                    aria-label=@(l10n["lblRoll"] + " " + @l10n["Parry"]) />
-                                }
-                                @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                                    Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Off)
-                                    Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />
-                            </MudCardActions>                        
-                        </MudCard>
-*@                    </MudItem>
+                    </MudItem>
                 </MudGrid>
             </MudPaper>
 
@@ -375,25 +302,6 @@ else
     }
 
 
-    private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
-    {
-        var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? Hero.Hands.OffWeapon : Hero.Hands.MainWeapon;
-        if (Weapon.DamageBonus == 0)
-            return 
-                @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(Hero.Hands, OtherWeapon.Branch))
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(Hero.Hands, OtherWeapon.Branch))
-                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
-                </span>;
-        else
-            return
-                @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(Hero.Hands, OtherWeapon.Branch))
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(Hero.Hands, OtherWeapon.Branch))
-                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-    </span>
-    ;
-    }
 
     private int HandCardElevation(HandsViMo Hands, HandsViMo.Hand Which)
     {
