@@ -85,47 +85,44 @@
     /// </summary>
     /// <param name="Weapon">The weapon</param>
     /// <param name="CarriedBy">The hand carrying the weapon</param>
-    /// <returns></returns>
+    /// <returns>A segment of UI content</returns>
     private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
     {
         var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? HeroHands.OffWeapon : HeroHands.MainWeapon;
-        if (Weapon.DamageBonus == 0)
+
+        string AttackStr, ParryStr, DamageStr;
+        int AT = Weapon.AtSkill(HeroHands, OtherWeapon.Branch);
+        int PA = Weapon.PaSkill(HeroHands, OtherWeapon.Branch);
+        if (AT > 0)
         {
-            return 
-                @<span>
-                &#x2694;  @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
-                &#x27B9;  @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
-                </span>;
+            AttackStr = $"\u2694\u00A0{l10n["abbrvAttack"]}\u00A0{AT}";
+            DamageStr = $"\u27B9\u00A0{Weapon.DamageDieCount}{l10n["abbrvDie"]}";
+            if (Weapon.DamageBonus > 0) DamageStr = $"{DamageStr}+{Weapon.DamageBonus}";
         }
         else
         {
-            return
-                @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
-                &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
-                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-        </span>;
+            AttackStr = DamageStr = "";
         }
+        ParryStr =  PA > 0 ? $"🛡{l10n["abbrvParry"]}\u00A0{PA}" : "";
+
+        return @<span>@AttackStr @ParryStr @DamageStr</span>;
     }
 
     /// <summary>
-    /// 
+    /// Create a render fragment to display the weapons ranges for ranged weapons
     /// </summary>
-    /// <param name="Weapon"></param>
-    /// <returns></returns>
-    private RenderFragment WeaponRanges(WeaponViMo Weapon)
+    /// <returns>A segment of UI content</returns>
+    private RenderFragment WeaponRanges
     {
         if (Weapon.IsRanged && Weapon.Range is not null && Weapon.Range.Length > 0)
         {
-            return 
-                @<span>  &#x219B;&nbsp;@string.Join(" · ", Weapon.Range) @l10n["lblYard"]</span>;
+            string Values = $"\u00A0\u219B\u00A0{string.Join(" · ", Weapon.Range)}\u00A0{l10n["lblYard"]}";
+            return @<span>@Values</span>;
         }
         else
         {
             return @<span/>;
         }
-            
     }
 
 }
