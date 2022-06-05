@@ -7,7 +7,7 @@
         <CardHeaderContent>
             <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
             <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
-            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(HeroHands.MainWeapon, WhichHand)</MudText>
+            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges(Weapon)</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (!BareHand)
@@ -90,21 +90,42 @@
     {
         var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? HeroHands.OffWeapon : HeroHands.MainWeapon;
         if (Weapon.DamageBonus == 0)
+        {
             return 
                 @<span>
-                &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
+                &#x2694;  @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
                 &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
-                &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
+                &#x27B9;  @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides
                 </span>;
+        }
         else
+        {
             return
                 @<span>
                 &#x2694; @l10n["abbrvAttack"] @(Weapon.AtSkill(HeroHands, OtherWeapon.Branch))
                 &#x1f6e1; @l10n["abbrvParry"] @(Weapon.PaSkill(HeroHands, OtherWeapon.Branch))
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-                </span>;
+        </span>;
+        }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Weapon"></param>
+    /// <returns></returns>
+    private RenderFragment WeaponRanges(WeaponViMo Weapon)
+    {
+        if (Weapon.IsRanged && Weapon.Range is not null && Weapon.Range.Length > 0)
+        {
+            return 
+                @<span>  &#x219B;&nbsp;@string.Join(" · ", Weapon.Range) @l10n["lblYard"]</span>;
+        }
+        else
+        {
+            return @<span/>;
+        }
+            
+    }
 
-   
 }

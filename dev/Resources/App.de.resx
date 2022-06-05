@@ -1069,4 +1069,10 @@
   <data name="msgDayOutOfRange" xml:space="preserve">
     <value>Der gewählte Tag im Monat ist zu groß für den gewählten Monat</value>
   </data>
+  <data name="lblYard" xml:space="preserve">
+    <value>Schritt</value>
+  </data>
+  <data name="abbrvYard" xml:space="preserve">
+    <value>Schritt</value>
+  </data>
 </root>

@@ -1080,4 +1080,10 @@
     <value>The set days of month do not work with the chosen month</value>
     <comment>Date</comment>
   </data>
+  <data name="lblYard" xml:space="preserve">
+    <value>Yard</value>
+  </data>
+  <data name="abbrvYard" xml:space="preserve">
+    <value>yd.</value>
+  </data>
 </root>
