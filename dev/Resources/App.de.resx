@@ -130,7 +130,7 @@
     <value>W</value>
   </data>
   <data name="abbrvHP" xml:space="preserve">
-    <value>Trefferpunkte</value>
+    <value>TP</value>
   </data>
   <data name="abbrvParry" xml:space="preserve">
     <value>PA</value>
@@ -1074,5 +1074,11 @@
   </data>
   <data name="abbrvYard" xml:space="preserve">
     <value>Schritt</value>
+  </data>
+  <data name="lblRangeBrackets" xml:space="preserve">
+    <value>Reichweitensegmente (nah/mittel/weit)</value>
+  </data>
+  <data name="lblHitPoints" xml:space="preserve">
+    <value>Trefferpunkte</value>
   </data>
 </root>

@@ -7,7 +7,7 @@
         <CardHeaderContent>
             <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
             <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
-            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges(Weapon)</MudText>
+            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (!BareHand)
@@ -105,19 +105,23 @@
         }
         ParryStr =  PA > 0 ? $"🛡{l10n["abbrvParry"]}\u00A0{PA}" : "";
 
-        return @<span>@AttackStr @ParryStr @DamageStr</span>;
+        return @<text>
+            <span title=@l10n["lblAttack"]>@AttackStr</span> 
+            <span title=@l10n["lblParry"]>@ParryStr</span> 
+            <span title=@l10n["lblHitPoints"]>@DamageStr</span></text>;
     }
+
 
     /// <summary>
     /// Create a render fragment to display the weapons ranges for ranged weapons
     /// </summary>
     /// <returns>A segment of UI content</returns>
-    private RenderFragment WeaponRanges
+    private RenderFragment WeaponRanges()
     {
         if (Weapon.IsRanged && Weapon.Range is not null && Weapon.Range.Length > 0)
         {
             string Values = $"\u00A0\u219B\u00A0{string.Join(" · ", Weapon.Range)}\u00A0{l10n["lblYard"]}";
-            return @<span>@Values</span>;
+            return @<span title=@l10n["lblRangeBrackets"]>@Values</span>;
         }
         else
         {
