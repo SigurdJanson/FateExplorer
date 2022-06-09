@@ -7,6 +7,13 @@ namespace FateExplorer.CharacterImport
 {
     public interface ICharacterImporter
     {
+        /// <summary>
+        /// Provide a unique and stable identifier that allows recognizing a character
+        /// across several sessions.
+        /// </summary>
+        /// <returns>A stinged id</returns>
+        string GetIdentifier();
+
         string GetName();
 
         string GetPlaceOfBirth();

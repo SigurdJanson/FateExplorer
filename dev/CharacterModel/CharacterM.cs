@@ -48,6 +48,7 @@ namespace FateExplorer.CharacterModel
         {
             try
             {
+                Id = characterImportOptM.GetIdentifier();
                 Name = characterImportOptM.GetName();
                 PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
                 DateOfBirth = characterImportOptM.GetDateOfBirth();
@@ -191,11 +192,16 @@ namespace FateExplorer.CharacterModel
         }
 
 
+        /// <inheritdoc />
+        public string Id { get; set; }
 
+        /// <inheritdoc />
         public string Name { get; protected set; }
 
+        /// <inheritdoc />
         public string PlaceOfBirth { get; protected set; }
 
+        /// <inheritdoc />
         public string DateOfBirth { get; protected set; }
 
         /// <inheritdoc />

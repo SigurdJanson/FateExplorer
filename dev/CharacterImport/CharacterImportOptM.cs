@@ -162,6 +162,8 @@ namespace FateExplorer.CharacterImport
 
         #region IMPLEMENTs ICharacterImporter
 
+        public string GetIdentifier() => CharacterId;
+
         public string GetName() => Name;
 
         public string GetPlaceOfBirth() => Pers.Placeofbirth;
