@@ -77,7 +77,7 @@ namespace FateExplorer.CharacterModel
                 SpecialAbilities = characterImportOptM.GetSpecialAbilities();
                 Languages = characterImportOptM.GetLanguages();
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.SpecialAbility); }
 
 
             // DIS-ADVANTAGES
@@ -86,7 +86,7 @@ namespace FateExplorer.CharacterModel
                 Advantages = characterImportOptM.GetAdvantages();
                 Disadvantages = characterImportOptM.GetDisadvantages();
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.DisAdvantage); }
 
 
             // SKILLS
@@ -115,7 +115,7 @@ namespace FateExplorer.CharacterModel
                     }
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Skills); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.CombatTechnique); }
 
 
             // DODGE
@@ -159,7 +159,7 @@ namespace FateExplorer.CharacterModel
                         Energies.Add(energy.Id, energyM);
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Energy); }
 
 
             // RESILIENCES

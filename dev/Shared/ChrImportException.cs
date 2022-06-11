@@ -22,11 +22,27 @@ namespace FateExplorer.Shared
             /// <summary>
             /// An attribute (ability, derived characteristic, ...)
             /// </summary>
-            Attribute, 
+            Attribute,
+            /// <summary>
+            /// Energy, life, arcane energy, karma energy
+            /// </summary>
+            Energy,
+            /// <summary>
+            /// A special ability
+            /// </summary>
+            SpecialAbility,
+            /// <summary>
+            /// (Dis-) Advantage
+            /// </summary>
+            DisAdvantage,
             /// <summary>
             /// A skill, spell, cantrip, liturgy, ...
             /// </summary>
-            Skills, 
+            Skills,
+            /// <summary>
+            /// Combat technique
+            /// </summary>
+            CombatTechnique,
             /// <summary>
             /// A purchasable item, a weapon or something else
             /// </summary>

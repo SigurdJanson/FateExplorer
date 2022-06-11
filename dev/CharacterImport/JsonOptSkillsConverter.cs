@@ -53,7 +53,7 @@ namespace FateExplorer.CharacterImport
                             break;
                         }
                     if (!isSkillKey)
-                        throw new JsonException("Unknow skill. Cannot read it.");
+                        throw new JsonException("Unknown skill. Cannot read it.");
 
                     // Read data
                     reader.Read();
