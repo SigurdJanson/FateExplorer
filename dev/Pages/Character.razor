@@ -45,7 +45,7 @@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <div>
-                @foreach (var ab in Hero.GetAbilites())
+                @foreach (var ab in Hero.GetAbilites().OrderBy(a => a.Id))
                 {
                 <AbilityChip Ability=@ab OnClick=@((MouseEventArgs e) => OnAbilityCheck(ab)) />
                 }
