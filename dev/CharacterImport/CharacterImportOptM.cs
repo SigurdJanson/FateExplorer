@@ -65,7 +65,11 @@ namespace FateExplorer.CharacterImport
         [JsonPropertyName("ap")]
         public ExperiencePointsOpt Ap { get; set; }
 
-        [JsonPropertyName("el")]
+        /// <summary>
+        /// "Experience Level (EL) determines the number of Adventure Points (AP) 
+        /// you receive to create your hero" (VR1).
+        /// </summary>
+        [JsonPropertyName("el")] //TODO: most likely 
         public string El { get; set; }
 
         /// <summary>
