@@ -908,7 +908,7 @@
     <comment>enum LanguageId</comment>
   </data>
   <data name="SAG" xml:space="preserve">
-    <value>SAG</value>
+    <value>SGC</value>
     <comment>Abilities</comment>
   </data>
   <data name="SagaThorwalian" xml:space="preserve">
