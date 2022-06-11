@@ -5,7 +5,9 @@
 <MudCard Class="mb-4" Outlined=BareHand Elevation=@(BareHand ? 0 : 3)>
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>@l10n["lblDominantHand"]</MudText>
+            <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>
+                @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
+            </MudText>
             <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
             <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
         </CardHeaderContent>
@@ -13,7 +15,7 @@
             @if (!BareHand)
             {
             <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
-                OnClick=StashWeapon/>  @*StashWeapon(true)*@
+                OnClick=StashWeapon/>
             }
         </CardHeaderActions>
     </MudCardHeader>
@@ -67,6 +69,7 @@
     protected string AriaAttack;
     protected string AriaParry;
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
