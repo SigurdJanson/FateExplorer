@@ -594,8 +594,8 @@ namespace FateExplorer.CharacterImport
         /// <summary>
         /// Structure points
         /// </summary>
-        [JsonPropertyName("stp")]
-        public int? StruPo { get; set; }
+        [JsonPropertyName("stp"), JsonConverter(typeof(JsonSingleOrArrayConverter<List<int>, int>))]
+        public List<int> StruPo { get; set; }
 
 
 
