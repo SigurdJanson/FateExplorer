@@ -18,7 +18,7 @@ Coins, weight, and value:
 
 * Each currencies is split into various **coins**
 * One of the coins must be the **reference coin**
-  * For **conversions** between currencies use reference coin
+  * For **conversions** between currencies use a reference coin
   * Each currency knows it's exchange rate to/from Middenrealm Ducats.
   * Coins add up to a total amount
   * Total amount should be expressed in reference coin unless explicitly requested.
@@ -38,13 +38,14 @@ Coins, weight, and value:
     * (Future req.) Regions where the currencies is used
 * Setters / Constructors
   * One with total amount
-  * One with an amount for each coin
+  * [?] One with an amount for each coin
   * One with object of same type (for conversions)
 * Add, subtract, compare
   * `Add(Money)`
   * `Add(Decimal)`
   * `AddTenths(Decimal)`, `AddHundredths(Decimal)`
-* Get weight
+  * oder besser AddCoins(int Amount, Currency.Coin)
+* [ ] Get weight
 * Computations are all done in par value (Nennwert); allow access to real value (Realwert); see esp. the outdated coins of the Khalifat; that mean that inside the native region of the currency the value is higher than anywhere else.
 
 
