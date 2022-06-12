@@ -1,7 +1,7 @@
 
 The purpose of this document: reflect the rules of DSA5 and derive the requirements.
 
-# Attributes
+# Character Values
 
 ## Wording
 
