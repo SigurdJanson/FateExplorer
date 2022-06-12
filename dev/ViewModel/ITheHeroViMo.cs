@@ -1,6 +1,7 @@
 ﻿using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FateExplorer.ViewModel
 {
@@ -22,7 +23,7 @@ namespace FateExplorer.ViewModel
         /// Import a character file with the Optolith importer
         /// </summary>
         /// <param name="Data">The json data as byte array</param>
-        void ReadCharacterFile(byte[] Data);
+        Task ReadCharacterFile(byte[] Data);
 
 
         string Name { get; }
