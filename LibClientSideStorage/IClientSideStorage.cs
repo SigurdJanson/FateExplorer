@@ -29,7 +29,7 @@ public interface IClientSideStorage
     /// <param name="key">A key to identify and retrieve the stored data.</param>
     /// <param name="defaultVal">The default value to be returned if <see cref="key"/> is 
     /// not found. Default of the default is an empty string.</param>
-    /// <returns>The stored value as string</returns>
+    /// <returns>The stored value as string; or <c>defaultVal</c> if the key is not found.</returns>
     public Task<string> Retrieve(string key, string? defaultVal = "");
 
 
@@ -38,7 +38,7 @@ public interface IClientSideStorage
     /// Retrieve an object from storage.
     /// </summary>
     /// <typeparam name="T">Any serialisable type; preferably a mere data transfer object.</typeparam>
-    /// <returns>The stored object</returns>
+    /// <returns>The stored object; or <c>defaultVal</c> if the key is not found.</returns>
     /// <inheritdoc cref = "Retrieve" />
     public Task<T?> Retrieve<T>(string key, T? defaultVal);
 
