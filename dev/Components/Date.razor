@@ -14,11 +14,11 @@
     </MudChip>
 </MudTooltip>
 
-<MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
+<MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4 datepop" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
     <div class="d-flex flex-row">
         <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=@ToggleOpen />
     </div>
-    <MudGrid Class="pb-2">
+    <MudGrid Class="pb-4">
         <MudItem sm=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
@@ -73,13 +73,45 @@
                         <td>
                             <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title=@l10n["lblHoliday"] /> 
                         </td>
-                        <td>@l10n["lblHoliday"]</td>
-                        <td></td>
+                        <td colspan="2">
+                            @l10n["lblHoliday"]
+                        </td>
                     </tr>
-                    @foreach(var h in Calendar.GetHolidays())
+                    <tr>
+                        <td></td>
+                        <td colspan="2">
+                            @{
+                                var Holidays = Calendar.GetHolidays();
+                                if (Holidays.Length > 0)
+                                {
+                                <MudExpansionPanels Class="holidays" Dense=true DisableGutters=true DisableBorders=true Elevation=0>
+                                    @foreach (var h in Holidays)
+                                    {
+                                        @if (string.IsNullOrWhiteSpace(h.Item2)) 
+                                        {
+                                        <MudExpansionPanel Class="holiday" HideIcon=true>
+                                            <TitleContent>@h.Item1</TitleContent>
+                                        </MudExpansionPanel>
+                                        }
+                                        else
+                                        {
+                                        <MudExpansionPanel Class="holiday">
+                                            <TitleContent>@h.Item1</TitleContent>
+                                            <ChildContent>@h.Item2</ChildContent>
+                                        </MudExpansionPanel>
+                                        }
+                                    }
+                                </MudExpansionPanels>
+                                }
+                            }
+                        </td>
+                    </tr>
+@*                    @foreach(var h in Calendar.GetHolidays())
                     {
                     <tr>
-                        <td colspan="3">
+                        <td></td>
+                        <td colspan="2">
+
                             <MudTooltip>
                                 <ChildContent>
                                     <div class="d-flex flex-row flex-grow-1">
@@ -93,7 +125,7 @@
                             </MudTooltip>
                         </td>
                     </tr>
-                    }
+                    }*@
                 }
                 </tbody>
             </MudSimpleTable>
