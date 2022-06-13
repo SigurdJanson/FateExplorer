@@ -226,9 +226,9 @@ namespace FateExplorer.ViewModel
         }
 
         /// <summary>
-        /// Get a formatted representation of the character's cash money
+        /// Get a formatted string of the character's total wealth
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A human-readable string</returns>
         public string FormatMoney()
         {
             string Result;
