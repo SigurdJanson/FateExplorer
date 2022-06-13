@@ -20,14 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Shared\IconsFE.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IconsFE.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
@@ -48,23 +40,33 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Shared\IconsFE.tt">
+
+	<ItemGroup>
+		<None Include="Shared\IconsFE.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>IconsFE.tt</DependentUpon>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+      <None Update="Shared\IconsFE.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconsFE.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Update="Shared\IconsFE.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>IconsFE.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Shared\IconsFE.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IconsFE.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
 
 </Project>
