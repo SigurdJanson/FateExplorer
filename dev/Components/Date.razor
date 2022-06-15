@@ -14,7 +14,7 @@
     </MudChip>
 </MudTooltip>
 
-<MudPopover Open=@IsPopupOpen Fixed=true Class="px-4 pt-4 datepop" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter>
+<MudPopover Open=@IsPopupOpen Fixed=true Class="datepop px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter Style="max-width: 800px">
     <div class="d-flex flex-row">
         <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=@ToggleOpen />
     </div>

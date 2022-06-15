@@ -1,7 +1,4 @@
-﻿.datepop {
-    max-width: 800px !important;
-}
-
+﻿
 ::deep .holiday > .mud-expand-panel-header {
     padding: 0 !important;
     font-size: var(--mud-typography-body2-size);
