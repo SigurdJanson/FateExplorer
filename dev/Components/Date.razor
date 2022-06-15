@@ -70,16 +70,11 @@
                 @if (holidays.Count() > 0)
                 {
                     <tr>
-                        <td>
+                        <td class="holidaycell">
                             <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title=@l10n["lblHoliday"] /> 
                         </td>
                         <td colspan="2">
-                            @l10n["lblHoliday"]
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">
+                            <MudText>@l10n["lblHoliday"]</MudText>
                             @{
                                 var Holidays = Calendar.GetHolidays();
                                 if (Holidays.Length > 0)
@@ -106,26 +101,6 @@
                             }
                         </td>
                     </tr>
-@*                    @foreach(var h in Calendar.GetHolidays())
-                    {
-                    <tr>
-                        <td></td>
-                        <td colspan="2">
-
-                            <MudTooltip>
-                                <ChildContent>
-                                    <div class="d-flex flex-row flex-grow-1">
-                                    <MudText Typo=Typo.body2>@h.Item1</MudText>
-                                    <MudIcon Icon=@Icons.Filled.Info Color=Color.Info style="z-index:1303;"/>
-                                    </div>
-                                </ChildContent>
-                                <TooltipContent >
-                                    <MudText Typo=Typo.body2>@h.Item2</MudText>
-                                </TooltipContent>
-                            </MudTooltip>
-                        </td>
-                    </tr>
-                    }*@
                 }
                 </tbody>
             </MudSimpleTable>

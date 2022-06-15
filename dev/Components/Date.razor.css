@@ -7,3 +7,7 @@
 ::deep .holiday.mud-panel-expanded {
     margin: 0 0 !important;
 }
+
+.holidaycell {
+    vertical-align:text-top;
+}
