@@ -131,38 +131,6 @@ namespace FateExplorer.ViewModel
             // BELONGINGS
             EffectiveMoney = StoredItem?.EffectiveMoney ?? 0;
 
-
-            ////
-            ////
-            //if (StoredItem is not null)
-            //{
-            //    // ABILITIES
-            //    if (StoredItem.Abilities is not null)
-            //        foreach (var a in StoredItem.Abilities)
-            //            AbilityEffValues[a.Key] = a.Value;
-            //    // DODGE
-            //    DodgeTrueValue = StoredItem.DodgeTrue;
-            //    DodgeEffMod = StoredItem.DodgeMod;
-            //    // ENERGIES
-            //    if (StoredItem.EffectiveEnergy is not null)
-            //        foreach (var se in StoredItem.EffectiveEnergy)
-            //        {
-            //            int idx = EffEnergy.FindIndex(e => e.Id == se.Key);
-            //            if (idx != -1) EffEnergy[idx].EffectiveValue = se.Value;
-            //        }
-            //    if (StoredItem.EffectiveMaxEnergy is not null)
-            //        foreach (var sem in StoredItem.EffectiveMaxEnergy)
-            //        {
-            //            int idx = EffEnergy.FindIndex(e => e.Id == sem.Key);
-            //            if (idx != -1) EffEnergy[idx].EffMax = sem.Value;
-            //        }
-            //    // RESILIENCES
-            //    if (StoredItem.EffectiveResilience is not null)
-            //        foreach (var r in StoredItem.EffectiveResilience)
-            //            ResilienceEffValues[r.Key] = r.Value;
-            //    // BELONGINGS
-            //    EffectiveMoney = StoredItem.EffectiveMoney ?? 0;
-            //}
         }
 
 
