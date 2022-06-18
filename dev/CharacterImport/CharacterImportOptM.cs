@@ -249,14 +249,21 @@ namespace FateExplorer.CharacterImport
         /// </summary>
         /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
         /// <returns>List of id strings that match the request</returns>
-        public Dictionary<string, IActivatableM> GetActivatables(string Id)
+        public Dictionary<string, IActivatableM> GetActivatables(string Id, SpecialAbilityDB saDb = null)
         {
             Dictionary<string, IActivatableM> Result = new();
             foreach (var s in Activatable)
             {
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
                     if (s.Key != OptSpecialAbility.Language)
-                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier));
+                    {
+                        string[] Reference;
+                        if (saDb != null && saDb.Contains(s.Key))
+                            Reference = (string[])saDb[s.Key].Reference.Clone();
+                        else
+                            Reference = null;
+                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier, Reference));
+                    }
             }
             return Result;
         }

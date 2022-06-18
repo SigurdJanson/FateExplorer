@@ -37,5 +37,8 @@ namespace FateExplorer.CharacterModel
         /// <inheritdoc/>
         /// <remarks>Returns true</remarks>
         public bool IsRecognized => true;
+
+        /// <inheritdoc />
+        public string[] Reference => throw new NotImplementedException("References are not implemented for languages");
     }
 }

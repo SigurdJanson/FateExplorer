@@ -59,7 +59,23 @@ namespace FateExplorer.ViewModel
 
         List<AbilityDTO> GetAbilites();
 
+        /// <summary>
+        /// Provide all special abilities mastered by the hero.
+        /// </summary>
+        /// <returns>List of special abilities (as DTO)</returns>
         List<SpecialAbilityDTO> GetSpecialAbilities();
+
+        /// <summary>
+        /// Provide all combat style special abilities mastered by the hero. If 
+        /// </summary>
+        /// <param name="CombatTecId">Filter: A combat technique (as id string) the special abilities shall fit.</param>
+        /// <returns>List of special abilities (as DTO)</returns>
+        List<SpecialAbilityDTO> GetCombatStyleSpecialAbilities(string CombatTecId);
+
+        /// <summary>
+        /// Provide the languages the hero can speak.
+        /// </summary>
+        /// <returns>A list of languages (as DTO)</returns>
         List<LanguageDTO> GetLanguages();
 
         List<DisAdvantageDTO> GetAdvantages();

@@ -5,6 +5,7 @@ using FateExplorer.Shared;
 using FateExplorer.Shared.ClientSideStorage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -264,6 +265,7 @@ namespace FateExplorer.ViewModel
         #endregion
 
 
+        /// <inheritdoc />
         public List<SpecialAbilityDTO> GetSpecialAbilities()
         {
             List<SpecialAbilityDTO> Result = new();
@@ -287,6 +289,35 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
+
+        /// <inheritdoc />
+        public List<SpecialAbilityDTO> GetCombatStyleSpecialAbilities(string CombatTecId)
+        {
+            List<SpecialAbilityDTO> Result = new();
+            foreach (var sa in characterM?.SpecialAbilities)
+            {
+                // skip if it does not fit the given filter
+                if (sa.Value.Reference.Contains(CombatTecId)) continue;
+
+                string Name;
+                try
+                {
+                    Name = GameDataService.SpecialAbilities[sa.Key].Name;
+                }
+                catch (Exception) { Name = "unknown"; }
+                SpecialAbilityDTO item = new()
+                {
+                    Id = sa.Key,
+                    Name = Name,
+                    Tier = sa.Value.Tier
+                };
+                Result.Add(item);
+            }
+            return Result;
+        }
+
+
+        /// <inheritdoc />
         public List<LanguageDTO> GetLanguages()
         {
             List<LanguageDTO> Result = new();
@@ -485,6 +516,7 @@ namespace FateExplorer.ViewModel
         }
 
 
+        /// <inheritdoc />
         public AbilityDTO[] GetSkillAbilities(string skillId)
         {
             AbilityDTO[] Result = new AbilityDTO[3];

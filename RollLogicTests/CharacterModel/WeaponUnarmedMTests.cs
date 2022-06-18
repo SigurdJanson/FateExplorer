@@ -96,7 +96,7 @@ namespace UnitTests.CharacterModel
         private Dictionary<string, IActivatableM> MockSpecialAbilities(int Tier)
         {
             Dictionary<string, IActivatableM> Result = new();
-            Result.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier));
+            Result.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier, null));
             return Result;
         }
 

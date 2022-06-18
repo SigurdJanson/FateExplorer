@@ -22,5 +22,13 @@
         /// and included in computations.
         /// </summary>
         bool IsRecognized { get; }
+
+        /// <summary>
+        /// Any skill the special ability might be linked to.<br/>
+        /// <example>
+        /// E.g. the reference for Hruruzat is "CT_9" because it is a special brawling ability.
+        /// </example>
+        /// </summary>
+        string[] Reference { get; }
     }
 }

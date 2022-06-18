@@ -193,7 +193,7 @@ namespace UnitTests.CharacterModel
                     .Returns(TwoHandedTier > 0);
                 // Add mocked call like this: Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
                 Dictionary<string, IActivatableM> SpecAbs = new();
-                SpecAbs.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, TwoHandedTier ?? 0));
+                SpecAbs.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, TwoHandedTier ?? 0, null));
                 mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(SpecAbs);
             }
 
