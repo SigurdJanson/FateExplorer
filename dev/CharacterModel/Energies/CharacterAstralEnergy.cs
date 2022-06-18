@@ -6,12 +6,6 @@ namespace FateExplorer.CharacterModel
 {
     public class CharacterAstralEnergy : CharacterEnergyM
     {
-        /// <summary>
-        /// Basic amount of astral energy granted by advantage "spellcaster"
-        /// </summary>
-        //-Next statement removed bauce it is now handled by `GetDisAdvantageModifier`
-        //protected const int AstralBaseEnergy = 20;
-
 
         public CharacterAstralEnergy(EnergiesDbEntry gameData, CharacterEnergyClass _Class, int AddedEnergy, ICharacterM hero) 
             : base(gameData, _Class, AddedEnergy, hero)
@@ -26,8 +20,7 @@ namespace FateExplorer.CharacterModel
             foreach (var (specialability, ability) in gameData.TraditionBonus)
                 if (hero.HasSpecialAbility(specialability))
                     Max += Hero.Abilities[ability].Value;
-            //-Next statement removed bauce it is now handled by `GetDisAdvantageModifier`
-            //-Max += AstralBaseEnergy; // does not use the enegergies.json file because it is a must
+
             Max += AddedEnergy;
             Max += GetDisAdvantageModifier(gameData);
 

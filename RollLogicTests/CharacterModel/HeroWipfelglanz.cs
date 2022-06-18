@@ -119,5 +119,16 @@ namespace UnitTests.CharacterModel
                 return Result;
             }
         }
+
+        public static string[] Advantages = { ADV.Spellcaster, 
+            "ADV_2"/*Altersresistenz*/, "ADV_6"/*Dunkelsicht*/,  "ADV_8"/*Entfernungssinn*/,
+            "ADV_9"/*Flink*/, "ADV_15"/*Gutaussehend*/, "ADV_21"/*Herausragender Sinn(Sicht)*/, 
+            "ADV_34"/*Nichtschläfer*/, "ADV_48"/*Wohlklang*/, "ADV_52"/*Zweistimmiger Gesang*/ };
+        public static string[] Disadvantages = {
+            "DISADV_1"/*Angst vor engen Räumen*/, "DISADV_22"/*Lästige Mindergeister*/,  "DISADV_31"/*Pech*/,
+            "DISADV_33"/*Persönlichkeitsschwächen(Weltfremd gegenüber Religion)*/,
+            "DISADV_43"/*Sensibler Geruchssinn*/, "DISADV_48"/*Unfähig(Brett- & Glücksspiel und Zechen)*/ };
+        public static string[] SpecialAbilities = {
+            "SA_22"/*Ortskenntnis*/, "SA_9"/*Fertigkeitsspezialisierung*/,  SA.TraditionElf};
     }
 }

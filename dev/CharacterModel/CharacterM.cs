@@ -15,6 +15,7 @@ namespace FateExplorer.CharacterModel
         public const string Writing = "SA_27";
         public const string Language = "SA_29";
         public const string TwoHandedCombat = "SA_42";
+        public const string TraditionElf = "SA_345";
     }
 
     public static class ADV
@@ -23,6 +24,7 @@ namespace FateExplorer.CharacterModel
         public const string IncreasedArcanePower = "ADV_23";
         public const string IncreasedKarmaPoints = "ADV_24";
         public const string IncreasedLifePoints = "ADV_25";
+        public const string Spellcaster = "ADV_50";
     }
 
     public static class DISADV
