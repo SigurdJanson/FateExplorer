@@ -132,32 +132,6 @@
 {"name": "Wolfskind", "id": "", "type": 1},
 
 
-{"name": "Friedlos", "id": "", "type": -1},
-{"name": "Gläsern", "id": "", "type": -1},
-{"name": "Böser Namensvetter", "id": "", "type": -1},
-{"name": "Empfindlichkeit (unedle Metalle)", "id": "", "type": -1},
-{"name": "Hitzeempfindlich II", "id": "", "type": -1},
-{"name": "Instabiler Zauberer", "id": "", "type": -1},
-{"name": "Jagdwildgeruch", "id": "DISADV_64", "type": -1},
-{"name": "Kleine Zauberauswahl I-II", "id": "", "type": -1},
-{"name": "Lächerlicher Name", "id": "", "type": -1},
-{"name": "Lästige Blütenfeen", "id": "", "type": -1},
-{"name": "Lernfaul", "id": "", "type": -1},
-{"name": "Lichtempfindlich II", "id": "", "type": -1},
-{"name": "Misslungene Reifeprüfung", "id": "", "type": -1},
-{"name": "Raubtiergeruch", "id": "", "type": -1},
-{"name": "Schurkenname", "id": "", "type": -1},
-{"name": "Schlechtes Namensgedächtnis", "id": "DISADV_68", "type": -1},
-{"name": "Schwache Zaubermelodien", "id": "", "type": -1},
-{"name": "Schwache Zaubertänze", "id": "", "type": -1},
-{"name": "Unpassender Name", "id": "", "type": -1},
-{"name": "Unverträglichkeit gegenüber Alkohol", "id": "DISADV_71", "type": -1},
-{"name": "Verminderte Zaubermelodien I-III", "id": "", "type": -1},
-{"name": "Verminderte Zaubertänze I-III", "id": "", "type": -1},
-{"name": "Verweichlicht", "id": "", "type": -1},
-{"name": "Wenige Predigten I-II", "id": "", "type": -1},
-{"name": "Wenige Visionen I-II", "id": "", "type": -1},
-
 {"name": "Angst vor … I-III", "id": "DISADV_1", "type": -1},
 {"name": "Arm I-III", "id": "DISADV_2", "type": -1},
 {"name": "Artefaktgebunden", "id": "DISADV_3", "type": -1},
@@ -165,6 +139,7 @@
 {"name": "Blind", "id": "DISADV_5", "type": -1},
 {"name": "Blutrausch", "id": "DISADV_6", "type": -1},
 {"name": "Eingeschränkter Sinn", "id": "DISADV_7", "type": -1},
+
 {"name": "Farbenblind", "id": "DISADV_11", "type": -1},
 {"name": "Fettleibig", "id": "DISADV_12", "type": -1},
 {"name": "Giftanfällig I-II", "id": "DISADV_13", "type": -1},
@@ -209,5 +184,36 @@
 {"name": "Wahrer Name", "id": "DISADV_52", "type": -1},
 {"name": "Wilde Magie", "id": "DISADV_53", "type": -1},
 {"name": "Zauberanfällig I-II", "id": "DISADV_54", "type": -1},
-{"name": "Zerbrechlich", "id": "DISADV_55", "type": -1}]}
+{"name": "Zerbrechlich", "id": "DISADV_55", "type": -1},
 
+{"name": "Instabiler Zauberer", "id": "DISADV_58", "type": -1},
+{"name": "Kleine Zauberauswahl I-II", "id": "DISADV_59", "type": -1},
+{"name": "Schwache Zaubermelodien", "id": "DISADV_60", "type": -1},
+{"name": "Schwache Zaubertänze", "id": "DISADV_61", "type": -1},
+{"name": "Verminderte Zaubermelodien I-III", "id": "DISADV_62", "type": -1},
+{"name": "Verminderte Zaubertänze I-III", "id": "DISADV_63", "type": -1},
+
+{"name": "Jagdwildgeruch", "id": "DISADV_64", "type": -1},
+{"name": "Raubtiergeruch", "id": "DISADV_65", "type": -1},
+
+{"name": "Böser Namensvetter", "id": "DISADV_66", "type": -1},
+{"name": "Lächerlicher Name", "id": "DISADV_67", "type": -1},
+{"name": "Schlechtes Namensgedächtnis", "id": "DISADV_68", "type": -1},
+{"name": "Schurkenname", "id": "DISADV_69", "type": -1},
+{"name": "Unpassender Name", "id": "DISADV_70", "type": -1},
+{"name": "Unverträglichkeit gegenüber Alkohol", "id": "DISADV_71", "type": -1},
+
+{"name": "Wenige Predigten I-II", "id": "DISADV_72", "type": -1},
+{"name": "Wenige Visionen I-II", "id": "DISADV_73", "type": -1},
+
+{"name": "Friedlos", "id": "", "type": -1},
+{"name": "Gläsern", "id": "", "type": -1},
+{"name": "Empfindlichkeit (unedle Metalle)", "id": "", "type": -1},
+{"name": "Hitzeempfindlich II", "id": "", "type": -1},
+{"name": "Lästige Blütenfeen", "id": "", "type": -1},
+{"name": "Lernfaul", "id": "", "type": -1},
+{"name": "Lichtempfindlich II", "id": "", "type": -1},
+{"name": "Misslungene Reifeprüfung", "id": "", "type": -1},
+{"name": "Verweichlicht", "id": "", "type": -1}
+
+]}

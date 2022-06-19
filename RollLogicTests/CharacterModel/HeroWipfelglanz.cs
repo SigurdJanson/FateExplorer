@@ -123,10 +123,9 @@ namespace UnitTests.CharacterModel
         public static string[] Advantages = { ADV.Spellcaster, ADV.ResistantToAging,
             ADV.Darksight, ADV.SenseOfRange, ADV.GoodLooks, ADV.ExceptionalSense, ADV.BeautifulVoice,
             ADV.Nimble, ADV.NeedsNoSleep, ADV.TwoVoicedSinging };
-        public static string[] Disadvantages = {
-            "DISADV_1"/*Angst vor engen Räumen*/, "DISADV_22"/*Lästige Mindergeister*/,  "DISADV_31"/*Pech*/,
-            "DISADV_33"/*Persönlichkeitsschwächen(Weltfremd gegenüber Religion)*/,
-            "DISADV_43"/*Sensibler Geruchssinn*/, "DISADV_48"/*Unfähig(Brett- & Glücksspiel und Zechen)*/ };
+        public static string[] Disadvantages = { DISADV.AfraidOf/* Angst vor engen Räumen */, DISADV.AnnoyedByMinorSpirits,
+            DISADV.BadLuck, DISADV.PersonalityFlaw/* Weltfremd gegenüber Religion */, DISADV.SensitiveNose, 
+            DISADV.Incompetent /* Brett- & Glücksspiel und Zechen */ };
         public static string[] SpecialAbilities = {
             "SA_22"/*Ortskenntnis*/, "SA_9"/*Fertigkeitsspezialisierung*/,  SA.TraditionElf};
     }
