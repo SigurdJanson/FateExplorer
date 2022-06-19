@@ -50,6 +50,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+      <None Update="Shared\DisAdvantages.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>DisAdvantages.cs</LastGenOutput>
+      </None>
       <None Update="Shared\IconsFE.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconsFE.cs</LastGenOutput>
@@ -57,6 +61,11 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Shared\DisAdvantages.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>DisAdvantages.tt</DependentUpon>
+		</Compile>
 		<Compile Update="Shared\IconsFE.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
