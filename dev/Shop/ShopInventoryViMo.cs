@@ -103,7 +103,7 @@ namespace FateExplorer.Shop
         /// <returns>A tupel <c>(id, name)</c> containing the currency data</returns>
         public (string id, string name) GetDefaultCurrency()
         {
-            CurrencyM Default = Currencies.Find(c => c.Id == AppCfg.DefaultCurrency);
+            CurrencyM Default = Currencies.Find(c => c.Id == AppCfg?.DefaultCurrency);
             if (Default != default)
                 return (id: Default.Id, name: Default.Name);
             else

@@ -23,7 +23,7 @@ namespace UnitTests.Shop
         private MockRepository mockRepository;
         private Mock<IStringLocalizer<App>> mockLl10n;
         private Mock<HttpClient> mockHttpClient;
-        private Mock<AppSettings> mockAppCfg;
+        //private Mock<AppSettings> mockAppCfg;
         private Mock<IGameDataService> mockGameData;
 
 
@@ -33,9 +33,22 @@ namespace UnitTests.Shop
             this.mockRepository = new MockRepository(MockBehavior.Strict);
             this.mockLl10n = mockRepository.Create<IStringLocalizer<App>>();
             this.mockHttpClient = mockRepository.Create<HttpClient>();
-            this.mockAppCfg = mockRepository.Create<AppSettings>();
+            //this.mockAppCfg = mockRepository.Create<AppSettings>();
             this.mockGameData = mockRepository.Create<IGameDataService>();
         }
+
+        public static CurrenciesDB MockCurrenciesDB()
+        {
+            return new CurrenciesDB()
+            {
+                Data = new List<CurrencyDbEntry>() 
+                { 
+                    new() { Id = "A", Name="A", Rate=1.0, Origin="" }
+                }
+            };
+        }
+            
+
         #endregion ===================
 
 
@@ -62,30 +75,34 @@ namespace UnitTests.Shop
 
 
         [Test, Ignore("")]
-        [TestCase("Alchimistenlabor")]
-        public void GetStock_ExactFilter_SingleHit(string Filter)
-        {
-            // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
-
-            // Act
-            var result = shopInventoryViMo.GetStock(Filter, null);
-
-            // Assert
-            Assert.AreEqual(1, result.Count);
-        }
-
-        [Test, Ignore("")]
         public async Task InitializeGameDataAsync_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
 
             // Act
             await shopInventoryViMo.InitializeGameDataAsync();
 
             // Assert
             Assert.Fail();
+        }
+
+
+
+        [Test, Ignore("")]
+        [TestCase("Alchimistenlabor")]
+        public async Task GetStock_ExactFilter_SingleHit(string Filter)
+        {
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
+            await shopInventoryViMo.InitializeGameDataAsync();
+            // Act
+            var result = shopInventoryViMo.GetStock(Filter, null);
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
         }
 
         #endregion
