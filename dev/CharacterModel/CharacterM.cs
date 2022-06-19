@@ -18,21 +18,6 @@ namespace FateExplorer.CharacterModel
         public const string TraditionElf = "SA_345";
     }
 
-    public static class ADV
-    {
-        public const string Ambidexterous = "ADV_5";
-        public const string IncreasedArcanePower = "ADV_23";
-        public const string IncreasedKarmaPoints = "ADV_24";
-        public const string IncreasedLifePoints = "ADV_25";
-        public const string Spellcaster = "ADV_50";
-    }
-
-    public static class DISADV
-    {
-        public const string DecreasedArcanePower = "DISADV_26";
-        public const string DecreasedKarmaPoints = "DISADV_27";
-        public const string DecreasedLifePoints = "DISADV_28";
-    }
 
 
     /// <summary>

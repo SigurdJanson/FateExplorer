@@ -40,7 +40,7 @@ namespace FateExplorer.CharacterModel
         public int AtSkill(bool MainHand, CombatBranch otherHand)
         {
             int OffHandMod;
-            if (Hero.HasAdvantage(ADV.Ambidexterous))
+            if (Hero.HasAdvantage(ADV.Ambidextrous))
                 OffHandMod = 0;
             else
                 OffHandMod = !MainHand ? -4 : 0;
@@ -78,7 +78,7 @@ namespace FateExplorer.CharacterModel
         {
             // Determine off-hand penalty
             int OffHandMod;
-            if (Hero.HasAdvantage(ADV.Ambidexterous))
+            if (Hero.HasAdvantage(ADV.Ambidextrous))
                 OffHandMod = 0;
             else if (Branch == CombatBranch.Shield)
                 OffHandMod = 0; // no off-hand penalty for shields

@@ -184,7 +184,7 @@ namespace UnitTests.CharacterModel
 
             // Activatables
             if (isAmbi is not null)
-                mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)))
+                mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)))
                     .Returns(isAmbi ?? false);
 
             if (TwoHandedTier is not null)
@@ -276,7 +276,7 @@ namespace UnitTests.CharacterModel
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
@@ -317,7 +317,7 @@ namespace UnitTests.CharacterModel
             // STR to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
@@ -358,7 +358,7 @@ namespace UnitTests.CharacterModel
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
@@ -401,7 +401,7 @@ namespace UnitTests.CharacterModel
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
@@ -447,7 +447,7 @@ namespace UnitTests.CharacterModel
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
@@ -495,7 +495,7 @@ namespace UnitTests.CharacterModel
             // AGI to determine the parry value
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
-            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidexterous)), Times.Once);
+            mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
             mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
         }
 
