@@ -120,10 +120,9 @@ namespace UnitTests.CharacterModel
             }
         }
 
-        public static string[] Advantages = { ADV.Spellcaster, 
-            "ADV_2"/*Altersresistenz*/, "ADV_6"/*Dunkelsicht*/,  "ADV_8"/*Entfernungssinn*/,
-            "ADV_9"/*Flink*/, "ADV_15"/*Gutaussehend*/, "ADV_21"/*Herausragender Sinn(Sicht)*/, 
-            "ADV_34"/*Nichtschläfer*/, "ADV_48"/*Wohlklang*/, "ADV_52"/*Zweistimmiger Gesang*/ };
+        public static string[] Advantages = { ADV.Spellcaster, ADV.ResistantToAging,
+            ADV.Darksight, ADV.SenseOfRange, ADV.GoodLooks, ADV.ExceptionalSense, ADV.BeautifulVoice,
+            ADV.Nimble, ADV.NeedsNoSleep, ADV.TwoVoicedSinging };
         public static string[] Disadvantages = {
             "DISADV_1"/*Angst vor engen Räumen*/, "DISADV_22"/*Lästige Mindergeister*/,  "DISADV_31"/*Pech*/,
             "DISADV_33"/*Persönlichkeitsschwächen(Weltfremd gegenüber Religion)*/,
