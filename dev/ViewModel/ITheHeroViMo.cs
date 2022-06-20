@@ -66,10 +66,10 @@ namespace FateExplorer.ViewModel
         List<SpecialAbilityDTO> GetSpecialAbilities();
 
         /// <summary>
-        /// Provide all combat style special abilities mastered by the hero. If 
+        /// Provide all combat style special abilities mastered by the hero.
         /// </summary>
         /// <param name="CombatTecId">Filter: A combat technique (as id string) the special abilities shall fit.</param>
-        /// <returns>List of special abilities (as DTO)</returns>
+        /// <returns>List of special abilities (as DTO); <c>null</c> if there aren't any.</returns>
         List<SpecialAbilityDTO> GetCombatStyleSpecialAbilities(string CombatTecId);
 
         /// <summary>

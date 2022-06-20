@@ -296,8 +296,13 @@ namespace FateExplorer.ViewModel
             List<SpecialAbilityDTO> Result = new();
             foreach (var sa in characterM?.SpecialAbilities)
             {
+                // skip if special ability does not reference this combat technique
+                // (in fact does not reference anything)
+                if (sa.Value.Reference is null || sa.Value.Reference.Length == 0)
+                    continue;
                 // skip if it does not fit the given filter
-                if (sa.Value.Reference.Contains(CombatTecId)) continue;
+                if (CombatTecId is not null && !sa.Value.Reference.Contains(CombatTecId)) 
+                    continue;
 
                 string Name;
                 try
