@@ -5,11 +5,30 @@
 <MudCard Class="mb-4" Outlined=BareHand Elevation=@(BareHand ? 0 : 3)>
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>
-                @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
-            </MudText>
-            <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
-            <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
+            <div Class="d-flex flex-wrap">
+                <div class="HandHeader pr-2">
+                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>
+                        @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
+                    </MudText>
+                    <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
+                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
+                </div>
+                <div class="HandHeader pl-2">
+                    <MudSelect T=string Label=@(HasCombatStyles ? l10n["lblDefaultCombatStyle"] : "") 
+                        Variant=Variant.Text Clearable=@HasCombatStyles
+                        ReadOnly=@(!HasCombatStyles) DisableUnderLine=@(!HasCombatStyles) 
+                        Adornment=@(HasCombatStyles ? Adornment.End : Adornment.None)
+                        Value=@("")>
+                        @if (HasCombatStyles)
+                        {
+                            @foreach (var cs in CombatStyles)
+                            {
+                            <MudSelectItem Value=cs.Id>@cs.Name</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </div>
+            </div>
         </CardHeaderContent>
         <CardHeaderActions>
             @if (!BareHand)
@@ -19,15 +38,15 @@
             }
         </CardHeaderActions>
     </MudCardHeader>
-    <MudCardActions> @*OnAttackCheck(Weapon, WhichHand == HandsViMo.Hand.Main)*@
+    <MudCardActions>
         <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
-            OnClick=OnAttackCheck
+            OnClick=AttackCheckCalled
             Disabled=HeroHands.IsDisabled(WhichHand)
             Title=@TitleAttack aria-label=@AriaAttack />
         @if (Weapon.CanParry)
-        { @*OnParryCheck(Weapon, WhichHand == HandsViMo.Hand.Main))*@
+        {
         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
-            OnClick=OnParryCheck
+            OnClick=ParryCheckCalled
             Disabled=HeroHands.IsDisabled(WhichHand)
             Title=@TitleParry aria-label=@AriaParry />
         }
@@ -60,14 +79,34 @@
     /// </summary>
     [Parameter] public WeaponViMo Weapon { get; set; }
 
-    [Parameter] public EventCallback OnAttackCheck { get; set; }
-    [Parameter] public EventCallback OnParryCheck { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public List<SpecialAbilityDTO> CombatStyles { get; set; }
+
+    /// <summary>
+    /// Raised when user clicks the attack button. Passes the id strings of 
+    /// combat technique and special ability (format "CT_9/SA_22").
+    /// </summary>
+    [Parameter] public EventCallback<string> OnAttackCheck { get; set; }
+    /// <summary>
+    /// Raised when user clicks the parry button. Passes the id strings of 
+    /// combat technique and special ability (format "CT_9/SA_22").
+    /// </summary>
+    [Parameter] public EventCallback<string> OnParryCheck { get; set; }
+    /// <summary>
+    /// Remove the weapon from this hand.
+    /// </summary>
     [Parameter] public EventCallback StashWeapon { get; set; }
 
-    protected string TitleAttack;
-    protected string TitleParry;
-    protected string AriaAttack;
-    protected string AriaParry;
+    // Strings for tooltip and aria labels of the buttons
+    private string TitleAttack;
+    private string TitleParry;
+    private string AriaAttack;
+    private string AriaParry;
+
+    //
+    private bool HasCombatStyles;
 
     /// <inheritdoc />
     protected override void OnParametersSet()
@@ -80,6 +119,24 @@
         TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
         AriaAttack = $"{l10n["lblAttack"]} {l10n["lblRoll"]} {Weapon.Name}";
         AriaParry = $"{l10n["lblParry"]} {l10n["lblRoll"]} {Weapon.Name}";
+
+        HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
+    }
+
+    /// <summary>
+    /// Relay "Attack" button click to parent
+    /// </summary>
+    protected void AttackCheckCalled()
+    {
+        OnAttackCheck.InvokeAsync(Weapon.CombatTechId);
+    }
+
+    /// <summary>
+    /// Relay "Parry" button click to parent
+    /// </summary>
+    protected void ParryCheckCalled()
+    {
+        OnParryCheck.InvokeAsync(Weapon.CombatTechId);
     }
 
 
@@ -108,7 +165,8 @@
         }
         ParryStr =  PA > 0 ? $"🛡{l10n["abbrvParry"]}\u00A0{PA}" : "";
 
-        return @<text>
+        return 
+    @<text>
             <span title=@l10n["lblAttack"]>@AttackStr</span> 
             <span title=@l10n["lblParry"]>@ParryStr</span> 
             <span title=@l10n["lblHitPoints"]>@DamageStr</span></text>;
