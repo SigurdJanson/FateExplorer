@@ -1095,4 +1095,8 @@
     <value>Damage Points</value>
     <comment>Fight</comment>
   </data>
+  <data name="lblDefaultCombatStyle" xml:space="preserve">
+    <value>Default</value>
+    <comment>Fight</comment>
+  </data>
 </root>

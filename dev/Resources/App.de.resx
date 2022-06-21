@@ -1081,4 +1081,7 @@
   <data name="lblHitPoints" xml:space="preserve">
     <value>Trefferpunkte</value>
   </data>
+  <data name="lblDefaultCombatStyle" xml:space="preserve">
+    <value>Standard</value>
+  </data>
 </root>

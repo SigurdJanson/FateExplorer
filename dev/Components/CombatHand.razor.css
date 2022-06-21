@@ -1,5 +1,7 @@
 ﻿
-
-.HandHeader {
-    width:50%;
+.LeftHeader {
+    width: 60%;
+}
+.RightHeader {
+    width: 40%;
 }

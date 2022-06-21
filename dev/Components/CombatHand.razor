@@ -6,14 +6,14 @@
     <MudCardHeader>
         <CardHeaderContent>
             <div Class="d-flex flex-wrap">
-                <div class="HandHeader pr-2">
+                <div class="LeftHeader pr-2">
                     <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>
                         @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
                     </MudText>
                     <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
                     <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
                 </div>
-                <div class="HandHeader pl-2">
+                <div class="RightHeader pl-2">
                     <MudSelect T=string Label=@(HasCombatStyles ? l10n["lblDefaultCombatStyle"] : "") 
                         Variant=Variant.Text Clearable=@HasCombatStyles
                         ReadOnly=@(!HasCombatStyles) DisableUnderLine=@(!HasCombatStyles) 

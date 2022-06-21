@@ -101,6 +101,7 @@
                         <CombatHand 
                             HeroHands=Hero.Hands Weapon=Hero.Hands.MainWeapon
                             WhichHand=HandsViMo.Hand.Main BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Main) 
+                            CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
                             OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
@@ -109,6 +110,7 @@
                         <CombatHand 
                             HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
                             WhichHand=HandsViMo.Hand.Off BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Off) 
+                            CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
                             OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
