@@ -16,6 +16,7 @@ namespace FateExplorer.CharacterModel
         public const string Language = "SA_29";
         public const string TwoHandedCombat = "SA_42";
         public const string TraditionElf = "SA_345";
+        public const string Hruruzat = "SA_186";
     }
 
 
