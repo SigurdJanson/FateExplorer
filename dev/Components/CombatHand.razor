@@ -18,7 +18,7 @@
                         Variant=Variant.Text Clearable=@HasCombatStyles
                         ReadOnly=@(!HasCombatStyles) DisableUnderLine=@(!HasCombatStyles) 
                         Adornment=@(HasCombatStyles ? Adornment.End : Adornment.None)
-                        Value=@("")>
+                        @bind-Value=SelectedCombatStyle>
                         @if (HasCombatStyles)
                         {
                             @foreach (var cs in CombatStyles)
@@ -107,6 +107,7 @@
 
     //
     private bool HasCombatStyles;
+    private string SelectedCombatStyle;
 
     /// <inheritdoc />
     protected override void OnParametersSet()
@@ -128,7 +129,13 @@
     /// </summary>
     protected void AttackCheckCalled()
     {
-        OnAttackCheck.InvokeAsync(Weapon.CombatTechId);
+        string CheckId;
+        if (string.IsNullOrWhiteSpace(SelectedCombatStyle)) // TODO: add CheckId struct once it exisits (#123)
+            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.AT}";
+        else
+            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.AT}/{SelectedCombatStyle}";
+
+        OnAttackCheck.InvokeAsync(CheckId);
     }
 
     /// <summary>
@@ -136,7 +143,13 @@
     /// </summary>
     protected void ParryCheckCalled()
     {
-        OnParryCheck.InvokeAsync(Weapon.CombatTechId);
+        string CheckId;
+        if (string.IsNullOrWhiteSpace(SelectedCombatStyle)) // TODO: add CheckId struct once it exisits (#123)
+            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.PA}";
+        else
+            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.PA}/{SelectedCombatStyle}";
+
+        OnParryCheck.InvokeAsync(CheckId);
     }
 
 
