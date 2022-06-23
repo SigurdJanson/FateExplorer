@@ -361,7 +361,7 @@ else
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
-        ActiveAbilityCheck = RollHandler.OpenRollCheck(ability.Id, ability, null);
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, null);
         ActiveAbilityCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }

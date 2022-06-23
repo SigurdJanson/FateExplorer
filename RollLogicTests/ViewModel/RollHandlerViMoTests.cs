@@ -78,7 +78,7 @@ namespace UnitTests.ViewModel
 
             // Assert
             Assert.IsNotNull(Result);
-            Assert.AreEqual(41, Result.Count);
+            Assert.AreEqual(44, Result.Count);
             this.mockRepository.VerifyAll();
         }
 

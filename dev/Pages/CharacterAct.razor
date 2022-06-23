@@ -188,7 +188,7 @@ else
         try
         { // TODO: 1: use Abilities[s.Id]
             var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
-            ActiveCheck = RollHandler.OpenRollCheck(s.Id, s, cnv);
+            ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, cnv);
         }
         catch(NotImplementedException error)
         {
@@ -212,9 +212,8 @@ else
         bool CheckSucceeded = true;
         try
         {
-            //var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
             var cnv = Abilities[s.Id];
-            ActiveCheck = RollHandler.OpenRoutineSkillCheck(s.Id, s, cnv);
+            ActiveCheck = RollHandler.OpenRoutineSkillCheck(new Check(s.Domain, isRoutine: true), s, cnv);
         }
         catch(NotImplementedException error)
         {

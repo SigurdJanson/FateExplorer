@@ -13,8 +13,7 @@
     "DO": {"id": "DO", "roll": "DSA5/0/dodge", "name": "Dodge", "type": "simple"},
     "INI": {"id": "INI", "roll": "DSA5/0/initiative", "name": "Initiative", "type": "compare"},
 
-    "CT_9/AT/SA_186": {"id": "CT_9/AT+SA_186", "roll": "DSA5/0/combat/attack/hruruzat", "name": "Hruruzat Attacke", "type": "compare"},
-    "CT_9/PA/SA_186": {"id": "CT_9/PA+SA_186", "roll": "DSA5/0/combat/parry/hruruzat", "name": "Hruruzat Parade", "type": "compare"},
+    "CT_9/AT/SA_186": {"id": "CT_9/AT/SA_186", "roll": "DSA5/0/combat/attack/hruruzat", "name": "Hruruzat Attacke", "type": "compare"},
 
     "CT_1/AT":  {"id": "CT_1/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},
     "CT_2/AT":  {"id": "CT_2/AT",  "roll": "DSA5/0/combat/attack", "name": "Attack", "type": "compare"},

@@ -88,12 +88,12 @@
     /// Raised when user clicks the attack button. Passes the id strings of 
     /// combat technique and special ability (format "CT_9/SA_22").
     /// </summary>
-    [Parameter] public EventCallback<string> OnAttackCheck { get; set; }
+    [Parameter] public EventCallback<Check> OnAttackCheck { get; set; }
     /// <summary>
     /// Raised when user clicks the parry button. Passes the id strings of 
     /// combat technique and special ability (format "CT_9/SA_22").
     /// </summary>
-    [Parameter] public EventCallback<string> OnParryCheck { get; set; }
+    [Parameter] public EventCallback<Check> OnParryCheck { get; set; }
     /// <summary>
     /// Remove the weapon from this hand.
     /// </summary>
@@ -129,13 +129,7 @@
     /// </summary>
     protected void AttackCheckCalled()
     {
-        string CheckId;
-        if (string.IsNullOrWhiteSpace(SelectedCombatStyle)) // TODO: add CheckId struct once it exisits (#123)
-            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.AT}";
-        else
-            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.AT}/{SelectedCombatStyle}";
-
-        OnAttackCheck.InvokeAsync(CheckId);
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Attack, Weapon.CombatTechId, SelectedCombatStyle));
     }
 
     /// <summary>
@@ -143,13 +137,7 @@
     /// </summary>
     protected void ParryCheckCalled()
     {
-        string CheckId;
-        if (string.IsNullOrWhiteSpace(SelectedCombatStyle)) // TODO: add CheckId struct once it exisits (#123)
-            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.PA}";
-        else
-            CheckId = $"{Weapon.CombatTechId}/{ChrAttrId.PA}/{SelectedCombatStyle}";
-
-        OnParryCheck.InvokeAsync(CheckId);
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, SelectedCombatStyle));
     }
 
 

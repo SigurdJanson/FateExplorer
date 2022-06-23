@@ -42,7 +42,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Abilities">Abilities needed to check that skill</param>
         /// <param name="Modifier">The check's modifier</param>
         /// <returns>true if the routine check can be performed; otherwise false</returns>
-        RollCheckResultViMo OpenRoutineSkillCheck(string AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
 
 
 
@@ -55,7 +55,7 @@ namespace FateExplorer.ViewModel
         /// <param name="RollAttr">Additional ability or skill values needed to 
         /// perform the roll (a skill roll e.g. needs 3 abilities)</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
+        RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace FateExplorer.ViewModel
         /// <param name="weapon">The weapon to be used for the action</param>
         /// <param name="Hands">The Hands object of the character.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, HandsViMo Hands);
+        RollCheckResultViMo OpenCombatRollCheck(Check actionId, WeaponViMo weapon, HandsViMo Hands);
 
 
         /// <summary>
@@ -77,6 +77,6 @@ namespace FateExplorer.ViewModel
         /// <param name="TargetAttr">The skill or ability to be used</param>
         /// <param name="CarriesWeapon">Does the character carry a weapon?.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenDodgeRollCheck(string AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon);
+        RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon);
     }
 }

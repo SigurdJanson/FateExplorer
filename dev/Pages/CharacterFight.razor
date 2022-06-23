@@ -102,7 +102,7 @@
                             HeroHands=Hero.Hands Weapon=Hero.Hands.MainWeapon
                             WhichHand=HandsViMo.Hand.Main BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Main) 
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
-                            OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.MainWeapon, true)) 
+                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
                     </MudItem>
@@ -111,7 +111,7 @@
                             HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
                             WhichHand=HandsViMo.Hand.Off BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Off) 
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
-                            OnAttackCheck=@(() => OnAttackCheck(Hero.Hands.OffWeapon, false)) 
+                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
                             StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
                     </MudItem>
@@ -194,9 +194,10 @@ else
     /// </summary>
     /// <param name="weapon">Wielded weapon for this attack</param>
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
-    private void OnAttackCheck(WeaponViMo weapon, bool MainHand)
+    private void OnAttackCheck(Check ActionId, WeaponViMo weapon, bool MainHand)
     {
-        const string ActionId = ChrAttrId.AT;
+        //const string ActionId = ChrAttrId.AT;
+        //Check ActionId = new(Check.Combat.Attack, weapon.CombatTechId);
 
         try
         {
@@ -218,7 +219,9 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnParryCheck(WeaponViMo weapon, bool MainHand)
     {
-        const string ActionId = ChrAttrId.PA;
+        //const string ActionId = ChrAttrId.PA;
+        Check ActionId = new(Check.Combat.Parry, weapon.CombatTechId);
+
         try
         {
             ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
@@ -240,7 +243,7 @@ else
     private void OnDodgeCheck(CharacterAttrDTO dodge)
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
-        ActiveCheck = RollHandler.OpenDodgeRollCheck(dodge.Id, dodge, !Barehands);
+        ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
         ActiveCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveCheck);
     }
@@ -252,7 +255,7 @@ else
     /// <param name="initiative"></param>
     private void OnInitiativeCheck(CharacterAttrDTO initiative)
     {
-        ActiveCheck = RollHandler.OpenRollCheck(initiative.Id, initiative);
+        ActiveCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Initiative), initiative);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 

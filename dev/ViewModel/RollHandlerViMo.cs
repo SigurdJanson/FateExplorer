@@ -75,6 +75,7 @@ namespace FateExplorer.ViewModel
                 { SkillCheckM.checkTypeId, typeof(SkillCheckM) },
                 { RoutineSkillCheckM.checkTypeId, typeof(RoutineSkillCheckM) },
                 { AttackCheckM.checkTypeId, typeof(AttackCheckM) },
+                { HruruzatAttackM.checkTypeId, typeof(HruruzatAttackM) },
                 { ParryCheckM.checkTypeId, typeof(ParryCheckM) },
                 { InitiativeCheckM.checkTypeId, typeof(InitiativeCheckM) }
             };
@@ -141,9 +142,8 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenRoutineSkillCheck(string AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        public RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
         {
-            AttrId = $"RC/{AttrId}";
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
                 throw new NotImplementedException($"A check for {Skill.Name} has not yet been implemented");
@@ -171,7 +171,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenRollCheck(string AttrId, ICharacterAttributDTO TargetAttr, ICharacterAttributDTO[] RollAttr = null)
+        public RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO TargetAttr, ICharacterAttributDTO[] RollAttr = null)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -199,8 +199,7 @@ namespace FateExplorer.ViewModel
                     Checker = new InitiativeCheckM((CharacterAttrDTO)TargetAttr, GameData);
                     break;
                 default:
-                    Checker = Activator.CreateInstance(CheckType, TargetAttr.EffectiveValue, 0) as CheckBaseM; //TODO: make this: throw new NotImplementedException();
-                    break;
+                    throw new NotImplementedException();
             };
 
             Result = new(Checker);
@@ -210,7 +209,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenDodgeRollCheck(string AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon)
+        public RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -238,17 +237,15 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenCombatRollCheck(string actionId, WeaponViMo weapon, HandsViMo Hands)
+        public RollCheckResultViMo OpenCombatRollCheck(Check actionId, WeaponViMo weapon, HandsViMo Hands)
         {
-            string TargetAttrName = $"{weapon.CombatTechId}/{actionId}";
-
-            string RollId = MatchAttributeToRollId(TargetAttrName);
+            string RollId = MatchAttributeToRollId(actionId);
             if (string.IsNullOrWhiteSpace(RollId))
-                throw new NotImplementedException($"A check for {TargetAttrName} has not yet been implemented");
+                throw new NotImplementedException($"A check for {actionId} has not yet been implemented");
 
             Type CheckType;
             if (!ListOfChecks.TryGetValue(RollId, out CheckType))
-                throw new NotImplementedException($"A check for {TargetAttrName} has not yet been implemented");
+                throw new NotImplementedException($"A check for {actionId} has not yet been implemented");
 
             bool IsMainWeapon = Hands.MainWeapon == weapon;
             WeaponViMo OtherWeapon = IsMainWeapon ? Hands.OffWeapon : Hands.MainWeapon;
@@ -260,6 +257,11 @@ namespace FateExplorer.ViewModel
                 case
                     nameof(AttackCheckM):
                     Checker = new AttackCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
+                        new SimpleCheckModifierM(0), GameData);
+                    break;
+                case
+                    nameof(HruruzatAttackM):
+                    Checker = new HruruzatAttackM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
                         new SimpleCheckModifierM(0), GameData);
                     break;
                 case
