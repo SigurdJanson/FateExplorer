@@ -4,14 +4,16 @@ namespace FateExplorer.Shared;
 
 
 
-// What value does this add?
-// * No hard-coding of "/" separator characters in various places of the code.
-// * Explicit contract for the developer without the need to think how check id strings are created.
 
 /// <summary>
-/// A full path to identify a roll check. 
-/// It is used to tell the roll handler which roll needs to be done.
+/// A full path to identify a roll check: the check id. This class is responsible for
+/// creating valid check id's that fit those in "rollresolver.json".
+/// That way, it is used to tell the roll handler which roll needs to be done, i.e.
+/// which roll check class it has to choose.
 /// </summary>
+/// What value does this add?
+/// * No hard-coding of "/" separator characters in various places of the code.
+/// * Explicit contract for the developer without the need to think how check id strings are created.
 public readonly struct Check
 {
     private const char Sep = '/';
@@ -27,9 +29,12 @@ public readonly struct Check
 
     public static implicit operator string(Check c) => c.Id;
 
+
     /// <summary>
     /// Constructor for basic roll checks
     /// </summary>
+    /// <param name="checkType">A basic type of check</param>
+    /// <remarks>For skill and combat checks, use the designated constructors.</remarks>
     public Check(Roll checkType)
     {
         Id = checkType switch
@@ -46,13 +51,13 @@ public readonly struct Check
     /// <summary>
     /// Constructor for skill checks
     /// </summary>
-    public Check(Skill skill, bool isRoutine = false)
+    public Check(SkillDomain skill, bool isRoutine = false)
     {
         string SkillId = skill switch
         {
-            Skill.Skill => ChrAttrId.Skill,
-            Skill.Spell => ChrAttrId.Spell,
-            Skill.Liturgy => ChrAttrId.Liturgy,
+            SkillDomain.Basic => ChrAttrId.Skill,
+            SkillDomain.Arcane => ChrAttrId.Spell,
+            SkillDomain.Karma => ChrAttrId.Liturgy,
             _ => throw new ArgumentException("Unknown skill", nameof(skill)),
         };
         if (isRoutine)

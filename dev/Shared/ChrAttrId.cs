@@ -47,6 +47,9 @@
         public const string SPI = "SPI";
 
 
+
+        public const string Regenerate = "REGENERATE";
+
         /// <summary>
         /// Character's life points (energy): Id
         /// </summary>
@@ -64,5 +67,13 @@
         /// Abilities are numbered
         /// </summary>
         public const string AbilityBaseId = "ATTR";
+
+        public const string CombatTecBaseId = "CT";
+
+        public const string Routine = "RC";
+
+        public const string Skill = "TAL";
+        public const string Spell = "SPELL";
+        public const string Liturgy = "LITURGY";
     }
 }
