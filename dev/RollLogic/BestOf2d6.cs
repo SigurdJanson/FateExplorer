@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace FateExplorer.RollLogic
 {
+    /// <summary>
+    /// This roll uses 2d6 but uses only the higher value; in case of a doublet it uses the sum.
+    /// </summary>
     public class BestOf2d6 : IRollM
     {
         /// <summary>
@@ -24,6 +27,9 @@ namespace FateExplorer.RollLogic
 
 
         private int[] modifiedBy;
+
+        /// <value>Is the open roll the result of a doublet?</value>
+        public bool IsDoublet { get; protected set; } = false;
 
         public BestOf2d6()
         {
@@ -66,9 +72,15 @@ namespace FateExplorer.RollLogic
             int Roll1 = RNG.IRandom(1, Sides[0]);
             int Roll2 = RNG.IRandom(1, Sides[0]);
             if (Roll1 == Roll2)
+            {
                 OpenRoll[0] = Roll1 + Roll2;
+                IsDoublet = true;
+            }
             else
+            {
                 OpenRoll[0] = Math.Max(Roll1, Roll2);
+                IsDoublet = false;
+            }
 
             return OpenRoll;
         }
