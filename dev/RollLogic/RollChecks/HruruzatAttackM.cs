@@ -16,6 +16,25 @@ public class HruruzatAttackM : AttackCheckM
     }
 
 
+
+    /// <inheritdoc />
+    /// <remarks>Returns the damage in case of combat attack checks 
+    /// or the botch effect</remarks>
+    public override string Classification
+    {
+        get
+        {
+            if (RollList[RollType.Damage] is not null)
+            {
+                string Doublet = (RollList[RollType.Damage] as BestOf2d6).IsDoublet ? " (Pasch)" : "";
+                return $"{base.Classification}{Doublet}";
+            }
+            else
+                return base.Classification;
+        }
+    }
+
+
     /// <summary>
     /// Roll the dice for the selected roll.
     /// </summary>

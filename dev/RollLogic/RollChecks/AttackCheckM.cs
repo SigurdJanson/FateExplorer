@@ -153,15 +153,26 @@ namespace FateExplorer.RollLogic
                     // TODO: Move the damage assessment to the weapon
                     if (Success.CurrentLevel == RollSuccess.Level.Success)
                         Result = RollResult + DamageBonus;
-                    if (Success.CurrentLevel == RollSuccess.Level.Critical)
+                    else if (Success.CurrentLevel == RollSuccess.Level.Critical)
                         Result = (RollResult + DamageBonus) * 2;
 
-                    return Result is null ? null : $"{Result}";
+                    string BonusStr = (DamageDieCount, DamageBonus) switch
+                    {
+                        (DamageDieCount: 1, 0) 
+                            => "",
+                        (DamageDieCount: 1, DamageBonus: var y) when y > 0
+                            => $" ({RollResult} + {DamageBonus})",
+                        (DamageDieCount: var x, 0) when x > 1 
+                            => $" ({DamageDieCount} x{RollResult / DamageDieCount})",
+                        (DamageDieCount: var x, DamageBonus: var y) when x > 1 && y > 0 
+                            => $" ({DamageDieCount} x {RollResult / DamageDieCount} + {DamageBonus})",
+                        _ => throw new NotImplementedException(),
+                    };
+                    return Result is null ? null : $"{Result}{BonusStr}";
                 }
                 else if (RollList[RollType.Botch] is not null)
                 {
                     Result = RollList[RollType.Botch].OpenRollCombined();
-                    //var Botch = GameData.GetAttackBotch(CombatTechType, (int)Result);
                     
                     return $"({Result} = {string.Join(" + ", RollList[RollType.Botch].OpenRoll)})";
                 }
