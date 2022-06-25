@@ -70,6 +70,8 @@
 
         public const string CombatTecBaseId = "CT";
 
+        public const string SpecialAbilityBaseId = "SA";
+
         public const string Routine = "RC";
 
         public const string Skill = "TAL";

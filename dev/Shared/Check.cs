@@ -74,6 +74,8 @@ public readonly struct Check
     {
         if (!combatTechId.StartsWith(ChrAttrId.CombatTecBaseId))
             throw new ArgumentException("Combat technique seems invalid", nameof(combatTechId));
+        if (!combatStyle?.StartsWith(ChrAttrId.SpecialAbilityBaseId) ?? false)
+            throw new ArgumentException("Combat style seems invalid", nameof(combatStyle));
 
         string Action = (action == Combat.Attack) ? ChrAttrId.AT : ChrAttrId.PA;
 
