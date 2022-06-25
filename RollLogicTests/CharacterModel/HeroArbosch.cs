@@ -11,6 +11,7 @@ namespace UnitTests.CharacterModel
     internal static class HeroArbosch
     {
         public const int UnarmedSkill = 6;
+        public const int Dodge = 6;
 
         public static WeaponDTO ArboschsDagger
         {

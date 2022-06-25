@@ -11,6 +11,7 @@ namespace UnitTests.CharacterModel
     internal static class HeroGrassberger
     {
         public const int UnarmedSkill = 10;
+        public const int Dodge = 8;
 
         public static WeaponDTO Sword
         {

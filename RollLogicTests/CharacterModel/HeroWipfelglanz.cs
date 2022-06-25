@@ -11,6 +11,7 @@ namespace UnitTests.CharacterModel
     internal static class HeroWipfelglanz
     {
         public const int UnarmedSkill = 6;
+        public const int Dodge = 8;
 
         public static WeaponDTO LayarielsDagger
         { 
