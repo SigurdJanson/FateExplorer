@@ -31,7 +31,6 @@ namespace FateExplorer.RollLogic
         protected const int _DieCount = 2;
 
         public BotchEffectRoll() : base(_Sides, _DieCount)
-        {
-        }
+        {}
     }
 }

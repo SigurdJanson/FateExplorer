@@ -5,7 +5,7 @@
     /// </summary>
     public class DodgeM : IDerivedAttributeM
     {
-        private ICharacterM Hero;
+        private readonly ICharacterM Hero;
 
         /// <summary>
         /// Constructor

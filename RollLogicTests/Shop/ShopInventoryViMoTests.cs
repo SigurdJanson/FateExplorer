@@ -37,17 +37,26 @@ namespace UnitTests.Shop
             this.mockGameData = mockRepository.Create<IGameDataService>();
         }
 
-        public static CurrenciesDB MockCurrenciesDB()
+       public static CurrenciesDB MockCurrenciesDB()
         {
-            return new CurrenciesDB()
+            var result = new CurrenciesDB()
             {
                 Data = new List<CurrencyDbEntry>() 
                 { 
-                    new() { Id = "A", Name="A", Rate=1.0, Origin="" }
+                    new() { Id = "A", Name="A", Rate=1.0, Origin="A" },
+                    new() { Id = "B", Name="B", Rate=2.0, Origin="B" },
+                    new() { Id = "C", Name="C", Rate=3.0, Origin="C" }
                 }
             };
+            return result;
         }
-            
+
+        public ShopInventoryViMo GetShopInventory()
+        {
+            var result = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
+            return result;
+        }
+
 
         #endregion ===================
 
@@ -69,7 +78,6 @@ namespace UnitTests.Shop
 
             // Assert
             Assert.AreEqual(642, Result.Count);
-
         }
 
 
@@ -103,6 +111,40 @@ namespace UnitTests.Shop
 
             // Assert
             Assert.AreEqual(1, result.Count);
+        }
+
+
+        [Test]
+        public void GetCurrencies_NoCurrenciesAvailable_ReturnsNull()
+        {
+            const int ExpectedCount = 3;
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
+
+            // Act
+            var result = Inventory.GetCurrencies();
+
+            // Assert
+            int i = 0;
+            foreach (var r in result) i++;
+            Assert.AreEqual(ExpectedCount, i);
+        }
+
+
+        [Test]
+        public void GetExchangeRate(
+            [Values("A", "B", "C")] string currencyId, [Values(1.0, 2.0, 3.0)] double Expected)
+        {
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
+
+            // Act
+            var result = Inventory.GetExchangeRate(currencyId);
+
+            // Assert
+            Assert.AreEqual(Expected, result);
         }
 
         #endregion
