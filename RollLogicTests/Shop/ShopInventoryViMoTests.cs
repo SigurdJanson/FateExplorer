@@ -43,9 +43,9 @@ namespace UnitTests.Shop
             {
                 Data = new List<CurrencyDbEntry>() 
                 { 
-                    new() { Id = "A", Name="A", Rate=1.0, Origin="A" },
-                    new() { Id = "B", Name="B", Rate=2.0, Origin="B" },
-                    new() { Id = "C", Name="C", Rate=3.0, Origin="C" }
+                    new() { Id = "A", Name="A", Rate=1.1M, Origin="A" },
+                    new() { Id = "B", Name="B", Rate=2.2M, Origin="B" },
+                    new() { Id = "C", Name="C", Rate=3.3M, Origin="C" }
                 }
             };
             return result;
@@ -129,12 +129,31 @@ namespace UnitTests.Shop
             int i = 0;
             foreach (var r in result) i++;
             Assert.AreEqual(ExpectedCount, i);
+            mockRepository.VerifyAll();
         }
 
 
-        [Test]
+
+        [Test] // No app config, i.e. no default
+        public void GetDefaultCurrency_NoAppConfig_ReturnsEmpty()
+        {
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
+
+            // Act
+            var result = Inventory.GetDefaultCurrency();
+
+            // Assert
+            Assert.AreEqual(("", ""), result);
+            mockRepository.VerifyAll();
+        }
+
+
+
+        [Test, Sequential]
         public void GetExchangeRate(
-            [Values("A", "B", "C")] string currencyId, [Values(1.0, 2.0, 3.0)] double Expected)
+            [Values("A", "B", "C")] string currencyId, [Values(1.1, 2.2, 3.3)] decimal Expected)
         {
             // Arrange
             mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
@@ -145,6 +164,7 @@ namespace UnitTests.Shop
 
             // Assert
             Assert.AreEqual(Expected, result);
+            mockRepository.VerifyAll();
         }
 
         #endregion

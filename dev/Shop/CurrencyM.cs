@@ -19,5 +19,5 @@ public class CurrencyM
 
     public string Name { get; }
 
-    public double Rate { get; }
+    public decimal Rate { get; }
 }

@@ -221,7 +221,7 @@
     private int? selectedGroupId = null;
 
     private (string id, string name) ComparisonCurrency = ("", "");
-    private double ComparisonCurrencyRate = 1.0;
+    private decimal ComparisonCurrencyRate = 1.0M;
 
 
     private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)

@@ -116,7 +116,7 @@ namespace FateExplorer.Shop
         /// </summary>
         /// <param name="currencyId">Currency id</param>
         /// <returns>An exchange rate</returns>
-        public double GetExchangeRate(string currencyId)
+        public decimal GetExchangeRate(string currencyId)
         {
             return Currencies.Find(c => c.Id == currencyId).Rate;
         }

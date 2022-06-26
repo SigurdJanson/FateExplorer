@@ -17,7 +17,7 @@ namespace UnitTests.Shop
                 Id = "TestId",
                 Name = "TestName",
                 Origin = "TestRegion",
-                Rate = 1.25
+                Rate = 1.25M
             });
 
             // Assert
