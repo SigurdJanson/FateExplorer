@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBlazorClientSideStorage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibClientSideStorage", "..\LibClientSideStorage\LibClientSideStorage.csproj", "{D165FF3A-B5DB-4373-8406-FF85948DB864}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "..\UITests\UITests.csproj", "{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,12 +38,16 @@ Global
 		{D165FF3A-B5DB-4373-8406-FF85948DB864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D165FF3A-B5DB-4373-8406-FF85948DB864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D165FF3A-B5DB-4373-8406-FF85948DB864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {28D09E00-4F4B-4482-ACEF-645FE1B9B65D}
 		RESX_NeutralResourcesLanguage = en-GB
+		SolutionGuid = {28D09E00-4F4B-4482-ACEF-645FE1B9B65D}
 	EndGlobalSection
 EndGlobal
