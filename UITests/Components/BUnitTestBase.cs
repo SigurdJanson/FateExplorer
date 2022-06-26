@@ -1,6 +1,7 @@
 ﻿using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor;
 using MudBlazor.Services;
 using UITests.UnitTests.Mocks;
 
@@ -11,7 +12,7 @@ namespace UITests.Components
         protected Bunit.TestContext Ctx { get; private set; }
 
         [SetUp]
-        public virtual void Setup()
+        public virtual void Setup() // code borrowed from MudBlazor
         {
             Ctx = new();
 
@@ -25,6 +26,15 @@ namespace UITests.Components
             Ctx.Services.AddScoped(sp => new HttpClient());
             Ctx.Services.AddOptions();
         }
+
+        protected virtual void SetupMudDialog(out IRenderedComponent<MudDialogProvider> comp, out DialogService dlgService)
+        {
+            comp = Ctx.RenderComponent<MudDialogProvider>();
+            Assume.That(comp.Markup, Is.Empty); // verify success
+            dlgService = (Ctx.Services.GetService<IDialogService>() as DialogService)!; // null-forgiving: next line checks for null
+            Assume.That(dlgService, Is.Not.Null); // verify success
+        }
+
 
         [TearDown]
         public void TearDown()
