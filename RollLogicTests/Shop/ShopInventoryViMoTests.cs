@@ -126,9 +126,11 @@ namespace UnitTests.Shop
             var result = Inventory.GetCurrencies();
 
             // Assert
-            int i = 0;
-            foreach (var r in result) i++;
-            Assert.AreEqual(ExpectedCount, i);
+            int ResultLength = 0; // determine length of `result`
+            using (IEnumerator<(string id,string name)> enumerator = result.GetEnumerator())
+                while (enumerator.MoveNext()) ResultLength++;
+
+            Assert.AreEqual(ExpectedCount, ResultLength);
             mockRepository.VerifyAll();
         }
 
