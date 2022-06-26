@@ -23,6 +23,10 @@ namespace UnitTests.ViewModel
         //    "\"REGENERATE\": {\"id\": \"REGENERATE\", \"roll\": \"DSA5/0/regeneration\", \"name\": \"Regeneration\", \"type\": \"value\"}, " +
         //    "\"INI\": {\"id\": \"INI\", \"roll\": \"DSA5/0/initiative\", \"name\": \"Initiative\", \"type\": \"compare\"}, " +
         //    "\"CT_9/AT+SA_186\": {\"id\": \"CT_9/AT+SA_186\", \"roll\": \"DSA5/0/initiative\", \"name\": \"Hruruzat Attacke\", \"type\": \"compare\"}}";
+        /// <value>
+        /// Number of mappings in rollresolver.json
+        /// </value>
+        private const int RollCheckMappings = 44;
 
         private MockRepository mockRepository;
         private Mock<IGameDataService> mockGameData;
@@ -90,7 +94,7 @@ namespace UnitTests.ViewModel
             // Arrange
             string jsonString = GetMappingDataFromWWWroot();
             RollHandlerViMo ClassUnderTest = CreateRollHandlerViMo(jsonString);
-            Assume.That(ClassUnderTest.RollMappings.Count, Is.EqualTo(41));
+            Assume.That(ClassUnderTest.RollMappings.Count, Is.EqualTo(RollCheckMappings));
 
             AbilityDTO data = new() { Id = Id };
 
