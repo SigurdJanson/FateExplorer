@@ -1084,4 +1084,7 @@
   <data name="lblDefaultCombatStyle" xml:space="preserve">
     <value>Standard</value>
   </data>
+  <data name="lblDoublet" xml:space="preserve">
+    <value>Pasch</value>
+  </data>
 </root>

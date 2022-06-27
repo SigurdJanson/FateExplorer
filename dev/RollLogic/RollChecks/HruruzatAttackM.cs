@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.RollLogic;
@@ -16,6 +17,23 @@ public class HruruzatAttackM : AttackCheckM
     }
 
 
+    /// <inheritdoc />
+    public override string ClassificationLabel
+    {
+        get
+        {
+            if (RollList[RollType.Damage] is not null)
+            {
+                if ((RollList[RollType.Damage] as BestOf2d6).IsDoublet)
+                    return ResourceId.DoubletId;
+                else
+                    return ResourceId.HitPoints;
+            }
+            else 
+                return base.ClassificationLabel;
+        }
+    }
+
 
     /// <inheritdoc />
     /// <remarks>Returns the damage in case of combat attack checks 
@@ -24,13 +42,13 @@ public class HruruzatAttackM : AttackCheckM
     {
         get
         {
-            if (RollList[RollType.Damage] is not null)
-            {
-                string Doublet = (RollList[RollType.Damage] as BestOf2d6).IsDoublet ? " (Pasch)" : "";
-                return $"{base.Classification}{Doublet}";
-            }
-            else
-                return base.Classification;
+            //if (RollList[RollType.Damage] is not null)
+            //{
+            //    string Doublet = (RollList[RollType.Damage] as BestOf2d6).IsDoublet ? " (Pasch)" : "";
+            //    return $"{base.Classification}{Doublet}";
+            //}
+            //else
+            return base.Classification;
         }
     }
 

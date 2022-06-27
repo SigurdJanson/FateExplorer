@@ -1099,4 +1099,8 @@
     <value>Default</value>
     <comment>Fight</comment>
   </data>
+  <data name="lblDoublet" xml:space="preserve">
+    <value>Doublet</value>
+    <comment>Fight</comment>
+  </data>
 </root>
