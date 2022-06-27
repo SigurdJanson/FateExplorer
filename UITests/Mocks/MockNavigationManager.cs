@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace UITests.UnitTests.Mocks;
+namespace FateExplorer.UITests.Mocks;
 
 /// <summary>
 /// 

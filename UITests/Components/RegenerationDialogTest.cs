@@ -1,15 +1,12 @@
-﻿using Bunit;
-using FateExplorer.Components;
-using NUnit.Framework;
-using Moq;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using FateExplorer;
 using MudBlazor;
-using UITests.Components;
 using AngleSharp.Dom;
+using Bunit;
+using Moq;
+using FateExplorer.Components;
 
-namespace Bunit.Docs.Samples;
+namespace FateExplorer.UITests.Components;
 
 public class RegenerationDialogTest : BUnitTestBase
 {
