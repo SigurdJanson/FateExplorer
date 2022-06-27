@@ -123,7 +123,7 @@ namespace FateExplorer.RollLogic
             {
                 if (RollList[RollType.Damage] is not null)
                 {
-                    return "lblHitPoints";
+                    return ResourceId.HitPoints;
                 }
                 else if (RollList[RollType.Botch] is not null)
                 {
