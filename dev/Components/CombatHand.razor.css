@@ -1,7 +1,8 @@
 ﻿
 .LeftHeader {
-    width: 60%;
+    min-width: 60%;
 }
 .RightHeader {
     width: 40%;
+    float:right;
 }

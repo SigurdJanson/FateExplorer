@@ -13,6 +13,8 @@
                     <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
                     <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
                 </div>
+                @if (HasCombatStyles)
+                {
                 <div class="RightHeader pl-2">
                     <MudSelect T=string Label=@(HasCombatStyles ? l10n["lblDefaultCombatStyle"] : "") 
                         Variant=Variant.Text Clearable=@HasCombatStyles
@@ -28,6 +30,7 @@
                         }
                     </MudSelect>
                 </div>
+                }
             </div>
         </CardHeaderContent>
         <CardHeaderActions>
@@ -116,12 +119,13 @@
         if (HeroHands is null) throw new ArgumentNullException(nameof(HeroHands));
         if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
 
+        HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
+        SelectedCombatStyle = null; // otherwise the dropdown gets confused
+
         TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
         TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
         AriaAttack = $"{l10n["lblAttack"]} {l10n["lblRoll"]} {Weapon.Name}";
         AriaParry = $"{l10n["lblParry"]} {l10n["lblRoll"]} {Weapon.Name}";
-
-        HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
     }
 
     /// <summary>
