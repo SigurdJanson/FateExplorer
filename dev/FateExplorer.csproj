@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-	<Version>3.0.0.3</Version>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+	  <Version>4.0.0.0</Version>
+	  <PublishTrimmed>true</PublishTrimmed>
+	  <TrimmerDefaultAction>link</TrimmerDefaultAction>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,20 +20,57 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.6" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.3" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.6.2">
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MudBlazor" Version="6.0.8" />
+    <PackageReference Include="MudBlazor" Version="6.0.10" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibClientSideStorage\LibClientSideStorage.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
+
+
+	<ItemGroup>
+		<None Include="Shared\IconsFE.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>IconsFE.tt</DependentUpon>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+      <None Update="Shared\DisAdvantages.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>DisAdvantages.cs</LastGenOutput>
+      </None>
+      <None Update="Shared\IconsFE.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IconsFE.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Shared\DisAdvantages.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>DisAdvantages.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
 
 </Project>
