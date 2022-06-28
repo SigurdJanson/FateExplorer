@@ -20,8 +20,5 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("type")]
         public AdvType Type { get; set; }
-
-
-        // TODO: no URLs in file
     }
 }

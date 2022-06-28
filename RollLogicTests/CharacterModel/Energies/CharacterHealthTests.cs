@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 
@@ -40,6 +41,14 @@ namespace UnitTests.CharacterModel.Energies
                 this.mockCharacterM.Object);
         }
 
+
+        private static void MockHasAdvantage(Mock<ICharacterM> mock, string[] Advantages)
+            => mock.Setup(c => c.HasAdvantage(It.IsAny<string>()))
+                .Returns((string s) => Advantages.Contains(s));
+        private static void MockHasDisadvantage(Mock<ICharacterM> mock, string[] Advantages)
+            => mock.Setup(c => c.HasDisadvantage(It.IsAny<string>()))
+                .Returns((string s) => Advantages.Contains(s));
+
         #endregion
 
 
@@ -74,6 +83,8 @@ namespace UnitTests.CharacterModel.Energies
             mockCharacterM.SetupGet(c => c.Abilities).Returns(HeroWipfelglanz.Abilities);
             mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_7")))
                 .Returns(HeroWipfelglanz.AbilityValues["ATTR_7"]);
+            MockHasAdvantage(mockCharacterM, HeroWipfelglanz.Advantages);
+            MockHasDisadvantage(mockCharacterM, HeroWipfelglanz.Disadvantages);
 
             // Act
             var characterHealth = this.CreateCharacterHealth(ToAdd);
@@ -98,6 +109,8 @@ namespace UnitTests.CharacterModel.Energies
             mockCharacterM.SetupGet(c => c.Abilities).Returns(HeroWipfelglanz.Abilities);
             mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_7")))
                 .Returns(HeroWipfelglanz.AbilityValues["ATTR_7"]);
+            MockHasAdvantage(mockCharacterM, HeroWipfelglanz.Advantages);
+            MockHasDisadvantage(mockCharacterM, HeroWipfelglanz.Disadvantages);
 
             // Act
             var characterHealth = this.CreateCharacterHealth(ToAdd);
@@ -124,6 +137,8 @@ namespace UnitTests.CharacterModel.Energies
             mockCharacterM.SetupGet(c => c.Abilities).Returns(HeroWipfelglanz.Abilities);
             mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_7")))
                 .Returns(HeroWipfelglanz.AbilityValues["ATTR_7"]);
+            MockHasAdvantage(mockCharacterM, HeroWipfelglanz.Advantages);
+            MockHasDisadvantage(mockCharacterM, HeroWipfelglanz.Disadvantages);
 
             var characterHealth = this.CreateCharacterHealth(ToAdd);
 

@@ -1,0 +1,30 @@
+[
+    {
+        "id": "ITEM_1",
+        "name": "Dünne Bretterwand",
+        "stp": 30,
+        "amount": 1,
+        "weight": 1.5
+    },
+    {
+        "id": "ITEM_2",
+        "name": "Zunder und Feuerstein",
+        "stp": [4, 20],
+        "amount": 1,
+        "weight": 6
+    },
+    {
+        "id": "ITEM_3",
+        "name": "zwergische Tresortür",
+        "stp": 2000,
+        "amount": 1,
+        "weight": 0.75
+    },
+    {
+        "id": "ITEM_3",
+        "name": "Solide Holztür",
+        "stp": [80],
+        "amount": 1,
+        "weight": 0.75
+    }
+]

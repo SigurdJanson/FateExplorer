@@ -1,15 +1,22 @@
 ﻿@page "/overview"
 
+@using FateExplorer.Calendar
 @using FateExplorer.Components
+@using FateExplorer.GameData
 @using FateExplorer.RollLogic
 @using FateExplorer.ViewModel
 @using FateExplorer.Shared
 @using System.IO
 @using System
 
+@implements IDisposable
+
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject IGameDataService GameData
 @inject ITheHeroViMo Hero
+@inject IDateOfPlay CurrentDate
 @inject IRollHandlerViMo RollHandler
 
 @if (Hero.HasBorn)
@@ -20,13 +27,17 @@
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudText Typo=Typo.body1 Class="mb-3">@Hero.Name</MudText>
                 <MudGrid>
-                    <MudItem xs=6>
+                    <MudItem xs=6 md=4>
                         <MudText Typo=Typo.caption>@l10n["lblPlaceOfBirth"]</MudText>
                         <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
                     </MudItem>
-                    <MudItem xs=6>
+                    <MudItem xs=6 md=4>
                         <MudText Typo=Typo.caption>@l10n["lblDateOfBirth"]</MudText>
-                        <MudText Typo=Typo.body2>@Hero.DateOfBirth</MudText>
+                        <MudText Typo=Typo.body2>@DateOfBirthStr</MudText>
+                    </MudItem>
+                    <MudItem xs=6 md=4>
+                        <MudText Typo=Typo.caption>@l10n["lblAge"]</MudText>
+                        <MudText Typo=Typo.body2>@AgeStr</MudText>
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -34,7 +45,7 @@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <div>
-                @foreach (var ab in Hero.GetAbilites())
+                @foreach (var ab in Hero.GetAbilites().OrderBy(a => a.Id))
                 {
                 <AbilityChip Ability=@ab OnClick=@((MouseEventArgs e) => OnAbilityCheck(ab)) />
                 }
@@ -85,7 +96,9 @@
                     </MudItem>*@
                     <MudItem xs=6 Class="mb-3">
                         <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.FormatMoney()
+                            @Hero.FormatMoney() 
+                            <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
+                                Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
                         </MudField>
                     </MudItem>
                 </MudGrid>
@@ -217,6 +230,11 @@ else
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
 
+    private CalendarViMo Calendar { get; set; }
+    private DateTime DateOfBirth { get; set; }
+    private string DateOfBirthStr { get; set; }
+    private string AgeStr { get; set; }
+
     private List<LanguageDTO> langs;
     private List<LanguageDTO> Langs
     {
@@ -264,25 +282,86 @@ else
     }
 
 
-    protected override void OnInitialized()
+    /// <summary>
+    /// Update the fields once the date of play of the app has changed
+    /// </summary>
+    private void UpdateDate()
     {
-        base.OnInitialized();
-        if (RollCheckResults is null)
-            RollCheckResults = new(4);
+        if (Calendar is null) return;
+
+        bool DateHasBeenSet = false;
+        try{
+            DateOfBirth = Calendar.Parse(Hero.DateOfBirth);
+        }
+        catch(FormatException)
+        {
+            DateOfBirthStr = Hero.DateOfBirth;
+            AgeStr = "n/a";
+            DateHasBeenSet = true;
+        }
+        // if DateOfBirth has been parsed successfully
+        if (!DateHasBeenSet)
+        {
+            DateOfBirthStr = Calendar.DateToString('p', DateOfBirth);
+            AgeStr = BosparanCalendar.AbsDeltaInYears(DateOfBirth, Calendar.EffectiveDate).ToString();
+        }
+    }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private async Task OnEditMoney()
+    {
+        var parameters = new DialogParameters { ["Amount"]=Hero.Money };
+        DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+
+        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth );
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            Hero.Money = (decimal)result.Data;
+        }
     }
 
 
 
 
-    /// <summary>Reacts to any changes of the character view model</summary>
-    protected void OnCharacterHasLoaded() => StateHasChanged();
+    /// <inheritdoc/>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (RollCheckResults is null)
+            RollCheckResults = new(4);
+
+        CurrentDate.OnChange += OnDateChanged;
+        Calendar = new(GameData.Calendar, CurrentDate);
+        UpdateDate();
+    }
 
 
+
+
+    /// <summary>Respond to any changes of the character view model</summary>
+    protected void OnCharacterHasLoaded()
+    {
+        UpdateDate();
+        StateHasChanged();
+    }
+
+    /// <summary>Respond to a change of the current date</summary>
+    protected void OnDateChanged()
+    {
+        UpdateDate();
+        StateHasChanged();
+    }
 
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
-        ActiveAbilityCheck = RollHandler.OpenRollCheck(ability.Id, ability, null);
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, null);
         ActiveAbilityCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }
@@ -293,6 +372,14 @@ else
         ModifyValue = NewValue;
         ActiveAbilityCheck?.CheckModifier.Set(ModifyValue);
         StateHasChanged();
+    }
+
+
+    // IDISPOSABLE
+
+    public void Dispose()
+    {
+        CurrentDate.OnChange -= OnDateChanged;
     }
 
 

@@ -118,5 +118,34 @@ namespace FateExplorer.CharacterModel
                 if (Value > Thresholds[i]) return i;
             return Thresholds.Length;
         }
+
+
+        
+        /// <summary>
+        /// SETUP HELPER <br/>
+        /// Get the dis-advantages from the game data base that affect the maximum
+        /// energy value and return the modifier that must be added to the max.
+        /// </summary>
+        /// <param name="gameData"></param>
+        /// <returns>The modifier that must be added to max.</returns>
+        protected int GetDisAdvantageModifier(EnergiesDbEntry gameData)
+        {
+            int modifier = 0;
+            foreach (var da in gameData.DisAdvBaseValue)
+            {
+                IActivatableM DisAdv = null;
+                if (Hero.HasAdvantage(da.Id))
+                    DisAdv = Hero.Advantages[da.Id];
+                else if (Hero.HasDisadvantage(da.Id))
+                    DisAdv = Hero.Disadvantages[da.Id];
+
+                if (DisAdv is not null)
+                {
+                    int Multiplier = da.MultiTier ? DisAdv.Tier : 1;
+                    modifier += Multiplier * da.Value;
+                }
+            }
+            return modifier;
+        }
     }
 }

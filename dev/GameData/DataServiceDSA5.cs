@@ -202,11 +202,24 @@ namespace FateExplorer.GameData
         {
             get
             {
-                if (currencies is null) // load on demand
+                if (currencies is null)
                     throw new HttpRequestException("Data has not been loaded");
                 return currencies;
             }
             protected set => currencies = value;
+        }
+
+
+        private CalendarDB calendar;
+        public CalendarDB Calendar
+        {
+            get
+            {
+                if (calendar is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return calendar;
+            }
+            protected set => calendar = value;
         }
 
         #endregion
@@ -290,6 +303,8 @@ namespace FateExplorer.GameData
             fileName = $"data/currency_{Language}.json";
             currencies = await DataSource.GetFromJsonAsync<CurrenciesDB>(fileName);
 
+            fileName = $"data/calendar_{Language}.json";
+            calendar = await DataSource.GetFromJsonAsync<CalendarDB>(fileName);
         }
     }
 }

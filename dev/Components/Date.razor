@@ -1,0 +1,209 @@
+﻿@using FateExplorer.Calendar
+@using FateExplorer.GameData
+@using FateExplorer.ViewModel
+
+@inject IGameDataService GameData
+@inject IDateOfPlay CurrentDate
+@inject IStringLocalizer<App> l10n
+
+<MudTooltip Text=@LongDate>
+    <MudChip Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
+             Icon=@Calendar.MonthIcon
+             OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+             @RenderShortDate(Calendar)
+    </MudChip>
+</MudTooltip>
+
+<MudPopover Open=@IsPopupOpen Fixed=true Class="datepop px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter Style="max-width: 800px">
+    <div class="d-flex flex-row">
+        <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=@ToggleOpen />
+    </div>
+    <MudGrid Class="pb-4">
+        <MudItem sm=12 md=6>
+            <MudCard Outlined=true>
+                <MudCardContent Class="d-flex flex-column justify-center">
+                    @* Month *@
+                    <MudPaper Class="d-flex pa-21 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Month (@Calendar.MonthNr)</MudText>
+                    </MudPaper> 
+                    @* Current Day *@
+                    <div class="d-flex justify-space-between align-center flex-grow-1 gap-4">
+                        <MudIconButton OnClick=@Calendar.GotoYesterday aria-label=@l10n[""]
+                            Size=Size.Large Icon=@Icons.Material.Sharp.ArrowBackIos />
+                        <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 mud-theme-primary" Width="64px" Height="64px">
+                            <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
+                        </MudPaper>
+                        <MudIconButton OnClick=@Calendar.GotoTomorrow  aria-label=@l10n[""]
+                            Icon=@Icons.Material.Sharp.ArrowForwardIos Size=Size.Large />
+                    </div>
+                    @* ------ *@
+                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Weekday</MudText>
+                    </MudPaper>
+                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Year @Calendar.Reckoning</MudText>
+                    </MudPaper>
+                </MudCardContent>
+
+                <MudCardActions Class="d-block">
+                    <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
+                    @*<DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=@DateEditIsVisible />*@
+                    <MudButton OnClick=@Calendar.GotoEarthDate Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem sm=12 md=6>
+            <MudPaper Elevation=0 Outlined=true Class="d-flex flex-nowrap">
+            <MudSimpleTable Elevation=0>
+                <tbody>
+                <tr>
+                    <td><MudIcon Icon=@Calendar.SeasonIcon Title=@Calendar.Season /> </td>
+                    <td>@l10n["lblSeason"]</td>
+                    <td width="200px">@Calendar.Season</td>
+                </tr>
+                <tr>
+                    <td><MudIcon Icon=@Calendar.MoonPhaseIcon Title=@Calendar.MoonPhaseName /> </td>
+                    <td>@l10n["lblMoonPhase"]</td>
+                    <td>@Calendar.MoonPhaseName</td>
+                </tr>
+                @{var holidays = Calendar.GetHolidays();}
+                @if (holidays.Count() > 0)
+                {
+                    <tr>
+                        <td class="holidaycell">
+                            <MudIcon Icon=@Icons.Material.Sharp.CalendarToday Title=@l10n["lblHoliday"] /> 
+                        </td>
+                        <td colspan="2">
+                            <MudText>@l10n["lblHoliday"]</MudText>
+                            @{
+                                var Holidays = Calendar.GetHolidays();
+                                if (Holidays.Length > 0)
+                                {
+                                <MudExpansionPanels Class="holidays" Dense=true DisableGutters=true DisableBorders=true Elevation=0>
+                                    @foreach (var h in Holidays)
+                                    {
+                                        @if (string.IsNullOrWhiteSpace(h.Item2)) 
+                                        {
+                                        <MudExpansionPanel Class="holiday" HideIcon=true>
+                                            <TitleContent>@h.Item1</TitleContent>
+                                        </MudExpansionPanel>
+                                        }
+                                        else
+                                        {
+                                        <MudExpansionPanel Class="holiday">
+                                            <TitleContent>@h.Item1</TitleContent>
+                                            <ChildContent>@h.Item2</ChildContent>
+                                        </MudExpansionPanel>
+                                        }
+                                    }
+                                </MudExpansionPanels>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </MudSimpleTable>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudPopover>
+
+<MudDialog @bind-IsVisible=DateEditIsVisible>   @*Options="dialogOptions"*@
+    <TitleContent>
+        <MudText Typo="Typo.h6">@l10n["lblEditDate"]</MudText>
+    </TitleContent>
+    <DialogContent>
+        <DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=true />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color=Color.Primary OnClick=@CancelDateEdit Class="px-10">@l10n["btnCancel"]</MudButton>
+        <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@SubmitDateEdit Class="px-10">@l10n["btnDateChange"]</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private CalendarViMo Calendar { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Calendar = new(GameData.Calendar, CurrentDate);
+        BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+    }
+
+
+    // POPOVER
+    #region POPOVER
+    public bool IsPopupOpen;
+
+    public void ToggleOpen()
+    {
+        if (IsPopupOpen)
+            IsPopupOpen = false;
+        else
+            IsPopupOpen = true;
+    }
+
+
+
+    // SET DATE Button
+    private const string BtnLabelSetDateSet = "btnSetDate";
+    private const string BtnLabelSetDateConfirm = "btnSetDateConfirm";
+    private string BtnLabelSetDate { get; set; }
+    private bool DateEditIsVisible;
+    private DateTime EditedDate { get; set; }
+    private Variant ButtonVariant = Variant.Text;
+
+
+
+    /// <summary>
+    /// Respond to a click of the Modify Date button
+    /// </summary>
+    private void SetDate()
+    {
+        if (!DateEditIsVisible)
+        {
+            //dateInputStr = Calendar.DateToString('p');
+            EditedDate = Calendar.EffectiveDate;
+            DateEditIsVisible = true;
+            BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
+            ButtonVariant = Variant.Filled;
+        }
+        else
+        {
+            Calendar.GotoDate(EditedDate);
+            DateEditIsVisible = false;
+            BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+            ButtonVariant = Variant.Text;
+        }
+    }
+
+    protected void SubmitDateEdit() => SetDate();
+
+    protected void CancelDateEdit()
+    {
+        DateEditIsVisible = false;
+        BtnLabelSetDate = l10n[BtnLabelSetDateSet];
+        ButtonVariant = Variant.Text;
+    }
+
+
+    #endregion
+
+
+
+    // RENDERING
+    #region RENDERING
+
+    RenderFragment<CalendarViMo> RenderShortDate = Value => __builder =>
+    {
+    <span>@Value.DateToString('x')</span>
+    };
+
+    private string LongDate => Calendar?.DateToString('D') ?? "";
+
+
+    #endregion
+}

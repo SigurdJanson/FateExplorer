@@ -7,6 +7,13 @@ namespace FateExplorer.CharacterImport
 {
     public interface ICharacterImporter
     {
+        /// <summary>
+        /// Provide a unique and stable identifier that allows recognizing a character
+        /// across several sessions.
+        /// </summary>
+        /// <returns>A stinged id</returns>
+        string GetIdentifier();
+
         string GetName();
 
         string GetPlaceOfBirth();
@@ -64,8 +71,9 @@ namespace FateExplorer.CharacterImport
         /// <summary>
         /// Returns the ids of the character's special abilities
         /// </summary>
+        /// <param name="saDb">Access to the game data base for special abilities.</param>
         /// <returns>List of id strings of all special abilities</returns>
-        Dictionary<string, IActivatableM> GetSpecialAbilities();
+        Dictionary<string, IActivatableM> GetSpecialAbilities(SpecialAbilityDB saDb);
 
         /// <summary>
         /// Returns the collection of languages spoken by the character.
@@ -95,7 +103,7 @@ namespace FateExplorer.CharacterImport
         /// Get the money the character has in silver thalers
         /// </summary>
         /// <returns></returns>
-        double TotalMoney();
+        decimal TotalMoney();
 
         IEnumerable<KeyValuePair<string, string>> GetWeapons(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB);
 

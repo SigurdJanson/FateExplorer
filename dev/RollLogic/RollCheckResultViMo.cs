@@ -82,6 +82,7 @@ namespace FateExplorer.RollLogic
         public int Remainder { get => RollCheck.Remainder; }
 
 
+        public string ClassificationDescr => RollCheck.ClassificationDescr;
         public string ClassificationLabel => RollCheck.ClassificationLabel;
 
         public string Classification => RollCheck.Classification;
@@ -158,13 +159,14 @@ namespace FateExplorer.RollLogic
             if (CurrentRoll is null)
                 return null;
 
-            RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None);
-            Result.RollResult = CurrentRoll.OpenRoll;
-
-            Result.SuccessLevel = RollCheck.SuccessOfRoll(Which);
-            Result.Modifier = RollCheck.CheckModifier.LastEffectiveApply;
-            Result.CombinedResult = CurrentRoll.OpenRollCombined();
-            Result.RollAgainst = RollCheck.RollAttr;
+            RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None)
+            {
+                RollResult = CurrentRoll.OpenRoll,
+                SuccessLevel = RollCheck.SuccessOfRoll(Which),
+                Modifier = RollCheck.CheckModifier.LastEffectiveApply,
+                CombinedResult = CurrentRoll.OpenRollCombined(),
+                RollAgainst = RollCheck.RollAttr
+            };
 
             return Result;
         }

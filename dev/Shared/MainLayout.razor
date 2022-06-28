@@ -4,7 +4,7 @@
 
 <MudThemeProvider Theme="FateExplorerTheme" />
 <MudDialogProvider
-    MaxWidth="MaxWidth.Medium" FullWidth=true
+    MaxWidth=MaxWidth.Medium FullWidth=true
     Position=DialogPosition.Center
     NoHeader=false CloseButton=true
     DisableBackdropClick=false
@@ -28,7 +28,17 @@
     </MudMainContent>
 </MudLayout>
 
+
+<HeadContent>
+    <meta name="theme-color" content=@feRed/>
+</HeadContent>
+
+
+
 @code {
+    const string feRed = "#8F0000";
+
+
     bool _drawerOpen = true;
 
     void DrawerToggle()
@@ -44,7 +54,7 @@
             Primary = "#151515FF", //Colors.Grey.Darken4,
             Secondary = "#8F0000FF", //Colors.Green.Accent4//,
             Tertiary = "#3C434BFF",
-            AppbarBackground = "#8F0000ff",
+            AppbarBackground = feRed + "FF",
             TextPrimary = "#210000ff",
             OverlayDark = "#400000dd",
             Info = "#6C91C2",

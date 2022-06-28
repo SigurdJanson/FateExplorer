@@ -64,6 +64,10 @@ namespace FateExplorer.RollLogic
             RollAttrName[0] = ResourceId.ParryLabelId;
             Name = weapon.Name;
 
+            // improvised weapons: 19 AND 20 are botches
+            if (weapon.IsImprovised)
+                Success.BotchThreshold = 19;
+
             // specialised properties
             CombatTechType = weapon.Branch;
             IsImprovised = weapon.IsImprovised;

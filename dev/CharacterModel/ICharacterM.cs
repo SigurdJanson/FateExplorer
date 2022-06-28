@@ -4,10 +4,24 @@ namespace FateExplorer.CharacterModel
 {
     public interface ICharacterM
     {
+        /// <summary>
+        /// A unique id of a character (as received by an importer).
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// The character's name.
+        /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// The character's place of birth as string.
+        /// </summary>
         string PlaceOfBirth { get; }
 
+        /// <summary>
+        /// The character's date of birth as string.
+        /// </summary>
         string DateOfBirth { get; }
 
         /// <summary>
@@ -82,7 +96,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// The characters money in silver thalers
         /// </summary>
-        double Money { get; }
+        decimal Money { get; }
 
 
         /// <summary>

@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "LibClientSideStorage/1.0.0": {
+        "dependencies": {
+          "Microsoft.JSInterop": "6.0.6"
+        },
+        "runtime": {
+          "LibClientSideStorage.dll": {}
+        }
+      },
+      "Microsoft.JSInterop/6.0.6": {
+        "runtime": {
+          "lib/net6.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.622.26805"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LibClientSideStorage/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.JSInterop/6.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K0z7oazKQS8KLQp4TfSRzqjbg8faI7/3zsRZFOPTeXcEGV9Xao+JK6XDcpgO7XFUDef/6YMurj3BLWXXmNiOSw==",
+      "path": "microsoft.jsinterop/6.0.6",
+      "hashPath": "microsoft.jsinterop.6.0.6.nupkg.sha512"
+    }
+  }
+}

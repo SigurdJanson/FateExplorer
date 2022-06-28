@@ -1,11 +1,13 @@
 
-# Attributes
+The purpose of this document: reflect the rules of DSA5 and derive the requirements.
+
+# Character Values
 
 ## Wording
 
 Any character value is called an **attribute**.
 
-Courage, strength, ... are called abilites.
+Courage, strength, ... are called abilities (while VR1 says 'attributes').
 
 Skills are basic, mundane skills (like perception, ...). But arcane and karma skills are called skills as much as the combat techniques. Only that the program logic handles combat techniques differently.
 
@@ -15,7 +17,7 @@ The combat technique describes the basic skill with a certain weapon's branch. E
 **Overview**: 
 
 * Attributes
-  * Abilities: COU, SAG, ...
+  * Abilities: COU, SGC, ...
   * Energies<sup>1</sup>: LP, AE, KP
   * Resilience<sup>1</sup>: SPI, TOU
   * Skills
@@ -23,7 +25,7 @@ The combat technique describes the basic skill with a certain weapon's branch. E
     * Arcane: ...
     * Karma: ...
     * Combat technique
-  * Physical feats<sup>1</sup>:
+  * Physicals<sup>1</sup>:
     * INI²
     * DO² (Dodge)
     * MOV²
@@ -38,7 +40,7 @@ The combat technique describes the basic skill with a certain weapon's branch. E
 ## Kinds of Values
 
 * **Imported** value: the value as it was understood by importing a character sheet.
-* **True** value: the correct character's attribute after applying special abilities, advantages and disadvantages.
+* **True** value: the correct character's attribute after applying special abilities, advantages and disadvantages. Fate explorer will not be able to recognize all rules so players must have the feature to set the true value themselves.
 * **Effective** value. An attribute value modified either...
   * by a modification at the GMs discretion.
   * by temporary states and conditions.
@@ -52,25 +54,32 @@ The combat technique describes the basic skill with a certain weapon's branch. E
 
 ### Simple Checks
 
-The simple check is a regular skill check. The outcome of this check depends on whether the hero succeeds at the check. If the hero
-succeeds the result will be classified.
+The simple check is a regular skill check. The outcome of this check depends on whether the hero succeeds at the check. If the hero succeeds the result will be classified.
+
 
 ### Competitive Checks
 
 The competitive check allows you to compare two contestants, and the one with the higher QL wins the check.
 
+FE supports competitive checks only in the bazaar when haggling over merchandise (10-06-2022).
+
+
 ### Cumulative Check
 
 Sometimes it takes a certain amount of time and more than one skill check to accomplish a task. In such cases, the GM calls for a cumulative check. This consists of multiple skill checks of the same kind, wherein the hero must accumulate a total of 10 QL in order to accomplish the task at hand.
+
+Not supported (10-06-2022)
 
 ### Group Checks
 
 A group of heroes must work together to achieve certain goals. When several heroes use skills to work together, the procedure is called a group check. Group checks can be competitive or cumulative checks, but never simple checks. In group checks, add up the combined results of all participating characters.
 
+Not supported (10-06-2022)
+
 
 ## Add Combat Checks
 
-All attack checks are handled by the same class with only the exception of shields. The class distinguishes botch rolls that are different for unarmed combat, shields or ranged combat. It also distinguises 
+All attack checks are handled by the same class with only the exception of shields. The class distinguishes botch rolls that are different for unarmed combat, shields or ranged combat. It also distinguishes 
 
 To add a combat check you need a new entry in "rollresolver.json". Example:
 
@@ -166,42 +175,155 @@ The FE distinguishes rolls and checks. A roll is whatever you can do with rollin
 
 # Character Attributes
 
-One an roll checks against these:
+One can roll checks against these:
 
 **Abilities**
 
 | Name | Abbr. | Original |
-| --- | --- | --- |
+| ---- | ----- | -------- |
 | Courage   | COU | Mut |
-| Sagacity  | SAG | Klugheit |
-| Intuition |  | Intuition |
-| Charisma  |  | Charisma |
-|  |  | Fingerfertigkeit |
-|  |  | Gewandheit |
-| Constitution |  | Konstitution |
-| Strength     |  | Körperkraft |
+| Sagacity  | SGC | Klugheit |
+| Intuition | INT | Intuition |
+| Charisma  | CHA | Charisma |
+| Dexterity | DEX | Fingerfertigkeit |
+| Agility   | AGI | Gewandtheit |
+| Constitution | CON | Konstitution |
+| Strength     | STR | Körperkraft |
 
 
-**Resources**.
+**Energies**.
 
 * Health/Life Points
 * Arcane Energy
 * Karma Points
 
 
-**Initiative**. (INI).
-
-**Dodge**. (DO; Ausweichen, AW)
-
-The `resilience` attributes act as modifiers
+**Resiliencies**. The `resilience` attributes act as modifiers
 
 * Spirit (SPI; Seelenkraft, SK)
 * Toughness (TOU; Zähigkeit, ZK)
 
-These are required for additional rules:
+**Physicals**. 
 
-**Movement**. (MOV; Geschwindigkeit, GW)
+* Initiative (INI).
+* **Dodge** (DO; Ausweichen, AW)
+* **Movement** (MOV; Geschwindigkeit, GW)
 
 **Fate Points**.
 
+## Attribute Dependencies
 
+
+<!-- 
+```mermaid
+%%{init: {'theme':'base'}}%%
+graph TD
+
+MU([COU]); KL([SGC]); IN([INT]); CH([CHA])
+FF([DEX]); GE([AGI]); KO([CON]); KK([STR])
+```
+-->
+
+First of all, the the rules specify certain dependencies. During game play can be temporarily impaired. Reasons may be an:
+
+* Conditions, e.g.
+  * Encumbrance affects AT, PA, DO, MOV, and INI (certain skill checks, too)
+  * Pain affects MOV (and all checks, too)
+  * Paralysis affects MOV (3/4th, 1/2, 1/4th)
+* States, e.g.
+  * Bound sets MOV = 0 and DO -4
+  * Incapacitated sets MOV = 0
+  * Prone sets: MOV = 1, AT -4, PA -2, DO -2
+* Master's decision: The hero entered an intimidating situation. After a failed check on COU the COU value is decreased by 1 until the hero leaves the environment.
+* Artefacts (blessed or magic)
+
+In short, it must be possible for a player to temporarily modify any of these attributes.
+
+### Energies
+
+```mermaid
+%%{init: {'theme':'base'}}%%
+graph LR
+
+MU([COU]);KL([SGC]);IN([INT]);CH([CHA]);KO([CON])
+
+LE[LP = BASE+2*KO]
+KO -->|2x| LE
+
+AE[AE = BASE + Primary]
+CH --> AE
+KL --> AE
+IN --> AE
+
+KE[KP = BASE + Primary]
+MU --> KE
+KL --> KE
+IN --> KE
+
+```
+
+### Resiliencies
+
+```mermaid
+%%{init: {'theme':'base'}}%%
+graph LR
+
+MU([COU]);KL([SGC]);IN([INT]);KO([CON]);KK([STR])
+
+
+SK["SPI = Base + (COU+SGC+INT)/6"]
+MU --> SK
+KL --> SK
+IN --> SK
+
+ZK["TOU = Base + (CON+CON+STR)/6"]
+KO -->|2x| ZK
+KK --> ZK
+
+```
+
+
+### Bodily Feats
+
+```mermaid
+%%{init: {'theme':'base'}}%%
+graph LR
+
+MU([COU]);GE([AGI]); KK([STR])
+
+AW[DO = AGI/2 + Mods]
+GE --> AW
+
+INI[INI = COU+AGI/2 + Mods]
+MU --> INI
+GE --> INI
+
+CW["What you can carry (CW) = "]
+KK --> CW
+
+LW["What you can lift (LW) = "]
+KK --> LW
+
+GS[MOV = BASE + Mods]
+```
+
+### Combat
+
+```mermaid
+%%{init: {'theme':'base'}}%%
+graph LR
+
+MU([COU]); FF([DEX]); GE([AGI]); KK([STR])
+
+AT["AT = CT + (COU>8)/3"]
+MU --> AT
+
+RC["AT ranged = CT + (DEX>8)/3"]
+FF --> RC
+
+PA["PA = CT/2 + (Primary>8)/3"]
+FF --> PA
+GE --> PA
+KK --> PA
+
+```

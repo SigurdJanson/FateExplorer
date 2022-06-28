@@ -1,0 +1,135 @@
+﻿@inject IStringLocalizer<App> l10n
+
+
+<MudDialog>
+    <DialogContent>
+        <div class="d-flex justify-space-between align-end flex-grow-1 gap-4">
+            <MudIconButton OnClick=OnMinusClick aria-label=@l10n["lblSubtractAmount1"]
+                Size=Size.Large Icon=@Icons.Material.Sharp.IndeterminateCheckBox />
+            <MudField Label=@l10n["lblCashAmount"] Variant=Variant.Text HelperText=@Currency>
+                <MudChipSet @bind-SelectedChip=Selected MultiSelection=false Filter=false Mandatory=true>
+                    <MudChip Text=@DucatId Default=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Ducats.ToString().PadLeft(6, ' ')} {DucatId}")
+                    </MudChip>
+                    <MudChip Text=@SilverId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Silvers.ToString().PadLeft(6, ' ')} {SilverId}")
+                    </MudChip>
+                    <MudChip Text=@HalerId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Halers.ToString().PadLeft(6, ' ')} {HalerId}")
+                    </MudChip>
+                    <MudChip Text=@KreutzerId Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
+                        @($"{Kreutzers.ToString().PadLeft(6, ' ')} {KreutzerId}")
+                    </MudChip>
+                </MudChipSet>
+            </MudField>
+            <MudIconButton OnClick=OnPlusClick aria-label=@l10n["lblAddAmount1"]
+                Icon=@Icons.Material.Sharp.AddBox Size=Size.Large />
+        </div>
+        <div Class="mt-8">
+        <MudText Typo=Typo.caption>@l10n["lblModifyByAmount"]</MudText>
+        </div>
+        <div class="d-flex justify-space-between align-end flex-grow-1 gap-4 py-4 px-16">
+            <MudPaper Width="25%" Elevation=0>
+                <MudNumericField @bind-Value=Delta Clearable=false Step=1 Label=@l10n["lblSilverthalers"] Format="N2"/>
+            </MudPaper>
+            <MudButton OnClick=OnAdd StartIcon=@Icons.Material.Sharp.Add Variant=Variant.Filled Disabled=@(Delta == 0)>
+                @l10n["btnAdd"]
+            </MudButton>
+            <MudButton OnClick=OnSubtract StartIcon=@Icons.Material.Sharp.Remove Variant=Variant.Filled Disabled=@(Delta <= 0 || Amount-Delta < 0)>
+                @l10n["btnRemove"]
+            </MudButton>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">@l10n["btnCancel"]</MudButton>
+        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick="Submit">@l10n["btnApply"]</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    // API
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public decimal Amount { get; set; }
+
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(Amount));
+    void Cancel() => MudDialog.Cancel();
+
+
+    // 
+
+    private const string DucatId = "D"; 
+    private const string SilverId = "S"; 
+    private const string HalerId = "H"; 
+    private const string KreutzerId = "K"; 
+    private const string Currency = "Mittelreichische Münzen";
+
+    private MudChip Selected;
+    private decimal Delta;
+
+    private int Ducats  => (int)Math.Floor(Amount / 10);
+    private int Silvers => (int)Math.Floor(Amount % 10);
+    private int Halers  => (int)Math.Floor(Amount % 1 * 10);
+    private int Kreutzers => (int)Math.Round(Amount * 10 % 1 * 10);
+
+
+    /// <summary>
+    /// Compute a new value after adding a step.
+    /// </summary>
+    /// <param name="OldValue"></param>
+    /// <param name="Id"></param>
+    /// <param name="Sign"></param>
+    /// <returns></returns>
+    private decimal GetModifiedAmount(decimal OldValue, string Id, int Sign)
+    {
+        decimal Delta = Id switch
+        {
+            "D" => 10,
+            "S" => 1,
+            "H" => 0.1m,
+            "K" => 0.01m,
+            _ => 0
+        };
+        Delta *= Math.Sign(Sign);
+        decimal newVal =  OldValue + Delta; // Math.Round(OldValue + Delta, 2);
+        return Math.Max(newVal, 0);
+    }
+
+    /// <summary>
+    /// Decrease the amount of the selected coin
+    /// </summary>
+    private void OnMinusClick()
+    {
+        Amount = GetModifiedAmount(Amount, Selected.Text, -1);
+    } 
+
+
+    /// <summary>
+    /// Increase the amount of the selected coin
+    /// </summary>
+    private void OnPlusClick()
+    {
+        Amount = GetModifiedAmount(Amount, Selected.Text, +1);
+    }
+
+
+    private decimal GetModifiedAmount(decimal oldValue, decimal delta)
+    {
+        return oldValue + Math.Round(delta, 2);
+    }
+
+    private void OnAdd()
+    {
+        Amount = GetModifiedAmount(Amount, Delta);
+    }
+
+    private void OnSubtract()
+    {
+        Amount = GetModifiedAmount(Amount, -Delta);
+    }
+
+}

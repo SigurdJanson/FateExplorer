@@ -66,6 +66,11 @@
 		  <AutoGen>True</AutoGen>
 		  <DependentUpon>DisAdvantages.tt</DependentUpon>
 		</Compile>
+		<Compile Update="Shared\IconsFE.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>IconsFE.tt</DependentUpon>
+		</Compile>
 	</ItemGroup>
 	
   <ItemGroup>

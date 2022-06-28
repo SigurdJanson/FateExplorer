@@ -1,0 +1,149 @@
+﻿@using FateExplorer.Calendar
+
+@inject IStringLocalizer<App> l10n
+
+
+<div class=@($"d-flex {DateOpenClass} flex-nowrap flex-row flex-grow-1 gap-4")>
+
+    <MudNumericField Value=@InputDay ValueChanged=@OnDayChange Min=1 Max=@MaxDays
+        Label=@l10n["lblDateDay"] Format="D2" Pattern="[0-9]" T=int />  
+
+    <MudSelect Value=@InputMonth ValueChanged=@OnMonthChange 
+        Label=@l10n["lblDateMonth"] ToStringFunc=@((int i) => $"{Calendar.ListOfMonths[i-1]} ({i})") T=int >
+        @for (int i = 1; i <= Calendar.ListOfMonths.Length; i++ ){<MudSelectItem Value=i />}
+    </MudSelect>
+
+    <MudNumericField Value=@InputYear ValueChanged=@OnYearChange Min=MinYears
+        Label=@l10n["lblDateYear"] Format="D4" Pattern="[0-9\-]" T=int />
+
+</div>
+<div>
+    <MudText Typo=Typo.body2>@Message</MudText>
+</div>
+
+@*  <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
+              Placeholder=@l10n["txtDateFormatPlaceholder"] Class=@DateOpenClass />*@
+
+
+@code {
+    private DateTime date;
+    private bool isVisible; // false per defult
+
+    /// <summary>
+    /// An aventurian calendar the dates refer to.
+    /// </summary>
+    [Parameter]
+    public CalendarViMo Calendar { get; set; }
+
+
+    /// <summary>
+    /// The current date to be edited
+    /// </summary>
+    [Parameter]
+    public DateTime Value 
+    { 
+        get => date; 
+        set
+        {
+            if (date == value) return;
+            date = value;
+        }
+    }
+
+    /// <summary>
+    /// Fired when the Date property changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<DateTime> ValueChanged { get; set; }
+
+
+    [Parameter]
+    public bool IsVisible
+    {
+        get => isVisible;
+        set
+        {
+            if (isVisible == value) return;
+            isVisible = value;
+            IsVisibleChanged.InvokeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Fired when the IsVisible property changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    /// <summary>
+    /// CSS class to change the visibility of this component, 
+    /// see <see href="https://mudblazor.com/utilities/display#visibility">MudBlazor</see>.
+    /// </summary>
+    private string DateOpenClass => IsVisible ? "" : "d-none"; // MudBlazor CSS class
+
+
+    private int InputDay;
+    private int MaxDays;
+    private int InputMonth;
+    private int InputYear;
+    private int MinYears = -976;
+
+    private string Message = "";
+
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Calendar is null) throw new ArgumentNullException(nameof(Calendar));
+
+        InputDay = Calendar.GetDayOfMonth(Value);
+        InputMonth = Calendar.GetMonthNr(Value);
+        InputYear = Calendar.GetYear(Value);
+        MaxDays = Calendar.DaysInMonth(InputYear, InputMonth);
+    }
+
+    protected async Task DateHasChanged()
+    {
+        Message = string.Empty;
+        try
+        {
+            date = Calendar.ToDateTime(InputDay, InputMonth, InputYear);
+        }
+        catch(ArgumentOutOfRangeException e)
+        {
+            if (e.ParamName == "day")
+                Message = l10n["msgDayOutOfRange"];
+        }
+
+        await ValueChanged.InvokeAsync(date);
+    }
+
+    protected async void OnDayChange(int day)
+    {
+        if (InputDay == day || day == 0) return;
+        InputDay = day;
+        await DateHasChanged();
+    }
+
+
+    protected async void OnMonthChange(int month)
+    {
+        if (InputMonth == month) return;
+        InputMonth = month;
+        MaxDays = Calendar.DaysInMonth(InputYear, InputMonth);
+        await DateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="year"></param>
+    protected async void OnYearChange(int year)
+    {
+        if (InputYear == year) return;
+        InputYear = year;
+        await DateHasChanged();
+    }
+}

@@ -1,0 +1,12 @@
+D:\Programmierung\FateExplorer\LibClientSideStorage\bin\Debug\net6.0\LibClientSideStorage.deps.json
+D:\Programmierung\FateExplorer\LibClientSideStorage\bin\Debug\net6.0\LibClientSideStorage.dll
+D:\Programmierung\FateExplorer\LibClientSideStorage\bin\Debug\net6.0\LibClientSideStorage.pdb
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.csproj.AssemblyReference.cache
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.AssemblyInfoInputs.cache
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.AssemblyInfo.cs
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.csproj.CoreCompileInputs.cache
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.dll
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\refint\LibClientSideStorage.dll
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\LibClientSideStorage.pdb
+D:\Programmierung\FateExplorer\LibClientSideStorage\obj\Debug\net6.0\ref\LibClientSideStorage.dll

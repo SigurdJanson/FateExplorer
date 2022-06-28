@@ -1,6 +1,7 @@
 ﻿using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FateExplorer.ViewModel
 {
@@ -8,31 +9,36 @@ namespace FateExplorer.ViewModel
     {
         // SETUP
 
-        /// <summary>
+        /// <value>
         /// Notify registered components when the hero has changed.
-        /// </summary>
+        /// </value>
         public event Action OnChange;
 
-        /// <summary>
+        /// <value>
         /// Has character data been read. Then the character has been born.
-        /// </summary>
+        /// </value>
         bool HasBorn { get; }
 
         /// <summary>
         /// Import a character file with the Optolith importer
         /// </summary>
         /// <param name="Data">The json data as byte array</param>
-        void ReadCharacterFile(byte[] Data);
+        Task ReadCharacterFile(byte[] Data);
 
-
+        /// <value>Character's name (read-only)</value>
         string Name { get; }
+        /// <value>Character's place of birth (read-only)</value>
         string PlaceOfBirth { get; }
+        /// <value>Birthday (read-only)</value>
         string DateOfBirth { get; }
+        /// <value>The total  weight of the character's belongings (read-only)</value>
         double CarriedWeight { get; }
+        /// <value>The weight the character can carry (for a longer period of time, like in a backpack) (read-only)</value>
         double WhatCanCarry { get; }
+        /// <value>The weight the character can lift (for a shorter period) (read-only)</value>
         double WhatCanLift { get; }
 
-        double Money { get; }
+        decimal Money { get; set; }
 
         /// <summary>
         /// Get the character's money as formatted string
@@ -53,7 +59,23 @@ namespace FateExplorer.ViewModel
 
         List<AbilityDTO> GetAbilites();
 
+        /// <summary>
+        /// Provide all special abilities mastered by the hero.
+        /// </summary>
+        /// <returns>List of special abilities (as DTO)</returns>
         List<SpecialAbilityDTO> GetSpecialAbilities();
+
+        /// <summary>
+        /// Provide all combat style special abilities mastered by the hero.
+        /// </summary>
+        /// <param name="CombatTecId">Filter: A combat technique (as id string) the special abilities shall fit.</param>
+        /// <returns>List of special abilities (as DTO); <c>null</c> if there aren't any.</returns>
+        List<SpecialAbilityDTO> GetCombatStyleSpecialAbilities(string CombatTecId);
+
+        /// <summary>
+        /// Provide the languages the hero can speak.
+        /// </summary>
+        /// <returns>A list of languages (as DTO)</returns>
         List<LanguageDTO> GetLanguages();
 
         List<DisAdvantageDTO> GetAdvantages();

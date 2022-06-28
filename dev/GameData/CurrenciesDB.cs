@@ -21,5 +21,5 @@ public class CurrencyDbEntry : ICharacterAttribute
     public string Name { get; set; }
 
     [JsonPropertyName("rate")]
-    public double Rate { get; set; }
+    public decimal Rate { get; set; }
 }

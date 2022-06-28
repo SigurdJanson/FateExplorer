@@ -138,4 +138,10 @@
   <data name="txtMostUsedSkills" xml:space="preserve">
     <value>Fertigkeiten angezeigt in der Kategorie 'Meistverwendet'</value>
   </data>
+  <data name="lblBazaar" xml:space="preserve">
+    <value>Basar</value>
+  </data>
+  <data name="lblDefaultCurrency" xml:space="preserve">
+    <value>Standard für Vergleichswährung</value>
+  </data>
 </root>

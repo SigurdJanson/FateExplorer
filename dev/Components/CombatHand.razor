@@ -1,0 +1,198 @@
+﻿@using FateExplorer.ViewModel
+@inject IStringLocalizer<App> l10n
+
+
+<MudCard Class="mb-4" Outlined=BareHand Elevation=@(BareHand ? 0 : 3)>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <div Class="d-flex flex-wrap">
+                <div class="LeftHeader pr-2">
+                    <MudText Typo=Typo.body2 GutterBottom=false Color=Color.Secondary>
+                        @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
+                    </MudText>
+                    <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
+                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
+                </div>
+                @if (HasCombatStyles)
+                {
+                <div class="RightHeader pl-2">
+                    <MudSelect T=string Label=@(HasCombatStyles ? l10n["lblDefaultCombatStyle"] : "") 
+                        Variant=Variant.Text Clearable=@HasCombatStyles
+                        ReadOnly=@(!HasCombatStyles) DisableUnderLine=@(!HasCombatStyles) 
+                        Adornment=@(HasCombatStyles ? Adornment.End : Adornment.None)
+                        @bind-Value=SelectedCombatStyle>
+                        @if (HasCombatStyles)
+                        {
+                            @foreach (var cs in CombatStyles)
+                            {
+                            <MudSelectItem Value=cs.Id>@cs.Name</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                </div>
+                }
+            </div>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            @if (!BareHand)
+            {
+            <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
+                OnClick=StashWeapon/>
+            }
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardActions>
+        <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
+            OnClick=AttackCheckCalled
+            Disabled=HeroHands.IsDisabled(WhichHand)
+            Title=@TitleAttack aria-label=@AriaAttack />
+        @if (Weapon.CanParry)
+        {
+        <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
+            OnClick=ParryCheckCalled
+            Disabled=HeroHands.IsDisabled(WhichHand)
+            Title=@TitleParry aria-label=@AriaParry />
+        }
+@*      <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+            Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)
+            Title=@(l10n["lblView"]) aria-label=@(l10n["lblView"]) />*@
+    </MudCardActions>
+</MudCard>
+
+
+
+@code {
+    /// <summary>
+    /// Both hands of the character
+    /// </summary>
+    [Parameter] public HandsViMo HeroHands { get; set; }
+
+    /// <summary>
+    /// Which of the hands does thi component represent? Main or off-hand?
+    /// </summary>
+    [Parameter] public HandsViMo.Hand WhichHand  { get; set; }
+
+    /// <summary>
+    /// Does the character carry a weapon or fight with bare hands?
+    /// </summary>
+    [Parameter] public bool BareHand  { get; set; }
+
+    /// <summary>
+    /// The carried weapon (is either a data base weapon or the character's bare hand as weapon). Not null.
+    /// </summary>
+    [Parameter] public WeaponViMo Weapon { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public List<SpecialAbilityDTO> CombatStyles { get; set; }
+
+    /// <summary>
+    /// Raised when user clicks the attack button. Passes the id strings of 
+    /// combat technique and special ability (format "CT_9/SA_22").
+    /// </summary>
+    [Parameter] public EventCallback<Check> OnAttackCheck { get; set; }
+    /// <summary>
+    /// Raised when user clicks the parry button. Passes the id strings of 
+    /// combat technique and special ability (format "CT_9/SA_22").
+    /// </summary>
+    [Parameter] public EventCallback<Check> OnParryCheck { get; set; }
+    /// <summary>
+    /// Remove the weapon from this hand.
+    /// </summary>
+    [Parameter] public EventCallback StashWeapon { get; set; }
+
+    // Strings for tooltip and aria labels of the buttons
+    private string TitleAttack;
+    private string TitleParry;
+    private string AriaAttack;
+    private string AriaParry;
+
+    //
+    private bool HasCombatStyles;
+    private string SelectedCombatStyle;
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (HeroHands is null) throw new ArgumentNullException(nameof(HeroHands));
+        if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
+
+        HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
+        SelectedCombatStyle = null; // otherwise the dropdown gets confused
+
+        TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
+        TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
+        AriaAttack = $"{l10n["lblAttack"]} {l10n["lblRoll"]} {Weapon.Name}";
+        AriaParry = $"{l10n["lblParry"]} {l10n["lblRoll"]} {Weapon.Name}";
+    }
+
+    /// <summary>
+    /// Relay "Attack" button click to parent
+    /// </summary>
+    protected void AttackCheckCalled()
+    {
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Attack, Weapon.CombatTechId, SelectedCombatStyle));
+    }
+
+    /// <summary>
+    /// Relay "Parry" button click to parent
+    /// </summary>
+    protected void ParryCheckCalled()
+    {
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, SelectedCombatStyle));
+    }
+
+
+    /// <summary>
+    /// Prints attack, parry, and damage points
+    /// </summary>
+    /// <param name="Weapon">The weapon</param>
+    /// <param name="CarriedBy">The hand carrying the weapon</param>
+    /// <returns>A segment of UI content</returns>
+    private RenderFragment CarriedWeaponProps(WeaponViMo Weapon, HandsViMo.Hand CarriedBy)
+    {
+        var OtherWeapon = CarriedBy == HandsViMo.Hand.Main ? HeroHands.OffWeapon : HeroHands.MainWeapon;
+
+        string AttackStr, ParryStr, DamageStr;
+        int AT = Weapon.AtSkill(HeroHands, OtherWeapon.Branch);
+        int PA = Weapon.PaSkill(HeroHands, OtherWeapon.Branch);
+        if (AT > 0)
+        {
+            AttackStr = $"\u2694\u00A0{l10n["abbrvAttack"]}\u00A0{AT}";
+            DamageStr = $"\u27B9\u00A0{Weapon.DamageDieCount}{l10n["abbrvDie"]}";
+            if (Weapon.DamageBonus > 0) DamageStr = $"{DamageStr}+{Weapon.DamageBonus}";
+        }
+        else
+        {
+            AttackStr = DamageStr = "";
+        }
+        ParryStr =  PA > 0 ? $"🛡{l10n["abbrvParry"]}\u00A0{PA}" : "";
+
+        return 
+    @<text>
+            <span title=@l10n["lblAttack"]>@AttackStr</span> 
+            <span title=@l10n["lblParry"]>@ParryStr</span> 
+            <span title=@l10n["lblHitPoints"]>@DamageStr</span></text>;
+    }
+
+
+    /// <summary>
+    /// Create a render fragment to display the weapons ranges for ranged weapons
+    /// </summary>
+    /// <returns>A segment of UI content</returns>
+    private RenderFragment WeaponRanges()
+    {
+        if (Weapon.IsRanged && Weapon.Range is not null && Weapon.Range.Length > 0)
+        {
+            string Values = $"\u00A0\u219B\u00A0{string.Join(" · ", Weapon.Range)}\u00A0{l10n["lblYard"]}";
+            return @<span title=@l10n["lblRangeBrackets"]>@Values</span>;
+        }
+        else
+        {
+            return @<span/>;
+        }
+    }
+
+}

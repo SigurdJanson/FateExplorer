@@ -7,5 +7,8 @@
         public const string ParryLabelId = "lblParry";
         public const string DodgeLabelId = "lblDodge";
         public const string IniLabelId = "lblInitiative";
+        public const string HitPoints = "lblHitPoints";
+        // Hruruzat
+        public const string DoubletId = "lblDoublet";
     }
 }

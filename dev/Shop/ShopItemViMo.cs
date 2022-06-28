@@ -25,7 +25,7 @@ namespace FateExplorer.Shop
 
 
         [Display(Name = "lblPrice")]
-        public double Price => ItemM.Price;
+        public decimal Price => ItemM.Price;
 
         /// <summary>
         /// String representation of <see cref="Price"/> to reduce compuatations during rendering

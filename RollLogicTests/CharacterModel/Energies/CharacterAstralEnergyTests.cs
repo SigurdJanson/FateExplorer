@@ -3,7 +3,9 @@ using FateExplorer.GameData;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace UnitTests.CharacterModel.Energies
@@ -35,6 +37,26 @@ namespace UnitTests.CharacterModel.Energies
                 AddedEnergy,
                 this.mockCharacterM.Object);
         }
+
+
+
+        private static void MockSpecialAbility(Mock<ICharacterM> mock, string[] Advantages)
+            => mock.Setup(c => c.HasSpecialAbility(It.IsAny<string>()))
+                .Returns((string s) => Advantages.Contains(s));
+        private static void MockHasAdvantage(Mock<ICharacterM> mock, string[] Advantages)
+        {
+            mock.Setup(c => c.HasAdvantage(It.IsAny<string>()))
+                .Returns((string s) => Advantages.Contains(s));
+            Dictionary<string, IActivatableM> AdvDict = new();
+            foreach(var a in Advantages)
+            {
+                AdvDict.Add(a, new TieredActivatableM(a, 1, null)); // NOTE: only tier 1, no reference
+            };
+            mock.SetupGet(c => c.Advantages).Returns(AdvDict);
+        }
+        private static void MockHasDisadvantage(Mock<ICharacterM> mock, string[] Advantages)
+            => mock.Setup(c => c.HasDisadvantage(It.IsAny<string>()))
+                .Returns((string s) => Advantages.Contains(s));
 
         #endregion
 
@@ -68,9 +90,10 @@ namespace UnitTests.CharacterModel.Energies
             mockCharacterM.SetupGet(c => c.SpeciesId).Returns(Species);
             mockCharacterM.SetupGet(c => c.Abilities).Returns(HeroWipfelglanz.Abilities);
             // Layariel honours only the tradition "Elves"
-            mockCharacterM.Setup(c => c.HasSpecialAbility(It.Is<string>(s => s != "SA_345"))).Returns(false);
-            mockCharacterM.Setup(c => c.HasSpecialAbility(It.Is<string>(s => s == "SA_345"))).Returns(true);
-
+            MockSpecialAbility(mockCharacterM, new string[] { SA.TraditionElf });
+            MockHasAdvantage(mockCharacterM, HeroWipfelglanz.Advantages);
+            MockHasDisadvantage(mockCharacterM, HeroWipfelglanz.Disadvantages);
+            
             // Act
             var characterAstralEnergy = this.CreateCharacterAstralEnergy(ToAdd);
 

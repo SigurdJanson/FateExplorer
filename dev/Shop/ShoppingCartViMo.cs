@@ -10,11 +10,11 @@ namespace FateExplorer.Shop
         /// <summary>
         /// Gets the total price of all items in the default currency (i.e. silverthalers)
         /// </summary>
-        public double TotalPrice
+        public decimal TotalPrice
         {
             get
             {
-                double Result = 0;
+                decimal Result = 0;
                 ForEach(delegate ((ShopItemViMo item, int count) i)
                 {
                     Result += i.count * i.item.Price;

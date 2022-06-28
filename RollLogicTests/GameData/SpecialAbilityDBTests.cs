@@ -17,7 +17,7 @@ namespace UnitTests.GameData
 
         [Test]
         [TestCase("de", "*Aspektkenntnis", "Weg d. Zofe")]
-        //[TestCase("en", "Basilisk-tongue", "Guild Magic Ball"), Ignore("")]
+        [TestCase("en", "Aspect Knowledge", "Weg d. Zofe")]
         public void LoadFromFile_ParseSuccessful(string Language, string SA1, string SALast)
         {
             // Arrange
@@ -25,17 +25,14 @@ namespace UnitTests.GameData
             SpecialAbilityDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(1437, Result.Count);
+            Assert.AreEqual(1436, Result.Count);
             Assert.AreEqual(SA1, Result[0].Name);
             Assert.AreEqual(SALast, Result[^1].Name);
         }
 
-        [Test, Ignore("No english version, yet")]
-        [TestCase("", new string[] { "de", "en" })]
-        public override void CompareLanguages_Equality(string Dummy, string[] Languages)
-        {
 
-        }
+        /// inherited: public override void CompareLanguages_Equality(string Dummy, string[] Languages)
+
 
         /// inherited: public void Count_ContentNotLoaded_Return0()
     }

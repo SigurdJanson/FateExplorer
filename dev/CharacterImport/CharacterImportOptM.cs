@@ -65,7 +65,11 @@ namespace FateExplorer.CharacterImport
         [JsonPropertyName("ap")]
         public ExperiencePointsOpt Ap { get; set; }
 
-        [JsonPropertyName("el")]
+        /// <summary>
+        /// "Experience Level (EL) determines the number of Adventure Points (AP) 
+        /// you receive to create your hero" (VR1).
+        /// </summary>
+        [JsonPropertyName("el")] //TODO: most likely 
         public string El { get; set; }
 
         /// <summary>
@@ -162,6 +166,8 @@ namespace FateExplorer.CharacterImport
 
         #region IMPLEMENTs ICharacterImporter
 
+        public string GetIdentifier() => CharacterId;
+
         public string GetName() => Name;
 
         public string GetPlaceOfBirth() => Pers.Placeofbirth;
@@ -239,18 +245,25 @@ namespace FateExplorer.CharacterImport
         const string DisadvantageMarker = "DISADV_";
 
         /// <summary>
-        /// Request item ids from the collection of (dis-) advantages and special abilities.
+        /// Request item ids from the collection of (dis-) advantages and special abilities not incl. languages.
         /// </summary>
         /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
         /// <returns>List of id strings that match the request</returns>
-        public Dictionary<string, IActivatableM> GetActivatables(string Id)
+        public Dictionary<string, IActivatableM> GetActivatables(string Id, SpecialAbilityDB saDb = null)
         {
             Dictionary<string, IActivatableM> Result = new();
             foreach (var s in Activatable)
             {
                 if (s.Key.StartsWith(Id) && s.Value.Count > 0)
                     if (s.Key != OptSpecialAbility.Language)
-                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier));
+                    {
+                        string[] Reference;
+                        if (saDb != null && saDb.Contains(s.Key))
+                            Reference = (string[])saDb[s.Key].Reference?.Clone() ?? null;
+                        else
+                            Reference = null;
+                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier, Reference));
+                    }
             }
             return Result;
         }
@@ -277,8 +290,8 @@ namespace FateExplorer.CharacterImport
 
 
         /// <inheritdoc />
-        public Dictionary<string, IActivatableM> GetSpecialAbilities()
-            => GetActivatables(SpecialAbilityMarker);
+        public Dictionary<string, IActivatableM> GetSpecialAbilities(SpecialAbilityDB saDb = null)
+            => GetActivatables(SpecialAbilityMarker, saDb);
 
         /// <inheritdoc />
         public Dictionary<string, IActivatableM> GetAdvantages()
@@ -342,16 +355,16 @@ namespace FateExplorer.CharacterImport
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Less clarity")]
-        public double TotalMoney()
+        public decimal TotalMoney()
         {
-            double Ducats, Thalers, Farthings, Kreutzer;
-            if (!double.TryParse(Belongings.Purse.D, out Ducats))
+            decimal Ducats, Thalers, Farthings, Kreutzer;
+            if (!decimal.TryParse(Belongings.Purse.D, out Ducats))
                 Ducats = 0;
-            if (!double.TryParse(Belongings.Purse.S, out Thalers))
+            if (!decimal.TryParse(Belongings.Purse.S, out Thalers))
                 Thalers = 0;
-            if (!double.TryParse(Belongings.Purse.H, out Farthings))
+            if (!decimal.TryParse(Belongings.Purse.H, out Farthings))
                 Farthings = 0;
-            if (!double.TryParse(Belongings.Purse.K, out Kreutzer))
+            if (!decimal.TryParse(Belongings.Purse.K, out Kreutzer))
                 Kreutzer = 0;
             return Ducats * 10 + Thalers + Farthings / 10 + Kreutzer / 100;
         }
@@ -588,8 +601,8 @@ namespace FateExplorer.CharacterImport
         /// <summary>
         /// Structure points
         /// </summary>
-        [JsonPropertyName("stp")]
-        public int? StruPo { get; set; }
+        [JsonPropertyName("stp"), JsonConverter(typeof(JsonSingleOrArrayConverter<List<int>, int>))]
+        public List<int> StruPo { get; set; }
 
 
 

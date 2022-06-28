@@ -8,22 +8,22 @@
     </TitleContent>
     <DialogContent>
         <MudGrid>
-                @if (Names is not null)
-                    @foreach (var n in Names)
-                    {
-                    <MudItem sm=12 md=@(12 / Names.Length)>
-                        <MudPaper Elevation=0 Outlined=true Class="pb-2">
-                        <MudAvatar Square=true Variant=Variant.Filled Alt=@n>@n</MudAvatar>
-                        <MudTooltip Text=@l10n["txtModifierTip"]>
-                            <MudSlider Min=-6 Max=6 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled
-                                @bind-Value=Modifier[n]>
-                                @($"{l10n["lblModifier"]} {Modifier[n]}")
-                            </MudSlider>
-                        </MudTooltip>
-                        </MudPaper>
-                    </MudItem>
-                    <MudDivider/>
-                    }
+            @if (Names is not null)
+                @foreach (var n in Names)
+                {
+                <MudItem sm=12 md=@(12 / Names.Length)>
+                    <MudPaper Elevation=0 Outlined=true Class="pb-2">
+                    <MudAvatar Square=true Variant=Variant.Filled Alt=@n>@n</MudAvatar>
+                    <MudTooltip Text=@l10n["txtModifierTip"]>
+                        <MudSlider Min=-6 Max=6 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled
+                            @bind-Value=Modifier[n]>
+                            @($"{l10n["lblModifier"]} {Modifier[n]}")
+                        </MudSlider>
+                    </MudTooltip>
+                    </MudPaper>
+                </MudItem>
+                <MudDivider/>
+                }
             <MudItem sm=12 md=6>
                 <MudRadioGroup @bind-SelectedOption=DialogSiteSetting>
                     <MudRadio Option=RegenerationSite.Good Dense=true>@l10n["lblRegenerationSite.Good"]</MudRadio>
@@ -54,7 +54,7 @@
         <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@CancelDialog Class="px-10">
             @l10n["btnCancel"]
         </MudButton>
-        <MudButton Variant=Variant.Filled  Color=Color.Primary OnClick=@SubmitDialog Class="px-10">
+        <MudButton Variant=Variant.Filled  Color=Color.Primary OnClick=@SubmitDialog Class="px-10" ButtonType=ButtonType.Submit>
             @l10n["btnRegenerate"]
         </MudButton>
     </DialogActions>
@@ -67,7 +67,8 @@
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
     /// <summary>
-    /// Tupel with the name of an energy and the roll result to increase it.
+    /// List of the names for those types of energy which the dialog is supposed to
+    /// display. Names should be abbreviated and localised.
     /// </summary>
     [Parameter] public string[] Names { get; set; }
 

@@ -148,14 +148,14 @@ namespace FateExplorer.Shop
         /// <param name="BuyerHaggleQL">Quality level of the buyer's Trade (Haggling) check</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public double DeterminePrice(double ListPrice, int BuyerHaggleQL)
+        public decimal DeterminePrice(decimal ListPrice, int BuyerHaggleQL)
         {
             if (BuyerHaggleQL < 0) throw new ArgumentOutOfRangeException(nameof(BuyerHaggleQL));
             if (HaggleQL == IncompleteBargain) return ListPrice;
 
-            double Correction = (HaggleQL - BuyerHaggleQL) * 0.1 + 1;
-            if (Correction < 0.5) Correction = 0.5;
-            if (Correction > 1.5) Correction = 1.5;
+            decimal Correction = (HaggleQL - BuyerHaggleQL) * 0.1M + 1;
+            if (Correction < 0.5M) Correction = 0.5M;
+            if (Correction > 1.5M) Correction = 1.5M;
 
             return ListPrice * Correction;
         }

@@ -67,7 +67,8 @@ namespace FateExplorer.GameData
         [JsonPropertyName("group")]
         public SpecAbGroups Group { get; set; }
 
-
+        [JsonPropertyName("ref")]
+        public string[] Reference { get; set; }
         // TODO: no URLs in file
     }
 }

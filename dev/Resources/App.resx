@@ -130,7 +130,8 @@
     <value>d</value>
   </data>
   <data name="abbrvHP" xml:space="preserve">
-    <value>Hit Points</value>
+    <value>DP</value>
+    <comment>Fight</comment>
   </data>
   <data name="abbrvParry" xml:space="preserve">
     <value>PA</value>
@@ -187,6 +188,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="btnClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="btnConfirm" xml:space="preserve">
     <value>Confirm it</value>
   </data>
@@ -195,6 +199,7 @@
   </data>
   <data name="btnDamage" xml:space="preserve">
     <value>Roll damage</value>
+    
   </data>
   <data name="btnFullyRestore" xml:space="preserve">
     <value>Fully restore</value>
@@ -215,6 +220,18 @@
   </data>
   <data name="btnReset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="btnSetDate" xml:space="preserve">
+    <value>Set date</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetDateConfirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetEarthDate" xml:space="preserve">
+    <value>To official date</value>
+    <comment>Calendar</comment>
   </data>
   <data name="btnUploadFile" xml:space="preserve">
     <value>Upload file</value>
@@ -435,6 +452,7 @@
   </data>
   <data name="lblDateOfBirth" xml:space="preserve">
     <value>Date of Birth</value>
+    <comment>Character</comment>
   </data>
   <data name="lblDescription" xml:space="preserve">
     <value>Description</value>
@@ -467,6 +485,10 @@
   <data name="lblGroup" xml:space="preserve">
     <value>Group</value>
   </data>
+  <data name="lblHoliday" xml:space="preserve">
+    <value>Holiday</value>
+    <comment>Calendar</comment>
+  </data>
   <data name="lblImportantSkill" xml:space="preserve">
     <value>Selected Skills</value>
     <comment>Character Act (Skills)</comment>
@@ -495,6 +517,10 @@
   <data name="lblModifier" xml:space="preserve">
     <value>Modifier</value>
   </data>
+  <data name="lblMoonPhase" xml:space="preserve">
+    <value>Moon phase</value>
+    <comment>Calendar</comment>
+  </data>
   <data name="lblMostUsed" xml:space="preserve">
     <value>Commonly Used</value>
     <comment>Character Act (Skills)</comment>
@@ -521,11 +547,11 @@
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithDominantHand" xml:space="preserve">
-    <value>Pick up with non-dominant hand</value>
+    <value>Pick up with dominant hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithNondominantHand" xml:space="preserve">
-    <value>Pick up with dominant hand</value>
+    <value>Pick up with non-dominant hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">
@@ -601,6 +627,10 @@
   <data name="lblSearch" xml:space="preserve">
     <value>Find</value>
   </data>
+  <data name="lblSeason" xml:space="preserve">
+    <value>Season</value>
+    <comment>Calendar</comment>
+  </data>
   <data name="lblSelectComaprisonCurrency" xml:space="preserve">
     <value>Select comparison currency</value>
     <comment>Shop</comment>
@@ -652,7 +682,8 @@
     <value>View</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
-    <value>Funds</value>
+    <value>Ready money</value>
+    <comment>Character, Money</comment>
   </data>
   <data name="lblWeight" xml:space="preserve">
     <value>Carried Weight</value>
@@ -877,7 +908,7 @@
     <comment>enum LanguageId</comment>
   </data>
   <data name="SAG" xml:space="preserve">
-    <value>SAG</value>
+    <value>SGC</value>
     <comment>Abilities</comment>
   </data>
   <data name="SagaThorwalian" xml:space="preserve">
@@ -967,6 +998,10 @@
     <value>The Fate Explorer helps you play the Dark Eye* table top games (rule system 5). Using it you can roll your dice easier. The Fate Explorer takes care of most of the core rules and can be described as an intelligent character sheet. Consecutive checks are done automatically and checked.</value>
     <comment>About</comment>
   </data>
+  <data name="txtDateFormatPlaceholder" xml:space="preserve">
+    <value>dd Month yyyy BF</value>
+    <comment>Calendar</comment>
+  </data>
   <data name="txtEnergyDecrease" xml:space="preserve">
     <value>Reduce by {0}</value>
     <comment>Energy regeneration</comment>
@@ -989,5 +1024,83 @@
   <data name="Zhayad" xml:space="preserve">
     <value>Zhayad</value>
     <comment>enum LanguageId</comment>
+  </data>
+  <data name="rollna" xml:space="preserve">
+    <value>Roll</value>
+    <comment>RollSuccessLevel</comment>
+  </data>
+  <data name="lblAge" xml:space="preserve">
+    <value>Age</value>
+    <comment>Character</comment>
+  </data>
+  <data name="lblRoutineCheck" xml:space="preserve">
+    <value>Routine Check</value>
+    <comment>Skill</comment>
+  </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="lblCashAmount" xml:space="preserve">
+    <value>Cash on Hand</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblEditCash" xml:space="preserve">
+    <value>Change Ready Money</value>
+  </data>
+  <data name="lblSubtractAmount1" xml:space="preserve">
+    <value>Subtract one</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblAddAmount1" xml:space="preserve">
+    <value>Add one</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblModifyByAmount" xml:space="preserve">
+    <value>Per Difference Amount</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblSilverthalers" xml:space="preserve">
+    <value>Silverthaler</value>
+    <comment>DlgMoney</comment>
+  </data>
+  <data name="lblDateYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="lblDateMonth" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="lblDateDay" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="btnDateChange" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="lblEditDate" xml:space="preserve">
+    <value>Edit Date</value>
+  </data>
+  <data name="msgDayOutOfRange" xml:space="preserve">
+    <value>The set days of month do not work with the chosen month</value>
+    <comment>Date</comment>
+  </data>
+  <data name="lblYard" xml:space="preserve">
+    <value>Yard</value>
+  </data>
+  <data name="abbrvYard" xml:space="preserve">
+    <value>yd.</value>
+  </data>
+  <data name="lblRangeBrackets" xml:space="preserve">
+    <value>Range brackets (close/medium/far)</value>
+  </data>
+  <data name="lblHitPoints" xml:space="preserve">
+    <value>Damage Points</value>
+    <comment>Fight</comment>
+  </data>
+  <data name="lblDefaultCombatStyle" xml:space="preserve">
+    <value>Default</value>
+    <comment>Fight</comment>
+  </data>
+  <data name="lblDoublet" xml:space="preserve">
+    <value>Doublet</value>
+    <comment>Fight</comment>
   </data>
 </root>

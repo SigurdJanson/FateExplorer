@@ -23,7 +23,7 @@ namespace UnitTests.Shop
         private MockRepository mockRepository;
         private Mock<IStringLocalizer<App>> mockLl10n;
         private Mock<HttpClient> mockHttpClient;
-        private Mock<AppSettings> mockAppCfg;
+        //private Mock<AppSettings> mockAppCfg;
         private Mock<IGameDataService> mockGameData;
 
 
@@ -33,9 +33,31 @@ namespace UnitTests.Shop
             this.mockRepository = new MockRepository(MockBehavior.Strict);
             this.mockLl10n = mockRepository.Create<IStringLocalizer<App>>();
             this.mockHttpClient = mockRepository.Create<HttpClient>();
-            this.mockAppCfg = mockRepository.Create<AppSettings>();
+            //this.mockAppCfg = mockRepository.Create<AppSettings>();
             this.mockGameData = mockRepository.Create<IGameDataService>();
         }
+
+       public static CurrenciesDB MockCurrenciesDB()
+        {
+            var result = new CurrenciesDB()
+            {
+                Data = new List<CurrencyDbEntry>() 
+                { 
+                    new() { Id = "A", Name="A", Rate=1.1M, Origin="A" },
+                    new() { Id = "B", Name="B", Rate=2.2M, Origin="B" },
+                    new() { Id = "C", Name="C", Rate=3.3M, Origin="C" }
+                }
+            };
+            return result;
+        }
+
+        public ShopInventoryViMo GetShopInventory()
+        {
+            var result = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
+            return result;
+        }
+
+
         #endregion ===================
 
 
@@ -56,18 +78,34 @@ namespace UnitTests.Shop
 
             // Assert
             Assert.AreEqual(642, Result.Count);
+        }
 
+
+
+        [Test, Ignore("")]
+        public async Task InitializeGameDataAsync_StateUnderTest_ExpectedBehavior()
+        {
+            // Arrange
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
+
+            // Act
+            await shopInventoryViMo.InitializeGameDataAsync();
+
+            // Assert
+            Assert.Fail();
         }
 
 
 
         [Test, Ignore("")]
         [TestCase("Alchimistenlabor")]
-        public void GetStock_ExactFilter_SingleHit(string Filter)
+        public async Task GetStock_ExactFilter_SingleHit(string Filter)
         {
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
 
+            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, null, mockHttpClient.Object, mockLl10n.Object);
+            await shopInventoryViMo.InitializeGameDataAsync();
             // Act
             var result = shopInventoryViMo.GetStock(Filter, null);
 
@@ -75,17 +113,60 @@ namespace UnitTests.Shop
             Assert.AreEqual(1, result.Count);
         }
 
-        [Test, Ignore("")]
-        public async Task InitializeGameDataAsync_StateUnderTest_ExpectedBehavior()
+
+        [Test]
+        public void GetCurrencies_NoCurrenciesAvailable_ReturnsNull()
         {
+            const int ExpectedCount = 3;
             // Arrange
-            var shopInventoryViMo = new ShopInventoryViMo(mockGameData.Object, mockAppCfg.Object, mockHttpClient.Object, mockLl10n.Object);
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
 
             // Act
-            await shopInventoryViMo.InitializeGameDataAsync();
+            var result = Inventory.GetCurrencies();
 
             // Assert
-            Assert.Fail();
+            int ResultLength = 0; // determine length of `result`
+            using (IEnumerator<(string id,string name)> enumerator = result.GetEnumerator())
+                while (enumerator.MoveNext()) ResultLength++;
+
+            Assert.AreEqual(ExpectedCount, ResultLength);
+            mockRepository.VerifyAll();
+        }
+
+
+
+        [Test] // No app config, i.e. no default
+        public void GetDefaultCurrency_NoAppConfig_ReturnsEmpty()
+        {
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
+
+            // Act
+            var result = Inventory.GetDefaultCurrency();
+
+            // Assert
+            Assert.AreEqual(("", ""), result);
+            mockRepository.VerifyAll();
+        }
+
+
+
+        [Test, Sequential]
+        public void GetExchangeRate(
+            [Values("A", "B", "C")] string currencyId, [Values(1.1, 2.2, 3.3)] decimal Expected)
+        {
+            // Arrange
+            mockGameData.SetupGet(c => c.Currencies).Returns(MockCurrenciesDB());
+            var Inventory = GetShopInventory();
+
+            // Act
+            var result = Inventory.GetExchangeRate(currencyId);
+
+            // Assert
+            Assert.AreEqual(Expected, result);
+            mockRepository.VerifyAll();
         }
 
         #endregion

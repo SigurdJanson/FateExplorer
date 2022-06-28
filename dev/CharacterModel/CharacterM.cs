@@ -15,12 +15,10 @@ namespace FateExplorer.CharacterModel
         public const string Writing = "SA_27";
         public const string Language = "SA_29";
         public const string TwoHandedCombat = "SA_42";
+        public const string TraditionElf = "SA_345";
+        public const string Hruruzat = "SA_186";
     }
 
-    public static class ADV
-    {
-        public const string Ambidexterous = "ADV_5";
-    }
 
 
     /// <summary>
@@ -38,6 +36,7 @@ namespace FateExplorer.CharacterModel
         {
             try
             {
+                Id = characterImportOptM.GetIdentifier();
                 Name = characterImportOptM.GetName();
                 PlaceOfBirth = characterImportOptM.GetPlaceOfBirth();
                 DateOfBirth = characterImportOptM.GetDateOfBirth();
@@ -63,10 +62,10 @@ namespace FateExplorer.CharacterModel
             // SPECIAL ABILITIES
             try
             {
-                SpecialAbilities = characterImportOptM.GetSpecialAbilities();
+                SpecialAbilities = characterImportOptM.GetSpecialAbilities(gameData.SpecialAbilities);
                 Languages = characterImportOptM.GetLanguages();
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.SpecialAbility); }
 
 
             // DIS-ADVANTAGES
@@ -75,7 +74,7 @@ namespace FateExplorer.CharacterModel
                 Advantages = characterImportOptM.GetAdvantages();
                 Disadvantages = characterImportOptM.GetDisadvantages();
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Undefined); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.DisAdvantage); }
 
 
             // SKILLS
@@ -104,7 +103,7 @@ namespace FateExplorer.CharacterModel
                     }
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Skills); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.CombatTechnique); }
 
 
             // DODGE
@@ -148,7 +147,7 @@ namespace FateExplorer.CharacterModel
                         Energies.Add(energy.Id, energyM);
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Energy); }
 
 
             // RESILIENCES
@@ -181,11 +180,16 @@ namespace FateExplorer.CharacterModel
         }
 
 
+        /// <inheritdoc />
+        public string Id { get; set; }
 
+        /// <inheritdoc />
         public string Name { get; protected set; }
 
+        /// <inheritdoc />
         public string PlaceOfBirth { get; protected set; }
 
+        /// <inheritdoc />
         public string DateOfBirth { get; protected set; }
 
         /// <inheritdoc />
@@ -195,7 +199,7 @@ namespace FateExplorer.CharacterModel
         public double CarriedWeight { get; protected set; }
 
         /// <inheritdoc />
-        public double Money { get; protected set; }
+        public decimal Money { get; protected set; }
 
         /// <inheritdoc />
         public double WhatCanCarry(int EffectiveStrength)

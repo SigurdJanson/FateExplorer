@@ -14,11 +14,11 @@ namespace FateExplorer.CharacterModel
                 throw new ArgumentException($"Class has been instantiated with the wrong type of energy",
                     nameof(_Class));
 
-            int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
-            Max = RaceBaseValue;
+            Max = gameData.RaceBaseValue.FirstOrDefault(bv => bv.RaceId == Hero.SpeciesId)?.Value ?? 0;
             foreach (var a in gameData.DependantAbilities)
                 Max += Hero.Abilities[a].Value;
             Max += AddedEnergy;
+            Max += GetDisAdvantageModifier(gameData);
 
             // If a character’s LP total ever drops below zero by an amount equal to
             // or greater than the character’s Constitution stat, the character dies

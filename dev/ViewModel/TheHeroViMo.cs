@@ -1,11 +1,13 @@
 ﻿using FateExplorer.CharacterImport;
-using FateExplorer.GameData;
 using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
-using Microsoft.Extensions.Configuration;
+using FateExplorer.Shared.ClientSideStorage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FateExplorer.ViewModel
 {
@@ -15,6 +17,7 @@ namespace FateExplorer.ViewModel
     {
         protected IGameDataService GameDataService; // injected
         protected AppSettings AppConfig; // injected
+        protected IClientSideStorage Storage; // injected storage
         protected ICharacterM characterM;
 
         /// <summary>
@@ -29,58 +32,88 @@ namespace FateExplorer.ViewModel
         /// Constructor
         /// </summary>
         /// <param name="gameData"></param>
-        public TheHeroViMo(IGameDataService gameData, AppSettings appConfig)
+        public TheHeroViMo(IGameDataService gameData, AppSettings appConfig, IClientSideStorage storage)
         {
             GameDataService = gameData;
             AppConfig = appConfig;
+            Storage = storage;
         }
 
         /// <inheritdoc/>
         public bool HasBorn { get; protected set; }
 
         /// <inheritdoc/>
-        public void ReadCharacterFile(byte[] Data)
+        public async Task ReadCharacterFile(byte[] Data)
         {
             CharacterImportOptM characterImportOptM = JsonSerializer.Deserialize<CharacterImportOptM>(new ReadOnlySpan<byte>(Data));
 
             characterM = new CharacterM(GameDataService, characterImportOptM);
-            InitAttributes();
+            await InitAttributes();
             HasBorn = true;
             NotifyStateChanged();
         }
 
+
+
         /// <summary>
         /// Sets the effective values after a new character was loaded.
         /// </summary>
-        protected void InitAttributes()
+        protected async Task InitAttributes()
         {
             if (characterM is null)
                 throw new Exception("Interner Programmfehler; keine geladenen Daten.");
 
+            // Retrieve previously saved state (if available)
+            string StorageId = $"{GetType()}/{characterM?.Id}";
+            HeroStorageDTO StoredItem = await Storage.Retrieve<HeroStorageDTO>(StorageId, null);
+
+            //
+            // Create character with default values
+            // Set either default value or effective value from storage
+            //
             // ABILITIES
             if (AbilityEffValues is null)
                 AbilityEffValues = new();
             else
                 AbilityEffValues.Clear();
             foreach (var chab in characterM?.Abilities)
-                AbilityEffValues.Add(chab.Key, chab.Value.Value);
+                if (StoredItem?.Abilities?.TryGetValue(chab.Key, out int StoredValue) ?? false)
+                    AbilityEffValues.Add(chab.Key, StoredValue);
+                else
+                    AbilityEffValues.Add(chab.Key, chab.Value.Value);
 
             // COMBAT
             Hands = new(characterM, GameDataService);
 
             // DODGE
-            DodgeTrueValue = characterM.Dodge.Value;
+            if (StoredItem?.DodgeTrue is not null)
+                DodgeTrueValue = StoredItem.DodgeTrue;
+            else
+                DodgeTrueValue = characterM.Dodge.Value;
+
+            // Add DodgeMod
 
             // ENERGIES
             EffEnergy = new();
             foreach (var r in characterM.Energies)
             {
+                int Max2Set;
+                if (StoredItem?.EffectiveMaxEnergy?.ContainsKey(r.Key) ?? false)
+                    Max2Set = StoredItem.EffectiveMaxEnergy[r.Key];
+                else
+                    Max2Set = r.Value.Max;
+                int Val2Set;
+                if (StoredItem?.EffectiveEnergy?.ContainsKey(r.Key) ?? false)
+                    Val2Set = StoredItem.EffectiveEnergy[r.Key];
+                else
+                    Val2Set = r.Value.Max;
+
                 var energy = new EnergyViMo(r.Value, r.Key, this)
                 {
                     Name = GameDataService.Energies[r.Key].Name,
                     ShortName = GameDataService.Energies[r.Key].ShortName,
-                    EffMax = r.Value.Max,
-                    EffectiveValue = r.Value.Max
+                    EffMax = Max2Set,
+                    EffectiveValue = Val2Set
                 };
                 EffEnergy.Add(energy);
             }
@@ -91,8 +124,43 @@ namespace FateExplorer.ViewModel
             else
                 ResilienceEffValues.Clear();
             foreach (var chre in characterM?.Resiliences)
-                ResilienceEffValues.Add(chre.Key, chre.Value.ComputeValue(AbilityEffValues));
+                if (StoredItem?.EffectiveResilience?.TryGetValue(chre.Key, out int StoredValue) ?? false)
+                    ResilienceEffValues.Add(chre.Key, StoredValue);
+                else
+                    ResilienceEffValues.Add(chre.Key, chre.Value.ComputeValue(AbilityEffValues));
+
+            // BELONGINGS
+            EffectiveMoney = StoredItem?.EffectiveMoney ?? 0;
+
         }
+
+
+        /// <summary>
+        /// Send the current state of effective and true values to storage
+        /// </summary>
+        protected async void SaveAttributes()
+        {
+            string StorageId = $"{GetType()}/{characterM?.Id}";
+            HeroStorageDTO Data2Store = new()
+            {
+                Abilities = this.AbilityEffValues,
+                DodgeTrue = this.DodgeTrueValue,
+                DodgeMod  = this.DodgeEffMod,
+                EffectiveEnergy = new(),
+                EffectiveMaxEnergy = new(),
+                EffectiveResilience = this.ResilienceEffValues,
+                EffectiveMoney = this.EffectiveMoney
+            };
+            foreach (var e in this.EffEnergy)
+            {
+                Data2Store.EffectiveEnergy.Add(e.Id, e.EffectiveValue);
+                Data2Store.EffectiveMaxEnergy.Add(e.Id, e.EffMax);
+            }
+
+            await Storage.Store(StorageId, Data2Store);
+        }
+
+
 
         public string Name { get => characterM?.Name ?? ""; }
         public string PlaceOfBirth { get => characterM?.PlaceOfBirth ?? ""; }
@@ -100,15 +168,43 @@ namespace FateExplorer.ViewModel
 
         public double CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
 
-        public double Money { get => characterM?.Money ?? 0; }
 
+        #region POSESSIONS ------
+
+        /// <summary>
+        /// The effective amount of money if it deviates from the (imported) amount; otherwise <c>null</c>.
+        /// </summary>
+        private decimal? EffectiveMoney = null;
+
+        /// <summary>
+        /// The cash money carried by the character.
+        /// </summary>
+        public decimal Money
+        { 
+            get => EffectiveMoney is null ? characterM?.Money ?? 0 : EffectiveMoney!.Value;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                if (value == EffectiveMoney) return; // avoid any further processing if uneeded
+                if (value == characterM?.Money)
+                    EffectiveMoney = null;
+                else
+                    EffectiveMoney = value;
+                SaveAttributes();
+            }
+        }
+
+        /// <summary>
+        /// Get a formatted string of the character's total wealth
+        /// </summary>
+        /// <returns>A human-readable string</returns>
         public string FormatMoney()
         {
             string Result;
             if (Money >= 100)
             {
                 int Doucats = (int)Math.Floor(Money / 10);
-                double Silvers = Money % 10;
+                decimal Silvers = Money % 10;
                 Result = $"{Doucats} D {Silvers:N2} S";
             }
             else
@@ -119,6 +215,9 @@ namespace FateExplorer.ViewModel
         public double WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
         public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
+        #endregion
+
 
         /// <inheritdoc/>
         public int Initiative
@@ -138,7 +237,11 @@ namespace FateExplorer.ViewModel
 
 
         #region ABILITIES
-        Dictionary<string, int> AbilityEffValues { get; set; }
+
+        /// <summary>
+        /// The effective values of the character's abilities.
+        /// </summary>
+        Dictionary<string, int> AbilityEffValues { get; set; } // TODO: send to storage as soon as a change of true/effective value is supported
 
         public List<AbilityDTO> GetAbilites()
         {
@@ -162,6 +265,7 @@ namespace FateExplorer.ViewModel
         #endregion
 
 
+        /// <inheritdoc />
         public List<SpecialAbilityDTO> GetSpecialAbilities()
         {
             List<SpecialAbilityDTO> Result = new();
@@ -185,6 +289,40 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
+
+        /// <inheritdoc />
+        public List<SpecialAbilityDTO> GetCombatStyleSpecialAbilities(string CombatTecId)
+        {
+            List<SpecialAbilityDTO> Result = new();
+            foreach (var sa in characterM?.SpecialAbilities)
+            {
+                // skip if special ability does not reference this combat technique
+                // (in fact does not reference anything)
+                if (sa.Value.Reference is null || sa.Value.Reference.Length == 0)
+                    continue;
+                // skip if it does not fit the given filter
+                if (CombatTecId is not null && !sa.Value.Reference.Contains(CombatTecId)) 
+                    continue;
+
+                string Name;
+                try
+                {
+                    Name = GameDataService.SpecialAbilities[sa.Key].Name;
+                }
+                catch (Exception) { Name = "unknown"; }
+                SpecialAbilityDTO item = new()
+                {
+                    Id = sa.Key,
+                    Name = Name,
+                    Tier = sa.Value.Tier
+                };
+                Result.Add(item);
+            }
+            return Result;
+        }
+
+
+        /// <inheritdoc />
         public List<LanguageDTO> GetLanguages()
         {
             List<LanguageDTO> Result = new();
@@ -264,7 +402,6 @@ namespace FateExplorer.ViewModel
 
         #region SKILLS
 
-        // TODO: implement effective values
 
         /// <inheritdoc/>
         public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
@@ -283,7 +420,7 @@ namespace FateExplorer.ViewModel
                     Id = s.Key,
                     Name = s.Value.Name,
                     Min = 0,
-                    EffectiveValue = s.Value.Value, // TODO: effective skill value
+                    EffectiveValue = s.Value.Value,
                     Max = s.Value.Value,
                     Domain = s.Value.Domain
                 };
@@ -310,7 +447,7 @@ namespace FateExplorer.ViewModel
                     Id = fav,
                     Name = s.Name,
                     Max = s.Value,
-                    EffectiveValue = s.Value, // TODO: effective skill value
+                    EffectiveValue = s.Value,
                     Min = 0,
                     Domain = s.Domain
                 };
@@ -344,7 +481,7 @@ namespace FateExplorer.ViewModel
                     Id = Key,
                     Name = characterM.Skills.Skills[Key].Name,
                     Max = characterM.Skills.Skills[Key].Value,
-                    EffectiveValue = characterM.Skills.Skills[Key].Value, // TODO: effective skill value
+                    EffectiveValue = characterM.Skills.Skills[Key].Value,
                     Min = 0,
                     Domain = characterM.Skills.Skills[Key].Domain
                 });
@@ -362,7 +499,7 @@ namespace FateExplorer.ViewModel
                         Id = Key,
                         Name = characterM.Skills.Skills[Key].Name,
                         Max = characterM.Skills.Skills[Key].Value,
-                        EffectiveValue = characterM.Skills.Skills[Key].Value, // TODO: effective skill value
+                        EffectiveValue = characterM.Skills.Skills[Key].Value,
                         Min = 0,
                         Domain = characterM.Skills.Skills[Key].Domain
                     });
@@ -384,6 +521,7 @@ namespace FateExplorer.ViewModel
         }
 
 
+        /// <inheritdoc />
         public AbilityDTO[] GetSkillAbilities(string skillId)
         {
             AbilityDTO[] Result = new AbilityDTO[3];
@@ -417,14 +555,14 @@ namespace FateExplorer.ViewModel
 
 
         /// <summary>
-        /// A basic dodge value set by the user overwrites the value from the charcter sheet
+        /// A dodge value set by the user overwrites the value from the character sheet
         /// </summary>
-        int DodgeTrueValue { get; set; }
+        int DodgeTrueValue { get; set; } // TODO: send to storage as soon as a change of true/effective value is supported
 
         /// <summary>
         /// A temporary modifier of the dodge value
         /// </summary>
-        int DodgeEffMod { get; set; }
+        int DodgeEffMod { get; set; } // TODO: send to storage as soon as a change of true/effective value is supported
 
         /// <inheritdoc />
         public CharacterAttrDTO GetDodge()
@@ -445,7 +583,7 @@ namespace FateExplorer.ViewModel
                 if (Same)
                     DodgeVal = DodgeTrueValue + DodgeEffMod;
                 else
-                    DodgeVal = DodgeM.ComputeDodge(characterM.GetAbility(Dependencies[0])) + DodgeEffMod;
+                    DodgeVal = DodgeM.ComputeDodge(characterM.GetAbility(Dependencies[0])) + DodgeEffMod; // TODO: this is wrong because the true value is completely being ignored, here
             }
 
             return new CharacterAttrDTO()
@@ -478,6 +616,7 @@ namespace FateExplorer.ViewModel
         public EnergyViMo OnEnergyChanged(EnergyViMo energy)
         {
             NotifyStateChanged();
+            SaveAttributes(); // store new values in client-side storage
             return energy;
         }
 
@@ -489,7 +628,7 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// Effective points of this energy
         /// </summary>
-        public Dictionary<string, int> ResilienceEffValues { get; protected set; }
+        public Dictionary<string, int> ResilienceEffValues { get; protected set; } // TODO: send to storage as soon as a change of true/effective value is supported
 
         public List<ResilienceDTO> GetResiliences()
         {

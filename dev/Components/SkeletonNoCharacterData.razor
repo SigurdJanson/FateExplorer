@@ -82,7 +82,7 @@
             {
                 try
                 {
-                    Hero.ReadCharacterFile(memoryStream.ToArray());
+                    await Hero.ReadCharacterFile(memoryStream.ToArray());
                 }
                 catch(ChrImportException error)
                 {

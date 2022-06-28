@@ -135,9 +135,9 @@ namespace UnitTests.Shop
         [TestCase(MerchantViMo.ExperienceLevel.Legend, 6, 3, 1.3)]
         [TestCase(MerchantViMo.ExperienceLevel.Legend, 6, 6, 1.0)]
         public void DeterminePrice_AbilitiesGt20_PriceMatchesDifference(
-            ExperienceLevel Level, int ExpectedQL, int BuyerQL, double ExpectedMultiplier)
+            ExperienceLevel Level, int ExpectedQL, int BuyerQL, decimal ExpectedMultiplier)
         {
-            const double Price = 63.5;
+            const decimal Price = 63.5M;
             // Arrange
             var merchantViMo = this.CreateMerchantViMo();
             mockGameDataService.SetupGet(p => p.Abilities)

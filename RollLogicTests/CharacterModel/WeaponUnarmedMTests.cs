@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -96,7 +97,7 @@ namespace UnitTests.CharacterModel
         private Dictionary<string, IActivatableM> MockSpecialAbilities(int Tier)
         {
             Dictionary<string, IActivatableM> Result = new();
-            Result.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier));
+            Result.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier, null));
             return Result;
         }
 
@@ -109,7 +110,7 @@ namespace UnitTests.CharacterModel
             if (TwoHandedTier < 0 || TwoHandedTier > 2) 
                 throw new ArgumentOutOfRangeException(nameof(TwoHandedTier));
 
-            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidexterous)))
+            mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidextrous)))
                 .Returns(IsAmbidext);
             mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoHandedCombat)))
                 .Returns(TwoHandedTier > 0);

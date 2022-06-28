@@ -31,7 +31,7 @@ namespace FateExplorer.Shop
         public GroupId Group { get; set; }
 
         [JsonPropertyName("price")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [JsonPropertyName("template")]
         public string Template { get; set; }

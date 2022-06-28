@@ -2,35 +2,37 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudListItem @key=Skill.Id OnClick=@(() => RollSkill.InvokeAsync(Skill)) DisableRipple=true>
+<MudListItem @key=Skill.Id DisableRipple=true>
     <div class="d-flex align-center" >
     <div>
-        @if (TextFilter is not null)
-        {
         <MudHighlighter Class="mud-primary-text" Style="background-color:transparent;font-weight:bold"
                         Text=@Skill.Name HighlightedText=@TextFilter />
-        }
-        else
-        {
-        <MudText Typo=Typo.body1 GutterBottom=false>@Skill.Name</MudText>
-        }
         <MudText Typo=Typo.body2 GutterBottom=false>
             <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
             @Skill.Max @RenderAbilities(Abilities)
         </MudText>
     </div>
     <MudSpacer/>
+    @if (CanRoutine && RoutineSkillCheck.HasDelegate)
+    {
+    <MudIconButton Color=Color.Dark Icon=@IconsFE.Blindfold
+            OnClick=@(() => RoutineSkillCheck.InvokeAsync(Skill))
+            Title=@(l10n["lblRoutineCheck"])
+            aria-label=@($"{Skill.Name} {l10n["lblRoutineCheck"]}") />
+    }    
     @if (RollSkill.HasDelegate)
     {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
             OnClick=@(() => RollSkill.InvokeAsync(Skill))
-            aria-label=@(l10n["lblRoll"] + " " + Skill.Name) />
+            Title=@(l10n["lblRoll"])
+            aria-label=@($"{Skill.Name} {l10n["lblRoll"]}") />
     }
     @if (ViewSkill.HasDelegate)
     {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
             OnClick=@(() => ViewSkill.InvokeAsync(Skill))
-            aria-label=@(l10n["lblView"] + " " + Skill.Name) />
+            Title=@(l10n["lblView"])
+            aria-label=@($"{Skill.Name} {l10n["lblView"]}") />
     }
     </div>
 </MudListItem>
@@ -48,9 +50,19 @@
     [Parameter] public AbilityDTO[]  Abilities { get; set; }
 
     /// <summary>
+    /// Does this skill allow a routine skill check?
+    /// </summary>
+    [Parameter] public bool CanRoutine { get; set; }
+
+    /// <summary>
     /// An event that will be called in case the user rolls a skill check
     /// </summary>
     [Parameter] public EventCallback<SkillsDTO> RollSkill { get; set; }
+
+    /// <summary>
+    /// An event that will be called in case the user rolls a skill check
+    /// </summary>
+    [Parameter] public EventCallback<SkillsDTO> RoutineSkillCheck { get; set; }
 
     /// <summary>
     /// An event that will be called in case the user requests details about the skill check

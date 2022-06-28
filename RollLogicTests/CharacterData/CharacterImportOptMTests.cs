@@ -10,7 +10,7 @@ namespace UnitTests.CharacterData
     public class CharacterImportOptMTests
     {
         [Test]
-        [TestCase("Character_Anjin Siebenstich_202202", "1.4.2")]
+        [TestCase("Character_Anjin Siebenstich_202202", "1.5.1")]
         [TestCase("Character_Junis_202201", "1.4.2")]
         [TestCase("Character_LayarielWipfelglanz_20201025", "1.3.2")]
         [TestCase("Character_RhydderchDiistra_20220102", "1.4.2")]

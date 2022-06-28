@@ -243,4 +243,99 @@ The date  1. Praios 1000 BF is the 18. Tag of 219. month in the section of the D
 Dating this back to the first day of the Saurian calendar should be: 14. Rahja 50217 v. BF.
 
 
+# Holidays
+
+Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
+
+
+## Holidays not in Data Base
+
+* Several trade fairs of the Almanach.
+
+
+**Template**
+            {"month":  2, "day": 22, "duration": 1,  "name": "", "descr": ""},
+
+
+**??**
+
+* Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
+* Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
+* Mitte Phex - Albenhuser Fassfest
+
+
+**? Translation of Twergenhus**
+
+PHE 22.-24. "Twergenhausener Metallwarenmesse"
+
+            {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Metallwarenmesse", "descr": ""},
+            {"month":  9, "day": 22, "duration": 3,  "name": "Twergenhausener Hardware SHow", "descr": ""},
+
+
+
+## Floating Holidays (not in Data Base)
+
+| Holiday  | When? | Descr |
+|---|---|---|
+| Madatag (Madaday) | PRA, 1st Earthday | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
+| Großes Turnier in Gareth | PRA, Starts at 1st Praiosday; 8 days | |
+| Koschtaler Bierfest | TRA, 1st Marketday | Koschtaler Bierfest; beliebtes Volksfest mit Märkten, Auktionen und vor allem Bier |
+| Wahl der Fischkönigin | EFF, first new moon | 
+| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Horse Market in Teshkal | ING, 1. full moon |  |
+| Festumer Warenschau | TRA und ING, starts with 1. Marketday, lasts 1 week | |
+| Purgatoria | TRA, last Praiosday |  |
+| Warenschau und große Sklavenauktion | BOR ab dem 2. Boronstag vier Tage lang |  |
+| Avestag | PHE, last Windsday | Avestag, guter Tag für die erste große Schiffsreise nach dem Winter, Begrüßung der zurückkehrenden Zugvögel |
+|	Aves-Rennen, Gareth | PER 2. Windsday | |
+| Election of the Fisher Queen, Nostria | EFF, 1st New Moon | by the Stone of Nosteria |
+| Day of Andra’s Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
+| Big Cattle Market, Andergast | PER, 1st Week | |
+| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
+| Elenviner Ross- und Wagenmarkt, Elenvina | PHE, 1. Windsday | |
+| Tolles Treiben, Angbar | PHE, 1st Marketday | Blumengeschmücktes Vieh wird durch die Gassen getrieben |
+| Elenviner Handelshallenausstellung, Elenvina | PHE, 2. Marketday |  |
+
+
+| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+
+* Great Trade Fair of Festum - first week of Ingerimm
+* Oxen Market of Baliho (18th-22nd)
+* | Immanmeisterschaften | TRA Ab 2. Rohalstag zwei Wochen lang | |
+* | Regatta der Sieben Winde auf den Zyklopeninseln | PER letzter Windstag | |
+* PER Mitte	Viehmarkt in Andergast (UdW S. 145)		Andergast
+
+{"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
+{"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
+
+* PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
+
+
+
+## Possible Local Additions
+
+* TRA 30. "Nacht der Ahnen (AGF Seite 84), Havena", "Nacht auf den 1. Boron" - ***Das Totenfest ist bereits berücksichtigt, hat aber eine besondere Bedeutung in Havena***.
+
+
+## Requirements for Floating Holidays
+
+* n-th weekday W in month M (e.g. Madaday)
+* Last weekday W in month M (e.g. Purgatoria)
+* \1. Moon phase in month
+* (Last-n)th week in month M
+* n-th week in month M
+* (Last-n)th day in month, e.g. Aves day
+
+## Special Holidays
+
+* Fixed day but only once every N years; reference year required (e.g. Gratenfelser Schützenfest)
+
+
+## Questions
+
+* Can local customs for country-wide be handled?
+* How to handle dates that are likely to change often?
+  * e.g. Tsatag des Fürsten, Kosch", "Trinken auf das Wohl des Fürsten"
+  * RAH 26. Tsatag der Kaiserin (Kosch); man trinkt auf Rohajas Wohl
+  * TRA 7. "Befreiungstag, Elburische Halbinsel", "Feiert das Ende der oronischen Herrschaft"
 

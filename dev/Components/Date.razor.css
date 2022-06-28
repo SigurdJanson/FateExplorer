@@ -1,0 +1,13 @@
+﻿
+::deep .holiday > .mud-expand-panel-header {
+    padding: 0 !important;
+    font-size: var(--mud-typography-body2-size);
+}
+
+::deep .holiday.mud-panel-expanded {
+    margin: 0 0 !important;
+}
+
+.holidaycell {
+    vertical-align:text-top;
+}

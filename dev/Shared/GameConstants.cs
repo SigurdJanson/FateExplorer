@@ -140,3 +140,41 @@ public enum MagicProperty
     Transformation = 11,
     Temporal = 12
 }
+
+
+public enum MoonPhase
+{
+    /// <summary>
+    /// New moon, Dead Mada
+    /// </summary>
+    New = 1, 
+    SmallChalice,
+    Chalice,
+
+    /// <summary>
+    /// Half moon (waxing)
+    /// </summary>
+    LargeChalice,
+    ThreeFifths,
+    FourFfths,
+    
+    /// <summary>
+    /// Full moon, Wheel
+    /// </summary>
+    Wheel,
+    WaningWheel,
+    Waning,
+
+    /// <summary>
+    /// Half moon (waning)
+    /// </summary>
+    LargeHelmet,
+    Helmet,
+    SmallHelmet
+}
+
+
+public enum Season
+{
+    Summer = 1, Autumn, Winter, Spring
+}

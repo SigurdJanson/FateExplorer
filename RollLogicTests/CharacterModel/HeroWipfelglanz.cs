@@ -11,6 +11,7 @@ namespace UnitTests.CharacterModel
     internal static class HeroWipfelglanz
     {
         public const int UnarmedSkill = 6;
+        public const int Dodge = 8;
 
         public static WeaponDTO LayarielsDagger
         { 
@@ -119,5 +120,14 @@ namespace UnitTests.CharacterModel
                 return Result;
             }
         }
+
+        public static string[] Advantages = { ADV.Spellcaster, ADV.ResistantToAging,
+            ADV.Darksight, ADV.SenseOfRange, ADV.GoodLooks, ADV.ExceptionalSense, ADV.BeautifulVoice,
+            ADV.Nimble, ADV.NeedsNoSleep, ADV.TwoVoicedSinging };
+        public static string[] Disadvantages = { DISADV.AfraidOf/* Angst vor engen Räumen */, DISADV.AnnoyedByMinorSpirits,
+            DISADV.BadLuck, DISADV.PersonalityFlaw/* Weltfremd gegenüber Religion */, DISADV.SensitiveNose, 
+            DISADV.Incompetent /* Brett- & Glücksspiel und Zechen */ };
+        public static string[] SpecialAbilities = {
+            "SA_22"/*Ortskenntnis*/, "SA_9"/*Fertigkeitsspezialisierung*/,  SA.TraditionElf};
     }
 }

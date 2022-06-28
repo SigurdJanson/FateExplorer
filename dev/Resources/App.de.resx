@@ -130,7 +130,7 @@
     <value>W</value>
   </data>
   <data name="abbrvHP" xml:space="preserve">
-    <value>Trefferpunkte</value>
+    <value>TP</value>
   </data>
   <data name="abbrvParry" xml:space="preserve">
     <value>PA</value>
@@ -345,7 +345,7 @@
     <comment>About</comment>
   </data>
   <data name="imgAltSkeletons" xml:space="preserve">
-    <value>ZWei Skelete in Furcht</value>
+    <value>Zwei Skelette in Furcht</value>
     <comment>About</comment>
   </data>
   <data name="imgAltSorcerer" xml:space="preserve">
@@ -521,11 +521,11 @@
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithDominantHand" xml:space="preserve">
-    <value>Nimms in die nicht-dominante Hand</value>
+    <value>Nimms in die dominante Hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPickItemWithNondominantHand" xml:space="preserve">
-    <value>Nimms in die dominante Hand</value>
+    <value>Nimms in die nicht-dominante Hand</value>
     <comment>Fight</comment>
   </data>
   <data name="lblPlaceOfBirth" xml:space="preserve">
@@ -652,7 +652,7 @@
     <value>Betrachte</value>
   </data>
   <data name="lblWealth" xml:space="preserve">
-    <value>Vermögen</value>
+    <value>Barschaft</value>
   </data>
   <data name="lblWeight" xml:space="preserve">
     <value>Traggewicht</value>
@@ -685,7 +685,7 @@
     <comment>enum LanguageAbility</comment>
   </data>
   <data name="lngNone" xml:space="preserve">
-    <value>n.v.</value>
+    <value>n/v</value>
     <comment>enum LanguageAbility</comment>
   </data>
   <data name="Mohish" xml:space="preserve">
@@ -989,5 +989,102 @@
   </data>
   <data name="txtAbilities" xml:space="preserve">
     <value>Eigenschaften</value>
+  </data>
+  <data name="btnClose" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="btnSetDate" xml:space="preserve">
+    <value>Datum ändern</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetDateConfirm" xml:space="preserve">
+    <value>Übernehmen</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnSetEarthDate" xml:space="preserve">
+    <value>Zum offiziellen DAtum</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="lblHoliday" xml:space="preserve">
+    <value>Feiertag</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="lblMoonPhase" xml:space="preserve">
+    <value>Mondphase</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="lblSeason" xml:space="preserve">
+    <value>Jahreszeit</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="txtDateFormatPlaceholder" xml:space="preserve">
+    <value>tt Monat jjjj BF</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="rollna" xml:space="preserve">
+    <value>Wurf</value>
+  </data>
+  <data name="lblAge" xml:space="preserve">
+    <value>Alter</value>
+  </data>
+  <data name="lblRoutineCheck" xml:space="preserve">
+    <value>Routineprobe</value>
+  </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="lblCashAmount" xml:space="preserve">
+    <value>Barschaft</value>
+  </data>
+  <data name="lblEditCash" xml:space="preserve">
+    <value>Barschaft  anpassen</value>
+  </data>
+  <data name="lblAddAmount1" xml:space="preserve">
+    <value>Eins hinzufügen</value>
+  </data>
+  <data name="lblSubtractAmount1" xml:space="preserve">
+    <value>Eins abziehen</value>
+  </data>
+  <data name="lblModifyByAmount" xml:space="preserve">
+    <value>Per Differenzbetrag</value>
+  </data>
+  <data name="lblSilverthalers" xml:space="preserve">
+    <value>Silbertaler</value>
+  </data>
+  <data name="btnDateChange" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
+  <data name="lblDateDay" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="lblDateMonth" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="lblDateYear" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="lblEditDate" xml:space="preserve">
+    <value>Datum ändern</value>
+  </data>
+  <data name="msgDayOutOfRange" xml:space="preserve">
+    <value>Der gewählte Tag im Monat ist zu groß für den gewählten Monat</value>
+  </data>
+  <data name="lblYard" xml:space="preserve">
+    <value>Schritt</value>
+  </data>
+  <data name="abbrvYard" xml:space="preserve">
+    <value>Schritt</value>
+  </data>
+  <data name="lblRangeBrackets" xml:space="preserve">
+    <value>Reichweitensegmente (nah/mittel/weit)</value>
+  </data>
+  <data name="lblHitPoints" xml:space="preserve">
+    <value>Trefferpunkte</value>
+  </data>
+  <data name="lblDefaultCombatStyle" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="lblDoublet" xml:space="preserve">
+    <value>Pasch</value>
   </data>
 </root>
