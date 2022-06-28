@@ -4,8 +4,6 @@
 	  <TargetFramework>net6.0</TargetFramework>
 	  <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 	  <Version>4.0.0.0</Version>
-	  <PublishTrimmed>true</PublishTrimmed>
-	  <TrimmerDefaultAction>link</TrimmerDefaultAction>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
