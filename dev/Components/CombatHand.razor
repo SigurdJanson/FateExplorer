@@ -112,6 +112,7 @@
     private bool HasCombatStyles;
     private string SelectedCombatStyle;
 
+
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
@@ -119,14 +120,27 @@
         if (HeroHands is null) throw new ArgumentNullException(nameof(HeroHands));
         if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
 
-        HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
-        SelectedCombatStyle = null; // otherwise the dropdown gets confused
-
         TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
         TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
         AriaAttack = $"{l10n["lblAttack"]} {l10n["lblRoll"]} {Weapon.Name}";
         AriaParry = $"{l10n["lblParry"]} {l10n["lblRoll"]} {Weapon.Name}";
     }
+
+
+    /// <inheritdoc />
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        var OldWeapon = Weapon;
+
+        await base.SetParametersAsync(parameters);
+
+        if (Weapon != OldWeapon) // comparison of reference is okay in this case
+        {
+            HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
+            SelectedCombatStyle = null; // otherwise the dropdown gets confused
+        }
+    }
+
 
     /// <summary>
     /// Relay "Attack" button click to parent
