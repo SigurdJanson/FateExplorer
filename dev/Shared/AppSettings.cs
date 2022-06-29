@@ -64,9 +64,9 @@ public sealed class AppSettings
         }
         catch (Exception) { return; }
 
-        showImprovisedWeapons = Box.showImprovisedWeapons; // use field, not property
-        defaultCurrency = Box.defaultCurrency;
-        mostUsedSkills = Box.mostUsedSkills;
+        showImprovisedWeapons = Box?.showImprovisedWeapons; // use field, not property
+        defaultCurrency = Box?.defaultCurrency;
+        mostUsedSkills = Box?.mostUsedSkills;
     }
 
     #endregion
