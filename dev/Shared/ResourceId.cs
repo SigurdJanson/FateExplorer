@@ -9,6 +9,7 @@
         public const string IniLabelId = "lblInitiative";
         public const string HitPoints = "lblHitPoints";
         // Hruruzat
+        public const string Hruruzat = "lblHruruzat";
         public const string DoubletId = "lblDoublet";
     }
 }

@@ -14,6 +14,7 @@ public class HruruzatAttackM : AttackCheckM
     public HruruzatAttackM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData) 
         : base(weapon, mainHand, otherWeapon, modifier, gameData)
     {
+        Name = ResourceId.Hruruzat;
     }
 
 

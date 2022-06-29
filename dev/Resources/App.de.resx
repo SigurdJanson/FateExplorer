@@ -1087,4 +1087,7 @@
   <data name="lblDoublet" xml:space="preserve">
     <value>Pasch</value>
   </data>
+  <data name="lblHruruzat" xml:space="preserve">
+    <value>Hruruzat</value>
+  </data>
 </root>

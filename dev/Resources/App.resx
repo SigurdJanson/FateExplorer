@@ -1103,4 +1103,8 @@
     <value>Doublet</value>
     <comment>Fight</comment>
   </data>
+  <data name="lblHruruzat" xml:space="preserve">
+    <value>Hruruzat</value>
+    <comment>Fight</comment>
+  </data>
 </root>
