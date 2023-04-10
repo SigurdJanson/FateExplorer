@@ -1,37 +1,99 @@
 @font-face {
   font-family: 'fateexplorer';
   src:
-    url('fonts/fateexplorer.ttf?lq9m80') format('truetype'),
-    url('fonts/fateexplorer.woff?lq9m80') format('woff'),
-    url('fonts/fateexplorer.svg?lq9m80#fateexplorer') format('svg');
+    url('fonts/fateexplorer.ttf?v78yds') format('truetype'),
+    url('fonts/fateexplorer.woff?v78yds') format('woff'),
+    url('fonts/fateexplorer.svg?v78yds#fateexplorer') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
 i, .fe { /* changed 'icomoon-liga' to 'fe' */
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'fateexplorer' !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    /* Enable Ligatures ================ */
-    letter-spacing: 0;
-    -webkit-font-feature-settings: "liga";
-    -moz-font-feature-settings: "liga=1";
-    -moz-font-feature-settings: "liga";
-    -ms-font-feature-settings: "liga" 1;
-    font-feature-settings: "liga";
-    -webkit-font-variant-ligatures: discretionary-ligatures;
-    font-variant-ligatures: discretionary-ligatures;
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'fateexplorer' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  
+  /* Enable Ligatures ================ */
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+.fe-Vision0_Clear:before {
+  content: "\e906";
+}
+.fe-Vision1_Impaired:before {
+  content: "\e907";
+}
+.fe-Vision2_ShapesOnly:before {
+  content: "\e936";
+}
+.fe-Vision3_Barely:before {
+  content: "\e937";
+}
+.fe-Vision4_None:before {
+  content: "\e93e";
+}
+.fe-Purse:before {
+  content: "\e905";
+}
+.fe-Swordfighter:before {
+  content: "\e933";
+}
+.fe-Mounted0_Stand:before {
+  content: "\e92b";
+}
+.fe-Mounted1_Walk:before {
+  content: "\e92c";
+}
+.fe-Mounted2_Trot:before {
+  content: "\e92d";
+}
+.fe-Mounted3_Gallop:before {
+  content: "\e92e";
+}
+.fe-Onfoot0_Stand:before {
+  content: "\e92f";
+}
+.fe-Onfoot1_Walk:before {
+  content: "\e930";
+}
+.fe-Cramped:before {
+  content: "\e931";
+}
+.fe-Water0_Dry:before {
+  content: "\e938";
+}
+.fe-Water1_Knee:before {
+  content: "\e939";
+}
+.fe-Water2_Waist:before {
+  content: "\e93a";
+}
+.fe-Water3_Chest:before {
+  content: "\e93b";
+}
+.fe-Water4_Neck:before {
+  content: "\e93c";
+}
+.fe-Water5_Submerged:before {
+  content: "\e93d";
+}
 .fe-MoonPhase1:before {
   content: "\e912";
 }
@@ -69,7 +131,7 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
   content: "\e926";
 }
 .fe-Skull:before {
-  content: "\e90e";
+  content: "\e908";
 }
 .fe-Praios:before {
   content: "\e91b";
@@ -123,22 +185,22 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
   content: "\e904";
 }
 .fe-D6_1:before {
-  content: "\e905";
+  content: "\2680";
 }
 .fe-D6_2:before {
-  content: "\e906";
+  content: "\2681";
 }
 .fe-D6_3:before {
-  content: "\e907";
+  content: "\2682";
 }
 .fe-D6_4:before {
-  content: "\e908";
+  content: "\2683";
 }
 .fe-D6_5:before {
-  content: "\e909";
+  content: "\2684";
 }
 .fe-D6_6:before {
-  content: "\e90a";
+  content: "\2685";
 }
 .fe-LocalMallClear:before {
   content: "\e90b";
@@ -149,9 +211,33 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 .fe-BackHandLeft:before {
   content: "\e90d";
 }
+.fe-Blindfold:before {
+  content: "\e929";
+}
+.fe-BrassKnuckles:before {
+  content: "\e91d";
+}
 .fe-Sword:before {
   content: "\e911";
 }
-.fe-Blindfold:before {
-  content: "\e929";
+.fe-Flail:before {
+  content: "\e92a";
+}
+.fe-Spear:before {
+  content: "\e932";
+}
+.fe-AnimalToad:before {
+  content: "\e909";
+}
+.fe-AnimalSheep:before {
+  content: "\e90a";
+}
+.fe-AnimalCow:before {
+  content: "\e90e";
+}
+.fe-AnimalElefant:before {
+  content: "\e934";
+}
+.fe-AnimalDragon:before {
+  content: "\e935";
 }
