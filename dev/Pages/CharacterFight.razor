@@ -277,12 +277,12 @@ else
         var parameters = new DialogParameters { ["Weapon"] = Hero.Hands.MainWeapon, ["Hero"] = Hero.Name };
         //DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
 
-        var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); //, parameters, maxWidth
+        var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
         var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
-            Hero.Money = (decimal)result.Data;
+            //----Hero.Money = (decimal)result.Data;
         }
     }
 
