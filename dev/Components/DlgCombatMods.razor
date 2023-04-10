@@ -201,6 +201,8 @@
         </MudGrid>
     </DialogContent>
     <DialogActions>
+        <MudButton OnClick="Reset">@l10n["btnReset"]</MudButton>
+        <MudDivider Vertical="true" FlexItem="true" />
         <MudButton OnClick="Cancel">@l10n["btnCancel"]</MudButton>
         <MudButton Color=Color.Primary Variant=Variant.Filled OnClick="Submit">@l10n["btnApply"]</MudButton>
     </DialogActions>
@@ -220,15 +222,27 @@
     MudDialogInstance MudDialog { get; set; }
 
     // RESULT
+    //private BattlegroundViMo { get; set; }
     private int Modifier { get; set; } = 0;
 
     // SETTINGS
-    //
-    private string[] DistanceLabels = new string[] { "Nah", "Mittel", "Weit" };
-    private int Distance = 0;
+    // Defaults
+    private const int DistanceDefault = 0;
+    private const Vision ViewDefault = Vision.Clear;
+    private const UnderWater WaterDefault = UnderWater.Dry;
+    private const bool CrampedSpaceDefault = false;
+    private const Movement MovingDefault = Movement.None;
+    private const Movement EnemyMovingDefault = Movement.None;
+    private const WeaponsReach EnemyReachDefault = WeaponsReach.Medium;
+    private const EnemySize SizeOfEnemyDefault = EnemySize.Medium;
+    private const bool EnemyEvasiveDefault = false;
 
     //
-    private Vision View { get; set; } = Vision.Clear;
+    private string[] DistanceLabels = new string[] { "Nah", "Mittel", "Weit" };
+    private int Distance = DistanceDefault;
+
+    //
+    private Vision View { get; set; } = ViewDefault;
     private bool ClearVision { get => View == Vision.Clear; set { if (value) View = Vision.Clear; } }
     private bool ImpairedVision { get => View == Vision.Impaired; set { if (value) View = Vision.Impaired; } }
     private bool ShapyVision { get => View == Vision.ShapesOnly; set { if (value) View = Vision.ShapesOnly; } }
@@ -246,11 +260,11 @@
 
 
     //
-    private bool CrampedSpace { get; set; } = true;
-    private bool CrampedSpaceDisabled => Weapon.Branch == CombatBranch.Ranged;
+    private bool CrampedSpace { get; set; } = CrampedSpaceDefault;
+    private bool CrampedSpaceDisabled => Weapon.Branch == CombatBranch.Ranged; // TODO: get from backend
 
     //
-    private Movement Moving { get; set; } = Movement.None;
+    private Movement Moving { get; set; } = MovingDefault;
     private bool NoMovement { get => Moving == Movement.None; set { if (value) Moving = Movement.None; } }
     private bool MovementWalk { get => Moving == Movement.Slow; set { if (value) Moving = Movement.Slow; } }
     private bool MovementRun { get => Moving == Movement.Fast; set { if (value) Moving = Movement.Fast; } }
@@ -258,13 +272,13 @@
     private bool MovementTrot { get => Moving == Movement.GaitTrot; set { if (value) Moving = Movement.GaitTrot; } }
     private bool MovementGallop { get => Moving == Movement.GaitGallop; set { if (value) Moving = Movement.GaitGallop; } }
     //
-    private Movement EnemyMoving { get; set; } = Movement.None;
+    private Movement EnemyMoving { get; set; } = EnemyMovingDefault;
     private bool EnemyNoMovement { get => EnemyMoving == Movement.None; set { if (value) EnemyMoving = Movement.None; } }
     private bool EnemyMovementWalk { get => EnemyMoving == Movement.Slow; set { if (value) EnemyMoving = Movement.Slow; } }
     private bool EnemyMovementRun { get => EnemyMoving == Movement.Fast; set { if (value) EnemyMoving = Movement.Fast; } }
 
     //
-    private WeaponsReach EnemyReach { get; set; } = WeaponsReach.Medium;
+    private WeaponsReach EnemyReach { get; set; } = EnemyReachDefault;
     private bool EnemyReachDisabled => Weapon.Branch == CombatBranch.Ranged;
     private bool EnemyReachShort { get => EnemyReach == WeaponsReach.Short; set { if (value) EnemyReach = WeaponsReach.Short; } }
     private bool EnemyReachMedium { get => EnemyReach == WeaponsReach.Medium; set { if (value) EnemyReach = WeaponsReach.Medium; } }
@@ -272,7 +286,7 @@
 
 
     //
-    private EnemySize SizeOfEnemy { get; set; } = EnemySize.Medium;
+    private EnemySize SizeOfEnemy { get; set; } = SizeOfEnemyDefault;
     private bool EnemyTiny { get => SizeOfEnemy == EnemySize.Tiny; set { if (value) SizeOfEnemy = EnemySize.Tiny; } }
     private bool EnemySmall { get => SizeOfEnemy == EnemySize.Small; set { if (value) SizeOfEnemy = EnemySize.Small; } }
     private bool EnemyMedium { get => SizeOfEnemy == EnemySize.Medium; set { if (value) SizeOfEnemy = EnemySize.Medium; } }
@@ -280,13 +294,26 @@
     private bool EnemyHuge { get => SizeOfEnemy == EnemySize.Huge; set { if (value) SizeOfEnemy = EnemySize.Huge; } }
 
     //
-    private bool EnemyEvasive { get; set; } = false;
-    private bool EnemyEvasiveDisabled => Weapon.Branch != CombatBranch.Ranged;
+    private bool EnemyEvasive { get; set; } = EnemyEvasiveDefault;
+    private bool EnemyEvasiveDisabled => Weapon.Branch != CombatBranch.Ranged; // TODO: get from backend
 
     //
+    // ACTIONS
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog.Cancel();
 
+    private void Reset()
+    {
+        EnemyEvasive = EnemyEvasiveDefault;
+        SizeOfEnemy = SizeOfEnemyDefault;
+        EnemyReach = EnemyReachDefault;
+        EnemyMoving = EnemyMovingDefault;
+        Moving = MovingDefault;
+        CrampedSpace = CrampedSpaceDefault;
+        Water = UnderWater.Dry;
+        View = ViewDefault;
+        Distance = DistanceDefault;
+    }
 
 
     // RENDERING
