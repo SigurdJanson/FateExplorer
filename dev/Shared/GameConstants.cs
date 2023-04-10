@@ -1,6 +1,4 @@
-﻿
-
-public enum SkillDomain
+﻿public enum SkillDomain
 {
     Basic = 0, Arcane = 1, Karma = 2
 }
@@ -142,6 +140,156 @@ public enum MagicProperty
 }
 
 
+#region Combat
+
+public enum WeaponsReach
+{
+    /// <summary>
+    /// Anything up to a short sword incl. brawling weapons
+    /// </summary>
+    Short = 1,
+    /// <summary>
+    /// Most swords, axes, hammers, etc. usually incl. two-handed versions
+    /// </summary>
+    Medium,
+    /// <summary>
+    /// Polearms, lances, long staffs
+    /// </summary>
+    Long
+}
+
+/// <summary>
+/// Long range weapons
+/// </summary>
+public enum WeaponsRange
+{
+    /// <summary>
+    /// Short-range
+    /// </summary>
+    Short = 1,
+    /// <summary>
+    /// Medium-range
+    /// </summary>
+    Medium,
+    /// <summary>
+    /// Long-range
+    /// </summary>
+    Long
+}
+
+
+
+public enum EnemySize {
+    /// <summary>
+    /// rat, toad, sparrow
+    /// </summary>
+    Tiny,
+    /// <summary>
+    /// fawn, sheep, goat
+    /// </summary>
+    Small,
+    /// <summary>
+    /// human, dwarf, donkey
+    /// </summary>
+    Medium,
+    /// <summary>
+    /// ogre, troll, cow
+    /// </summary>
+    Large,
+    /// <summary>
+    /// dragon, giant, elephant
+    /// </summary>
+    Huge
+}
+
+public enum Movement
+{
+    /// <summary>
+    /// Stationary (mounted or on foot)
+    /// </summary>
+    None = 0,
+    /// <summary>
+    /// Walking; character (either target or attacker) is moving slowly (4 yards or less in its last action)
+    /// </summary>
+    Slow,
+    /// <summary>
+    /// Running; character (either target or attacker) is moving quickly (5 yards or more in its last action)
+    /// </summary>
+    Fast,
+    /// <summary>
+    /// Mount is moving at a walk
+    /// </summary>
+    GaitWalk,
+    /// <summary>
+    /// Mount is moving at a trot
+    /// </summary>
+    GaitTrot,
+    /// <summary>
+    /// Mount is moving at a gallop
+    /// </summary>
+    GaitGallop
+}
+
+public enum Vision
+{
+    /// <summary>
+    /// Sight clear and undisturbed
+    /// </summary>
+    Clear = 0,
+    /// <summary>
+    /// Vision slightly impaired. Sparse leaves, morning mist
+    /// </summary>
+    Impaired,
+    /// <summary>
+    /// Target’s shape can be seen. Fog, moonlight
+    /// </summary>
+    ShapesOnly,
+    /// <summary>
+    /// Target’s shape can be roughly seen. Dense fog, starlight
+    /// </summary>
+    Barely,
+    /// <summary>
+    /// Target cannot be seen. Thick smoke, complete darkness
+    /// </summary>
+    NoVision
+}
+
+
+public enum UnderWater
+{
+    /// <summary>
+    /// Standing on dry ground
+    /// </summary>
+    Dry = 0,
+    /// <summary>
+    /// Standing knee-deep in water or swamp
+    /// </summary>
+    KneeDeep,
+    /// <summary>
+    /// Standing in water from the waist up
+    /// </summary>
+    WaistDeep,
+    /// <summary>
+    /// Standing in water from the belly up
+    /// </summary>
+    ChestDeep,
+    /// <summary>
+    /// Standing in water with only the head above the surface
+    /// </summary>
+    NeckDeep,
+    /// <summary>
+    /// Under water
+    /// </summary>
+    Submerged
+}
+
+#endregion
+
+
+
+
+#region Calendar 
+
 public enum MoonPhase
 {
     /// <summary>
@@ -178,3 +326,5 @@ public enum Season
 {
     Summer = 1, Autumn, Winter, Spring
 }
+
+#endregion
