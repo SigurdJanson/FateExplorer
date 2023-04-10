@@ -15,8 +15,29 @@ public static class IconsFE {
     public static string LocalMallClear => Prefix + nameof(LocalMallClear);
     public static string Ulisses => Prefix + nameof(Ulisses);
     public static string BackHandLeft => Prefix + nameof(BackHandLeft);
-    public static string Sword => Prefix + nameof(Sword);
     public static string Blindfold => Prefix + nameof(Blindfold);
+    public static string BrassKnuckles => Prefix + nameof(BrassKnuckles);
+    public static string Sword => Prefix + nameof(Sword);
+    public static string Flail => Prefix + nameof(Flail);
+    public static string Spear => Prefix + nameof(Spear);
+    public static string Cramped => Prefix + nameof(Cramped);
+    public static string Mounted0_Stand => Prefix + nameof(Mounted0_Stand);
+    public static string Mounted1_Walk => Prefix + nameof(Mounted1_Walk);
+    public static string Mounted2_Trot => Prefix + nameof(Mounted2_Trot);
+    public static string Mounted3_Gallop => Prefix + nameof(Mounted3_Gallop);
+    public static string Onfoot0_Stand => Prefix + nameof(Onfoot0_Stand);
+    public static string Onfoot1_Walk => Prefix + nameof(Onfoot1_Walk);
+    public static string Water0_Dry => Prefix + nameof(Water0_Dry);
+    public static string Water1_Knee => Prefix + nameof(Water1_Knee);
+    public static string Water2_Waist => Prefix + nameof(Water2_Waist);
+    public static string Water3_Chest => Prefix + nameof(Water3_Chest);
+    public static string Water4_Neck => Prefix + nameof(Water4_Neck);
+    public static string Water5_Submerged => Prefix + nameof(Water5_Submerged);
+    public static string Vision0_Clear => Prefix + nameof(Vision0_Clear);
+    public static string Vision1_Impaired => Prefix + nameof(Vision1_Impaired);
+    public static string Vision2_ShapesOnly => Prefix + nameof(Vision2_ShapesOnly);
+    public static string Vision3_Barely => Prefix + nameof(Vision3_Barely);
+    public static string Vision4_None => Prefix + nameof(Vision4_None);
     
     // DEITIES
     public static string Boron => Prefix + nameof(Boron);
@@ -32,8 +53,13 @@ public static class IconsFE {
     public static string Travia => Prefix + nameof(Travia);
     public static string Tsa => Prefix + nameof(Tsa);
     public static string NamelessOne => Prefix + nameof(NamelessOne);
-    
-    // DICE d6
+        // ANIMAL
+    public static string AnimalToad => Prefix + nameof(AnimalToad);
+    public static string AnimalSheep => Prefix + nameof(AnimalSheep);
+    public static string AnimalCow => Prefix + nameof(AnimalCow);
+    public static string AnimalElefant => Prefix + nameof(AnimalElefant);
+    public static string AnimalDragon => Prefix + nameof(AnimalDragon);
+        // DICE d6
     public static string D6(int d) => Concat($"{nameof(D6)}_{d}");
     public static string D6_1 => Prefix + nameof(D6_1);
     public static string D6_2 => Prefix + nameof(D6_2);

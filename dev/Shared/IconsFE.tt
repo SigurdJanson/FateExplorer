@@ -5,11 +5,19 @@
 <# #>
 <# string[] Icons = new[] {
     "Success", "Botch", "PotionArcane", "PotionLife",
-    "LocalMallClear", "Ulisses", "BackHandLeft", "Sword", "Blindfold"
+    "LocalMallClear", "Ulisses", "BackHandLeft", "Blindfold",
+    "BrassKnuckles", "Sword", "Flail", "Spear", "Cramped", 
+    "Mounted0_Stand", "Mounted1_Walk", "Mounted2_Trot", "Mounted3_Gallop", 
+    "Onfoot0_Stand", "Onfoot1_Walk", 
+    "Water0_Dry", "Water1_Knee", "Water2_Waist", "Water3_Chest", "Water4_Neck", "Water5_Submerged",
+    "Vision0_Clear", "Vision1_Impaired", "Vision2_ShapesOnly", "Vision3_Barely", "Vision4_None"
     };
-   string[] DeityIcons = new[] {
+string[] DeityIcons = new[] {
     "Boron", "Efferd", "Firun", "Hesinde", "Ingerimm", "Peraine", "Phex",
     "Praios", "Rahja", "Rondra", "Travia", "Tsa", "NamelessOne"
+    };
+string[] AnimalIcons = new[] {
+    "AnimalToad", "AnimalSheep", "AnimalCow", "AnimalElefant", "AnimalDragon"
     };
 #>
 <# #>
@@ -35,7 +43,12 @@ public static string <#= i#> => Prefix + nameof(<#= i#>);
 public static string <#= i#> => Prefix + nameof(<#= i#>);
     <#
     } #>
-
+    // ANIMAL
+    <# foreach (var i in AnimalIcons) { 
+    #>
+public static string <#= i#> => Prefix + nameof(<#= i#>);
+    <#
+    } #>
     // DICE d6
     public static string D6(int d) => Concat($"{nameof(D6)}_{d}");
     <# for (int d = 1; d <= 6; d++) { 
