@@ -5,6 +5,7 @@
 @using FateExplorer.ViewModel
 
 @inject IStringLocalizer<App> l10n
+@inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject AppSettings Config
 @inject ITheHeroViMo Hero
@@ -125,6 +126,8 @@
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
                     @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
+                <MudIconButton OnClick=OnComputeCombatMods aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
+                            Icon=@Icons.Material.Filled.SwitchAccessShortcutAdd Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
             </MudPaper>
             <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
                 @if (RollCheckResults is not null && RollCheckResults.Count > 0)
@@ -264,6 +267,23 @@ else
     {
         ModifyValue = NewValue;
         ActiveCheck?.CheckModifier.Set(ModifyValue);    
+    }
+
+    /// <summary>
+    /// Opens a <see cref="DlgCombatMods">Combat Modifier Dialog</see>
+    /// </summary>
+    private async Task OnComputeCombatMods()
+    {
+        var parameters = new DialogParameters { ["Weapon"] = Hero.Hands.MainWeapon, ["Hero"] = Hero.Name };
+        //DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+
+        var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); //, parameters, maxWidth
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            Hero.Money = (decimal)result.Data;
+        }
     }
 
 
