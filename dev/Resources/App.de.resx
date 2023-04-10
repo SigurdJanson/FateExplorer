@@ -1090,4 +1090,121 @@
   <data name="lblHruruzat" xml:space="preserve">
     <value>Hruruzat</value>
   </data>
+  <data name="lblEnemyReach" xml:space="preserve">
+    <value>Nahkampfreichweite des Gegners</value>
+  </data>
+  <data name="lblEnemyReachLong" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="lblEnemyReachMedium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="lblEnemyReachShort" xml:space="preserve">
+    <value>Kurz</value>
+  </data>
+  <data name="lblEnemy" xml:space="preserve">
+    <value>Gegner</value>
+  </data>
+  <data name="lblHero" xml:space="preserve">
+    <value>Hero</value>
+  </data>
+  <data name="lblEnvironment" xml:space="preserve">
+    <value>Umgebung</value>
+  </data>
+  <data name="lblWaterNone" xml:space="preserve">
+    <value>Steht auf trockenem Boden</value>
+  </data>
+  <data name="lblWater2Knee" xml:space="preserve">
+    <value>Knietief im Wasser</value>
+  </data>
+  <data name="lblWater2Chest" xml:space="preserve">
+    <value>Wasser bis zur Brust</value>
+  </data>
+  <data name="lblWater2Waist" xml:space="preserve">
+    <value>Wasser steht hüfthoch</value>
+  </data>
+  <data name="lblDistance" xml:space="preserve">
+    <value>Entfernung</value>
+  </data>
+  <data name="lblCloseCombat" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="lblWeapon" xml:space="preserve">
+    <value>Waffe</value>
+  </data>
+  <data name="lblVisibility" xml:space="preserve">
+    <value>Sicht</value>
+  </data>
+  <data name="lblVisionClear" xml:space="preserve">
+    <value>Uneingeschränkte Sicht</value>
+  </data>
+  <data name="lblVisionImpaired" xml:space="preserve">
+    <value>Leichte Störung der Sicht (leichtes Blattwerk, Morgendunst)</value>
+  </data>
+  <data name="lblVisionShapesOnly" xml:space="preserve">
+    <value>Ziel als Silhouette erkennbar (Nebel, Mondlicht)</value>
+  </data>
+  <data name="lblVisionBarely" xml:space="preserve">
+    <value>Ziel schemenhaft erkennbar (starker Nebel, Sternenlicht)</value>
+  </data>
+  <data name="lblVisionNone" xml:space="preserve">
+    <value>Ziel unsichtbar (dichter Rauch, völlige Dunkelheit)</value>
+  </data>
+  <data name="lblWater2Neck" xml:space="preserve">
+    <value>Wasser bis zum Hals</value>
+  </data>
+  <data name="lblWaterSubmerged" xml:space="preserve">
+    <value>Held befindet sich vollständig unter Wasser</value>
+  </data>
+  <data name="lblUnderWater" xml:space="preserve">
+    <value>Kampf im Wasser</value>
+  </data>
+  <data name="lblEnemyRunningZigZag" xml:space="preserve">
+    <value>Gegner macht Ausweichbewegungen</value>
+  </data>
+  <data name="lblMoveWalk" xml:space="preserve">
+    <value>Bewegt sich leicht (4 Schritt und weniger in letzter Handlung)</value>
+  </data>
+  <data name="lblMoveRun" xml:space="preserve">
+    <value>Bewegt sich schnell (5 Schritt oder mehr in letzter Handlung)</value>
+  </data>
+  <data name="lblMoveGaitWalk" xml:space="preserve">
+    <value>Reittier im Schritt</value>
+  </data>
+  <data name="lblMoveGaitTrot" xml:space="preserve">
+    <value>Reittier im Trab</value>
+  </data>
+  <data name="lblMoveGaitGallop" xml:space="preserve">
+    <value>Reittier im Galopp</value>
+  </data>
+  <data name="lblMoveStationary" xml:space="preserve">
+    <value>Steht still</value>
+  </data>
+  <data name="lblCombatMovement" xml:space="preserve">
+    <value>Bewegung</value>
+  </data>
+  <data name="lblEnemySize" xml:space="preserve">
+    <value>Größe des Gegners</value>
+  </data>
+  <data name="lblEnemyTiny" xml:space="preserve">
+    <value>Winzig (Ratte, Kröte, Spatz)</value>
+  </data>
+  <data name="lblEnemySmall" xml:space="preserve">
+    <value>Klein (Rehkitz, Schaf, Ziege)</value>
+  </data>
+  <data name="lblEnemyMedium" xml:space="preserve">
+    <value>Mittel (Mensch, Zwerg, Esel)</value>
+  </data>
+  <data name="lblEnemyLarge" xml:space="preserve">
+    <value>Groß (Oger, Troll, Rind)</value>
+  </data>
+  <data name="lblEnemyHuge" xml:space="preserve">
+    <value>Riesig (Drache, Riese, Elefant)</value>
+  </data>
+  <data name="lblCramped" xml:space="preserve">
+    <value>Beengte Umgebung</value>
+  </data>
+  <data name="lblCurrentValues" xml:space="preserve">
+    <value>Werte</value>
+  </data>
 </root>

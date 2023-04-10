@@ -1107,4 +1107,158 @@
     <value>Hruruzat</value>
     <comment>Fight</comment>
   </data>
+  <data name="lblHero" xml:space="preserve">
+    <value>Held</value>
+  </data>
+  <data name="lblDistance" xml:space="preserve">
+    <value>Distance</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCloseCombat" xml:space="preserve">
+    <value>Close combat</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemy" xml:space="preserve">
+    <value>Opponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWeapon" xml:space="preserve">
+    <value>Weapon</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCurrentValues" xml:space="preserve">
+    <value>Values</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReach" xml:space="preserve">
+    <value>Close Combat Weapon Reach of the Oponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachShort" xml:space="preserve">
+    <value>Short</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachMedium" xml:space="preserve">
+    <value>Medium</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachLong" xml:space="preserve">
+    <value>Long</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnvironment" xml:space="preserve">
+    <value>Environment</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisibility" xml:space="preserve">
+    <value>Visibility</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionClear" xml:space="preserve">
+    <value>Unrestricted sight</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionImpaired" xml:space="preserve">
+    <value>Vision slightly impaired (light foliage, morning mist)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionShapesOnly" xml:space="preserve">
+    <value>Target’s shape can be seen (fog, moonlight)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionBarely" xml:space="preserve">
+    <value>Target’s shape can barely be seen (dense fog, starlight)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionNone" xml:space="preserve">
+    <value>Target invisible (dense smoke, complete darkness)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblUnderWater" xml:space="preserve">
+    <value>Combat in Water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWaterNone" xml:space="preserve">
+    <value>Standing on dry ground</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Knee" xml:space="preserve">
+    <value>Kneepdeep in water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Waist" xml:space="preserve">
+    <value>Water up to the waist</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Chest" xml:space="preserve">
+    <value>Water up to the chest</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Neck" xml:space="preserve">
+    <value>Water up to the neck</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWaterSubmerged" xml:space="preserve">
+    <value>Hero is completely under water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCramped" xml:space="preserve">
+    <value>Cramped spaces</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemySize" xml:space="preserve">
+    <value>Size of Opponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyTiny" xml:space="preserve">
+    <value>Tiny (rat, toad, sparrow)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemySmall" xml:space="preserve">
+    <value>Small (fawn, goat, sheep)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyMedium" xml:space="preserve">
+    <value>Medium (human, dwarf, donkey)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyLarge" xml:space="preserve">
+    <value>Large (ogre, troll, cow)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyHuge" xml:space="preserve">
+    <value>Huge (dragon, elephant, giant)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCombatMovement" xml:space="preserve">
+    <value>Movement</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveStationary" xml:space="preserve">
+    <value>Standing still</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveWalk" xml:space="preserve">
+    <value>Moving slowly (4 yards or less in its last action)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveRun" xml:space="preserve">
+    <value>Moving quickly (5 yards or more in its last action)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitWalk" xml:space="preserve">
+    <value>Mount is moving at a walk</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitTrot" xml:space="preserve">
+    <value>Mount is moving at a trot</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitGallop" xml:space="preserve">
+    <value>Mount is moving at a gallop</value>
+  </data>
+  <data name="lblEnemyRunningZigZag" xml:space="preserve">
+    <value>Opponent makes evasive moves</value>
+    <comment>DlgCombatMods</comment>
+  </data>
 </root>

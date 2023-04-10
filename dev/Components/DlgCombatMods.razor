@@ -39,22 +39,22 @@
                 <MudItem xs=12 sm=6>
                     <MudPaper Outlined=true Class="pa-4" Style="height: 100%">
                         <MudText>@Weapon.Name, @l10n[Weapon.Branch.ToString()]</MudText>
-                        <MudText>Current modifier: @Modifier</MudText>
+                        <MudText>@l10n["lblCurrentValues"]: @Modifier</MudText>
                     </MudPaper>
                 </MudItem>
                 <MudItem xs=12 sm=6>
                     <MudPaper Outlined=true Class="pa-4" Style="height: 100%">
                         <MudText Typo=@Typo.subtitle1>@l10n["lblEnemyReach"]</MudText>
                         <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
-                            <MudToggleIconButton @bind-Toggled=EnemyReachShort Title="###Short reach weapon###"
+                            <MudToggleIconButton @bind-Toggled=EnemyReachShort Title=@l10n["lblEnemyReachShort"]
                                                  Icon=@IconsFE.BrassKnuckles ToggledIcon=@IconsFE.BrassKnuckles
                                                  Disabled=@EnemyReachDisabled
                                                  Color=OffCol ToggledColor=OnCol /> 
-                            <MudToggleIconButton @bind-Toggled=EnemyReachMedium Title="###Med reach weapon###"
+                            <MudToggleIconButton @bind-Toggled=EnemyReachMedium Title=@l10n["lblEnemyReachMedium"]
                                                  Icon=@IconsFE.Sword ToggledIcon=@IconsFE.Sword
                                                  Disabled=@EnemyReachDisabled
                                                  Color=OffCol ToggledColor=OnCol />
-                            <MudToggleIconButton @bind-Toggled=EnemyReachLong Title="###Long reach weapon###"
+                            <MudToggleIconButton @bind-Toggled=EnemyReachLong Title=@l10n["lblEnemyReachLong"]
                                                  Icon=@IconsFE.Spear ToggledIcon=@IconsFE.Spear
                                                  Disabled=@EnemyReachDisabled
                                                  Color=OffCol ToggledColor=OnCol />
@@ -65,7 +65,7 @@
 
             <MudGrid Class="pt-4">
                 <MudItem xs=12>
-                    <MudText Typo=@Typo.h6>@l10n["lblDisabilities"]</MudText>
+                    <MudText Typo=@Typo.h6>@l10n["lblEnvironment"]</MudText>
                 </MudItem>
                 <MudItem xs=12 sm=6>
                     <MudPaper Outlined=true Class="pa-4" Style="height: 100%">
