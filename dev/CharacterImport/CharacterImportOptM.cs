@@ -430,6 +430,7 @@ namespace FateExplorer.CharacterImport
                     else if (Ranged != default)
                     {
                         Result.Range = i.Range?.ToArray() ?? Ranged.Range.ToArray();
+                        Result.LoadTime = Ranged.LoadTime;
                         Result.IsParry = false; // ranged weapons can't be parry weapons
                     }
 

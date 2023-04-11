@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FateExplorer.Shared
+﻿namespace FateExplorer.Shared
 {
     public interface ICharacterAttributDTO
     {
@@ -249,6 +247,13 @@ namespace FateExplorer.Shared
         /// Ranged weapons range indiciators for close, medium, far
         /// </summary>
         public int[] Range { get; set; }
+
+        /// <summary>
+        /// All ranged weapons must be prepared prior to making an attack. 
+        /// Reload time represents the number of actions required to prepare the weapon 
+        /// for making an attack.
+        /// </summary>
+        public int LoadTime { get; set; }
 
         /// <summary>
         ///  Reach of melee weapon

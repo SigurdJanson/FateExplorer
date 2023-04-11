@@ -58,6 +58,8 @@ namespace FateExplorer.ViewModel
 
         public int[] Range { get => WeaponM.Range; }
 
+        public int LoadTime { get => WeaponM.LoadTime; }
+
         public bool IsImprovised { get => WeaponM.IsImprovised; }
 
         public bool IsRanged { get => WeaponM.IsRanged; }

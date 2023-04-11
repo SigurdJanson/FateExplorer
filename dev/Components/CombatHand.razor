@@ -11,7 +11,11 @@
                         @(WhichHand == HandsViMo.Hand.Main ? l10n["lblDominantHand"] : l10n["lblNondominantHand"])
                     </MudText>
                     <MudText Typo=Typo.body1 GutterBottom=false>@Weapon.Name</MudText>
-                    <MudText Typo=Typo.body2 GutterBottom=false>@CarriedWeaponProps(Weapon, WhichHand) @WeaponRanges()</MudText>
+                    <MudText Typo=Typo.body2 GutterBottom=false>
+                        @CarriedWeaponProps(Weapon, WhichHand) 
+                        @WeaponRanges()
+                        @WeaponReloadTime()
+                    </MudText>
                 </div>
                 @if (HasCombatStyles)
                 {
@@ -36,8 +40,7 @@
         <CardHeaderActions>
             @if (!BareHand)
             {
-            <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default  
-                OnClick=StashWeapon/>
+            <MudIconButton Icon=@Icons.Material.Sharp.Close Color=Color.Default OnClick=StashWeapon/>
             }
         </CardHeaderActions>
     </MudCardHeader>
@@ -209,4 +212,16 @@
         }
     }
 
+
+    private RenderFragment WeaponReloadTime()
+    {
+        @if (Weapon.IsRanged)
+        {
+            return@<span title=@l10n["lblLoadingTime"]> &nbsp;&#x029D6;&nbsp;  @l10n["abbrLoadingTime"] @Weapon.LoadTime</span>;
+        }
+        else
+        {
+            return @<span />;
+        }
+    }
 }

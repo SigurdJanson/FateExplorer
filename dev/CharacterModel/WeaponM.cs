@@ -142,6 +142,8 @@ namespace FateExplorer.CharacterModel
 
         public int[] Range { get; set; }
 
+        public int LoadTime { get; set; }
+
 
         /// <summary>
         /// Identifies a ranged weapon
@@ -214,7 +216,10 @@ namespace FateExplorer.CharacterModel
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
             if (IsRanged)
+            {
+                LoadTime = WeaponData.LoadTime;
                 Range = (int[])WeaponData.Range.Clone();
+            }
             else
                 Reach = WeaponData.Reach;
 

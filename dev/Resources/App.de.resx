@@ -1207,4 +1207,10 @@
   <data name="lblCurrentValues" xml:space="preserve">
     <value>Werte</value>
   </data>
+  <data name="abbrLoadingTime" xml:space="preserve">
+    <value>LZ</value>
+  </data>
+  <data name="lblLoadingTime" xml:space="preserve">
+    <value>Ladezeit</value>
+  </data>
 </root>
