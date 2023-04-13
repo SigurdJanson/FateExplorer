@@ -119,17 +119,34 @@ namespace FateExplorer.CharacterModel
         }
 
 
-
+        /// <summary>
+        /// How is the weapno called?
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Identifier of a combat technique.
+        /// </summary>
         public string CombatTechId { get; set; }
 
         public CombatBranch Branch { get; protected set; }
 
+        /// <summary>
+        /// Number of dies that determine the damage.
+        /// The 2 in "2d6 + 1".
+        /// </summary>
         public int DamageDieCount { get; set; }
 
+        /// <summary>
+        /// Number of sides the damage die need. Usually 6. Sometimes 3.
+        /// The 6 in "2d6 + 1".
+        /// </summary>
         public int DamageDieSides { get; set; }
 
+        /// <summary>
+        /// An additive constant added to the damage roll.
+        /// The 1 in "2d6 + 1".
+        /// </summary>
         public int DamageBonus { get; set; }
 
         public int DamageThreshold { get; set; }
@@ -138,10 +155,20 @@ namespace FateExplorer.CharacterModel
 
         public int ParryMod { get; set; }
 
+        /// <summary>
+        /// The "length" of a close combat weapon.
+        /// </summary>
         public int Reach { get; set; }
 
+        /// <summary>
+        /// The ranges that determine distance modifiers of ranged weapons.
+        /// </summary>
         public int[] Range { get; set; }
 
+        /// <summary>
+        /// (Re-) Loading time to place a projectile in a 
+        /// ranged weapon and make it ready to shoot.
+        /// </summary>
         public int LoadTime { get; set; }
 
 
