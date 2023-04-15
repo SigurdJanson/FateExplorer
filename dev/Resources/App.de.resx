@@ -1073,7 +1073,7 @@
     <value>Schritt</value>
   </data>
   <data name="abbrvYard" xml:space="preserve">
-    <value>Schritt</value>
+    <value>Schr.</value>
   </data>
   <data name="lblRangeBrackets" xml:space="preserve">
     <value>Reichweitensegmente (nah/mittel/weit)</value>
