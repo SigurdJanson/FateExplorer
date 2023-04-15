@@ -105,7 +105,7 @@ namespace FateExplorer.Shop
                 Min = 0,
                 Max = 20,
                 Name = "Commerce (Haggle)", 
-                Domain = SkillDomain.Basic
+                Domain = Check.Skill.Skill
             };
 
             // Create set of abilities

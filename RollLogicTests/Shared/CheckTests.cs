@@ -42,16 +42,16 @@ namespace UnitTests.Shared
         }
 
         [Test]
-        [TestCase(SkillDomain.Basic, Check.Skill.Skill, ExpectedResult = true)]
-        [TestCase(SkillDomain.Arcane, Check.Skill.Arcane, ExpectedResult = true)]
-        [TestCase(SkillDomain.Karma, Check.Skill.Karma, ExpectedResult = true)]
-        public bool Check_Is_Skill(SkillDomain action, Check.Skill skill)
+        [TestCase(Check.Skill.Skill, ExpectedResult = true)]
+        [TestCase(Check.Skill.Arcane, ExpectedResult = true)]
+        [TestCase(Check.Skill.Karma, ExpectedResult = true)]
+        public bool Check_Is_Skill(Check.Skill action)
         {
             // Arrange
             var check = new Check(action);
 
             // Act
-            bool result = check.Is(skill);
+            bool result = check.Is(action);
 
             // Assert
             return result;
