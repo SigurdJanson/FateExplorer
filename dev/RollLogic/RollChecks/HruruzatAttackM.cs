@@ -11,7 +11,7 @@ public class HruruzatAttackM : AttackCheckM
     public new const string checkTypeId = "DSA5/0/combat/attack/hruruzat";
 
 
-    public HruruzatAttackM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData) 
+    public HruruzatAttackM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData) 
         : base(weapon, mainHand, otherWeapon, modifier, gameData)
     {
         Name = ResourceId.Hruruzat;
@@ -73,7 +73,7 @@ public class HruruzatAttackM : AttackCheckM
         RollList[Which] = roll;
 
         if (Which == RollType.Primary || Which == RollType.Confirm)
-            Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
 
         return roll;
     }

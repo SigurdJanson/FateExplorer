@@ -41,7 +41,7 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <param name="ability">The abilities needed for the check</param>
     /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
     /// <param name="gameData">Access to the game data base</param>
-    public RoutineSkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData) 
+    public RoutineSkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModificatorM modifier, IGameDataService gameData) 
         : base(gameData)
     {
         RollAttr = new int[3];
@@ -51,8 +51,8 @@ public class RoutineSkillCheckM : CheckBaseM
             RollAttr[a] = ability[a].EffectiveValue;
             RollAttrName[a] = ability[a].ShortName;
         }
-        CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-        CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+        CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+        CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
         TargetAttr = skill.EffectiveValue;
         TargetAttrName = skill.Name;
@@ -72,9 +72,9 @@ public class RoutineSkillCheckM : CheckBaseM
     public override void UpdateAfterModifierChange()
     {
         // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-        //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
-        //////////////////var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
-        int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+        //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+        //////////////////var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModificator.Apply(RollAttr), TargetAttr ?? 0, 0);
+        int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModificator.Total);
         RollSuccess.Level Level = QualityLevel > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
 
         Success.Update(Level, Level);
@@ -87,7 +87,7 @@ public class RoutineSkillCheckM : CheckBaseM
         {
             IsDisposed = true;
             // release unmanaged resources
-            CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+            CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
 
             if (disposedStatus) {/*Released managed resources*/}
         }
@@ -150,11 +150,11 @@ public class RoutineSkillCheckM : CheckBaseM
     }
 
 
-    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModificator.Total);
 
     public override string ClassificationLabel => "QL";
 
-    public override string Classification => RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModifier.Total).ToString();
+    public override string Classification => RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModificator.Total).ToString();
 
     public override string ClassificationDescr => null;
 
@@ -165,7 +165,7 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <remarks>Not implemented</remarks>
     public override RollSuccess.Level SuccessOfRoll(RollType Which)
     {
-        int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+        int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModificator.Total);
         return RemainingSkillPoints > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
     }
 
@@ -194,7 +194,7 @@ public class RoutineSkillCheckM : CheckBaseM
             if (Which == RollType.Primary)
             {
                 // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-                int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+                int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModificator.Total);
                 RollSuccess.Level s = RemainingSkillPoints > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
                 Success.Update(s, s);
             }

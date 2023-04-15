@@ -50,15 +50,15 @@ namespace FateExplorer.RollLogic
         /// <param name="otherWeapon">The weapon in the other hand</param>
         /// <param name="modifier">A modifier to be applied to the roll check</param>
         /// <param name="gameData">Access to the data base</param>
-        public ParryCheckM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData)
+        public ParryCheckM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
             AttributeId = weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.PaSkill(mainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
             RollAttrName[0] = ResourceId.ParryLabelId;
@@ -82,7 +82,7 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -91,7 +91,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -201,7 +201,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
 
             return roll;
         }

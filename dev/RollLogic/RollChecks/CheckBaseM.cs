@@ -91,9 +91,9 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// This checks general modifier
+        /// This checks general modificator
         /// </summary>
-        public ICheckModifierM CheckModifier { get; set; }
+        public ICheckModificatorM CheckModificator { get; set; }
 
 
 

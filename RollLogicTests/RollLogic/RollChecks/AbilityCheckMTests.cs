@@ -24,7 +24,7 @@ namespace UnitTests.RollLogic
                 EffectiveValue = 20
             };
             // Arrange
-            var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModifierM(0), null);
+            var abilityCheckM = new AbilityCheckM(Ability, new SimpleCheckModificatorM(0), null);
 
             // Act
             var result = abilityCheckM.SuccessOfRoll(RollType.Primary);

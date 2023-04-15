@@ -38,15 +38,15 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="dodge"></param>
         /// <param name="modifier"></param>
-        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, ICheckModifierM modifier, IGameDataService gameData)
+        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, ICheckModificatorM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
             AttributeId = dodge.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;
             RollAttrName[0] = ResourceId.DodgeLabelId;
@@ -62,7 +62,7 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
                
         protected override void Dispose(bool disposedStatus)
         {
@@ -70,7 +70,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -179,7 +179,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
 
             return roll;
         }

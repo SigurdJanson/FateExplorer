@@ -4,9 +4,9 @@ namespace FateExplorer.RollLogic;
 
 
 /// <summary>
-/// Modifier that reduces the value to half of it's input
+/// Value that reduces the value to half of it's input
 /// </summary>
-public class HalfModifier : ICheckModifierM
+public class HalveModificator : ICheckModificatorM
 {
 
     /// <inheritdoc/>
@@ -20,7 +20,7 @@ public class HalfModifier : ICheckModifierM
     /// <summary>
     /// Constructor
     /// </summary>
-    public HalfModifier()
+    public HalveModificator()
     {}
 
 

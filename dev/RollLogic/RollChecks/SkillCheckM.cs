@@ -44,7 +44,7 @@ namespace FateExplorer.RollLogic
         /// <param name="ability">The abilities needed for the check</param>
         /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
         /// <param name="gameData">Access to the game data base</param>
-        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData)
+        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModificatorM modifier, IGameDataService gameData)
             : base(gameData)
         {
             // inherited
@@ -55,8 +55,8 @@ namespace FateExplorer.RollLogic
                 RollAttr[a] = ability[a].EffectiveValue;
                 RollAttrName[a] = ability[a].ShortName;
             }
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             TargetAttr = skill.EffectiveValue;
             TargetAttrName = skill.Name;
@@ -79,8 +79,8 @@ namespace FateExplorer.RollLogic
         public override void UpdateAfterModifierChange()
         {
             // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-            //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
-            var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+            //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+            var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModificator.Apply(RollAttr), TargetAttr ?? 0, 0);
             Success.Update(s, s);
         }
 
@@ -92,7 +92,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -186,7 +186,7 @@ namespace FateExplorer.RollLogic
         {
             return ComputeSuccess(
                         RollList[Which].OpenRoll,
-                        CheckModifier.Apply(RollAttr),
+                        CheckModificator.Apply(RollAttr),
                         TargetAttr ?? 0,
                         0); // mod not required here because skill value is already modified
         }
@@ -198,7 +198,7 @@ namespace FateExplorer.RollLogic
         {
             get => ComputeSkillRemainder(
                 RollList[RollType.Primary].OpenRoll,
-                CheckModifier.Apply(RollAttr),
+                CheckModificator.Apply(RollAttr),
                 TargetAttr ?? 0,
                 0);// mod not required here because skill value is already modified
         }
@@ -291,7 +291,7 @@ namespace FateExplorer.RollLogic
             if (Which == RollType.Primary)
             {
                 // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-                RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+                RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModificator.Apply(RollAttr), TargetAttr ?? 0, 0);
                 Success.Update(s, s);
             }
 

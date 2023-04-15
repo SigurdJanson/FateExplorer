@@ -30,7 +30,7 @@ namespace UnitTests.RollLogic
             int[] Before = new int[3] { 2, 4, 6 };
 
             // Arrange
-            var forcefulModifier = new ForcefulModifier(Expected);
+            var forcefulModifier = new ForcefulModificator(Expected);
             MockedRoll.Setup(s => s.OpenRoll).Returns(Before);
 
             // Act
@@ -50,7 +50,7 @@ namespace UnitTests.RollLogic
         {
             const int Length = 3;
             // Arrange
-            var forcefulModifier = new ForcefulModifier(Expected);
+            var forcefulModifier = new ForcefulModificator(Expected);
             int[] Before = new int[Length] { 2, 4, 6 };
 
             // Act
@@ -70,7 +70,7 @@ namespace UnitTests.RollLogic
             [Random(0, 50, 5)] int Expected)
         {
             // Arrange
-            var forcefulModifier = new ForcefulModifier(Expected);
+            var forcefulModifier = new ForcefulModificator(Expected);
 
             // Act
             var result = forcefulModifier.Apply(Before);
@@ -85,7 +85,7 @@ namespace UnitTests.RollLogic
         //public void Set_StateUnderTest_ExpectedBehavior()
         //{
         //    // Arrange
-        //    var forcefulModifier = new ForcefulModifier(2);
+        //    var forcefulModifier = new ForcefulModificator(2);
         //    int value = 0;
 
         //    // Act

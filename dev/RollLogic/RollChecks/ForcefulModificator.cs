@@ -2,10 +2,10 @@
 
 namespace FateExplorer.RollLogic
 {
-    /// Modifier that forces a roll to a certain value. Used mostly when rolls yield no 
+    /// Value that forces a roll to a certain value. Used mostly when rolls yield no 
     /// result (like no regeneration during the night, ...).
     /// </summary>
-    public class ForcefulModifier : ICheckModifierM
+    public class ForcefulModificator : ICheckModificatorM
     {
         /// <summary>
         /// A value to force a roll/check result to
@@ -25,7 +25,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
-        public ForcefulModifier(int value)
+        public ForcefulModificator(int value)
         {
             Value = value;
         }

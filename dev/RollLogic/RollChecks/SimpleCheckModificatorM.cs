@@ -6,7 +6,7 @@ namespace FateExplorer.RollLogic
     /// The most common modifier. It simply adds the modifier to all rolled
     /// dice. Used for basic ability, skill or combat checks.
     /// </summary>
-    public class SimpleCheckModifierM : ICheckModifierM
+    public class SimpleCheckModificatorM : ICheckModificatorM
     {
         /// <summary>
         /// An additive modifier
@@ -23,7 +23,7 @@ namespace FateExplorer.RollLogic
         /// Constructor
         /// </summary>
         /// <param name="value">The modifier's value to be applied to a roll</param>
-        public SimpleCheckModifierM(int value)
+        public SimpleCheckModificatorM(int value)
         {
             Value = value;
         }

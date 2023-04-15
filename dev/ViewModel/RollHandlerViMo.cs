@@ -157,7 +157,7 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(RoutineSkillCheckM):
-                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModifierM(Modifier), GameData);
+                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModificatorM(Modifier), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -187,12 +187,12 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModifierM(0), GameData);
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModificatorM(0), GameData);
                     break;
                 case
                     nameof(SkillCheckM):
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
-                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModifierM(0), GameData);
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModificatorM(0), GameData);
                     break;
                 case
                     nameof(InitiativeCheckM):
@@ -224,7 +224,7 @@ namespace FateExplorer.ViewModel
             switch (CheckType.Name)
             {
                 case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModifierM(0), GameData);
+                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModificatorM(0), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -257,17 +257,17 @@ namespace FateExplorer.ViewModel
                 case
                     nameof(AttackCheckM):
                     Checker = new AttackCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModifierM(0), GameData);
+                        new SimpleCheckModificatorM(0), GameData);
                     break;
                 case
                     nameof(HruruzatAttackM):
                     Checker = new HruruzatAttackM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModifierM(0), GameData);
+                        new SimpleCheckModificatorM(0), GameData);
                     break;
                 case
                     nameof(ParryCheckM):
                     Checker = new ParryCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModifierM(0), GameData);
+                        new SimpleCheckModificatorM(0), GameData);
                     break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");

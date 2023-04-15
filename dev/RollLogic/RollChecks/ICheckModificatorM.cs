@@ -5,7 +5,7 @@ namespace FateExplorer.RollLogic
     /// <summary>
     /// This is the common interface for different kinds of roll/check modifiers.
     /// </summary>
-    public interface ICheckModifierM : IStateContainer
+    public interface ICheckModificatorM : IStateContainer
     {
         /// <summary>
         /// Creates a copy before modifying it.

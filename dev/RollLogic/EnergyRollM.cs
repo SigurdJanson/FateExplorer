@@ -6,10 +6,10 @@ namespace FateExplorer.RollLogic
     {
         public const int _Sides = 6;
 
-        public ICheckModifierM SiteModifier { get; protected set; }
-        public ICheckModifierM DisturbModifier { get; protected set; }
-        public ICheckModifierM SicknessModifier { get; protected set; }
-        public ICheckModifierM OtherModifier { get; protected set; }
+        public ICheckModificatorM SiteModifier { get; protected set; }
+        public ICheckModificatorM DisturbModifier { get; protected set; }
+        public ICheckModificatorM SicknessModifier { get; protected set; }
+        public ICheckModificatorM OtherModifier { get; protected set; }
 
         /// <summary>
         /// Constructor
@@ -26,25 +26,25 @@ namespace FateExplorer.RollLogic
         {
             SiteModifier = site switch
             {
-                RegenerationSite.Default => new SimpleCheckModifierM(0),
-                RegenerationSite.Good => new SimpleCheckModifierM(1),
-                RegenerationSite.Poor => new SimpleCheckModifierM(-1),
-                RegenerationSite.Bad => new HalfModifier(),
-                RegenerationSite.Terrible => new ForcefulModifier(0),
+                RegenerationSite.Default => new SimpleCheckModificatorM(0),
+                RegenerationSite.Good => new SimpleCheckModificatorM(1),
+                RegenerationSite.Poor => new SimpleCheckModificatorM(-1),
+                RegenerationSite.Bad => new HalveModificator(),
+                RegenerationSite.Terrible => new ForcefulModificator(0),
                 _ => throw new NotImplementedException()
             };
             DisturbModifier = disturb switch
             {
-                RegenerationDisturbance.None => new SimpleCheckModifierM(0),
-                RegenerationDisturbance.Brief => new SimpleCheckModifierM(-1),
-                RegenerationDisturbance.Prolonged => new SimpleCheckModifierM(-2),
+                RegenerationDisturbance.None => new SimpleCheckModificatorM(0),
+                RegenerationDisturbance.Brief => new SimpleCheckModificatorM(-1),
+                RegenerationDisturbance.Prolonged => new SimpleCheckModificatorM(-2),
                 _ => throw new NotImplementedException()
             };
             if (sickPoisoned)
-                SicknessModifier = new ForcefulModifier(0);
+                SicknessModifier = new ForcefulModificator(0);
             else
-                SicknessModifier = new SimpleCheckModifierM(0);
-            OtherModifier = new SimpleCheckModifierM(modifier);
+                SicknessModifier = new SimpleCheckModificatorM(0);
+            OtherModifier = new SimpleCheckModificatorM(modifier);
         }
 
 

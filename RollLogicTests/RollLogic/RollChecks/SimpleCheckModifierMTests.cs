@@ -20,9 +20,9 @@ namespace UnitTests.RollLogic
 
         }
 
-        private SimpleCheckModifierM CreateSimpleCheckModifierM(int Value)
+        private SimpleCheckModificatorM CreateSimpleCheckModifierM(int Value)
         {
-            return new SimpleCheckModifierM(Value);
+            return new SimpleCheckModificatorM(Value);
         }
 
         [Test, Repeat(10)]
