@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace FateExplorer.Shared;
 
+namespace FateExplorer.Shared;
 
 
 
@@ -18,33 +18,90 @@ public readonly struct Check
 {
     private const char Sep = '/';
 
-    public enum Roll { Ability, Regenerate, Dodge, Initiative };
-    public enum Combat { Attack, Parry };
-    public enum Skill { Skill, Spell, Liturgy };
+    public enum Roll { Ability = 1, Regenerate = 2, Dodge = 4, Initiative = 8 };
+    private const int AnyRoll = (int)(Roll.Ability | Roll.Regenerate | Roll.Dodge | Roll.Initiative);
+
+    [Flags]
+    public enum Skill { 
+        Skill = 1 << 12, // starts with 2^12 to avoid value overlap
+        Arcane = Spell | Ritual, Spell = Skill*2, Ritual = Skill*4, 
+        Karma = Chant | Ceremony, Chant = Skill*8, Ceremony = Skill*16 };
+    private const int AnySkill = (int)(Skill.Skill | Skill.Arcane | Skill.Karma);
+
+    [Flags]
+    public enum Combat { 
+        Attack = 1 << 24, // starts with 2^24 to avoid value overlap
+        Parry = Attack * 2 };
+    private const int AnyCombat = (int)(Combat.Attack | Combat.Parry);
+
+    private readonly int RollType { get; init; }
+
 
     /// <summary>
-    /// 
+    /// A path-like string to uniquely identify a roll incl. (dis-) advantages and special abilities.
     /// </summary>
     public string Id { get; init; }
 
     public static implicit operator string(Check c) => c.Id;
 
+    /// <summary>
+    /// Is the check a general <see cref="Roll"/> ?
+    /// </summary>
+    /// <param name="what">The value to check for</param>
+    /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
+    public bool Is(Roll what) => ((int)what & RollType) == (int)what;
+    /// <summary>
+    /// Is the check a <see cref="Skill"/> check?
+    /// </summary>
+    /// <param name="what">The value to check for</param>
+    /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
+    public bool Is(Skill what) => ((int)what & RollType) == (int)what;
+    /// <summary>
+    /// Is the check a <see cref="Combat"/> check?
+    /// </summary>
+    /// <param name="what">The value to check for</param>
+    /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
+    public bool Is(Combat what) => ((int)what & RollType) == (int)what;
+    public bool Is(Combat what, CombatBranch whatBranch)
+    {
+        return Is(what) & (Is(whatBranch) | whatBranch == CombatBranch.Unspecififed);
+    }
+    public bool Is(CombatBranch what) => (ComputeBranch(what) & RollType) != 0;
+
+    public bool IsRoll => (RollType & AnyRoll) > 0;
+    public bool IsSkill => (RollType & AnySkill) > 0;
+    public bool IsCombat => (RollType & AnyCombat) > 0;
+
+    private static int ComputeRoll(Roll value) => (int)value;
+    private static int ComputeRoll(Skill value) => (int)value;
+    private static int ComputeRoll(Combat value, CombatBranch branch) => 
+        (int)value | ComputeBranch(branch);
+    private static int ComputeBranch(CombatBranch branch) => branch switch
+    {
+        CombatBranch.Unarmed => (int)Combat.Parry * 2,
+        CombatBranch.Melee => (int)Combat.Parry * 4,
+        CombatBranch.Ranged => (int)Combat.Parry * 8,
+        CombatBranch.Shield => (int)Combat.Parry * 16,
+        _ => 0
+    };
+
 
     /// <summary>
     /// Constructor for basic roll checks
     /// </summary>
-    /// <param name="checkType">A basic type of check</param>
+    /// <param name="roll">A basic type of check</param>
     /// <remarks>For skill and combat checks, use the designated constructors.</remarks>
-    public Check(Roll checkType)
+    public Check(Roll roll)
     {
-        Id = checkType switch
+        Id = roll switch
         {
             Roll.Ability => ChrAttrId.AbilityBaseId,
             Roll.Regenerate => ChrAttrId.Regenerate,
             Roll.Dodge => ChrAttrId.DO,
             Roll.Initiative => ChrAttrId.INI,
-            _ => throw new ArgumentException("Unknown roll", nameof(checkType)),
+            _ => throw new ArgumentException("Unknown roll", nameof(roll)),
         };
+        RollType = ComputeRoll(roll);
      }
 
 
@@ -64,13 +121,24 @@ public readonly struct Check
             Id = $"{ChrAttrId.Routine}{Sep}{SkillId}"; // "RC/TAL"
         else
             Id = SkillId; // "TAL"
+
+        RollType = ComputeRoll(
+            skill switch
+            {
+                SkillDomain.Basic => Skill.Skill,
+                SkillDomain.Arcane => Skill.Arcane,
+                SkillDomain.Karma => Skill.Karma,
+                _ => throw new NotImplementedException(),
+            }
+        );
     }
 
 
     /// <summary>
     /// Constructor for combat checks
     /// </summary>
-    public Check(Combat action, string combatTechId, string combatStyle = null)
+    public Check(
+        Combat action, string combatTechId, CombatBranch branch = CombatBranch.Unspecififed, string combatStyle = null)
     {
         if (!combatTechId.StartsWith(ChrAttrId.CombatTecBaseId))
             throw new ArgumentException("Combat technique seems invalid", nameof(combatTechId));
@@ -83,6 +151,10 @@ public readonly struct Check
             Id = $"{combatTechId}{Sep}{Action}"; // CT_9/AT
         else
             Id = $"{combatTechId}{Sep}{Action}{Sep}{combatStyle}"; // CT_9/AT/SA_186
+
+        RollType = ComputeRoll(action, branch);
     }
 
+
+    
 }

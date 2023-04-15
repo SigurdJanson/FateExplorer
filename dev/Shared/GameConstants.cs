@@ -68,7 +68,7 @@ public enum RegenerationDisturbance
 
 
 /// <summary>
-/// A category of a roll
+/// A category of a roll in the rolling sequence
 /// </summary>
 public enum RollType { Primary = 0, Confirm = 1, Damage = 2, Botch = 3, BotchDamage = 4 }
 
@@ -77,7 +77,7 @@ public enum RollType { Primary = 0, Confirm = 1, Damage = 2, Botch = 3, BotchDam
 /// </summary>
 public enum CombatBranch
 {
-    Unarmed = 1, Melee = 2, Ranged = 3, Shield = 4
+    Unspecififed = 0, Unarmed = 1, Melee = 2, Ranged = 3, Shield = 4
 }
 
 
