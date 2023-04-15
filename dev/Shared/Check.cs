@@ -108,13 +108,13 @@ public readonly struct Check
     /// <summary>
     /// Constructor for skill checks
     /// </summary>
-    public Check(SkillDomain skill, bool isRoutine = false)
+    public Check(Check.Skill skill, bool isRoutine = false)
     {
         string SkillId = skill switch
         {
-            SkillDomain.Basic => ChrAttrId.Skill,
-            SkillDomain.Arcane => ChrAttrId.Spell,
-            SkillDomain.Karma => ChrAttrId.Liturgy,
+            Check.Skill.Skill => ChrAttrId.Skill,
+            Check.Skill.Arcane => ChrAttrId.Spell,
+            Check.Skill.Karma => ChrAttrId.Liturgy,
             _ => throw new ArgumentException("Unknown skill", nameof(skill)),
         };
         if (isRoutine)
@@ -122,15 +122,7 @@ public readonly struct Check
         else
             Id = SkillId; // "TAL"
 
-        RollType = ComputeRoll(
-            skill switch
-            {
-                SkillDomain.Basic => Skill.Skill,
-                SkillDomain.Arcane => Skill.Arcane,
-                SkillDomain.Karma => Skill.Karma,
-                _ => throw new NotImplementedException(),
-            }
-        );
+        RollType = ComputeRoll(skill);
     }
 
 

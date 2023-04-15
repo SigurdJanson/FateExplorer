@@ -158,7 +158,7 @@
         /// <summary>
         /// Specifies what domain the skill is from (mundane, arcane or divine).
         /// </summary>
-        public SkillDomain Domain;
+        public Check.Skill Domain;
     }
 
 

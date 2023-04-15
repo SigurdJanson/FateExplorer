@@ -90,7 +90,7 @@ namespace FateExplorer.ViewModel
         /// <returns>
         /// List as DTO for the View. If no skill fits the criterion the list will be empty.
         /// </returns>
-        List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "");
+        List<SkillsDTO> GetSkills(Check.Skill? Domain = null, string NameFilter = "");
 
         /// <summary>
         /// Return the skills with the highest skill value
@@ -111,7 +111,7 @@ namespace FateExplorer.ViewModel
         /// Returns the list of skill domains
         /// </summary>
         /// <returns>LIst of the skill domain enum with at least 1 value (i.e. "Basic")</returns>
-        List<SkillDomain> GetMasteredSkillDomains();
+        List<Check.Skill> GetMasteredSkillDomains();
 
 
         /// <summary>

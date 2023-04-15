@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using FateExplorer.Shared;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace FateExplorer.GameData
             protected set => botches = value;
         }
 
-        public BotchEntry GetSkillBotch(SkillDomain domain, int DiceEyes)
+        public BotchEntry GetSkillBotch(Check.Skill domain, int DiceEyes)
             => Botches.GetBotch("Skill", domain.ToString(), DiceEyes);
 
         public BotchEntry GetAttackBotch(CombatBranch technique, int DiceEyes)

@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 
 namespace FateExplorer.CharacterModel
 {
@@ -58,6 +59,6 @@ namespace FateExplorer.CharacterModel
         public string[] Tradition { get; protected set; } // tradition in karmaskills; Category in arcane skills
 
         //
-        public SkillDomain Domain { get; protected set; }
+        public Check.Skill Domain { get; protected set; }
     }
 }

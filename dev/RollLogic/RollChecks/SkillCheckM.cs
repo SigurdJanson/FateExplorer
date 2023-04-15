@@ -15,7 +15,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The domain of the skill
         /// </summary>
-        public SkillDomain Domain { get; protected set; }
+        public Check.Skill Domain { get; protected set; }
 
 
         /// <inheritdoc />
@@ -258,7 +258,7 @@ namespace FateExplorer.RollLogic
 
         public override bool NeedsBotchEffect
         {
-            get => base.NeedsBotchEffect && Domain != SkillDomain.Basic;
+            get => base.NeedsBotchEffect && Domain != Check.Skill.Skill;
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.Shared;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
@@ -29,6 +30,6 @@ namespace FateExplorer.GameData
         // Extra properties
 
         [JsonIgnore]
-        public virtual SkillDomain Domain { get; }
+        public virtual Check.Skill Domain { get; }
     }
 }

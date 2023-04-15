@@ -404,7 +404,7 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
+        public List<SkillsDTO> GetSkills(Check.Skill? Domain = null, string NameFilter = "")
         {
             List<SkillsDTO> Result = new();
 
@@ -512,9 +512,9 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public List<SkillDomain> GetMasteredSkillDomains()
+        public List<Check.Skill> GetMasteredSkillDomains()
         {
-            List<SkillDomain> Result = new();
+            List<Check.Skill> Result = new();
             foreach (var b in characterM.Skills.MasteredDomains)
                 if (b.Value) Result.Add(b.Key);
             return Result;

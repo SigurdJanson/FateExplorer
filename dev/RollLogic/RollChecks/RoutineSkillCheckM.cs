@@ -13,7 +13,7 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <summary>
     /// The domain of the skill
     /// </summary>
-    public SkillDomain Domain { get; protected set; }
+    public Check.Skill Domain { get; protected set; }
 
 
     /// <inheritdoc />
