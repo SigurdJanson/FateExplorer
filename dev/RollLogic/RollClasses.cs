@@ -8,7 +8,6 @@ namespace FateExplorer.RollLogic
         public D20Roll() : base(_Sides)
         {
         }
-
     }
 
 
@@ -20,7 +19,6 @@ namespace FateExplorer.RollLogic
         public SkillRoll() : base(_Sides, _DieCount)
         {
         }
-
     }
 
 
