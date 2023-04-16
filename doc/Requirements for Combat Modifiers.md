@@ -38,7 +38,7 @@ In any case after modification the final operation shall set `EV = max(EV, 0)`. 
 
 ## Under Water
 
-> Note! These levels are not explicitly part of the rules.
+> Note! Many of these levels are not explicitly part of the rules. Documented is the -2 for waist-deep water. So is the -6 for submerged in close combat and the &infin; in ranged combat.
 
 |   |   |
 |---|---|
@@ -49,12 +49,11 @@ In any case after modification the final operation shall set `EV = max(EV, 0)`. 
 | 4 | NeckDeep  |
 | 5 | Submerged |
 
-* Attack, parry, and dodge from s1 to s5: 0, -1, -2, -4, -5, -6
+* Attack, parry from s1 to s5: 0, -1, -2, -4, -5, -6
 * Ranged: 
   * Attack from s1 to 5: 0, 0, 2, &infin;, &infin;, &infin;
   * Parry: no modifiers
-  * Dodge from s1 to s5: 0, -1, -2, -4, -5, -6
-
+* Dodge from s1 to s5: 0, -1, -2, -4, -5, -6
 
 ## Visibility
 
