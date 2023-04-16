@@ -1,5 +1,8 @@
 # Aventurian Dates
 
+## Sources
+http://liebliches-feld.net/wiki/index.php/Jahreskalender_(Fortsetzung)
+
 ## Current Date
 
 Fate Explorer uses the **method of "equal turn of years"**. Many official publications use this method.
