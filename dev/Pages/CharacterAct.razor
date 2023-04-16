@@ -177,7 +177,7 @@ else
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(ModifyValue);
+        ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
         UpdateCanRoutineCheck();
     }
 
@@ -197,7 +197,7 @@ else
         }
         if (CheckSucceeded)
         {
-            ActiveCheck.CheckModifier.Set(ModifyValue);
+            ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
             RollCheckResults.Enqueue(ActiveCheck);
         }
     }
@@ -222,7 +222,7 @@ else
         }
         if (CheckSucceeded)
         {
-            ActiveCheck.CheckModifier.Set(ModifyValue);
+            ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
             RollCheckResults.Enqueue(ActiveCheck);
         }
     }

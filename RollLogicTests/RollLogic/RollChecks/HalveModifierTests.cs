@@ -5,23 +5,8 @@ using System;
 namespace UnitTests.RollLogic
 {
     [TestFixture]
-    public class HalfModifierTests
+    public class HalveModifierTests
     {
-        [Test, Ignore("Not implemented")]
-        public void Apply_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var halfModifier = new HalveModificator();
-            IRollM Before = null;
-
-            // Act
-            var result = halfModifier.Apply(
-                Before);
-
-            // Assert
-            Assert.Fail();
-        }
-
         [Test]
         public void Apply_OddNumbers_RoundedHalf()
         {

@@ -29,20 +29,6 @@ namespace FateExplorer.RollLogic
         }
 
 
-        /// <inheritdoc/>
-        public int[] Apply(IRollM Before) // TODO: check for min/max???
-        {
-            int[] After = new int[Before.OpenRoll.Length];
-            LastEffectiveApply = new int[Before.OpenRoll.Length];
-
-            for (int i = 0; i < Before.OpenRoll.Length; i++)
-            {
-                After[i] = Before.OpenRoll[i] + Value;
-                LastEffectiveApply[i] = Value;
-            }
-                
-            return After;
-        }
 
 
         /// <inheritdoc/>

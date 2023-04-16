@@ -32,11 +32,6 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc/>
-        public int[] Apply(IRollM Before)
-            => Apply(Before.OpenRoll);
-
-
-        /// <inheritdoc/>
         public int[] Apply(int[] Before) 
         {
             int[] After = new int[Before.Length];

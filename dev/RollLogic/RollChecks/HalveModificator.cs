@@ -24,9 +24,6 @@ public class HalveModificator : ICheckModificatorM
     {}
 
 
-    /// <inheritdoc/>
-    public int[] Apply(IRollM Before)
-        => Apply(Before.OpenRoll);
 
 
     /// <inheritdoc/>
