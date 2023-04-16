@@ -45,6 +45,15 @@ public readonly struct Modifier : IEquatable<Modifier>
     }
 
 
+    /// <summary>
+    /// Returns the effective delta between a skill value (or any other check)
+    /// and the effective value after the modifier has been applied.
+    /// </summary>
+    /// <param name="a">An int value to roll a check against.</param>
+    /// <returns></returns>
+    public int Delta(int a) => a + this - a;
+
+
 
     /// <summary>
     /// Returns the value of the modifier.
