@@ -19,6 +19,7 @@ namespace FateExplorer.RollLogic
 
 
         // CHECK ///////////////////////////////
+        #region Check
 
         /// <summary>
         /// Describing name
@@ -55,7 +56,7 @@ namespace FateExplorer.RollLogic
         /// Get the summarized additive modifier after it has been applied to the
         /// roll. See <seealso cref="ICheckModificatorM.Total"/>.
         /// </summary>
-        public int SummarizedModifier => RollCheck?.CheckModificator?.Total ?? 0;
+        public int SummarizedModifier => RollCheck?.CheckModificator?.LastEffectiveDelta[0] ?? 0;//TODO: prüfen: war mal: RollCheck?.CheckModificator?.Total ?? 0;
 
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace FateExplorer.RollLogic
 
         public string Classification => RollCheck.Classification;
 
+        #endregion /////////////////////
 
 
         // ROLLS ///////////////////////
@@ -163,7 +165,7 @@ namespace FateExplorer.RollLogic
             {
                 RollResult = CurrentRoll.OpenRoll,
                 SuccessLevel = RollCheck.SuccessOfRoll(Which),
-                Modifier = RollCheck.CheckModificator.LastEffectiveApply,
+                Modifier = RollCheck.CheckModificator.LastEffectiveDelta,
                 CombinedResult = CurrentRoll.OpenRollCombined(),
                 RollAgainst = RollCheck.RollAttr
             };

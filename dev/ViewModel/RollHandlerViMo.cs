@@ -131,10 +131,10 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc />
-        public bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        public bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod)
         {
             int[] AbilityVals = new int[3] { Abilities[0].EffectiveValue, Abilities[1].EffectiveValue, Abilities[2].EffectiveValue };
-            int Remainder = RoutineSkillCheckM.RoutineSkillCheckRemainder(Skill.EffectiveValue, AbilityVals, Modifier);
+            int Remainder = RoutineSkillCheckM.RoutineSkillCheckRemainder(Skill.EffectiveValue, AbilityVals, Mod);
             return Remainder > 0;
         }
 
@@ -142,7 +142,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0)
+        public RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -157,7 +157,7 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(RoutineSkillCheckM):
-                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModificatorM(Modifier), GameData);
+                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModificatorM(Mod), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -187,12 +187,12 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModificatorM(0), GameData);
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 case
                     nameof(SkillCheckM):
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
-                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModificatorM(0), GameData);
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 case
                     nameof(InitiativeCheckM):
@@ -224,7 +224,7 @@ namespace FateExplorer.ViewModel
             switch (CheckType.Name)
             {
                 case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModificatorM(0), GameData);
+                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -257,17 +257,17 @@ namespace FateExplorer.ViewModel
                 case
                     nameof(AttackCheckM):
                     Checker = new AttackCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModificatorM(0), GameData);
+                        new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 case
                     nameof(HruruzatAttackM):
                     Checker = new HruruzatAttackM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModificatorM(0), GameData);
+                        new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 case
                     nameof(ParryCheckM):
                     Checker = new ParryCheckM(weapon.ToWeaponM(), IsMainWeapon, OtherWeapon.ToWeaponM(),
-                        new SimpleCheckModificatorM(0), GameData);
+                        new SimpleCheckModificatorM(Modifier.Neutral), GameData);
                     break;
                 default:
                     throw new NotImplementedException("Unknown combat roll");

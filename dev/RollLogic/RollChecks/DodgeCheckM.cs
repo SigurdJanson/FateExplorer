@@ -45,7 +45,7 @@ namespace FateExplorer.RollLogic
             AttributeId = dodge.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
             CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;

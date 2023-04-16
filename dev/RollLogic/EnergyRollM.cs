@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 
 namespace FateExplorer.RollLogic
 {
@@ -26,25 +27,25 @@ namespace FateExplorer.RollLogic
         {
             SiteModifier = site switch
             {
-                RegenerationSite.Default => new SimpleCheckModificatorM(0),
-                RegenerationSite.Good => new SimpleCheckModificatorM(1),
-                RegenerationSite.Poor => new SimpleCheckModificatorM(-1),
-                RegenerationSite.Bad => new HalveModificator(),
-                RegenerationSite.Terrible => new ForcefulModificator(0),
+                RegenerationSite.Default => new SimpleCheckModificatorM(Modifier.Neutral),
+                RegenerationSite.Good => new SimpleCheckModificatorM(new Modifier(1)),
+                RegenerationSite.Poor => new SimpleCheckModificatorM(new Modifier(-1)),
+                RegenerationSite.Bad => new SimpleCheckModificatorM(new Modifier(2, Modifier.Op.Halve)),
+                RegenerationSite.Terrible => new SimpleCheckModificatorM(Modifier.Impossible),
                 _ => throw new NotImplementedException()
             };
             DisturbModifier = disturb switch
             {
-                RegenerationDisturbance.None => new SimpleCheckModificatorM(0),
-                RegenerationDisturbance.Brief => new SimpleCheckModificatorM(-1),
-                RegenerationDisturbance.Prolonged => new SimpleCheckModificatorM(-2),
+                RegenerationDisturbance.None => new SimpleCheckModificatorM(Modifier.Neutral),
+                RegenerationDisturbance.Brief => new SimpleCheckModificatorM(new Modifier(-1)),
+                RegenerationDisturbance.Prolonged => new SimpleCheckModificatorM(new Modifier(-2)),
                 _ => throw new NotImplementedException()
             };
             if (sickPoisoned)
-                SicknessModifier = new ForcefulModificator(0);
+                SicknessModifier = new SimpleCheckModificatorM(Modifier.Impossible);
             else
-                SicknessModifier = new SimpleCheckModificatorM(0);
-            OtherModifier = new SimpleCheckModificatorM(modifier);
+                SicknessModifier = new SimpleCheckModificatorM(Modifier.Neutral);
+            OtherModifier = new SimpleCheckModificatorM(new Modifier(modifier));
         }
 
 

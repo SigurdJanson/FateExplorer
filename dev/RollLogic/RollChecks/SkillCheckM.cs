@@ -55,7 +55,7 @@ namespace FateExplorer.RollLogic
                 RollAttr[a] = ability[a].EffectiveValue;
                 RollAttrName[a] = ability[a].ShortName;
             }
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
             CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             TargetAttr = skill.EffectiveValue;
@@ -111,7 +111,7 @@ namespace FateExplorer.RollLogic
         {
             if (Remainder < 0) return 0;
 
-            return Math.Max(((Remainder - 1) / 3) + 1, 1);
+            return Math.Max((Remainder + 2) / 3, 1);
         }
 
 

@@ -105,7 +105,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// Get the characters maximum value of the primary ability
         /// </summary>
-        /// <returns>Value</returns>
+        /// <returns>Ability value</returns>
         protected int GetPrimaryAbilityValue()
         {
             int PrimaryAbility = 0;

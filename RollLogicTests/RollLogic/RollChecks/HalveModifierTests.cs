@@ -1,4 +1,5 @@
 ﻿using FateExplorer.RollLogic;
+using FateExplorer.Shared;
 using NUnit.Framework;
 using System;
 
@@ -13,7 +14,7 @@ namespace UnitTests.RollLogic
             int[] Expected= new int[7] { 1, 2, 3, 4, 5, 6, 7 };
 
             // Arrange
-            var halfModifier = new HalveModificator();
+            var halfModifier = new SimpleCheckModificatorM(Modifier.Halve);
             int[] Before = new int[Expected.Length];
             for (int i = 0; i < Expected.Length; i++)
             {
@@ -36,7 +37,7 @@ namespace UnitTests.RollLogic
         public void Apply_EvenNumbers_ExactHalf(int Before, int After)
         {
             // Arrange
-            var halfModifier = new HalveModificator();
+            var halfModifier = new SimpleCheckModificatorM(Modifier.Halve);
 
             // Act
             var result = halfModifier.Apply(Before);
@@ -54,7 +55,7 @@ namespace UnitTests.RollLogic
         public void Apply_OddNumbers_RoundedHalf(int Before, int After)
         {
             // Arrange
-            var halfModifier = new HalveModificator();
+            var halfModifier = new SimpleCheckModificatorM(Modifier.Halve);
 
             // Act
             var result = halfModifier.Apply(Before);

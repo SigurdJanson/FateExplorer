@@ -362,7 +362,7 @@ else
     private void OnAbilityCheck(AbilityDTO ability)
     {
         ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, null);
-        ActiveAbilityCheck.CheckModifier.Set(ModifyValue);
+        ActiveAbilityCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }
 
@@ -370,7 +370,7 @@ else
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveAbilityCheck?.CheckModifier.Set(ModifyValue);
+        ActiveAbilityCheck?.CheckModifier.Set(new Modifier(ModifyValue));
         StateHasChanged();
     }
 

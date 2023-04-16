@@ -213,7 +213,7 @@ else
         try
         {
             var cnv = Abilities[s.Id];
-            ActiveCheck = RollHandler.OpenRoutineSkillCheck(new Check(s.Domain, isRoutine: true), s, cnv);
+            ActiveCheck = RollHandler.OpenRoutineSkillCheck(new Check(s.Domain, isRoutine: true), s, cnv, Modifier.Neutral);
         }
         catch(NotImplementedException error)
         {
@@ -237,7 +237,7 @@ else
     private void UpdateCanRoutineCheck()
     {
         foreach (var s in SkillList)
-            CanRoutineCheck[s.Id] = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
+            CanRoutineCheck[s.Id] = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(ModifyValue));
     }
 
 
@@ -285,7 +285,7 @@ else
                 CanRoutineCheck = new();
                 foreach (var s in SkillList)
                 {
-                    bool CanDo = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], ModifyValue);
+                    bool CanDo = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(ModifyValue));
                     CanRoutineCheck.Add(s.Id, CanDo);
                 }
             }

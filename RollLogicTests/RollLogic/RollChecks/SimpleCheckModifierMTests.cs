@@ -1,4 +1,5 @@
 ﻿using FateExplorer.RollLogic;
+using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -22,7 +23,7 @@ namespace UnitTests.RollLogic
 
         private SimpleCheckModificatorM CreateSimpleCheckModifierM(int Value)
         {
-            return new SimpleCheckModificatorM(Value);
+            return new SimpleCheckModificatorM(new Modifier(Value));
         }
 
     }

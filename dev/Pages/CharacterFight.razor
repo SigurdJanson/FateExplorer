@@ -211,7 +211,7 @@ else
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
+        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -234,7 +234,7 @@ else
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
+        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -247,7 +247,7 @@ else
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
         ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
-        ActiveCheck.CheckModifier.Set(ModifyValue);
+        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -266,11 +266,11 @@ else
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(ModifyValue);    
+        ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
     }
 
     /// <summary>
-    /// Opens a <see cref="DlgCombatMods">Combat Value Dialog</see>
+    /// Opens a <see cref="DlgCombatMods">Combat Modifier Dialog</see>
     /// </summary>
     private async Task OnComputeCombatMods()
     {

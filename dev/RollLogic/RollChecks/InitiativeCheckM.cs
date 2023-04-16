@@ -46,7 +46,7 @@ namespace FateExplorer.RollLogic
             AttributeId = Initiative.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = new SimpleCheckModificatorM(0);
+            CheckModificator = new SimpleCheckModificatorM(Modifier.Neutral);
 
             RollAttr[0] = Initiative.EffectiveValue;
             RollAttrName[0] = Initiative.Name;

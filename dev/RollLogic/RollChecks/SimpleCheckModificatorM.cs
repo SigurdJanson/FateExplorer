@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 
 namespace FateExplorer.RollLogic
 {
@@ -8,24 +9,21 @@ namespace FateExplorer.RollLogic
     /// </summary>
     public class SimpleCheckModificatorM : ICheckModificatorM
     {
-        /// <summary>
-        /// An additive modifier
-        /// </summary>
-        public int Value { get; protected set; }
+        /// <inheritdoc />
+        public Modifier Modifier { get; protected set; }
 
-        /// <inheritdoc/>
-        public int Total { get => Value; }
 
         /// <inheritdoc />
-        public int[] LastEffectiveApply { get; protected set; }
+        public int[] LastEffectiveDelta { get; protected set; }
+
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="value">The modifier's value to be applied to a roll</param>
-        public SimpleCheckModificatorM(int value)
+        /// <param name="value">The modifier's mod to be applied to a roll</param>
+        public SimpleCheckModificatorM(Modifier mod)
         {
-            Value = value;
+            Modifier = mod;
         }
 
 
@@ -35,12 +33,12 @@ namespace FateExplorer.RollLogic
         public int[] Apply(int[] Before) // TODO: check for min/max???
         {
             int[] After = new int[Before.Length];
-            LastEffectiveApply = new int[Before.Length];
+            LastEffectiveDelta = new int[Before.Length];
 
             for (int i = 0; i < Before.Length; i++)
             {
-                After[i] = Before[i] + Value;
-                LastEffectiveApply[i] = Value;
+                After[i] = Before[i] + Modifier;
+                LastEffectiveDelta[i] = After[i] - Before[i];
             }
                 
             return After;
@@ -48,21 +46,28 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc/>
-        public int Apply(int Before) // TODO: check for min/max???
+        public int Apply(int Before)
         {
-            LastEffectiveApply = new int[1] { Value };
-            return Before + Value; ;
+            int After = Before + Modifier;
+            LastEffectiveDelta = new int[1] { After - Before };
+            return After;
         }
 
 
+        /// <inheritdoc/>
+        public int Delta(int Before)
+        {
+            int After = Before + Modifier;
+            return After - Before;
+        }
+
 
         /// <inheritdoc/>
-        public void Set(int value)
+        public void Set(Modifier mod)
         {
-            if (value < -30 || value > +30) throw new ArgumentOutOfRangeException(nameof(value));
-            var old = Value;
-            Value = value;
-            if (Value != old) NotifyStateChange();
+            var old = Modifier;
+            Modifier = mod;
+            if (Modifier != old) NotifyStateChange();
         }
 
 

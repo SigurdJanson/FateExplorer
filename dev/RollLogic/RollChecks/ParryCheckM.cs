@@ -57,7 +57,7 @@ namespace FateExplorer.RollLogic
             AttributeId = weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(0);
+            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
             CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.PaSkill(mainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);

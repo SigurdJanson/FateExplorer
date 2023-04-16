@@ -32,7 +32,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Abilities">Abilities needed to check that skill</param>
         /// <param name="Modifier">The check's modifier</param>
         /// <returns>true if the routine check can be performed; otherwise false</returns>
-        bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod);
 
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Abilities">Abilities needed to check that skill</param>
         /// <param name="Modifier">The check's modifier</param>
         /// <returns>true if the routine check can be performed; otherwise false</returns>
-        RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod);
 
 
 
