@@ -22,10 +22,28 @@ public readonly struct Modifier : IEquatable<Modifier>
             throw new InvalidOperationException("A forceful modifier cannot be less than zero");
         if (op == Op.Halve && value != 2)
             throw new InvalidOperationException("A halve modifier can only be 2");
+        if (value < -40 || value > +40)
+            throw new ArgumentOutOfRangeException(nameof(value));
 
         Value = value;
         Operator = op;
     }
+
+    /// <summary>
+    /// Creates a modifier that does not change the values
+    /// </summary>
+    public static Modifier Neutral => new (0, Op.Add);
+
+    /// <summary>
+    /// Creates a modifier that makes a check impossible
+    /// </summary>
+    public static Modifier Impossible => new(0, Op.Force);
+
+    /// <summary>
+    /// Creates a modifier that halves the value for a check impossible
+    /// </summary>
+    public static Modifier Halve => new(2, Op.Halve);
+
 
     /// <summary>
     /// Apply the modifier to a value
