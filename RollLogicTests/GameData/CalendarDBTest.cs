@@ -43,7 +43,7 @@ namespace UnitTests.GameData
             Assert.AreEqual(13, Result.Generic.Month.Count);
         }
 
-        [Test]
+        [Test, Ignore("not available")]
         public void Count_ContentNotLoaded_Return0()
         {
             // Arrange

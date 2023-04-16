@@ -63,7 +63,6 @@ namespace UnitTests.CharacterModel
         public void ComputeDodge_Arbosch()
         {
             // Arrange
-            //-var dodgeM = this.CreateDodgeM();
             int EffectiveAgility = HeroArbosch.AbilityValues[AbilityM.AGI];
 
             // Act
