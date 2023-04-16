@@ -104,7 +104,6 @@ namespace FateExplorer.CharacterModel
             else
                 TwoHandMod = 0;
 
-
             // Determine passive bonus of parry weapon or shield
             int ParryMod;
             if (otherIsParry)
@@ -113,6 +112,8 @@ namespace FateExplorer.CharacterModel
                 ParryMod = otherPaMod;
             else
                 ParryMod = 0;
+            if (IsParry && Hero.HasSpecialAbility(SA.CatchBlade))
+                ParryMod += 1;
 
             // Return the result which shall not be < 0
             return Math.Max(BasePaSkill + OffHandMod + TwoHandMod + ParryMod, 0);
@@ -120,7 +121,7 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// How is the weapno called?
+        /// How is the weapon called?
         /// </summary>
         public string Name { get; set; }
 
@@ -129,6 +130,7 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         public string CombatTechId { get; set; }
 
+        /// <inheritdoc cref="CombatBranch"/>
         public CombatBranch Branch { get; protected set; }
 
         /// <summary>
