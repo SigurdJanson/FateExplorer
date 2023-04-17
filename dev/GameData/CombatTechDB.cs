@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.Shared;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {

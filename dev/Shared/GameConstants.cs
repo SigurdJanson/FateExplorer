@@ -1,4 +1,7 @@
-﻿
+﻿namespace FateExplorer.Shared;
+
+
+
 public enum ResilienceTypes
 {
     TOU = 1, // Toughness/Zähigkeit

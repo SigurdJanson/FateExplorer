@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 
 namespace FateExplorer.ViewModel

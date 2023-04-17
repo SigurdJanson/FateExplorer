@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using MudBlazor;
 using System;
 using System.Text.RegularExpressions;
@@ -133,10 +134,10 @@ public class CalendarViMo
     public string Season => GameData.GetSeason(Calendar.GetMonth(EffectiveDate));
     public string SeasonIcon => GameData.GetSeasonId(Calendar.GetMonth(EffectiveDate)) switch
     {
-        global::Season.Spring => Icons.Material.Sharp.LocalFlorist,
-        global::Season.Summer => Icons.Material.Sharp.BrightnessHigh,
-        global::Season.Autumn => Icons.Material.Sharp.Umbrella,
-        global::Season.Winter => Icons.Material.Sharp.AcUnit,
+        Shared.Season.Spring => Icons.Material.Sharp.LocalFlorist,
+        Shared.Season.Summer => Icons.Material.Sharp.BrightnessHigh,
+        Shared.Season.Autumn => Icons.Material.Sharp.Umbrella,
+        Shared.Season.Winter => Icons.Material.Sharp.AcUnit,
         _ => throw new ArgumentOutOfRangeException($"Unknown season")
     };
 

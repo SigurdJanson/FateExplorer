@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.CharacterModel

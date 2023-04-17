@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 
 namespace FateExplorer.CharacterModel
 {

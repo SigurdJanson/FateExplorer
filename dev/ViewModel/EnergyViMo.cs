@@ -1,6 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.RollLogic;
-
+using FateExplorer.Shared;
 
 namespace FateExplorer.ViewModel
 {
