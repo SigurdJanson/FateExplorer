@@ -29,11 +29,17 @@ class ModifierTests
 
 
     [Test]
-    [TestCase(9, +2, Modifier.Op.Add, ExpectedResult = 11)]
+    [TestCase(+9, +2, Modifier.Op.Add, ExpectedResult = 11)]
     [TestCase(10, -2, Modifier.Op.Add, ExpectedResult = 8)]
-    [TestCase(8, 2, Modifier.Op.Halve, ExpectedResult = 4)]
-    [TestCase(9, 2, Modifier.Op.Halve, ExpectedResult = 5)]
+    [TestCase(-3, +2, Modifier.Op.Add, ExpectedResult = -1)]
+    [TestCase(-3, -2, Modifier.Op.Add, ExpectedResult = -5)]
+    [TestCase(8, 2,  Modifier.Op.Halve, ExpectedResult = 4)]
+    [TestCase(9, 2,  Modifier.Op.Halve, ExpectedResult = 5)]
+    [TestCase(1, 2,  Modifier.Op.Halve, ExpectedResult = 1)]
+    [TestCase(0, 2,  Modifier.Op.Halve, ExpectedResult = 0)]
+    [TestCase(-2, 2, Modifier.Op.Halve, ExpectedResult = -2)]
     [TestCase(6, 2, Modifier.Op.Force, ExpectedResult = 2)]
+    [TestCase(-1, 0, Modifier.Op.Force, ExpectedResult = -1)]
     public int ValueModification(int before, int v, Modifier.Op op)
     {
         // Arrange
@@ -45,6 +51,8 @@ class ModifierTests
         // Assert
         return result;
     }
+
+
 
     [Test]
     [TestCase(-3, Modifier.Op.Add, ExpectedResult = true)]

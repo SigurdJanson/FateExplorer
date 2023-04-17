@@ -13,7 +13,7 @@ public readonly struct Modifier : IEquatable<Modifier>
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="value">THe numeric value used to modify a check. The exact interpretation depends on <paramref name="op"/>.</param>
+    /// <param name="value">THe numeric value used to modify p check. The exact interpretation depends on <paramref name="op"/>.</param>
     /// <param name="op">The operation used. Typical is the additive modifier.</param>
     /// <exception cref="InvalidOperationException"></exception>
     public Modifier(int value, Op op = Op.Add)
@@ -30,44 +30,50 @@ public readonly struct Modifier : IEquatable<Modifier>
     }
 
     /// <summary>
-    /// Creates a modifier that does not change the values
+    /// Creates p modifier that does not change the values
     /// </summary>
     public static Modifier Neutral => new (0, Op.Add);
 
     /// <summary>
-    /// Creates a modifier that makes a check impossible
+    /// Creates p modifier that makes p check impossible
     /// </summary>
     public static Modifier Impossible => new(0, Op.Force);
 
     /// <summary>
-    /// Creates a modifier that halves the value for a check impossible
+    /// Creates p modifier that makes p check impossible
+    /// </summary>
+    public static Modifier LuckyShot => new(1, Op.Force);
+
+    /// <summary>
+    /// Creates p modifier that halves the value for p check impossible
     /// </summary>
     public static Modifier Halve => new(2, Op.Halve);
 
 
+
     /// <summary>
-    /// Apply the modifier to a value
+    /// Apply the modifier to p proficiency value.
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    public static int operator +(int a, Modifier b)
+    /// <param name="p">A proficiency value users can roll against.</param>
+    /// <param name="mod">The modifier to modify p proficiency to roll against.</param>
+    /// <returns>The effective value for a roll check.</returns>
+    public static int operator +(int p, Modifier mod)
     {
-        return b.Operator switch
+        return mod.Operator switch
         {
-            Op.Add => a + b.Value,
-            Op.Halve => a / 2 + a % 2,
-            Op.Force => b.Value,
+            Op.Add => p + mod.Value,
+            Op.Halve => p < 2 ? p : (p / 2 + p % 2), // halving a value shall not improve it
+            Op.Force => Math.Min(p, mod.Value), // if the effective value is already lower, keep it.
             _ => -1
         };
     }
 
 
     /// <summary>
-    /// Returns the effective delta between a skill value (or any other check)
+    /// Returns the effective delta between p skill value (or any other check)
     /// and the effective value after the modifier has been applied.
     /// </summary>
-    /// <param name="a">An int value to roll a check against.</param>
+    /// <param name="a">An int value to roll p check against.</param>
     /// <returns></returns>
     public int Delta(int a) => a + this - a;
 
