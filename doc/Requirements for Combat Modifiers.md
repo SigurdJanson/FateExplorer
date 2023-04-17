@@ -152,8 +152,8 @@ Melee, Unarmed, Shield; incl. dodge actions
 |   | Movement | |
 |---|---|---|---|
 | 0 | Stationary | 0|
-| 1 | Slow       | < 4 steps / action |
-| 2 | Fast       | > 4 steps / action |
+| 1 | Slow       | < 4 yds / action |
+| 2 | Fast       | > 4 yds / action |
 
 
 ### On Foot
