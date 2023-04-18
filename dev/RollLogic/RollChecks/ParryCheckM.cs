@@ -45,22 +45,21 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="weapon">The weapon to parry with</param>
-        /// <param name="mainHand">Does the character carry this weapon in the main hand (true) or off (false)?</param>
-        /// <param name="otherWeapon">The weapon in the other hand</param>
-        /// <param name="modifier">A modifier to be applied to the roll check</param>
+        /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
-        public ParryCheckM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
+        public ParryCheckM(BattlegroundM context, IGameDataService gameData)//(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
             : base(gameData)
         {
+            WeaponM weapon = context.UseMainHand ? context.MainWeapon : context.OffWeapon; // the weapon to use
+            WeaponM otherWeapon = context.UseMainHand ? context.OffWeapon : context.MainWeapon;
             // inherited properties
             AttributeId = weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
-            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
+            Context = context;
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
-            RollAttr[0] = weapon.PaSkill(mainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
+            RollAttr[0] = weapon.PaSkill(context.UseMainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
             RollAttrName[0] = ResourceId.ParryLabelId;
             Name = weapon.Name;
 
@@ -82,7 +81,7 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Parry));
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -91,7 +90,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -201,7 +200,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Parry));
 
             return roll;
         }

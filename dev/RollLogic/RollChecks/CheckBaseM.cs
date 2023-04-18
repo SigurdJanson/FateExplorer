@@ -93,8 +93,13 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// This checks general modificator
         /// </summary>
+        [Obsolete("This property should no longer be used, please use a `Context` instead.")]
         public ICheckModificatorM CheckModificator { get; set; }
 
+        /// <summary>
+        /// The context in which the check takes place. All properties that may modify the check in any way.
+        /// </summary>
+        public ICheckContext Context { get; set; }
 
 
         /// <summary>
