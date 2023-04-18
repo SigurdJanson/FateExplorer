@@ -173,7 +173,6 @@ public class CalendarViMo
     /// <returns>A DateTime representation of the given date.</returns>
     /// <exception cref="FormatException"></exception>
     // https://stackoverflow.com/questions/56065683/regex-for-matching-dates-month-day-year-or-m-d-yy?msclkid=f2b2cd08c3af11ec8681f35279f46fe3
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Readibility")]
     public DateTime Parse(string dateStr)
     {
         const string DayName = "day";
