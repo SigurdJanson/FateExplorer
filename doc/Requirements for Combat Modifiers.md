@@ -192,3 +192,12 @@ Melee, Unarmed, Shield; incl. dodge actions
 Zigzag also halves the speed
 
 
+## Taking Aim
+
+Each action you spend aiming gives a bonus of 2 (maximum of 4) to your next shot. Aiming counts as a long action until you actually make the attack (see Long Actions, page 228).
+
+
+## Shooting into Melee
+
+If a ranged combatant fires at an enemy engaged in close combat (in other words, if another combatant is within attack distance of the target), the shot suffers a penalty of 2. If the check fails, no one is hit.
+
