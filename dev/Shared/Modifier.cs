@@ -7,7 +7,7 @@ public readonly struct Modifier : IEquatable<Modifier>
 {
     private const int OpBitShift = 29;
     public enum Op { Add = 1 << OpBitShift, Halve = 2 << OpBitShift, Force = 3 << OpBitShift }
-    private readonly Op Operator;
+    public  readonly Op Operator;
     private readonly int Value;
 
     /// <summary>
