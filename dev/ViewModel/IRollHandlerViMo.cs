@@ -66,7 +66,7 @@ namespace FateExplorer.ViewModel
         /// <param name="weapon">The weapon to be used for the action</param>
         /// <param name="Hands">The Hands object of the character.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenCombatRollCheck(Check actionId, WeaponViMo weapon, HandsViMo Hands);
+        RollCheckResultViMo OpenCombatRollCheck(Check actionId, BattlegroundViMo context);
 
 
         /// <summary>

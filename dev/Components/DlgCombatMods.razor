@@ -17,7 +17,7 @@
                 <MudPaper Outlined=true Class="pa-4">
                     @if (Weapon.Branch == CombatBranch.Ranged)
                     {
-                    @l10n["lblDistance"]
+                        @l10n["lblDistance"]
                         <MudSlider Min=0 Max=2 TickMarks=true TickMarkLabels=@DistanceLabels Step=1 Value=@Distance Size=Size.Large />
                     }
                     else
@@ -28,7 +28,7 @@
             </MudItem>
             <MudItem xs=3>
                 <MudPaper Outlined=true Class="pa-4">
-                    <MudText Typo=@Typo.subtitle1>@l10n["lblEnemy"]</MudText>
+                    <MudText Typo=@Typo.body2>@l10n["lblEnemy"]</MudText>
                 </MudPaper>
             </MudItem>
 
@@ -202,7 +202,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Reset">@l10n["btnReset"]</MudButton>
-        <MudDivider Vertical="true" FlexItem="true" />
+        <MudDivider Vertical=true FlexItem=true />
         <MudButton OnClick="Cancel">@l10n["btnCancel"]</MudButton>
         <MudButton Color=Color.Primary Variant=Variant.Filled OnClick="Submit">@l10n["btnApply"]</MudButton>
     </DialogActions>
@@ -222,7 +222,7 @@
     MudDialogInstance MudDialog { get; set; }
 
     // RESULT
-    //private BattlegroundViMo { get; set; }
+    private BattlegroundViMo Battleground { get; set; }
     private int Modifier { get; set; } = 0;
 
     // SETTINGS
