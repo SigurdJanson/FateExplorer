@@ -1,4 +1,5 @@
 ﻿using FateExplorer.RollLogic;
+using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
 

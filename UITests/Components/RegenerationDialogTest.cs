@@ -5,6 +5,7 @@ using AngleSharp.Dom;
 using Bunit;
 using Moq;
 using FateExplorer.Components;
+using FateExplorer.Shared;
 
 namespace FateExplorer.UITests.Components;
 

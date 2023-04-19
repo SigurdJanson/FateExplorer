@@ -3,6 +3,7 @@ using FateExplorer.CharacterModel;
 using Moq;
 using NUnit.Framework;
 using System;
+using FateExplorer.Shared;
 
 namespace UnitTests.CharacterModel
 {

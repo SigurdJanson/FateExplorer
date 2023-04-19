@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
 using System;
