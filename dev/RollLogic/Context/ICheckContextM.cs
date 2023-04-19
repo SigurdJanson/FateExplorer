@@ -6,7 +6,7 @@ namespace FateExplorer.RollLogic;
 /// The main purpose of the check context is to collect all data needed to calculate a check modifier
 /// that depends on context variables. Most important context of the <see cref="BattlegroundM">battle ground</see>.
 /// </summary>
-public interface ICheckContext : IStateContainer
+public interface ICheckContextM : IStateContainer
 {
     /// <summary>
     /// Computes and returns the total modifier of the given context

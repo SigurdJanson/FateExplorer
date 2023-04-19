@@ -99,7 +99,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The context in which the check takes place. All properties that may modify the check in any way.
         /// </summary>
-        public ICheckContext Context { get; set; }
+        public ICheckContextM Context { get; set; }
 
 
         /// <summary>

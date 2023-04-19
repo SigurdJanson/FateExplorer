@@ -7,7 +7,7 @@ namespace FateExplorer.RollLogic;
 
 
 
-public class BattlegroundM : ICheckContext
+public class BattlegroundM : ICheckContextM
 {
     /// <summary>
     /// Constructor
@@ -334,7 +334,7 @@ public class BattlegroundM : ICheckContext
 
 
     /*
-     * ICheckContext
+     * ICheckContextM
      */
 
 

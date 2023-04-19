@@ -4,7 +4,7 @@ using System;
 namespace FateExplorer.RollLogic;
 
 
-public class BaseContextM : ICheckContext
+public class BaseContextM : ICheckContextM
 {
     /*
      * Implement `IStateContainer`
