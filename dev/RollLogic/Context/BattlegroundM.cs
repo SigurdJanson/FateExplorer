@@ -13,8 +13,8 @@ public class BattlegroundM : ICheckContextM
     /// Constructor
     /// </summary>
     /// <param name="useMainHand">true = fight with main hand weapon; false = fight with off-hand weapon.</param>
-    /// <param name="mainWeapon"></param>
-    /// <param name="offWeapon"></param>
+    /// <param name="mainWeapon">Weapon in the main hand.</param>
+    /// <param name="offWeapon">Weapon in the off hand.</param>
     public BattlegroundM(bool useMainHand, WeaponM mainWeapon, WeaponM offWeapon)
     {
         MainWeapon = mainWeapon;
@@ -77,8 +77,10 @@ public class BattlegroundM : ICheckContextM
     {
         if (!original.Equals(value))
         {
-            NotifyStateChange();
+            TotalMod = Modifier.Neutral;
+            TotalModAction = 0;
             original = value;
+            NotifyStateChange();
         }
     }
 
@@ -336,11 +338,14 @@ public class BattlegroundM : ICheckContextM
     /*
      * ICheckContextM
      */
-
+    private Modifier TotalMod { get; set; } = Modifier.Neutral;
+    private Check.Combat TotalModAction { get; set; } = 0;
 
     /// <inheritdoc />
     public Modifier GetTotalMod(int before, Check.Combat action)
     {
+        if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
+
         List<Modifier> Mods = new()
         {
             //
@@ -385,10 +390,14 @@ public class BattlegroundM : ICheckContextM
         }
 
         if (ForceMods.Count > 0)
-            return new Modifier(After, Modifier.Op.Force);
+            TotalMod = new Modifier(After, Modifier.Op.Force);
         else
-            return new Modifier(After - before, Modifier.Op.Add);
+            TotalMod = new Modifier(After - before, Modifier.Op.Add);
+        TotalModAction = action;
+
+        return TotalMod;
     }
+
 
     /// <inheritdoc />
     public int ApplyTotalMod(int before, Check.Combat action)
@@ -398,8 +407,10 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    //public int Delta(int Before)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    /// <inheritdoc />
+    public int ModDelta(int before, Check.Combat action)
+    {
+        var mod = GetTotalMod(before, action);
+        return (before + mod) - before;
+    }
 }
