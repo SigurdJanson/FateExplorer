@@ -30,6 +30,7 @@ namespace FateExplorer.RollLogic
 
 
         // COMBAT SPECIFIC PROPERTIES
+        public string CombatTech { get; protected set; }
         /// <summary>
         /// The kind of combat technique behind the weapon
         /// </summary>
@@ -83,6 +84,7 @@ namespace FateExplorer.RollLogic
             DamageDieCount = weapon.DamageDieCount;
             DamageDieSides = weapon.DamageDieSides;
             DamageBonus = weapon.DamageBonus;
+            CombatTech = weapon.CombatTechId;
             CombatTechType = weapon.Branch;
             IsImprovised = weapon.IsImprovised;
 
@@ -95,7 +97,7 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange() 
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Attack));
+            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
 
         protected override void Dispose(bool disposedStatus)
         {
@@ -256,7 +258,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Attack));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
 
             return roll;
         }

@@ -26,25 +26,6 @@ public class BattlegroundViMo
 
     public void ResetToDefault() => Battleground.ResetToDefault();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="Value"></param>
-    /// <returns></returns>
-    public int ModifyAttack(int Value)
-    {
-        return Battleground.ApplyTotalMod(Value, Check.Combat.Attack);
-    }
-
-
-    public int ModifyParry(int Value)
-    {
-        return Battleground.ApplyTotalMod(Value, Check.Combat.Parry);
-    }
-    public int ModifyDodge(int Value)
-    {
-        return Value - 299;
-    }
 
 
     public BattlegroundM ToM() => Battleground;
