@@ -50,6 +50,11 @@ public readonly struct Modifier : IEquatable<Modifier>
     public static Modifier Halve => new(2, Op.Halve);
 
 
+    /// <summary>
+    /// Checks if the modifier does not affect the proficiency value.
+    /// </summary>
+    public bool IsNeutral => Value == 0 && Operator == Op.Add;
+
 
     /// <summary>
     /// Apply the modifier to p proficiency value.
