@@ -42,5 +42,10 @@ public class BaseContextM : ICheckContextM
     {
         return new Modifier(FreeModifier);
     }
+
+    public int ModDelta(int before, Check.Combat action)
+    {
+        return FreeModifier;
+    }
 }
 
