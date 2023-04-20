@@ -33,17 +33,17 @@ public class BaseContextM : ICheckContextM
     }
 
 
-    public int ApplyTotalMod(int before, Check.Combat action)
+    public int ApplyTotalMod(int before, Check action)
     {
         return before + FreeModifier;
     }
 
-    public Modifier GetTotalMod(int before, Check.Combat action)
+    public Modifier GetTotalMod(int before, Check action)
     {
         return new Modifier(FreeModifier);
     }
 
-    public int ModDelta(int before, Check.Combat action)
+    public int ModDelta(int before, Check action)
     {
         return FreeModifier;
     }

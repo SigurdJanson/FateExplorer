@@ -14,7 +14,7 @@ public interface ICheckContextM : IStateContainer
     /// <param name="before">A proficiency value before modification.</param>
     /// <param name="action">An action evaluated by a roll check.</param>
     /// <returns>A modifier that can be applied to a proficiency value.</returns>
-    Modifier GetTotalMod(int before, Check.Combat action);
+    Modifier GetTotalMod(int before, Check action);
 
     /// <summary>
     /// Modifies the proficiency value before rolling a check given the current context.
@@ -22,7 +22,7 @@ public interface ICheckContextM : IStateContainer
     /// <param name="before">A proficiency value before modification.</param>
     /// <param name="action">An action evaluated by a roll check.</param>
     /// <returns>The modified proficiency value.</returns>
-    int ApplyTotalMod(int before, Check.Combat action);
+    int ApplyTotalMod(int before, Check action);
 
 
     /// <summary>
@@ -31,5 +31,5 @@ public interface ICheckContextM : IStateContainer
     /// <param name="before">A proficiency value before modification.</param>
     /// <param name="action">An action evaluated by a roll check.</param>
     /// <returns>The difference between the original and the effective value (after modification).</returns>
-    int ModDelta(int before, Check.Combat action);
+    int ModDelta(int before, Check action);
 }

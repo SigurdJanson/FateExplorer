@@ -78,7 +78,7 @@ public class BattlegroundM : ICheckContextM
         if (!original.Equals(value))
         {
             TotalMod = Modifier.Neutral;
-            TotalModAction = 0;
+            TotalModAction = default;
             original = value;
             NotifyStateChange();
         }
@@ -154,7 +154,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetVisibilityMod(Check.Combat action)
+    public Modifier GetVisibilityMod(Check action)
     {
         // dodging would be same as parry
 
@@ -176,7 +176,7 @@ public class BattlegroundM : ICheckContextM
                 Vision.ShapesOnly => new Modifier(-2),
                 Vision.Barely => new Modifier(-3),
                 Vision.NoVision =>
-                    !IsRanged && action == Check.Combat.Attack ? Modifier.Halve : Modifier.LuckyShot,
+                    !IsRanged && action.Is(Check.Combat.Attack) ? Modifier.Halve : Modifier.LuckyShot,
                 _ => throw new InvalidOperationException()
             };
 
@@ -229,10 +229,10 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetMovingMod(Check.Combat action)
+    public Modifier GetMovingMod(Check action)
     {
         if (!IsRanged) return Modifier.Neutral;
-        if (action == Check.Combat.Parry) return Modifier.Neutral;
+        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
         // dodging would not be affected
 
         return Moving switch
@@ -248,10 +248,10 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEnemyMovingMod(Check.Combat action)
+    public Modifier GetEnemyMovingMod(Check action)
     {
         if (!IsRanged) return Modifier.Neutral;
-        if (action == Check.Combat.Parry) return Modifier.Neutral;
+        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
         // dodging would not be affected
 
         return EnemyMoving switch
@@ -264,10 +264,10 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEvasiveActionMod(Check.Combat action)
+    public Modifier GetEvasiveActionMod(Check action)
     {
         if (!IsRanged) return Modifier.Neutral;
-        if (action == Check.Combat.Parry) return Modifier.Neutral;
+        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
         // dodging would not be affected
 
         return EnemyEvasive switch
@@ -294,7 +294,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetSizeOfEnemyMod(Check.Combat action)
+    public Modifier GetSizeOfEnemyMod(Check action)
     {
         // dodging would not be affected
 
@@ -314,18 +314,18 @@ public class BattlegroundM : ICheckContextM
         {
             if (Branch == CombatBranch.Melee || Branch == CombatBranch.Unarmed)
             {
-                if (action == Check.Combat.Attack && SizeOfEnemy == EnemySize.Tiny)
+                if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
-                else if (action == Check.Combat.Parry && SizeOfEnemy > EnemySize.Large)
+                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy > EnemySize.Large)
                     return Modifier.Impossible;
                 else
                     return Modifier.Neutral;
             }
             if (Branch == CombatBranch.Shield)
             {
-                if (action == Check.Combat.Attack && SizeOfEnemy == EnemySize.Tiny)
+                if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
-                else if (action == Check.Combat.Parry && SizeOfEnemy == EnemySize.Huge)
+                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy == EnemySize.Huge)
                     return Modifier.Impossible;
                 else
                     return Modifier.Neutral;
@@ -339,10 +339,11 @@ public class BattlegroundM : ICheckContextM
      * ICheckContextM
      */
     private Modifier TotalMod { get; set; } = Modifier.Neutral;
-    private Check.Combat TotalModAction { get; set; } = 0;
+    private Check TotalModAction { get; set; } = default;
+
 
     /// <inheritdoc />
-    public Modifier GetTotalMod(int before, Check.Combat action)
+    public Modifier GetTotalMod(int before, Check action)
     {
         if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
 
@@ -400,7 +401,7 @@ public class BattlegroundM : ICheckContextM
 
 
     /// <inheritdoc />
-    public int ApplyTotalMod(int before, Check.Combat action)
+    public int ApplyTotalMod(int before, Check action)
     {
         var mod = GetTotalMod(before, action);
         return before + mod;
@@ -408,7 +409,7 @@ public class BattlegroundM : ICheckContextM
 
 
     /// <inheritdoc />
-    public int ModDelta(int before, Check.Combat action)
+    public int ModDelta(int before, Check action)
     {
         var mod = GetTotalMod(before, action);
         return (before + mod) - before;
