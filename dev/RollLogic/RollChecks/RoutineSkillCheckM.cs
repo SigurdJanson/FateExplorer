@@ -166,6 +166,18 @@ public class RoutineSkillCheckM : CheckBaseM
         return RemainingSkillPoints > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
     }
 
+
+    /// <inheritdoc/>
+    public override Modifier RollModifier(RollType Which)
+    {
+        return Which switch
+        {
+            RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Domain)),
+            _ => throw new NotImplementedException()
+        };
+    }
+
+
     /// <inheritdoc/>
     /// <remarks>Not implemented</remarks>
     public override int[] RollRemainder(RollType Which)

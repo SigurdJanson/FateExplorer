@@ -153,6 +153,14 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
+        /// Get the modifier that was applied to the requested roll type..
+        /// </summary>
+        /// <param name="Which">The requested roll type</param>
+        /// <returns>A modifier</returns>
+        public abstract Modifier RollModifier(RollType Which);
+
+
+        /// <summary>
         /// Get remaining eyes for a particular roll after it's evaluation.
         /// </summary>
         /// <param name="Which">The desired roll type</param>

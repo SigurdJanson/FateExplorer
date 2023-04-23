@@ -35,6 +35,7 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The sum of the modifiers put into the roll.
         /// </summary>
+        [Obsolete]
         public ICheckModificatorM CheckModifier
         {
             get => RollCheck.CheckModificator;
@@ -56,7 +57,7 @@ namespace FateExplorer.RollLogic
         /// Get the summarized additive modifier after it has been applied to the
         /// roll. See <seealso cref="ICheckModificatorM.Total"/>.
         /// </summary>
-        public int SummarizedModifier => RollCheck?.CheckModificator?.LastEffectiveDelta[0] ?? 0;//TODO: prüfen: war mal: RollCheck?.CheckModificator?.Total ?? 0;
+        public Modifier SummarizedModifier => RollCheck?.RollModifier(RollType.Primary) ?? Modifier.Neutral;
 
 
         /// <summary>

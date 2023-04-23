@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -150,6 +151,17 @@ namespace FateExplorer.RollLogic
                 RollList[Which] = NextStep(Which);
 
             return RollList[Which];
+        }
+
+
+        /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Ability)),
+                _ => throw new NotImplementedException()
+            };
         }
 
 

@@ -226,6 +226,17 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+
+        /// <inheritdoc/>
         /// <remarks>Not needed at the moment for combat rolls</remarks>
         public override int[] RollRemainder(RollType Which)
         {
