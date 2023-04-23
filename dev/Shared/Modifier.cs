@@ -3,6 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace FateExplorer.Shared;
 
+
+/// <summary>
+/// Represents a modification operation applied to a roll check. 
+/// </summary>
 public readonly struct Modifier : IEquatable<Modifier>
 {
     private const int OpBitShift = 29;
