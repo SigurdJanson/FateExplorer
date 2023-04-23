@@ -7,7 +7,7 @@ namespace FateExplorer.Shared;
 /// <summary>
 /// Represents a modification operation applied to a roll check. 
 /// </summary>
-public readonly struct Modifier : IEquatable<Modifier>
+public readonly struct Modifier : IEquatable<Modifier>, IFormattable
 {
     private const int OpBitShift = 29;
     public enum Op { Add = 1 << OpBitShift, Halve = 2 << OpBitShift, Force = 3 << OpBitShift }
@@ -95,6 +95,7 @@ public readonly struct Modifier : IEquatable<Modifier>
     public static explicit operator int(Modifier a) => a.Value;
 
 
+
     public override string ToString() => Operator switch
     {
         Op.Add => $"{Value:+#;-#;0}",
@@ -102,6 +103,19 @@ public readonly struct Modifier : IEquatable<Modifier>
         Op.Force => $"= {Value}",
         _ => "invalid"
     };
+
+
+    public string ToString(string format, IFormatProvider formatProvider)
+    {
+        // Handle null or empty string.
+        if (string.IsNullOrEmpty(format)) format = "G";
+        // Remove spaces and convert to uppercase.
+        format = format.Trim().ToUpperInvariant();
+
+        ModifierFormatter formatter = formatProvider.GetFormat(GetType()) as ModifierFormatter;
+
+        return string.Format(formatter.Format(format, this, formatter), Math.Abs((int)this));
+    }
 
 
 
@@ -121,6 +135,7 @@ public readonly struct Modifier : IEquatable<Modifier>
 
     /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Modifier m) => this == m;
+
 
     /// <summary>
     /// Determines whether two object instances are equal.
