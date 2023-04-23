@@ -27,6 +27,27 @@ class ModifierTests
 
 
 
+    [Test]
+    [TestCase(2, Modifier.Op.Add, false, ExpectedResult = "+2")]
+    [TestCase(-3, Modifier.Op.Add, false, ExpectedResult = "-3")]
+    [TestCase(+2, Modifier.Op.Halve, false, ExpectedResult = "/ 2")]
+    [TestCase(5, Modifier.Op.Force, false, ExpectedResult = "= 5")]
+    [TestCase(-3, Modifier.Op.Add, true, ExpectedResult = "um 3 erschwert")]
+    [TestCase(1, Modifier.Op.Force, true, ExpectedResult = "nur mit einer 1 nach Modifikation")]
+    public string ToString_Formatter(int v, Modifier.Op op, bool LongFormat)
+    {
+        // Arrange
+        string Format = LongFormat ? "L" : "G";
+        Modifier m = new(v, op);
+
+        // Act
+        string result = m.ToString(Format, new ModifierFormatter());
+
+        // Assert
+        return result;
+    }
+
+
 
     [Test]
     [TestCase(+9, +2, Modifier.Op.Add, ExpectedResult = 11)]
@@ -165,4 +186,5 @@ class ModifierTests
         // Assert
         return result;
     }
+
 }
