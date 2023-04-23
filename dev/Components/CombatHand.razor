@@ -71,19 +71,9 @@
     [Parameter] public HandsViMo HeroHands { get; set; }
 
     /// <summary>
-    /// Which of the hands does thi component represent? Main or off-hand?
+    /// Which of the hands does this component represent? Main or off-hand?
     /// </summary>
     [Parameter] public HandsViMo.Hand WhichHand  { get; set; }
-
-    /// <summary>
-    /// Does the character carry a weapon or fight with bare hands?
-    /// </summary>
-    [Parameter] public bool BareHand  { get; set; }
-
-    /// <summary>
-    /// The carried weapon (is either a data base weapon or the character's bare hand as weapon). Not null.
-    /// </summary>
-    [Parameter] public WeaponViMo Weapon { get; set; }
 
     /// <summary>
     /// 
@@ -112,8 +102,19 @@
     private string AriaParry;
 
     //
+    /// <summary>
+    /// Does the character carry a weapon or fight with bare hands?
+    /// </summary>
+    public bool BareHand { get; set; }
+
+    /// <summary>
+    /// The carried weapon (is either a data base weapon or the character's bare hand as weapon). Not null.
+    /// </summary>
+    public WeaponViMo Weapon { get; set; }
+
     private bool HasCombatStyles;
     private string SelectedCombatStyle;
+
 
 
     /// <inheritdoc />
@@ -141,6 +142,17 @@
         {
             HasCombatStyles = (CombatStyles?.Count ?? 0) > 0;
             SelectedCombatStyle = null; // otherwise the dropdown gets confused
+
+            if (WhichHand == HandsViMo.Hand.Main)
+            {
+                BareHand = HeroHands.IsBare(HandsViMo.Hand.Main);
+                Weapon = HeroHands.MainWeapon;
+            }
+            else
+            {
+                BareHand = HeroHands.IsBare(HandsViMo.Hand.Off);
+                Weapon = HeroHands.OffWeapon;
+            }
         }
     }
 
@@ -150,7 +162,7 @@
     /// </summary>
     protected void AttackCheckCalled()
     {
-        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Attack, Weapon.CombatTechId, SelectedCombatStyle));
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Attack, Weapon.CombatTechId, Weapon.Branch, SelectedCombatStyle));
     }
 
     /// <summary>
@@ -158,7 +170,7 @@
     /// </summary>
     protected void ParryCheckCalled()
     {
-        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, SelectedCombatStyle));
+        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, Weapon.Branch, SelectedCombatStyle));
     }
 
 

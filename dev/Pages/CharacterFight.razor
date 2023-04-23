@@ -100,8 +100,7 @@
                 <MudGrid>
                     <MudItem xs=6>
                         <CombatHand 
-                            HeroHands=Hero.Hands Weapon=Hero.Hands.MainWeapon
-                            WhichHand=HandsViMo.Hand.Main BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Main) 
+                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Main
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
                             OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
@@ -109,8 +108,7 @@
                     </MudItem>
                     <MudItem xs=6>
                         <CombatHand 
-                            HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
-                            WhichHand=HandsViMo.Hand.Off BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Off) 
+                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Off 
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
                             OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false)) 
                             OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
