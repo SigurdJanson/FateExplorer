@@ -31,6 +31,11 @@ namespace FateExplorer.RollLogic
 
         // COMBAT SPECIFIC PROPERTIES
         /// <summary>
+        /// The combat technique
+        /// </summary>
+        public string CombatTech { get; protected set; }
+
+        /// <summary>
         /// The kind of combat technique behind the weapon
         /// </summary>
         public CombatBranch CombatTechType { get; protected set; }
@@ -81,7 +86,10 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Parry));
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)));
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -200,7 +208,7 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Parry));
+                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)));
 
             return roll;
         }

@@ -66,7 +66,10 @@ public class HruruzatAttackM : AttackCheckM
         RollList[Which] = roll;
 
         if (Which == RollType.Primary || Which == RollType.Confirm)
-            Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], Check.Combat.Attack));
+            Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
 
         return roll;
     }

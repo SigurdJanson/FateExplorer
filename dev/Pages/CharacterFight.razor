@@ -163,6 +163,7 @@ else
         Icons.Filled.Accessibility, 
         IconsFE.Success};
 
+    private BattlegroundViMo Context { get; set; }
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
@@ -199,19 +200,16 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnAttackCheck(Check ActionId, WeaponViMo weapon, bool MainHand)
     {
-        //const string ActionId = ChrAttrId.AT;
-        //Check ActionId = new(Check.Combat.Attack, weapon.CombatTechId);
-
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
+        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -222,19 +220,18 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnParryCheck(WeaponViMo weapon, bool MainHand)
     {
-        //const string ActionId = ChrAttrId.PA;
         Check ActionId = new(Check.Combat.Parry, weapon.CombatTechId);
 
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
+        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -247,7 +244,7 @@ else
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
         ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
-        ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
+        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -263,10 +260,15 @@ else
     }
 
 
+    /// <summary>
+    /// Responds to setting the free modifier.
+    /// </summary>
+    /// <param name="NewValue">A user-defined additive modifier</param>
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
+        Context.FreeModifier = ModifyValue;
+        //-ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
     }
 
     /// <summary>
@@ -301,6 +303,7 @@ else
         if (RollCheckResults is null)
             RollCheckResults = new(4);
         LoadHeroData();
+        Context = new(true, Hero.Hands.MainWeapon, Hero.Hands.OffWeapon);
     }
 
 

@@ -96,11 +96,17 @@ namespace FateExplorer.RollLogic
         [Obsolete("This property should no longer be used, please use a `Context` instead.")]
         public ICheckModificatorM CheckModificator { get; set; }
 
+
         /// <summary>
         /// The context in which the check takes place. All properties that may modify the check in any way.
         /// </summary>
-        public ICheckContextM Context { get; set; }
+        protected ICheckContextM Context { get; set; }
 
+
+        /// <summary>
+        /// The delta between the original and the effective proficiency value after modifying it.
+        /// </summary>
+        public int ModDelta { get; }
 
         /// <summary>
         /// The (pending) success level of the whole check.
@@ -213,11 +219,6 @@ namespace FateExplorer.RollLogic
         /// </summary>
         protected bool IsDisposed = false;
 
-        //public void Free()
-        //{
-        //    if (IsDisposed)
-        //        throw new ObjectDisposedException(GetType().ToString());
-        //}
 
         /// <summary>
         /// Call <c>Dispose()</c> to free resources explicitly.

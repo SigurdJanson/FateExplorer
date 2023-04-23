@@ -30,6 +30,9 @@ namespace FateExplorer.RollLogic
 
 
         // COMBAT SPECIFIC PROPERTIES
+        /// <summary>
+        /// THe combat technique
+        /// </summary>
         public string CombatTech { get; protected set; }
         /// <summary>
         /// The kind of combat technique behind the weapon
@@ -258,7 +261,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
 
             return roll;
         }
