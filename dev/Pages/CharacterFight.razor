@@ -303,7 +303,8 @@ else
         if (RollCheckResults is null)
             RollCheckResults = new(4);
         LoadHeroData();
-        Context = new(true, Hero.Hands.MainWeapon, Hero.Hands.OffWeapon);
+        if (Hero.Hands is not null)
+            Context ??= new(true, Hero.Hands.MainWeapon, Hero.Hands.OffWeapon);
     }
 
 
