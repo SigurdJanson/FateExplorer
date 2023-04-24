@@ -354,7 +354,6 @@ namespace FateExplorer.CharacterImport
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Less clarity")]
         public decimal TotalMoney()
         {
             decimal Ducats, Thalers, Farthings, Kreutzer;
