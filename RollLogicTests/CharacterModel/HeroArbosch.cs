@@ -99,15 +99,17 @@ namespace UnitTests.CharacterModel
         {
             get
             {
-                Dictionary<string, int> Result = new();
-                Result.Add(AbilityM.COU, 14);
-                Result.Add(AbilityM.SGC, 10);
-                Result.Add(AbilityM.INT, 13);
-                Result.Add(AbilityM.CHA, 9);
-                Result.Add(AbilityM.DEX, 13);
-                Result.Add(AbilityM.AGI, 11);
-                Result.Add(AbilityM.CON, 15);
-                Result.Add(AbilityM.STR, 15);
+                Dictionary<string, int> Result = new()
+                {
+                    { AbilityM.COU, 14 },
+                    { AbilityM.SGC, 10 },
+                    { AbilityM.INT, 13 },
+                    { AbilityM.CHA, 9 },
+                    { AbilityM.DEX, 13 },
+                    { AbilityM.AGI, 11 },
+                    { AbilityM.CON, 15 },
+                    { AbilityM.STR, 15 }
+                };
                 return Result;
             }
         }
