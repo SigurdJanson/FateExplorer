@@ -424,7 +424,7 @@ namespace FateExplorer.CharacterImport
                     };
                     if (Melee != default)
                     {
-                        Result.Reach = i.Reach ?? Melee.Reach;
+                        Result.Reach = (WeaponsReach?)i.Reach ?? Melee.Reach;
                         Result.IsParry = Melee.Parry;
                     }
                     else if (Ranged != default)
@@ -677,7 +677,7 @@ namespace FateExplorer.CharacterImport
         public string CombatTechnique { get; set; }
 
         /// <summary>
-        /// Weapon's reach. Close combat only.
+        /// Weapon's reach (i.e. it's length). Close combat only.
         /// </summary>
         [JsonPropertyName("reach")]
         public int? Reach { get; set; }

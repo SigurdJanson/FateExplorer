@@ -160,7 +160,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// The "length" of a close combat weapon.
         /// </summary>
-        public int Reach { get; set; }
+        public WeaponsReach Reach { get; set; }
 
         /// <summary>
         /// The ranges that determine distance modifiers of ranged weapons.

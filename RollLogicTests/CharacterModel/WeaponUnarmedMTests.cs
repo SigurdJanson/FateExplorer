@@ -65,7 +65,7 @@ namespace UnitTests.CharacterModel
                 AtMod = 0,
                 PaMod = 0,
                 Bonus = 0,
-                Reach = 1,
+                Reach = WeaponsReach.Short,
                 Damage = "1W6",
                 Threshold = 21,
                 CloseRange = true,

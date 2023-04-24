@@ -55,7 +55,7 @@ namespace FateExplorer.ViewModel
 
         public int ParryMod { get => WeaponM.ParryMod; }
 
-        public int Reach { get => WeaponM.Reach; }
+        public WeaponsReach Reach { get => WeaponM.Reach; }
 
         public int[] Range { get => WeaponM.Range; }
 

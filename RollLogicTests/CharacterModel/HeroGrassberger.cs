@@ -27,7 +27,7 @@ namespace UnitTests.CharacterModel
                 DamageDieCount = 1,
                 DamageDieSides = 6,
                 DamageBonus = 4,
-                Reach = 2,
+                Reach = WeaponsReach.Medium,
                 Branch = CombatBranch.Melee,
                 IsParry = false,
                 IsRanged = false,
@@ -57,7 +57,7 @@ namespace UnitTests.CharacterModel
                 IsRanged = false,
                 IsTwohanded = false,
                 PrimaryAbilityId = new string[1] { "ATTR_8" },
-                Reach = 1
+                Reach = WeaponsReach.Short
             };
 
 

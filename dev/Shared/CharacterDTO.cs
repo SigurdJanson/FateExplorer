@@ -256,9 +256,9 @@
         public int LoadTime { get; set; }
 
         /// <summary>
-        ///  Reach of melee weapon
+        ///  Reach (i.e. the length) of a close combat weapon.
         /// </summary>
-        public int Reach { get; set; }
+        public WeaponsReach Reach { get; set; }
     }
 
 

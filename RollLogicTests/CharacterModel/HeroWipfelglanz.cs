@@ -27,7 +27,7 @@ namespace UnitTests.CharacterModel
                 DamageDieCount = 1,
                 DamageDieSides = 6,
                 DamageBonus = 1,
-                Reach = 1,
+                Reach = WeaponsReach.Short,
                 Branch = CombatBranch.Melee,
                 IsParry = false,
                 IsRanged = false,
