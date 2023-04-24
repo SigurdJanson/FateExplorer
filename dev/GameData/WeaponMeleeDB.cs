@@ -18,8 +18,14 @@ namespace FateExplorer.GameData
         public WeaponsReach Reach { get; set; }
 
 
+        [JsonPropertyName("shield")]
+        public ShieldSize Shield { get; set; }
+
+
         [JsonPropertyName("isparry")]
         public bool Parry { get; set; }
+
+
 
     }
 }

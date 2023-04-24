@@ -259,6 +259,11 @@
         ///  Reach (i.e. the length) of a close combat weapon.
         /// </summary>
         public WeaponsReach Reach { get; set; }
+
+        /// <summary>
+        /// Size of the shield (shields only)
+        /// </summary>
+        public ShieldSize Shield { get; set; }
     }
 
 

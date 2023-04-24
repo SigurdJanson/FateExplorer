@@ -163,6 +163,11 @@ namespace FateExplorer.CharacterModel
         public WeaponsReach Reach { get; set; }
 
         /// <summary>
+        /// If the weapon is a shield, <c>Shield</c> represents the size of it.
+        /// </summary>
+        public ShieldSize Shield { get; set; }
+
+        /// <summary>
         /// The ranges that determine distance modifiers of ranged weapons.
         /// </summary>
         public int[] Range { get; set; }
@@ -250,7 +255,10 @@ namespace FateExplorer.CharacterModel
                 Range = (int[])WeaponData.Range.Clone();
             }
             else
+            {
                 Reach = WeaponData.Reach;
+                Shield = WeaponData.Shield;
+            }
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);
             BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);

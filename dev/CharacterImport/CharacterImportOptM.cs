@@ -424,6 +424,7 @@ namespace FateExplorer.CharacterImport
                     if (Melee != default)
                     {
                         Result.Reach = (WeaponsReach?)i.Reach ?? Melee.Reach;
+                        Result.Shield = Melee.Shield;
                         Result.IsParry = Melee.Parry;
                     }
                     else if (Ranged != default)

@@ -177,6 +177,25 @@ public enum WeaponsRange
 }
 
 
+/// <summary>
+/// Shield sizes
+/// </summary>
+public enum ShieldSize
+{
+    /// <summary>
+    /// Small shield
+    /// </summary>
+    Small = 1,
+    /// <summary>
+    /// Medium-sized shield
+    /// </summary>
+    Medium,
+    /// <summary>
+    /// Large shield
+    /// </summary>
+    Large
+}
+
 
 public enum EnemySize {
     /// <summary>
