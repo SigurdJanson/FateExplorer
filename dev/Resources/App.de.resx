@@ -1213,4 +1213,28 @@
   <data name="lblLoadingTime" xml:space="preserve">
     <value>Ladezeit</value>
   </data>
+  <data name="shopYears" xml:space="preserve">
+    <value>Jahren</value>
+  </data>
+  <data name="shopYear" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="shopDay" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="shopMonths" xml:space="preserve">
+    <value>Monaten</value>
+  </data>
+  <data name="shopMonth" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="shopDays" xml:space="preserve">
+    <value>Tagen</value>
+  </data>
+  <data name="txtMoneyValue1" xml:space="preserve">
+    <value>Ein einfacher Arbeiter verdient diesen Betrag in {0} {1}.</value>
+  </data>
+  <data name="txtMoneyValue2" xml:space="preserve">
+    <value>Ein einfacher Arbeiter verdient diesen Betrag in {0} {1} and {2} {3}.</value>
+  </data>
 </root>

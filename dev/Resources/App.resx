@@ -1267,4 +1267,28 @@
   <data name="lblLoadingTime" xml:space="preserve">
     <value>Reload time</value>
   </data>
+  <data name="shopYear" xml:space="preserve">
+    <value>year</value>
+  </data>
+  <data name="shopYears" xml:space="preserve">
+    <value>years</value>
+  </data>
+  <data name="shopMonth" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="shopMonths" xml:space="preserve">
+    <value>months</value>
+  </data>
+  <data name="shopDay" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="shopDays" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="txtMoneyValue1" xml:space="preserve">
+    <value>A simple laborer needs {0} {1} to earn that kind of money.</value>
+  </data>
+  <data name="txtMoneyValue2" xml:space="preserve">
+    <value>A simple laborer needs {0} {1} and {2} {3} to earn that kind of money.</value>
+  </data>
 </root>

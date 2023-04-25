@@ -185,7 +185,7 @@
                         </tr>
                         }
                     </tbody>
-                    <tfoot>
+                            <tfoot class="mud-table-foot">
                         <tr>
                           <td>@l10n["lblSumTotal"]</td>
                           <td>@string.Format("{0:0,0.00}", ShoppingCart.TotalPrice)</td>
@@ -193,6 +193,11 @@
                         </tr>
                       </tfoot>
                 </MudSimpleTable>
+            </MudPaper>
+            <MudPaper Class="pa-4" Outlined=true>
+                <MudText Typo=Typo.body2>
+                    @ExplainTheValueofMoney(ShoppingCart.TotalPrice)
+                </MudText>
             </MudPaper>
 
             <CompetitiveMerchantCheck ListPrice=@ShoppingCart.TotalPrice Merchant=@Merchant />
@@ -329,8 +334,8 @@
             if (displayLabel is null || displayLabel.Name == "hide")
                 continue;
 
-        // Get the initial property value.
-        var propInfoValue = typeof(ShopItemViMo).GetProperty(prp.Name);
+            // Get the initial property value.
+            var propInfoValue = typeof(ShopItemViMo).GetProperty(prp.Name);
 
             var defaultValue = propInfoValue.GetValue(ItemWithDetails);
             if (defaultValue is null) continue;
@@ -372,4 +377,33 @@
 
     private bool OpenShopCartDrawer { get; set; }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Price"></param>
+    /// <returns></returns>
+    protected string ExplainTheValueofMoney(decimal Price)
+    {
+        var Time = MoneyToWage.TimeToEarn(LaborClass.Simple, Price);
+        string ms = Time.months == 1 ? "shopMonth" : "shopMonths";
+        ms = l10n[ms];
+        string ds = Time.months == 1 ? "shopDay" : "shopDays";
+        ds = l10n[ds];
+
+        if (Time.years > 0)
+        {
+            string ys = Time.years == 1 ? "shopYear" : "shopYears";
+            ys = l10n[ys];
+            if (Time.months <= 1)
+                return string.Format(l10n["txtMoneyValue1"], Time.years, ys);
+            else
+                return string.Format(l10n["txtMoneyValue2"], Time.years, ys, Time.months, ms);
+        }
+        else if (Time.months > 0)
+            return string.Format(l10n["txtMoneyValue1"], Time.months, ms);
+        else
+            return string.Format(l10n["txtMoneyValue1"], Time.days, ds);
+    }
+    
 }
