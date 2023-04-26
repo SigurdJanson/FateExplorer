@@ -42,6 +42,9 @@ public class BattlegroundViMo
 
     public void ResetToDefault() => Battleground.ResetToDefault();
 
+    public void SetMainWeapon(WeaponViMo mainWeapon) => Battleground.MainWeapon = mainWeapon.ToWeaponM();
+    public void SetOffWeapon(WeaponViMo offWeapon) => Battleground.OffWeapon = offWeapon.ToWeaponM();
+    public void SetHand(bool mainHand) => Battleground.UseMainHand = mainHand;
 
 
     public BattlegroundM ToM() => Battleground;

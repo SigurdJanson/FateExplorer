@@ -17,9 +17,9 @@ public class BattlegroundM : ICheckContextM
     /// <param name="offWeapon">Weapon in the off hand.</param>
     public BattlegroundM(bool useMainHand, WeaponM mainWeapon, WeaponM offWeapon)
     {
-        MainWeapon = mainWeapon;
-        OffWeapon = offWeapon;
-        UseMainHand = useMainHand;
+        this.mainWeapon = mainWeapon;
+        this.offWeapon = offWeapon;
+        this.useMainHand = useMainHand;
     }
 
 
@@ -87,18 +87,24 @@ public class BattlegroundM : ICheckContextM
     /*
      * Battleground properties
      */
+    private WeaponM mainWeapon;
+    private WeaponM offWeapon;
+    private bool useMainHand;
+
     /// <summary>
     /// Weapon in the main ("strong") hand
     /// </summary>
-    public WeaponM MainWeapon { get; set; }
+    public WeaponM MainWeapon { get => mainWeapon; set => SetVal(ref mainWeapon, value); }
     /// <summary>
     /// Weapon in the off-hand
     /// </summary>
-    public WeaponM OffWeapon { get; set; }
+    public WeaponM OffWeapon { get => offWeapon; set => SetVal(ref offWeapon, value); }
     /// <summary>
     /// true = fight with main hand weapon; false = fight with off-hand weapon.
     /// </summary>
-    public bool UseMainHand { get; set; }
+    public bool UseMainHand { get => useMainHand; set => SetVal(ref useMainHand, value); }
+
+
 
     private const int FreeModifierDefault = 0;
     private const WeaponsRange DistanceDefault = WeaponsRange.Medium;
