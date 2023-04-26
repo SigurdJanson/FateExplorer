@@ -166,7 +166,7 @@ namespace FateExplorer.RollLogic
             {
                 RollResult = CurrentRoll.OpenRoll,
                 SuccessLevel = RollCheck.SuccessOfRoll(Which),
-                Modifier = RollCheck.CheckModificator.LastEffectiveDelta,
+                Modifier = RollCheck.CheckModificator?.LastEffectiveDelta ?? new int[] { RollCheck.ModDelta },
                 CombinedResult = CurrentRoll.OpenRollCombined(),
                 RollAgainst = RollCheck.RollAttr
             };

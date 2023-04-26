@@ -122,7 +122,8 @@
     {
         base.OnParametersSet();
         if (HeroHands is null) throw new ArgumentNullException(nameof(HeroHands));
-        if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
+        //if (Weapon is null) throw new ArgumentNullException(nameof(Weapon));
+        Weapon = WhichHand == HandsViMo.Hand.Main ? HeroHands.MainWeapon : HeroHands.OffWeapon;
 
         TitleAttack = $"{l10n["lblRoll"]} {l10n["lblAttack"]}";
         TitleParry = $"{l10n["lblRoll"]} {l10n["lblParry"]}";
