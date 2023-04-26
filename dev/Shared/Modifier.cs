@@ -34,22 +34,22 @@ public readonly struct Modifier : IEquatable<Modifier>, IFormattable
     }
 
     /// <summary>
-    /// Creates p modifier that does not change the values
+    /// Creates a modifier that does not change the values
     /// </summary>
     public static Modifier Neutral => new (0, Op.Add);
 
     /// <summary>
-    /// Creates p modifier that makes p check impossible
+    /// Creates p modifier that makes a check impossible
     /// </summary>
     public static Modifier Impossible => new(0, Op.Force);
 
     /// <summary>
-    /// Creates p modifier that makes p check impossible
+    /// Creates a modifier that makes a check only possible with a critical.
     /// </summary>
     public static Modifier LuckyShot => new(1, Op.Force);
 
     /// <summary>
-    /// Creates p modifier that halves the value for p check impossible
+    /// Creates a modifier that halves the value for the check
     /// </summary>
     public static Modifier Halve => new(2, Op.Halve);
 
