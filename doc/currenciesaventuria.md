@@ -49,9 +49,18 @@ Coins, weight, and value:
 * Computations are all done in par value (Nennwert); allow access to real value (Realwert); see esp. the outdated coins of the Khalifat; that mean that inside the native region of the currency the value is higher than anywhere else.
 
 
+# The Value of Money
+
+| Labor | Daily wage | Profession |
+|---|---|---|
+| Cheap | 1–9 halers | peon, rower, maid, churl, serving girl, rat-catcher, washerwoman, tailor, apprentice, sailor |
+| Simple | 1-4 silverthalers | journeyman, chambermaid, valet, cook, midwife, barber, teamster, fisher, local guide, able-bodied sailor, herbalist, bellhop, storyteller prostitute (in a brothel), entertainer, mercenary, scribe, bailiff  |
+| Qualified | 5-9 silverthalers | master craftsman, herald, private teacher, courtesan, inexperienced artisan, pilot, helmsman, administrator, horse-tamer, fencing teacher |
+| Highly Qualified | 10-50 silverthalers | Architect, apothecary, printer, alchemist, cartographer, jurist, medicus, mage, kontor manager (manager of a trading station), captain, mercenary captain, famous artist, famous socialite, sword master |
 
 
 # Sources
 
 A127 - ["Drei Millionen Dukaten"](https://de.wiki-aventurica.de/wiki/Drei_Millionen_Dukaten)
 WA - [Currencies in the Wiki Aventurica](https://de.wiki-aventurica.de/wiki/W%C3%A4hrung)
+
