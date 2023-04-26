@@ -379,16 +379,17 @@
 
 
     /// <summary>
-    /// 
+    /// Creates a string explaining the value of money in the time a simple worker
+    /// needs to make that amount.
     /// </summary>
-    /// <param name="Price"></param>
-    /// <returns></returns>
-    protected string ExplainTheValueofMoney(decimal Price)
+    /// <param name="Money">Money in Silverthalers</param>
+    /// <returns>An explanatory localized string</returns>
+    protected string ExplainTheValueofMoney(decimal Money)
     {
-        var Time = MoneyToWage.TimeToEarn(LaborClass.Simple, Price);
+        var Time = MoneyToWage.TimeToEarn(LaborClass.Simple, Money);
         string ms = Time.months == 1 ? "shopMonth" : "shopMonths";
         ms = l10n[ms];
-        string ds = Time.months == 1 ? "shopDay" : "shopDays";
+        string ds = Time.days == 1 ? "shopDay" : "shopDays";
         ds = l10n[ds];
 
         if (Time.years > 0)
