@@ -26,7 +26,7 @@
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
+                                    Abilities=@Abilities[skill.Id] @key=skill/> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -37,7 +37,7 @@
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    Abilities=@Abilities[skill.Id] /> @*ViewSkill=OnSkillView*@
+                                    Abilities=@Abilities[skill.Id]  @key=skill/> @*ViewSkill=OnSkillView*@
                                 }
                             </MudList>
                         </MudTabPanel>
@@ -78,7 +78,7 @@
                                     {
                                         <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
                                             CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
-                                            TextFilter=@FilterTerm Abilities=@Abilities[skill.Id]/> @*ViewSkill=OnSkillView*@
+                                           TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] @key=skill /> @*ViewSkill=OnSkillView*@
                                     }
                                 }
                         </MudList>
