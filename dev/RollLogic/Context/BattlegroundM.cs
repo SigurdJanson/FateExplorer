@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.Shared;
+using FateExplorer.ViewModel;
 using System;
 using System.Collections.Generic;
 
@@ -84,6 +85,12 @@ public class BattlegroundM : ICheckContextM
         }
     }
 
+
+    /// <summary>
+    /// Gives the user tha option to ignore battleground modifiers
+    /// </summary>
+    public bool ApplyBattleground { get; set; } = false;
+
     /*
      * Battleground properties
      */
@@ -94,7 +101,11 @@ public class BattlegroundM : ICheckContextM
     /// <summary>
     /// Weapon in the main ("strong") hand
     /// </summary>
-    public WeaponM MainWeapon { get => mainWeapon; set => SetVal(ref mainWeapon, value); }
+    public WeaponM MainWeapon 
+    { 
+        get => mainWeapon; 
+        set => SetVal(ref mainWeapon, value); 
+    }
     /// <summary>
     /// Weapon in the off-hand
     /// </summary>
@@ -134,6 +145,9 @@ public class BattlegroundM : ICheckContextM
     /// An additional additive modifier to be used in addition to the context itself.
     /// </summary>
     public int FreeModifier { get => freeModifier; set => SetVal(ref freeModifier, value); }
+    /// <summary>
+    /// The distance of a target for a character to reach with a ranged weapon.
+    /// </summary>
     public WeaponsRange Distance { get => distance; set => SetVal(ref distance, value); }
     public Vision Visibility { get => visibility; set => SetVal(ref visibility, value); }
     public UnderWater Water { get => water; set => SetVal(ref water, value); }
@@ -145,7 +159,10 @@ public class BattlegroundM : ICheckContextM
     public EnemySize SizeOfEnemy { get => sizeOfEnemy; set => SetVal(ref sizeOfEnemy, value); }
 
 
-
+    /// <summary>
+    /// Computes the <see cref="Distance"/> modifier between fighter and target.
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
     public Modifier GetDistanceMod()
     {
         if (!IsRanged) return Modifier.Neutral;
@@ -353,7 +370,11 @@ public class BattlegroundM : ICheckContextM
     {
         if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
 
-        List<Modifier> Mods = new()
+        int After = before;
+
+        if (ApplyBattleground)
+        {
+            List<Modifier> Mods = new()
         {
             //
             GetDistanceMod(), GetCrampedSpaceMod(),
@@ -364,44 +385,49 @@ public class BattlegroundM : ICheckContextM
             GetWaterMod(),
             GetSizeOfEnemyMod(action)
         };
-        List<Modifier> HalveMods = new(), ForceMods = new();
-        int i = 0;
-        while (i < Mods.Count)
-        {
-            if (Mods[i].Operator == Modifier.Op.Halve)
+            List<Modifier> HalveMods = new(), ForceMods = new();
+            int i = 0;
+            while (i < Mods.Count)
             {
-                HalveMods.Add(Mods[i]);
-                Mods.RemoveAt(i);
+                if (Mods[i].Operator == Modifier.Op.Halve)
+                {
+                    HalveMods.Add(Mods[i]);
+                    Mods.RemoveAt(i);
+                }
+                else if (Mods[i].Operator == Modifier.Op.Force)
+                {
+                    ForceMods.Add(Mods[i]);
+                    Mods.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
             }
-            else if (Mods[i].Operator == Modifier.Op.Force)
+
+            foreach (var m in Mods)
+                After += m;
+            After += FreeModifier;
+
+            foreach (var m in HalveMods)
+                After += m;
+            foreach (var m in ForceMods)
             {
-                ForceMods.Add(Mods[i]);
-                Mods.RemoveAt(i);
+                After += m;
             }
+
+            if (ForceMods.Count > 0)
+                TotalMod = new Modifier(After, Modifier.Op.Force);
             else
-            {
-                i++;
-            }
-        }
-
-        int After = before;
-        foreach (var m in Mods)
-            After += m;
-        After += FreeModifier;
-
-        foreach (var m in HalveMods)
-            After += m;
-        foreach (var m in ForceMods)
+                TotalMod = new Modifier(After - before, Modifier.Op.Add);
+        } 
+        else // battground is switched off
         {
-            After += m;
+            After += FreeModifier;
+            TotalMod = new Modifier(After - before, Modifier.Op.Add);
         }
 
-        if (ForceMods.Count > 0)
-            TotalMod = new Modifier(After, Modifier.Op.Force);
-        else
-            TotalMod = new Modifier(After - before, Modifier.Op.Add);
         TotalModAction = action;
-
         return TotalMod;
     }
 
