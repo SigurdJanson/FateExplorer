@@ -58,11 +58,11 @@ namespace FateExplorer.RollLogic
             WeaponM weapon = context.UseMainHand ? context.MainWeapon : context.OffWeapon; // the weapon to use
             WeaponM otherWeapon = context.UseMainHand ? context.OffWeapon : context.MainWeapon;
             // inherited properties
+            Context = context;
+            Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            Context = context;
-            Context.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = weapon.PaSkill(context.UseMainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
             RollAttrName[0] = ResourceId.ParryLabelId;
@@ -174,6 +174,15 @@ namespace FateExplorer.RollLogic
 
 
 
+        /// <summary>
+        /// Needs a roll to determine the damage caused by a combat roll. By default 
+        /// this is false.
+        /// </summary>
+        public override bool NeedsDamage
+        {
+            get => false;
+        }
+
 
         // ROLL /////////////////////////////////
 
@@ -243,14 +252,5 @@ namespace FateExplorer.RollLogic
             throw new NotImplementedException();
         }
 
-
-        /// <summary>
-        /// Needs a roll to determine the damage caused by a combat roll. By default 
-        /// this is false.
-        /// </summary>
-        public override bool NeedsDamage
-        {
-            get => false;
-        }
     }
 }
