@@ -334,7 +334,7 @@ public class BattlegroundM : ICheckContextM
     public Modifier GetTotalMod(int before, Check action, object asset)
     {
         if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
-        WeaponM weapon = asset as WeaponM ?? throw new ArgumentNullException(nameof(asset));
+        WeaponM weapon = asset as WeaponM; //-- ?? throw new ArgumentNullException(nameof(asset));
 
         int After = before;
 

@@ -65,8 +65,9 @@ namespace FateExplorer.ViewModel
         /// <param name="actionId">String distinguising a type of combat action, i.e. attack or parry</param>
         /// <param name="weapon">The weapon to be used for the action</param>
         /// <param name="Hands">The Hands object of the character.</param>
+        /// <param name="Context">The battle ground (or other situation spec) where the action takes place</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenCombatRollCheck(Check actionId, HandsViMo heroHands, bool UseMainHand, BattlegroundViMo context);
+        RollCheckResultViMo OpenCombatRollCheck(Check actionId, HandsViMo heroHands, bool UseMainHand, BattlegroundViMo Context);
 
 
         /// <summary>
@@ -75,8 +76,9 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
         /// <param name="TargetAttr">The skill or ability to be used</param>
+        /// <param name="Context">The battle ground (or other situation spec) where the action takes place</param>
         /// <param name="CarriesWeapon">Does the character carry a weapon?.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon);
+        RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, BattlegroundViMo Context, bool CarriesWeapon);
     }
 }

@@ -248,7 +248,7 @@ else
     private void OnDodgeCheck(CharacterAttrDTO dodge)
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
-        ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
+        ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, Context, !Barehands);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 

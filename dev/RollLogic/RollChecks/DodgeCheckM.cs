@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -36,17 +37,19 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <inheritdoc />
         /// <param name="dodge"></param>
-        /// <param name="modifier"></param>
-        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, ICheckModificatorM modifier, IGameDataService gameData)
+        /// <param name="carriesWeapon">Does the character who dodges carry a weapon? Needed for botch rolls.</param>
+        /// <param name="context"></param>
+        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, BattlegroundM context, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
+            Context = context;
+            Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = dodge.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
-            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;
             RollAttrName[0] = ResourceId.DodgeLabelId;
@@ -62,15 +65,18 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
-               
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm],
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null));
+
         protected override void Dispose(bool disposedStatus)
         {
             if (!IsDisposed)
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -180,9 +186,9 @@ namespace FateExplorer.RollLogic
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
                 Success.Update(
-                    RollList[RollType.Primary], 
-                    RollList[RollType.Confirm], 
-                    CheckModificator.Apply(RollAttr[0]));
+                    RollList[RollType.Primary],
+                RollList[RollType.Confirm],
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null));
 
             return roll;
         }

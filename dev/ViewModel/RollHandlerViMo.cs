@@ -209,7 +209,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon)
+        public RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, BattlegroundViMo context, bool CarriesWeapon)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -224,7 +224,7 @@ namespace FateExplorer.ViewModel
             switch (CheckType.Name)
             {
                 case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
+                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, context.ToM(), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
