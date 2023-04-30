@@ -25,4 +25,12 @@ public class CheckContextViMo : ICheckContextViMo
     public ICheckContextM ToM() => Context;
 
     public BaseContextM ToBaseM() => Context;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public CheckContextViMo()
+    {
+        Context = new();
+    }
 }
