@@ -522,7 +522,7 @@
     <comment>Calendar</comment>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
-    <value>Commonly Used</value>
+    <value>Most Used Favorites</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="lblName" xml:space="preserve">
@@ -692,7 +692,7 @@
     <value>Stone</value>
   </data>
   <data name="lblYourBestSkills" xml:space="preserve">
-    <value>Your Specialties</value>
+    <value>Your best talents</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="Legend" xml:space="preserve">
