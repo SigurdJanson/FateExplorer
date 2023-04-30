@@ -25,14 +25,19 @@ namespace FateExplorer.CharacterModel
             {
                 ModifyAgainst = Arcane.ModAgainst;
                 Tradition = new string[1] { Arcane.Property.ToString() };
-                Domain = gameData.Domain;
+                Domain = Arcane.Domain;
             }
             else if (gameData is KarmaSkillDbEntry Karma)
             {
                 ModifyAgainst = Karma.ModAgainst;
                 Tradition = Karma.Tradition.Clone() as string[];
-                Domain = gameData.Domain;
+                Domain = Karma.Domain;
+            } 
+            else
+            {
+                Domain = (gameData as SkillDbEntry).Domain;
             }
+            Domain = gameData.Domain;
             //
             Value = value;
         }
