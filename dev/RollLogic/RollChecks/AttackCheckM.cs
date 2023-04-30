@@ -268,7 +268,7 @@ namespace FateExplorer.RollLogic
                 RollType.Confirm => NeedsConfirmation ? new D20Roll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
                 RollType.Damage => NeedsDamage ? new MultiDieRoll(DamageDieSides, DamageDieCount) : null,
-                _ => throw new ArgumentException("Combat rolls only support primary and confirmation rolls")
+                _ => throw new ArgumentException("Combat rolls support primary, confirmation, and botch rolls")
             };
             RollList[Which] = roll;
 

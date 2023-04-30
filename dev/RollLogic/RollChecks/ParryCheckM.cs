@@ -12,7 +12,7 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc />
-        /// <remarks>In this context it is the skill value.</remarks>
+        /// <remarks>In this context it is the parry skill value.</remarks>
         public override int? TargetAttr { get; protected set; }
 
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
-        public ParryCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)//(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
+        public ParryCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
             : base(gameData)
         {
             Weapon = weapon; // the Weapon to use
@@ -83,6 +83,7 @@ namespace FateExplorer.RollLogic
 
             // specialised properties
             CombatTechType = weapon.Branch;
+            CombatTech = weapon.CombatTechId;
             IsImprovised = weapon.IsImprovised;
 
             RollList = new();
@@ -221,7 +222,7 @@ namespace FateExplorer.RollLogic
                 RollType.Primary => new D20Roll(),
                 RollType.Confirm => NeedsConfirmation ? new D20Roll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
-                _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
+                _ => throw new ArgumentException("Combat rolls support primary, confirmation, and botch rolls")
             };
             RollList[Which] = roll;
 

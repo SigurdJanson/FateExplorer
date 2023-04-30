@@ -171,7 +171,7 @@
     /// </summary>
     protected void ParryCheckCalled()
     {
-        OnAttackCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, Weapon.Branch, SelectedCombatStyle));
+        OnParryCheck.InvokeAsync(new Check(Check.Combat.Parry, Weapon.CombatTechId, Weapon.Branch, SelectedCombatStyle));
     }
 
 
