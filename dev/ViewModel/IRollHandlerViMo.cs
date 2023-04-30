@@ -55,7 +55,7 @@ namespace FateExplorer.ViewModel
         /// <param name="RollAttr">Additional ability or skill values needed to 
         /// perform the roll (a skill roll e.g. needs 3 abilities)</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
+        RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO TargetAttr, ICheckContextViMo Context, ICharacterAttributDTO[] RollAttr = null);
 
 
         /// <summary>

@@ -188,7 +188,7 @@ else
         try
         { // TODO: 1: use Abilities[s.Id]
             var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
-            ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, cnv);
+            ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, null, cnv);
         }
         catch(NotImplementedException error)
         {

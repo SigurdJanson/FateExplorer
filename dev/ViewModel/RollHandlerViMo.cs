@@ -171,7 +171,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO TargetAttr, ICharacterAttributDTO[] RollAttr = null)
+        public RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO TargetAttr, ICheckContextViMo Context, ICharacterAttributDTO[] RollAttr = null)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -196,7 +196,7 @@ namespace FateExplorer.ViewModel
                     break;
                 case
                     nameof(InitiativeCheckM):
-                    Checker = new InitiativeCheckM((CharacterAttrDTO)TargetAttr, /** TODO **/null, GameData);
+                    Checker = new InitiativeCheckM((CharacterAttrDTO)TargetAttr, Context.ToM() as BattlegroundM, GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -224,7 +224,7 @@ namespace FateExplorer.ViewModel
             switch (CheckType.Name)
             {
                 case nameof(DodgeCheckM):
-                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, context.ToM(), GameData);
+                    Checker = new DodgeCheckM(TargetAttr, CarriesWeapon, context.ToM() as BattlegroundM, GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -264,9 +264,9 @@ namespace FateExplorer.ViewModel
             RollCheckResultViMo Result;
             CheckBaseM Checker = CheckType.Name switch
             {
-                nameof(AttackCheckM) => new AttackCheckM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToM(), GameData),
-                nameof(HruruzatAttackM) => new HruruzatAttackM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToM(), GameData),
-                nameof(ParryCheckM) => new ParryCheckM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToM(), GameData),
+                nameof(AttackCheckM) => new AttackCheckM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToBattlegroundM(), GameData),
+                nameof(HruruzatAttackM) => new HruruzatAttackM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToBattlegroundM(), GameData),
+                nameof(ParryCheckM) => new ParryCheckM(ToWield.ToWeaponM(), Other.ToWeaponM(), UseMainHand, context.ToBattlegroundM(), GameData),
                 _ => throw new NotImplementedException("Unknown combat roll"),
             };
             Result = new(Checker);

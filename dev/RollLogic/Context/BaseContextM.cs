@@ -32,6 +32,8 @@ public class BaseContextM : ICheckContextM
         }
     }
 
+    public void ResetToDefault() => FreeModifier = FreeModifierDefault;
+
 
     public int ApplyTotalMod(int before, Check action, object asset = null)
     {

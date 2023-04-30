@@ -4,7 +4,7 @@ using FateExplorer.Shared;
 namespace FateExplorer.ViewModel;
 
 
-public class BattlegroundViMo
+public class BattlegroundViMo : ICheckContextViMo
 {
     private BattlegroundM Battleground { get; set; }
 
@@ -42,5 +42,7 @@ public class BattlegroundViMo
 
     public void ResetToDefault() => Battleground.ResetToDefault();
 
-    public BattlegroundM ToM() => Battleground;
+    public BattlegroundM ToBattlegroundM() => Battleground;
+
+    public ICheckContextM ToM() => Battleground;
 }

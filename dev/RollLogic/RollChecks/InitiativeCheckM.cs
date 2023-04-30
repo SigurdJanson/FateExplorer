@@ -46,7 +46,6 @@ namespace FateExplorer.RollLogic
             AttributeId = Initiative.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            //---CheckModificator = new SimpleCheckModificatorM(Modifier.Neutral);
             Context = context;
             Context.OnStateChanged += UpdateAfterModifierChange;
 
@@ -65,8 +64,17 @@ namespace FateExplorer.RollLogic
         { }
 
         /// <inheritdoc />
-        protected override void Dispose(bool disposedStatus) { }
+        protected override void Dispose(bool disposedStatus)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                // release unmanaged resources
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
+                if (disposedStatus) {/*Released managed resources*/}
+            }
+        }
 
 
         /// <inheritdoc />
@@ -76,7 +84,7 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc />
         public override string Classification 
-            => $"{RollList[RollType.Primary].OpenRoll[0] + RollAttr[0]}";
+            => $"{RollList[RollType.Primary].OpenRoll[0] + RollAttr[0] + RollModifier(RollType.Primary)}";
 
         /// <inheritdoc />
         public override string ClassificationLabel => RollAttrName[0];

@@ -9,6 +9,11 @@ namespace FateExplorer.RollLogic;
 public interface ICheckContextM : IStateContainer
 {
     /// <summary>
+    /// Clear the context and remove all modifiers.
+    /// </summary>
+    void ResetToDefault();
+
+    /// <summary>
     /// Computes and returns the total modifier of the given context.
     /// </summary>
     /// <param name="before">A proficiency value before modification.</param>

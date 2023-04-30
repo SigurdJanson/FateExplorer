@@ -259,7 +259,7 @@ else
     /// <param name="initiative"></param>
     private void OnInitiativeCheck(CharacterAttrDTO initiative)
     {
-        ActiveCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Initiative), initiative);
+        ActiveCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Initiative), initiative, Context);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
