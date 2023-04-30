@@ -915,16 +915,17 @@
     <value>Saga Thorwalian</value>
     <comment>enum LanguageId</comment>
   </data>
-  <data name="SkillDomain.Arcane" xml:space="preserve">
+  <data name="Check.Skill.Arcane" xml:space="preserve">
     <value>Arcane</value>
-    <comment>Translation of enum SkillDomain</comment>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
-  <data name="SkillDomain.Basic" xml:space="preserve">
-    <value>Basic</value>
-    <comment>Translation of enum SkillDomain</comment>
+  <data name="Check.Skill.Skill" xml:space="preserve">
+    <value>Worldly</value>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
-  <data name="SkillDomain.Karma" xml:space="preserve">
+  <data name="Check.Skill.Karma" xml:space="preserve">
     <value>Karma</value>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
   <data name="STR" xml:space="preserve">
     <value>STR</value>

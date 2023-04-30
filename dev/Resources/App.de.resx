@@ -884,15 +884,15 @@
     <value>Saga-Thorwalsch</value>
     <comment>enum LanguageId</comment>
   </data>
-  <data name="SkillDomain.Arcane" xml:space="preserve">
+  <data name="Check.Skill.Arcane" xml:space="preserve">
     <value>Magisch</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
-  <data name="SkillDomain.Basic" xml:space="preserve">
+  <data name="Check.Skill.Skill" xml:space="preserve">
     <value>Weltlich</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
-  <data name="SkillDomain.Karma" xml:space="preserve">
+  <data name="Check.Skill.Karma" xml:space="preserve">
     <value>Karmal</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
