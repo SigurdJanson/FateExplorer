@@ -142,7 +142,7 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc />
         /// <exception cref="NotImplementedException"></exception>
-        public RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod)
+        public RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, CheckContextViMo Context)
         {
             string RollId = MatchAttributeToRollId(AttrId);
             if (string.IsNullOrWhiteSpace(RollId))
@@ -157,7 +157,7 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(RoutineSkillCheckM):
-                    Checker = new RoutineSkillCheckM(Skill, Abilities, new SimpleCheckModificatorM(Mod), GameData);
+                    Checker = new RoutineSkillCheckM(Skill, Abilities, Context.ToBaseM(), GameData);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -192,7 +192,7 @@ namespace FateExplorer.ViewModel
                 case
                     nameof(SkillCheckM):
                     AbilityDTO[] abdto = Array.ConvertAll(RollAttr, new Converter<ICharacterAttributDTO, AbilityDTO>((a) => (AbilityDTO)a));
-                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
+                    Checker = new SkillCheckM((SkillsDTO)TargetAttr, abdto, Context.ToM() as BaseContextM, GameData);
                     break;
                 case
                     nameof(InitiativeCheckM):

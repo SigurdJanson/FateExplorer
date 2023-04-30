@@ -90,9 +90,9 @@
         <MudItem xs=12 sm=6 md=7 lg=8>
             <MudPaper Class="pa-2 d-flex justify-space-around">
                 <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
+                <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"]: @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                    @l10n["lblModifier"]: @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
 
@@ -171,13 +171,13 @@ else
     /// </summary>
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
-    private int ModifyValue { get; set; }
+    private CheckContextViMo Context { get; set; }
+    //-private int ModifyValue { get; set; }
 
 
     private void OnModChanged(int NewValue)
     {
-        ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
+        Context.FreeModifier = NewValue;
         UpdateCanRoutineCheck();
     }
 
@@ -188,7 +188,7 @@ else
         try
         { // TODO: 1: use Abilities[s.Id]
             var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
-            ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, null, cnv);
+            ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, Context, cnv);
         }
         catch(NotImplementedException error)
         {
@@ -197,7 +197,6 @@ else
         }
         if (CheckSucceeded)
         {
-            ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
             RollCheckResults.Enqueue(ActiveCheck);
         }
     }
@@ -213,7 +212,7 @@ else
         try
         {
             var cnv = Abilities[s.Id];
-            ActiveCheck = RollHandler.OpenRoutineSkillCheck(new Check(s.Domain, isRoutine: true), s, cnv, Modifier.Neutral);
+            ActiveCheck = RollHandler.OpenRoutineSkillCheck(new Check(s.Domain, isRoutine: true), s, cnv, Context);
         }
         catch(NotImplementedException error)
         {
@@ -222,7 +221,6 @@ else
         }
         if (CheckSucceeded)
         {
-            ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
             RollCheckResults.Enqueue(ActiveCheck);
         }
     }
@@ -237,7 +235,7 @@ else
     private void UpdateCanRoutineCheck()
     {
         foreach (var s in SkillList)
-            CanRoutineCheck[s.Id] = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(ModifyValue));
+            CanRoutineCheck[s.Id] = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(Context.FreeModifier));
     }
 
 
@@ -248,6 +246,7 @@ else
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        Context = new(); // before! `LoadHeroData(...)`
         LoadHeroData(false);
         if (RollCheckResults is null)
             RollCheckResults = new(4);
@@ -285,7 +284,7 @@ else
                 CanRoutineCheck = new();
                 foreach (var s in SkillList)
                 {
-                    bool CanDo = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(ModifyValue));
+                    bool CanDo = RollHandler.CanRoutineSkillCheck(s, Abilities[s.Id], new(Context.FreeModifier));
                     CanRoutineCheck.Add(s.Id, CanDo);
                 }
             }
