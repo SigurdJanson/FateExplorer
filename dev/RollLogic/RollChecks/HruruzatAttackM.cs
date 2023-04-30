@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -10,8 +11,8 @@ public class HruruzatAttackM : AttackCheckM
     public new const string checkTypeId = "DSA5/0/combat/attack/hruruzat";
 
 
-    public HruruzatAttackM(BattlegroundM context, IGameDataService gameData)  //WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier
-        : base(context, gameData)
+    public HruruzatAttackM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
+        : base(weapon, otherWeapon, isMainHand, context, gameData)
     {
         Name = ResourceId.Hruruzat;
     }
@@ -69,7 +70,7 @@ public class HruruzatAttackM : AttackCheckM
             Success.Update(
                 RollList[RollType.Primary], 
                 RollList[RollType.Confirm], 
-                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon));
 
         return roll;
     }

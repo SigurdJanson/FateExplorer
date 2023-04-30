@@ -102,17 +102,17 @@
                         <CombatHand 
                             HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Main
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
-                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true)) 
-                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
-                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
+                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true))
+                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.MainWeapon, true))
+                                    StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
                     </MudItem>
                     <MudItem xs=6>
                         <CombatHand 
                             HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Off 
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
                             OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false)) 
-                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
-                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
+                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.OffWeapon, false))
+                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Off)) />
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -175,10 +175,20 @@ else
     private void GrabWeapon(WeaponViMo weapon, bool MainHand)
     {
         if (MainHand)
+        {
             Hero.Hands.MainWeapon = weapon;
+        }
         else
+        {
             Hero.Hands.OffWeapon = weapon;
+        }
     }
+
+    /// <summary>
+    /// User puts a Weapon away and uses his/her bare hands.
+    /// </summary>
+    /// <param name="Hand">The designated hand</param>
+    private void StashWeapon(HandsViMo.Hand Hand) => Hero.Hands.RemoveWeapon(Hand);
 
 
 
@@ -200,36 +210,33 @@ else
     {
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Context);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Hero.Hands, MainHand, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
     /// <summary>
     /// User triggers a combat parry action
     /// </summary>
-    /// <param name="weapon">Wielded weapon for this attack</param>
-    /// <param name="MainHand">THe hand the character holds the weapon with</param>
-    private void OnParryCheck(WeaponViMo weapon, bool MainHand)
+    /// <param name="weapon">Wielded Weapon for this attack</param>
+    /// <param name="MainHand">THe hand the character holds the Weapon with</param>
+    private void OnParryCheck(Check ActionId, WeaponViMo weapon, bool MainHand)
     {
-        Check ActionId = new(Check.Combat.Parry, weapon.CombatTechId);
-
+        //Check ActionId = new(Check.Combat.Parry, Weapon.CombatTechId);
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Context);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Hero.Hands, MainHand, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -242,7 +249,6 @@ else
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
         ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
-        //-ActiveCheck.CheckModifier.Set(new Modifier(ModifyValue));
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -266,7 +272,6 @@ else
     {
         ModifyValue = NewValue;
         Context.FreeModifier = ModifyValue;
-        //-ActiveCheck?.CheckModifier.Set(new Modifier(ModifyValue));
     }
 
     /// <summary>
@@ -295,14 +300,20 @@ else
         }
     }
 
+
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         if (RollCheckResults is null)
             RollCheckResults = new(4);
         LoadHeroData();
-        if (Hero.Hands is not null)
-            Context ??= new(true, Hero.Hands.MainWeapon, Hero.Hands.OffWeapon);
+    }
+
+
+    protected override void OnParametersSet()
+    {
+        Context ??= new();
     }
 
 

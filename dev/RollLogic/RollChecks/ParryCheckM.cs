@@ -31,6 +31,15 @@ namespace FateExplorer.RollLogic
 
         // COMBAT SPECIFIC PROPERTIES
         /// <summary>
+        /// The wielded weapon int this check
+        /// </summary>
+        public WeaponM Weapon { get; protected set; }
+        /// <summary>
+        /// The weapon carried in the other hand 
+        /// </summary>
+        public WeaponM OtherWeapon { get; protected set; }
+
+        /// <summary>
         /// The combat technique
         /// </summary>
         public string CombatTech { get; protected set; }
@@ -52,11 +61,11 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
-        public ParryCheckM(BattlegroundM context, IGameDataService gameData)//(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
+        public ParryCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)//(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModificatorM modifier, IGameDataService gameData)
             : base(gameData)
         {
-            WeaponM weapon = context.UseMainHand ? context.MainWeapon : context.OffWeapon; // the weapon to use
-            WeaponM otherWeapon = context.UseMainHand ? context.OffWeapon : context.MainWeapon;
+            Weapon = weapon; // the Weapon to use
+            OtherWeapon = otherWeapon;
             // inherited properties
             Context = context;
             Context.OnStateChanged += UpdateAfterModifierChange;
@@ -64,7 +73,7 @@ namespace FateExplorer.RollLogic
             RollAttr = new int[1];
             RollAttrName = new string[1];
 
-            RollAttr[0] = weapon.PaSkill(context.UseMainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
+            RollAttr[0] = weapon.PaSkill(isMainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
             RollAttrName[0] = ResourceId.ParryLabelId;
             Name = weapon.Name;
 
@@ -89,7 +98,7 @@ namespace FateExplorer.RollLogic
             => Success.Update(
                 RollList[RollType.Primary], 
                 RollList[RollType.Confirm], 
-                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)));
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon));
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -217,7 +226,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon));
 
             return roll;
         }
@@ -239,7 +251,7 @@ namespace FateExplorer.RollLogic
         {
             return Which switch
             {
-                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech)),
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon),
                 _ => throw new NotImplementedException()
             };
         }

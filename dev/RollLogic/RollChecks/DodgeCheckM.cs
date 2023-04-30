@@ -179,7 +179,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    CheckModificator.Apply(RollAttr[0]));
 
             return roll;
         }
@@ -201,7 +204,7 @@ namespace FateExplorer.RollLogic
         {
             return Which switch
             {
-                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Dodge)),
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null),
                 _ => throw new NotImplementedException()
             };
         }

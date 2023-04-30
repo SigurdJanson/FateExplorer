@@ -159,7 +159,7 @@ namespace FateExplorer.RollLogic
         {
             return Which switch
             {
-                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Ability)),
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Ability), null),
                 _ => throw new NotImplementedException()
             };
         }

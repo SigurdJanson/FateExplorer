@@ -1,6 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using System;
 using System.Collections.Generic;
 
@@ -13,15 +12,8 @@ public class BattlegroundM : ICheckContextM
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="useMainHand">true = fight with main hand weapon; false = fight with off-hand weapon.</param>
-    /// <param name="mainWeapon">Weapon in the main hand.</param>
-    /// <param name="offWeapon">Weapon in the off hand.</param>
-    public BattlegroundM(bool useMainHand, WeaponM mainWeapon, WeaponM offWeapon)
-    {
-        this.mainWeapon = mainWeapon;
-        this.offWeapon = offWeapon;
-        this.useMainHand = useMainHand;
-    }
+    public BattlegroundM()
+    {}
 
 
     /*
@@ -32,16 +24,10 @@ public class BattlegroundM : ICheckContextM
     private void NotifyStateChange() => OnStateChanged?.Invoke();
 
 
+
     /*
-     * Pass through properties to access the weapons properties needed to determine
-     * the effects of the context.
+     * Modifier calculations
      */
-    protected CombatBranch Branch { get => MainWeapon.Branch; }
-    protected string WeaponName { get => MainWeapon.Name; }
-    protected WeaponsReach WeaponReach { get => (WeaponsReach)MainWeapon.Reach; }
-    protected bool IsRanged { get => MainWeapon.IsRanged; }
-
-
 
     /// <summary>
     /// Clear the battleground and remove all modifiers.
@@ -91,31 +77,10 @@ public class BattlegroundM : ICheckContextM
     /// </summary>
     public bool ApplyBattleground { get; set; } = false;
 
+
     /*
      * Battleground properties
      */
-    private WeaponM mainWeapon;
-    private WeaponM offWeapon;
-    private bool useMainHand;
-
-    /// <summary>
-    /// Weapon in the main ("strong") hand
-    /// </summary>
-    public WeaponM MainWeapon 
-    { 
-        get => mainWeapon; 
-        set => SetVal(ref mainWeapon, value); 
-    }
-    /// <summary>
-    /// Weapon in the off-hand
-    /// </summary>
-    public WeaponM OffWeapon { get => offWeapon; set => SetVal(ref offWeapon, value); }
-    /// <summary>
-    /// true = fight with main hand weapon; false = fight with off-hand weapon.
-    /// </summary>
-    public bool UseMainHand { get => useMainHand; set => SetVal(ref useMainHand, value); }
-
-
 
     private const int FreeModifierDefault = 0;
     private const WeaponsRange DistanceDefault = WeaponsRange.Medium;
@@ -146,7 +111,7 @@ public class BattlegroundM : ICheckContextM
     /// </summary>
     public int FreeModifier { get => freeModifier; set => SetVal(ref freeModifier, value); }
     /// <summary>
-    /// The distance of a target for a character to reach with a ranged weapon.
+    /// The distance of a target for a character to reach with a ranged Weapon.
     /// </summary>
     public WeaponsRange Distance { get => distance; set => SetVal(ref distance, value); }
     public Vision Visibility { get => visibility; set => SetVal(ref visibility, value); }
@@ -163,9 +128,10 @@ public class BattlegroundM : ICheckContextM
     /// Computes the <see cref="Distance"/> modifier between fighter and target.
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
-    public Modifier GetDistanceMod()
+    public Modifier GetDistanceMod(Check action, WeaponM weapon)
     {
-        if (!IsRanged) return Modifier.Neutral;
+        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
+        if (!weapon.IsRanged) return Modifier.Neutral;
 
         return Distance switch
         {
@@ -177,11 +143,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetVisibilityMod(Check action)
+    public Modifier GetVisibilityMod(Check action, WeaponM weapon)
     {
-        // dodging would be same as parry
+        if (!action.IsCombat || !action.Is(Check.Roll.Dodge)) return Modifier.Neutral;
 
-        if (IsRanged)
+        if (weapon.IsRanged)
             return Visibility switch
             {
                 Vision.Clear => Modifier.Neutral,
@@ -199,18 +165,18 @@ public class BattlegroundM : ICheckContextM
                 Vision.ShapesOnly => new Modifier(-2),
                 Vision.Barely => new Modifier(-3),
                 Vision.NoVision =>
-                    !IsRanged && action.Is(Check.Combat.Attack) ? Modifier.Halve : Modifier.LuckyShot,
+                    action.Is(Check.Combat.Attack) ? Modifier.Halve : Modifier.LuckyShot,
                 _ => throw new InvalidOperationException()
             };
 
     }
 
 
-    public Modifier GetWaterMod() /** OK **/
+    public Modifier GetWaterMod(Check action, WeaponM weapon)
     {
-        // dodging would be affected as well
+        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
 
-        if (IsRanged)
+        if (weapon.IsRanged)
             return Water switch
             {
                 UnderWater.Dry => Modifier.Neutral,
@@ -232,15 +198,15 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetCrampedSpaceMod()
+    public Modifier GetCrampedSpaceMod(Check action, WeaponM weapon)
     {
         if (!CrampedSpace) return Modifier.Neutral;
-        // dodging would not be affected
+        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
 
-        if (Branch == CombatBranch.Ranged || Branch == CombatBranch.Unarmed)
+        if (weapon.IsRanged || weapon.Branch == CombatBranch.Unarmed)
             return Modifier.Neutral;
-        else if (Branch == CombatBranch.Melee)
-            return WeaponReach switch
+        else if (weapon.Branch == CombatBranch.Melee)
+            return weapon.Reach switch
             {
                 WeaponsReach.Short => Modifier.Neutral,
                 WeaponsReach.Medium => new Modifier(-4),
@@ -252,11 +218,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetMovingMod(Check action)
+    public Modifier GetMovingMod(Check action, WeaponM weapon)
     {
-        if (!IsRanged) return Modifier.Neutral;
+        if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        // dodging would not be affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
 
         return Moving switch
         {
@@ -271,11 +237,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEnemyMovingMod(Check action)
+    public Modifier GetEnemyMovingMod(Check action, WeaponM weapon)
     {
-        if (!IsRanged) return Modifier.Neutral;
+        if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        // dodging would not be affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
 
         return EnemyMoving switch
         {
@@ -287,11 +253,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEvasiveActionMod(Check action)
+    public Modifier GetEvasiveActionMod(Check action, WeaponM weapon)
     {
-        if (!IsRanged) return Modifier.Neutral;
+        if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        // dodging would not be affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
 
         return EnemyEvasive switch
         {
@@ -301,13 +267,12 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEnemyReachMod()
+    public Modifier GetEnemyReachMod(Check action, WeaponM weapon)
     {
-        // dodging would not be affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral;
+        if (weapon.Reach >= EnemyReach) return Modifier.Neutral;
 
-        if (WeaponReach >= EnemyReach) return Modifier.Neutral;
-
-        return (WeaponReach, EnemyReach) switch
+        return (weapon.Reach, EnemyReach) switch
         {
             (WeaponsReach.Short, WeaponsReach.Medium) => new Modifier(-2),
             (WeaponsReach.Short, WeaponsReach.Long) => new Modifier(-4),
@@ -317,11 +282,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetSizeOfEnemyMod(Check action)
+    public Modifier GetSizeOfEnemyMod(Check action, WeaponM weapon)
     {
-        // dodging would not be affected
+        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
 
-        if (IsRanged)
+        if (weapon.IsRanged)
         {
             return SizeOfEnemy switch
             {
@@ -335,7 +300,7 @@ public class BattlegroundM : ICheckContextM
         }
         else
         {
-            if (Branch == CombatBranch.Melee || Branch == CombatBranch.Unarmed)
+            if (weapon.Branch == CombatBranch.Melee || weapon.Branch == CombatBranch.Unarmed)
             {
                 if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
@@ -344,7 +309,7 @@ public class BattlegroundM : ICheckContextM
                 else
                     return Modifier.Neutral;
             }
-            if (Branch == CombatBranch.Shield)
+            if (weapon.Branch == CombatBranch.Shield)
             {
                 if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
@@ -366,25 +331,27 @@ public class BattlegroundM : ICheckContextM
 
 
     /// <inheritdoc />
-    public Modifier GetTotalMod(int before, Check action)
+    public Modifier GetTotalMod(int before, Check action, object asset)
     {
         if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
+        WeaponM weapon = asset as WeaponM ?? throw new ArgumentNullException(nameof(asset));
 
         int After = before;
 
         if (ApplyBattleground)
         {
             List<Modifier> Mods = new()
-        {
-            //
-            GetDistanceMod(), GetCrampedSpaceMod(),
-            GetEnemyMovingMod(action), GetEvasiveActionMod(action),
-            GetEnemyReachMod(),
-            GetVisibilityMod(action),
-            GetMovingMod(action),
-            GetWaterMod(),
-            GetSizeOfEnemyMod(action)
-        };
+            {
+                GetDistanceMod(action, weapon), 
+                GetCrampedSpaceMod(action, weapon),
+                GetEnemyMovingMod(action, weapon), 
+                GetEvasiveActionMod(action, weapon),
+                GetEnemyReachMod(action, weapon),
+                GetVisibilityMod(action, weapon),
+                GetMovingMod(action, weapon),
+                GetWaterMod(action, weapon),
+                GetSizeOfEnemyMod(action, weapon)
+            };
             List<Modifier> HalveMods = new(), ForceMods = new();
             int i = 0;
             while (i < Mods.Count)
@@ -433,17 +400,17 @@ public class BattlegroundM : ICheckContextM
 
 
     /// <inheritdoc />
-    public int ApplyTotalMod(int before, Check action)
+    public int ApplyTotalMod(int before, Check action, object asset)
     {
-        var mod = GetTotalMod(before, action);
+        Modifier mod = GetTotalMod(before, action, asset);
         return before + mod;
     }
 
 
     /// <inheritdoc />
-    public int ModDelta(int before, Check action)
+    public int ModDelta(int before, Check action, object asset)
     {
-        var mod = GetTotalMod(before, action);
+        Modifier mod = GetTotalMod(before, action, asset);
         return (before + mod) - before;
     }
 }

@@ -31,16 +31,25 @@ namespace FateExplorer.RollLogic
 
         // COMBAT SPECIFIC PROPERTIES
         /// <summary>
-        /// THe combat technique
+        /// The wielded Weapon int this check
+        /// </summary>
+        public WeaponM Weapon { get; protected set; }
+        /// <summary>
+        /// The Weapon carried in the other hand 
+        /// </summary>
+        public WeaponM OtherWeapon { get; protected set; }
+
+        /// <summary>
+        /// The combat technique
         /// </summary>
         public string CombatTech { get; protected set; }
         /// <summary>
-        /// The kind of combat technique behind the weapon
+        /// The kind of combat technique behind the Weapon
         /// </summary>
         public CombatBranch CombatTechType { get; protected set; }
 
         /// <summary>
-        /// Is the weapon improvised (affects botch rolls)?
+        /// Is the Weapon improvised (affects botch rolls)?
         /// </summary>
         public bool IsImprovised { get; protected set; }
 
@@ -63,33 +72,33 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
-        public AttackCheckM(BattlegroundM context, IGameDataService gameData)
+        public AttackCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
             : base(gameData)
         {
-            WeaponM weapon = context.UseMainHand ? context.MainWeapon : context.OffWeapon; // the weapon to use
-            WeaponM otherWeapon = context.UseMainHand ? context.OffWeapon : context.MainWeapon;
+            Weapon = weapon; // the Weapon to use
+            OtherWeapon = otherWeapon;
             // inherited properties
             Context = context;
             Context.OnStateChanged += UpdateAfterModifierChange;
-            AttributeId = weapon.CombatTechId;
+            AttributeId = Weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
 
-            RollAttr[0] = weapon.AtSkill(context.UseMainHand, otherWeapon.Branch);
+            RollAttr[0] = Weapon.AtSkill(isMainHand, OtherWeapon.Branch);
             RollAttrName[0] = ResourceId.AttackLabelId;
-            Name = weapon.Name;
+            Name = Weapon.Name;
 
             // improvised weapons: 19 AND 20 are botches
-            if (weapon.IsImprovised)
+            if (Weapon.IsImprovised)
                 Success.BotchThreshold = 19;
 
             // specialised properties
-            DamageDieCount = weapon.DamageDieCount;
-            DamageDieSides = weapon.DamageDieSides;
-            DamageBonus = weapon.DamageBonus;
-            CombatTech = weapon.CombatTechId;
-            CombatTechType = weapon.Branch;
-            IsImprovised = weapon.IsImprovised;
+            DamageDieCount = Weapon.DamageDieCount;
+            DamageDieSides = Weapon.DamageDieSides;
+            DamageBonus = Weapon.DamageBonus;
+            CombatTech = Weapon.CombatTechId;
+            CombatTechType = Weapon.Branch;
+            IsImprovised = Weapon.IsImprovised;
 
             RollList = new();
             ThrowCup(RollType.Primary); // directly roll first roll and add
@@ -100,7 +109,10 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange() 
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon));
 
         protected override void Dispose(bool disposedStatus)
         {
@@ -154,7 +166,7 @@ namespace FateExplorer.RollLogic
                 {
                     int RollResult;
                     RollResult = RollList[RollType.Damage].OpenRollCombined();
-                    // TODO: Move the damage assessment to the weapon
+                    // TODO: Move the damage assessment to the Weapon
                     if (Success.CurrentLevel == RollSuccess.Level.Success)
                         Result = RollResult + DamageBonus;
                     else if (Success.CurrentLevel == RollSuccess.Level.Critical)
@@ -264,7 +276,7 @@ namespace FateExplorer.RollLogic
                 Success.Update(
                     RollList[RollType.Primary], 
                     RollList[RollType.Confirm], 
-                    Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)));
+                    Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon));
 
             return roll;
         }
@@ -286,7 +298,7 @@ namespace FateExplorer.RollLogic
         {
             return Which switch
             {
-                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech)),
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon),
                 _ => throw new NotImplementedException()
             };
         }

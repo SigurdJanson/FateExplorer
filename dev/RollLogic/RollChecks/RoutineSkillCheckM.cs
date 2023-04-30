@@ -172,7 +172,7 @@ public class RoutineSkillCheckM : CheckBaseM
     {
         return Which switch
         {
-            RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Domain)),
+            RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Domain), null),
             _ => throw new NotImplementedException()
         };
     }

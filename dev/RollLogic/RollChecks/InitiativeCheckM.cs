@@ -39,14 +39,16 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="InitiativeVal"></param>
         /// <param name="gameData"></param>
-        public InitiativeCheckM(CharacterAttrDTO Initiative, IGameDataService gameData)
+        public InitiativeCheckM(CharacterAttrDTO Initiative, BattlegroundM context, IGameDataService gameData)
             : base(gameData)
         {
             // inherited properties
             AttributeId = Initiative.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = new SimpleCheckModificatorM(Modifier.Neutral);
+            //---CheckModificator = new SimpleCheckModificatorM(Modifier.Neutral);
+            Context = context;
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = Initiative.EffectiveValue;
             RollAttrName[0] = Initiative.Name;
@@ -142,7 +144,7 @@ namespace FateExplorer.RollLogic
         {
             return Which switch
             {
-                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Initiative)),
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Initiative), null),
                 _ => throw new NotImplementedException()
             };
         }

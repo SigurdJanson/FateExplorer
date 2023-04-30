@@ -13,7 +13,7 @@ namespace FateExplorer.RollLogic
         /// Constructor
         /// </summary>
         /// <param name="gameData">Access to the data base with basic game data(injection)</param>
-        protected CheckBaseM(IGameDataService gameData)
+        protected CheckBaseM(IGameDataService gameData) // TODO: hier muss mittelfristig der ICheckContext übergeben werden
         {
             GameData = gameData;
             Success = new();

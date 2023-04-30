@@ -35,17 +35,12 @@ public class BattlegroundViMo
         get => Battleground.EnemyEvasive; set => Battleground.EnemyEvasive = value;
     }
 
-    public BattlegroundViMo(bool useMainHand, WeaponViMo mainWeapon, WeaponViMo offWeapon)
+    public BattlegroundViMo()
     {
-        Battleground = new(useMainHand, mainWeapon.ToWeaponM(), offWeapon.ToWeaponM());
+        Battleground = new();
     }
 
     public void ResetToDefault() => Battleground.ResetToDefault();
-
-    public void SetMainWeapon(WeaponViMo mainWeapon) => Battleground.MainWeapon = mainWeapon.ToWeaponM();
-    public void SetOffWeapon(WeaponViMo offWeapon) => Battleground.OffWeapon = offWeapon.ToWeaponM();
-    public void SetHand(bool mainHand) => Battleground.UseMainHand = mainHand;
-
 
     public BattlegroundM ToM() => Battleground;
 }
