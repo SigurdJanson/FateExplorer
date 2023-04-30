@@ -115,8 +115,8 @@ public readonly struct Check
         string SkillId = skill switch
         {
             Check.Skill.Skill => ChrAttrId.Skill,
-            Check.Skill.Arcane => ChrAttrId.Spell,
-            Check.Skill.Karma => ChrAttrId.Liturgy,
+            Check.Skill.Arcane or Check.Skill.Spell or Check.Skill.Ritual => ChrAttrId.Spell,
+            Check.Skill.Karma or Check.Skill.Chant or Check.Skill.Ceremony => ChrAttrId.Liturgy,
             _ => throw new ArgumentException("Unknown skill", nameof(skill)),
         };
         if (isRoutine)
