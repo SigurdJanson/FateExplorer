@@ -18,21 +18,23 @@ public readonly struct Check
 {
     private const char Sep = '/';
 
-    public enum Roll { Ability = 1, Regenerate = 2, Dodge = 4, Initiative = 8 };
-    private const int AnyRoll = (int)(Roll.Ability | Roll.Regenerate | Roll.Dodge | Roll.Initiative);
+    public enum Roll { Ability = 1, Regenerate = 2, Dodge = 4, Initiative = 8, 
+        Any = Ability | Regenerate | Dodge | Initiative };
 
     [Flags]
     public enum Skill { 
         Skill = 1 << 12, // starts with 2^12 to avoid value overlap
         Arcane = Spell | Ritual, Spell = Skill*2, Ritual = Skill*4, 
-        Karma = Chant | Ceremony, Chant = Skill*8, Ceremony = Skill*16 };
-    private const int AnySkill = (int)(Skill.Skill | Skill.Arcane | Skill.Karma);
+        Karma = Chant | Ceremony, Chant = Skill*8, Ceremony = Skill*16,
+        Any = Skill | Arcane | Karma
+    };
 
     [Flags]
     public enum Combat { 
         Attack = 1 << 24, // starts with 2^24 to avoid value overlap
-        Parry = Attack * 2 };
-    private const int AnyCombat = (int)(Combat.Attack | Combat.Parry);
+        Parry = Attack * 2,
+        Any = Attack | Parry
+    };
 
     private readonly int RollType { get; init; }
 
@@ -68,9 +70,9 @@ public readonly struct Check
     }
     public bool Is(CombatBranch what) => (ComputeBranch(what) & RollType) != 0;
 
-    public bool IsRoll => (RollType & AnyRoll) > 0;
-    public bool IsSkill => (RollType & AnySkill) > 0;
-    public bool IsCombat => (RollType & AnyCombat) > 0;
+    public bool IsRoll => (RollType & (int)Roll.Any) > 0;
+    public bool IsSkill => (RollType & (int)Skill.Any) > 0;
+    public bool IsCombat => (RollType & (int)Combat.Any) > 0;
 
     private static int ComputeRoll(Roll value) => (int)value;
     private static int ComputeRoll(Skill value) => (int)value;
