@@ -406,6 +406,14 @@ public class BattlegroundM : ICheckContextM
         return before + mod;
     }
 
+    /// <inheritdoc />
+    public int[] ApplyTotalMod(int[] before, Check action, object asset = null)
+    {
+        int[] after = new int[before.Length];
+        for (int i = 0; i < before.Length; i++)
+            after[i] = before[i] + GetTotalMod(before[i], action, asset);
+        return after;
+    }
 
     /// <inheritdoc />
     public int ModDelta(int before, Check action, object asset)
