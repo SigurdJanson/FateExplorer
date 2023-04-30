@@ -29,7 +29,7 @@
                         {
                             @foreach (var skill in FavoriteSkills)
                             {
-                                @if (CheckFilter(skill.Domain, skill.Name))
+                                @if (CheckFilter(skill.Name))
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
@@ -46,7 +46,7 @@
                         {
                             @foreach (var skill in BestSkills)
                             {
-                                @if (CheckFilter(skill.Domain, skill.Name))
+                                @if (CheckFilter(skill.Name))
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
@@ -63,7 +63,7 @@
                             <MudList Clickable=true Style="overflow:auto; height:620px">
                             @foreach (var skill in SkillList)
                             {
-                                @if (CheckFilter(skill.Domain, skill.Name))
+                                @if (CheckFilter(skill.Name))
                                 {
                                     <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
                                         CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
@@ -81,7 +81,7 @@
                             {
                                 @if (skill.Domain == d)
                                 {
-                                    @if (CheckFilter(skill.Domain, skill.Name))
+                                    @if (CheckFilter(skill.Name))
                                     {
                                         <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
                                             CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
@@ -153,19 +153,12 @@ else
     /// <summary></summary>
     private string FilterTerm = "";
 
-    /// <summary></summary>
-    private MudChip SelectedDomain;
-
 
     /// <summary>Verifies if the set filter matches an item string</summary>
     /// <returns></returns>
-    private bool CheckFilter(Check.Skill d, string Item)
+    private bool CheckFilter(string Item)
     {
-        bool DomainMatch = SelectedDomain is null || 
-            SelectedDomain.Text == "All" || 
-            SelectedDomain.Text == d.ToString();
-
-        return DomainMatch && Item.ToLower().Contains(FilterTerm.ToLower());
+        return Item.ToLower().Contains(FilterTerm.ToLower());
     }
 
 
