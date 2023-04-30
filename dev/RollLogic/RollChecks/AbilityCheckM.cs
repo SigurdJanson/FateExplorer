@@ -42,15 +42,15 @@ namespace FateExplorer.RollLogic
         /// <param name="ability"></param>
         /// <param name="modifier"></param>
         /// <param name="gameData"></param>
-        public AbilityCheckM(AbilityDTO ability, ICheckModificatorM modifier, IGameDataService gameData)
+        public AbilityCheckM(AbilityDTO ability, ICheckContextM context, IGameDataService gameData)
             :base(gameData)
         {
             // inherited properties
             AttributeId = ability.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModificator = modifier ?? new SimpleCheckModificatorM(Modifier.Neutral);
-            CheckModificator.OnStateChanged += UpdateAfterModifierChange;
+            Context = context;
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
             AbilityValue = ability.EffectiveValue; // implicitely sets `this.Attribute` 
             RollAttrName[0] = ability.Name;
@@ -63,7 +63,10 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc />
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(AbilityValue));
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(AbilityValue, new Check(Check.Roll.Ability), null));
 
 
         /// <inheritdoc />
@@ -73,7 +76,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModificator.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -138,7 +141,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(AbilityValue));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    Context.ApplyTotalMod(AbilityValue, new Check(Check.Roll.Ability), null));
 
             return roll;
         }

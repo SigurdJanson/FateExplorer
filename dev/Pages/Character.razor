@@ -191,9 +191,9 @@
         <MudItem xs=12 sm=6 md=7 lg=8>
             <MudPaper Outlined=false Class="pa-2 d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
+                <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                    @l10n["lblModifier"] @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
             <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
@@ -228,7 +228,8 @@ else
     };
     private RollCheckResultViMo ActiveAbilityCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
-    private int ModifyValue { get; set; }
+    private CheckContextViMo Context { get; set; }
+
 
     private CalendarViMo Calendar { get; set; }
     private DateTime DateOfBirth { get; set; }
@@ -336,6 +337,7 @@ else
         if (RollCheckResults is null)
             RollCheckResults = new(4);
 
+        Context = new();
         CurrentDate.OnChange += OnDateChanged;
         Calendar = new(GameData.Calendar, CurrentDate);
         UpdateDate();
@@ -361,16 +363,14 @@ else
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
-        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, null);
-        ActiveAbilityCheck.CheckModifier.Set(new Modifier(ModifyValue));
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, Context, null);
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }
 
 
     private void OnModChanged(int NewValue)
     {
-        ModifyValue = NewValue;
-        ActiveAbilityCheck?.CheckModifier.Set(new Modifier(ModifyValue));
+        Context.FreeModifier = NewValue;
         StateHasChanged();
     }
 

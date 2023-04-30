@@ -187,7 +187,7 @@ namespace FateExplorer.ViewModel
             {
                 case
                     nameof(AbilityCheckM):
-                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, new SimpleCheckModificatorM(Modifier.Neutral), GameData);
+                    Checker = new AbilityCheckM((AbilityDTO)TargetAttr, Context.ToM() as BaseContextM, GameData);
                     break;
                 case
                     nameof(SkillCheckM):
