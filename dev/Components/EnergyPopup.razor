@@ -13,7 +13,7 @@
             Class="px-6 pt-4">
 
 <div class="d-flex flex-row">
-    <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=Close />
+    <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=Close />
 </div>
 
 <MudContainer>
@@ -28,15 +28,15 @@
         <MudItem xs=9 Class="mb-2">
             <MudText>@l10n["lblRegenerate6Hours"]</MudText>
             <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
-                <MudIconButton Icon=@Icons.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
+                <MudIconButton Icon=@Icons.Material.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudTooltip Text=@l10n["msgRegenerationSite.Default"]>
-                <MudIconButton Icon=@Icons.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
+                <MudIconButton Icon=@Icons.Material.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudTooltip Text=@l10n["msgRegenerationSite.Poor"]>
-                <MudIconButton Icon=@Icons.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
+                <MudIconButton Icon=@Icons.Material.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudButton OnClick=@OpenDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
@@ -158,7 +158,7 @@
         var dialog = DialogService.Show<RegenerationDialog>("", parameters, dialogOptions);
         var result = await dialog.Result;
 
-        if (!result.Cancelled)
+        if (!result.Canceled)
         {
             (RegenerationSite, RegenerationDisturbance, bool, int[]) Settings;
             Settings = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;

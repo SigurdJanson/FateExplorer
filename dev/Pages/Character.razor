@@ -78,12 +78,12 @@
                         <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
                             @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
                             <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
-                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Info/>
+                                <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Info/>
                             </MudTooltip>
                             @if (Hero.CarriedWeight > Hero.WhatCanCarry)
                             {
                             <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
-                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Error />
+                                        <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Error />
                             </MudTooltip>
                             }
                         </MudField>
@@ -223,8 +223,8 @@ else
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
     private readonly string[] CheckIcons = new string[4] { 
-        IconsFE.Botch, Icons.Filled.Elderly, 
-        Icons.Filled.Accessibility, IconsFE.Success
+        IconsFE.Botch, Icons.Material.Filled.Elderly,
+        Icons.Material.Filled.Accessibility, IconsFE.Success
     };
     private RollCheckResultViMo ActiveAbilityCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
@@ -320,7 +320,7 @@ else
         var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth );
         var result = await dialog.Result;
 
-        if (!result.Cancelled)
+        if (!result.Canceled)
         {
             Hero.Money = (decimal)result.Data;
         }

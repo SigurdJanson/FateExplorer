@@ -157,8 +157,8 @@ else
 
     private readonly string[] CheckIcons = new string[4] { 
         IconsFE.Botch,
-        Icons.Filled.Elderly, 
-        Icons.Filled.Accessibility, 
+        Icons.Material.Filled.Elderly,
+        Icons.Material.Filled.Accessibility,
         IconsFE.Success};
 
     private BattlegroundViMo Context { get; set; }
@@ -285,7 +285,7 @@ else
         var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
         var result = await dialog.Result;
 
-        if (!result.Cancelled)
+        if (!result.Canceled)
         {
             //----Hero.Money = (decimal)result.Data;
         }
