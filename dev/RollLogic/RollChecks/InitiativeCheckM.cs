@@ -40,13 +40,13 @@ namespace FateExplorer.RollLogic
         /// <param name="InitiativeVal"></param>
         /// <param name="gameData"></param>
         public InitiativeCheckM(CharacterAttrDTO Initiative, BattlegroundM context, IGameDataService gameData)
-            : base(gameData)
+            : base(context, gameData)
         {
             // inherited properties
             AttributeId = Initiative.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            Context = context;
+            //Context = context; //Already assigned through base
             Context.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = Initiative.EffectiveValue;
@@ -100,6 +100,10 @@ namespace FateExplorer.RollLogic
         {
             get => throw new NotImplementedException();
         }
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Roll.Initiative), null);
+
 
         /// <inheritdoc/>
         public override bool NeedsBotchEffect

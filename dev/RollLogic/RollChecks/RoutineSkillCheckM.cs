@@ -49,7 +49,7 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <param name="modificator">An optional modificator (may be <c>null</c>).</param>
     /// <param name="gameData">Access to the game data base</param>
     public RoutineSkillCheckM(SkillsDTO skill, AbilityDTO[] ability, BaseContextM context, IGameDataService gameData) 
-        : base(gameData)
+        : base(context, gameData)
     {
         RollAttr = new int[3];
         RollAttrName = new string[3];
@@ -58,7 +58,7 @@ public class RoutineSkillCheckM : CheckBaseM
             RollAttr[a] = ability[a].EffectiveValue;
             RollAttrName[a] = ability[a].ShortName;
         }
-        Context = context;
+        //Context = context; Already assigned through base
         Context.OnStateChanged += UpdateAfterModifierChange;
 
         TargetAttr = skill.EffectiveValue;
@@ -80,6 +80,8 @@ public class RoutineSkillCheckM : CheckBaseM
     public override void UpdateAfterModifierChange()
     {
         EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
+        if (EffectiveMod.Operator != Modifier.Op.Add) throw new NotImplementedException(); // to be safe
+
         int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod);
         RollSuccess.Level Level = QualityLevel > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
 
@@ -150,13 +152,23 @@ public class RoutineSkillCheckM : CheckBaseM
 
     // ROLLS  ////////////////////////
 
-    public override bool NeedsBotchEffect
+    /// <inheritdoc/>
+    public override bool NeedsBotchEffect => false;
+
+    /// <inheritdoc/>
+    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
+
+    /// <inheritdoc/>
+    /// <remarks>Not needed here</remarks>
+    public override int ModDelta
     {
-        get => false;
+        get
+        {
+            EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
+            return (int)EffectiveMod;
+        }
     }
 
-
-    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
 
     public override string ClassificationLabel => "QL";
 

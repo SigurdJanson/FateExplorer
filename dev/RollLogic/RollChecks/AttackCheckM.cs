@@ -73,12 +73,12 @@ namespace FateExplorer.RollLogic
         /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
         public AttackCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
-            : base(gameData)
+            : base(context, gameData)
         {
             Weapon = weapon; // the Weapon to use
             OtherWeapon = otherWeapon;
             // inherited properties
-            Context = context;
+            //Context = context; //Already assigned through base
             Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = Weapon.CombatTechId;
             RollAttr = new int[1];
@@ -217,10 +217,10 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
-        public override int Remainder
-        {
-            get => throw new NotImplementedException();
-        }
+        public override int Remainder => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon);
 
 
         // inherited: public override bool NeedsBotchEffect

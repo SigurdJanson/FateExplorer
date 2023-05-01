@@ -1,7 +1,5 @@
-﻿using FateExplorer.CharacterModel;
-using FateExplorer.GameData;
+﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -46,7 +44,7 @@ namespace FateExplorer.RollLogic
         /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
         /// <param name="gameData">Access to the game data base</param>
         public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, BaseContextM context, IGameDataService gameData)
-            : base(gameData)
+            : base(context, gameData)
         {
             // inherited
             RollAttr = new int[3];
@@ -56,7 +54,7 @@ namespace FateExplorer.RollLogic
                 RollAttr[a] = ability[a].EffectiveValue;
                 RollAttrName[a] = ability[a].ShortName;
             }
-            Context = context;
+            //Context = context; //Already assigned through base
             Context.OnStateChanged += UpdateAfterModifierChange;
 
             TargetAttr = skill.EffectiveValue;
@@ -204,6 +202,22 @@ namespace FateExplorer.RollLogic
                 Context.ApplyTotalMod(RollAttr, new Check(Domain), null),
                 TargetAttr ?? 0,
                 0);// mod not required here because skill value is already modified
+        }
+
+        /// <inheritdoc/>
+        public override int ModDelta
+        {
+            get
+            {
+                int[] EffectiveSkills = Context.ApplyTotalMod(RollAttr, new Check(Domain), null);
+                int MaxMod = -1;
+                for (int i = 0; i < EffectiveSkills.Length; i++)
+                {
+                    EffectiveSkills[i] = RollAttr[i] - EffectiveSkills[i];
+                    if (Math.Abs(EffectiveSkills[i]) > MaxMod) MaxMod = EffectiveSkills[i];
+                }
+                return MaxMod;
+            }
         }
 
 

@@ -13,9 +13,10 @@ namespace FateExplorer.RollLogic
         /// Constructor
         /// </summary>
         /// <param name="gameData">Access to the data base with basic game data(injection)</param>
-        protected CheckBaseM(IGameDataService gameData) // TODO: hier muss mittelfristig der ICheckContext übergeben werden
+        protected CheckBaseM(ICheckContextM context, IGameDataService gameData)
         {
             GameData = gameData;
+            Context = context;
             Success = new();
         }
 
@@ -91,13 +92,6 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// This checks general modificator
-        /// </summary>
-        [Obsolete("This property should no longer be used, please use a `Context` instead.")]
-        public ICheckModificatorM CheckModificator { get; set; }
-
-
-        /// <summary>
         /// The context in which the check takes place. All properties that may modify the check in any way.
         /// </summary>
         protected ICheckContextM Context { get; set; }
@@ -106,7 +100,13 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// The delta between the original and the effective proficiency value after modifying it.
         /// </summary>
-        public int ModDelta { get; }
+        public abstract int ModDelta { get; }
+
+        /// <summary>
+        /// The remaining eyes after evaluating the check
+        /// </summary>
+        public abstract int Remainder { get; }
+
 
         /// <summary>
         /// The (pending) success level of the whole check.
@@ -119,13 +119,6 @@ namespace FateExplorer.RollLogic
         /// <param name="Roll"></param>
         /// <returns></returns>
         public abstract RollSuccess.Level SuccessOfRoll(RollType Which);
-
-
-
-        /// <summary>
-        /// The remaining eyes after evaluating the check
-        /// </summary>
-        public abstract int Remainder { get; }
 
 
         /// <summary>

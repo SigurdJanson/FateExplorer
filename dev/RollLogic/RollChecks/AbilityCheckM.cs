@@ -1,5 +1,4 @@
-﻿using FateExplorer.CharacterModel;
-using FateExplorer.GameData;
+﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -43,13 +42,13 @@ namespace FateExplorer.RollLogic
         /// <param name="modifier"></param>
         /// <param name="gameData"></param>
         public AbilityCheckM(AbilityDTO ability, ICheckContextM context, IGameDataService gameData)
-            :base(gameData)
+            :base(context, gameData)
         {
             // inherited properties
             AttributeId = ability.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            Context = context;
+            //Context = context; //Already assigned through base
             Context.OnStateChanged += UpdateAfterModifierChange;
 
             AbilityValue = ability.EffectiveValue; // implicitely sets `this.Attribute` 
@@ -108,6 +107,10 @@ namespace FateExplorer.RollLogic
         {
             get => throw new NotImplementedException();
         }
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(AbilityValue, new Check(Check.Roll.Ability), null);
+
 
         /// <inheritdoc/>
         public override bool NeedsBotchEffect

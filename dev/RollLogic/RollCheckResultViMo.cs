@@ -33,18 +33,6 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// The sum of the modifiers put into the roll.
-        /// </summary>
-        [Obsolete]
-        public ICheckModificatorM CheckModifier
-        {
-            get => RollCheck.CheckModificator;
-            set => RollCheck.CheckModificator = value;
-        }
-
-
-
-        /// <summary>
         /// Success level of the complete check
         /// </summary>
         public RollSuccess.Level SuccessLevel
@@ -55,7 +43,7 @@ namespace FateExplorer.RollLogic
 
         /// <summary>
         /// Get the summarized additive modifier after it has been applied to the
-        /// roll. See <seealso cref="ICheckModificatorM.Total"/>.
+        /// roll.
         /// </summary>
         public Modifier SummarizedModifier => RollCheck?.RollModifier(RollType.Primary) ?? Modifier.Neutral;
 
@@ -161,12 +149,13 @@ namespace FateExplorer.RollLogic
             IRollM CurrentRoll = RollCheck.GetRoll(Which, ForceRoll);
             if (CurrentRoll is null)
                 return null;
+            int[] Delta = { RollCheck.ModDelta };
 
             RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None)
             {
                 RollResult = CurrentRoll.OpenRoll,
                 SuccessLevel = RollCheck.SuccessOfRoll(Which),
-                Modifier = RollCheck.CheckModificator?.LastEffectiveDelta ?? new int[] { RollCheck.ModDelta },
+                Modifier = Delta,
                 CombinedResult = CurrentRoll.OpenRollCombined(),
                 RollAgainst = RollCheck.RollAttr
             };

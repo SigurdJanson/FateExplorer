@@ -1,5 +1,4 @@
-﻿using FateExplorer.CharacterModel;
-using FateExplorer.GameData;
+﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -42,10 +41,10 @@ namespace FateExplorer.RollLogic
         /// <param name="carriesWeapon">Does the character who dodges carry a weapon? Needed for botch rolls.</param>
         /// <param name="context"></param>
         public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, BattlegroundM context, IGameDataService gameData)
-            : base(gameData)
+            : base(context, gameData)
         {
             // inherited properties
-            Context = context;
+            //Context = context; //Already assigned through base
             Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = dodge.Id;
             RollAttr = new int[1];
@@ -145,10 +144,10 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
-        public override int Remainder
-        {
-            get => throw new NotImplementedException();
-        }
+        public override int Remainder => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Roll.Dodge), null);
 
 
 
