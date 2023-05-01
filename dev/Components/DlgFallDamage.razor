@@ -1,0 +1,163 @@
+﻿@inject IStringLocalizer<App> l10n
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo=Typo.h6>
+            <MudIcon Icon=@IconsFE.Botch Class="mr-3" /> @l10n["titleFallDamageDialog"]
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+            <MudItem sm=12 md=6>
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hDropHeight"]</MudText>
+                    <MudSlider Min=0 Max=30 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled
+                        @bind-Value=DropHeight>
+                        <MudTooltip Text=@l10n["txtDropHeightTip"]>
+                            @($"{DropHeight} {l10n["lblYard"]}")
+                        </MudTooltip>
+                    </MudSlider>
+                    <MudTooltip Text=@l10n["txtDropHeightHorseTip"]>
+                        <MudIconButton Icon=@IconsFE.Mounted0_Stand OnClick=@(()=>DropHeight=2) Variant=Variant.Filled />
+                    </MudTooltip>
+                    <MudTooltip Text=@l10n["txtDropHeightGallopTip"]>
+                        <MudIconButton Icon=@IconsFE.Mounted3_Gallop OnClick=@(()=>DropHeight=3) Variant=Variant.Filled />
+                    </MudTooltip>
+                </MudPaper>
+
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hGround"]</MudText>
+                    <MudText Square=true Variant=Variant.Filled>@l10n["txtGround"]</MudText>
+                    <MudSlider Value=GroundModifier Min =-4 Max=4 Step=1 
+                        TickMarks=true Size=Size.Small Variant=Variant.Filled
+                        ValueChanged=@((int i) => GroundModChanged(i))>
+                        @string.Format(GroundEffect, GroundModifier)
+                    </MudSlider>
+                    <MudSelect T=GroundCondition? Value=Hardness Label=@l10n["lblSelectHardness"] HelperText=@l10n["txtSelectHardness"]
+                            ValueChanged=@((GroundCondition? i) => SetHardness(i))>
+                        @foreach (GroundCondition? item in Enum.GetValues(typeof(GroundCondition)))
+                        {
+                            <MudSelectItem Value=@item>@l10n[$"GroundCondition.{item}"]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudPaper>
+            </MudItem>
+
+            <MudDivider />
+
+            <MudItem sm=12 md=6>
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hJump"]</MudText>
+                    <MudText Square=true Variant=Variant.Filled>@l10n["txtJump"]</MudText>
+                    <MudButton>@l10n["lblJump"]</MudButton>
+                </MudPaper>
+
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hArmour"]</MudText>
+                    <MudText Square=true Variant=Variant.Filled>@l10n["txtArmourProtection"]</MudText>
+                    <MudSlider Min=0 Max=3 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled @bind-Value=ArmourProtection>
+                        @($"{ArmourProtection}")
+                    </MudSlider>
+                    <MudText Square=true Variant=Variant.Filled>@l10n["txtPaddingProtection"]</MudText>
+                    <MudSlider Min=0 Max=3 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled @bind-Value=PaddingProtection>
+                        @($"{PaddingProtection}")
+                    </MudSlider>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@ResetDialog Class="px-10">
+            @l10n["btnReset"]
+        </MudButton>
+        <MudSpacer />
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@CancelDialog Class="px-10">
+            @l10n["btnCancel"]
+        </MudButton>
+        <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@SubmitDialog Class="px-10" ButtonType=ButtonType.Submit>
+            @l10n["btnFall"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    //
+    private int DropHeight { get; set; }
+    private const GroundCondition GroundConditionDefault = GroundCondition.Soil;
+    private GroundCondition? Hardness { get; set; } = GroundConditionDefault;
+    private int ArmourProtection { get; set; } = 0;
+    private int PaddingProtection { get; set; } = 0;
+
+    private int GroundModifier { get; set; } = 0;
+    private int QualityOfJump { get; set; } = 0;
+
+    private string GroundEffect => Math.Sign(GroundModifier) switch
+    {
+        -1 => "Enhanced damage {0}",
+        0 => "No change",
+        +1 => "Reduced damage {0}",
+        _ => "Unknown"
+    };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+    }
+
+
+
+    private void SubmitDialog()
+    {
+        (int, int, int, int, int) Result = (DropHeight, GroundModifier, QualityOfJump, ArmourProtection, PaddingProtection);
+        MudDialog.Close(DialogResult.Ok(Result));
+    }
+
+    private void CancelDialog()
+    {
+        MudDialog.Close(DialogResult.Cancel());
+    }
+
+    private void ResetDialog()
+    {
+        Hardness = GroundConditionDefault;
+        GroundModifier = 0;
+        ArmourProtection = 0;
+        PaddingProtection = 0;
+        DropHeight = 0;
+    }
+
+    /*
+    * GROUND MODIFIER
+     */
+
+    private void GroundModChanged(int groundModifier)
+    {
+        if (groundModifier == 0)
+        {
+            Hardness = GroundConditionDefault;
+        }
+        else
+        {
+            if (GetHardnessMod(Hardness) != groundModifier)
+            {
+                Hardness = null;
+            }
+        }
+        GroundModifier = groundModifier;
+    }
+
+
+    private int GetHardnessMod(GroundCondition? New) => (int)(New ?? GroundConditionDefault);
+
+
+    private void SetHardness(GroundCondition? New)
+    {
+        GroundModChanged(GetHardnessMod(New));
+        Hardness = New;
+    }
+}

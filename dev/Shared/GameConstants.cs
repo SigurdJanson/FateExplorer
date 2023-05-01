@@ -65,6 +65,11 @@ public enum RegenerationDisturbance
     None = 0, Brief = -1, Prolonged = -2
 }
 
+/// <summary>
+/// The hardness of the ground to determine fall damage
+/// </summary>
+public enum GroundCondition { Water = -4, Hay, Mud, Snow, Soil, Stone, Gravel, Grit, Boulders }
+
 
 /// <summary>
 /// A category of a roll in the rolling sequence
