@@ -837,6 +837,8 @@
 {"id": "SA_74", "name": "Verbotene Pforten", "group": 21},
 {"id": "SA_75", "name": "Zauberzeichen", "group": 21},
 
+{"id": "SA_414", "name": "Zaubererweiterung", "group": 21},
+
 {"id": "", "name": "Abnehmbare Magierkugel", "group": 21},
 {"id": "", "name": "Machtvoller Astralleib", "group": 21},
 {"id": "", "name": "Bindung (Dämonen)", "group": 21},
