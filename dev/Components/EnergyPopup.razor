@@ -40,6 +40,10 @@
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudButton OnClick=@OpenDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
+
+           <MudTooltip Text=@l10n["btnFallDamage"]>
+                <MudIconButton Icon=@IconsFE.Botch OnClick=@OpenFallDialog Variant=Variant.Outlined Class="ml-4" />
+            </MudTooltip>
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -180,4 +184,48 @@
         }
     }
 
+
+    /// <summary>
+    /// Shows a dialog window for the user to specify fall damage.
+    /// </summary>
+    /// <returns></returns>
+    private async Task OpenFallDialog()
+    {
+        var parameters = new DialogParameters();
+
+        var dialog = DialogService.Show<DlgFallDamage>("", parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            (int height, int groundMod, int JumpQl, int armourMod, int paddingMod) Settings;
+            Settings = ((int, int, int, int, int))result.Data;
+
+            foreach (var e in Energies)
+            {
+                var Result = e.FallDamage(Settings.height, Settings.groundMod, Settings.JumpQl, Settings.armourMod, Settings.paddingMod);
+                if (Result is null) continue;
+
+                string Message;
+                if (Result.CombinedResult < 0)
+                {
+                    string Sign = Math.Sign(Result.Modifier[0]) switch
+                    {
+                        -1 => " - ",
+                        +1 => " + ",
+                        _ => string.Empty
+                    };
+                    string Value = Result.Modifier[0] == 0 ? "" : Math.Abs(Result.Modifier[0]).ToString();
+                    Message = String.Format(l10n["msgDamageCaused"], e.ShortName, Sign, Value, Result.CombinedResult);
+                }
+                else
+                    Message = String.Format(l10n["msgNoDamage"], e.ShortName);
+                Snackbar.Add(Message, Severity.Info, config =>
+                    {
+                        config.SnackbarVariant = Variant.Outlined;
+                    });
+            }
+            await EnergiesChanged.InvokeAsync(Energies);
+        }
+    }
 }
