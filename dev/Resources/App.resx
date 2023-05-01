@@ -1292,4 +1292,119 @@
   <data name="txtMoneyValue2" xml:space="preserve">
     <value>A simple laborer needs {0} {1} and {2} {3} to earn that kind of money.</value>
   </data>
+  <data name="btnFall" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="hArmour" xml:space="preserve">
+    <value>Armour protection</value>
+  </data>
+  <data name="hDropHeight" xml:space="preserve">
+    <value>Drop height</value>
+  </data>
+  <data name="hGround" xml:space="preserve">
+    <value>Ground condition</value>
+  </data>
+  <data name="hJump" xml:space="preserve">
+    <value>Jumping</value>
+  </data>
+  <data name="lblJump" xml:space="preserve">
+    <value>Jump</value>
+  </data>
+  <data name="lblSelectHardness" xml:space="preserve">
+    <value>Choose ground conditions</value>
+  </data>
+  <data name="titleFallDamageDialog" xml:space="preserve">
+    <value>Fall damage</value>
+  </data>
+  <data name="txtArmourProtection" xml:space="preserve">
+    <value>Armour may protect from sharp objects and rocks.</value>
+  </data>
+  <data name="txtDropHeightGallopTip" xml:space="preserve">
+    <value>Fall from a galloping horse counts as fall from 3 yards.</value>
+  </data>
+  <data name="txtDropHeightHorseTip" xml:space="preserve">
+    <value>Fall from a horse counts as fall from 2 yards.</value>
+  </data>
+  <data name="txtDropHeightTip" xml:space="preserve">
+    <value>Drop height causes 1d6 damage per yard.</value>
+  </data>
+  <data name="txtGround" xml:space="preserve">
+    <value>The ground may harden or soften the fall.</value>
+  </data>
+  <data name="txtGroundEffectBetter" xml:space="preserve">
+    <value>Reduced damage {0}</value>
+  </data>
+  <data name="txtGroundEffectNeutral" xml:space="preserve">
+    <value>No change</value>
+  </data>
+  <data name="txtGroundEffectUnknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="txtGroundEffectWorse" xml:space="preserve">
+    <value>Increased damage {0}</value>
+  </data>
+  <data name="txtJump" xml:space="preserve">
+    <value>Damage from falling can be reduced with a Body Control (Jumping) check.</value>
+  </data>
+  <data name="txtPaddingProtection" xml:space="preserve">
+    <value>Paddings may soften the fall.</value>
+  </data>
+  <data name="txtSelectHardness" xml:space="preserve">
+    <value>Choose shortcut for ground conditions</value>
+  </data>
+  <data name="GroundCondition.Soil" xml:space="preserve">
+    <value>Earth/Soil</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="btnFallDamage" xml:space="preserve">
+    <value>Suffer fall damage</value>
+  </data>
+  <data name="GroundCondition.Water" xml:space="preserve">
+    <value>Water</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Mud" xml:space="preserve">
+    <value>Mud</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Snow" xml:space="preserve">
+    <value>Snow</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Stone" xml:space="preserve">
+    <value>Smooth stone</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Gravel" xml:space="preserve">
+    <value>Gravel</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Grit" xml:space="preserve">
+    <value>Grit</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Boulders" xml:space="preserve">
+    <value>Boulder</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="lblFallProtection" xml:space="preserve">
+    <value>Reduced damage</value>
+    <comment>Fall damage</comment>
+  </data>
+  <data name="GroundCondition.Hay" xml:space="preserve">
+    <value>Hay</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="msgNoFallHeight" xml:space="preserve">
+    <value>Drop height was zero. No damage caused.</value>
+    <comment>Energy fall  damage</comment>
+  </data>
+  <data name="msgFallDamageCaused" xml:space="preserve">
+    <value>Fall damage {0}d6{1}{2} = {3}</value>
+    <comment>Energy fall  damage</comment>
+  </data>
+  <data name="msgNoFallDamage" xml:space="preserve">
+    <value>The fall did not cause damage</value>
+    <comment>Energy fall  damage</comment>
+  </data>
 </root>

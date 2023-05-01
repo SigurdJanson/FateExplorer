@@ -146,7 +146,7 @@ namespace FateExplorer.ViewModel
             damageRoll.Roll();
             RollResultViMo Result = new(damageRoll);
 
-            effectiveValue = Energy.ResolveValue(effectiveValue + Result.CombinedResult ?? 0, EffMax, Min);
+            effectiveValue = Energy.ResolveValue(effectiveValue - Result.CombinedResult ?? 0, EffMax, Min);
 
             return Result;
         }

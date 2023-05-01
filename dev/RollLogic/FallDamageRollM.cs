@@ -29,6 +29,7 @@ public class FallDamageRollM : MultiDieRoll
         JumpModifier = new Modifier(jumpQuality * 2);
         ArmourMod = new Modifier(armourMod);
         PaddingMod = new Modifier(paddingMod);
+        ModifiedBy[0] = 0 + GroundModifier + JumpModifier + ArmourMod + PaddingMod;
     }
 
 
@@ -36,8 +37,7 @@ public class FallDamageRollM : MultiDieRoll
     public override int OpenRollCombined()
     {
         var result = base.OpenRollCombined();
-        return result + GroundModifier + JumpModifier + ArmourMod + PaddingMod;
+        return result + ModifiedBy[0];
     }
-
 
 }

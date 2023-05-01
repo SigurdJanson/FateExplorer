@@ -1237,4 +1237,106 @@
   <data name="txtMoneyValue2" xml:space="preserve">
     <value>Ein einfacher Arbeiter verdient diesen Betrag in {0} {1} and {2} {3}.</value>
   </data>
+  <data name="btnFall" xml:space="preserve">
+    <value>Stürzen</value>
+  </data>
+  <data name="hArmour" xml:space="preserve">
+    <value>Rüstungsschutz</value>
+  </data>
+  <data name="hDropHeight" xml:space="preserve">
+    <value>Fallhöhe</value>
+  </data>
+  <data name="hGround" xml:space="preserve">
+    <value>Bodenbeschaffenheit</value>
+  </data>
+  <data name="hJump" xml:space="preserve">
+    <value>Springen</value>
+  </data>
+  <data name="lblJump" xml:space="preserve">
+    <value>Springe</value>
+  </data>
+  <data name="lblSelectHardness" xml:space="preserve">
+    <value>Wähle die Bodenbeschaffenheit</value>
+  </data>
+  <data name="titleFallDamageDialog" xml:space="preserve">
+    <value>Sturzschaden</value>
+  </data>
+  <data name="txtArmourProtection" xml:space="preserve">
+    <value>Rüstung kann vor scharfen Gegenständen schützen.</value>
+  </data>
+  <data name="txtDropHeightGallopTip" xml:space="preserve">
+    <value>Sturz von  galoppierenden Pferd zählt wie 3 Schritt Höhe.</value>
+  </data>
+  <data name="txtDropHeightHorseTip" xml:space="preserve">
+    <value>Sturz vom Pferd zählt wie 2 Schritt Höhe.</value>
+  </data>
+  <data name="txtDropHeightTip" xml:space="preserve">
+    <value>Fallhöhe verursacht 1W6 Schaden pro Schritt.</value>
+  </data>
+  <data name="txtGround" xml:space="preserve">
+    <value>Der Boden kann den Sturz mildern oder verschlimmern.</value>
+  </data>
+  <data name="txtGroundEffectBetter" xml:space="preserve">
+    <value>Reduzierter Schaden {0}</value>
+  </data>
+  <data name="txtGroundEffectNeutral" xml:space="preserve">
+    <value>Keine Änderung</value>
+  </data>
+  <data name="txtGroundEffectUnknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="txtGroundEffectWorse" xml:space="preserve">
+    <value>Erhöhter Schaden {0}</value>
+  </data>
+  <data name="txtJump" xml:space="preserve">
+    <value>Mit einer Körperbeherrschung (Springen) kann der Sturzschaden verringert werden.</value>
+  </data>
+  <data name="txtPaddingProtection" xml:space="preserve">
+    <value>Wattierungen und weiche Kleidung können den Sturz mildern.</value>
+  </data>
+  <data name="txtSelectHardness" xml:space="preserve">
+    <value>Direktauswahl für Bodenbeschaffenheit</value>
+  </data>
+  <data name="btnFallDamage" xml:space="preserve">
+    <value>Erleide Sturzschaden</value>
+  </data>
+  <data name="GroundCondition.Boulders" xml:space="preserve">
+    <value>Geröll</value>
+  </data>
+  <data name="GroundCondition.Grit" xml:space="preserve">
+    <value>Split</value>
+  </data>
+  <data name="GroundCondition.Mud" xml:space="preserve">
+    <value>Schlamm</value>
+  </data>
+  <data name="GroundCondition.Snow" xml:space="preserve">
+    <value>Schnee</value>
+  </data>
+  <data name="GroundCondition.Soil" xml:space="preserve">
+    <value>Erde</value>
+  </data>
+  <data name="GroundCondition.Stone" xml:space="preserve">
+    <value>Ebener Stein</value>
+  </data>
+  <data name="GroundCondition.Water" xml:space="preserve">
+    <value>Wasser</value>
+  </data>
+  <data name="GroundCondition.Gravel" xml:space="preserve">
+    <value>Kies</value>
+  </data>
+  <data name="lblFallProtection" xml:space="preserve">
+    <value>Reduzierter Schaden</value>
+  </data>
+  <data name="GroundCondition.Hay" xml:space="preserve">
+    <value>Heu</value>
+  </data>
+  <data name="msgNoFallHeight" xml:space="preserve">
+    <value>Fallhöhe war null. Kein Schaden.</value>
+  </data>
+  <data name="msgFallDamageCaused" xml:space="preserve">
+    <value>Sturzschaden {0}W6{1}{2} = {3}</value>
+  </data>
+  <data name="msgNoFallDamage" xml:space="preserve">
+    <value>Der Sturz verursachte keinen Schaden</value>
+  </data>
 </root>
