@@ -99,7 +99,7 @@ namespace UnitTests.ViewModel
             AbilityDTO data = new() { Id = Id };
 
             // Act
-            var Result = ClassUnderTest.OpenRollCheck(new Check(Check.Roll.Ability), data);
+            var Result = ClassUnderTest.OpenRollCheck(new Check(Check.Roll.Ability), data, new CheckContextViMo());
 
             // Assert
             Assert.NotNull(Result);
