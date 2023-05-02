@@ -197,19 +197,19 @@ namespace FateExplorer.CharacterModel
         public string SpeciesId { get; protected set; }
 
         /// <inheritdoc />
-        public double CarriedWeight { get; protected set; }
+        public decimal CarriedWeight { get; protected set; }
 
         /// <inheritdoc />
         public decimal Money { get; protected set; }
 
         /// <inheritdoc />
-        public double WhatCanCarry(int EffectiveStrength)
+        public decimal WhatCanCarry(int EffectiveStrength)
         {
             return EffectiveStrength * 2;
         }
 
         /// <inheritdoc />
-        public double WhatCanLift(int EffectiveStrength)
+        public decimal WhatCanLift(int EffectiveStrength)
         {
             return EffectiveStrength * 10;
         }

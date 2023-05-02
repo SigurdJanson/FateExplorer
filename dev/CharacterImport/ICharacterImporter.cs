@@ -97,7 +97,7 @@ namespace FateExplorer.CharacterImport
 
         // PROPERTY / BELONGINGS
 
-        double TotalWeightOfBelongings();
+        decimal TotalWeightOfBelongings();
 
         /// <summary>
         /// Get the money the character has in silver thalers

@@ -91,7 +91,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// The total weight of the character's belongings
         /// </summary>
-        double CarriedWeight { get; }
+        decimal CarriedWeight { get; }
 
         /// <summary>
         /// The characters money in silver thalers
@@ -105,7 +105,7 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="EffectiveStrength">The current strength</param>
         /// <returns>The weight in stone (i.e. kg)</returns>
-        double WhatCanCarry(int EffectiveStrength);
+        decimal WhatCanCarry(int EffectiveStrength);
 
         /// <summary>
         /// For brief periods a character may lift something below or equal to this weight
@@ -113,6 +113,6 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="EffectiveStrength">The current strength</param>
         /// <returns>The weight in stone (i.e. kg)</returns>
-        double WhatCanLift(int EffectiveStrength);
+        decimal WhatCanLift(int EffectiveStrength);
     }
 }

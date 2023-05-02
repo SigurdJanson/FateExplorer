@@ -343,9 +343,9 @@ namespace FateExplorer.CharacterImport
 
         // BELONGINGS
 
-        public double TotalWeightOfBelongings()
+        public decimal TotalWeightOfBelongings()
         {
-            double totalWeight = 0;
+            decimal totalWeight = 0;
             foreach (var i in Belongings.Items)
             {
                 totalWeight += i.Weight * i.Amount;
@@ -584,13 +584,13 @@ namespace FateExplorer.CharacterImport
         /// Item weight in stone per piece. 1 stone are 2 pounds.
         /// </summary>
         [JsonPropertyName("weight")]
-        public double Weight { get; set; }
+        public decimal Weight { get; set; }
 
         /// <summary>
         /// Typical price of the item in silverthalers.
         /// </summary>
         [JsonPropertyName("price")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// The location where the character wears/carries this item.

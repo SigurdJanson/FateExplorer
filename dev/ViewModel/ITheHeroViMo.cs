@@ -32,11 +32,11 @@ namespace FateExplorer.ViewModel
         /// <value>Birthday (read-only)</value>
         string DateOfBirth { get; }
         /// <value>The total  weight of the character's belongings (read-only)</value>
-        double CarriedWeight { get; }
+        decimal CarriedWeight { get; }
         /// <value>The weight the character can carry (for a longer period of time, like in a backpack) (read-only)</value>
-        double WhatCanCarry { get; }
+        decimal WhatCanCarry { get; }
         /// <value>The weight the character can lift (for a shorter period) (read-only)</value>
-        double WhatCanLift { get; }
+        decimal WhatCanLift { get; }
 
         decimal Money { get; set; }
 
@@ -152,15 +152,7 @@ namespace FateExplorer.ViewModel
         /// </summary>
         List<WeaponViMo> Weapons { get; }
 
-        ///// <summary>
-        ///// The weapon held by the dominant hand; is either a set weapon or it is the bare hands
-        ///// </summary>
-        //WeaponViMo DominantHandWeapon { get; set; }
-
-        ///// <summary>
-        ///// The weapon held by the NON-dominant hand
-        ///// </summary>
-        //WeaponViMo NondominantHandWeapon { get; set; }
+        IEnumerable<BelongingViMo> GetBelongings();
 
         /// <summary>
         /// Hands carrying weapons
