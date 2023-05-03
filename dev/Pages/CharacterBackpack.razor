@@ -1,0 +1,90 @@
+﻿@page "/backpack"
+
+@using FateExplorer.ViewModel;
+@using FateExplorer.Components
+
+@inject IStringLocalizer<App> l10n
+@inject IDialogService DialogService
+@inject ITheHeroViMo Hero
+
+
+@if (Hero.HasBorn)
+{
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
+    <MudGrid>
+        <MudItem xs=4 Class="mb-3">
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudGrid>
+                    <MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
+                            <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
+                                <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Info />
+                            </MudTooltip>
+                            @if (Hero.CarriedWeight > Hero.WhatCanCarry)
+                            {
+                                <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
+                                    <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Error />
+                                </MudTooltip>
+                            }
+                        </MudField>
+                    </MudItem>
+
+                    <MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.FormatMoney()
+                            <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
+                                        Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                        </MudField>
+                    </MudItem>
+
+                    @*
+                    <MudItem xs=6 Class="mb-3">
+                        <MudField Label=@l10n["lblMovement"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.Movement()
+                        </MudField>
+                    </MudItem>
+                    *@
+                </MudGrid>
+            </MudPaper>
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
+                <MudList Clickable=true>
+                    @foreach(var i in Hero.GetBelongings())
+                    {
+                    <MudListItem DisableRipple=true DisableGutters=true>
+                        <MudText Typo=Typo.body1 GutterBottom=false>
+                            @i.Name [<span>@i.Amount</span>]
+                        </MudText>
+                        <MudText Typo=Typo.body2 GutterBottom=false>
+                            <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price S</span>
+                        </MudText>
+                    </MudListItem>
+                    }
+                </MudList>
+            </MudPaper>
+         </MudItem>
+    </MudGrid>
+</MudContainer>
+}
+
+
+@code {
+
+    /// <summary>
+    ///
+    /// </summary>
+    private async Task OnEditMoney()
+    {
+        var parameters = new DialogParameters { ["Amount"] = Hero.Money };
+        DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+
+        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            Hero.Money = (decimal)result.Data;
+        }
+    }
+}

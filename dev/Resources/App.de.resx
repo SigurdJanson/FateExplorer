@@ -1339,4 +1339,10 @@
   <data name="msgNoFallDamage" xml:space="preserve">
     <value>Der Sturz verursachte keinen Schaden</value>
   </data>
+  <data name="hBelongings" xml:space="preserve">
+    <value>Besitztümer</value>
+  </data>
+  <data name="naviBackpack" xml:space="preserve">
+    <value>Besitztümer</value>
+  </data>
 </root>

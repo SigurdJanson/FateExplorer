@@ -1407,4 +1407,11 @@
     <value>The fall did not cause damage</value>
     <comment>Energy fall  damage</comment>
   </data>
+  <data name="hBelongings" xml:space="preserve">
+    <value>Possessions</value>
+    <comment>Page</comment>
+  </data>
+  <data name="naviBackpack" xml:space="preserve">
+    <value>Possessions</value>
+  </data>
 </root>
