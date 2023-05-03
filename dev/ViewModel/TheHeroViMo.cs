@@ -671,6 +671,13 @@ namespace FateExplorer.ViewModel
             }
         }
 
+
+        public IEnumerable<BelongingViMo> GetBelongings()
+        {
+            foreach (var i in characterM.Belongings.Values.OrderBy(x => x.Name))
+                yield return new BelongingViMo(i);
+        }
+
         #endregion
     }
 }
