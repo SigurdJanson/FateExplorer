@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using Moq;
 using NUnit.Framework;
 
@@ -34,9 +35,50 @@ namespace UnitTests.CharacterModel
         }
 
 
+        [TestCase(10, 10, 12, "R1", ExpectedResult = 1)]
+        [TestCase(10, 11, 12, "R1", ExpectedResult = 2)]
+        [TestCase(13, 15, 13, "R1", ExpectedResult = 3)]
+        [TestCase(10, 10, 12, "R2", ExpectedResult = 0)]
+        [TestCase(10, 11, 12, "R2", ExpectedResult = 1)]
+        [TestCase(12, 13, 13, "R2", ExpectedResult = 1)] // sum = 38
+        [TestCase(13, 13, 13, "R2", ExpectedResult = 2)] // sum = 39
+        [TestCase(13, 15, 13, "R2", ExpectedResult = 2)]
+        public int Constructor_ByHero_Correct(int ab1v, int ab2v, int ab3v, string RaceId)
+        {
+            // Arrange
+            ResilienceDbEntry Db = new()
+            {
+                DependantAbilities = new string[] { "ATTR_1", "ATTR_2", "ATTR_3"},
+                Id = "HP", Name = "TEST", ShortName = "T",
+                RaceBaseValue = new ResilienceBaseValue[]
+                {
+                    new ResilienceBaseValue { RaceId = "R1", Value = -4 },
+                    new ResilienceBaseValue { RaceId = "R2", Value = -5 }
+                }
+            };
+
+            mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_1")))
+                .Returns(ab1v);
+            mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_2")))
+                .Returns(ab2v);
+            mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_3")))
+                .Returns(ab3v);
+            mockCharacterM.SetupGet(c => c.SpeciesId)
+                .Returns(RaceId);
+
+            // Act
+            var result = new ResilienceM(Db, mockCharacterM.Object);
+
+            // Assert
+            mockRepository.VerifyAll();
+            return result.Value;
+        }
+
+
         [Test]
         [TestCase("ATTR_1", 13, "ATTR_2", 15, "ATTR_3", 13, 2)]
         [TestCase("ATTR_7", 10, "ATTR_7", 10, "ATTR_8", 12, 0)]
+        [TestCase("ATTR_1", 10, "ATTR_2", 11, "ATTR_3", 12, 1)]
         public void Constructor_ByValue_Correct(string ab1, int ab1v, string ab2, int ab2v, string ab3, int ab3v, int Value)
         {
             const int JunisBaseValue = -5;
@@ -59,7 +101,7 @@ namespace UnitTests.CharacterModel
             Assert.AreEqual(JunisBaseValue, resilianceM.BaseValue);
             Assert.AreEqual(0, resilianceM.ExtraValue);
 
-            this.mockRepository.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
 

@@ -29,8 +29,7 @@ namespace FateExplorer.CharacterModel
         {
             get
             {
-                if (this.value is null)
-                    this.value = ComputeValue();
+                this.value ??= ComputeValue();
 
                 return (int)this.value;
             }
@@ -55,7 +54,7 @@ namespace FateExplorer.CharacterModel
             foreach (var a in DependentAbilities)
                 AbSum += Abilities?[a] ?? Hero.GetAbility(a);
 
-            int V = BaseValue + (int)Math.Round(AbSum / 6.0) + (ExtraValue ?? 0);
+            int V = BaseValue + (int)Math.Floor((AbSum / 6.0m) + 0.5m) + (ExtraValue ?? 0); // Round rounds .5 to even numbers, not up
 
             return V;
         }
@@ -72,10 +71,16 @@ namespace FateExplorer.CharacterModel
             DependentAbilities = gameData.DependantAbilities.Clone() as string[];
             int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
             BaseValue = RaceBaseValue;
-            ExtraValue = 0; // Unknown at this points, because we do not know special abilities
+            ExtraValue = 0; // Unknown at this points, because we do not know dis-/advantages
         }
 
-
+        /// <summary>
+        /// Constructor using the rule book
+        /// </summary>
+        /// <param name="hero">A character.</param>
+        /// <param name="baseValue">Race base value.</param>
+        /// <param name="extraValue">Added value from dis-/advantages (or anything else)</param>
+        /// <param name="dependentAbilities">An array of identifiers for the abilities the resilience is derived from.</param>
         public ResilienceM(ICharacterM hero, int baseValue, int? extraValue, string[] dependentAbilities)
         {
             Hero = hero;
@@ -85,6 +90,12 @@ namespace FateExplorer.CharacterModel
             ExtraValue = extraValue ?? 0;
         }
 
+        /// <summary>
+        /// Constructor. Set the resilience value directly. The character's race base value is derived from it.
+        /// </summary>
+        /// <param name="hero">A character.</param>
+        /// <param name="value">An explicitely set resilience value<./param>
+        /// <param name="dependentAbilities">An array of identifiers for the abilities the resilience is derived from.</param>
         public ResilienceM(ICharacterM hero, int value, string[] dependentAbilities)
         {
             Hero = hero;
@@ -94,7 +105,7 @@ namespace FateExplorer.CharacterModel
             foreach (var a in DependentAbilities)
                 V += Hero.GetAbility(a);
             Value = value;
-            BaseValue = (int)(Value - Math.Round(V / 6.0));
+            BaseValue = (int)(Value - Math.Floor((V / 6.0m) + 0.5m));
             ExtraValue = 0;
         }
     }
