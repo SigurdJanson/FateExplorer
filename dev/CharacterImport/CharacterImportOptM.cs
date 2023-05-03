@@ -407,7 +407,7 @@ namespace FateExplorer.CharacterImport
                     var Result = new WeaponDTO()
                     {
                         Name = i.Name ?? weaponDb?.Name ?? "Unknown",
-                        Id = i.Template ?? Guid.NewGuid().ToString(),
+                        Id = i.Id ?? Guid.NewGuid().ToString(),
                         AttackMod = i.AttackMod ?? weaponDb?.AtMod ?? 0,
                         ParryMod = i.ParryMod ?? weaponDb?.PaMod ?? 0,
                         CombatTechId = CombatTechnique,

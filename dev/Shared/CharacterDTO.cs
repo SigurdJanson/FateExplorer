@@ -189,8 +189,9 @@
     public struct WeaponDTO
     {
         /// <summary>
-        /// An object id (for the optolith it's the template id).
+        /// An object id. Just some identifier specific to the character's belongings.
         /// </summary>
+        /// <remarks>Not a universal data base or shop id.</remarks>
         public string Id { get; set; }
 
         /// <summary>
