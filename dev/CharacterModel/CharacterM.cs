@@ -1,6 +1,7 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
 using FateExplorer.Shared;
+using System;
 using System.Collections.Generic;
 
 
@@ -177,7 +178,17 @@ namespace FateExplorer.CharacterModel
                     Weapons.Add(w.Id, weaponM);
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Belonging); }
+            catch (System.Exception e) { throw new ChrImportException("In the weapons", e, ChrImportException.Property.Belonging); }
+
+            try
+            {
+                Belongings = new Dictionary<string, BelongingM>();
+                foreach (var i in characterImportOptM.GetBelongings())
+                {
+                    Belongings.Add(i.Value.Id, i.Value);
+                }
+            }
+            catch (System.Exception e) { throw new ChrImportException("In other belongings", e, ChrImportException.Property.Belonging); }
         }
 
 
@@ -227,6 +238,7 @@ namespace FateExplorer.CharacterModel
 
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
+        public Dictionary<string, BelongingM> Belongings{ get; protected set; }
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }

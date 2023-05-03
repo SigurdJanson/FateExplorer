@@ -439,6 +439,22 @@ namespace FateExplorer.CharacterImport
             }
         }
 
+        public IEnumerable<KeyValuePair<string, BelongingM>> GetBelongings(bool WeaponsExcluded = true)
+        {
+            foreach (var i in Belongings.Items)
+            {
+                if (i.CombatTechnique is null || !WeaponsExcluded) // &&
+                    //meleeDB.Contains(i.Id) &&
+                    //rangedDB.Contains(i.Id))
+                {
+                    var result = new BelongingM() 
+                    { 
+                        Id = i.Id, Name = i.Name, Amount = i.Amount, Price = i.Price, Weight = i.Weight, Where = i.Where 
+                    };
+                    yield return new KeyValuePair<string, BelongingM>(i.Id, result);
+                }
+            }
+        }
         #endregion
     }
 

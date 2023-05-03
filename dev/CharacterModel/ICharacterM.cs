@@ -48,6 +48,7 @@ namespace FateExplorer.CharacterModel
 
 
         Dictionary<string, WeaponM> Weapons { get; }
+        Dictionary<string, BelongingM> Belongings { get; }
 
 
         Dictionary<string, AbilityM> Abilities { get; }
