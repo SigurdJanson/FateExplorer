@@ -34,12 +34,30 @@ namespace FateExplorer.CharacterModel
             if (EffMax < 0) EffMax = Max;
 
             // Since the lowest level is fixed at 5 we may not need all thresholds.
-            if (EffMax >= 5.5 * 4) // we need all levels then
-                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), (int)Math.Round((double)EffMax / 2), (int)Math.Round((double)EffMax / 4), 5 };
-            else if (EffMax >= 5.5 * 2)
-                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), (int)Math.Round((double)EffMax / 2), 5 };
-            else if (EffMax >= 5.5 * 4 / 3)
-                Thresholds = new int[] { (int)Math.Round((double)EffMax * 3 / 4), 5 };
+            decimal dEffMax = (decimal)EffMax;
+            if (EffMax >= 22) // 22 == 5.5 * 4 // we need all levels then because (EffMax * 3/4 > 5)
+                Thresholds = new int[]
+                {
+                    (int)Math.Floor(dEffMax * 3 / 4 + 0.5m), // use `Floor`(x + 0.5m)` to avoid round-to-even: (int)Math.Floor(X + 0.5m)
+				    (int)Math.Floor(dEffMax / 2 + 0.5m),
+                    (int)Math.Floor(dEffMax / 4 + 0.5m),
+                    5
+                };
+            else if (EffMax >= 11) // 11 == 5.5 * 2 - here EffMax/2 > 5
+                Thresholds = new int[]
+                {
+                    (int)Math.Floor(dEffMax * 3 / 4 + 0.5m),
+                    (int)Math.Floor(dEffMax / 2 + 0.5m),
+                    5
+                };
+            else if (EffMax >= 8) // 8 > 5.5 * 4 / 3 - here EffMax/4 > 5
+                Thresholds = new int[]
+                {
+                    (int)Math.Floor(dEffMax * 3 / 4 + 0.5m),
+                    5
+                };
+            else
+                Thresholds = new int[] { 5 };
         }
     }
 }
