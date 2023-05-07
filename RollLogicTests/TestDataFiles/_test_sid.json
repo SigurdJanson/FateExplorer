@@ -1,0 +1,33 @@
+[
+    {
+        "id": "ADV_1",
+        "name": "Reads strings",
+        "sid": "Thirty",
+        "amount": 1,
+        "sid1": "One point five",
+        "sid2": "999"
+    },
+    {
+        "id": "ADV_2",
+        "name": "Reads positive and negative `int` and 'null'",
+        "sid1": -24,
+        "amount": 2,
+        "sid": 12
+    },
+    {
+        "id": "ADV_3",
+        "name": "Reads mixed formats",
+        "sid2": -2000,
+        "amount": 1,
+        "sid": "0.75",
+        "sid1": 1999
+    },
+    {
+        "id": "ADV_4",
+        "name": "Reads `Int32.MaxValue` and `Int32.MinValue`",
+        "sid1": 2147483647,
+        "amount": 1,
+        "sid": -0,
+        "sid2": -2147483648
+    }
+]
