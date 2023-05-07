@@ -1,9 +1,50 @@
+# About Combat 
+
+
+## Roll Check Models
+
+
+```plantuml
+@startuml Combat
+
+class CheckBaseM {
+  + ICheckContextM Context
+}
+
+class AttackCheckM extends CheckBaseM {
+  + 
+}
+class ParryCheckM extends CheckBaseM {
+  + 
+}
+class HruruzatAttackM extends AttackCheckM {
+  + 
+}
+class DodgeCheckM extends CheckBaseM {
+  + 
+}
+
+@enduml
+```
+
+
+
+
+## Overview
+
+```plantuml
 @startuml Combat
 
 title Character Combat Relationships
 
 'left to right direction
 'top to bottom direction
+
+
+namespace RollLogic {
+  class AttackCheckM {}
+  class ParryCheckM {}
+}
 
 
 namespace CharacterModel {
@@ -18,10 +59,6 @@ namespace CharacterModel {
       + int AtSkill
       + int PaSkill
     }
-}
-namespace RollLogic {
-  class AttackCheckM {}
-  class ParryCheckM {}
 }
 
 
@@ -80,3 +117,5 @@ CharacterModel.CharacterM "0" o-up-- "n" CharacterModel.WeaponM: owns
 
 
 @enduml
+```
+
