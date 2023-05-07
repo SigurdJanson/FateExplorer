@@ -125,13 +125,19 @@ public class BattlegroundM : ICheckContextM
 
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="weapon"></param>
+    /// <returns></returns>
+    public static bool IsDistanceEnabled(WeaponM weapon) => weapon.IsRanged;
+    /// <summary>
     /// Computes the <see cref="Distance"/> modifier between fighter and target.
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
     public Modifier GetDistanceMod(Check action, WeaponM weapon)
     {
         if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
-        if (!weapon.IsRanged) return Modifier.Neutral;
+        if (!IsDistanceEnabled(weapon)) return Modifier.Neutral;
 
         return Distance switch
         {
@@ -198,6 +204,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
+    public static bool IsCrampedSpaceEnabled(WeaponM weapon) => weapon.IsRanged;
     public Modifier GetCrampedSpaceMod(Check action, WeaponM weapon)
     {
         if (!CrampedSpace) return Modifier.Neutral;
@@ -218,6 +225,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
+    public static bool IsMovingEnabled(WeaponM weapon) => weapon.IsRanged;
     public Modifier GetMovingMod(Check action, WeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
@@ -253,6 +261,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
+    public static bool IsEnemyEvasiveEnabled(WeaponM weapon) => weapon.IsRanged;
     public Modifier GetEvasiveActionMod(Check action, WeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
@@ -267,6 +276,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
+    public static bool IsEnemyReachEnabled(WeaponM weapon) => !weapon.IsRanged;
     public Modifier GetEnemyReachMod(Check action, WeaponM weapon)
     {
         if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral;
@@ -384,7 +394,7 @@ public class BattlegroundM : ICheckContextM
             }
 
             if (ForceMods.Count > 0)
-                TotalMod = new Modifier(After, Modifier.Op.Force);
+                TotalMod = new Modifier(Math.Max(0, After), Modifier.Op.Force);
             else
                 TotalMod = new Modifier(After - before, Modifier.Op.Add);
         } 

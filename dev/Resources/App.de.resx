@@ -1345,4 +1345,37 @@
   <data name="naviBackpack" xml:space="preserve">
     <value>Besitztümer</value>
   </data>
+  <data name="Distance.Near" xml:space="preserve">
+    <value>Nah</value>
+  </data>
+  <data name="Distance.Medium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="Distance.Far" xml:space="preserve">
+    <value>Weit</value>
+  </data>
+  <data name="btnDeactivate" xml:space="preserve">
+    <value>Deaktivieren</value>
+  </data>
+  <data name="lblOpponent" xml:space="preserve">
+    <value>Gegner</value>
+  </data>
+  <data name="lblCombatModBtn" xml:space="preserve">
+    <value>Lege die Umstände des Kampfes fest, um korrekte Modifikatoren zu bestimmen</value>
+  </data>
+  <data name="CombatBranch.Unarmed" xml:space="preserve">
+    <value>Unbewaffnet</value>
+  </data>
+  <data name="CombatBranch.Shield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="CombatBranch.Ranged" xml:space="preserve">
+    <value>Fernkampf</value>
+  </data>
+  <data name="CombatBranch.Melee" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="lblCombatMod" xml:space="preserve">
+    <value>Kampfmodifikatoren</value>
+  </data>
 </root>

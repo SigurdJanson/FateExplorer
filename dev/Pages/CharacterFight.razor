@@ -104,7 +104,7 @@
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
                             OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true))
                             OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.MainWeapon, true))
-                                    StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
+                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
                     </MudItem>
                     <MudItem xs=6>
                         <CombatHand 
@@ -124,9 +124,10 @@
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
                     @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
-                <MudIconButton OnClick=OnComputeCombatMods aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
-                            Icon=@Icons.Material.Filled.SwitchAccessShortcutAdd Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                @BattlegroundButton()
             </MudPaper>
+
+
             <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
                 @if (RollCheckResults is not null && RollCheckResults.Count > 0)
                 {
@@ -277,9 +278,13 @@ else
     /// <summary>
     /// Opens a <see cref="DlgCombatMods">Combat Modifier Dialog</see>
     /// </summary>
-    private async Task OnComputeCombatMods()
+    private async Task OnSetupBattleground()
     {
-        var parameters = new DialogParameters { ["Weapon"] = Hero.Hands.MainWeapon, ["Hero"] = Hero.Name };
+        var parameters = new DialogParameters { 
+            ["Hands"] = Hero.Hands, 
+            ["Hero"] = Hero.Name, 
+            ["Battleground"] = Context 
+        };
         //DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
 
         var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
@@ -287,6 +292,7 @@ else
 
         if (!result.Canceled)
         {
+            Context.Apply = true;
             //----Hero.Money = (decimal)result.Data;
         }
     }
@@ -334,7 +340,8 @@ else
                 &#x2694; @l10n["abbrvAttack"] @(Weapon.BaseAtSkill)
                 &#x1f6e1; @l10n["abbrvParry"] @(Weapon.BasePaSkill)
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-                </span>;
+            </span>
+    ;
     }
 
 
@@ -346,6 +353,34 @@ else
         else
             return 3;
     }
+
+
+    private RenderFragment BattlegroundButton()
+    {
+        if (Context.Apply)
+        {
+            string PlusMinus = "±";
+            return
+                @<MudTooltip Text=@l10n["lblCombatModBtn"]>
+                <MudBadge Content=PlusMinus Dot=false Color=Color.Info Overlap=true Bordered=true Class="mx-6 my-4">
+                    <MudIconButton OnClick=OnSetupBattleground aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
+                       Icon=@Icons.Material.Filled.Tune
+                       Variant=Variant.Filled Color=Color.Primary Size=Size.Small />
+                </MudBadge>
+                </MudTooltip>;
+        }
+        else
+        {
+            return
+                @<MudTooltip Text=@l10n["lblCombatModBtn"]>
+                    <MudIconButton OnClick=OnSetupBattleground aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
+                           Icon=@Icons.Material.Filled.Tune
+                           Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                </MudTooltip>;
+        }
+    }
+
+
 
     #endregion
 

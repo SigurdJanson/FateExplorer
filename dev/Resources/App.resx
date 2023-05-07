@@ -1414,4 +1414,37 @@
   <data name="naviBackpack" xml:space="preserve">
     <value>Possessions</value>
   </data>
+  <data name="Distance.Near" xml:space="preserve">
+    <value>Near</value>
+  </data>
+  <data name="Distance.Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Distance.Far" xml:space="preserve">
+    <value>Far</value>
+  </data>
+  <data name="lblCombatModBtn" xml:space="preserve">
+    <value>Set context for combat  to get according modifiers</value>
+  </data>
+  <data name="lblOpponent" xml:space="preserve">
+    <value>Opponent</value>
+  </data>
+  <data name="btnDeactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="CombatBranch.Unarmed" xml:space="preserve">
+    <value>Unarmed</value>
+  </data>
+  <data name="CombatBranch.Melee" xml:space="preserve">
+    <value>Melee</value>
+  </data>
+  <data name="CombatBranch.Ranged" xml:space="preserve">
+    <value>Ranged</value>
+  </data>
+  <data name="CombatBranch.Shield" xml:space="preserve">
+    <value>Shield</value>
+  </data>
+  <data name="lblCombatMod" xml:space="preserve">
+    <value>Combat modifiers</value>
+  </data>
 </root>
