@@ -3,7 +3,7 @@
 namespace FateExplorer.CharacterModel
 {
     /// <summary>
-    /// Represents a basic 
+    /// Represents a basic activatable (dis-/advantage or special ability) using tiers (which usually represents some kind of level).
     /// </summary>
     public class TieredActivatableM : IActivatableM
     {

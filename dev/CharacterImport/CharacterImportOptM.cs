@@ -281,8 +281,8 @@ namespace FateExplorer.CharacterImport
                 if (s.Key == OptSpecialAbility.Language && s.Value.Count > 0)
                     foreach (var l in s.Value)
                     {
-                        int LanguageId =  int.Parse(l.Sid.ToString()); // TODO: cast from dynamic seems like a bad crutch
-                        Result.Add(l.Sid.ToString(), new LanguageM(s.Key, l.Tier, (LanguageId)LanguageId));
+                        int LanguageId =  int.Parse(l.Sid);
+                        Result.Add(l.Sid, new LanguageM(s.Key, l.Tier, (LanguageId)LanguageId));
                     }
             }
             return Result;
@@ -566,11 +566,11 @@ namespace FateExplorer.CharacterImport
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
 
-        [JsonPropertyName("sid")]
-        public dynamic Sid { get; set; }
+        [JsonPropertyName("sid"), JsonConverter(typeof(JsonActivatableSIDConverter))]
+        public string Sid { get; set; }
 
-        [JsonPropertyName("sid2")]
-        public dynamic Sid2 { get; set; }
+        [JsonPropertyName("sid2"), JsonConverter(typeof(JsonActivatableSIDConverter))]
+        public string Sid2 { get; set; }
     }
 
 
