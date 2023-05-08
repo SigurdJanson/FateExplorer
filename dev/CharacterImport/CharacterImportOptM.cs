@@ -74,7 +74,7 @@ namespace FateExplorer.CharacterImport
         /// "Experience Level (EL) determines the number of Adventure Points (AP) 
         /// you receive to create your hero" (VR1).
         /// </summary>
-        [JsonPropertyName("el")] //TODO: most likely 
+        [JsonPropertyName("el")]
         public string El { get; set; }
 
         /// <summary>

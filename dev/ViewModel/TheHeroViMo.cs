@@ -212,8 +212,13 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
+        #endregion
+
+
+        /// <inheritdoc/>
         public decimal WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
+        /// <inheritdoc/>
         public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
         /// <inheritdoc/>

@@ -25,7 +25,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Data">The json data as byte array</param>
         Task ReadCharacterFile(byte[] Data);
 
-        /// <value>Character's name (read-only)</value>
+        /// <summary>Character's name (read-only)</summary>
         string Name { get; }
         /// <value>Character's place of birth (read-only)</value>
         string PlaceOfBirth { get; }

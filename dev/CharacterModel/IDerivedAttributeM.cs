@@ -1,10 +1,9 @@
-﻿namespace FateExplorer.CharacterModel
+﻿namespace FateExplorer.CharacterModel;
+
+public interface IDerivedAttributeM
 {
-    public interface IDerivedAttributeM
-    {
-        /// <summary>
-        /// Return a list of id's that identify the dependencies of an derived attribute.
-        /// </summary>
-        string[] DependentAttributes { get; }
-    }
+    /// <summary>
+    /// Return a list of id's that identify the dependencies of an derived attribute.
+    /// </summary>
+    string[] DependentAttributes { get; }
 }

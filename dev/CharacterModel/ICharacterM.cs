@@ -40,7 +40,7 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// The (imported) initiative value
+        /// The (imported) initiative value (INI)
         /// </summary>
         /// <remarks>Definition: (COU + AGI) / 2 +/– points from dis-/advantages</remarks>
         public int Initiative { get; }
