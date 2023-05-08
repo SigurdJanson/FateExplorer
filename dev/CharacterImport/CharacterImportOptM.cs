@@ -21,6 +21,11 @@ namespace FateExplorer.CharacterImport
         //public const string Writing = "SA_27";
     }
 
+    public static class OptRace
+    {
+        public const string Human = "R_1";
+        public const string Dwarve = "R_4";
+    }
 
     /// <summary>
     /// Importer for the optolith json character sheet
@@ -174,6 +179,11 @@ namespace FateExplorer.CharacterImport
 
         public string GetDateOfBirth() => Pers.Dateofbirth;
 
+        public int GetMovementBaseVal() => Race switch
+        {
+            OptRace.Dwarve => 6,
+            _ => 8
+        };
 
         public int CountAbilities() => Attr.Abilities.Count;
 
