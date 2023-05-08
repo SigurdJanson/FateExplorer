@@ -1447,4 +1447,10 @@
   <data name="lblCombatMod" xml:space="preserve">
     <value>Combat modifiers</value>
   </data>
+  <data name="lblMovement" xml:space="preserve">
+    <value>Movement</value>
+  </data>
+  <data name="abbrMovement" xml:space="preserve">
+    <value>MOV</value>
+  </data>
 </root>

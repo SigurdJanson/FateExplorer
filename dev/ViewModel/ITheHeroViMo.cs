@@ -37,6 +37,8 @@ namespace FateExplorer.ViewModel
         decimal WhatCanCarry { get; }
         /// <value>The weight the character can lift (for a shorter period) (read-only)</value>
         decimal WhatCanLift { get; }
+        /// <summary>The characters movement value</summary>
+        int Movement { get; }
 
         decimal Money { get; set; }
 

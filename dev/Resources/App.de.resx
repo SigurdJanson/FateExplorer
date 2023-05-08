@@ -1378,4 +1378,10 @@
   <data name="lblCombatMod" xml:space="preserve">
     <value>Kampfmodifikatoren</value>
   </data>
+  <data name="abbrMovement" xml:space="preserve">
+    <value>GS</value>
+  </data>
+  <data name="lblMovement" xml:space="preserve">
+    <value>Geschwindigkeit</value>
+  </data>
 </root>

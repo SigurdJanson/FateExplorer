@@ -216,7 +216,8 @@ namespace FateExplorer.ViewModel
 
         public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
-        #endregion
+        /// <inheritdoc/>
+        public int Movement { get => characterM.Movement.Value; }
 
 
         /// <inheritdoc/>

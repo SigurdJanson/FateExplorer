@@ -67,6 +67,18 @@
                 </MudGrid>
             </MudPaper>
 
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudGrid>
+                    <MudItem xs=6 md=4>
+                        <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom>
+                            <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text DisableUnderLine=true>
+                                @Hero.Movement
+                            </MudField>
+                        </MudTooltip>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+
             <MudPaper Elevation=0 Outlined=true>
                 <MudExpansionPanels DisableBorders=true Elevation=0 MultiExpansion=true >
                     <MudExpansionPanel HideIcon=true>
