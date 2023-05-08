@@ -45,6 +45,12 @@ namespace FateExplorer.CharacterModel
         /// <remarks>Definition: (COU + AGI) / 2 +/– points from dis-/advantages</remarks>
         public int Initiative { get; }
 
+        /// <summary>
+        /// The (imported) core value for movement (MOV)
+        /// </summary>
+        /// <remarks>Definition: Race Base Value +/– points from dis-/advantages</remarks>
+        MovementM Movement { get; }
+
 
 
         Dictionary<string, WeaponM> Weapons { get; }

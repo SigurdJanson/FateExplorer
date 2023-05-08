@@ -164,6 +164,10 @@ namespace FateExplorer.CharacterModel
             catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
 
 
+            // MOVEMENT
+            Movement = new MovementM(characterImportOptM.GetMovementBaseVal());
+
+
             // BELONGINGS
             try
             {
@@ -235,6 +239,10 @@ namespace FateExplorer.CharacterModel
         /// <inheritdoc />
         public int Initiative
             => GetInitiative(Abilities[AbilityM.COU].Value, Abilities[AbilityM.AGI].Value);
+
+        /// <inheritdoc />
+        public MovementM Movement { get; }
+
 
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
