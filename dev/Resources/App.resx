@@ -631,7 +631,7 @@
     <value>Season</value>
     <comment>Calendar</comment>
   </data>
-  <data name="lblSelectComaprisonCurrency" xml:space="preserve">
+  <data name="lblSelectComparisonCurrency" xml:space="preserve">
     <value>Select comparison currency</value>
     <comment>Shop</comment>
   </data>

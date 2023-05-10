@@ -601,7 +601,7 @@
   <data name="lblSearch" xml:space="preserve">
     <value>Finden</value>
   </data>
-  <data name="lblSelectComaprisonCurrency" xml:space="preserve">
+  <data name="lblSelectComparisonCurrency" xml:space="preserve">
     <value>Vergleichswährung wählen</value>
     <comment>Shop</comment>
   </data>
@@ -693,7 +693,7 @@
     <comment>enum LanguageId</comment>
   </data>
   <data name="msgAdd2Cart" xml:space="preserve">
-    <value>Zum Einkauf hinzufügem</value>
+    <value>Zum Einkauf hinzufügen</value>
   </data>
   <data name="msgBotchAvoided" xml:space="preserve">
     <value>Wie bist Du da wieder raus gekommen?</value>
