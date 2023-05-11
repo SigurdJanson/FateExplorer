@@ -10,6 +10,7 @@
         <MudText Typo=Typo.body2 GutterBottom=false>
             <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
             @Skill.Max @RenderAbilities(Abilities)
+            @RenderModifications(Skill.Modifications)
         </MudText>
     </div>
     <MudSpacer/>
@@ -112,6 +113,15 @@
         }
     };
 
+
+    RenderFragment<int> RenderModifications = Value => __builder =>
+    {
+        if (Value > 0)
+        {
+            <span style=@($"color:var(--mud-palette-grey-default);")>&nbsp;&nbsp;⎈</span>
+            @Value
+        }
+    };
 
     /// <inheritdoc />
     protected override void OnParametersSet()

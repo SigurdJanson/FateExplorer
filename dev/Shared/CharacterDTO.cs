@@ -156,6 +156,11 @@
         public int EffectiveValue { get; set; }
 
         /// <summary>
+        /// The number of modifications a character can use when casting a spell or liturgy.
+        /// </summary>
+        public int Modifications { get; set; }
+
+        /// <summary>
         /// Specifies what domain the skill is from (mundane, arcane or divine).
         /// </summary>
         public Check.Skill Domain;

@@ -428,6 +428,7 @@ namespace FateExplorer.ViewModel
                     Min = 0,
                     EffectiveValue = s.Value.Value,
                     Max = s.Value.Value,
+                    Modifications = s.Value.Modifications,
                     Domain = s.Value.Domain
                 };
                 Result.Add(skill);

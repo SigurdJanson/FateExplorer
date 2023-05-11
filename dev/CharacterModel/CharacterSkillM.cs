@@ -53,6 +53,12 @@ namespace FateExplorer.CharacterModel
         public string[] Abilities { get; protected set; }
 
         /// <summary>
+        /// The number of modifications a character can use when casting a spell or liturgy.
+        /// </summary>
+        public int Modifications => 
+            (Domain == Check.Skill.Arcane || Domain == Check.Skill.Karma) ?  Value / 4 : 0;
+
+        /// <summary>
         /// Resilience that sets the modifier against which any rolls 
         /// have to be tested.
         /// </summary>
