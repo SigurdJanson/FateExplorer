@@ -63,7 +63,7 @@ namespace FateExplorer.Shop
                 (false, false) => Inventory.FindAll(i => (int)i.GroupId == GroupId)
                                            .FindAll(i => i.Name.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
             };
-            if (Selected is null) Selected = new();
+            Selected ??= new();
 
             return Selected;
         }

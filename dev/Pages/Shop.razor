@@ -10,6 +10,7 @@
 @inject IStringLocalizer<App> l10n
 @inject ISnackbar Snackbar
 @inject HttpClient httpClient
+@*@inject IJSRuntime JSRuntime; // see below `OnFindAtUlisses(...)` *@
 
 <MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
@@ -32,16 +33,15 @@
         <MudItem xs=12>
             @if (Stock is not null)
             {
-            <MudTable @ref="Table" ServerData="@(new Func<TableState, Task<TableData<ShopItemViMo>>>(ServerReload))"
-                    SortLabel=@l10n["Sort By"] Virtualize=true
-                    FixedHeader=true Hover=true Striped=true Height="600px">
+                <MudDataGrid @ref="Table" T=ShopItem Items=@_items ColumnResizeMode=ResizeMode.Column ShowColumnOptions=false
+                    Virtualize=true SortMode=SortMode.Single FixedHeader=true Hover=true Striped=true Height="600px"
+                         Filterable=true QuickFilter=@OnFilter ShowFilterIcons=false>
                 <ToolBarContent>
-                    <MudTextField T=string Clearable=true TextUpdateSuppression=false
-                        DebounceInterval=250 OnDebounceIntervalElapsed=@(s=>OnSearch(s, selectedGroupId))
-                        Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start
+                    <MudTextField @bind-Value=searchString Clearable=true TextUpdateSuppression=false 
+                        Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start DebounceInterval=250 Immediate=true
                         AdornmentIcon=@Icons.Material.Sharp.Search IconSize=Size.Medium Class="mt-0" />
                     <MudSpacer />
-                    <MudSelect T="int?" Class="mt-0" Clearable ValueChanged=@(g => OnSearch(searchString, g))
+                    <MudSelect T="int?" @bind-Value=selectedGroupId Class="mt-0" Clearable 
                         Label=@l10n["lblSelectStockCategory"]>
                         @foreach (var item in Stock.GetGroups())
                         {
@@ -49,82 +49,36 @@
                         }
                     </MudSelect>
                     <MudSpacer /><MudSpacer />
-                    <MudSelect T=@((string, string)) Value=@ComparisonCurrency ValueChanged=@(c => OnCurrencyChanged(c))
-                        Class="mt-0" Label=@l10n["lblSelectComaprisonCurrency"] ToStringFunc=@(v => v.Item2)>
+                    <MudSelect Value=ComparisonCurrency ValueChanged=@(((string, string) c) => OnCurrencyChanged(c))
+                        Class="mt-0" Label=@l10n["lblSelectComparisonCurrency"] ToStringFunc=@(v => v.Item2)>
                         @foreach (var item in Stock.GetCurrencies())
                         {
                             <MudSelectItem Value=@item />
                         }
-                    </MudSelect>                
+                    </MudSelect>
                 </ToolBarContent>
-                <ColGroup>
-                    <col style="width:35%" />
-                    <col style="width:12rem"/>
-                    <col style="width:12rem" />
-                    <col style="width:25rem" />
-                    <col style="width:20%"/>
-                    <col style="width:36rem" />
-                </ColGroup>
-                <HeaderContent>
-                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortLabel="Name" T="ShopItemViMo">
-                        @l10n["lblName"]
-                    </MudTableSortLabel></MudTh>
-                    <MudTh ><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
-                        @l10n["lblPrice"] (S)
-                    </MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortLabel="Price" T=ShopItemViMo>
-                        @ComparisonCurrency.name
-                    </MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortLabel="Weight" T="ShopItemViMo">
-                        @l10n["lblWeight"] (@l10n["lblStone"])
-                    </MudTableSortLabel></MudTh>
-                    <MudTh><MudTableSortLabel SortLabel="Group" T="ShopItemViMo">
-                        @l10n["lblGroup"]
-                    </MudTableSortLabel></MudTh>
-                    <MudTh>
-                        -
-                    </MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="Name">
-                        <MudHighlighter Text=@context.Name HighlightedText=@searchString 
-                            Style="background-color:transparent;font-weight:bold" />
-                    </MudTd>
-                    <MudTd DataLabel="Price" Style="text-align:right">@context.PriceStr</MudTd>
-                    <MudTd Style="text-align:right">@((context.Price * ComparisonCurrencyRate).ToString("N2"))</MudTd>
-                    <MudTd DataLabel="Weight" Style="text-align:right">@context.WeightStr</MudTd>
-                    <MudTd DataLabel="Group">
-                        <MudHighlighter Text=@context.Group HighlightedText=@searchString 
-                            Style="background-color:transparent;font-weight:bold" />
-                    </MudTd>
-                    <MudTd>
-                        <MudTooltip Text=@Tooltips[msgAdd2Cart]>
-                            <MudButton Size=Size.Small Variant=Variant.Filled
-                                Color=Color.Secondary
-                                OnClick=@context.Add2Cart
-                                aria-label=@Tooltips[msgAdd2Cart] Class="px-2">+1</MudButton>
-                        </MudTooltip>
-                        <MudTooltip Text=@Tooltips[msgShowDetails]>
-                            <MudButton Size=Size.Small Variant=Variant.Outlined Color=Color.Tertiary
-                                OnClick=@context.OpenItemDetails
-                                aria-label=@Tooltips[msgShowDetails]>Details</MudButton>
-                        </MudTooltip>
-                        <MudTooltip Text=@Tooltips[msgFindAtUlissesWiki]>
-                            <MudButton Size=Size.Small Variant=Variant.Outlined 
-                                Color=Color.Tertiary
-                                Link=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Name)
-                                Target="_blank"
-                                aria-label=@Tooltips[msgFindAtUlissesWiki]>&#x2754;</MudButton>
-                        </MudTooltip>
-                    </MudTd>
-                </RowTemplate>
-                </MudTable>
-            }
-            else
-            {
-                <MudSkeleton SkeletonType=SkeletonType.Text Width="100%" />
-                <MudText Typo=Typo.caption>Shop is about to be opened</MudText>
-                <MudSkeleton SkeletonType=SkeletonType.Text Width="100%" />
+                <NoRecordsContent>
+                    <MudText Typo=Typo.caption>Shop is about to be opened</MudText>
+                </NoRecordsContent>
+                <Columns>
+                    <PropertyColumn Property="x => x.Name" Title=@l10n["lblName"] />
+                    <PropertyColumn Property="x => x.Price" Title=@l10n["lblPrice"] Format="N2" Resizable=false />
+                    <PropertyColumn Property="x => x.Price * ComparisonCurrencyRate" Title=@ComparisonCurrency.name Format="N2" Resizable=false />
+                    <PropertyColumn Property="x => x.Weight" Title=@l10n["lblWeight"] Resizable=false />
+                    <PropertyColumn Property="x => x.Group" Title=@l10n["lblGroup"] />
+                    <TemplateColumn CellClass="d-flex justify-end" Resizable=false >
+                        <CellTemplate>
+                            <MudIconButton Icon=@Icons.Material.Filled.AddShoppingCart Title=@Tooltips[msgAdd2Cart] 
+                                OnClick=@(() => OnAdd2Cart(context.Item)) />
+                            <MudIconButton Icon=@Icons.Material.Filled.Info Title=@Tooltips[msgShowDetails] 
+                                OnClick=@(() => OnOpenDetails(context.Item)) />
+                            <MudIconButton Icon=@IconsFE.Ulisses Title=@Tooltips[msgFindAtUlissesWiki]
+                                           Href=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Item.Name)
+                                           Target="_blank" />
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
             }
         </MudItem>
     </MudGrid>
@@ -133,7 +87,7 @@
 
 @* EMPTY SHOPPING CART *@
 <MudDrawer @bind-Open=@OpenDetailsDrawer Anchor=Anchor.End Elevation=1 Variant=@DrawerVariant.Temporary Width="500px">
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
         <MudItem xs=12>
         @if (ItemDetailsRender is not null)
@@ -215,7 +169,7 @@
 
 @code {
     // TABLE
-    private MudTable<ShopItemViMo> Table;
+    private MudDataGrid<ShopItem> Table;
     private string[] Tooltips;
     const int msgAdd2Cart = 0, msgShowDetails = 1, msgFindAtUlissesWiki = 2;
 
@@ -228,51 +182,69 @@
     private (string id, string name) ComparisonCurrency = ("", "");
     private decimal ComparisonCurrencyRate = 1.0M;
 
-
-    private async Task<TableData<ShopItemViMo>> ServerReload(TableState state)
-    {
-        List<ShopItemViMo> data = await Task.Run(() => Stock.GetStock(searchString, selectedGroupId));
-
-        // Sort
-        if (!string.IsNullOrEmpty(state.SortLabel))
-        {
-            IOrderedEnumerable<ShopItemViMo> SortedData = (state.SortLabel) switch
-            {
-                "Name"   => data.OrderByDirection(state.SortDirection, o => o.Name),
-                "Price"  => data.OrderByDirection(state.SortDirection, o => o.Price),
-                "Weight" => data.OrderByDirection(state.SortDirection, o => o.Weight),
-                "Group"  => data.OrderByDirection(state.SortDirection, o => o.Group), 
-                _ => data as IOrderedEnumerable<ShopItemViMo>
-            };
-            return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = SortedData };
-        }
-
-        return new TableData<ShopItemViMo>() { TotalItems = data.Count(), Items = data };
-    }
+    // The product range in the shop
+    private record ShopItem(string Id, string Name, decimal Price, double Weight, string Group, int GroupId);
+    private List<ShopItem> _items = new List<ShopItem>();
 
 
     /// <summary>
-    /// Reload table data on changed search parameters
+    /// Filter for the table
     /// </summary>
-    /// <param name="text">Text defining the free text search; 
-    /// if <see cref="null"/> or empty no filter is applied</param>
-    /// <param name="group">Number identifying the selected product group; 
-    /// if <see cref="null"/> no group filter will be applied</param>
-    private void OnSearch(string text, int? group)
+    private Func<ShopItem, bool> OnFilter => x =>
     {
-        searchString = text;
-        selectedGroupId = group;
+        if (selectedGroupId is not null)
+            if (x.GroupId != selectedGroupId)
+                return false;
 
-        Table.ReloadServerData();
-    }
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (x.Group.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    };
 
 
+    /// <summary>
+    /// Responds to a change of the comparison currency
+    /// </summary>
+    /// <param name="currency">The newly selected currency.</param>
     private void OnCurrencyChanged((string id, string name) currency)
     {
         ComparisonCurrency = currency;
         ComparisonCurrencyRate = Stock.GetExchangeRate(currency.id);
     }
 
+    /// <summary>
+    /// Responds to an "add 2 cart" click
+    /// </summary>
+    /// <param name="item">The added ShopItem record</param>
+    private void OnAdd2Cart(ShopItem item)
+    {
+        var i = Stock.GetStock(null, null).Find(x => x.Id == item.Id);
+        ShoppingCart.Add((i, 1));
+    }
+
+    /// <summary>
+    /// Responds to an "Open details" click
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnOpenDetails(ShopItem item)
+    {
+        var i = Stock.GetStock(null, null).Find(x => x.Id == item.Id);
+        OpenDrawer(i);
+    }
+
+    // TODO: get this fixed with a call over JSInterop. At the moment it freezes the app.
+    // <MudIconButton Icon=@IconsFE.Ulisses Title=@Tooltips[msgFindAtUlissesWiki]
+    //     OnClick=@(async () => await OnFindAtUlisses(context.Item))  />
+    //private async ValueTask OnFindAtUlisses(ShopItem item)
+    //{
+    //    string url = "https://ulisses-regelwiki.de/suche.html?keywords=" + item.Name;
+    //    await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+    //}
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
@@ -281,11 +253,8 @@
         Stock = new ShopInventoryViMo(GameData, AppCfg, httpClient, l10n);
         await Stock.InitializeGameDataAsync();
 
-        foreach(var item in Stock.GetStock(null, null))
-        {
-            item.OpenItemDetails = (e) => OpenDrawer(item);
-            item.Add2Cart = (e) => ShoppingCart.Add((item, 1));
-        }
+        foreach (var item in Stock.GetStock(null, null))
+            _items.Add(new ShopItem(item.Id, item.Name, item.Price, item.Weight, item.Group, (int)item.GroupId));
 
         ShoppingCart = new ShoppingCartViMo();
         Merchant = new MerchantViMo(GameData);
@@ -300,6 +269,8 @@
 
 
 
+    //
+    //
     // DETAILS DRAWER
     private bool OpenDetailsDrawer;
     private ShopItemViMo ItemWithDetails;
@@ -371,6 +342,9 @@
     };
 
 
+
+    //
+    //
     // SHOPPING CART DRAWER
     private ShoppingCartViMo ShoppingCart { get; set; }
     private MerchantViMo Merchant { get; set; }
