@@ -12,6 +12,10 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <inheritdoc />
     public new const string checkTypeId = "DSA5/0/skill/routine";
 
+    /// <inheritdoc />
+    public override Check WhichCheck => new(Domain, true);
+
+
     /// <summary>
     /// The domain of the skill
     /// </summary>

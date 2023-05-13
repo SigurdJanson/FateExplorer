@@ -17,6 +17,10 @@ namespace FateExplorer.RollLogic
         public new const string checkTypeId = "DSA5/0/initiative";
 
         /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Roll.Initiative);
+
+
+        /// <inheritdoc />
         /// <remarks>Not used in this context</remarks>
         public override int? TargetAttr { get; protected set; }
 

@@ -10,6 +10,9 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/combat/parry";
 
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Combat.Parry, CombatTech, CombatTechType);
+
 
         /// <inheritdoc />
         /// <remarks>In this context it is the parry skill value.</remarks>

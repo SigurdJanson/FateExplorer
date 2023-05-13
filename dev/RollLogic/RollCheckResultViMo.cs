@@ -30,7 +30,10 @@ namespace FateExplorer.RollLogic
             private set => RollCheck.Name = value;
         }
 
-
+        /// <summary>
+        /// Identify the check underlying this result.
+        /// </summary>
+        public Check Check => RollCheck.WhichCheck;
 
         /// <summary>
         /// Success level of the complete check
@@ -72,9 +75,13 @@ namespace FateExplorer.RollLogic
         public int Remainder { get => RollCheck.Remainder; }
 
 
+        /// <inheritdoc cref="CheckBaseM.ClassificationDescr"/>
         public string ClassificationDescr => RollCheck.ClassificationDescr;
+
+        /// <inheritdoc cref="CheckBaseM.ClassificationLabel"/>
         public string ClassificationLabel => RollCheck.ClassificationLabel;
 
+        /// <inheritdoc cref="CheckBaseM.Classification"/>
         public string Classification => RollCheck.Classification;
 
         #endregion /////////////////////

@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -9,6 +10,9 @@ namespace FateExplorer.RollLogic
     {
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/skill";
+
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Domain);
 
 
         /// <summary>

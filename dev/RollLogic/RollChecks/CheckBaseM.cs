@@ -36,6 +36,11 @@ namespace FateExplorer.RollLogic
         public virtual string CheckTypeId { get => checkTypeId.TrimEnd('/'); }
 
         /// <summary>
+        /// Return a check that identifies it
+        /// </summary>
+        public virtual Check WhichCheck { get; }
+
+        /// <summary>
         /// The (character) attribute to be rolled against.
         /// </summary>
         public string AttributeId { get; protected set; } = "";

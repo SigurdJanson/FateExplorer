@@ -10,6 +10,8 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/combat/attack";
 
+        /// <inheritdoc />
+        public override Check WhichCheck => new (Check.Combat.Attack, CombatTech, CombatTechType);
 
         /// <inheritdoc />
         /// <remarks>In this context it is the skill value.</remarks>
