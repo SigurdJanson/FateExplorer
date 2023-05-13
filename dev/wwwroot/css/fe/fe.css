@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'fateexplorer';
   src:
-    url('fonts/fateexplorer.ttf?v78yds') format('truetype'),
-    url('fonts/fateexplorer.woff?v78yds') format('woff'),
-    url('fonts/fateexplorer.svg?v78yds#fateexplorer') format('svg');
+    url('fonts/fateexplorer.ttf?mh0ect') format('truetype'),
+    url('fonts/fateexplorer.woff?mh0ect') format('woff'),
+    url('fonts/fateexplorer.svg?mh0ect#fateexplorer') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -34,6 +34,66 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
   -moz-osx-font-smoothing: grayscale;
 }
 
+.fe-UnarmedBotch:before {
+  content: "\e934";
+}
+.fe-UnarmedFail:before {
+  content: "\e945";
+}
+.fe-UnarmedSuccess:before {
+  content: "\e946";
+}
+.fe-UnarmedCritical:before {
+  content: "\e947";
+}
+.fe-RangedBotch:before {
+  content: "\e948";
+}
+.fe-RangedFail:before {
+  content: "\e949";
+}
+.fe-RangedSuccess:before {
+  content: "\e94a";
+}
+.fe-RangedCritical:before {
+  content: "\e94b";
+}
+.fe-ParryBotch:before {
+  content: "\e94c";
+}
+.fe-ParryFail:before {
+  content: "\e94d";
+}
+.fe-ParrySuccess:before {
+  content: "\e94e";
+}
+.fe-ParryCritical:before {
+  content: "\e94f";
+}
+.fe-MeleeBotch:before {
+  content: "\e950";
+}
+.fe-MeleeFail:before {
+  content: "\e951";
+}
+.fe-MeleeCritical:before {
+  content: "\e952";
+}
+.fe-MeleeSuccess:before {
+  content: "\e953";
+}
+.fe-DodgeBotch:before {
+  content: "\e902";
+}
+.fe-DodgeFail:before {
+  content: "\e954";
+}
+.fe-DodgeSuccess:before {
+  content: "\e955";
+}
+.fe-DodgeCritical:before {
+  content: "\e956";
+}
 .fe-Vision0_Clear:before {
   content: "\e906";
 }
@@ -172,11 +232,14 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 .fe-NamelessOne:before {
   content: "\e927";
 }
+.fe-DemonCrown:before {
+  content: "\e957";
+}
 .fe-Success:before {
   content: "\e901";
 }
-.fe-Botch:before {
-  content: "\e902";
+.fe-Falldown:before {
+  content: "\e958";
 }
 .fe-PotionArcane:before {
   content: "\e903";
@@ -228,6 +291,9 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 }
 .fe-AnimalToad:before {
   content: "\e909";
+}
+.fe-AnimalGoat:before {
+  content: "\e959";
 }
 .fe-AnimalSheep:before {
   content: "\e90a";
