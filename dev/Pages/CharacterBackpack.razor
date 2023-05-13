@@ -15,7 +15,7 @@
         <MudItem xs=4 Class="mb-3">
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
-                    <MudItem xs=6 Class="mb-3">
+                    <MudItem xs=4 Class="mb-3">
                         <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
                             @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
                             <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
@@ -30,23 +30,23 @@
                         </MudField>
                     </MudItem>
 
-                    <MudItem xs=6 Class="mb-3">
+                    <MudItem xs=4 Class="mb-3">
                         <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
                             @Hero.FormatMoney()
                             <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
-                                        Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                                           Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
                         </MudField>
                     </MudItem>
 
-                    @*
-                    <MudItem xs=6 Class="mb-3">
-                        <MudField Label=@l10n["lblMovement"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.Movement()
+                    <MudItem xs=4 Class="mb-3">
+                        <MudField Label=@l10n["lblAssetValue"] Variant=Variant.Text DisableUnderLine=true>
+                            @AssetValue.ToString("N2") @l10n["abbrSilverthaler"] @*Use `Money.Format(...)` here*@
                         </MudField>
                     </MudItem>
-                    *@
                 </MudGrid>
             </MudPaper>
+
+
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
                 <MudList Clickable=true>
@@ -57,7 +57,7 @@
                             @i.Name [<span>@i.Amount</span>]
                         </MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>
-                            <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price S</span>
+                            <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price @l10n["abbrSilverthaler"]</span>
                         </MudText>
                     </MudListItem>
                     }
@@ -70,6 +70,19 @@
 
 
 @code {
+    private decimal assetValue = -1;
+    private decimal AssetValue
+    {
+        get
+        {
+            if (assetValue < 0)
+            {
+                foreach (var i in Hero.GetBelongings())
+                    assetValue += i.Price;
+            }
+            return assetValue;
+        }
+    }
 
     /// <summary>
     ///

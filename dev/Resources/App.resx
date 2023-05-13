@@ -1453,4 +1453,10 @@
   <data name="abbrMovement" xml:space="preserve">
     <value>MOV</value>
   </data>
+  <data name="abbrSilverthaler" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="lblAssetValue" xml:space="preserve">
+    <value>Asset Value</value>
+  </data>
 </root>
