@@ -133,7 +133,7 @@
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons /> @* ShowValueLabel=@l10n["lblAbility"] *@
+                            <RollCheckCard Result=@r AvatarIcon=@GetCheckIcons(r) /> @* ShowValueLabel=@l10n["lblAbility"] *@
                     }
                 }
                 else
@@ -156,11 +156,40 @@ else
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
 
-    private readonly string[] CheckIcons = new string[4] { 
-        IconsFE.Botch,
-        Icons.Material.Filled.Elderly,
-        Icons.Material.Filled.Accessibility,
-        IconsFE.Success};
+    private readonly string[] CheckIconsMelee = new string[4] { 
+        IconsFE.MeleeBotch, IconsFE.MeleeFail, IconsFE.MeleeSuccess, IconsFE.MeleeCritical
+    };
+    private readonly string[] CheckIconsRanged = new string[4] {
+        IconsFE.RangedBotch, IconsFE.RangedFail, IconsFE.RangedSuccess, IconsFE.RangedCritical
+    };
+    private readonly string[] CheckIconsUnarmed = new string[4] { 
+        IconsFE.UnarmedBotch, IconsFE.UnarmedFail, IconsFE.UnarmedSuccess, IconsFE.UnarmedCritical
+    };
+    private readonly string[] CheckIconsParry = new string[4] {
+        IconsFE.ParryBotch, IconsFE.ParryFail, IconsFE.ParrySuccess, IconsFE.ParryCritical
+    }; 
+    private readonly string[] CheckIconsDodge = new string[4] {
+        IconsFE.DodgeBotch, IconsFE.DodgeFail, IconsFE.DodgeSuccess, IconsFE.DodgeCritical
+    };
+    private readonly string[] DefaultCheckIcons = new string[4] {
+        Icons.Material.Filled.SentimentVeryDissatisfied, Icons.Material.Filled.Elderly, Icons.Material.Filled.Accessibility, IconsFE.Success
+    };
+    private string[] GetCheckIcons(RollCheckResultViMo r)
+    {
+        Check c = r.Check;
+        if (c.IsCombat)
+        {
+            if (c.Is(Check.Combat.Attack))
+            {
+                if (c.Is(CombatBranch.Melee)) return CheckIconsMelee;
+                if (c.Is(CombatBranch.Ranged)) return CheckIconsRanged;
+                if (c.Is(CombatBranch.Unarmed)) return CheckIconsUnarmed;
+            }
+            if (c.Is(Check.Combat.Parry)) return CheckIconsParry;
+        }
+        if (c.Is(Check.Roll.Dodge)) return CheckIconsDodge;
+        return DefaultCheckIcons;
+    }
 
     private BattlegroundViMo Context { get; set; }
     private RollCheckResultViMo ActiveCheck;
