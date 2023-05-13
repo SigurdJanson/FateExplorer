@@ -77,5 +77,7 @@
         public const string Skill = "TAL";
         public const string Spell = "SPELL";
         public const string Liturgy = "LITURGY";
+
+        public const string SkillBodyControl = Skill + "_4";
     }
 }

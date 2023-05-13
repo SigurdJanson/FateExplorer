@@ -1,4 +1,8 @@
-﻿@inject IStringLocalizer<App> l10n
+﻿@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+@inject ITheHeroViMo Hero
+@inject IRollHandlerViMo RollHandler
 
 
 <MudDialog>
@@ -36,7 +40,9 @@
                     </MudSlider>
                     <MudSelect T=GroundCondition? Value=Hardness Label=@l10n["lblSelectHardness"] HelperText=@l10n["txtSelectHardness"]
                             ValueChanged=@((GroundCondition? i) => SetHardness(i))>
-                        @foreach (GroundCondition? item in Enum.GetValues(typeof(GroundCondition)))
+                        @foreach (GroundCondition? item in Enum.GetValues(typeof(GroundCondition)).
+                                                                Cast<GroundCondition>().
+                                                                OrderByDescending(x => x))
                         {
                             <MudSelectItem Value=@item>@l10n[$"GroundCondition.{item}"]</MudSelectItem>
                         }
@@ -44,13 +50,18 @@
                 </MudPaper>
             </MudItem>
 
-            <MudDivider />
-
             <MudItem sm=12 md=6>
                 <MudPaper Elevation=0 Outlined=true Class="pa-2">
                     <MudText Typo=Typo.h6>@l10n["hJump"]</MudText>
                     <MudText Typo=Typo.body2>@l10n["txtJump"]</MudText>
-                    <MudButton>@l10n["lblJump"]</MudButton>
+                    @if (QualityOfJump >= 0)
+                    {
+                        <MudText Typo=Typo.button>@l10n["lblQualityLevel"]: @QualityOfJump</MudText>
+                    }
+                    else
+                    {
+                        <MudButton OnClick=OnJump Disabled=@(QualityOfJump >= 0)>@l10n["lblJump"]</MudButton>
+                    }
                 </MudPaper>
 
                 <MudPaper Elevation=0 Outlined=true Class="pa-2">
@@ -95,7 +106,7 @@
     private int PaddingProtection { get; set; } = 0;
 
     private int GroundModifier { get; set; } = 0;
-    private int QualityOfJump { get; set; } = 0;
+    private int QualityOfJump { get; set; } = -1; // some invalid value below 0 indicates that jump hasn't been checked.
 
     private string GroundEffect => Math.Sign(GroundModifier) switch
     {
@@ -105,19 +116,29 @@
         _  => l10n["txtGroundEffectUnknown"]
     };
 
+
+     /*
+    * 
+    */
+    /// <inheritdoc />
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
     }
 
 
-
+    /// <summary>
+    /// Respond to `Ok`
+    /// </summary>
     private void SubmitDialog()
     {
         (int, int, int, int, int) Result = (DropHeight, GroundModifier, QualityOfJump, ArmourProtection, PaddingProtection);
         MudDialog.Close(DialogResult.Ok(Result));
     }
 
+    /// <summary>
+    /// Respond to `Cancel`
+    /// </summary>
     private void CancelDialog()
     {
         MudDialog.Close(DialogResult.Cancel());
@@ -131,6 +152,22 @@
         PaddingProtection = 0;
         DropHeight = 0;
     }
+
+
+     /*
+    * 
+    */
+    /// <summary>
+    /// 
+    /// </summary>
+    private void OnJump() // TODO: move the selection of the skill to the model
+    {
+        SkillsDTO s = Hero.GetSkills().FirstOrDefault(s => s.Id == ChrAttrId.SkillBodyControl);
+        var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
+        var ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, new CheckContextViMo(), cnv);
+        QualityOfJump = Int32.Parse(ActiveCheck.Classification);
+    }
+
 
     /*
     * GROUND MODIFIER
