@@ -52,7 +52,7 @@
                 <MudList Clickable=true>
                     @foreach(var i in Hero.GetBelongings())
                     {
-                    <MudListItem DisableRipple=true DisableGutters=true>
+                    <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
                         <MudText Typo=Typo.body1 GutterBottom=false>
                             @i.Name [<span>@i.Amount</span>]
                         </MudText>
@@ -100,4 +100,42 @@
             Hero.Money = (decimal)result.Data;
         }
     }
+
+
+    /*
+    * RENDERING
+    */
+    private string GroupIcon(GroupId Group) => Group switch
+    {
+        GroupId.iAlchimica => IconsFE.PestleMortar,
+        GroupId.iAmmunition => IconsFE.Ammunition,
+        GroupId.iAnimal => IconsFE.AnimalGoat,
+        GroupId.iAnimalSupplies => IconsFE.HorseShoe,
+        GroupId.iArmor => IconsFE.ArmourLamellar,
+        GroupId.iBandagesNRemedies => IconsFE.Bandages,
+        GroupId.iBooks => IconsFE.Book,
+        GroupId.iBurglarTools => IconsFE.BurglarTools,
+        GroupId.iCeremonialObjects => IconsFE.SunSceptre,
+        GroupId.iClothing => IconsFE.Shirt,
+        GroupId.iContainers => IconsFE.Chest,
+        GroupId.iFinestoneNGems => IconsFE.Gem,
+        GroupId.iHerbs => IconsFE.HerbsReed,
+        GroupId.iJewellery => IconsFE.Jewellery,
+        GroupId.iLights => IconsFE.Torch,
+        GroupId.iMagicalArtefacts => IconsFE.MagicArtefact,
+        GroupId.iMelee => IconsFE.Sword,
+        GroupId.iMusicalInstruments => IconsFE.Flute,
+        GroupId.iOrientation => IconsFE.Telescope,
+        GroupId.iPoisons => IconsFE.PotionMadness,
+        GroupId.iRangedWeapon => IconsFE.Ulisses,
+        GroupId.iRopesNChains => IconsFE.Chain,
+        GroupId.iSacredTools => IconsFE.SunSceptre,
+        GroupId.iStationary => IconsFE.Stationary,
+        GroupId.iStimulantsNLuxury => IconsFE.Shisha,
+        GroupId.iTools => IconsFE.Tools,
+        GroupId.iTransport => IconsFE.Transport,
+        GroupId.iTravelNTools => IconsFE.TreasureMap,
+        GroupId.iWeaponAccessories => IconsFE.WeaponAccessoires,
+        _ => throw new NotImplementedException()
+    };
 }
