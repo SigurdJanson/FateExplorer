@@ -56,6 +56,33 @@ public static class IconsFE {
     public static string Travia => Prefix + nameof(Travia);
     public static string Tsa => Prefix + nameof(Tsa);
     public static string NamelessOne => Prefix + nameof(NamelessOne);
+        // OBJECT GROUPS
+    public static string Ammunition => Prefix + nameof(Ammunition);
+    public static string ArmourLamellar => Prefix + nameof(ArmourLamellar);
+    public static string WeaponAccessoires => Prefix + nameof(WeaponAccessoires);
+    public static string Shirt => Prefix + nameof(Shirt);
+    public static string TreasureMap => Prefix + nameof(TreasureMap);
+    public static string Torch => Prefix + nameof(Torch);
+    public static string Bandages => Prefix + nameof(Bandages);
+    public static string Chest => Prefix + nameof(Chest);
+    public static string Chain => Prefix + nameof(Chain);
+    public static string BurglarTools => Prefix + nameof(BurglarTools);
+    public static string Tools => Prefix + nameof(Tools);
+    public static string Telescope => Prefix + nameof(Telescope);
+    public static string Jewellery => Prefix + nameof(Jewellery);
+    public static string Gem => Prefix + nameof(Gem);
+    public static string Stationary => Prefix + nameof(Stationary);
+    public static string Book => Prefix + nameof(Book);
+    public static string MagicArtefact => Prefix + nameof(MagicArtefact);
+    public static string PestleMortar => Prefix + nameof(PestleMortar);
+    public static string PotionMadness => Prefix + nameof(PotionMadness);
+    public static string HerbsReed => Prefix + nameof(HerbsReed);
+    public static string Flute => Prefix + nameof(Flute);
+    public static string Shisha => Prefix + nameof(Shisha);
+    public static string HorseShoe => Prefix + nameof(HorseShoe);
+    public static string Transport => Prefix + nameof(Transport);
+    public static string SnakeSkin => Prefix + nameof(SnakeSkin);
+    public static string SunSceptre => Prefix + nameof(SunSceptre);
         // ANIMAL
     public static string AnimalToad => Prefix + nameof(AnimalToad);
     public static string AnimalGoat => Prefix + nameof(AnimalGoat);

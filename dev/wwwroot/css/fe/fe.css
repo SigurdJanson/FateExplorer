@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'fateexplorer';
   src:
-    url('fonts/fateexplorer.ttf?mh0ect') format('truetype'),
-    url('fonts/fateexplorer.woff?mh0ect') format('woff'),
-    url('fonts/fateexplorer.svg?mh0ect#fateexplorer') format('svg');
+    url('fonts/fateexplorer.ttf?dayyfw') format('truetype'),
+    url('fonts/fateexplorer.woff?dayyfw') format('woff'),
+    url('fonts/fateexplorer.svg?dayyfw#fateexplorer') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -34,6 +34,138 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
   -moz-osx-font-smoothing: grayscale;
 }
 
+.fe-MoonPhase1:before {
+  content: "\e974";
+}
+.fe-MoonPhase2:before {
+  content: "\e975";
+}
+.fe-MoonPhase3:before {
+  content: "\e976";
+}
+.fe-MoonPhase4:before {
+  content: "\e977";
+}
+.fe-MoonPhase5:before {
+  content: "\e978";
+}
+.fe-MoonPhase6:before {
+  content: "\e979";
+}
+.fe-MoonPhase7:before {
+  content: "\e97a";
+}
+.fe-MoonPhase8:before {
+  content: "\e97b";
+}
+.fe-MoonPhase9:before {
+  content: "\e97c";
+}
+.fe-MoonPhase10:before {
+  content: "\e97d";
+}
+.fe-MoonPhase11:before {
+  content: "\e97e";
+}
+.fe-MoonPhase12:before {
+  content: "\e97f";
+}
+.fe-Ammunition:before {
+  content: "\e93f";
+}
+.fe-ArmourLamellar:before {
+  content: "\e940";
+}
+.fe-WeaponAccessoires:before {
+  content: "\e941";
+}
+.fe-Shirt:before {
+  content: "\e942";
+}
+.fe-TreasureMap:before {
+  content: "\e943";
+}
+.fe-Torch:before {
+  content: "\e944";
+}
+.fe-Bandages:before {
+  content: "\e95b";
+}
+.fe-Chest:before {
+  content: "\e95c";
+}
+.fe-Chain:before {
+  content: "\e95d";
+}
+.fe-BurglarTools:before {
+  content: "\e95e";
+}
+.fe-Tools:before {
+  content: "\e95f";
+}
+.fe-Telescope:before {
+  content: "\e960";
+}
+.fe-Jewellery:before {
+  content: "\e961";
+}
+.fe-Gem:before {
+  content: "\e962";
+}
+.fe-Stationary:before {
+  content: "\e963";
+}
+.fe-Book:before {
+  content: "\e964";
+}
+.fe-MagicArtefact:before {
+  content: "\e912";
+}
+.fe-PestleMortar:before {
+  content: "\e96b";
+}
+.fe-PotionMadness:before {
+  content: "\e96c";
+}
+.fe-HerbsReed:before {
+  content: "\e96d";
+}
+.fe-Instruments:before {
+  content: "\e96e";
+}
+.fe-Shisha:before {
+  content: "\e96f";
+}
+.fe-HorseShoe:before {
+  content: "\e970";
+}
+.fe-Transport:before {
+  content: "\e971";
+}
+.fe-SnakeSkin:before {
+  content: "\e972";
+}
+.fe-SunSceptre:before {
+  content: "\e973";
+}
+.fe-D6_1:before {
+  content: "\2680";
+}
+.fe-D6_2:before {
+  content: "\2681";
+}
+.fe-D6_3:before {
+  content: "\2682";
+}
+.fe-D6_4:before {
+  content: "\2683";
+}
+.fe-D6_5:before {
+  content: "\2684";
+}
+.fe-D6_6:before {
+  content: "\2685";
+}
 .fe-UnarmedBotch:before {
   content: "\e934";
 }
@@ -154,42 +286,6 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 .fe-Water5_Submerged:before {
   content: "\e93d";
 }
-.fe-MoonPhase1:before {
-  content: "\e912";
-}
-.fe-MoonPhase2:before {
-  content: "\e917";
-}
-.fe-MoonPhase3:before {
-  content: "\e918";
-}
-.fe-MoonPhase4:before {
-  content: "\e919";
-}
-.fe-MoonPhase5:before {
-  content: "\e91a";
-}
-.fe-MoonPhase6:before {
-  content: "\e920";
-}
-.fe-MoonPhase7:before {
-  content: "\e921";
-}
-.fe-MoonPhase8:before {
-  content: "\e922";
-}
-.fe-MoonPhase9:before {
-  content: "\e923";
-}
-.fe-MoonPhase10:before {
-  content: "\e924";
-}
-.fe-MoonPhase11:before {
-  content: "\e925";
-}
-.fe-MoonPhase12:before {
-  content: "\e926";
-}
 .fe-Skull:before {
   content: "\e908";
 }
@@ -246,24 +342,6 @@ i, .fe { /* changed 'icomoon-liga' to 'fe' */
 }
 .fe-PotionLife:before {
   content: "\e904";
-}
-.fe-D6_1:before {
-  content: "\2680";
-}
-.fe-D6_2:before {
-  content: "\2681";
-}
-.fe-D6_3:before {
-  content: "\2682";
-}
-.fe-D6_4:before {
-  content: "\2683";
-}
-.fe-D6_5:before {
-  content: "\2684";
-}
-.fe-D6_6:before {
-  content: "\2685";
 }
 .fe-LocalMallClear:before {
   content: "\e90b";

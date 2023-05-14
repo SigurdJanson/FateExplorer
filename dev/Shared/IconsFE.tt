@@ -18,6 +18,12 @@ string[] DeityIcons = new[] {
     "Boron", "Efferd", "Firun", "Hesinde", "Ingerimm", "Peraine", "Phex",
     "Praios", "Rahja", "Rondra", "Travia", "Tsa", "NamelessOne"
     };
+string[] ObjectGroup = new[] {
+    "Ammunition", "ArmourLamellar", "WeaponAccessoires", "Shirt", "TreasureMap", "Torch", "Bandages",
+    "Chest", "Chain", "BurglarTools", "Tools", "Telescope", "Jewellery", "Gem", "Stationary", "Book", "MagicArtefact",
+    "PestleMortar", "PotionMadness", "HerbsReed", "Flute", "Shisha", "HorseShoe", "Transport", "SnakeSkin",
+    "SunSceptre"
+    };
 string[] AnimalIcons = new[] {
     "AnimalToad", "AnimalGoat", "AnimalSheep", "AnimalCow", "AnimalElefant", "AnimalDragon"
     };
@@ -49,6 +55,12 @@ public static string <#= i#> => Prefix + nameof(<#= i#>);
 
     // DEITIES
     <# foreach (var i in DeityIcons) { 
+    #>
+public static string <#= i#> => Prefix + nameof(<#= i#>);
+    <#
+    } #>
+    // OBJECT GROUPS
+    <# foreach (var i in ObjectGroup) { 
     #>
 public static string <#= i#> => Prefix + nameof(<#= i#>);
     <#
