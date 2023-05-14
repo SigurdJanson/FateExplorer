@@ -49,17 +49,24 @@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
+                <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
+                              AdornmentIcon=@Icons.Material.Filled.Search
+                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium />
                 <MudList Clickable=true>
                     @foreach(var i in Hero.GetBelongings())
                     {
-                    <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
-                        <MudText Typo=Typo.body1 GutterBottom=false>
-                            @i.Name [<span>@i.Amount</span>]
-                        </MudText>
-                        <MudText Typo=Typo.body2 GutterBottom=false>
-                            <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price @l10n["abbrSilverthaler"]</span>
-                        </MudText>
-                    </MudListItem>
+                        @if (i.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                        <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
+                            <MudText Typo=Typo.body1 GutterBottom=false>
+                                <MudHighlighter Text=@i.Name HighlightedText=@SearchTerm 
+                                    Class="mud-primary-text" Style="background-color:transparent;font-weight:bold"/> [<span>@i.Amount</span>]
+                            </MudText>
+                            <MudText Typo=Typo.body2 GutterBottom=false>
+                                <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price @l10n["abbrSilverthaler"]</span>
+                            </MudText>
+                        </MudListItem>
+                        }
                     }
                 </MudList>
             </MudPaper>
@@ -70,6 +77,11 @@
 
 
 @code {
+    private string SearchTerm { get; set; } = "";
+
+    /// <summary>
+    /// What is the combined value of all assets?
+    /// </summary>
     private decimal assetValue = -1;
     private decimal AssetValue
     {
