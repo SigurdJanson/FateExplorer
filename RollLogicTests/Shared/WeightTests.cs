@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,6 +108,10 @@ class WeightTests
     }
 
 
+    /*
+     * CONVERSION
+     */
+    #region CONVERSION
     [Test]
     [TestCase(0, ExpectedResult = 0)]
     [TestCase(2, ExpectedResult = 2.0 / 1000)]
@@ -231,5 +236,44 @@ class WeightTests
         // Assert
         return result;
     }
+    #endregion
 
+
+    /*
+     * ToString
+     */
+    #region TO STRING
+    [Test]
+    //[TestCase(2.7654, "g", ExpectedResult = "2.7654")]
+    [TestCase(2.7654, ExpectedResult = "2,7654")]
+    [TestCase(234.7654, ExpectedResult = "234,7654")]
+    public string ToString(decimal Value)
+    {
+        // Arrange
+        Weight W = new(Value);
+
+        // Act
+        var result = W.ToString();
+
+        // Assert
+        return result;
+    }
+
+    [Test]
+    [TestCase(2.7654, "g", ExpectedResult = "2,7654")]
+    [TestCase(2.7654, "G", ExpectedResult = "2,7654 Stein")]
+    [TestCase(2.7654, "r", ExpectedResult = "2,7654 St")]
+    [TestCase(2.7654, "R", ExpectedResult = "0 Q 2 St 30 oz 15 s 2 kt 0,0000 gr")]
+    public string ToString_WithFormat(decimal Value, string Format)
+    {
+        // Arrange
+        Weight W = new(Value);
+
+        // Act
+        var result = W.ToString(Format, new WeightFormatter(CultureInfo.GetCultureInfo("de-DE")));
+
+        // Assert
+        return result;
+    }
+    #endregion
 }

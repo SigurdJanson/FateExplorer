@@ -1,5 +1,4 @@
-﻿using MudBlazor;
-using System;
+﻿using System;
 
 namespace FateExplorer.Shared;
 
@@ -44,13 +43,25 @@ public readonly struct Weight : IEquatable<Weight>, IFormattable
     public static bool operator ==(Weight left, Weight right) => left.Equals(right);
     public static bool operator !=(Weight left, Weight right) => !left.Equals(right);
 
-    public decimal ToGran() => Value * 40 * 25 * 5 * 5; // Rohal
-    public decimal ToCarat() => Value * 40 * 25 * 5; // Rohal
-    public decimal ToScruple() => Value * 40 * 25; // Rohal
-    public decimal ToOunce() => Value * 40; // 1 Stone = 40 Ounces; Rohal
+    /// <summary>
+    /// Returns the reference unit 
+    /// </summary>
+    public static Weight RefValue => new(1m);
+
+    public decimal ToGran() => ToGran(Value); // Rohal
+    public decimal ToCarat() => ToCarat(Value); // Rohal
+    public decimal ToScruple() => ToScruple(Value); // Rohal
+    public decimal ToOunce() => ToOunce(Value); // 1 Stone = 40 Ounces; Rohal
     public decimal ToStone() => Value; // Rohal
-    public decimal ToSack() => Value / 100;
-    public decimal ToCuboids() => Value / 100 / 10; // Rohal
+    public decimal ToSack() => ToSack(Value);
+    public decimal ToCuboids() => ToCuboids(Value); // Rohal
+
+    public static decimal ToCuboids(decimal w) => w / 100 / 10;
+    public static decimal ToSack(decimal w) => w / 100;
+    public static decimal ToOunce(decimal w) => w * 40;
+    public static decimal ToScruple(decimal w) => w * 40 * 25;
+    public static decimal ToCarat(decimal w) => w * 40 * 25 * 5;
+    public static decimal ToGran(decimal w) => w * 40 * 25 * 5 * 5;
 
     public override bool Equals(object obj) => Equals((Weight)obj);
     public bool Equals(Weight other) => Value == other.Value;
@@ -64,7 +75,7 @@ public readonly struct Weight : IEquatable<Weight>, IFormattable
         // Handle null or empty string.
         if (string.IsNullOrEmpty(format)) format = "G";
         // Remove spaces and convert to uppercase.
-        format = format.Trim().ToUpperInvariant();
+        format = format.Trim();
 
         WeightFormatter formatter = formatProvider.GetFormat(GetType()) as WeightFormatter;
 
