@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FateExplorer.Shared;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 
@@ -16,13 +17,6 @@ namespace FateExplorer.Shop
 
     public class ShopItemM
     {
-        public enum GroupId { iMelee = 1, iRangedWeapon = 2, iAmmunition = 3, iArmor = 4, iWeaponAccessories = 5, 
-            iClothing = 6, iTravelNTools = 7, iLights = 8, iBandagesNRemedies = 9, iContainers = 10, 
-            iRopesNChains = 11, iBurglarTools = 12, iTools = 13, iOrientation = 14, iJewellery = 15, 
-            iFinestoneNGems = 16, iStationary = 17, iBooks = 18, iMagicalArtefacts = 19,
-            iAlchimica = 20, iPoisons = 21, iHerbs = 22, iMusicalInstruments = 23, iStimulantsNLuxury = 24, iAnimal = 25, 
-            iAnimalSupplies = 26, iTransport = 27, iSacredTools = 28, iCeremonialObjects = 29 };
-
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
