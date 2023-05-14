@@ -1,4 +1,6 @@
 ﻿
+using FateExplorer.Shared;
+
 namespace FateExplorer.CharacterModel;
 
 public class BelongingM
@@ -34,4 +36,9 @@ public class BelongingM
     /// The location where the character wears/carries this item.
     /// </summary>
     public string Where { get; set; }
+
+    /// <summary>
+    /// An indicator what type of object the belonging is.
+    /// </summary>
+    public GroupId Group { get; set; }
 }

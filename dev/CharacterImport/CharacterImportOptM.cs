@@ -459,7 +459,8 @@ namespace FateExplorer.CharacterImport
                 {
                     var result = new BelongingM() 
                     { 
-                        Id = i.Id, Name = i.Name, Amount = i.Amount, Price = i.Price, Weight = i.Weight, Where = i.Where 
+                        Id = i.Id, Name = i.Name, Amount = i.Amount, Price = i.Price, Weight = i.Weight, Where = i.Where,
+                        Group = (GroupId)i.Group
                     };
                     yield return new KeyValuePair<string, BelongingM>(i.Id, result);
                 }

@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.Shared;
 
 namespace FateExplorer.ViewModel;
 
@@ -28,4 +29,8 @@ public class BelongingViMo
 
     /// <inheritdoc cref="BelongingM.Where"/>
     public string Where => Belonging.Where;
+
+    /// <inheritdoc cref="BelongingM.Group"/>
+    public GroupId Group => Belonging.Group;
+
 }
