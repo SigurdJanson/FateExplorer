@@ -57,22 +57,22 @@
                         }
                         </MudList>
                     </MudTabPanel>
+                    <MudTabPanel Icon=@Icons.Material.Filled.DensitySmall ToolTip=@l10n["lblAll"]>
+                        <MudList Clickable=true Style="overflow:auto; height:620px">
+                        @foreach (var skill in SkillList)
+                        {
+                            @if (CheckFilter(skill.Name))
+                            {
+                                <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
+                                    CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
+                                    TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] 
+                                    @key=skill.Id /> @*ViewSkill=OnSkillView*@
+                            }
+                        }
+                        </MudList>
+                    </MudTabPanel>
                     @if (SkillDomains is not null && SkillDomains.Count > 1)
                     {
-                        <MudTabPanel Icon=@Icons.Material.Filled.DensitySmall ToolTip=@l10n["lblAll"]>
-                            <MudList Clickable=true Style="overflow:auto; height:620px">
-                            @foreach (var skill in SkillList)
-                            {
-                                @if (CheckFilter(skill.Name))
-                                {
-                                    <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
-                                        CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
-                                        TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] 
-                                        @key=skill.Id /> @*ViewSkill=OnSkillView*@
-                                }
-                            }
-                            </MudList>
-                        </MudTabPanel>
                         @foreach (var d in SkillDomains)
                         {
                         <MudTabPanel Text=@l10n["Check.Skill."+d.ToString()]>
