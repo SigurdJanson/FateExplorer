@@ -239,10 +239,11 @@ class WeightTests
     #endregion
 
 
+
     /*
      * ToString
      */
-    #region TO STRING
+    #region TO_STRING
     [Test]
     //[TestCase(2.7654, "g", ExpectedResult = "2.7654")]
     [TestCase(2.7654, ExpectedResult = "2,7654")]
@@ -274,6 +275,110 @@ class WeightTests
 
         // Assert
         return result;
+    }
+    #endregion
+
+
+
+
+    /*
+     * GENERIC MATHS INTERFACES
+     */
+    #region GENERIC_MATH
+    [Test]
+    [TestCase(2, 2, ExpectedResult = 1)]
+    [TestCase(2, -2, ExpectedResult = -1)]
+    [TestCase(2, 4, ExpectedResult = 0.5)]
+    [TestCase(26, 25, ExpectedResult = 1.04)]
+    [TestCase(2, 1, ExpectedResult = 2)] // Edge case - returns identity
+    public decimal Division_Weight_Int_NotZero(decimal a, int b)
+    {
+        // Arrange
+        Weight A = new(a);
+
+        // Act
+        var result = A / b;
+
+        // Assert
+        return (decimal)result;
+    }
+
+    [Test]
+    [TestCase(2, 2.0, ExpectedResult = 1)]
+    [TestCase(2, -2.0, ExpectedResult = -1)]
+    [TestCase(2, 4.0, ExpectedResult = 0.5)]
+    [TestCase(26, 25.0, ExpectedResult = 1.04)]
+    [TestCase(26, 6.5, ExpectedResult = 4.0)]
+    [TestCase(2, 1.0, ExpectedResult = 2.0)] // Edge case - returns identity
+    public decimal Division_Weight_Double_NotZero(decimal a, decimal b)
+    {
+        // Arrange
+        Weight A = new(a);
+
+        // Act
+        var result = A / b;
+
+        // Assert
+        return (decimal)result;
+    }
+
+    [Test]
+    [TestCase(2, -2, ExpectedResult = -4)]
+    [TestCase(2, 3, ExpectedResult = 6)]
+    [TestCase(26, 25, ExpectedResult = 26*25)]
+    [TestCase(2, 1, ExpectedResult = 2)] // Edge case - returns identity
+    [TestCase(2, 0, ExpectedResult = 0)] // Edge case - returns zero
+    public decimal Multiplication_Weight_Int(decimal a, int b)
+    {
+        // Arrange
+        Weight A = new(a);
+
+        // Act
+        var result = A * b;
+
+        // Assert
+        return (decimal)result;
+    }
+
+    [Test]
+    [TestCase(2, 3.0, ExpectedResult = 6.0)]
+    [TestCase(2, -2.0, ExpectedResult = -4)]
+    [TestCase(26, 6.5, ExpectedResult = 26 * 6.5)]
+    [TestCase(3, 0.33, ExpectedResult = 0.99)] 
+    [TestCase(2, 1.0, ExpectedResult = 2.0)] // Edge case - returns identity
+    [TestCase(2, 0.0, ExpectedResult = 0.0)] // Edge case - returns zero
+    public decimal Multiplication_Weight_Double_NotZero(decimal a, decimal b)
+    {
+        // Arrange
+        Weight A = new(a);
+
+        // Act
+        var result = A * b;
+
+        // Assert
+        return (decimal)result;
+    }
+
+    [Test]
+    [TestCase(2)]
+    [TestCase(-12)]
+    [TestCase(3.3333)]
+    [TestCase(1)] // Edge case - returns identity
+    [TestCase(0)] // Edge case - returns zero
+    public void Addition_AdditiveIdentity(decimal a)
+    {
+        Assert.That(Weight.AdditiveIdentity + new Weight(a), Is.EqualTo(new Weight(a)));
+    }
+
+    [Test]
+    [TestCase(2)]
+    [TestCase(-12)]
+    [TestCase(3.3333)]
+    [TestCase(1)] // Edge case - returns identity
+    [TestCase(0)] // Edge case - returns zero
+    public void Multiplication_MultiplicativeIdentity(decimal a)
+    {
+        Assert.That(Weight.MultiplicativeIdentity * a, Is.EqualTo(new Weight(a)));
     }
     #endregion
 }

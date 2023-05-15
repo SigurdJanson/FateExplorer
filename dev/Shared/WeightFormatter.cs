@@ -61,7 +61,7 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
 
 
     /// <summary>
-    /// Format w <see cref="Weight"/>.
+    /// Format a <see cref="Weight"/>.
     /// </summary>
     /// <param name="format"></param>
     /// <param name="arg"></param>
@@ -82,8 +82,8 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
         Weight w = (Weight)arg;
         string resultString = (thisFmt[0], char.IsUpper(thisFmt[0])) switch
         {
-            ('g', false) => BaseStr(w),
-            ('G', true) => BaseUnitStr(w),
+            ('g', false) => BaseStr(),
+            ('G', true) => BaseUnitStr(),
             ('R', true) => Split(w),
             ('r', false) => Best(w),
             _ => throw new InvalidOperationException("Unknown format string")
@@ -98,18 +98,17 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     /// </summary>
     /// <param name="w">Weight</param>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
-    protected static string BaseStr(Weight w) => $"{(decimal)w}";
+    protected static string BaseStr() => $"{{0:N4}}";
 
 
     /// <summary>
     /// Return a weight in Stones as with an abbreviated unit.
     /// </summary>
-    /// <param name="W">Weight</param>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
-    protected string BaseUnitStr(Weight W)
+    protected string BaseUnitStr()
     {
-        decimal w = (decimal)W;
-        return $"{(decimal)w} {StoneUnit}";
+        //decimal w = (decimal)W;
+        return $"{{0:N4}} {StoneUnit}"; //$"{(decimal)w} {StoneUnit}";
     }
 
     
