@@ -1,8 +1,7 @@
-﻿using FateExplorer.CharacterModel;
-using FateExplorer.GameData;
+﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
-using static FateExplorer.Shared.Check;
+
 
 namespace FateExplorer.RollLogic;
 
@@ -62,7 +61,7 @@ public class RoutineSkillCheckM : CheckBaseM
             RollAttr[a] = ability[a].EffectiveValue;
             RollAttrName[a] = ability[a].ShortName;
         }
-        //Context = context; Already assigned through base
+        //Context = context; // already assigned through base
         Context.OnStateChanged += UpdateAfterModifierChange;
 
         TargetAttr = skill.EffectiveValue;
@@ -86,8 +85,9 @@ public class RoutineSkillCheckM : CheckBaseM
         EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
         if (EffectiveMod.Operator != Modifier.Op.Add) throw new NotImplementedException(); // to be safe
 
-        int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod);
-        RollSuccess.Level Level = QualityLevel > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
+        int Remainder = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
+        //int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod);
+        RollSuccess.Level Level = Remainder > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
 
         Success.Update(Level, Level);
     }
@@ -174,9 +174,11 @@ public class RoutineSkillCheckM : CheckBaseM
     }
 
 
-    public override string ClassificationLabel => "QL";
+    public override string ClassificationLabel => 
+        Success.CurrentLevel == RollSuccess.Level.Success ? "QL" : null;
 
-    public override string Classification => RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod).ToString();
+    public override string Classification =>
+        Success.CurrentLevel == RollSuccess.Level.Success ? RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod).ToString() : null;
 
     public override string ClassificationDescr => null;
 
