@@ -1390,4 +1390,37 @@
   <data name="lblAssetValue" xml:space="preserve">
     <value>Sachwert</value>
   </data>
+  <data name="FateQuote1" xml:space="preserve">
+    <value>Man kann das Schicksal nur erkunden während es sich entfaltet ...</value>
+  </data>
+  <data name="FateQuote2" xml:space="preserve">
+    <value>Schicksal ist, was passiert, während Du eigene Pläne schmiedest.</value>
+  </data>
+  <data name="FateQuote3" xml:space="preserve">
+    <value>Es steht also geschrieben...</value>
+  </data>
+  <data name="FateQuote4" xml:space="preserve">
+    <value>Amor fati</value>
+  </data>
+  <data name="FateQuote5" xml:space="preserve">
+    <value>Das Schicksal soll gar nicht fair sein ... sondern unterhaltsam.</value>
+  </data>
+  <data name="FateQuote6" xml:space="preserve">
+    <value>Das Schicksal mag den Furchtlosen.</value>
+  </data>
+  <data name="FateQuote8" xml:space="preserve">
+    <value>Schicksal steht nicht in den Sternen. Es steht irgendwo auf Seite 42.</value>
+  </data>
+  <data name="FateQuote9" xml:space="preserve">
+    <value>Dein Schicksal ist besiegelt. Genieße es.</value>
+  </data>
+  <data name="FateQuote10" xml:space="preserve">
+    <value>Das Schicksal wirft die Würfel ... und wir spielen.</value>
+  </data>
+  <data name="FateQuote11" xml:space="preserve">
+    <value>Das Schicksal schert sich nicht um Dich.</value>
+  </data>
+  <data name="FateQuote12" xml:space="preserve">
+    <value>Selbst der Kleinste kann den Lauf des Schicksals ändern.</value>
+  </data>
 </root>

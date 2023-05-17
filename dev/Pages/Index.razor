@@ -1,94 +1,111 @@
 ﻿@page "/"
 
-<MudContainer Class="mt-16 px-8"  MaxWidth=MaxWidth.Medium>
+@inject IStringLocalizer<App> l10n
+
+
+<MudContainer Class="mt-8 px-8"  MaxWidth=MaxWidth.Medium>
     <MudGrid Justify=Justify.Center>
         <MudItem xs=12 xxl=12>
             <MudContainer Fixed=true>
-                <div Class="pa-4" Style="height: 12rem; align-content:center">
+                <div Class="pa-4" Style="height:9rem; align-content:center">
                     <img src="img/FateExplorer_Blood_Logo.svg" style="width:100%;max-width:100%;max-height:100%;vertical-align: middle;" alt="Fate Explorer Logo" />
                 </div>
             </MudContainer>
+            <MudText Typo=Typo.body1 Align=Align.Center>
+                @Quote
+            </MudText>
         </MudItem>
+
         <MudItem xs=12>
-            <MudText Typo=Typo.body1 Align=Align.Center>What do you need it for?</MudText>
+            <MudPaper Class="pa-8 mud-theme-primary">
+                <MudGrid>
+                    <MudItem xs="12">
+                            <InputFile id="CharacterFileInput" OnChange="UploadCharacterFile" hidden />
+                            <MudStack Row=true Class="pb-8">
+                                <MudFab HtmlTag="label" Size=Size.Large
+                                        Variant=Variant.Filled Color=Color.Secondary Class="rounded-0" FullWidth=true
+                                        StartIcon=@Icons.Material.Filled.CloudUpload
+                                        for="CharacterFileInput">
+                                    @l10n["btnUploadFile"]
+                                </MudFab>
+                                <MudStack>
+                                    <MudText Typo=Typo.h5>@l10n["lblNoCharacter"]</MudText>
+                                    <MudText Typo=Typo.body2>@l10n["msgLoadCharacterToUse"]</MudText>
+                                </MudStack>
+                            </MudStack>
+                            <div>
+                            <MudDivider Class="pt-8" />
+                            </div>
+                    </MudItem>
+
+                    <MudItem xs=12>
+                        <MudText Typo=Typo.body1 Align=Align.Center>What do you need Fate Explorer for?</MudText>
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudCarousel Class="mud-width-full" Style="height:200px;"
+                                     ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=false TData="object"
+                                     UncheckedIcon=@Icons.Material.Outlined.Visibility CheckedIcon=@Icons.Material.Filled.Visibility>
+                            <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
+                                @*<div class="d-flex" style="height:100%">*@
+                                    <MudStack Class="py-2 px-8" Row=true>
+                                    <img src="./img/fe_unicorn.webp" style="width:500px;object-fit: contain;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
+                                        <MudText>Smart character sheet</MudText>
+                                        <MudText Typo="Typo.h6">Focus on your character</MudText>
+                                        <MudText Typo="Typo.body2">
+                                            Fate Explorer is your smart character sheet with the intention to
+                                            relieve you of many tasks. You can create characters with the tool
+                                            Optolith and play with them with Fate Explorer.
+                                        </MudText>
+                                    </MudStack>
+                                    </MudStack>
+                                @*</div>*@
+                            </MudCarouselItem>
+                            <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
+                                @*<div class="d-flex" style="height:100%">*@
+                                    <MudStack Class="py-2 px-8" Row=true>
+                                    <img src="./img/fe_dragon.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
+                                        <MudText>Smoother game play</MudText>
+                                        <MudText Typo="Typo.h6">Stop searching, start finding</MudText>
+                                        <MudText Typo="Typo.body2">
+                                            Less googling or browsing through books to find what you need.
+                                            Fate Explorer helps game masters and players makes information
+                                            easily accessible.
+                                        </MudText>
+                                    </MudStack>
+                                    </MudStack>
+                                @*</div>*@
+                            </MudCarouselItem>
+                            <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
+                                @*<div class="d-flex" style="height:100%">*@
+                                    <MudStack Class="py-2 px-8" Row=true>
+                                    <img src="./img/fe_spider.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
+                                        <MudText>What you need to know</MudText>
+                                        <MudText Typo="Typo.h6">Enrich your game play</MudText>
+                                        <MudText Typo="Typo.body2">
+                                            Find relevant knowledge about the vast DSA world that supports your
+                                            game play. With in-app information and references to the Ulisses Wiki
+                                            you can get lots of details.
+                                        </MudText>
+                                    </MudStack>
+                                    </MudStack>
+                                @*</div>*@
+                            </MudCarouselItem>
+                        </MudCarousel>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
         </MudItem>
-        <MudItem xs=4>
 
-            <MudCard Outlined=true>
-                <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Smart character sheet</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent>
-                    <MudText>Focus on your character.</MudText>
-                </MudCardContent>
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">
-                        Fate Explorer is your smart character sheet with the intention to
-                        relieve you of many tasks. You can create characters with the tool 
-                        Optolith and play with them with Fate Explorer.
-                    </MudText>
-                </MudCardContent>
-@*                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Goto Character</MudButton>
-                </MudCardActions>*@
-            </MudCard>
 
-        </MudItem>
-        <MudItem xs=4>
 
-            <MudCard Outlined=true>
-                <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Smoother game play</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent>
-                    <MudText>Stop searching, start finding.</MudText>
-                </MudCardContent>
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">
-                        Less googling or browsing through books to find what you need.
-                        Fate Explorer helps game masters and players makes information
-                        easily accessible.
-                    </MudText>
-                </MudCardContent>
-@*                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Goto Bazaar</MudButton>
-                </MudCardActions>*@
-            </MudCard>
-
-        </MudItem>
-        <MudItem xs=4>
-
-            <MudCard Outlined=true>
-                <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Enrich your game play</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent>
-                    <MudText>What you need to know.</MudText>
-                </MudCardContent>
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">
-                        Find relevant knowledge about the vast DSA world that supports your
-                        game play. With in-app information and references to the Ulisses Wiki
-                        you can get lots of details.
-                    </MudText>
-                </MudCardContent>
-@*                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Goto Bazaar</MudButton>
-                </MudCardActions>*@
-            </MudCard>
-
-        </MudItem>
-        <MudItem xs=1></MudItem>
-        <MudItem xs=@(12-2*1)>
-            <MudPaper Class="pa-4" Outlined=true Elevation=0>
+        <MudItem xs=12>
+            <MudPaper Class="pa-4" Elevation=0>
                 <MudText Typo="Typo.body1">
-                    Please note that Fate Explorer uses cookies to store the state of app and character's.
+                    Please note that Fate Explorer uses cookies to store the state of app and characters.
                 </MudText>
                 <MudText Typo="Typo.body2" Class="mt-1">
                     That includes: the current date you set and the app settings. Also, when you re-load a character
@@ -107,7 +124,21 @@
                 </MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs=1></MudItem>
     </MudGrid>
 </MudContainer>
 
+@code
+{
+    private const int MaxQuotes = 1^2; // number of available quotes
+    private string Quote { get; set; }
+    private async Task UploadCharacterFile(InputFileChangeEventArgs e) { /*TODO: IMPLEMENT*/ }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Random rnd = new Random();
+        int Nr = rnd.Next(1, MaxQuotes);
+        Quote = l10n["FateQuote"+Nr];
+    }
+}

@@ -1459,4 +1459,37 @@
   <data name="lblAssetValue" xml:space="preserve">
     <value>Asset Value</value>
   </data>
+  <data name="FateQuote1" xml:space="preserve">
+    <value>One can only explore fate as it unfolds ...</value>
+  </data>
+  <data name="FateQuote2" xml:space="preserve">
+    <value>Fate is what happens to you while you're making other plans.</value>
+  </data>
+  <data name="FateQuote3" xml:space="preserve">
+    <value>It is written then...</value>
+  </data>
+  <data name="FateQuote4" xml:space="preserve">
+    <value>Amor fati</value>
+  </data>
+  <data name="FateQuote5" xml:space="preserve">
+    <value>Fate is not meant to be fair ... but entertaining.</value>
+  </data>
+  <data name="FateQuote6" xml:space="preserve">
+    <value>Fate loves the fearless.</value>
+  </data>
+  <data name="FateQuote8" xml:space="preserve">
+    <value>Fate isn't in the stars. It's somewhere on page 42.</value>
+  </data>
+  <data name="FateQuote9" xml:space="preserve">
+    <value>Your fate is sealed. Enjoy it.</value>
+  </data>
+  <data name="FateQuote10" xml:space="preserve">
+    <value>Fate rolls the dice ... and we play.</value>
+  </data>
+  <data name="FateQuote11" xml:space="preserve">
+    <value>Fate does not care about you.</value>
+  </data>
+  <data name="FateQuote12" xml:space="preserve">
+    <value>Even the smallest can change the course of fate.</value>
+  </data>
 </root>
