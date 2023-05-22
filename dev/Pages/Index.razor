@@ -53,7 +53,7 @@
                                      UncheckedIcon=@Icons.Material.Outlined.Visibility CheckedIcon=@Icons.Material.Filled.Visibility>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
                                     <MudStack Class="py-2 px-8" Row=true>
-                                    <img src="./img/fe_unicorn.webp" style="width:500px;object-fit: contain;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <img src="./img/fe_unicorn.webp" style=@ImgStyle alt=@l10n["altImgUnicorn"] />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
                                         <MudText>@l10n["lblSmartSheet"]</MudText>
                                         <MudText Typo="Typo.h6">@l10n["lblCharacterFocus"]</MudText>
@@ -65,7 +65,7 @@
                             </MudCarouselItem>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
                                     <MudStack Class="py-2 px-8" Row=true>
-                                    <img src="./img/fe_dragon.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <img src="./img/fe_dragon.webp" style=@ImgStyle alt=@l10n["altImgDragon"] />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
                                         <MudText>@l10n["lblSmoothGamePlay"]</MudText>
                                         <MudText Typo="Typo.h6">@l10n["lblStartFinding"]</MudText>
@@ -77,7 +77,7 @@
                             </MudCarouselItem>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
                                     <MudStack Class="py-2 px-8" Row=true>
-                                    <img src="./img/fe_spider.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
+                                    <img src="./img/fe_spider.webp" style=@ImgStyle alt=@l10n["altImgSpider"] />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
                                         <MudText>@l10n["lblNeedToKnow"]</MudText>
                                         <MudText Typo="Typo.h6">@l10n["lblRichGamePlay"]</MudText>
@@ -109,6 +109,7 @@
 
 @code
 {
+    private const string ImgStyle = "width:500px;object-fit: contain;max-width:20%;max-height:100%;vertical-align:middle;";
     private const int MaxQuotes = 1^2; // number of available quotes
     private string Quote { get; set; }
 

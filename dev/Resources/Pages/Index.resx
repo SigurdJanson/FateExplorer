@@ -208,4 +208,13 @@
   <data name="btnUpdate" xml:space="preserve">
     <value>Update now</value>
   </data>
+  <data name="altImgSpider" xml:space="preserve">
+    <value>Large spider</value>
+  </data>
+  <data name="altImgDragon" xml:space="preserve">
+    <value>Dragon shows threatening gesture</value>
+  </data>
+  <data name="altImgUnicorn" xml:space="preserve">
+    <value>Rearing  white unicorn</value>
+  </data>
 </root>

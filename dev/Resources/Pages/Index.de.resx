@@ -208,4 +208,13 @@
   <data name="btnPostpone" xml:space="preserve">
     <value>Vertagen</value>
   </data>
+  <data name="altImgUnicorn" xml:space="preserve">
+    <value>Aufbäumendes weißes Einhorn</value>
+  </data>
+  <data name="altImgDragon" xml:space="preserve">
+    <value>Drachen zeigt Drohgebärde</value>
+  </data>
+  <data name="altImgSpider" xml:space="preserve">
+    <value>Große Spinne</value>
+  </data>
 </root>
