@@ -216,10 +216,6 @@
   <data name="btnReset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
-  <data name="btnUploadFile" xml:space="preserve">
-    <value>Datei laden</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="CHA" xml:space="preserve">
     <value>CH</value>
     <comment>Abilities</comment>
@@ -509,10 +505,6 @@
     <value>Neuer Würfelbecher</value>
     <comment>DlgFreeDiceCup</comment>
   </data>
-  <data name="lblNoCharacter" xml:space="preserve">
-    <value>Keine Charakterdaten vorhanden</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="lblNondominantHand" xml:space="preserve">
     <value>Nicht-dominante Hand</value>
   </data>
@@ -707,14 +699,6 @@
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
   </data>
-  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
-    <value>Beim Import gepatzert. Ursache: {0}</value>
-    <comment>SkeletonNoCharacterData</comment>
-  </data>
-  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
-    <value>Beim Import gepatzert. Ursache unbekannt.</value>
-    <comment>SkeletonNoCharacterData</comment>
-  </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} für {1} ist nicht implementiert</value>
     <comment>Fight</comment>
@@ -734,10 +718,6 @@
   <data name="msgFindAtUlissesWiki" xml:space="preserve">
     <value>Suche den Gegenstand im Ulisses wiki</value>
     <comment>Shop</comment>
-  </data>
-  <data name="msgLoadCharacterToUse" xml:space="preserve">
-    <value>Du kannst Heldendateien aus der Optolith-App laden</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="msgMaxCarryExceeded" xml:space="preserve">
     <value>Der Held erleidet eventuell einen Malus, denn das getragene Gewicht übersteigt seine Tragkraft.</value>
@@ -771,10 +751,6 @@
   </data>
   <data name="msgShowDetails" xml:space="preserve">
     <value>Details anzeigen</value>
-  </data>
-  <data name="msgWrongContentType" xml:space="preserve">
-    <value>Diese App erwartet eine JSON Datei. Die angegebene Datei ist vom Typ  {0}.</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>Über FateExplorer</value>
@@ -1390,37 +1366,7 @@
   <data name="lblAssetValue" xml:space="preserve">
     <value>Sachwert</value>
   </data>
-  <data name="FateQuote1" xml:space="preserve">
-    <value>Man kann das Schicksal nur erkunden während es sich entfaltet ...</value>
-  </data>
-  <data name="FateQuote2" xml:space="preserve">
-    <value>Schicksal ist, was passiert, während Du eigene Pläne schmiedest.</value>
-  </data>
-  <data name="FateQuote3" xml:space="preserve">
-    <value>Es steht also geschrieben...</value>
-  </data>
-  <data name="FateQuote4" xml:space="preserve">
-    <value>Amor fati</value>
-  </data>
-  <data name="FateQuote5" xml:space="preserve">
-    <value>Das Schicksal soll gar nicht fair sein ... sondern unterhaltsam.</value>
-  </data>
-  <data name="FateQuote6" xml:space="preserve">
-    <value>Das Schicksal mag den Furchtlosen.</value>
-  </data>
-  <data name="FateQuote8" xml:space="preserve">
-    <value>Schicksal steht nicht in den Sternen. Es steht irgendwo auf Seite 42.</value>
-  </data>
-  <data name="FateQuote9" xml:space="preserve">
-    <value>Dein Schicksal ist besiegelt. Genieße es.</value>
-  </data>
-  <data name="FateQuote10" xml:space="preserve">
-    <value>Das Schicksal wirft die Würfel ... und wir spielen.</value>
-  </data>
-  <data name="FateQuote11" xml:space="preserve">
-    <value>Das Schicksal schert sich nicht um Dich.</value>
-  </data>
-  <data name="FateQuote12" xml:space="preserve">
-    <value>Selbst der Kleinste kann den Lauf des Schicksals ändern.</value>
+  <data name="msgUpdateAvailable" xml:space="preserve">
+    <value>Eine neue Version des Fate Explorers ist verfügbar. Aktualisieren oder verschieben?</value>
   </data>
 </root>

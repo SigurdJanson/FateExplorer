@@ -4,7 +4,7 @@
 @using System.IO
 
 @inject ISnackbar Snackbar
-@inject IStringLocalizer<App> l10n
+@inject IStringLocalizer<Index> l10n
 @inject ITheHeroViMo Hero
 
 
@@ -44,7 +44,7 @@
                     </MudItem>
 
                     <MudItem xs=12>
-                        <MudText Typo=Typo.body1 Align=Align.Center>What do you need Fate Explorer for?</MudText>
+                        <MudText Typo=Typo.body1 Align=Align.Center>@l10n["txtTeaserQuestion"]</MudText>
                     </MudItem>
 
                     <MudItem xs="12">
@@ -52,52 +52,40 @@
                                      ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=false TData="object"
                                      UncheckedIcon=@Icons.Material.Outlined.Visibility CheckedIcon=@Icons.Material.Filled.Visibility>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
-                                @*<div class="d-flex" style="height:100%">*@
                                     <MudStack Class="py-2 px-8" Row=true>
                                     <img src="./img/fe_unicorn.webp" style="width:500px;object-fit: contain;max-width:20%;max-height:100%;vertical-align:middle;" />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
-                                        <MudText>Smart character sheet</MudText>
-                                        <MudText Typo="Typo.h6">Focus on your character</MudText>
+                                        <MudText>@l10n["lblSmartSheet"]</MudText>
+                                        <MudText Typo="Typo.h6">@l10n["lblCharacterFocus"]</MudText>
                                         <MudText Typo="Typo.body2">
-                                            Fate Explorer is your smart character sheet with the intention to
-                                            relieve you of many tasks. You can create characters with the tool
-                                            Optolith and play with them with Fate Explorer.
+                                            @l10n["txtSmartSheet"]
                                         </MudText>
                                     </MudStack>
                                     </MudStack>
-                                @*</div>*@
                             </MudCarouselItem>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
-                                @*<div class="d-flex" style="height:100%">*@
                                     <MudStack Class="py-2 px-8" Row=true>
                                     <img src="./img/fe_dragon.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
-                                        <MudText>Smoother game play</MudText>
-                                        <MudText Typo="Typo.h6">Stop searching, start finding</MudText>
+                                        <MudText>@l10n["lblSmoothGamePlay"]</MudText>
+                                        <MudText Typo="Typo.h6">@l10n["lblStartFinding"]</MudText>
                                         <MudText Typo="Typo.body2">
-                                            Less googling or browsing through books to find what you need.
-                                            Fate Explorer helps game masters and players makes information
-                                            easily accessible.
+                                            @l10n["txtSmoothGamePlay"]
                                         </MudText>
                                     </MudStack>
                                     </MudStack>
-                                @*</div>*@
                             </MudCarouselItem>
                             <MudCarouselItem Color=Color.Secondary Transition=Transition.Slide>
-                                @*<div class="d-flex" style="height:100%">*@
                                     <MudStack Class="py-2 px-8" Row=true>
                                     <img src="./img/fe_spider.webp" style="width:500px;max-width:20%;max-height:100%;vertical-align:middle;" />
                                     <MudStack Class="py-2 px-8" Justify=Justify.FlexStart>
-                                        <MudText>What you need to know</MudText>
-                                        <MudText Typo="Typo.h6">Enrich your game play</MudText>
+                                        <MudText>@l10n["lblNeedToKnow"]</MudText>
+                                        <MudText Typo="Typo.h6">@l10n["lblRichGamePlay"]</MudText>
                                         <MudText Typo="Typo.body2">
-                                            Find relevant knowledge about the vast DSA world that supports your
-                                            game play. With in-app information and references to the Ulisses Wiki
-                                            you can get lots of details.
+                                            @l10n["txtRichGamePlay"]
                                         </MudText>
                                     </MudStack>
                                     </MudStack>
-                                @*</div>*@
                             </MudCarouselItem>
                         </MudCarousel>
                     </MudItem>
@@ -109,24 +97,11 @@
 
         <MudItem xs=12>
             <MudPaper Class="pa-4" Elevation=0>
-                <MudText Typo="Typo.body1">
-                    Please note that Fate Explorer uses cookies to store the state of app and characters.
-                </MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">
-                    That includes: the current date you set and the app settings. Also, when you re-load a character
-                    Fate Explorer may recognize it and load the last know health points and other values
-                    you may have changed.
-                </MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">
-                    Fate Explorer does no tracking or other stuff with these cookies. Their only purpose is your convenience.
-                </MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">
-                    It the moment it is not possible to use Fate Explorer without this feature. By continuing you 
-                    accept the fact that data is stored on your computer.
-                </MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">
-                    Please apologize that I talk to you like that but I am obliged to do so.
-                </MudText>
+                <MudText Typo="Typo.body1">@l10n["Cookie1"]</MudText>
+                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie2"]</MudText>
+                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie3"]</MudText>
+                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie4"]</MudText>
+                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie5"]</MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>
@@ -136,6 +111,12 @@
 {
     private const int MaxQuotes = 1^2; // number of available quotes
     private string Quote { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
     private async Task UploadCharacterFile(InputFileChangeEventArgs e)
     {
         bool IsExceptionFree = true;

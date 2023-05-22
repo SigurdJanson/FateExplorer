@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="txtLogo" xml:space="preserve">
+    <value>Fate Explorer Logo</value>
+  </data>
+  <data name="FateQuote1" xml:space="preserve">
+    <value>One can only explore fate as it unfolds ...</value>
+  </data>
+  <data name="FateQuote10" xml:space="preserve">
+    <value>Fate rolls the dice ... and we play.</value>
+  </data>
+  <data name="FateQuote11" xml:space="preserve">
+    <value>Fate does not care about you.</value>
+  </data>
+  <data name="FateQuote12" xml:space="preserve">
+    <value>Even the smallest can change the course of fate.</value>
+  </data>
+  <data name="FateQuote2" xml:space="preserve">
+    <value>Fate is what happens to you while you're making other plans.</value>
+  </data>
+  <data name="FateQuote3" xml:space="preserve">
+    <value>It is written then...</value>
+  </data>
+  <data name="FateQuote4" xml:space="preserve">
+    <value>Amor fati</value>
+  </data>
+  <data name="FateQuote5" xml:space="preserve">
+    <value>Fate is not meant to be fair ... but entertaining.</value>
+  </data>
+  <data name="FateQuote6" xml:space="preserve">
+    <value>Fate loves the fearless.</value>
+  </data>
+  <data name="FateQuote8" xml:space="preserve">
+    <value>Fate isn't in the stars. It's somewhere on page 42.</value>
+  </data>
+  <data name="FateQuote9" xml:space="preserve">
+    <value>Your fate is sealed. Enjoy it.</value>
+  </data>
+  <data name="msgWrongContentType" xml:space="preserve">
+    <value>This app expects a JSON file. The given file is of type {0}.</value>
+    
+  </data>
+  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
+    <value>Import botch. Source of the error: {0}</value>
+    
+  </data>
+  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
+    <value>Import botch. Reason unclear.</value>
+    
+  </data>
+  <data name="btnUploadFile" xml:space="preserve">
+    <value>Upload file</value>
+    
+  </data>
+  <data name="lblNoCharacter" xml:space="preserve">
+    <value>No character data available</value>
+    
+  </data>
+  <data name="msgLoadCharacterToUse" xml:space="preserve">
+    <value>You can import character files created by the Optolith app</value>
+    
+  </data>
+  <data name="lblSmartSheet" xml:space="preserve">
+    <value>Smart character sheet</value>
+  </data>
+  <data name="lblCharacterFocus" xml:space="preserve">
+    <value>Focus on your character</value>
+  </data>
+  <data name="txtSmartSheet" xml:space="preserve">
+    <value>Fate Explorer is your smart character sheet with the intention to relieve you of many tasks. You can create characters with the tool Optolith and play with them with Fate Explorer.</value>
+  </data>
+  <data name="txtTeaserQuestion" xml:space="preserve">
+    <value>What do you need Fate Explorer for?</value>
+  </data>
+  <data name="lblSmoothGamePlay" xml:space="preserve">
+    <value>Smoother game play</value>
+  </data>
+  <data name="lblStartFinding" xml:space="preserve">
+    <value>Stop searching, start finding</value>
+  </data>
+  <data name="txtSmoothGamePlay" xml:space="preserve">
+    <value>Less googling or browsing through books to find what you need. Fate Explorer helps game masters and players makes information easily accessible.</value>
+  </data>
+  <data name="lblRichGamePlay" xml:space="preserve">
+    <value>Enrich your game play</value>
+  </data>
+  <data name="lblNeedToKnow" xml:space="preserve">
+    <value>What you need to know</value>
+  </data>
+  <data name="txtRichGamePlay" xml:space="preserve">
+    <value>Find relevant knowledge about the vast DSA world that supports your game play. With in-app information and references to the Ulisses Wiki you can get lots of details.</value>
+  </data>
+  <data name="Cookie1" xml:space="preserve">
+    <value>Please note that Fate Explorer uses cookies to store the state of app and characters.</value>
+  </data>
+  <data name="Cookie2" xml:space="preserve">
+    <value>That includes: the current date you set and the app settings. Also, when you re-load a character Fate Explorer may recognize it and load the last known health points and other values you may have changed.</value>
+  </data>
+  <data name="Cookie3" xml:space="preserve">
+    <value>Fate Explorer does no tracking or other stuff with these cookies. Their only purpose is your convenience.</value>
+  </data>
+  <data name="Cookie4" xml:space="preserve">
+    <value>At this moment it is not possible to use Fate Explorer without this feature. By continuing you  accept the fact that data is stored on your computer.</value>
+  </data>
+  <data name="Cookie5" xml:space="preserve">
+    <value>Please apologize that I talk to you like a Horasian Comte but  here at this point I am obliged to do so.</value>
+  </data>
+  <data name="btnPostpone" xml:space="preserve">
+    <value>Postpone</value>
+  </data>
+  <data name="btnUpdate" xml:space="preserve">
+    <value>Update now</value>
+  </data>
+</root>
