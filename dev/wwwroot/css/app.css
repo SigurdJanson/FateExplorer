@@ -60,3 +60,7 @@ a, .btn-link {
     font-family: Roboto, Arial;
 }
 
+.fe-searchhighlight {
+    background-color: transparent;
+    font-weight: bold;
+}

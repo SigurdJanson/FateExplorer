@@ -60,7 +60,7 @@
                         <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
                             <MudText Typo=Typo.body1 GutterBottom=false>
                                 <MudHighlighter Text=@i.Name HighlightedText=@SearchTerm 
-                                    Class="mud-primary-text" Style="background-color:transparent;font-weight:bold"/> [<span>@i.Amount</span>]
+                                    Class="mud-primary-text fe-searchhighlight"/> [<span>@i.Amount</span>]
                             </MudText>
                             <MudText Typo=Typo.body2 GutterBottom=false>
                                 <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price @l10n["abbrSilverthaler"]</span>
@@ -79,7 +79,7 @@
                             <MudListItem Icon=@CombatBranchIcon(w.Branch) IconColor=Color.Dark>
                                 <MudText Typo=Typo.body1 GutterBottom=false>
                                     <MudHighlighter Text=@w.Name HighlightedText=@SearchTerm
-                                            Class="mud-primary-text" Style="background-color:transparent;font-weight:bold" /> [1]
+                                            Class="mud-primary-text fe-searchhighlight" /> [1]
                                 </MudText>
                                 @*<MudText Typo=Typo.body2 GutterBottom=false>
                                     <span>??? Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] ??? @l10n["abbrSilverthaler"]</span>

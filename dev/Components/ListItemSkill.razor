@@ -5,7 +5,7 @@
 <MudListItem @key=Skill.Id DisableRipple=true>
     <div class="d-flex align-center" >
     <div>
-        <MudHighlighter Class="mud-primary-text" Style="background-color:transparent;font-weight:bold"
+        <MudHighlighter Class="mud-primary-text fe-searchhighlight" 
                         Text=@Skill.Name HighlightedText=@TextFilter />
         <MudText Typo=Typo.body2 GutterBottom=false>
             <span style=@($"color:var(--mud-palette-grey-default);")>@l10n["lblSkillAbbr"]</span>
