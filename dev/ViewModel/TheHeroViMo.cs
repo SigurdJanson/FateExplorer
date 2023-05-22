@@ -1,7 +1,6 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
-using FateExplorer.Pages;
 using FateExplorer.Shared;
 using FateExplorer.Shared.ClientSideStorage;
 using System;
