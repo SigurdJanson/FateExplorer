@@ -40,7 +40,7 @@
 
                     <MudItem xs=4 Class="mb-3">
                         <MudField Label=@l10n["lblAssetValue"] Variant=Variant.Text DisableUnderLine=true>
-                            @AssetValue.ToString("N2") @l10n["abbrSilverthaler"] @*Use `Money.Format(...)` here*@
+                            @Hero.AssetValue.ToString("N2") @l10n["abbrSilverthaler"] @*TODO: Use `Money.Format(...)` here*@
                         </MudField>
                     </MudItem>
                 </MudGrid>
@@ -79,22 +79,6 @@
 @code {
     private string SearchTerm { get; set; } = "";
 
-    /// <summary>
-    /// What is the combined value of all assets?
-    /// </summary>
-    private decimal assetValue = -1;
-    private decimal AssetValue
-    {
-        get
-        {
-            if (assetValue < 0)
-            {
-                foreach (var i in Hero.GetBelongings())
-                    assetValue += i.Price;
-            }
-            return assetValue;
-        }
-    }
 
     /// <summary>
     ///

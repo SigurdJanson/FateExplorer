@@ -37,16 +37,25 @@ namespace FateExplorer.ViewModel
         decimal WhatCanCarry { get; }
         /// <value>The weight the character can lift (for a shorter period) (read-only)</value>
         decimal WhatCanLift { get; }
-        /// <summary>The characters movement value</summary>
-        int Movement { get; }
 
+        /// <summary>
+        /// The cash money carried by the character.
+        /// </summary>
         decimal Money { get; set; }
 
         /// <summary>
-        /// Get the character's money as formatted string
+        /// Get a formatted string of the character's total monetary wealth (excl. assets).
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A human-readable string</returns>
         string FormatMoney();
+
+        /// <summary>
+        /// What is the combined value of all assets?
+        /// </summary>
+        decimal AssetValue { get; }
+
+        /// <summary>The characters movement value</summary>
+        int Movement { get; }
 
         /// <summary>
         /// (Effective) Initiative value of the character

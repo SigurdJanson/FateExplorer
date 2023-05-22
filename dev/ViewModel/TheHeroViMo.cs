@@ -1,6 +1,7 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.CharacterModel;
 using FateExplorer.GameData;
+using FateExplorer.Pages;
 using FateExplorer.Shared;
 using FateExplorer.Shared.ClientSideStorage;
 using System;
@@ -212,7 +213,31 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
-        #endregion
+
+        private decimal assetValue = -1;
+        /// <summary>
+        /// What is the combined value of all assets?
+        /// </summary>
+        public decimal AssetValue
+        {
+            get
+            {
+                if (assetValue < 0)
+                {
+                    assetValue = 0;
+                    foreach (var i in characterM.Belongings.Values)
+                        assetValue += i.Price;
+                }
+                return assetValue;
+            }
+        }
+
+
+        public IEnumerable<BelongingViMo> GetBelongings()
+        {
+            foreach (var i in characterM.Belongings.Values.OrderBy(x => x.Name))
+                yield return new BelongingViMo(i);
+        }
 
 
         /// <inheritdoc/>
@@ -220,6 +245,10 @@ namespace FateExplorer.ViewModel
 
         /// <inheritdoc/>
         public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
+        #endregion
+
+
 
         /// <inheritdoc/>
         public int Movement { get => characterM.Movement.Value; }
@@ -678,12 +707,6 @@ namespace FateExplorer.ViewModel
             }
         }
 
-
-        public IEnumerable<BelongingViMo> GetBelongings()
-        {
-            foreach (var i in characterM.Belongings.Values.OrderBy(x => x.Name))
-                yield return new BelongingViMo(i);
-        }
 
         #endregion
     }
