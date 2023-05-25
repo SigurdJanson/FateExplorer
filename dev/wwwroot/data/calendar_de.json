@@ -90,7 +90,7 @@
             {"month":  5, "day":  1, "duration": 1,  "name": "Totenfest (Tag der Toten)", "descr": "Gebete für alle Verstorbenen"},
             {"month":  5, "day":  2, "duration": 7,  "name": "Gauklertreffen in Khunchom"},
             {"month":  5, "day":  2, "duration": 4,  "name": "Warenschau und große Sklavenauktion in Al'Anfa"},
-            {"month":  5, "day":  8, "duration": 1,  "name": "Feterdhinstag, Khunchom"},
+            {"month":  5, "day":  8, "duration": 1,  "name": "Feterdhinstag, Khunchom", "descr": "Höhepunkt des Allaventurisches Gauklertreffen ist der große und oftmals anarchische Umzug der Gaukler durch die Stadt an dessen letztem Tag."},
             {"month":  5, "day": 22, "duration": 1,  "name": "Fünfter Rastullahellah"},
             {"month":  5, "day": 22, "duration": 1,  "name": "Namensfest, Nostria", "descr": "Gedenktag für gefallene Helden. Die Namen der Helden sind auf einer Basaltplatte in Yoledamm verewigt. Jedes Jahr wird ein Namenshüter gewählt, der die Platte pflegt."},
             {"month":  5, "day": 23, "duration": 1,  "name": "Tsatag Kaiser Hals (v.a. Kosch)"},
