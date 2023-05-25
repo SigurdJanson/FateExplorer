@@ -10,19 +10,19 @@
             {"iid": 7, "name": "Wassertag", "abbr": "Wa", "earthday": "Mittwoch", "earthid": 3}
         ],
         "month": [
-            {"iid": 1, "name": "Praios", "abbr": "Pra", "seasoniid": 1}, 
-            {"iid": 2, "name": "Rondra", "abbr": "Ron", "seasoniid": 1}, 
-            {"iid": 3, "name": "Efferd", "abbr": "Eff", "seasoniid": 2}, 
-            {"iid": 4, "name": "Travia", "abbr": "Tra", "seasoniid": 2}, 
-            {"iid": 5, "name": "Boron", "abbr": "Bor", "seasoniid": 2}, 
-            {"iid": 6, "name": "Hesinde", "abbr": "Hes", "seasoniid": 3}, 
-            {"iid": 7, "name": "Firun", "abbr": "Fir", "seasoniid": 3}, 
-            {"iid": 8, "name": "Tsa", "abbr": "Tsa", "seasoniid": 3}, 
-            {"iid": 9, "name": "Phex", "abbr": "Phx", "seasoniid": 4}, 
-            {"iid": 10, "name": "Peraine", "abbr": "Per", "seasoniid": 4}, 
-            {"iid": 11, "name": "Ingerimm", "abbr": "Ing", "seasoniid": 4}, 
-            {"iid": 12, "name": "Rahja", "abbr": "Rah", "seasoniid": 1},
-            {"iid": 13, "name": "Namenlose Tage", "abbr": "Nal", "seasoniid": 1}
+            {"iid": 1, "name": "Praios", "abbr": "Pra", "seasoniid": 1, "days": 30},
+            {"iid": 2, "name": "Rondra", "abbr": "Ron", "seasoniid": 1, "days": 30},
+            {"iid": 3, "name": "Efferd", "abbr": "Eff", "seasoniid": 2, "days": 30},
+            {"iid": 4, "name": "Travia", "abbr": "Tra", "seasoniid": 2, "days": 30},
+            {"iid": 5, "name": "Boron", "abbr": "Bor", "seasoniid": 2, "days": 30},
+            {"iid": 6, "name": "Hesinde", "abbr": "Hes", "seasoniid": 3, "days": 30},
+            {"iid": 7, "name": "Firun", "abbr": "Fir", "seasoniid": 3, "days": 30},
+            {"iid": 8, "name": "Tsa", "abbr": "Tsa", "seasoniid": 3, "days": 30},
+            {"iid": 9, "name": "Phex", "abbr": "Phx", "seasoniid": 4, "days": 30},
+            {"iid": 10, "name": "Peraine", "abbr": "Per", "seasoniid": 4, "days": 30},
+            {"iid": 11, "name": "Ingerimm", "abbr": "Ing", "seasoniid": 4, "days": 30},
+            {"iid": 12, "name": "Rahja", "abbr": "Rah", "seasoniid": 1, "days": 30},
+            {"iid": 13, "name": "Namenlose Tage", "abbr": "Nal", "seasoniid": 1, "days": 5} 
         ],
         "reckoning": [
             {"id": "FB",    "txt+": "BF", "txt-": "v. BF", "correction": -977, "has0": true},

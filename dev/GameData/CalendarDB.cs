@@ -203,6 +203,10 @@ public class MonthEntry
 
     [JsonPropertyName("seasoniid")]
     public int SeasonId { get; set; }
+
+    [JsonPropertyName("days")]
+    public int DaysInMonth { get; set; }
+
 }
 
 
