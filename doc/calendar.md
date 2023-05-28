@@ -307,13 +307,8 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 * | Immanmeisterschaften | TRA Ab 2. Rohalstag zwei Wochen lang | |
 * | Regatta der Sieben Winde auf den Zyklopeninseln | PER letzter Windstag | |
 * PER Mitte	Viehmarkt in Andergast (UdW S. 145)		Andergast
-
-{"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
-{"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
-
-
 * PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
-
+* Markttag im Phex, der auf den 1. Tag eines Monatsfünftels fällt: Horas’ Entrückung. Feiertag im Horasreich.
 
 
 ## Possible Local Additions
