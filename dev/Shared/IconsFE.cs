@@ -101,26 +101,26 @@ public static class IconsFE {
     
 
     // ACTIONS/COMBAT SUCCESS/FAIL/...
-        public static string UnarmedBotch => Prefix + nameof(UnarmedBotch);
-        public static string UnarmedFail => Prefix + nameof(UnarmedFail);
-        public static string UnarmedSuccess => Prefix + nameof(UnarmedSuccess);
-        public static string UnarmedCritical => Prefix + nameof(UnarmedCritical);
-        public static string MeleeBotch => Prefix + nameof(MeleeBotch);
-        public static string MeleeFail => Prefix + nameof(MeleeFail);
-        public static string MeleeSuccess => Prefix + nameof(MeleeSuccess);
-        public static string MeleeCritical => Prefix + nameof(MeleeCritical);
-        public static string RangedBotch => Prefix + nameof(RangedBotch);
-        public static string RangedFail => Prefix + nameof(RangedFail);
-        public static string RangedSuccess => Prefix + nameof(RangedSuccess);
-        public static string RangedCritical => Prefix + nameof(RangedCritical);
-        public static string ParryBotch => Prefix + nameof(ParryBotch);
-        public static string ParryFail => Prefix + nameof(ParryFail);
-        public static string ParrySuccess => Prefix + nameof(ParrySuccess);
-        public static string ParryCritical => Prefix + nameof(ParryCritical);
-        public static string DodgeBotch => Prefix + nameof(DodgeBotch);
-        public static string DodgeFail => Prefix + nameof(DodgeFail);
-        public static string DodgeSuccess => Prefix + nameof(DodgeSuccess);
-        public static string DodgeCritical => Prefix + nameof(DodgeCritical);
+    public static string UnarmedBotch => Prefix + nameof(UnarmedBotch);
+    public static string UnarmedFail => Prefix + nameof(UnarmedFail);
+    public static string UnarmedSuccess => Prefix + nameof(UnarmedSuccess);
+    public static string UnarmedCritical => Prefix + nameof(UnarmedCritical);
+    public static string MeleeBotch => Prefix + nameof(MeleeBotch);
+    public static string MeleeFail => Prefix + nameof(MeleeFail);
+    public static string MeleeSuccess => Prefix + nameof(MeleeSuccess);
+    public static string MeleeCritical => Prefix + nameof(MeleeCritical);
+    public static string RangedBotch => Prefix + nameof(RangedBotch);
+    public static string RangedFail => Prefix + nameof(RangedFail);
+    public static string RangedSuccess => Prefix + nameof(RangedSuccess);
+    public static string RangedCritical => Prefix + nameof(RangedCritical);
+    public static string ParryBotch => Prefix + nameof(ParryBotch);
+    public static string ParryFail => Prefix + nameof(ParryFail);
+    public static string ParrySuccess => Prefix + nameof(ParrySuccess);
+    public static string ParryCritical => Prefix + nameof(ParryCritical);
+    public static string DodgeBotch => Prefix + nameof(DodgeBotch);
+    public static string DodgeFail => Prefix + nameof(DodgeFail);
+    public static string DodgeSuccess => Prefix + nameof(DodgeSuccess);
+    public static string DodgeCritical => Prefix + nameof(DodgeCritical);
     
 
 
