@@ -95,7 +95,8 @@ public class CalendarDB
     /// <summary>
     /// Get the moon phase based on an offset of days
     /// </summary>
-    /// <param name="DaysFromDeath">The distance from the last new moon (i.e. Mada's Death)</param>
+    /// <param name="DaysFromDeath">The distance from the last new moon (i.e. Mada's Death), 
+    /// i.e. the position in the moon cycle.</param>
     /// <returns></returns>
     public MoonPhase GetMoonPhase(int DaysFromDeath)
     {
@@ -103,7 +104,7 @@ public class CalendarDB
             throw new ArgumentOutOfRangeException(nameof(DaysFromDeath));
         if (DaysFromDeath < 0) DaysFromDeath = Generic.MoonphaseDays.Count - DaysFromDeath + 1;
 
-        return (MoonPhase)Generic.MoonphaseDays[DaysFromDeath];
+        return (MoonPhase)Generic.MoonphaseDays[DaysFromDeath] - 1;
     }
 
 
@@ -114,7 +115,7 @@ public class CalendarDB
     /// <returns>A string with the localized name</returns>
     public string GetMoonPhaseName(MoonPhase phase)
     {
-        return Generic.Moonphase.Find(i => i.Iid == (int)phase).Name;
+        return Generic.Moonphase.Find(i => i.Iid-1 == (int)phase).Name;
     }
 
 

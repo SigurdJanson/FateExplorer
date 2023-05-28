@@ -30,6 +30,9 @@ Roll modifiers are applied on several levels:
 2. Character 2: special abilities are handled differently because they apply only depending on the situation.
 3. Asset: weapons may imply modifiers.
 4. Context: the free additive modifier on each character sheet is a context modifier. It is applies last.
+## Enums
+
+* `MoonPhase` + 1 must match the `moonphase/iid` in calendar.json.
 
 
 # Known limitations

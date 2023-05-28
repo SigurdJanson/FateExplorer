@@ -93,7 +93,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 
 
 	public override int GetMonth(DateTime time)
-			{
+	{
 		// Needed to determine leap years
 		GregorianCalendar EarthCalendar = new();
 
@@ -269,13 +269,14 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 
-
-	/// <summary>
-	/// Get icons by moon phase
-	/// </summary>
-	/// <returns>0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
-	/// 9 is half, 11 the phase before new moon</returns>
-	public int GetMoonPhase(DateTime time)
+    //0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
+    // 9 is half, 11 the phase before new moon
+    /// <summary>
+    /// Computes the position in the moon cycle given a date.
+    /// </summary>
+    /// <returns>0 is the first day of the moon cycle (new moon; dead Mada). 
+	/// 14 is the middle of the cycle (full moon; wheel). 27 is the cycle's end.</returns>
+    public int GetMoonCycle(DateTime time)
     {
 		// the 14.04.2022 on Earth; in Aventuria it's the 17th (16! with 1. index == 0) day of the moon phase
 		DateTime Reference = new(2022, 4, 14);

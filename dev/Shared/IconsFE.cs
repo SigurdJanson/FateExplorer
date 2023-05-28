@@ -129,8 +129,9 @@ public static class IconsFE {
     /// <summary>
     /// Get icons by moon phase
     /// </summary>
-    /// <param name="phase">1-12, 1 is new moon (dead mada), 4 is half, 7 is full moon (wheel),, 
-    /// 10 is half, 12 the phase before new moon</param>
+    /// <param name="phase">Current moon phase</param>
     /// <returns></returns>
-    public static string Moon(MoonPhase phase) => Concat($"{nameof(Moon)}Phase{((int)phase)}");
+    /// <remarks>1-12, 1 is new moon (dead mada), 4 is half, 7 is full moon (wheel),
+    /// 10 is half, 12 the phase before new moon. Adapt MoonPhase accordingly.</remarks>
+    public static string Moon(MoonPhase phase) => Concat($"{nameof(Moon)}Phase{(int)phase + 1}");
 }
