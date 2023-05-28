@@ -161,8 +161,13 @@ public class CalendarViMo
         => Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
 
 
-    public (string, string)[] GetHolidays() 
-        => GameData.GetHolidays(Calendar.GetMonth(EffectiveDate), DayOfMonth);
+    public (string, string)[] GetHolidays()
+    {
+        int Month = Calendar.GetMonth(EffectiveDate);
+        DayOfWeek DoW = Calendar.GetDayOfWeek(EffectiveDate);
+        MoonPhase Phase = GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate));
+        return GameData.GetHolidays(Month, DayOfMonth, DoW, Phase);
+    }
 
 
 

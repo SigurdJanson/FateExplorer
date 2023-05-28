@@ -118,6 +118,18 @@ public class CalendarDB
         return Generic.Moonphase.Find(i => i.Iid-1 == (int)phase).Name;
     }
 
+    public (string Name, string Descr)[] GetHolidays(int Month, int Day, DayOfWeek WeekDay, MoonPhase Phase)
+    {
+        if (Month < 1 || Month > 13)
+            throw new ArgumentOutOfRangeException(nameof(Month), Month, "Months must be 1-13");
+
+        List<(string Name, string Descr)> Holidays = new();
+        AddFixedHolidays(Month, Day, ref Holidays);
+        AddLunarHolidays(Month, Day, Phase, ref Holidays);
+        AddWeekHolidays(Month, Day, WeekDay, ref Holidays);
+
+        return Holidays.ToArray();
+    }
 
 
     /// <summary>
@@ -126,23 +138,111 @@ public class CalendarDB
     /// <param name="Month">Month according to FB reckoning</param>
     /// <param name="Day">Day in month according to FB reckoning</param>
     /// <returns>A list of tupels with name and description of the holidays</returns>
-    public (string Name, string Descr)[] GetHolidays(int Month, int Day)
+    public void AddFixedHolidays(int Month, int Day, ref List<(string Name, string Descr)> Holidays)
     {
         if (Month < 1 || Month > 13) 
             throw new ArgumentOutOfRangeException(nameof(Month), Month, "Months must be 1-13");
 
         int DayOfYear = Day + (Month - 1) * 30;
 
-        List<(string Name, string Descr)> Holidays = new();
-        foreach (var h in Generic.Holiday)
+        foreach (var h in Generic.FixedHoliday)
         {
+            if (Month < h.Month || Month > h.Month + 1) continue; // only same or next month (because of carry over effect)
+
             int DayStart = h.Day + (h.Month - 1) * 30;
             int DayEnd = DayStart + h.Duration - 1;
             if (DayOfYear >= DayStart && DayOfYear <= DayEnd)
                 Holidays.Add((h.Name, h.Descr));
         }
-        return Holidays.ToArray();
     }
+
+
+    /// <summary>
+    /// Find the lunar holidays for a given date.
+    /// </summary>
+    /// <param name="Month"></param>
+    /// <param name="Day"></param>
+    /// <param name="Phase"></param>
+    /// <param name="Holidays"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <remarks>The method does not support lunar phases counting from the end of the month. 
+    /// Holidays longer than a single day aren't supported either.</remarks>
+    public void AddLunarHolidays(int Month, int Day, MoonPhase Phase, ref List<(string Name, string Descr)> Holidays)
+    {
+        if (Month < 1 || Month > 13)
+            throw new ArgumentOutOfRangeException(nameof(Month), Month, "Months must be 1-13");
+
+        // Lunar holidays
+        foreach (var h in Generic.LunarHoliday)
+        {
+            if (Month != h.Month) continue;
+            if (h.MoonPhase == (int)Phase + 1) // json counts 1-12; MoonPhase 0-11.
+                if (Day < Generic.MoonphaseDays.Count * h.Day && Day > Generic.MoonphaseDays.Count * (h.Day-1))
+                    Holidays.Add((h.Name, h.Descr));
+        }
+    }
+
+
+    /// <summary>
+    /// Add holidays to th elist which are defined by the n-th week day of the month.
+    /// </summary>
+    /// <param name="Month"></param>
+    /// <param name="Day"></param>
+    /// <param name="WeekDay"></param>
+    /// <param name="Holidays"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <remarks>The method does not support Weekdays counting from the end of the month. 
+    /// Holidays longer than a single day aren't support either when counting backwards.</remarks>
+    public void AddWeekHolidays(int Month, int Day, DayOfWeek WeekDay, ref List<(string Name, string Descr)> Holidays)
+    {
+        if (Month < 1 || Month > 13)
+            throw new ArgumentOutOfRangeException(nameof(Month), Month, "Months must be 1-13");
+        
+        // `DayOfWeek` (0-6) is an Earth thing - the data base uses another notation (1-7)
+        int DereWeekDay = Generic.WeekDays.Find(d => d.Earthid == (int)WeekDay).Iid;
+
+        // Weekday-based movable holidays
+        int WeekLen = Generic.WeekDays.Count;
+        foreach (var h in Generic.WeekHoliday)
+        {
+            if (Month < h.Month) continue; // only same or next month (because of carry over effect)
+
+            if (h.Day >= 0) // n-th week day of month
+            {
+                if (Month > h.Month + 1) continue; // only same or next month (because of carry over effect)
+                if (h.WeekDay == DereWeekDay) // first day of interval
+                {
+                    if (((Day-1) / WeekLen) + 1 == h.Day)
+                        Holidays.Add((h.Name, h.Descr));
+                }
+                else if (h.Duration > 1) // go backwards and try to find the required week day
+                {
+                    int TimeToBefore = DereWeekDay - h.WeekDay;
+                    if (TimeToBefore < 1) TimeToBefore = WeekLen + TimeToBefore;
+                    if (Day - TimeToBefore <= 0) continue; // skip if first holiday of this period is in previous month
+
+                    if (TimeToBefore < h.Duration)
+                    {
+                        if ((Day - TimeToBefore - 1) / WeekLen + 1 == h.Day) // is the the n-th weekday of the month?
+                            Holidays.Add((h.Name, h.Descr));
+                    }
+                }
+            }
+            else // Last n-th week day of month
+            {
+                if (Month != h.Month) continue; // only same or next month (because of carry over effect)
+
+                if (h.WeekDay == DereWeekDay) // first day of interval
+                {
+                    int MonthLen = Generic.Month[Month].DaysInMonth;
+                    if (Day > MonthLen + (WeekLen * h.Day) && Day <= MonthLen + (WeekLen * (h.Day + 1)))
+                        Holidays.Add((h.Name, h.Descr));
+                }
+                // TODO ###################################################
+            }
+        }
+    }
+
 }
 
 
@@ -161,8 +261,16 @@ public class Generic
     [JsonPropertyName("season")]
     public List<SeasonEntry> Season { get; set; }
 
+
     [JsonPropertyName("holiday")]
-    public List<HolidayEntry> Holiday { get; set; }
+    public List<HolidayEntry> FixedHoliday { get; set; }
+
+    [JsonPropertyName("weekholiday")]
+    public List<HolidayWeekdayEntry> WeekHoliday { get; set; }
+
+    [JsonPropertyName("lunarholiday")]
+    public List<HolidayLunarEntry> LunarHoliday { get; set; }
+
 
     [JsonPropertyName("moonphasedays")]
     public List<int> MoonphaseDays { get; set; }
@@ -246,6 +354,48 @@ public class HolidayEntry
     public int Month { get; set; }
 
     [JsonPropertyName("day")]
+    public int Day { get; set; }
+
+    [JsonPropertyName("duration")]
+    public int Duration { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("descr")]
+    public string Descr { get; set; }
+}
+
+public class HolidayWeekdayEntry
+{
+    [JsonPropertyName("month")]
+    public int Month { get; set; }
+
+    [JsonPropertyName("weekday")]
+    public int WeekDay { get; set; }
+
+    [JsonPropertyName("nthday")]
+    public int Day { get; set; }
+
+    [JsonPropertyName("duration")]
+    public int Duration { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("descr")]
+    public string Descr { get; set; }
+}
+
+public class HolidayLunarEntry
+{
+    [JsonPropertyName("month")]
+    public int Month { get; set; }
+
+    [JsonPropertyName("phase")]
+    public int MoonPhase { get; set; }
+
+    [JsonPropertyName("nthday")]
     public int Day { get; set; }
 
     [JsonPropertyName("duration")]

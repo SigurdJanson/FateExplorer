@@ -254,6 +254,8 @@ Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 ## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
+| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+Many holidays found in the "Regionalspielhilfen"
 
 
 **Template**
@@ -265,7 +267,7 @@ Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 * Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
 * Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
 * Mitte Phex - Albenhuser Fassfest
-
+* 
 
 **? Translation of Twergenhus**
 
@@ -276,33 +278,31 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 
 
 
-## Floating Holidays (not in Data Base)
+## Floating Holidays
 
 | Holiday  | When? | Descr |
 |---|---|---|
 | Madatag (Madaday) | PRA, 1st Earthday | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
-| Großes Turnier in Gareth | PRA, Starts at 1st Praiosday; 8 days | |
 | Koschtaler Bierfest | TRA, 1st Marketday | Koschtaler Bierfest; beliebtes Volksfest mit Märkten, Auktionen und vor allem Bier |
-| Wahl der Fischkönigin | EFF, first new moon | 
-| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
-| Horse Market in Teshkal | ING, 1. full moon |  |
 | Festumer Warenschau | TRA und ING, starts with 1. Marketday, lasts 1 week | |
 | Purgatoria | TRA, last Praiosday |  |
 | Warenschau und große Sklavenauktion | BOR ab dem 2. Boronstag vier Tage lang |  |
 | Avestag | PHE, last Windsday | Avestag, guter Tag für die erste große Schiffsreise nach dem Winter, Begrüßung der zurückkehrenden Zugvögel |
 |	Aves-Rennen, Gareth | PER 2. Windsday | |
-| Election of the Fisher Queen, Nostria | EFF, 1st New Moon | by the Stone of Nosteria |
-| Day of Andra’s Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
 | Big Cattle Market, Andergast | PER, 1st Week | |
-| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
 | Elenviner Ross- und Wagenmarkt, Elenvina | PHE, 1. Windsday | |
 | Tolles Treiben, Angbar | PHE, 1st Marketday | Blumengeschmücktes Vieh wird durch die Gassen getrieben |
 | Elenviner Handelshallenausstellung, Elenvina | PHE, 2. Marketday |  |
+| Wahl der Fischkönigin, Nostria (Election of the Fisher Queen) | EFF, first new moon | by the Stone of Nosteria |
+| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Horse Market in Teshkal | ING, 1. full moon |  |
+| Day of Andra's Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
 
 
-| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+## Floating Holidays (not in Data Base)
 
-* Great Trade Fair of Festum - first week of Ingerimm
+| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
+
 * Oxen Market of Baliho (18th-22nd)
 * | Immanmeisterschaften | TRA Ab 2. Rohalstag zwei Wochen lang | |
 * | Regatta der Sieben Winde auf den Zyklopeninseln | PER letzter Windstag | |
@@ -311,6 +311,7 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 {"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
 {"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
 
+
 * PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
 
 
@@ -318,6 +319,8 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 ## Possible Local Additions
 
 * TRA 30. "Nacht der Ahnen (AGF Seite 84), Havena", "Nacht auf den 1. Boron" - ***Das Totenfest ist bereits berücksichtigt, hat aber eine besondere Bedeutung in Havena***.
+* https://de.wiki-aventurica.de/wiki/Andrafaller_Holzf%C3%A4llerspiele
+* http://wiki.nordmarken.de/bin/view/Nordmarken/NordmaerkerFeste
 
 
 ## Requirements for Floating Holidays
