@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
 
@@ -6,7 +7,7 @@ namespace Aventuria;
 
 
 
-public struct Money : IFormattable, // IParsable<TSelf>
+public readonly struct Money : IFormattable, // IParsable<TSelf>
     IEquatable<Money>, IEqualityOperators<Money, Money, bool>,
     ISubtractionOperators<Money, Money, Money>,
     IDecrementOperators<Money>,
@@ -17,15 +18,15 @@ public struct Money : IFormattable, // IParsable<TSelf>
     IMultiplicativeIdentity<Money, Money>,
     IMinMaxValue<Money>
 {
-    public Currency Currency { get; private set; }
+    public required Currency Currency { get; init; }
 
-    public static Money MaxValue => new(Decimal.MaxValue, Currency.Reference);
+    public static Money MaxValue => new(decimal.MaxValue, Currency.Reference);
 
-    public static Money MinValue => new(Decimal.MinValue, Currency.Reference);
+    public static Money MinValue => new(decimal.MinValue, Currency.Reference);
 
-    public static Money MultiplicativeIdentity => new(1, Currency.Reference);
+    public static Money MultiplicativeIdentity => new(1.0m, Currency.Reference);
 
-    public static Money AdditiveIdentity => new(0, Currency.Reference);
+    public static Money AdditiveIdentity => new(0.0m, Currency.Reference);
 
 
 
@@ -36,6 +37,7 @@ public struct Money : IFormattable, // IParsable<TSelf>
     /// </summary>
     /// <param name="amount">The amount of money.</param>
     /// <param name="currency">The currency to represent with the instance of Money.</param>
+    [SetsRequiredMembers]
     public Money(decimal amount, Currency currency)
     {
         JointAmount = amount;
@@ -331,6 +333,29 @@ public struct Money : IFormattable, // IParsable<TSelf>
     }
 
     #endregion // Math
+
+
+
+    #region NUMBER BASE
+
+    public static Money One => new(1m, Currency.Reference);
+    public static Money Zero => new(0m, Currency.Reference);
+    public static bool IsZero(Money money) => money.JointAmount == 0.0m;
+    public static Weight Abs(Money money) => new(Math.Abs(money.JointAmount));
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsComplexNumber(Money money) => false;
+    public static bool IsInteger(Money money) => decimal.IsInteger(money.JointAmount);
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsRealNumber(Money money) => true;
+    public static bool IsEvenInteger(Money money) => decimal.IsEvenInteger(money.JointAmount);
+    public static bool IsOddInteger(Money money) => decimal.IsOddInteger(money.JointAmount);
+    public static bool IsPositive(Money money) => decimal.IsPositive(money.JointAmount);
+    public static bool IsNegative(Money money) => decimal.IsNegative(money.JointAmount);
+    public static Weight Truncate(Money money) => new(decimal.Truncate(money.JointAmount));
+
+    #endregion
 
 
 
