@@ -256,9 +256,9 @@ class WeightTests
     }
 
     [Test]
-    [TestCase(2.7654, "g", ExpectedResult = "2,77")]
-    [TestCase(2.7654, "G", ExpectedResult = "2,77 Stein")]
-    [TestCase(2.7654, "r", ExpectedResult = "2,77 St")]
+    [TestCase(2.7654, "g", ExpectedResult = "2,765")]
+    [TestCase(2.7654, "G", ExpectedResult = "2,765 Stein")]
+    [TestCase(2.7654, "r", ExpectedResult = "2,765 St")]
     [TestCase(2.7654, "R", ExpectedResult = "0 Q 2 St 30 oz 15 s 2 kt 0,0000 gr")]
     [TestCase(2.7654, "g4", ExpectedResult = "2,7654")]
     [TestCase(2.7654, "G4", ExpectedResult = "2,7654 Stein")]
