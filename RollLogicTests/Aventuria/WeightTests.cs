@@ -275,6 +275,29 @@ class WeightTests
         // Assert
         return result;
     }
+
+
+    [Test]
+    [TestCase(2.7654, "g", ExpectedResult = "2,765")]
+    [TestCase(2.7654, "G", ExpectedResult = "2,765 stone")]
+    [TestCase(2.7654, "r", ExpectedResult = "2,765 st")]
+    [TestCase(2.7654, "R", ExpectedResult = "0 C 2 st 30 oz 15 s 2 ct 0,0000 gr")]
+    [TestCase(2.7654, "g4", ExpectedResult = "2,7654")]
+    [TestCase(2.7654, "G4", ExpectedResult = "2,7654 stone")]
+    [TestCase(2.7654, "r4", ExpectedResult = "2,7654 st")]
+    [TestCase(0.0654, "r4", ExpectedResult = "2,6160 oz")] //
+    public string ToString_WithFormat_CultureEn(decimal Value, string Format)
+    {
+        // Arrange
+        //---CultureInfo.CurrentCulture = new("en");
+        Weight W = new(Value);
+
+        // Act
+        var result = W.ToString(Format, new WeightFormatter(CultureInfo.GetCultureInfo("en-EN")));
+
+        // Assert
+        return result;
+    }
     #endregion
 
 

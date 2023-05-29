@@ -45,6 +45,8 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     const int English = 2;
 
     protected int Language { get; set; } = Unspecified;
+    protected int DefaultPrecision { get; set; }
+
 
     public WeightFormatter(CultureInfo cultureInfo)
     {
@@ -54,6 +56,13 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
             "eng" => English,
             _ => Unspecified
         };
+        DefaultPrecision = Language switch
+        {
+            German => cultureInfo.NumberFormat.NumberDecimalDigits,
+            English => cultureInfo.NumberFormat.NumberDecimalDigits,
+            _ => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalDigits
+        };
+        Properties.Resources.Culture = cultureInfo;
     }
 
 
@@ -78,7 +87,6 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     /// <exception cref="NotImplementedException"></exception>
     public string Format(string? format, object? arg, IFormatProvider? formatProvider)
     {
-        int DefaultPrecision = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalDigits;
         if (formatProvider is null) return BaseStr(DefaultPrecision).Trim();
         if (!formatProvider.Equals(this)) return BaseStr(DefaultPrecision).Trim();
 
@@ -109,22 +117,28 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
 
 
     /// <summary>
-    /// Return a weight in Stones.
+    /// Return a strng to format the weight in Stones.
     /// </summary>
-    /// <param name="w">Weight</param>
+    /// <param name="Precision">Defines the number of decimal digits.</param>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
     protected static string BaseStr(int Precision) => 
         $"{{0:N{Precision}}}";
 
 
     /// <summary>
-    /// Return a weight in Stones as with an abbreviated unit.
+    /// Return a string to format in Stones with an abbreviated unit.
     /// </summary>
+    /// <param name="Precision">Defines the number of decimal digits.</param>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
     protected static string BaseUnitStr(int Precision) => 
         $"{{0:N{Precision}}} {StoneUnit}";
 
-    
+
+    /// <summary>
+    /// Provides a full representation of a weight by splitting it into all Rohal units.
+    /// </summary>
+    /// <param name="W">A weight</param>
+    /// <returns>A formatted string</returns>
     protected static string Split(Weight W)
     {
         decimal Ref;
@@ -153,7 +167,13 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
         return $"{Cubes} {CuboidUnitAbbr} {Stones} {StoneUnitAbbr} {Ounce} {OunceUnitAbbr} {Scruple} {ScrupleUnitAbbr} {Carat} {CaratUnitAbbr} {Gran} {GranUnitAbbr}";
     }
 
-
+    /// <summary>
+    /// Formats a given weight finding it's "best" representation. I.e. a representation with
+    /// more at least 1 integral digit if possible.
+    /// </summary>
+    /// <param name="W">A weight</param>
+    /// <param name="Precision">Defines the number of decimal digits.</param>
+    /// <returns>A formatted string</returns>
     protected static string Best(Weight W, int Precision)
     {
         const int Threshold = 1;
