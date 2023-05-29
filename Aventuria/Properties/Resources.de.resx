@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -121,7 +121,7 @@
     <value>D</value>
   </data>
   <data name="MiddenrealmDucatName" xml:space="preserve">
-    <value>Ducat</value>
+    <value>Dukat</value>
   </data>
   <data name="MiddenrealmDucatSymbol" xml:space="preserve">
     <value>𝔇</value>
@@ -130,7 +130,7 @@
     <value>H</value>
   </data>
   <data name="MiddenrealmHalerName" xml:space="preserve">
-    <value>Haler</value>
+    <value>Heller</value>
   </data>
   <data name="MiddenrealmKreutzerAbbr" xml:space="preserve">
     <value>K</value>
@@ -142,22 +142,22 @@
     <value>S</value>
   </data>
   <data name="MiddenrealmSilverthalerName" xml:space="preserve">
-    <value>Silverthaler</value>
+    <value>Silbertaler</value>
   </data>
   <data name="MiddenrealmSilverthalerSymbol" xml:space="preserve">
     <value>𝔖</value>
   </data>
   <data name="WeightCarat" xml:space="preserve">
-    <value>Carat</value>
+    <value>Karat</value>
   </data>
   <data name="WeightCaratAbbr" xml:space="preserve">
-    <value>ct</value>
+    <value>kt</value>
   </data>
   <data name="WeightCuboid" xml:space="preserve">
-    <value>Cuboid</value>
+    <value>Quader</value>
   </data>
   <data name="WeightCuboidAbbr" xml:space="preserve">
-    <value>C</value>
+    <value>Q</value>
   </data>
   <data name="WeightGran" xml:space="preserve">
     <value>Gran</value>
@@ -166,7 +166,7 @@
     <value>gr</value>
   </data>
   <data name="WeightOunce" xml:space="preserve">
-    <value>Ounce</value>
+    <value>Unze</value>
   </data>
   <data name="WeightOunceAbbr" xml:space="preserve">
     <value>oz</value>
@@ -175,7 +175,7 @@
     <value>℥</value>
   </data>
   <data name="WeightScruple" xml:space="preserve">
-    <value>Scruple</value>
+    <value>Skrupel</value>
   </data>
   <data name="WeightScrupleAbbr" xml:space="preserve">
     <value>s</value>
@@ -184,10 +184,10 @@
     <value>℈</value>
   </data>
   <data name="WeightStone" xml:space="preserve">
-    <value>stone</value>
+    <value>Stein</value>
   </data>
   <data name="WeightStoneAbbr" xml:space="preserve">
-    <value>st</value>
+    <value>St</value>
   </data>
   <data name="WeightStoneSymbol" xml:space="preserve">
     <value>ﬆ</value>

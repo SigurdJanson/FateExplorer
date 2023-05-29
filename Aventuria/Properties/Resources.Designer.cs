@@ -79,6 +79,15 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔇 ähnelt.
+        /// </summary>
+        internal static string MiddenrealmDucatSymbol {
+            get {
+                return ResourceManager.GetString("MiddenrealmDucatSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die H ähnelt.
         /// </summary>
         internal static string MiddenrealmHalerAbbr {
@@ -93,6 +102,15 @@ namespace Aventuria.Properties {
         internal static string MiddenrealmHalerName {
             get {
                 return ResourceManager.GetString("MiddenrealmHalerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔥 ähnelt.
+        /// </summary>
+        internal static string MiddenrealmHalerSymbol {
+            get {
+                return ResourceManager.GetString("MiddenrealmHalerSymbol", resourceCulture);
             }
         }
         
@@ -115,6 +133,15 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔨 ähnelt.
+        /// </summary>
+        internal static string MiddenrealmKreutzerSymbol {
+            get {
+                return ResourceManager.GetString("MiddenrealmKreutzerSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die S ähnelt.
         /// </summary>
         internal static string MiddenrealmSilverthalerAbbr {
@@ -129,6 +156,150 @@ namespace Aventuria.Properties {
         internal static string MiddenrealmSilverthalerName {
             get {
                 return ResourceManager.GetString("MiddenrealmSilverthalerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔖 ähnelt.
+        /// </summary>
+        internal static string MiddenrealmSilverthalerSymbol {
+            get {
+                return ResourceManager.GetString("MiddenrealmSilverthalerSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Carat ähnelt.
+        /// </summary>
+        internal static string WeightCarat {
+            get {
+                return ResourceManager.GetString("WeightCarat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ct ähnelt.
+        /// </summary>
+        internal static string WeightCaratAbbr {
+            get {
+                return ResourceManager.GetString("WeightCaratAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cuboid ähnelt.
+        /// </summary>
+        internal static string WeightCuboid {
+            get {
+                return ResourceManager.GetString("WeightCuboid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die C ähnelt.
+        /// </summary>
+        internal static string WeightCuboidAbbr {
+            get {
+                return ResourceManager.GetString("WeightCuboidAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gran ähnelt.
+        /// </summary>
+        internal static string WeightGran {
+            get {
+                return ResourceManager.GetString("WeightGran", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die gr ähnelt.
+        /// </summary>
+        internal static string WeightGranAbbr {
+            get {
+                return ResourceManager.GetString("WeightGranAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ounce ähnelt.
+        /// </summary>
+        internal static string WeightOunce {
+            get {
+                return ResourceManager.GetString("WeightOunce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die oz ähnelt.
+        /// </summary>
+        internal static string WeightOunceAbbr {
+            get {
+                return ResourceManager.GetString("WeightOunceAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ℥ ähnelt.
+        /// </summary>
+        internal static string WeightOunceSymbol {
+            get {
+                return ResourceManager.GetString("WeightOunceSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Scruple ähnelt.
+        /// </summary>
+        internal static string WeightScruple {
+            get {
+                return ResourceManager.GetString("WeightScruple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die s ähnelt.
+        /// </summary>
+        internal static string WeightScrupleAbbr {
+            get {
+                return ResourceManager.GetString("WeightScrupleAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ℈ ähnelt.
+        /// </summary>
+        internal static string WeightScrupleSymbol {
+            get {
+                return ResourceManager.GetString("WeightScrupleSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die stone ähnelt.
+        /// </summary>
+        internal static string WeightStone {
+            get {
+                return ResourceManager.GetString("WeightStone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die st ähnelt.
+        /// </summary>
+        internal static string WeightStoneAbbr {
+            get {
+                return ResourceManager.GetString("WeightStoneAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ﬆ ähnelt.
+        /// </summary>
+        internal static string WeightStoneSymbol {
+            get {
+                return ResourceManager.GetString("WeightStoneSymbol", resourceCulture);
             }
         }
     }
