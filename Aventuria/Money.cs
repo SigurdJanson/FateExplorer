@@ -343,11 +343,11 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     public static bool IsZero(Money money) => money.JointAmount == 0.0m;
     public static Weight Abs(Money money) => new(Math.Abs(money.JointAmount));
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsComplexNumber(Money money) => false;
     public static bool IsInteger(Money money) => decimal.IsInteger(money.JointAmount);
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsRealNumber(Money money) => true;
     public static bool IsEvenInteger(Money money) => decimal.IsEvenInteger(money.JointAmount);
     public static bool IsOddInteger(Money money) => decimal.IsOddInteger(money.JointAmount);
