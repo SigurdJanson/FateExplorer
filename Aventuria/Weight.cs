@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace FateExplorer.Shared;
+namespace Aventuria;
 
 public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<Weight>, IEqualityOperators<Weight, Weight, bool>, 

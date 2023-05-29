@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace FateExplorer.Shared;
+namespace Aventuria;
 
 
 /// <summary>
@@ -32,6 +32,9 @@ namespace FateExplorer.Shared;
 /// <remarks>Supports only German and English</remarks>
 public class WeightFormatter : IFormatProvider, ICustomFormatter
 {
+    private const char FormatGeneralSimple = 'g';
+    private const char FormatGeneral = 'G';
+
     const int Unspecified = 0;
     const int German = 1;
     const int English = 2;
@@ -75,7 +78,7 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
 
         string thisFmt;
         if (string.IsNullOrEmpty(format))
-            thisFmt = "G"; // Handle null or empty format string, string with precision specifier.
+            thisFmt = FormatGeneral.ToString(); // Handle null or empty format string, string with precision specifier.
         else
             thisFmt = format[..1]; // Extract first character of format string (precision specifiers are not supported).
 
@@ -83,8 +86,8 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
         Weight w = arg is not null ? (Weight)arg : Weight.Zero;
         string resultString = (thisFmt[0], char.IsUpper(thisFmt[0])) switch
         {
-            ('g', false) => BaseStr(),
-            ('G', true) => BaseUnitStr(),
+            (FormatGeneralSimple, false) => BaseStr(),
+            (FormatGeneral, true) => BaseUnitStr(),
             ('R', true) => Split(w),
             ('r', false) => Best(w),
             _ => throw new InvalidOperationException("Unknown format string")
