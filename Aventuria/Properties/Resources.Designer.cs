@@ -61,6 +61,330 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die d ähnelt.
+        /// </summary>
+        internal static string AlanfaDirhamAbbr {
+            get {
+                return ResourceManager.GetString("AlanfaDirhamAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dirham ähnelt.
+        /// </summary>
+        internal static string AlanfaDirhamName {
+            get {
+                return ResourceManager.GetString("AlanfaDirhamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ꔷ ähnelt.
+        /// </summary>
+        internal static string AlanfaDirhamSymbol {
+            get {
+                return ResourceManager.GetString("AlanfaDirhamSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do ähnelt.
+        /// </summary>
+        internal static string AlanfaDoubloonAbbr {
+            get {
+                return ResourceManager.GetString("AlanfaDoubloonAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Doubloon ähnelt.
+        /// </summary>
+        internal static string AlanfaDoubloonName {
+            get {
+                return ResourceManager.GetString("AlanfaDoubloonName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ⴲ ähnelt.
+        /// </summary>
+        internal static string AlanfaDoubloonSymbol {
+            get {
+                return ResourceManager.GetString("AlanfaDoubloonSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Or ähnelt.
+        /// </summary>
+        internal static string AlanfaOrealAbbr {
+            get {
+                return ResourceManager.GetString("AlanfaOrealAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Oreal ähnelt.
+        /// </summary>
+        internal static string AlanfaOrealName {
+            get {
+                return ResourceManager.GetString("AlanfaOrealName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ⴱ ähnelt.
+        /// </summary>
+        internal static string AlanfaOrealSymbol {
+            get {
+                return ResourceManager.GetString("AlanfaOrealSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die so ähnelt.
+        /// </summary>
+        internal static string AlanfaSmallOrealAbbr {
+            get {
+                return ResourceManager.GetString("AlanfaSmallOrealAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Small Oreal ähnelt.
+        /// </summary>
+        internal static string AlanfaSmallOrealName {
+            get {
+                return ResourceManager.GetString("AlanfaSmallOrealName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ☉ ähnelt.
+        /// </summary>
+        internal static string AlanfaSmallOrealSymbol {
+            get {
+                return ResourceManager.GetString("AlanfaSmallOrealSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AT ähnelt.
+        /// </summary>
+        internal static string AndrathalerAbbr {
+            get {
+                return ResourceManager.GetString("AndrathalerAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Andrathaler ähnelt.
+        /// </summary>
+        internal static string AndrathalerName {
+            get {
+                return ResourceManager.GetString("AndrathalerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝓐 ähnelt.
+        /// </summary>
+        internal static string AndrathalerSymbol {
+            get {
+                return ResourceManager.GetString("AndrathalerSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BL ähnelt.
+        /// </summary>
+        internal static string BornlandLumpAbbr {
+            get {
+                return ResourceManager.GetString("BornlandLumpAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Lump ähnelt.
+        /// </summary>
+        internal static string BornlandLumpName {
+            get {
+                return ResourceManager.GetString("BornlandLumpName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BL ähnelt.
+        /// </summary>
+        internal static string BornlandLumpSymbol {
+            get {
+                return ResourceManager.GetString("BornlandLumpSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BP ähnelt.
+        /// </summary>
+        internal static string BornlandPennyAbbr {
+            get {
+                return ResourceManager.GetString("BornlandPennyAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Penny ähnelt.
+        /// </summary>
+        internal static string BornlandPennyName {
+            get {
+                return ResourceManager.GetString("BornlandPennyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BP ähnelt.
+        /// </summary>
+        internal static string BornlandPennySymbol {
+            get {
+                return ResourceManager.GetString("BornlandPennySymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BS ähnelt.
+        /// </summary>
+        internal static string BornlandSlightlingAbbr {
+            get {
+                return ResourceManager.GetString("BornlandSlightlingAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Slightling ähnelt.
+        /// </summary>
+        internal static string BornlandSlightlingName {
+            get {
+                return ResourceManager.GetString("BornlandSlightlingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BS ähnelt.
+        /// </summary>
+        internal static string BornlandSlightlingSymbol {
+            get {
+                return ResourceManager.GetString("BornlandSlightlingSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AG ähnelt.
+        /// </summary>
+        internal static string DwarvenArganbroxAbbr {
+            get {
+                return ResourceManager.GetString("DwarvenArganbroxAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Arganbrox ähnelt.
+        /// </summary>
+        internal static string DwarvenArganbroxName {
+            get {
+                return ResourceManager.GetString("DwarvenArganbroxName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᚻ ähnelt.
+        /// </summary>
+        internal static string DwarvenArganbroxSymbol {
+            get {
+                return ResourceManager.GetString("DwarvenArganbroxSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AT ähnelt.
+        /// </summary>
+        internal static string DwarvenAtebroxAbbr {
+            get {
+                return ResourceManager.GetString("DwarvenAtebroxAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Atebrox ähnelt.
+        /// </summary>
+        internal static string DwarvenAtebroxName {
+            get {
+                return ResourceManager.GetString("DwarvenAtebroxName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᚳ ähnelt.
+        /// </summary>
+        internal static string DwarvenAtebroxSymbol {
+            get {
+                return ResourceManager.GetString("DwarvenAtebroxSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AR ähnelt.
+        /// </summary>
+        internal static string DwarvenAuromoxAbbr {
+            get {
+                return ResourceManager.GetString("DwarvenAuromoxAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Auromox ähnelt.
+        /// </summary>
+        internal static string DwarvenAuromoxName {
+            get {
+                return ResourceManager.GetString("DwarvenAuromoxName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᛕ ähnelt.
+        /// </summary>
+        internal static string DwarvenAuromoxSymbol {
+            get {
+                return ResourceManager.GetString("DwarvenAuromoxSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HD ähnelt.
+        /// </summary>
+        internal static string HorasdorAbbr {
+            get {
+                return ResourceManager.GetString("HorasdorAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Horasdor ähnelt.
+        /// </summary>
+        internal static string HorasdorName {
+            get {
+                return ResourceManager.GetString("HorasdorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔻 ähnelt.
+        /// </summary>
+        internal static string HorasdorSymbol {
+            get {
+                return ResourceManager.GetString("HorasdorSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die D ähnelt.
         /// </summary>
         internal static string MiddenrealmDucatAbbr {
@@ -165,6 +489,60 @@ namespace Aventuria.Properties {
         internal static string MiddenrealmSilverthalerSymbol {
             get {
                 return ResourceManager.GetString("MiddenrealmSilverthalerSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die cr ähnelt.
+        /// </summary>
+        internal static string NostrianKroneAbbr {
+            get {
+                return ResourceManager.GetString("NostrianKroneAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Crown ähnelt.
+        /// </summary>
+        internal static string NostrianKroneName {
+            get {
+                return ResourceManager.GetString("NostrianKroneName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝓝 ähnelt.
+        /// </summary>
+        internal static string NostrianKroneSymbol {
+            get {
+                return ResourceManager.GetString("NostrianKroneSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die G ähnelt.
+        /// </summary>
+        internal static string PaaviGuilderAbbr {
+            get {
+                return ResourceManager.GetString("PaaviGuilderAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Guilder ähnelt.
+        /// </summary>
+        internal static string PaaviGuilderName {
+            get {
+                return ResourceManager.GetString("PaaviGuilderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ₲ ähnelt.
+        /// </summary>
+        internal static string PaaviGuilderSymbol {
+            get {
+                return ResourceManager.GetString("PaaviGuilderSymbol", resourceCulture);
             }
         }
         
