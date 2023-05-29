@@ -1,13 +1,8 @@
-﻿using FateExplorer.Shared;
+﻿using Aventuria;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UnitTests.Shared;
+namespace UnitTests.Aventuria;
 
 [TestFixture]
 class WeightTests
@@ -116,7 +111,7 @@ class WeightTests
     [TestCase(0, ExpectedResult = 0)]
     [TestCase(2, ExpectedResult = 2.0 / 1000)]
     [TestCase(-3, ExpectedResult = -3.0 / 1000)]
-    [TestCase(5.12345, ExpectedResult = 5.12345/1000)]
+    [TestCase(5.12345, ExpectedResult = 5.12345 / 1000)]
     [TestCase(1000, ExpectedResult = 1)]
     public decimal ToCuboids(decimal w)
     {
@@ -261,10 +256,14 @@ class WeightTests
     }
 
     [Test]
-    [TestCase(2.7654, "g", ExpectedResult = "2,7654")]
-    [TestCase(2.7654, "G", ExpectedResult = "2,7654 Stein")]
-    [TestCase(2.7654, "r", ExpectedResult = "2,7654 St")]
+    [TestCase(2.7654, "g", ExpectedResult = "2,77")]
+    [TestCase(2.7654, "G", ExpectedResult = "2,77 Stein")]
+    [TestCase(2.7654, "r", ExpectedResult = "2,77 St")]
     [TestCase(2.7654, "R", ExpectedResult = "0 Q 2 St 30 oz 15 s 2 kt 0,0000 gr")]
+    [TestCase(2.7654, "g4", ExpectedResult = "2,7654")]
+    [TestCase(2.7654, "G4", ExpectedResult = "2,7654 Stein")]
+    [TestCase(2.7654, "r4", ExpectedResult = "2,7654 St")]
+    [TestCase(0.0654, "r4", ExpectedResult = "2,6160 oz")] //
     public string ToString_WithFormat(decimal Value, string Format)
     {
         // Arrange
@@ -325,7 +324,7 @@ class WeightTests
     [Test]
     [TestCase(2, -2, ExpectedResult = -4)]
     [TestCase(2, 3, ExpectedResult = 6)]
-    [TestCase(26, 25, ExpectedResult = 26*25)]
+    [TestCase(26, 25, ExpectedResult = 26 * 25)]
     [TestCase(2, 1, ExpectedResult = 2)] // Edge case - returns identity
     [TestCase(2, 0, ExpectedResult = 0)] // Edge case - returns zero
     public decimal Multiplication_Weight_Int(decimal a, int b)
@@ -344,7 +343,7 @@ class WeightTests
     [TestCase(2, 3.0, ExpectedResult = 6.0)]
     [TestCase(2, -2.0, ExpectedResult = -4)]
     [TestCase(26, 6.5, ExpectedResult = 26 * 6.5)]
-    [TestCase(3, 0.33, ExpectedResult = 0.99)] 
+    [TestCase(3, 0.33, ExpectedResult = 0.99)]
     [TestCase(2, 1.0, ExpectedResult = 2.0)] // Edge case - returns identity
     [TestCase(2, 0.0, ExpectedResult = 0.0)] // Edge case - returns zero
     public decimal Multiplication_Weight_Double_NotZero(decimal a, decimal b)

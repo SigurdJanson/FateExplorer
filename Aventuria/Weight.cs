@@ -10,6 +10,7 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     IAdditionOperators<Weight, Weight, Weight>,
     IIncrementOperators<Weight>,
     IDivisionOperators<Weight, Weight, Weight>, IDivisionOperators<Weight, int, Weight>, IDivisionOperators<Weight, decimal, Weight>,
+    IMultiplyOperators<Weight, int, Weight>, IMultiplyOperators<Weight, decimal, Weight>,
     IAdditiveIdentity<Weight, Weight>,
     IMultiplicativeIdentity<Weight, Weight>,
     IMinMaxValue<Weight>
@@ -95,6 +96,8 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     #endregion
 
 
+    /*
+     */
     #region NUMBER BASE
 
     public static Weight One => new (1m);
@@ -104,15 +107,15 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsComplexNumber(Weight w) => false;
-    public static bool IsInteger(Weight w) => Decimal.IsInteger(w.Value);
+    public static bool IsInteger(Weight w) => decimal.IsInteger(w.Value);
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsRealNumber(Weight w) => true;
-    public static bool IsEvenInteger(Weight w) => Decimal.IsEvenInteger(w.Value);
-    public static bool IsOddInteger(Weight w) => Decimal.IsOddInteger(w.Value);
-    public static bool IsPositive(Weight w) => Decimal.IsPositive(w.Value);
-    public static bool IsNegative(Weight w) => Decimal.IsNegative(w.Value);
-    public static Weight Truncate(Weight w) => new(Decimal.Truncate(w.Value));
+    public static bool IsEvenInteger(Weight w) => decimal.IsEvenInteger(w.Value);
+    public static bool IsOddInteger(Weight w) => decimal.IsOddInteger(w.Value);
+    public static bool IsPositive(Weight w) => decimal.IsPositive(w.Value);
+    public static bool IsNegative(Weight w) => decimal.IsNegative(w.Value);
+    public static Weight Truncate(Weight w) => new(decimal.Truncate(w.Value));
 
     #endregion
 

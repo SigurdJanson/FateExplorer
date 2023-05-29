@@ -13,15 +13,18 @@ namespace Aventuria;
 ///    </listheader>
 ///    <item>
 ///        <term>"g"</term>
-///        <description>Weight in the language's base unit (Stone) without naming the unit.</description>
+///        <description>Weight in the language's reference unit (Stone) without naming the unit. 
+///        Default precision is given by the locale. It can be changed using a trailing number (e.g. "g12").</description>
 ///    </item>
 ///    <item>
 ///        <term>"G"</term>
-///        <description>Weight in the language's base unit (Stone) with a full unit name.</description>
+///        <description>Weight in the language's reference unit (Stone) with a full unit name. 
+///        Default precision is given by the locale. It can be changed using a trailing number (e.g. "G12").</description>
 ///    </item>
 ///    <item>
 ///        <term>"r"</term>
-///        <description>Short string the Rohal unit that represents the weight best.</description>
+///        <description>Short string the Rohal unit that represents the weight best. 
+///        Default precision is given by the locale. It can be changed using a trailing number (e.g. "r12").</description>
 ///    </item>
 ///    <item>
 ///        <term>"R"</term>
@@ -34,6 +37,8 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
 {
     private const char FormatGeneralSimple = 'g';
     private const char FormatGeneral = 'G';
+    private const char FormatRohalBest = 'r';
+    private const char FormatRohalAll = 'R';
 
     const int Unspecified = 0;
     const int German = 1;
@@ -73,8 +78,9 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     /// <exception cref="NotImplementedException"></exception>
     public string Format(string? format, object? arg, IFormatProvider? formatProvider)
     {
-        if (formatProvider is null) return BaseStr().Trim();
-        if (!formatProvider.Equals(this)) return BaseStr().Trim();
+        int DefaultPrecision = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalDigits;
+        if (formatProvider is null) return BaseStr(DefaultPrecision).Trim();
+        if (!formatProvider.Equals(this)) return BaseStr(DefaultPrecision).Trim();
 
         string thisFmt;
         if (string.IsNullOrEmpty(format))
@@ -82,14 +88,19 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
         else
             thisFmt = format[..1]; // Extract first character of format string (precision specifiers are not supported).
 
+        int Precision;
+        if (!int.TryParse(format.AsSpan(1), out Precision))
+            Precision = DefaultPrecision;
+
+
         // Return w formatted string.
         Weight w = arg is not null ? (Weight)arg : Weight.Zero;
         string resultString = (thisFmt[0], char.IsUpper(thisFmt[0])) switch
         {
-            (FormatGeneralSimple, false) => BaseStr(),
-            (FormatGeneral, true) => BaseUnitStr(),
-            ('R', true) => Split(w),
-            ('r', false) => Best(w),
+            (FormatGeneralSimple, false) => BaseStr(Precision),
+            (FormatGeneral, true) => BaseUnitStr(Precision),
+            (FormatRohalAll, true) => Split(w),
+            (FormatRohalBest, false) => Best(w, Precision),
             _ => throw new InvalidOperationException("Unknown format string")
         };
 
@@ -102,21 +113,19 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     /// </summary>
     /// <param name="w">Weight</param>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
-    protected static string BaseStr() => $"{{0:N4}}";
+    protected static string BaseStr(int Precision) => 
+        $"{{0:N{Precision}}}";
 
 
     /// <summary>
     /// Return a weight in Stones as with an abbreviated unit.
     /// </summary>
     /// <returns>Weight represented as string in unit 'Stone'</returns>
-    protected string BaseUnitStr()
-    {
-        //decimal w = (decimal)W;
-        return $"{{0:N4}} {StoneUnit}"; //$"{(decimal)w} {StoneUnit}";
-    }
+    protected static string BaseUnitStr(int Precision) => 
+        $"{{0:N{Precision}}} {StoneUnit}";
 
     
-    protected string Split(Weight W)
+    protected static string Split(Weight W)
     {
         decimal Ref;
         decimal w = (decimal)W;
@@ -145,37 +154,37 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     }
 
 
-    protected string Best(Weight W)
+    protected static string Best(Weight W, int Precision)
     {
         const int Threshold = 1;
         decimal w = (decimal)W;
+        string Format = $"{{0:F{Precision}}} {{1}}";
 
         int Cubes = (int)Math.Floor(w * Weight.ToCuboids(1m));
-        if (Cubes > Threshold) return $"{Weight.ToCuboids(w)} {CuboidUnitAbbr}";
+        if (Cubes > Threshold) return string.Format(Format, Weight.ToCuboids(w), CuboidUnitAbbr);
 
         int Stones = (int)Math.Floor(w);
-        if (Stones > Threshold) return $"{w} {StoneUnitAbbr}";
+        if (Stones > Threshold) return string.Format(Format, w, StoneUnitAbbr);
 
         int Ounce = (int)Math.Floor(w * Weight.ToOunce(1m));
-        if (Ounce > Threshold) return $"{Weight.ToOunce(w)} {OunceUnitAbbr}";
+        if (Ounce > Threshold) return string.Format(Format, Weight.ToOunce(w), OunceUnitAbbr);
 
         int Scruple = (int)Math.Floor(w * Weight.ToScruple(1m));
-        if (Scruple > 4) return $"{Weight.ToScruple(w)} {ScrupleUnitAbbr}";
+        if (Scruple > 4) return string.Format(Format, Weight.ToScruple(w), ScrupleUnitAbbr);
 
         int Carat = (int)Math.Floor(w * Weight.ToCarat(1m));
-        if (Carat > Threshold) return $"{Weight.ToCarat(w)} {CaratUnitAbbr}";
+        if (Carat > Threshold) return string.Format(Format, Weight.ToCarat(w), CaratUnitAbbr);
 
         decimal Gran = w * Weight.ToGran(1m);
-        return $"{Gran} {GranUnitAbbr}";
+        return string.Format(Format, Gran, GranUnitAbbr);
     }
 
-    // TODO: hard-coded strings
-    private string StoneUnit => Language == German ? "Stein" : "stone";
-    private string CuboidUnitAbbr => Language == German ? "Q" : "C";
-    private string StoneUnitAbbr => Language == German ? "St" : "st";
-    private string OunceUnitAbbr => "oz"; // Language == German ? "oz" : "oz"; // ℥
-    private string ScrupleUnitAbbr => "s"; // Language == German ? "s" : "s"; // ℈
-    private string CaratUnitAbbr => Language == German ? "kt" : "ct";
-    private string GranUnitAbbr => "gr"; // Language == German ? "gr" : "gr";
+    private static string StoneUnit => Properties.Resources.WeightStone; // Language == German ? "Stein" : "stone";
+    private static string CuboidUnitAbbr => Properties.Resources.WeightCuboidAbbr; // Language == German ? "Q" : "C";
+    private static string StoneUnitAbbr => Properties.Resources.WeightStoneAbbr; // Language == German ? "St" : "st";
+    private static string OunceUnitAbbr => Properties.Resources.WeightOunceAbbr; // "oz"; // Language == German ? "oz" : "oz"; // ℥
+    private static string ScrupleUnitAbbr => Properties.Resources.WeightScrupleAbbr; // "s"; // Language == German ? "s" : "s"; // ℈
+    private static string CaratUnitAbbr => Properties.Resources.WeightCaratAbbr; // Language == German ? "kt" : "ct";
+    private static string GranUnitAbbr => Properties.Resources.WeightGranAbbr; // "gr"; // Language == German ? "gr" : "gr";
 
 }
