@@ -224,8 +224,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <returns>A signed number indicating the relative values of this instance and value.</returns>
     public int CompareTo(object value)
     {
-        if (value == null) throw new ArgumentNullException(nameof(value));
-        if (value is Money) return CompareTo((Money)value);
+        //-if (value == null) throw new ArgumentNullException(nameof(value));
+        if (value is Money money) return CompareTo(money);
         throw new ArgumentException($"Cannot compare type {value.GetType()} to type Money.");
     }
 
