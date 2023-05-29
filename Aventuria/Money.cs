@@ -14,8 +14,9 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     IAdditionOperators<Money, Money, Money>,
     IIncrementOperators<Money>,
     IDivisionOperators<Money, Money, decimal>, IDivisionOperators<Money, int, Money>, IDivisionOperators<Money, decimal, Money>,
+    IMultiplyOperators<Money, int, Money>, IMultiplyOperators<Money, decimal, Money>,
     IAdditiveIdentity<Money, Money>,
-    IMultiplicativeIdentity<Money, Money>,
+    IMultiplicativeIdentity<Money, Money>, 
     IMinMaxValue<Money>
 {
     public required Currency Currency { get; init; }
@@ -179,7 +180,47 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         return new Money(decimal.Round(m.JointAmount, decimals, mode), m.Currency);
     }
 
-    #endregion
+ 
+
+    /// <inheritdoc/>
+    public static Money operator --(Money value) =>
+        new(value.JointAmount - 1, value.Currency);
+
+    /// <inheritdoc/>
+    public static Money operator ++(Money value) =>
+        new(value.JointAmount + 1, value.Currency);
+
+    /// <inheritdoc/>
+    public static decimal operator /(Money left, Money right)
+    {
+        return left.JointAmount / right.JointAmount;
+    }
+
+    /// <inheritdoc/>
+    public static Money operator /(Money left, int right)
+    {
+        return new(left.JointAmount / right, left.Currency);
+    }
+
+    /// <inheritdoc/>
+    public static Money operator *(Money left, int right)
+    {
+        return new(left.JointAmount * right, left.Currency);
+    }
+
+    /// <summary>
+    /// Compares this instance to a decimal value and returns an indication of their relative values. 
+    /// </summary>
+    /// <param name="value">The decimal value to compare to this instance.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
+    public int CompareTo(decimal value)
+    {
+        return JointAmount.CompareTo(value);
+    }
+
+    #endregion // Math
+
+
 
 
 
@@ -193,7 +234,14 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        unchecked // Overflow is fine, just wrap
+        {
+            int hash = 17;
+            // Suitable nullity checks etc, of course :)
+            hash *= 23 + JointAmount.GetHashCode();
+            hash *= 23 + Currency.GetHashCode();
+            return hash;
+        }
     }
 
     #region Comparison
@@ -298,41 +346,6 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     #endregion // Comparison
 
 
-
-
-    #region Math
-
-    /// <inheritdoc/>
-    public static Money operator --(Money value) => 
-        new(value.JointAmount - 1, value.Currency);
-
-    /// <inheritdoc/>
-    public static Money operator ++(Money value) =>
-        new(value.JointAmount + 1, value.Currency);
-
-    /// <inheritdoc/>
-    public static decimal operator /(Money left, Money right)
-    {
-        return left.JointAmount / right.JointAmount;
-    }
-
-    /// <inheritdoc/>
-    public static Money operator /(Money left, int right)
-    {
-        return new(left.JointAmount / right, left.Currency);
-    }
-
-    /// <summary>
-    /// Compares this instance to a decimal value and returns an indication of their relative values. 
-    /// </summary>
-    /// <param name="value">The decimal value to compare to this instance.</param>
-    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-    public int CompareTo(decimal value)
-    {
-        return JointAmount.CompareTo(value);
-    }
-
-    #endregion // Math
 
 
 
