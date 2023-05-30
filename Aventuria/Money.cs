@@ -9,25 +9,38 @@ namespace Aventuria;
 
 public readonly struct Money : IFormattable, // IParsable<TSelf>
     IEquatable<Money>, IEqualityOperators<Money, Money, bool>,
-    ISubtractionOperators<Money, Money, Money>,
-    IDecrementOperators<Money>,
-    IAdditionOperators<Money, Money, Money>,
-    IIncrementOperators<Money>,
+    ISubtractionOperators<Money, Money, Money>, IDecrementOperators<Money>,
+    IAdditionOperators<Money, Money, Money>, IIncrementOperators<Money>,
     IDivisionOperators<Money, Money, decimal>, IDivisionOperators<Money, int, Money>, IDivisionOperators<Money, decimal, Money>,
     IMultiplyOperators<Money, int, Money>, IMultiplyOperators<Money, decimal, Money>,
     IAdditiveIdentity<Money, Money>,
-    IMultiplicativeIdentity<Money, Money>, 
+    IMultiplicativeIdentity<Money, Money>,
+    IUnaryNegationOperators<Money, Money>, IUnaryPlusOperators<Money, Money>,
     IMinMaxValue<Money>
 {
     public required Currency Currency { get; init; }
 
-    public static Money MaxValue => new(decimal.MaxValue, Currency.Reference);
+    public string CurrencyName => Currency.Name;
+    public string CurrencySymbol
+    {
+        get
+        {
+            for (int i = 0; i < Currency.CoinValue.Length; i++)
+            {
+                if (Currency.CoinValue[i] == Currency.Rate)
+                    return Currency.NativeCoinSymbols[i];
+            }
+            return string.Empty;
+        }
+    }
 
-    public static Money MinValue => new(decimal.MinValue, Currency.Reference);
+    public static Money MaxValue => new(decimal.MaxValue, Currency.ReferenceCurrency);
 
-    public static Money MultiplicativeIdentity => new(1.0m, Currency.Reference);
+    public static Money MinValue => new(decimal.MinValue, Currency.ReferenceCurrency);
 
-    public static Money AdditiveIdentity => new(0.0m, Currency.Reference);
+    public static Money MultiplicativeIdentity => new(1.0m, Currency.ReferenceCurrency);
+
+    public static Money AdditiveIdentity => new(0.0m, Currency.ReferenceCurrency);
 
 
 
@@ -50,13 +63,19 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// Converts the amount of money into another currency.
     /// </summary>
     /// <param name="currency">Designated currency</param>
-    /// <returns>New money in ew currency</returns>
-    public Money ToCurrency(Currency currency)
+    /// <returns>New money in new currency</returns>
+    public Money ToCurrency(Currency currency) => new(ToCurrencyValue(currency), currency);
+
+    /// <summary>
+    /// Converts the amount of money into another currency.
+    /// </summary>
+    /// <param name="currency">Designated currency</param>
+    /// <returns>New monetary as decimal in new currency</returns>
+    public decimal ToCurrencyValue(Currency currency)
     {
         decimal Value = JointAmount * Currency.Rate;
-        return new(Value / currency.Rate, currency);
+        return Value / currency.Rate;
     }
-
 
 
 
@@ -218,6 +237,15 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         return JointAmount.CompareTo(value);
     }
 
+    /// <inheritdoc/>
+    public static Money operator -(Money value) =>
+       new(value.JointAmount * -1, value.Currency);
+
+    /// <inheritdoc/>
+    public static Money operator +(Money value) =>
+        new(value.JointAmount, value.Currency);
+
+
     #endregion // Math
 
 
@@ -276,6 +304,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         if (value is Money money) return CompareTo(money);
         throw new ArgumentException($"Cannot compare type {value.GetType()} to type Money.");
     }
+
+
 
     /// <inheritdoc/>
     public static bool operator == (Money m1, Money m2)
@@ -343,16 +373,35 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         return m.JointAmount <= d;
     }
 
-    #endregion // Comparison
+
+
+    #endregion  // Comparison
 
 
 
+    #region NUMBER
+
+    public static Money CopySign(Money value, Money sign) => 
+        new(Math.Abs(value.JointAmount) * Money.Sign(sign), value.Currency);
+    public static int Sign(Money value) => decimal.Sign(value.JointAmount);
+
+    public static Money Clamp(Money value, Money min, Money max) => 
+        new(decimal.Clamp(value.JointAmount, min.ToCurrencyValue(value.Currency), max.ToCurrencyValue(value.Currency)), value.Currency);
+
+    #endregion
+
+
+    /// <inheritdoc/>
+    public static Money NegativeOne => new(-1m, Currency.ReferenceCurrency);
 
 
     #region NUMBER BASE
 
-    public static Money One => new(1m, Currency.Reference);
-    public static Money Zero => new(0m, Currency.Reference);
+    public static Money One => new(1m, Currency.ReferenceCurrency);
+    public static Money Zero => new(0m, Currency.ReferenceCurrency);
+
+    public static int Radix => throw new NotImplementedException();
+
     public static bool IsZero(Money money) => money.JointAmount == 0.0m;
     public static Money Abs(Money money) => new(Math.Abs(money.JointAmount), money.Currency);
 
@@ -361,12 +410,46 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     public static bool IsInteger(Money money) => decimal.IsInteger(money.JointAmount);
 
     [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
-    public static bool IsRealNumber(Money money) => true;
+    public static bool IsRealNumber(Money money) => false;
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsImaginaryNumber(Money money) => false;
     public static bool IsEvenInteger(Money money) => decimal.IsEvenInteger(money.JointAmount);
     public static bool IsOddInteger(Money money) => decimal.IsOddInteger(money.JointAmount);
     public static bool IsPositive(Money money) => decimal.IsPositive(money.JointAmount);
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsPositiveInfinity(Money money) => false; //decimal.IsPositiveInfinity(money.JointAmount);
     public static bool IsNegative(Money money) => decimal.IsNegative(money.JointAmount);
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsNegativeInfinity(Money money) => false;
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsFinite(Money money) => true;
+
     public static Money Truncate(Money money) => new(decimal.Truncate(money.JointAmount), money.Currency);
+
+    public static Money MaxMagnitude(Money x, Money y)
+    {
+        if (x.Currency == y.Currency)
+            return new(decimal.MaxMagnitude(x.JointAmount, y.JointAmount), x.Currency);
+
+        decimal cy = y.ToCurrencyValue(x.Currency);
+        return new(decimal.MaxMagnitude(x.JointAmount, cy), x.Currency);
+    }
+
+    public static Money MaxMagnitudeNumber(Money x, Money y) => MaxMagnitude(x, y);
+
+    public static Money MinMagnitude(Money x, Money y)
+    {
+        if (x.Currency == y.Currency)
+            return new(decimal.MinMagnitude(x.JointAmount, y.JointAmount), x.Currency);
+
+        decimal cy = y.ToCurrencyValue(x.Currency);
+        return new(decimal.MinMagnitude(x.JointAmount, cy), x.Currency);
+    }
+
+    public static Money MinMagnitudeNumber(Money x, Money y) => MinMagnitude(x, y);
+
+    [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
+    public static bool IsNaN(Money value) => false;
 
 
     #endregion
