@@ -354,7 +354,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     public static Money One => new(1m, Currency.Reference);
     public static Money Zero => new(0m, Currency.Reference);
     public static bool IsZero(Money money) => money.JointAmount == 0.0m;
-    public static Weight Abs(Money money) => new(Math.Abs(money.JointAmount));
+    public static Money Abs(Money money) => new(Math.Abs(money.JointAmount), money.Currency);
 
     [SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsComplexNumber(Money money) => false;
@@ -366,7 +366,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     public static bool IsOddInteger(Money money) => decimal.IsOddInteger(money.JointAmount);
     public static bool IsPositive(Money money) => decimal.IsPositive(money.JointAmount);
     public static bool IsNegative(Money money) => decimal.IsNegative(money.JointAmount);
-    public static Weight Truncate(Money money) => new(decimal.Truncate(money.JointAmount));
+    public static Money Truncate(Money money) => new(decimal.Truncate(money.JointAmount), money.Currency);
+
 
     #endregion
 
