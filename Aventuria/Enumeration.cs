@@ -8,7 +8,8 @@ namespace Aventuria;
 /// Class to allow more elaborate enumerations
 /// </summary>
 /// <remarks>Inspired by https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types</remarks>
-public abstract class Enumeration : IComparable, IEquatable<Enumeration>, IEqualityOperators<Enumeration, Enumeration, bool>
+public abstract class Enumeration : IComparable, 
+    IEquatable<Enumeration>, IEqualityOperators<Enumeration, Enumeration, bool>, IEqualityOperators<Enumeration, int, bool>
 {
     /// <summary>
     /// Gets the name.
@@ -44,12 +45,22 @@ public abstract class Enumeration : IComparable, IEquatable<Enumeration>, IEqual
                     .Cast<T>();
 
 
-
+    /// <inheritdoc />
     public bool Equals(Enumeration? other)
     {
         return other is not null && Value == other.Value;
     }
 
+    /// <inheritdoc />
+    public static bool operator ==(Enumeration? left, int right)
+    {
+        return left?.Equals(right) ?? false;
+    }
+    /// <inheritdoc />
+    public static bool operator !=(Enumeration? left, int right)
+    {
+        return !left?.Equals(right) ?? true;
+    }
 
 
     #region IMPLEMENT IComparable
@@ -57,13 +68,15 @@ public abstract class Enumeration : IComparable, IEquatable<Enumeration>, IEqual
     /// <inheritdoc />
     public override bool Equals(object? obj)
     {
-        if (obj is not Enumeration otherValue)
+        if (obj is not Enumeration other)
         {
+            if (obj is int otherValue)
+                return Value.Equals(otherValue);
             return false;
         }
 
         var typeMatches = GetType().Equals(obj.GetType());
-        var valueMatches = Value.Equals(otherValue.Value);
+        var valueMatches = Value.Equals(other.Value);
 
         return typeMatches && valueMatches;
     }

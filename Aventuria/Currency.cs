@@ -51,12 +51,12 @@ public class Currency : Enumeration
     public decimal Rate { get; init; }
 
 
+    public const int Reference = 1;
 
-
-    public static Currency Reference => MiddenrealmThaler;
+    public static Currency ReferenceCurrency => MiddenrealmThaler;
 
     public static Currency MiddenrealmThaler =>
-        new(nameof(MiddenrealmThaler), 1)
+        new(nameof(MiddenrealmThaler), Reference)
         {
             CoinNames = new string[] { "Ducat", "Silverthaler", "Haler", "Kreutzer" },
             CoinAbbr = new string[] { "D", "S", "H", "K" },
