@@ -288,7 +288,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <returns>A signed number indicating the relative values of this instance and value.</returns>
     public int CompareTo(Money value)
     {
-        //TODO: RequireSameCurrency(this, value);
+        RequireSameCurrency(this, value);
         return JointAmount.CompareTo(value.JointAmount);
     }
 
@@ -310,42 +310,42 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <inheritdoc/>
     public static bool operator == (Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return m1.JointAmount.Equals(m2.JointAmount);
     }
 
     /// <inheritdoc/>
     public static bool operator !=(Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return !m1.JointAmount.Equals(m2.JointAmount);
     }
 
     /// <inheritdoc/>
     public static bool operator >(Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return m1.JointAmount > m2.JointAmount;
     }
 
     /// <inheritdoc/>
     public static bool operator <(Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return m1.JointAmount < m2.JointAmount;
     }
 
     /// <inheritdoc/>
     public static bool operator >=(Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return m1.JointAmount >= m2.JointAmount;
     }
 
     /// <inheritdoc/>
     public static bool operator <=(Money m1, Money m2)
     {
-        //TODO: RequireSameCurrency(m1, m2);
+        RequireSameCurrency(m1, m2);
         return m1.JointAmount <= m2.JointAmount;
     }
 
@@ -382,7 +382,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     #region NUMBER
 
     public static Money CopySign(Money value, Money sign) => 
-        new(Math.Abs(value.JointAmount) * Money.Sign(sign), value.Currency);
+        new(Math.Abs(value.JointAmount) * (sign >= 0 ? 1 : -1), value.Currency); 
     public static int Sign(Money value) => decimal.Sign(value.JointAmount);
 
     public static Money Clamp(Money value, Money min, Money max) => 
@@ -488,7 +488,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
 
 
 
-    public static void RequireSameCurrency(Money a, Money b)
+    private static void RequireSameCurrency(Money a, Money b)
     {
         if (a.Currency != b.Currency) throw new ArgumentException("Currency mismatch");
     }
