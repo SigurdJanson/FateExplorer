@@ -14,7 +14,7 @@ public class Coins
     /// <summary>
     /// Returns the coins as monetary value in the reference currency.
     /// </summary>
-    public Money RefValue => new(JoinAmount() * Currency.Rate, Currency.Reference);
+    public Money RefValue => new(JoinAmount() * Currency.Rate, Currency.ReferenceCurrency);
 
 
     public Coins(Currency currency)
