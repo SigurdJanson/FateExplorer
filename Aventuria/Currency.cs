@@ -1,7 +1,6 @@
 ﻿namespace Aventuria;
 
 
-// TODO: still a draft
 public class Currency : Enumeration
 {
     /// <summary>
