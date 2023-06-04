@@ -19,7 +19,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
 
-	protected const int DaysInYear = 365;
+    protected const int DaysInYear = 365;
 	protected const int DaysInMonth = 30;
 	protected const int NamelessDays = 5;
 	protected const int MonthsInYear = 13;
@@ -107,7 +107,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	/// <inheritdoc/>
 	/// <remarks>The Karmakortheon is included in the previous era. At the moment 
 	/// the class assumes that we always play in the 11th age.</remarks>
-	public override int GetEra(DateTime time) => 11;
+	public override int GetEra(DateTime time) => 11; //TODO: GetEra and CurrentEra
 
 	public override int GetDayOfMonth(DateTime time)
 			{
