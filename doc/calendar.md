@@ -110,42 +110,75 @@ Overview over year conversions:
 </table>
 
 
-### Bosparan's Fall<sup>*</sup>
+## International: Bosparan's Fall<sup>*</sup> (neutral culture)
 
+### Years 
 * Identifier: "# BF" (for positive numbers) and "# v. BF" (negative numbers); English: "# b. BF"
 
-### Hal<sup>*</sup>
+### Weekdays
+```json
+"Windstag", "Erdtag", "Markttag", "Praiostag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ma", "Pr", "Ro", "Fe", "Wa"
+"W", "E", "M", "P", "R", "F", "W"
+```
+
+### Months
+```json
+"Praios", "Rondra", "Efferd", "Travia", "Boron", "Hesinde", "Firun", "Tsa", "Phex", "Peraine", "Ingerimm", "Rahja", "Namenlose Tage"
+"PRA", "RON", "EFF", "TRA", "BOR", "HES", "FIR", "TSA", "PHE", "PER", "ING", "RAH", "NL"
+```
+
+## Mittelreich: Hal<sup>*</sup>
+
+### Years
 
 Hal's calendar counts years differently:
 
 * Conversion: (Hal) + 993 = (BF)
 * Identifier: Hal
 
+### Weekdays
+see Bosparan's Fall
 
-### Andergast & Nostria
+### Months
+see Bosparan's Fall
+
+
+## Andergast & Nostria
 
 The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF + 854
 
-### Arania
+### Weekdays
+see Bosparan's Fall
 
-The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
+### Months
+see Bosparan's Fall
+
+
+
+## Arania
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF - 994
 
+### Weekdays
+see Bosparan's Fall
 
-### Kahet ni Kemi
+### Months
+see Bosparan's Fall
 
-The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
+
+
+## Kahet ni Kemi
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF - 996
 
 
-### Horasian Empire
+## Horasian Empire
 
 The Horasian Empire uses both calendars, BF and the reckoning since Horas' Arrival (1491 b. BF ).
 
@@ -153,8 +186,20 @@ The Horasian Empire uses both calendars, BF and the reckoning since Horas' Arriv
 * There is no year 0.
 * Conversion: (Horas) = (BF) + 1492
 
+### Weekdays 
+```json
+"Windstag", "Erdtag", "Horastag", "Praiostag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ho", "Pr", "Ro", "Fe", "Wa"
+"W", "E", "H", "P", "R", "F", "W"
+```
 
-### Al'Anfa<sup>*</sup>
+### Months
+see Bosparan's Fall
+
+
+
+
+## Al'Anfa<sup>*</sup>
 
 Golgaris calendar counts years since the Arrival of Golgari (686 BF). It is used only in the Empire of Al'Anfa
 
@@ -162,12 +207,35 @@ Golgaris calendar counts years since the Arrival of Golgari (686 BF). It is used
 * There is no year 0.
 * Conversion: (GE) = (BF) - 685
 
+### Wochentage
+```json
+"Windstag", "Erdtag", "Markttag", "Borontag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ma", "Bo", "Ro", "Fe", "Wa"
+"W", "E", "M", "B", "R", "F", "W"
+```
 
-### Thorwal
+### Monate
+see Bosparan's Fall
+
+
+## Thorwal
 
 \- 
 
-### Maraskan<sup>*</sup>
+### Weekdays
+```json
+"Trondesdag", "Ifirnsdag", "Firunsdag", "Swafnirsdag", "Traviasdag", "Jurgasdag", "Hjaldisdag"
+"Tr", "If", "Fi", "Sw", "Tr", "Ju", "Hj"
+"T", "I", "F", "S", "T", "J", "H"
+```
+
+### Months
+```json
+"Midsonnmond", "Kornmond", "Heimamond", "Schlachtmond", "Sturmmond", "Frostmond", "Grimfrostmond", "Goimond", "Friskenmond", "Eimond", "Faramond", "Vinmond", "Hranngartage"
+```
+
+
+## Maraskan<sup>*</sup>
 
 The essential date for Maraskan is when the god Rur threw the "Disque that is the World" to his brother Gror. That was the 19. Rondra 3822 v. BF when everything began.
 
@@ -179,35 +247,46 @@ The essential date for Maraskan is when the god Rur threw the "Disque that is th
 
 Open questions: what about months and days???
 
-### Jilaskan
-\-
 
 
-### Dwarves
+## Dwarves
 
 The dwarves do not have a systematic way to count years. Among each other they use important events to identify dates, e.g. 3x3 years after the ................ of Grandfather Amaxoschs.
 
-They also use the months from Bosparan time but they use different names for the months:
-* German: Sommermond, Hitzemond, Regenmond, Weinmond, Nebelmond, Dunkelmond, Frostmond, Neugeburt, Marktmond, Saatmond, Feuer- (oder Feier)mond und Brautmond.
-  * English: Summer Moon, Heat Moon, Rain Moon, Wine Moon, Fog Moon, Dark Moon, Frozen Moon, Rebirth, Market Moon, Sewing Moon, Fire (also Feast) Moon, and Bride Moon.
-* The Nameless days are called Dragon days (Drachentage)
 * Conversion: not possible
 
+### Weekdays
+see Bosparan's Fall
 
-### Amazons
+### Months
 
-In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
+Dwarves use use the months from Bosparan time but they use different names for the months:
 
-* Format: vor/nach Kurkum; English: "before/after Kurkum".
-* Conversion: (nach Kurkum) = (BF) - 415
+```json
+"Sommermond", "Hitzemond", "Regenmond", "Weinmond", "Nebelmond", "Dunkelmond", "Frostmond", "Neugeburt", "Marktmond", "Saatmond", "Feuermond", "Brautmond", "Drachentage"
+```
+
+* Instead of "Feuermond" some use "Feiermond"
+* English translation: 
+  * Summer Moon, Heat Moon, Rain Moon, Wine Moon, Fog Moon, Dark Moon, Frozen Moon, Rebirth, Market Moon, Sewing Moon, Fire (also Feast) Moon, and Bride Moon.
+  * The Nameless days are called Dragon days (Drachentage)
 
 
-### E. File
+# L10N["Bornland"]
 
-\-
+## Weekdays
+```json
+"Windstag", "Erdtag", "Markttag", "Borontag", "Schneetag", "Feuertag", "Zinstag"
+"Wi", "Er", "Ma", "Bo", "Sc", "Fe", "Zi"
+"W", "E", "M", "B", "S", "F", "Z"
+```
+
+## Monate
+
+* TODO
 
 
-### Novadic<sup>*</sup>
+## Novadic<sup>*</sup>
 
 * Week days: ########## Zu den novadischen Tagesnamen siehe Wochentag.
 * The year starts with the 23. Boron
@@ -219,17 +298,49 @@ In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
 * Conversion: (n. d. O.) = (BF) - 759
 * There is no year 0.
 
-### L10N[NORBARDEN]
+
+
+## Black Lands (Schwarze Lande)
+
+### Months
+
+```json
+"Blakharaz", "Belhalhar", "Charyptoroth", "Lolgramoth", "Thargunitoth", "Amazeroth", "Belshirash", "Asfaloth", "Tasfarelel", "Belzhorash", "Agrimoth", "Belkelel", "Namenlose Tage"
+```
+
+
+## Amazons
+
+In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
+
+* Format: vor/nach Kurkum; English: "before/after Kurkum".
+* Conversion: (nach Kurkum) = (BF) - 415
+
+
+
+## Jilaskan
+\-
+
+
+
+
+## E. File
 
 \-
 
-### Orcs
+
+
+## L10N[NORBARDEN]
+
 \-
 
-### L10N[GJALSKER]
+## Orcs
 \-
 
-### L10N[SAURIAN/LIZARDS]
+## L10N[GJALSKER]
+\-
+
+## L10N[SAURIAN/LIZARDS]
 
 * A week ("wss") has 5 days (day = "ggg"): Sz'G, Drs'G, Gzht'G, Lhn'G, Rsz'G (in this order).
 * A month ("ffn") has 33 days.
@@ -246,6 +357,10 @@ The date  1. Praios 1000 BF is the 18. Tag of 219. month in the section of the D
 Dating this back to the first day of the Saurian calendar should be: 14. Rahja 50217 v. BF.
 
 
+
+<!-- ****************************************************************** */ -->
+------------------------------------------------------------------------------
+<!-- ****************************************************************** */ -->
 # Holidays
 
 Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
@@ -332,6 +447,11 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 * Fixed day but only once every N years; reference year required (e.g. Gratenfelser Schützenfest)
 
 
+
+
+<!-- ****************************************************************** */ -->
+------------------------------------------------------------------------------
+<!-- ****************************************************************** */ -->
 ## Questions
 
 * Can local customs for country-wide be handled?
