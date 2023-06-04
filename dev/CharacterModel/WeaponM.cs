@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FateExplorer.CharacterModel
 {
-    public class WeaponM
+    public class WeaponM : IWeaponM
     {
         protected const int DefaultSkillValue = 6;
 
@@ -46,7 +46,7 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
 
 
-            int TwoHandedCombatTier =  Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
             {
                 false => 0,
                 true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
@@ -98,7 +98,7 @@ namespace FateExplorer.CharacterModel
             };
             int TwoHandMod;
             // A two-handed weapon does not suffer from fighting with two hands; neither does parying with a shield
-            if (Branch != CombatBranch.Shield && !IsTwoHanded) 
+            if (Branch != CombatBranch.Shield && !IsTwoHanded)
                 TwoHandMod = otherHand switch
                 {
                     CombatBranch.Unarmed => 0,
@@ -114,7 +114,7 @@ namespace FateExplorer.CharacterModel
             int ParryMod;
             if (otherIsParry)
                 ParryMod = 1;
-            else if(otherHand == CombatBranch.Shield)
+            else if (otherHand == CombatBranch.Shield)
                 ParryMod = otherPaMod;
             else
                 ParryMod = 0;
@@ -304,7 +304,7 @@ namespace FateExplorer.CharacterModel
         {
             // Get value for primary ability/attribute
             int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0; ; // Ability value
-            
+
             // More than 1 primary attribute? Get the highest one.
             if (PrimaryAbilityId.Length > 1)
                 for (int i = 1; i < PrimaryAbilityId.Length; i++)
@@ -317,7 +317,7 @@ namespace FateExplorer.CharacterModel
             int Parry = CombatTecSkill.ComputeParry(PrimeAbility); // no weapons modifier
 
             if (Branch == CombatBranch.Shield)
-                Parry += 2*ParryMod; // active parry with shield gives the double weapon modifier
+                Parry += 2 * ParryMod; // active parry with shield gives the double weapon modifier
             else
                 Parry += ParryMod; // attack modifier of the weapon
 
@@ -332,7 +332,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="Abilities">A collection of abilities</param>
         /// <returns>A numeric value indicating the extra bonus that must be added to the
         /// weapons hit points.</returns>
-        public int HitpointBonus(Dictionary<string, AbilityM> Abilities) 
+        public int HitpointBonus(Dictionary<string, AbilityM> Abilities)
         {
             if (DamageThreshold == 0) return 0;
 
