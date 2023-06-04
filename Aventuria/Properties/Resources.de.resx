@@ -324,4 +324,10 @@
   <data name="AlanfaDoubloonSymbol" xml:space="preserve">
     <value>ⴲ</value>
   </data>
+  <data name="CountryMI" xml:space="preserve">
+    <value>Mittelreich</value>
+  </data>
+  <data name="CountryHO" xml:space="preserve">
+    <value>Horasreich</value>
+  </data>
 </root>

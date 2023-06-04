@@ -277,6 +277,24 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Horasian Empire ähnelt.
+        /// </summary>
+        internal static string CountryHO {
+            get {
+                return ResourceManager.GetString("CountryHO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Middenrealm ähnelt.
+        /// </summary>
+        internal static string CountryMI {
+            get {
+                return ResourceManager.GetString("CountryMI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die AG ähnelt.
         /// </summary>
         internal static string DwarvenArganbroxAbbr {

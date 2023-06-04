@@ -324,4 +324,10 @@
   <data name="BornlandSlightlingSymbol" xml:space="preserve">
     <value>BS</value>
   </data>
+  <data name="CountryMI" xml:space="preserve">
+    <value>Middenrealm</value>
+  </data>
+  <data name="CountryHO" xml:space="preserve">
+    <value>Horasian Empire</value>
+  </data>
 </root>
