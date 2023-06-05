@@ -7,31 +7,11 @@
 <MudDialog>
     <DialogContent>
         <MudGrid>
-            <MudItem xs=4>
-                <MudText Typo=@Typo.h6>@Hero</MudText>
-            </MudItem>
-            <MudItem xs=4>
-                <MudPaper Outlined=true Class="pa-4 ma-4">
-                    @if (!DistanceDisabled)
-                    {
-                        @l10n["lblDistance"]
-                        <MudSlider Min=0 Max=2 TickMarks=true TickMarkLabels=@DistanceLabels Step=1 Value=@Distance Size=Size.Large />
-                    }
-                    else
-                    {
-                        <MudText Typo.body1 Align=@Align.Center>@l10n["lblCloseCombat"]</MudText>
-                    }
-                </MudPaper>
-            </MudItem>
-            <MudItem xs=4>
-                <MudText Typo=@Typo.h6>@l10n["lblOpponent"]</MudText>
-            </MudItem>
-
             <MudItem xs="12">
                 <MudPaper Outlined=true Class="pa-4" Style="height: 100%">
                     <MudGrid>
                         <MudItem xs=12>
-                            <MudText Typo=@Typo.h6>@l10n["lblWeapon"]</MudText>
+                            <MudText Typo=@Typo.h6>@Hero @l10n["lblWeapon"]</MudText>
                         </MudItem>
                         <MudItem xs=12 sm=6>
                             <MudSimpleTable Style="overflow-x: auto;" Dense=true>
@@ -39,49 +19,51 @@
                                     <tr>
                                         <th></th>
                                         <th>@l10n["abbrvAttack"]</th>
+                                        @if (Hands.MainWeapon.CanParry || Hands.OffWeapon.CanParry)
+                                        {
                                         <th>@l10n["abbrvParry"]</th>
+                                        }
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (!Hands.IsDisabled(HandsViMo.Hand.Main))
+                                    {
                                     <tr>
                                         <td>
-                                            <!--MudText Typo=@Typo.body2 GutterBottom=false>@l10n["lblDominantHand"]</!--MudText-->
                                             <MudIcon Icon=@Icons.Material.Sharp.FrontHand Color=Color.Secondary Title=@l10n["lblDominantHand"] />
                                             @Hands.MainWeapon.Name, @l10n["CombatBranch."+Hands.MainWeapon.Branch.ToString()]
                                         </td>
                                         <td>@Battleground.Resolve(Hands, true, MainAttack)</td>
-                                        <td>@Battleground.Resolve(Hands, true, MainParry)</td>
+                                        @if (Hands.MainWeapon.CanParry)
+                                        {
+                                        <td>@Battleground.Resolve(Hands, true, MainParry)</td>@*Check for CanParry<*@
+                                        }
                                     </tr>
+                                    }
+                                    @if (!Hands.IsDisabled(HandsViMo.Hand.Off))
+                                    {
                                     <tr>
                                         <td>
-                                            <!--MudText Typo=@Typo.body2 GutterBottom=false>@l10n["lblNondominantHand"]</!--MudText-->
                                             <MudIcon Icon=@IconsFE.BackHandLeft Color=Color.Secondary Title=@l10n["lblNondominantHand"] />
                                             @Hands.OffWeapon.Name, @l10n["CombatBranch."+Hands.OffWeapon.Branch.ToString()]
                                         </td>
                                         <td>@Battleground.Resolve(Hands, false, OffAttack)</td>
+                                        @if (Hands.OffWeapon.CanParry)
+                                        {
                                         <td>@Battleground.Resolve(Hands, false, OffParry)</td>
+                                        }
                                     </tr>
+                                    }
                                 </tbody>
                             </MudSimpleTable>
                         </MudItem>
                         <MudItem xs=12 sm=6>
-                            <MudText Typo=@Typo.subtitle1>@l10n["lblEnemyReach"]</MudText>
-                            @if (!EnemyReachDisabled)
+                            @if (!DistanceDisabled)
                             {
-                            <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
-                                <MudToggleIconButton Toggled=EnemyReachShort Title=@l10n["lblEnemyReachShort"]
-                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Short, v))
-                                                    Icon=@IconsFE.BrassKnuckles ToggledIcon=@IconsFE.BrassKnuckles
-                                                    Color=OffCol ToggledColor=OnCol /> 
-                                <MudToggleIconButton Toggled=EnemyReachMedium Title=@l10n["lblEnemyReachMedium"]
-                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Medium, v))
-                                                    Icon=@IconsFE.Sword ToggledIcon=@IconsFE.Sword
-                                                    Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=EnemyReachLong Title=@l10n["lblEnemyReachLong"]
-                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Long, v))
-                                                    Icon=@IconsFE.Spear ToggledIcon=@IconsFE.Spear
-                                                    Color=OffCol ToggledColor=OnCol />
-                            </MudButtonGroup>
+                            @l10n["lblDistanceToEnemy"]
+                            <MudSlider T=WeaponsRange Min=WeaponsRange.Short Max=WeaponsRange.Long 
+                                TickMarks=true TickMarkLabels=@DistanceLabels 
+                                @bind-value=Distance Size=Size.Large />
                             }
                         </MudItem>
                     </MudGrid>
@@ -118,75 +100,117 @@
                                                      Icon=@IconsFE.Vision4_None ToggledIcon=@IconsFE.Vision4_None
                                                      Color=OffCol ToggledColor=OnCol />
                             </MudButtonGroup>
-
-                            <MudText Typo=@Typo.subtitle1>@l10n["lblUnderWater"]</MudText>
-                            <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
-                                <MudToggleIconButton Toggled=NoWater Title=@l10n["lblWaterNone"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.Dry, v))
-                                                     Icon=@IconsFE.Water0_Dry ToggledIcon=@IconsFE.Water0_Dry
-                                                     Color=OffCol ToggledColor =OnCol />
-                                <MudToggleIconButton Toggled=Water2Knee Title=@l10n["lblWater2Knee"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.KneeDeep, v))
-                                                     Icon=@IconsFE.Water1_Knee ToggledIcon=@IconsFE.Water1_Knee
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=Water2Waist Title=@l10n["lblWater2Waist"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.WaistDeep, v))
-                                                     Icon=@IconsFE.Water2_Waist ToggledIcon=@IconsFE.Water2_Waist
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=Water2Chest Title=@l10n["lblWater2Chest"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.ChestDeep, v))
-                                                     Icon=@IconsFE.Water3_Chest ToggledIcon=@IconsFE.Water3_Chest
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=Water2Neck Title=@l10n["lblWater2Neck"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.NeckDeep, v))
-                                                     Icon=@IconsFE.Water4_Neck ToggledIcon=@IconsFE.Water4_Neck
-                                                     Color=OffCol ToggledColor =OnCol />
-                                <MudToggleIconButton Toggled=Submerged Title=@l10n["lblWaterSubmerged"]
-                                                     ToggledChanged=@((bool v) => SetWater(UnderWater.Submerged, v))
-                                                     Icon=@IconsFE.Water5_Submerged ToggledIcon=@IconsFE.Water5_Submerged
-                                                     Color=OffCol ToggledColor=OnCol />
-                            </MudButtonGroup>
-                            <br />
-                            @if (!CrampedSpaceDisabled)
-                            {
-                                <div class="d-flex align-center">
-                                    @l10n["lblCramped"]
-                                <MudIcon Icon=@Icons.Material.Filled.Accessibility />
-                                    <MudSwitch Checked=CrampedSpace Size=Size.Large Title=@l10n["lblCramped"]
-                                               CheckedChanged=@((bool v) => SetCrampedSpace(v))
-                                               ThumbIconColor=@(CrampedSpace==true ? OnCol : OffCol) 
-                                               Disabled=@CrampedSpaceDisabled />
-                                <MudIcon Icon=@IconsFE.Cramped />
-                            </div>
-                            }
-                        </MudItem>
+                    </MudItem>
+                    <MudItem xs=12 sm=6>
+                        <MudText Typo=@Typo.subtitle1>@l10n["lblUnderWater"]</MudText>
+                        <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
+                            <MudToggleIconButton Toggled=NoWater Title=@l10n["lblWaterNone"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.Dry, v))
+                                                    Icon=@IconsFE.Water0_Dry ToggledIcon=@IconsFE.Water0_Dry
+                                                    Color=OffCol ToggledColor =OnCol />
+                            <MudToggleIconButton Toggled=Water2Knee Title=@l10n["lblWater2Knee"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.KneeDeep, v))
+                                                    Icon=@IconsFE.Water1_Knee ToggledIcon=@IconsFE.Water1_Knee
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=Water2Waist Title=@l10n["lblWater2Waist"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.WaistDeep, v))
+                                                    Icon=@IconsFE.Water2_Waist ToggledIcon=@IconsFE.Water2_Waist
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=Water2Chest Title=@l10n["lblWater2Chest"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.ChestDeep, v))
+                                                    Icon=@IconsFE.Water3_Chest ToggledIcon=@IconsFE.Water3_Chest
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=Water2Neck Title=@l10n["lblWater2Neck"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.NeckDeep, v))
+                                                    Icon=@IconsFE.Water4_Neck ToggledIcon=@IconsFE.Water4_Neck
+                                                    Color=OffCol ToggledColor =OnCol />
+                            <MudToggleIconButton Toggled=Submerged Title=@l10n["lblWaterSubmerged"]
+                                                    ToggledChanged=@((bool v) => SetWater(UnderWater.Submerged, v))
+                                                    Icon=@IconsFE.Water5_Submerged ToggledIcon=@IconsFE.Water5_Submerged
+                                                    Color=OffCol ToggledColor=OnCol />
+                        </MudButtonGroup>
+                    </MudItem>
+                        @if (!CrampedSpaceDisabled)
+                        {
                         <MudItem xs=12 sm=6>
-                            <MudText Typo=@Typo.subtitle1>@l10n["lblEnemySize"]</MudText>
+                            <div class="d-flex align-center">
+@*                            @l10n["lblCramped"]
+                            <MudIcon Icon=@Icons.Material.Filled.Accessibility />
+                                <MudSwitch Checked=CrampedSpace Size=Size.Large Title=@l10n["lblCramped"]
+                                            CheckedChanged=@((bool v) => SetCrampedSpace(v))
+                                            ThumbIconColor=@(CrampedSpace==true ? OnCol : OffCol) 
+                                            Disabled=@CrampedSpaceDisabled />
+                            <MudIcon Icon=@IconsFE.Cramped />
+                                Variant=Variant.Filled Size=Size.Large ToggledSize=Size.Large
+                                *@
                             <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
-                                <MudToggleIconButton Toggled=EnemyTiny Title=@l10n["lblEnemyTiny"]
-                                                     ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Tiny, v))
-                                                     Icon=@IconsFE.AnimalToad ToggledIcon=@IconsFE.AnimalToad
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=EnemySmall Title=@l10n["lblEnemySmall"]
-                                                     ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Small, v))
-                                                     Icon=@IconsFE.AnimalSheep ToggledIcon=@IconsFE.AnimalSheep
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=EnemyMedium Title=@l10n["lblEnemyMedium"]
-                                                     ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Medium, v))
-                                                     Icon=@Icons.Material.Filled.Accessibility 
-                                                     ToggledIcon=@Icons.Material.Filled.Accessibility
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=EnemyLarge Title=@l10n["lblEnemyLarge"]
-                                                     ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Large, v))
-                                                     Icon=@IconsFE.AnimalCow ToggledIcon=@IconsFE.AnimalCow
-                                                     Color=OffCol ToggledColor=OnCol />
-                                <MudToggleIconButton Toggled=EnemyHuge Title=@l10n["lblEnemyHuge"]
-                                                     ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Huge, v))
-                                                     Icon=@IconsFE.AnimalDragon ToggledIcon=@IconsFE.AnimalDragon
-                                                     Color=OffCol ToggledColor=OnCol />
+                                <MudToggleIconButton Toggled=CrampedSpace ToggledChanged=@((bool v) => SetCrampedSpace(v))
+                                    Color=OffCol ToggledColor=OnCol
+                                    Icon=@Icons.Material.Filled.Accessibility ToggledIcon=@IconsFE.Cramped  
+                                    Title=@l10n["lblCramped"] />
                             </MudButtonGroup>
+                            <span class="ma-4">@(CrampedSpace ? l10n["lblCrampedOn"] : l10n["lblCrampedOff"])</span>
+                            </div>
                         </MudItem>
+                        }
                     </MudGrid>
+                    </MudPaper>
+            </MudItem>
+            <MudItem xs=12>
+                <MudPaper Outlined=true Class="pa-4" Style="height: 100%">
+                    <MudGrid>
+                    <MudItem xs=12>
+                        <MudText Typo=@Typo.h6>@l10n["lblEnemy"]</MudText>
+                    </MudItem>
+
+                    <MudItem xs=12 sm=6>
+                        <MudText Typo=@Typo.subtitle1>@l10n["lblEnemySize"]</MudText>
+                        <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
+                            <MudToggleIconButton Toggled=EnemyTiny Title=@l10n["lblEnemyTiny"]
+                                                    ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Tiny, v))
+                                                    Icon=@IconsFE.AnimalToad ToggledIcon=@IconsFE.AnimalToad
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=EnemySmall Title=@l10n["lblEnemySmall"]
+                                                    ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Small, v))
+                                                    Icon=@IconsFE.AnimalSheep ToggledIcon=@IconsFE.AnimalSheep
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=EnemyMedium Title=@l10n["lblEnemyMedium"]
+                                                    ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Medium, v))
+                                                    Icon=@Icons.Material.Filled.Accessibility 
+                                                    ToggledIcon=@Icons.Material.Filled.Accessibility
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=EnemyLarge Title=@l10n["lblEnemyLarge"]
+                                                    ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Large, v))
+                                                    Icon=@IconsFE.AnimalCow ToggledIcon=@IconsFE.AnimalCow
+                                                    Color=OffCol ToggledColor=OnCol />
+                            <MudToggleIconButton Toggled=EnemyHuge Title=@l10n["lblEnemyHuge"]
+                                                    ToggledChanged=@((bool v) => SetEnemySize(EnemySize.Huge, v))
+                                                    Icon=@IconsFE.AnimalDragon ToggledIcon=@IconsFE.AnimalDragon
+                                                    Color=OffCol ToggledColor=OnCol />
+                        </MudButtonGroup>
+                    </MudItem>
+                    <MudItem xs=12 sm=6>
+                        @if (!EnemyReachDisabled)
+                        {
+                            <MudText Typo=@Typo.subtitle1>@l10n["lblEnemyReach"]</MudText>
+                            <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
+                                <MudToggleIconButton Toggled=EnemyReachShort Title=@l10n["lblEnemyReachShort"]
+                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Short, v))
+                                                    Icon=@IconsFE.BrassKnuckles ToggledIcon=@IconsFE.BrassKnuckles
+                                                    Color=OffCol ToggledColor=OnCol />
+                                <MudToggleIconButton Toggled=EnemyReachMedium Title=@l10n["lblEnemyReachMedium"]
+                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Medium, v))
+                                                    Icon=@IconsFE.Sword ToggledIcon=@IconsFE.Sword
+                                                    Color=OffCol ToggledColor=OnCol />
+                                <MudToggleIconButton Toggled=EnemyReachLong Title=@l10n["lblEnemyReachLong"]
+                                                    ToggledChanged=@((bool v) => SetEnemyReach(WeaponsReach.Long, v))
+                                                    Icon=@IconsFE.Spear ToggledIcon=@IconsFE.Spear
+                                                    Color=OffCol ToggledColor=OnCol />
+                            </MudButtonGroup>
+                        }
+                    </MudItem>
+
+                </MudGrid>
                 </MudPaper>
             </MudItem>
 
@@ -199,11 +223,12 @@
                             <MudText Typo=@Typo.h6>@l10n["lblCombatMovement"]</MudText>
                         </MudItem>
                         <MudItem xs=12 sm=6>
-                            <MudButtonGroup Color=OffCol Variant=Variant.Filled Size=Size.Large>
+                            <MudText Typo=@Typo.subtitle1>@l10n["lblMoveHero"]</MudText>
+                            <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
                                 <MudToggleIconButton Toggled=NoMovement Title=@l10n["lblMoveStationary"]
                                                      ToggledChanged=@((bool v) => SetHeroMoving(Movement.None, v))
                                                      Icon=@IconsFE.Onfoot0_Stand ToggledIcon=@IconsFE.Onfoot0_Stand
-                                                     ToggledColor=OnCol />
+                                                     Color=OffCol ToggledColor=OnCol />
                             </MudButtonGroup>
                             <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
                                 <MudToggleIconButton Toggled=MovementWalk Title=@l10n["lblMoveWalk"]
@@ -232,6 +257,7 @@
                             </MudButtonGroup>
                         </MudItem>
                         <MudItem xs=12 sm=6>
+                            <MudText Typo=@Typo.subtitle1>@l10n["lblMoveEnemy"]</MudText>
                             <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
                                 <MudToggleIconButton Toggled=EnemyNoMovement Title=@l10n["lblMoveStationary"]
                                                      ToggledChanged=@((bool v) => SetEnemyMoving(Movement.None, v))
@@ -250,9 +276,10 @@
                             {
                                 <MudSwitch Checked=EnemyEvasive Size=Size.Large title=@l10n["lblEnemyRunningZigZag"]
                                        CheckedChanged=@((bool v) => SetEnemyEvasive(v))
-                                       ThumbIconColor=@(EnemyEvasive==true ? OnCol : OffCol)
+                                       UnCheckedColor=OffCol Color=OnCol
                                        Disabled=@EnemyEvasiveDisabled >
-                            </MudSwitch>
+                                       @l10n["lblEnemyRunningZigZag"]
+                                </MudSwitch>
                             }
                         </MudItem>
                     </MudGrid>
@@ -296,9 +323,8 @@
 
     // SETTINGS
     //
-    private const int DistanceDefault = 0;
     private string[] DistanceLabels;
-    private int Distance = DistanceDefault;
+    private WeaponsRange Distance { get => Battleground.Distance; set => Battleground.Distance = value; }
     private bool DistanceDisabled =>
         !(BattlegroundViMo.IsDistanceEnabled(Hands.MainWeapon) || BattlegroundViMo.IsDistanceEnabled(Hands.OffWeapon));
 

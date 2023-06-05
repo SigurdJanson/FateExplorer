@@ -64,7 +64,7 @@ public class BattlegroundM : ICheckContextM
     {
         if (!original.Equals(value))
         {
-            TotalMod = Modifier.Neutral;
+            TotalMod = Modifier.Neutral; // reset to allow re-calculation
             TotalModAction = default;
             original = value;
             NotifyStateChange();
@@ -88,7 +88,7 @@ public class BattlegroundM : ICheckContextM
     private const UnderWater WaterDefault = UnderWater.Dry;
     private const bool CrampedSpaceDefault = false;
     private const Movement MovingDefault = Movement.None;
-    private const Movement EnemyMovingDefault = Movement.None;
+    private const Movement EnemyMovingDefault = Movement.Slow;
     private const bool EnemyEvasiveDefault = false;
     private const WeaponsReach EnemyReachDefault = WeaponsReach.Medium;
     private const EnemySize SizeOfEnemyDefault = EnemySize.Medium;
@@ -129,12 +129,12 @@ public class BattlegroundM : ICheckContextM
     /// </summary>
     /// <param name="weapon"></param>
     /// <returns></returns>
-    public static bool IsDistanceEnabled(WeaponM weapon) => weapon.IsRanged;
+    public static bool IsDistanceEnabled(IWeaponM weapon) => weapon.IsRanged;
     /// <summary>
     /// Computes the <see cref="Distance"/> modifier between fighter and target.
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
-    public Modifier GetDistanceMod(Check action, WeaponM weapon)
+    public Modifier GetDistanceMod(Check action, IWeaponM weapon)
     {
         if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
         if (!IsDistanceEnabled(weapon)) return Modifier.Neutral;
@@ -149,11 +149,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetVisibilityMod(Check action, WeaponM weapon)
+    public Modifier GetVisibilityMod(Check action, IWeaponM weapon)
     {
-        if (!action.IsCombat || !action.Is(Check.Roll.Dodge)) return Modifier.Neutral;
+        if (!action.IsCombat && !action.Is(Check.Roll.Dodge)) return Modifier.Neutral;
 
-        if (weapon.IsRanged)
+        if (weapon.IsRanged && action.Is(Check.Combat.Attack))
             return Visibility switch
             {
                 Vision.Clear => Modifier.Neutral,
@@ -178,7 +178,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetWaterMod(Check action, WeaponM weapon)
+    public Modifier GetWaterMod(Check action, IWeaponM weapon)
     {
         if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
 
@@ -204,13 +204,13 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public static bool IsCrampedSpaceEnabled(WeaponM weapon) => weapon.IsRanged;
-    public Modifier GetCrampedSpaceMod(Check action, WeaponM weapon)
+    public static bool IsCrampedSpaceEnabled(IWeaponM weapon) => !weapon.IsRanged;
+    public Modifier GetCrampedSpaceMod(Check action, IWeaponM weapon)
     {
         if (!CrampedSpace) return Modifier.Neutral;
-        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
+        if (!action.IsCombat) return Modifier.Neutral; // DO/INI/Skills, etc. not affected
 
-        if (weapon.IsRanged || weapon.Branch == CombatBranch.Unarmed)
+        if (weapon.Branch == CombatBranch.Unarmed)
             return Modifier.Neutral;
         else if (weapon.Branch == CombatBranch.Melee)
             return weapon.Reach switch
@@ -225,8 +225,8 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public static bool IsMovingEnabled(WeaponM weapon) => weapon.IsRanged;
-    public Modifier GetMovingMod(Check action, WeaponM weapon)
+    public static bool IsMovingEnabled(IWeaponM weapon) => weapon.IsRanged;
+    public Modifier GetMovingMod(Check action, IWeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
@@ -245,7 +245,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetEnemyMovingMod(Check action, WeaponM weapon)
+    public Modifier GetEnemyMovingMod(Check action, IWeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
@@ -261,8 +261,8 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public static bool IsEnemyEvasiveEnabled(WeaponM weapon) => weapon.IsRanged;
-    public Modifier GetEvasiveActionMod(Check action, WeaponM weapon)
+    public static bool IsEnemyEvasiveEnabled(IWeaponM weapon) => weapon.IsRanged;
+    public Modifier GetEvasiveActionMod(Check action, IWeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
         if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
@@ -276,10 +276,11 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public static bool IsEnemyReachEnabled(WeaponM weapon) => !weapon.IsRanged;
-    public Modifier GetEnemyReachMod(Check action, WeaponM weapon)
+    public static bool IsEnemyReachEnabled(IWeaponM weapon) => !weapon.IsRanged;
+    public Modifier GetEnemyReachMod(Check action, IWeaponM weapon)
     {
         if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral;
+        if (action.Is(Check.Combat.Attack, CombatBranch.Ranged)) return Modifier.Neutral;
         if (weapon.Reach >= EnemyReach) return Modifier.Neutral;
 
         return (weapon.Reach, EnemyReach) switch
@@ -292,7 +293,7 @@ public class BattlegroundM : ICheckContextM
     }
 
 
-    public Modifier GetSizeOfEnemyMod(Check action, WeaponM weapon)
+    public Modifier GetSizeOfEnemyMod(Check action, IWeaponM weapon)
     {
         if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
 
@@ -314,7 +315,7 @@ public class BattlegroundM : ICheckContextM
             {
                 if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
-                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy > EnemySize.Large)
+                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy >= EnemySize.Large)
                     return Modifier.Impossible;
                 else
                     return Modifier.Neutral;
@@ -323,7 +324,7 @@ public class BattlegroundM : ICheckContextM
             {
                 if (action.Is(Check.Combat.Attack) && SizeOfEnemy == EnemySize.Tiny)
                     return new Modifier(-4);
-                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy == EnemySize.Huge)
+                else if (action.Is(Check.Combat.Parry) && SizeOfEnemy >= EnemySize.Huge)
                     return Modifier.Impossible;
                 else
                     return Modifier.Neutral;

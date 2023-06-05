@@ -1099,8 +1099,8 @@
   <data name="lblWater2Waist" xml:space="preserve">
     <value>Wasser steht hüfthoch</value>
   </data>
-  <data name="lblDistance" xml:space="preserve">
-    <value>Entfernung</value>
+  <data name="lblDistanceToEnemy" xml:space="preserve">
+    <value>Entfernung zum Gegner</value>
   </data>
   <data name="lblCloseCombat" xml:space="preserve">
     <value>Nahkampf</value>
@@ -1368,5 +1368,17 @@
   </data>
   <data name="msgUpdateAvailable" xml:space="preserve">
     <value>Eine neue Version des Fate Explorers ist verfügbar. Aktualisieren oder verschieben?</value>
+  </data>
+  <data name="lblMoveHero" xml:space="preserve">
+    <value>Bewegung Deines Helden</value>
+  </data>
+  <data name="lblMoveEnemy" xml:space="preserve">
+    <value>Bewegung des Gegners</value>
+  </data>
+  <data name="lblCrampedOff" xml:space="preserve">
+    <value>Ausreichend Raum</value>
+  </data>
+  <data name="lblCrampedOn" xml:space="preserve">
+    <value>Beengter Raum</value>
   </data>
 </root>

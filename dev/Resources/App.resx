@@ -1087,8 +1087,8 @@
   <data name="lblHero" xml:space="preserve">
     <value>Held</value>
   </data>
-  <data name="lblDistance" xml:space="preserve">
-    <value>Distance</value>
+  <data name="lblDistanceToEnemy" xml:space="preserve">
+    <value>Distance to Enemy</value>
     <comment>DlgCombatMods</comment>
   </data>
   <data name="lblCloseCombat" xml:space="preserve">
@@ -1437,5 +1437,19 @@
   </data>
   <data name="msgUpdateAvailable" xml:space="preserve">
     <value>A new version of Fate Explorer is available. Update or postpone?</value>
+  </data>
+  <data name="lblMoveHero" xml:space="preserve">
+    <value>Movement of Your Character</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveEnemy" xml:space="preserve">
+    <value>Movement of enemy</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCrampedOn" xml:space="preserve">
+    <value>Space is cramped</value>
+  </data>
+  <data name="lblCrampedOff" xml:space="preserve">
+    <value>Space is ample</value>
   </data>
 </root>
