@@ -9,7 +9,7 @@ namespace UnitTests.Shared
     [TestFixture]
     public class CheckTests
     {
-        [Test]
+        [Test, Description("enum values shall not overlap")]
         public void VerifyEnumTypes()
         {
             // Arrange
@@ -41,6 +41,9 @@ namespace UnitTests.Shared
             return result;
         }
 
+
+
+
         [Test]
         [TestCase(Check.Skill.Skill, ExpectedResult = true)]
         [TestCase(Check.Skill.Arcane, ExpectedResult = true)]
@@ -68,13 +71,50 @@ namespace UnitTests.Shared
         [TestCase(Check.Combat.Attack, CombatBranch.Melee, ExpectedResult = true)]
         [TestCase(Check.Combat.Parry, CombatBranch.Shield, ExpectedResult = true)]
         // check for combinations
-        public bool Check_Is_Combat(Check.Combat action, CombatBranch branch)
+        public bool Is_Combat(Check.Combat action, CombatBranch branch)
         {
             // Arrange
             var check = new Check(action, ChrAttrId.CombatTecBaseId, branch);
 
             // Act
             bool result = check.Is(action);
+
+            // Assert
+            return result;
+        }
+
+        [Test]
+        [TestCase(Check.Combat.Attack, 0, ExpectedResult = true)]
+        [TestCase(Check.Combat.Parry, 0, ExpectedResult = true)]
+        [TestCase(Check.Combat.Attack, CombatBranch.Melee, ExpectedResult = true)]
+        [TestCase(Check.Combat.Parry, CombatBranch.Shield, ExpectedResult = true)]
+        // check for combinations
+        public bool Is_IsAnyCombat_CheckSpecific(Check.Combat action, CombatBranch branch)
+        {
+            // Arrange
+            var check = new Check(Check.Combat.Any, ChrAttrId.CombatTecBaseId, branch);
+
+            // Act
+            bool result = check.Is(action);
+
+            // Assert
+            return result;
+        }
+
+
+        [Test]
+        [TestCase(Check.Combat.Attack, 0, ExpectedResult = false)]
+        [TestCase(Check.Combat.Attack, CombatBranch.Melee, ExpectedResult = false)]
+        [TestCase(Check.Combat.Parry, CombatBranch.Shield, ExpectedResult = false)]
+        [TestCase(Check.Combat.Any, 0, ExpectedResult = true)]
+        // check for combinations
+        public bool Is_IsSpecificCombat_CheckAny(Check.Combat action, CombatBranch branch)
+        {
+            // Arrange
+            var check = new Check(action, ChrAttrId.CombatTecBaseId, branch);
+
+            // Act
+            bool result = check.Is(Check.Combat.Any);
 
             // Assert
             return result;

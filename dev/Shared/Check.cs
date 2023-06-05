@@ -47,19 +47,22 @@ public readonly struct Check
     public static implicit operator string(Check c) => c.Id;
 
     /// <summary>
-    /// Is the check a general <see cref="Roll"/> ?
+    /// Is the check a general <see cref="Roll"/>? Does not support <see cref="Check.Roll.Any"/>.
     /// </summary>
     /// <param name="what">The value to check for</param>
     /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
     public bool Is(Roll what) => ((int)what & RollType) == (int)what;
     /// <summary>
-    /// Is the check a <see cref="Skill"/> check?
+    /// Is the check a <see cref="Skill"/> check?  Does not support <see cref="Check.Skill.Any"/>.
     /// </summary>
     /// <param name="what">The value to check for</param>
     /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
     public bool Is(Skill what) => ((int)what & RollType) == (int)what;
     /// <summary>
-    /// Is the check a <see cref="Combat"/> check?
+    /// Is the check a <see cref="Combat"/> check? If the check is <c>Combat.Any</c> it will return
+    /// <c>true</c> for <c>Combat.Attack</c> or <c>Combat.Parry</c>. But the other way round is not true.
+    /// <c>check.Is(Check.Combat.Any)</c> will only return <c>true</c> if the check is initialised as <c>Any</c>,
+    /// too.
     /// </summary>
     /// <param name="what">The value to check for</param>
     /// <returns><c>true</c> if the instance represents <c>what</c>.</returns>
