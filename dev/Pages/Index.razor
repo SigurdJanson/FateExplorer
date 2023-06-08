@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using FateExplorer.Components
 @using FateExplorer.ViewModel
 @using System.IO
 
@@ -12,12 +13,12 @@
     <MudGrid Justify=Justify.Center>
         <MudItem xs=12 xxl=12>
             <MudContainer Fixed=true>
-                <div Class="pa-4" Style="height:9rem; align-content:center">
-                    <img src="img/FateExplorer_Blood_Logo.svg" style="width:100%;max-width:100%;max-height:100%;vertical-align: middle;" alt="Fate Explorer Logo" />
+                <div class="pa-4" style="height:9rem; align-content:center">
+                    <img src="img/FateExplorer_Blood_Logo.svg" style="width:100%;max-width:100%;max-height:100%;vertical-align: middle;" alt="Fate Explorer Logo" text="Fate Explorer Logo"/>
                 </div>
             </MudContainer>
             <MudText Typo=Typo.body1 Align=Align.Center>
-                @Quote
+                <PraiseOrInsult FateQuote=true/>
             </MudText>
         </MudItem>
 
@@ -110,8 +111,6 @@
 @code
 {
     private const string ImgStyle = "width:500px;object-fit: contain;max-width:20%;max-height:100%;vertical-align:middle;";
-    private const int MaxQuotes = 39; // number of available quotes
-    private string Quote { get; set; }
 
     /// <summary>
     /// 
@@ -166,13 +165,5 @@
             //-if (IsExceptionFree)
             //-    await OnCharacterHasLoaded.InvokeAsync();
         }
-    }
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Random rnd = new Random();
-        int Nr = rnd.Next(1, MaxQuotes);
-        Quote = l10n["FateQuote"+Nr];
     }
 }
