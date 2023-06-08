@@ -1,0 +1,36 @@
+﻿@using FateExplorer.GameData;
+@using FateExplorer.ViewModel;
+@inject IGameDataService GameData;
+
+<span>@Text</span>
+
+@code {
+    [Parameter]
+    public bool FateQuote { get; set; }
+    [Parameter]
+    public bool Praise { get; set; } = false;
+    [Parameter]
+    public Check? Check { get; set; } = null;
+
+    protected string Text { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        PraiseViMo PraiseMachine = new(GameData);
+        if (FateQuote)
+            Text = PraiseMachine.GetFateQuote();
+        else
+        {
+            if (Check is null) throw new ArgumentNullException(nameof(Check));
+
+            if (Praise)
+                Text = PraiseMachine.Give(PraiseViMo.Praise, Check ?? throw new Exception());
+            else
+                Text = PraiseMachine.Give(PraiseViMo.Insult, Check ?? throw new Exception());
+        }
+    }
+
+    protected override bool ShouldRender() => false;
+}
