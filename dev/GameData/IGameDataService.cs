@@ -47,6 +47,8 @@ namespace FateExplorer.GameData
 
         public CalendarDB Calendar { get; }
 
+        PraiseOrInsultDB PraiseOrInsult { get; }
+
         public Task InitializeGameDataAsync();
     }
 }

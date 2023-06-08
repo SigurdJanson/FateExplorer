@@ -226,6 +226,20 @@ namespace FateExplorer.GameData
         #endregion
 
 
+
+        private PraiseOrInsultDB praiseOrInsult;
+        public PraiseOrInsultDB PraiseOrInsult
+        {
+            get
+            {
+                if (praiseOrInsult is null)
+                    throw new HttpRequestException("Data has not been loaded");
+                return praiseOrInsult;
+            }
+            protected set => praiseOrInsult = value;
+        }
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -309,6 +323,11 @@ namespace FateExplorer.GameData
 
             fileName = $"data/calendar_{Language}.json";
             calendar = await DataSource.GetFromJsonAsync<CalendarDB>(fileName);
+
+            //
+            fileName = $"data/praise_{Language}.json";
+            praiseOrInsult = await DataSource.GetFromJsonAsync<PraiseOrInsultDB>(fileName);
+
 
             // Wrap up - only the larger files
             SpecialAbilities = await SpecialAbilityTask;
