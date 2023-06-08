@@ -51,7 +51,7 @@ namespace FateExplorer.GameData
 
 
         private BotchDB botches;
-        public BotchDB Botches // not part of interface IGameDataService
+        public BotchDB Botches // not part of interface IGameDataService but access through `Get..Botch()`
         {
             get
             {
@@ -263,10 +263,11 @@ namespace FateExplorer.GameData
             Abilities = await DataSource.GetFromJsonAsync<AbilitiesDB>(fileName);
 
             fileName = $"data/specabs_{Language}.json";
-            SpecialAbilities = await DataSource.GetFromJsonAsync<SpecialAbilityDB>(fileName);
+            Task<SpecialAbilityDB> SpecialAbilityTask = DataSource.GetFromJsonAsync<SpecialAbilityDB>(fileName);
 
             fileName = $"data/dis-advantages_{Language}.json";
-            DisAdvantages = await DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
+            Task<DisAdvantagesDB> DisadvantagesTask = DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
+            //DisAdvantages = await DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
 
 
             fileName = $"data/resiliences_{Language}.json";
@@ -284,21 +285,23 @@ namespace FateExplorer.GameData
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
 
             fileName = $"data/weaponsmelee_{Language}.json";
-            WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
+            Task<WeaponMeleeDB> WeaponMeleeTask = DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
+            //WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
 
             fileName = $"data/weaponsranged_{Language}.json";
-            WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
+            Task<WeaponRangedDB> WeaponRangedTask = DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
+            //WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
 
 
             // Skills
-            fileName = $"data/skills_{Language}.json";
-            Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
-
             fileName = $"data/arcaneskills_{Language}.json";
-            ArcaneSkills = await DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
+            Task<ArcaneSkillsDB> ArcaneSkillsTask = DataSource.GetFromJsonAsync<ArcaneSkillsDB>(fileName);
 
             fileName = $"data/karmaskills_{Language}.json";
-            KarmaSkills = await DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
+            Task<KarmaSkillsDB> KarmaSkillsTask = DataSource.GetFromJsonAsync<KarmaSkillsDB>(fileName);
+
+            fileName = $"data/skills_{Language}.json";
+            Skills = await DataSource.GetFromJsonAsync<SkillsDB>(fileName);
 
             // Things
             fileName = $"data/currency_{Language}.json";
@@ -306,6 +309,14 @@ namespace FateExplorer.GameData
 
             fileName = $"data/calendar_{Language}.json";
             calendar = await DataSource.GetFromJsonAsync<CalendarDB>(fileName);
+
+            // Wrap up - only the larger files
+            SpecialAbilities = await SpecialAbilityTask;
+            DisAdvantages = await DisadvantagesTask;
+            WeaponsRanged = await WeaponRangedTask;
+            WeaponsMelee = await WeaponMeleeTask;
+            ArcaneSkills = await ArcaneSkillsTask;
+            KarmaSkills = await KarmaSkillsTask;
         }
     }
 }
