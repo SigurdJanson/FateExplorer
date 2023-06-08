@@ -36,6 +36,9 @@ public readonly struct Check
         Any = Attack | Parry
     };
 
+    /// <summary>
+    /// Internal representation of the type of check a check instance represents.
+    /// </summary>
     private readonly int RollType { get; init; }
 
 
@@ -73,22 +76,16 @@ public readonly struct Check
     }
     public bool Is(CombatBranch what) => (ComputeBranch(what) & RollType) != 0;
 
+
+    /// <summary>Determines if the check is a plain <see cref="Roll"/>.</summary>
     public bool IsRoll => (RollType & (int)Roll.Any) > 0;
+
+    /// <summary>Determines if the check is a <see cref="Skill"/> check.</summary>
     public bool IsSkill => (RollType & (int)Skill.Any) > 0;
+
+    /// <summary>Determines if the check is a <see cref="Combat"/> check.</summary>
     public bool IsCombat => (RollType & (int)Combat.Any) > 0;
 
-    private static int ComputeRoll(Roll value) => (int)value;
-    private static int ComputeRoll(Skill value) => (int)value;
-    private static int ComputeRoll(Combat value, CombatBranch branch) => 
-        (int)value | ComputeBranch(branch);
-    private static int ComputeBranch(CombatBranch branch) => branch switch
-    {
-        CombatBranch.Unarmed => (int)Combat.Parry * 2,
-        CombatBranch.Melee => (int)Combat.Parry * 4,
-        CombatBranch.Ranged => (int)Combat.Parry * 8,
-        CombatBranch.Shield => (int)Combat.Parry * 16,
-        _ => 0
-    };
 
 
     /// <summary>
@@ -153,5 +150,20 @@ public readonly struct Check
     }
 
 
-    
+    /* HELPERS
+     */
+    private static int ComputeRoll(Roll value) => (int)value;
+    private static int ComputeRoll(Skill value) => (int)value;
+    private static int ComputeRoll(Combat value, CombatBranch branch) =>
+        (int)value | ComputeBranch(branch);
+    private static int ComputeBranch(CombatBranch branch) => branch switch
+    {
+        CombatBranch.Unarmed => (int)Combat.Parry * 2,
+        CombatBranch.Melee => (int)Combat.Parry * 4,
+        CombatBranch.Ranged => (int)Combat.Parry * 8,
+        CombatBranch.Shield => (int)Combat.Parry * 16,
+        _ => 0
+    };
+
+
 }
