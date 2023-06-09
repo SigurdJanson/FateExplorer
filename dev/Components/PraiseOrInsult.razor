@@ -5,12 +5,27 @@
 <span>@Text</span>
 
 @code {
+    /// <summary>
+    /// If true all other arguments will be ignored.
+    /// </summary>
     [Parameter]
     public bool FateQuote { get; set; }
+
+    /// <summary>
+    /// Return praise or insult?
+    /// </summary>
     [Parameter]
     public bool Praise { get; set; } = false;
+
+    /// <summary>
+    /// This parameter actually requires a <see cref="FateExplorer.Shared.Check"/> though it's type is <see cref="object"/>.
+    /// That may change with .NET8.
+    /// </summary>
     [Parameter]
-    public Check? Check { get; set; } = null;
+    public object Check { get; set; } = default;
+
+
+
 
     protected string Text { get; set; }
 
@@ -23,13 +38,34 @@
             Text = PraiseMachine.GetFateQuote();
         else
         {
-            if (Check is null) throw new ArgumentNullException(nameof(Check));
-
             if (Praise)
-                Text = PraiseMachine.Give(PraiseViMo.Praise, Check ?? throw new Exception());
+                Text = PraiseMachine.Give(PraiseViMo.Praise, (Check)Check);
             else
-                Text = PraiseMachine.Give(PraiseViMo.Insult, Check ?? throw new Exception());
+                Text = PraiseMachine.Give(PraiseViMo.Insult, (Check)Check);
         }
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        foreach (var parameter in parameters)
+        {
+            switch (parameter.Name)
+            {
+                case nameof(FateQuote):
+                    FateQuote = (bool)parameter.Value;
+                    break;
+                case nameof(Praise):
+                    Praise = (bool)parameter.Value;
+                    break;
+                case nameof(Check):
+                    Check = parameter.Value; //(Check)
+                    break;
+                default:
+                    throw new ArgumentException($"Unknown parameter: {parameter.Name}");
+            }
+        }
+
+        return base.SetParametersAsync(ParameterView.Empty);
     }
 
     protected override bool ShouldRender() => false;
