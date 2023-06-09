@@ -27,12 +27,35 @@ A `Check` is a sequence of `Roll`s. It needs at least one primary roll. The requ
 Roll modifiers are applied on several levels:
 
 1. Character 1: modifiers received through dis-/advantages.
-2. Character 2: special abilities are handled differently because they apply only depending on the situation.
+5. Character 2: Stable **in-game modifiers** are master-given modifications of base values. A lack of courage in a creepy dungeon, e.g., may be represented through a -1 penalty on COU.
+2. Character 3: special abilities are handled differently because they apply only depending on the situation.
 3. Asset: weapons may imply modifiers.
-4. Context: the free additive modifier on each character sheet is a context modifier. It is applies last.
+4. Context: the free additive modifier on each character sheet is a context modifier.
+6. Task modifiers. It is applied last.
+
+
 ## Enums
 
 * `MoonPhase` + 1 must match the `moonphase/iid` in calendar.json.
+
+
+# Performance
+
+## Application Start
+
+## Rendering
+
+Use `ShouldRender()` for any UI component that remains unchanged after the initial render. Also, if a component re-render does not depend on code outside of it, use `ShouldRender()` to exactly indicate those situations when re-redering is necessary.
+
+```cs
+    protected override bool ShouldRender() => false; // no re-rendering after initialization
+```
+
+Prefer `RenderFragment`s over Blazor components. Especially when something is being rendered many times over.
+
+Avoid mutable component parameters. If you use mutable parameters consider overwriting [`SetParametersAsync()`](https://learn.microsoft.com/en-us/aspnet/core/blazor/performance?view=aspnetcore-3.1#implement-setparametersasync-manually).
+
+For more details see [Performance Best Practice](https://learn.microsoft.com/en-us/aspnet/core/blazor/performance?view=aspnetcore-3.1).
 
 
 # Known limitations
