@@ -15,7 +15,7 @@
         {"name": "Luck I-III", "id": "ADV_14", "type": 1},
         {"name": "Good Looks I-II", "id": "ADV_15", "type": 1},
         {"name": "Exceptional Skill", "id": "ADV_16", "type": 1},
-        {"name": "Exceptional Combat Technique", "id": "ADV_20", "type": 1},
+        {"name": "Exceptional Combat Technique", "id": "ADV_17", "type": 1},
         {"name": "Exceptional Sense", "id": "ADV_21", "type": 1},
         {"name": "Resistant to Heat", "id": "ADV_22", "type": 1},
         {"name": "Increased Arcane Power I-VII", "id": "ADV_23", "type": 1, "reco": true},

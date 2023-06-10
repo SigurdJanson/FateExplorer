@@ -15,7 +15,7 @@
 {"name": "Glück I-III", "id": "ADV_14", "type": 1},
 {"name": "Gutaussehend I-II", "id": "ADV_15", "type": 1},
 {"name": "Herausragende Fertigkeit", "id": "ADV_16", "type": 1},
-{"name": "Herausragende Kampftechnik", "id": "ADV_20", "type": 1},
+{"name": "Herausragende Kampftechnik", "id": "ADV_17", "type": 1},
 {"name": "Herausragender Sinn", "id": "ADV_21", "type": 1},
 {"name": "Hitzeresistenz", "id": "ADV_22", "type": 1},
 {"name": "Hohe Astralkraft I-VII", "id": "ADV_23", "type": 1, "reco": true},
