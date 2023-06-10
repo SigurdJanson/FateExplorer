@@ -299,51 +299,67 @@
   </data>
   <data name="iAlchimica" xml:space="preserve">
     <value>Alchemistic substances</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAmmunition" xml:space="preserve">
     <value>Ammunition</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAnimal" xml:space="preserve">
     <value>Animals</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAnimalSupplies" xml:space="preserve">
     <value>Animal supplies</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iArmor" xml:space="preserve">
     <value>Armor</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBandagesNRemedies" xml:space="preserve">
     <value>Bandages &amp; remedies</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBooks" xml:space="preserve">
     <value>Books</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBurglarTools" xml:space="preserve">
     <value>Burglar tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iCeremonialObjects" xml:space="preserve">
     <value>Ceremonial objects</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iClothing" xml:space="preserve">
     <value>Clothing</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iContainers" xml:space="preserve">
     <value>Containers</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iFinestoneNGems" xml:space="preserve">
     <value>Finestones and Gems</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iHerbs" xml:space="preserve">
     <value>Herbs</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iJewellery" xml:space="preserve">
     <value>Jewellery</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iLights" xml:space="preserve">
     <value>Lights</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iMagicalArtefacts" xml:space="preserve">
     <value>Magical artefacts</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iMelee" xml:space="preserve">
     <value>Melee weapons</value>
@@ -367,6 +383,7 @@
   </data>
   <data name="iMusicalInstruments" xml:space="preserve">
     <value>Musical instruments</value>
+    <comment>Shop item</comment>
   </data>
   <data name="INT" xml:space="preserve">
     <value>INT</value>
@@ -374,18 +391,23 @@
   </data>
   <data name="iOrientation" xml:space="preserve">
     <value>Orientation</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iPoisons" xml:space="preserve">
     <value>Poisons</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iRangedWeapon" xml:space="preserve">
     <value>Ranged weapon</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iRopesNChains" xml:space="preserve">
     <value>Ropes and chains</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iSacredTools" xml:space="preserve">
     <value>Tools for the Blessed</value>
+    <comment>Shop item</comment>
   </data>
   <data name="Isdira" xml:space="preserve">
     <value>Isdira</value>
@@ -393,21 +415,27 @@
   </data>
   <data name="iStationary" xml:space="preserve">
     <value>Stationaries</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iStimulantsNLuxury" xml:space="preserve">
     <value>Stimulants &amp; Luxury</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTools" xml:space="preserve">
     <value>Tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTransport" xml:space="preserve">
     <value>Means of transport</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTravelNTools" xml:space="preserve">
     <value>Travel and tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iWeaponAccessories" xml:space="preserve">
     <value>Weapon accessories</value>
+    <comment>Shop item</comment>
   </data>
   <data name="lblAbility" xml:space="preserve">
     <value>Ability</value>
@@ -1392,12 +1420,15 @@
   </data>
   <data name="Distance.Near" xml:space="preserve">
     <value>Near</value>
+    <comment>enum Distance</comment>
   </data>
   <data name="Distance.Medium" xml:space="preserve">
     <value>Medium</value>
+    <comment>enum Distance</comment>
   </data>
   <data name="Distance.Far" xml:space="preserve">
     <value>Far</value>
+    <comment>enum Distance</comment>
   </data>
   <data name="lblCombatModBtn" xml:space="preserve">
     <value>Set context for combat  to get according modifiers</value>
