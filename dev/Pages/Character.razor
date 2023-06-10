@@ -131,9 +131,7 @@
                             @{
                                 @for(int i = 0; i < Advantages.Count; i++)
                                 {
-                                    @Advantages[i].Name;
-                                    if (Advantages[i].Tier > 0) {<span> (@Advantages[i].Tier)</span>};
-                                    if (i != Advantages.Count-1) {<span>, </span>};
+                                    @Advantage(Advantages[i], i < Advantages.Count - 1, false);
                                 }
                             }
                         </ChildContent>
@@ -151,9 +149,7 @@
                             @{
                                 @for(int i = 0; i < Disadvantages.Count; i++)
                                 {
-                                    @Disadvantages[i].Name;
-                                    if (Disadvantages[i].Tier > 0) {<span> (@Disadvantages[i].Tier)</span>};
-                                    if (i != Disadvantages.Count-1) {<span>, </span>};
+                                    @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
                                 }
                             }
                         </ChildContent>
@@ -349,6 +345,22 @@
         else
             return @<span></span>;
     }
-
-
+    
+    MarkupString Advantage(DisAdvantageDTO da, bool hasSuccessor, bool DisAdvantage)
+    {
+        string Tiers = da.Tier > 0 ? $" ({da.Tier})" : string.Empty;
+        string Sep = hasSuccessor ? $", " : string.Empty;
+        if (da.Recognized)
+        {
+            string Attributes = DisAdvantage ? 
+                $" class=\"fe-reco\" title=\"{l10n["txtRecognizedDisdvantage"]}\"" : 
+                $" class=\"fe-reco\" title=\"{l10n["txtRecognizedAdvantage"]}\"";
+            return (MarkupString)$"<span{Attributes}>{da.Name}{Tiers}</span>{Sep}";
+        }
+        else
+        {
+            return (MarkupString)$"<span>{da.Name}{Tiers}</span>{Sep}";
+        }
+    }
 }
+

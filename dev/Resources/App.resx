@@ -1452,4 +1452,10 @@
   <data name="lblCrampedOff" xml:space="preserve">
     <value>Space is ample</value>
   </data>
+  <data name="txtRecognizedAdvantage" xml:space="preserve">
+    <value>This advantage is recognized by FateExplorer and  factored in.</value>
+  </data>
+  <data name="txtRecognizedDisadvantage" xml:space="preserve">
+    <value>This disadvantage is recognized by FateExplorer and  factored in.</value>
+  </data>
 </root>

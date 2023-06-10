@@ -112,7 +112,13 @@
         /// The level of the special ability
         /// </summary>
         public int Tier { get; set; }
+
+        /// <summary>
+        /// Does FateExplorer recognize and handle the (dis-) advantage automatically?
+        /// </summary>
+        public bool Recognized { get; set; }
     }
+
 
     /// <summary>
     /// DTO for a special ability of languages

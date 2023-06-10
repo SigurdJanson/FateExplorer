@@ -387,16 +387,19 @@ namespace FateExplorer.ViewModel
             foreach (var adv in characterM?.Advantages)
             {
                 string Name;
+                bool Recognized;
                 try
                 {
                     Name = GameDataService.DisAdvantages[adv.Key].Name;
+                    Recognized = GameDataService.DisAdvantages[adv.Key].Recognized;
                 }
-                catch (Exception) { Name = "unknown"; }
+                catch (Exception) { Name = "unknown"; Recognized = false; }
                 DisAdvantageDTO item = new()
                 {
                     Id = adv.Key,
                     Name = Name,
-                    Tier = adv.Value.Tier
+                    Tier = adv.Value.Tier,
+                    Recognized = Recognized
                 };
                 Result.Add(item);
             }

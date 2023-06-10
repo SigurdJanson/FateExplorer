@@ -1381,4 +1381,10 @@
   <data name="lblCrampedOn" xml:space="preserve">
     <value>Beengter Raum</value>
   </data>
+  <data name="txtRecognizedAdvantage" xml:space="preserve">
+    <value>Dieser Vorteil wird von FateExplorer erkannt und berücksichtigt.</value>
+  </data>
+  <data name="txtRecognizedDisadvantage" xml:space="preserve">
+    <value>Dieser Nachteil wird von FateExplorer erkannt und berücksichtigt.</value>
+  </data>
 </root>
