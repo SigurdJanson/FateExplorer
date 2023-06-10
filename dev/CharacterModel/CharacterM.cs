@@ -165,7 +165,7 @@ namespace FateExplorer.CharacterModel
 
 
             // MOVEMENT
-            Movement = new MovementM(characterImportOptM.GetMovementBaseVal());
+            Movement = new MovementM(characterImportOptM.GetMovementBaseVal(), this);
 
 
             // BELONGINGS

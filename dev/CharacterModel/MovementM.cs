@@ -15,10 +15,13 @@ public class MovementM : IDerivedAttributeM
     /// Constructor
     /// </summary>
     /// <param name="hero">The character of this dodge competence</param>
-    public MovementM(int raceBaseVal)
+    public MovementM(int raceBaseVal, ICharacterM hero)
     {
-        //Hero = hero;
         Value = ComputeMovement(raceBaseVal);
+        if (hero.HasAdvantage(ADV.Nimble))
+            Value += 1;
+        if (hero.HasAdvantage(DISADV.Slow))
+            Value -= 1;
     }
 
     /// <summary>
