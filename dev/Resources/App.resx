@@ -1458,4 +1458,7 @@
   <data name="txtRecognizedDisadvantage" xml:space="preserve">
     <value>This disadvantage is recognized by FateExplorer and  factored in.</value>
   </data>
+  <data name="txtRecognizedSpecialAbility" xml:space="preserve">
+    <value>This special ability is recognized by FateExplorer and  factored in.</value>
+  </data>
 </root>

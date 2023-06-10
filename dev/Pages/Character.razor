@@ -111,9 +111,7 @@
                             @{
                                 @for(int i = 0; i < SpecialAbilities.Count; i++)
                                 {
-                                    @SpecialAbilities[i].Name;
-                                    if (SpecialAbilities[i].Tier > 0) {<span> (@SpecialAbilities[i].Tier)</span>};
-                                    if (i != SpecialAbilities.Count-1) {<span>, </span>};
+                                    @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
                                 }
                             }
                         </ChildContent>
@@ -360,6 +358,21 @@
         else
         {
             return (MarkupString)$"<span>{da.Name}{Tiers}</span>{Sep}";
+        }
+    }
+
+    MarkupString SpecialAbility(SpecialAbilityDTO sa, bool hasSuccessor)
+    {
+        string Tiers = sa.Tier > 0 ? $" ({sa.Tier})" : string.Empty;
+        string Sep = hasSuccessor ? $", " : string.Empty;
+        if (sa.Recognized)
+        {
+            string Attributes = $" class=\"fe-reco\" title=\"{l10n["txtRecognizedSpecialAbility"]}\"";
+            return (MarkupString)$"<span{Attributes}>{sa.Name}{Tiers}</span>{Sep}";
+        }
+        else
+        {
+            return (MarkupString)$"<span>{sa.Name}{Tiers}</span>{Sep}";
         }
     }
 }

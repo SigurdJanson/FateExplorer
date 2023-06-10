@@ -306,16 +306,19 @@ namespace FateExplorer.ViewModel
             foreach (var sa in characterM?.SpecialAbilities)
             {
                 string Name;
+                bool Recognized;
                 try
                 {
                     Name = GameDataService.SpecialAbilities[sa.Key].Name;
+                    Recognized = GameDataService.SpecialAbilities[sa.Key].Recognized;
                 }
-                catch (Exception) { Name = "unknown";  }
+                catch (Exception) { Name = "unknown"; Recognized = false; }
                 SpecialAbilityDTO item = new()
                 {
                     Id = sa.Key,
                     Name = Name,
-                    Tier = sa.Value.Tier
+                    Tier = sa.Value.Tier,
+                    Recognized = Recognized
                 };
                 Result.Add(item);
             }
