@@ -5,6 +5,8 @@
 	  <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 	  <Version>5.0.0.0</Version>
 	  <PublishTrimmed>true</PublishTrimmed>
+	  <BlazorEnableCompression>true</BlazorEnableCompression>
+	  <EmccInitialHeapSize>16777216</EmccInitialHeapSize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
