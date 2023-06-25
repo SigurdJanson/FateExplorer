@@ -3,6 +3,7 @@ using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Runtime.Intrinsics.X86;
 using System.Text.Json;
 
 namespace UnitTests.Inn
@@ -61,6 +62,28 @@ namespace UnitTests.Inn
 
             // Act
             var result = innNameM.CanBeFound(Where);
+
+            // Assert
+            this.mockRepository.VerifyAll();
+            return result;
+        }
+
+
+        [Test]
+        [DefaultFloatingPointTolerance(0.00001)]
+        [TestCase(1, ExpectedResult = 1.0f)]
+        [TestCase(2, ExpectedResult = 1.0f - 0.18)]
+        [TestCase(3, ExpectedResult = 1.0f - 0.36)]
+        [TestCase(4, ExpectedResult = 0.1f + 0.36)]
+        [TestCase(5, ExpectedResult = 0.1f + 0.18)]
+        [TestCase(6, ExpectedResult = 0.1f)]
+        public float GetProbability(int Ql)
+        {
+            // Arrange
+            var innNameM = this.CreateInnNameM(0);
+
+            // Act
+            var result = innNameM.GetProbability(Ql);
 
             // Assert
             this.mockRepository.VerifyAll();

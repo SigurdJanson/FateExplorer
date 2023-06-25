@@ -47,13 +47,14 @@ public class InnNameM
     public float GetProbability(int ql)
     {
         if (Ql1 == 0 && Ql6 == 0) return 1.0f;
+        float Step = (Ql6 - Ql1) / 5;
         return ql switch
         {
             1 => Ql1,
-            2 => Ql1 + (Ql6 - Ql1) / 6 * 2,
-            3 => Ql1 + (Ql6 - Ql1) / 6 * 3,
-            4 => Ql1 + (Ql6 - Ql1) / 6 * 4,
-            5 => Ql1 + (Ql6 - Ql1) / 6 * 5,
+            2 => Ql1 + Step,
+            3 => Ql1 + Step * 2,
+            4 => Ql1 + Step * 3,
+            5 => Ql1 + Step * 4,
             6 => Ql6,
             _ => throw new ArgumentOutOfRangeException(nameof(ql), "Allowed quality levels range from 1 to 6")
         };
