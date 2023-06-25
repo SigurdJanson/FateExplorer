@@ -14,7 +14,7 @@ public class HruruzatAttackM : AttackCheckM
     public HruruzatAttackM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
         : base(weapon, otherWeapon, isMainHand, context, gameData)
     {
-        Name = ResourceId.Hruruzat;
+        Name = ResourceId.Hruruzat; // TODO #125: this is a crutch. It should be the already translated string.
     }
 
 
