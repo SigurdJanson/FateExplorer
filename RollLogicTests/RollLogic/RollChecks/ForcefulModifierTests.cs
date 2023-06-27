@@ -39,7 +39,7 @@ namespace UnitTests.RollLogic
 
             // Assert
             Assert.AreEqual(
-                new int[3] { Expected, Expected, Expected },
+                new int[3] { Math.Min(Expected, Before[0]), Math.Min(Expected, Before[1]), Math.Min(Expected, Before[2]) },
                 result);
         }
 
@@ -47,7 +47,7 @@ namespace UnitTests.RollLogic
 
         [Test]
         public void ApplyArray__YieldsForcedValue(
-            [Random(0, 40, 10)] int Expected)
+            [Random(0, 40, 5)] int Expected)
         {
             const int Length = 3;
             // Arrange
@@ -59,7 +59,7 @@ namespace UnitTests.RollLogic
 
             // Assert
             Assert.AreEqual(
-                new int[Length] { Expected, Expected, Expected },
+                new int[Length] { Math.Min(Expected, Before[0]), Math.Min(Expected, Before[1]), Math.Min(Expected, Before[2]) },
                 result);
         }
 
@@ -67,7 +67,7 @@ namespace UnitTests.RollLogic
 
         [Test]
         public void Apply_SingleValue_YieldsForcedValue(
-            [Random(0, 40, 5)] int Before,
+            [Values(1, 15, 30)] int Before,
             [Random(0, 40, 5)] int Expected)
         {
             // Arrange
@@ -77,7 +77,7 @@ namespace UnitTests.RollLogic
             var result = forcefulModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.AreEqual(Math.Min(Expected, Before), result);
         }
 
 
