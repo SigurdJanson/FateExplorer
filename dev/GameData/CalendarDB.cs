@@ -160,8 +160,8 @@ public class CalendarDB
     /// <summary>
     /// Find the lunar holidays for a given date.
     /// </summary>
-    /// <param name="Month"></param>
-    /// <param name="Day"></param>
+    /// <param name="Month">Search for holidays in the month of this date</param>
+    /// <param name="Day">Search for holidays in the day of this date</param>
     /// <param name="Phase"></param>
     /// <param name="Holidays"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
@@ -176,7 +176,7 @@ public class CalendarDB
         foreach (var h in Generic.LunarHoliday)
         {
             if (Month != h.Month) continue;
-            if (h.MoonPhase == (int)Phase + 1) // json counts 1-12; MoonPhase 0-11.
+            if (h.MoonPhase == (int)Phase)
                 if (Day < Generic.MoonphaseDays.Count * h.Day && Day > Generic.MoonphaseDays.Count * (h.Day-1))
                     Holidays.Add((h.Name, h.Descr));
         }

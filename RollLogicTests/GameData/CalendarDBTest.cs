@@ -254,7 +254,7 @@ public class CalendarDBTests
     [TestCase(6, 15, MoonPhase.ThreeFifths)]
     [TestCase(5, 14, MoonPhase.Waning)]
     [TestCase(5, 22, MoonPhase.Helmet)]
-    public void LunardHoliday_SingleDay_NoHoliday(int Month, int Day, MoonPhase Phase)
+    public void LunarHoliday_SingleDay_NoHoliday(int Month, int Day, MoonPhase Phase)
     {
         // Arrange
         CalendarDB Cal = CreateCalendarDB();
@@ -263,7 +263,7 @@ public class CalendarDBTests
         {
             new()
             {
-                MoonPhase = 7,
+                MoonPhase = (int)MoonPhase.Wheel,
                 Day = 1,
                 Duration = 1,
                 Descr = "",
@@ -281,10 +281,10 @@ public class CalendarDBTests
     }
 
 
-    [Test]
+    [Test] // a first 
     [TestCase(5, 1, MoonPhase.Wheel)]
     [TestCase(5, 27, MoonPhase.Wheel)]
-    public void LunardHoliday_FirstDay_Holiday(int Month, int Day, MoonPhase Phase)
+    public void LunarHoliday_FirstDay_Holiday(int Month, int Day, MoonPhase Phase)
     {
         // Arrange
         CalendarDB Cal = CreateCalendarDB();
