@@ -293,7 +293,7 @@ public class CalendarDBTests
         {
             new()
             {
-                MoonPhase = 7,
+                MoonPhase = (int)MoonPhase.Wheel,
                 Day = 1,
                 Duration = 1,
                 Descr = "",

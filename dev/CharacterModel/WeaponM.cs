@@ -53,7 +53,9 @@ namespace FateExplorer.CharacterModel
             };
             int TwoHandMod;
             // A two-handed weapon does not suffer from fighting with two hands
-            if (Branch != CombatBranch.Shield && !IsTwoHanded)
+            // ... and attacking with a shield suffers a penalty (that is why the
+            // condition includes shields unlike the parry value).
+            if (!IsTwoHanded)
                 TwoHandMod = otherHand switch
                 {
                     CombatBranch.Unarmed => 0,
