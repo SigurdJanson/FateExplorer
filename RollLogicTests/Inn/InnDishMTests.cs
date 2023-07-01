@@ -1,7 +1,5 @@
 ﻿using FateExplorer.Inn;
 using FateExplorer.Shared;
-using Moq;
-using MudBlazor.Charts;
 using NUnit.Framework;
 using System;
 
@@ -10,23 +8,6 @@ namespace UnitTests.Inn;
 [TestFixture]
 public class InnDishMTests
 {
-    private MockRepository mockRepository;
-
-
-
-    [SetUp]
-    public void SetUp()
-    {
-        this.mockRepository = new MockRepository(MockBehavior.Strict);
-    }
-
-    private InnDishM CreateInnDishM()
-    {
-        return new InnDishM();
-    }
-
-
-
 
 
     [Test]
@@ -79,7 +60,7 @@ public class InnDishMTests
 
 
 
-    public static object[] RegionCases =
+    private static object[] RegionCases =
 {
         new object[] { new Region[] { Region.RivaRegion }, Region.RivaRegion, true },
         new object[] { new Region[] { Region.Gjalsker }, Region.RivaRegion, false },
@@ -96,11 +77,10 @@ public class InnDishMTests
 
 
         // Act
-        var result = innDishM.CanBeFound(Region.RivaRegion);
+        var result = innDishM.CanBeFound(current);
 
         // Assert
         Assert.That(result, Is.EqualTo(inside));
-        this.mockRepository.VerifyAll();
     }
 
 

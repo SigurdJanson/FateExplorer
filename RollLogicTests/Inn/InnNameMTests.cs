@@ -22,7 +22,7 @@ namespace UnitTests.Inn
         }
 
 
-        private InnNameM CreateInnNameM(Region region = Region.Arania)
+        private static InnNameM CreateInnNameM(Region region = Region.Arania)
         {
             //return new InnNameM();
             InnNameM Result;
@@ -40,7 +40,7 @@ namespace UnitTests.Inn
         public bool CanBeFound_RegionIsSpecified(Region Where)
         {
             // Arrange
-            var innNameM = this.CreateInnNameM();
+            var innNameM = CreateInnNameM();
 
             // Act
             var result = innNameM.CanBeFound(Where);
@@ -58,7 +58,7 @@ namespace UnitTests.Inn
         public bool CanBeFound_RegionNotSpecified_AllTrue(Region Where)
         {
             // Arrange
-            var innNameM = this.CreateInnNameM(0);
+            var innNameM = CreateInnNameM(0);
 
             // Act
             var result = innNameM.CanBeFound(Where);
@@ -80,7 +80,7 @@ namespace UnitTests.Inn
         public float GetProbability(QualityLevel Ql)
         {
             // Arrange
-            var innNameM = this.CreateInnNameM(0);
+            var innNameM = CreateInnNameM(0);
 
             // Act
             var result = innNameM.GetProbability(Ql);
