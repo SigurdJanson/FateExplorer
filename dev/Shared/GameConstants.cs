@@ -364,4 +364,37 @@ public enum GroupId
     iAnimalSupplies = 26, iTransport = 27, iSacredTools = 28, iCeremonialObjects = 29
 };
 
+/// <summary>
+/// Quality level for products and services (e.g. inns, hotels, etc.)
+/// </summary>
+public enum QualityLevel
+{
+    /// <summary>Lowest quality level.</summary>
+    Lowest = 1,
+    Low = 2,
+    /// <summary>The default (median)  quality level without modifications.</summary>
+    Normal = 3,
+    Good = 4,
+    Excellent = 5,
+    /// <summary>Highest quality level.</summary>
+    Luxurious = 6
+}
+
+/// <summary>
+/// Price level for services, inns, hotels, etc. Prices range from -50% to +400% around
+/// the normal price.
+/// </summary>
+public enum PriceLevel
+{
+    /// <summary>Lowest price level.</summary>
+    VeryCheap = 1,
+    Cheap,
+    /// <summary>The default (median) price level without modifications.</summary>
+    Normal,
+    Expensive,
+    VeryExpensive,
+    /// <summary>Highest price level.</summary>
+    Horrendous
+}
+
 #endregion
