@@ -71,13 +71,13 @@ namespace UnitTests.Inn
 
         [Test]
         [DefaultFloatingPointTolerance(0.00001)]
-        [TestCase(1, ExpectedResult = 1.0f)]
-        [TestCase(2, ExpectedResult = 1.0f - 0.18)]
-        [TestCase(3, ExpectedResult = 1.0f - 0.36)]
-        [TestCase(4, ExpectedResult = 0.1f + 0.36)]
-        [TestCase(5, ExpectedResult = 0.1f + 0.18)]
-        [TestCase(6, ExpectedResult = 0.1f)]
-        public float GetProbability(int Ql)
+        [TestCase(QualityLevel.Lowest, ExpectedResult = 1.0f)]
+        [TestCase(QualityLevel.Low, ExpectedResult = 1.0f - 0.18)]
+        [TestCase(QualityLevel.Normal, ExpectedResult = 1.0f - 0.36)]
+        [TestCase(QualityLevel.Good, ExpectedResult = 0.1f + 0.36)]
+        [TestCase(QualityLevel.Excellent, ExpectedResult = 0.1f + 0.18)]
+        [TestCase(QualityLevel.Luxurious, ExpectedResult = 0.1f)]
+        public float GetProbability(QualityLevel Ql)
         {
             // Arrange
             var innNameM = this.CreateInnNameM(0);

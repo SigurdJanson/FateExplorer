@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 using System.Text.Json.Serialization;
 
 namespace FateExplorer.Inn;
@@ -44,18 +45,18 @@ public class InnNameM
     /// <param name="ql">A quality level ranging from 1-6.</param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public float GetProbability(int ql)
+    public float GetProbability(QualityLevel ql)
     {
         if (Ql1 == 0 && Ql6 == 0) return 1.0f;
         float Step = (Ql6 - Ql1) / 5;
         return ql switch
         {
-            1 => Ql1,
-            2 => Ql1 + Step,
-            3 => Ql1 + Step * 2,
-            4 => Ql1 + Step * 3,
-            5 => Ql1 + Step * 4,
-            6 => Ql6,
+            QualityLevel.Lowest => Ql1,
+            QualityLevel.Low    => Ql1 + Step,
+            QualityLevel.Normal => Ql1 + Step * 2,
+            QualityLevel.Good   => Ql1 + Step * 3,
+            QualityLevel.Excellent => Ql1 + Step * 4,
+            QualityLevel.Luxurious => Ql6,
             _ => throw new ArgumentOutOfRangeException(nameof(ql), "Allowed quality levels range from 1 to 6")
         };
     }
