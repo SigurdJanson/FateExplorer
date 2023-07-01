@@ -16,12 +16,20 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
     private const double EmptySize = 0;
 
 
+    /// <summary>
+    /// Default constructor creates an empty weighted list.
+    /// </summary>
     public WeightedList()
     {
         list = new List<T>();
         weight = new List<float>();
     }
-
+    
+    
+    /// <summary>
+    /// Constructor generating the list from en <c>IEnumerable</c>. Weights are initialized with 1.
+    /// </summary>
+    /// <param name="items"></param>
     public WeightedList(IEnumerable<T> items)
     {
         list = new(items);
@@ -43,6 +51,7 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
         Size = 0;
     }
 
+
     /// <summary>
     /// Inserts an item to the list at the specified index.
     /// </summary>
@@ -56,12 +65,13 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
         Size = 0;
     }
 
+
     /// <summary>
     /// Sets the weight at the given index.
     /// </summary>
     /// <param name="index">The zero-based index at which <c>weight</c> should be set.</param>
     /// <param name="weight">The weight of item.</param>
-    public void SetWeightAt(int index, int weight)
+    public void SetWeightAt(int index, float weight)
     {
         this.weight[index] = weight;
         Size = 0;
@@ -70,10 +80,10 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
     //public bool IsFixedSize => false; // according to learn.microsoft.com an IList property but not recognized by VS
 
     /// <summary>
-    /// Return a random entry from the list 
+    /// Return a random entry from the list and sets the weight to zero if replace is <c>false</c>.
     /// </summary>
-    /// <returns></returns>
-    public T Random()
+    /// <returns>A random item from the list.</returns>
+    public T Random(bool replace = false)
     {
         if (Size == EmptySize)
             foreach(float w in weight)
@@ -90,7 +100,8 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
             index++;
         }
 
-        return list[0];
+        if (!replace) SetWeightAt(index, 0);
+        return list[index];
     }
 
 
