@@ -60,6 +60,7 @@ public class WeightedListTests
         Assert.AreEqual(2, list[1]);
     }
 
+
     [Test]
     public void Random_ShouldReturnItemFromList()
     {
@@ -74,6 +75,28 @@ public class WeightedListTests
         // Assert
         Assert.IsTrue(list.Contains(result));
     }
+
+
+    [Test]
+    public void Random_ShouldReturnBrokenWeight()
+    {
+        // Arrange
+        var list = CreateWeightedListInt();
+        list.Add(1, 0);
+        list.Add(2, 0);
+        list.Add(3, 0.4f);
+        list.Add(4, 0);
+        list.Add(5, 0);
+
+        // Act
+        int result = list.Random();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(3));
+        Assert.That(list.TrueCount, Is.EqualTo(0));
+    }
+
+
 
     [Test]
     public void Random_OnlyReturnValuesGreaterZero([Values(1, 2, 3)]int NonZeroIndex)

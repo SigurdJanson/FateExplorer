@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FateExplorer.Shared;
 
@@ -35,7 +36,7 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
         list = new(items);
         weight = new List<float>(list.Count);
         for (int i = 0; i < list.Count; i++)
-            weight[i] = 1;
+            weight.Add(1);
     }
 
 
@@ -88,6 +89,8 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
         if (Size == EmptySize)
             foreach(float w in weight)
                 Size += w;
+        if (Size == 0)
+            throw new Exception("No items left in WeightedList");
 
         Random r = new();
         var wi = r.NextDouble() * Size;
@@ -96,9 +99,12 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
         foreach(float w in weight)
         {
             wi -= w;
-            if (wi <= 0) return list[index];
+            if (wi <= 0) break;
             index++;
         }
+
+        if (index >= list.Count)
+            throw new Exception("Implementation error");
 
         if (!replace) SetWeightAt(index, 0);
         return list[index];
@@ -120,6 +126,13 @@ public class WeightedList<T> : IEnumerable<T>, IList<T>
             }
         }
     }
+
+    /// <summary>
+    /// Number of elements in the list. Not the absolute number as provided by <see cref="Count"/>,
+    /// but only using the items with weights greater zero.
+    /// </summary>
+    public int TrueCount => weight.Where(i => i > 0).Count();
+
 
 
 
