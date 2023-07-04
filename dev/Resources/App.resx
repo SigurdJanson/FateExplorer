@@ -1492,4 +1492,182 @@
   <data name="txtRecognizedSpecialAbility" xml:space="preserve">
     <value>This special ability is recognized by FateExplorer and  factored in.</value>
   </data>
+  <data name="naviInn" xml:space="preserve">
+    <value>Inn</value>
+  </data>
+  <data name="lblInnMenu" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectRegion" xml:space="preserve">
+    <value>Region</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectQualityLevel" xml:space="preserve">
+    <value>Quality Level</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectPriceLevel" xml:space="preserve">
+    <value>Price Level</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="msgNoMenuAvailable" xml:space="preserve">
+    <value>Looking for the menu? Create one.</value>
+  </data>
+  <data name="Quality.Lowest" xml:space="preserve">
+    <value>Lousy</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Low" xml:space="preserve">
+    <value>Bad</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Normal" xml:space="preserve">
+    <value>Standard</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Good" xml:space="preserve">
+    <value>Good</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Excellent" xml:space="preserve">
+    <value>Excellent</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Luxurious" xml:space="preserve">
+    <value>Luxurious</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Price.Normal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.VeryCheap" xml:space="preserve">
+    <value>Cheap</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Cheap" xml:space="preserve">
+    <value>Low priced</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Expensive" xml:space="preserve">
+    <value>Expensive</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.VeryExpensive" xml:space="preserve">
+    <value>Very expensive</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Horrendous" xml:space="preserve">
+    <value>Horrendous</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="lblPriceMatchesQuality" xml:space="preserve">
+    <value>Price matches quality</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnInnGenerateName" xml:space="preserve">
+    <value>Find name</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnInnGenerateMenu" xml:space="preserve">
+    <value>Generate menu</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="Region.EternalIce" xml:space="preserve">
+    <value>Eternal ice</value>
+  </data>
+  <data name="Region.NiveseLands" xml:space="preserve">
+    <value>Nivese lands</value>
+  </data>
+  <data name="Region.PaaviRegion" xml:space="preserve">
+    <value>Paavi region</value>
+  </data>
+  <data name="Region.ThorwalRegion" xml:space="preserve">
+    <value>Region of Thorwal</value>
+  </data>
+  <data name="Region.Gjalsker" xml:space="preserve">
+    <value>Gjalsker lands</value>
+  </data>
+  <data name="Region.RivaRegion" xml:space="preserve">
+    <value>Riva</value>
+  </data>
+  <data name="Region.Orclands" xml:space="preserve">
+    <value>Orclands</value>
+  </data>
+  <data name="Region.SvelltRegion" xml:space="preserve">
+    <value>Svellt valley</value>
+  </data>
+  <data name="Region.Bornland" xml:space="preserve">
+    <value>Bornland</value>
+  </data>
+  <data name="Region.ElvenRegion" xml:space="preserve">
+    <value>Elven region</value>
+  </data>
+  <data name="Region.Nostria" xml:space="preserve">
+    <value>Nostria</value>
+  </data>
+  <data name="Region.Andergast" xml:space="preserve">
+    <value>Andergast</value>
+  </data>
+  <data name="Region.Middenrealm" xml:space="preserve">
+    <value>Middenrealm</value>
+  </data>
+  <data name="Region.Tobrien" xml:space="preserve">
+    <value>Tobrien</value>
+  </data>
+  <data name="Region.CentralMountainKingdoms" xml:space="preserve">
+    <value>Central Mountain Kingdoms</value>
+  </data>
+  <data name="Region.Albernia" xml:space="preserve">
+    <value>Albernia</value>
+  </data>
+  <data name="Region.Maraskan" xml:space="preserve">
+    <value>Maraskan</value>
+  </data>
+  <data name="Region.Fairfields" xml:space="preserve">
+    <value>Fairfields</value>
+  </data>
+  <data name="Region.Cyclopeans" xml:space="preserve">
+    <value>Cyclopean islands</value>
+  </data>
+  <data name="Region.Arania" xml:space="preserve">
+    <value>Arania</value>
+  </data>
+  <data name="Region.SouthernMountainKingdoms" xml:space="preserve">
+    <value>Southern Mountain Kingdoms</value>
+  </data>
+  <data name="Region.Tulamidya" xml:space="preserve">
+    <value>Tulamidya</value>
+  </data>
+  <data name="Region.Khom" xml:space="preserve">
+    <value>Khom</value>
+  </data>
+  <data name="Region.ThalusaRegion" xml:space="preserve">
+    <value>Region of Thalusa</value>
+  </data>
+  <data name="Region.SzintoRegion" xml:space="preserve">
+    <value>Szinto valley</value>
+  </data>
+  <data name="Region.Harodia" xml:space="preserve">
+    <value>Harodia</value>
+  </data>
+  <data name="Region.MengbillaRegion" xml:space="preserve">
+    <value>Mengbilla region</value>
+  </data>
+  <data name="Region.Almada" xml:space="preserve">
+    <value>Almada</value>
+  </data>
+  <data name="Region.AlAnfaRegion" xml:space="preserve">
+    <value>Al'Anfa Region</value>
+  </data>
+  <data name="Region.RainMountains" xml:space="preserve">
+    <value>Rain mountains</value>
+  </data>
+  <data name="Region.CapeBrabak" xml:space="preserve">
+    <value>Cape Brabak</value>
+  </data>
+  <data name="Region.FarSouthIslands" xml:space="preserve">
+    <value>Altoum and the Forest Islands</value>
+  </data>
 </root>

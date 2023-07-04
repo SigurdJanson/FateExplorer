@@ -1,0 +1,122 @@
+﻿@page "/inn"
+@using FateExplorer.Components
+@using FateExplorer.Inn
+
+@inject IStringLocalizer<App> l10n
+@inject ISnackbar Snackbar
+@inject HttpClient httpClient
+
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.ExtraExtraLarge>
+    <MudText Typo=Typo.h3 Align=Align.Center GutterBottom=true>@l10n["naviInn"]</MudText>
+
+    <MudGrid Spacing=4 Class="mt-16">
+        <MudItem xs=12 md=2>
+            <MudStack Spacing=4>
+            <MudSelect @bind-Value=SelectedRegion Class="mt-0" Label=@l10n["lblSelectRegion"] FullWidth=true>
+                @foreach (Region item in Enum.GetValues(typeof(Region)))
+                {
+                    <MudSelectItem Value=@item>@l10n[$"Region.{item}"]</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect Value=SelectedQuality Class="mt-0" Label=@l10n["lblSelectQualityLevel"] FullWidth=true ValueChanged=@((QualityLevel l) => QualityChanged(l))>
+                @foreach (QualityLevel item in Enum.GetValues(typeof(QualityLevel)))
+                {
+                    <MudSelectItem Value=@item>@l10n[$"Quality.{item}"]</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSwitch @bind-Checked=PriceMatchesQuality>@l10n["lblPriceMatchesQuality"]</MudSwitch>
+            <MudSelect @bind-Value=SelectedPrice Label=@l10n["lblSelectPriceLevel"] FullWidth=true Disabled=PriceMatchesQuality>
+                @foreach (PriceLevel item in Enum.GetValues(typeof(PriceLevel)))
+                {
+                    <MudSelectItem Value=@item>@l10n[$"Price.{item}"]</MudSelectItem>
+                }
+            </MudSelect>
+            </MudStack>
+        </MudItem>
+        <MudItem xs=12 md=10>
+            <MudStack Row=true Justify=Justify.FlexEnd>
+                <MudButton OnClick=@GenerateName StartIcon=@Icons.Material.Sharp.Restaurant 
+                    Size=Size.Large Variant=Variant.Outlined>@l10n["btnInnGenerateName"]</MudButton>
+                <MudButton OnClick=@GenerateMenu StartIcon=@Icons.Material.Sharp.MenuBook 
+                    Size=Size.Large Variant=Variant.Outlined>@l10n["btnInnGenerateMenu"]</MudButton>
+            </MudStack>
+
+            <MudText Typo=Typo.h4 Align=Align.Center GutterBottom=true>@InnName</MudText>
+
+            <MudPaper Class="d-flex flex-column pa-3" Outlined=true>
+                <MudGrid>
+                    <MudItem xs=12 Class="flex-shrink-1">
+                        <MudText Typo=Typo.h5 Align=Align.Center GutterBottom=true>@l10n["lblInnMenu"]</MudText>
+                    </MudItem>
+
+                    <MudItem xs=12>
+                        <MudContainer MaxWidth=MaxWidth.Small>
+                        @if (Menu is null || Menu.Length == 0)
+                        {
+                            <MudText Align=Align.Center GutterBottom=true>@l10n["msgNoMenuAvailable"]</MudText>
+                        }
+                        else
+                        {
+                        <MudSimpleTable Elevation=0 Dense=true>
+                            <tbody>
+                            @foreach (var i in Menu)
+                            {
+                                <tr>
+                                    <td>@i.Name</td>
+                                    <td>@($"{i.Price:#0.##}") S</td> @*TODO: Unfix fixed Silverthaler unit*@
+                                </tr>
+                            }
+                            </tbody>
+                        </MudSimpleTable>
+                        }
+                        </MudContainer>
+                    </MudItem>
+
+                </MudGrid>
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
+</MudContainer>
+
+
+@code {
+
+    private InnViMo InnGenerator { get; set; }
+
+    private string InnName { get; set; } = "-";
+
+    private Region SelectedRegion { get; set; } = Region.Middenrealm;
+    private QualityLevel SelectedQuality { get; set; } = QualityLevel.Normal;
+    private PriceLevel SelectedPrice { get; set; } = PriceLevel.Normal;
+    private bool PriceMatchesQuality { get; set; } = true;
+
+    private InnMenuItemDTO[] Menu { get; set; }
+
+    private void GenerateName()
+    {
+        InnName = InnGenerator.GetName(SelectedRegion, SelectedQuality);
+    }
+
+    private void GenerateMenu()
+    {
+        Menu = InnGenerator.GetMenu(SelectedRegion, SelectedQuality, SelectedPrice);
+    }
+
+    private void QualityChanged(QualityLevel quality)
+    {
+        SelectedQuality = quality;
+        if (PriceMatchesQuality)
+            SelectedPrice = (PriceLevel)quality;
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        InnGenerator = new(httpClient);
+        await InnGenerator.InitializeGameDataAsync();
+    }
+}

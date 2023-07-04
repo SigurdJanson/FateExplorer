@@ -1390,4 +1390,163 @@
   <data name="txtRecognizedSpecialAbility" xml:space="preserve">
     <value>Diese Sonderfertigkeit wird von FateExplorer erkannt und berücksichtigt.</value>
   </data>
+  <data name="naviInn" xml:space="preserve">
+    <value>Gasthaus</value>
+  </data>
+  <data name="lblInnMenu" xml:space="preserve">
+    <value>Speisekarte</value>
+  </data>
+  <data name="lblSelectRegion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="lblSelectQualityLevel" xml:space="preserve">
+    <value>Qualitätstufe</value>
+  </data>
+  <data name="lblSelectPriceLevel" xml:space="preserve">
+    <value>Preisstufe</value>
+  </data>
+  <data name="msgNoMenuAvailable" xml:space="preserve">
+    <value>Wo ist die Karte? Erstelle eine.</value>
+  </data>
+  <data name="Quality.Lowest" xml:space="preserve">
+    <value>Mies</value>
+  </data>
+  <data name="Quality.Low" xml:space="preserve">
+    <value>Schlecht</value>
+  </data>
+  <data name="Quality.Normal" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Quality.Good" xml:space="preserve">
+    <value>Gut</value>
+  </data>
+  <data name="Quality.Excellent" xml:space="preserve">
+    <value>Exzellent</value>
+  </data>
+  <data name="Quality.Luxurious" xml:space="preserve">
+    <value>Luxuriös</value>
+  </data>
+  <data name="Price.Cheap" xml:space="preserve">
+    <value>Günstig</value>
+  </data>
+  <data name="Price.Expensive" xml:space="preserve">
+    <value>Teuer</value>
+  </data>
+  <data name="Price.Horrendous" xml:space="preserve">
+    <value>Horrend</value>
+  </data>
+  <data name="Price.Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Price.VeryCheap" xml:space="preserve">
+    <value>Billig</value>
+  </data>
+  <data name="Price.VeryExpensive" xml:space="preserve">
+    <value>Sehr teuer</value>
+  </data>
+  <data name="lblPriceMatchesQuality" xml:space="preserve">
+    <value>Preis entspricht Qualität</value>
+  </data>
+  <data name="btnInnGenerateName" xml:space="preserve">
+    <value>Namen finden</value>
+  </data>
+  <data name="btnInnGenerateMenu" xml:space="preserve">
+    <value>Karte erstellen</value>
+  </data>
+  <data name="Region.Tulamidya" xml:space="preserve">
+    <value>Tulamidenlande</value>
+  </data>
+  <data name="Region.Tobrien" xml:space="preserve">
+    <value>Tobrien</value>
+  </data>
+  <data name="Region.ThorwalRegion" xml:space="preserve">
+    <value>Thorwalergebiete</value>
+  </data>
+  <data name="Region.ThalusaRegion" xml:space="preserve">
+    <value>Thalusa</value>
+  </data>
+  <data name="Region.SvelltRegion" xml:space="preserve">
+    <value>Svellttal</value>
+  </data>
+  <data name="Region.SzintoRegion" xml:space="preserve">
+    <value>Szintotal</value>
+  </data>
+  <data name="Region.RivaRegion" xml:space="preserve">
+    <value>Riva</value>
+  </data>
+  <data name="Region.RainMountains" xml:space="preserve">
+    <value>Regengebirge</value>
+  </data>
+  <data name="Region.Orclands" xml:space="preserve">
+    <value>Orkland</value>
+  </data>
+  <data name="Region.Nostria" xml:space="preserve">
+    <value>Nostria</value>
+  </data>
+  <data name="Region.NiveseLands" xml:space="preserve">
+    <value>Nivesenlande</value>
+  </data>
+  <data name="Region.Harodia" xml:space="preserve">
+    <value>Harodien</value>
+  </data>
+  <data name="Region.Gjalsker" xml:space="preserve">
+    <value>Gjalskerlande</value>
+  </data>
+  <data name="Region.Fairfields" xml:space="preserve">
+    <value>Liebliches Feld</value>
+  </data>
+  <data name="Region.EternalIce" xml:space="preserve">
+    <value>Ewiges Eis</value>
+  </data>
+  <data name="Region.ElvenRegion" xml:space="preserve">
+    <value>Elfenregion</value>
+  </data>
+  <data name="Region.Cyclopeans" xml:space="preserve">
+    <value>Zyklopische Inseln</value>
+  </data>
+  <data name="Region.CapeBrabak" xml:space="preserve">
+    <value>Kap von Brabak</value>
+  </data>
+  <data name="Region.Bornland" xml:space="preserve">
+    <value>Bornland</value>
+  </data>
+  <data name="Region.Arania" xml:space="preserve">
+    <value>Aranien</value>
+  </data>
+  <data name="Region.Andergast" xml:space="preserve">
+    <value>Andergast</value>
+  </data>
+  <data name="Region.Almada" xml:space="preserve">
+    <value>Almada</value>
+  </data>
+  <data name="Region.Albernia" xml:space="preserve">
+    <value>Albernia</value>
+  </data>
+  <data name="Region.AlAnfaRegion" xml:space="preserve">
+    <value>Region Al'Anfa</value>
+  </data>
+  <data name="Region.Khom" xml:space="preserve">
+    <value>Khom</value>
+  </data>
+  <data name="Region.Maraskan" xml:space="preserve">
+    <value>Maraskan</value>
+  </data>
+  <data name="Region.Middenrealm" xml:space="preserve">
+    <value>Mittelreich</value>
+  </data>
+  <data name="Region.PaaviRegion" xml:space="preserve">
+    <value>Region Paavi</value>
+  </data>
+  <data name="Region.SouthernMountainKingdoms" xml:space="preserve">
+    <value>Südliche Bergkönigreiche</value>
+  </data>
+  <data name="Region.CentralMountainKingdoms" xml:space="preserve">
+    <value>Zentrale Bergkönigreiche</value>
+  </data>
+  <data name="Region.MengbillaRegion" xml:space="preserve">
+    <value>Region Mengbilla</value>
+  </data>
+  <data name="Region.FarSouthIslands" xml:space="preserve">
+    <value>Altoum und die Waldinseln</value>
+  </data>
 </root>
