@@ -214,7 +214,10 @@ public class CalendarViMo
                 throw new FormatException($"String {dateStr} could not be interpreted as date. Month could not be matched.");
         }
 
-        return Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
+        DateTime result;
+        try { result = Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0); } 
+        catch { throw new FormatException($"String {dateStr} could not be interpreted as date"); }
+        return result;
     }
 
     #endregion

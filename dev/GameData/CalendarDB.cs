@@ -160,10 +160,10 @@ public class CalendarDB
     /// <summary>
     /// Find the lunar holidays for a given date.
     /// </summary>
-    /// <param name="Month">Search for holidays in the month of this date</param>
-    /// <param name="Day">Search for holidays in the day of this date</param>
-    /// <param name="Phase"></param>
-    /// <param name="Holidays"></param>
+    /// <param name="Month">Search for holidays in the month of this date (FB reckoning).</param>
+    /// <param name="Day">Search for holidays in the day of this date.</param>
+    /// <param name="Phase">The current lunar phase.</param>
+    /// <param name="Holidays">A list to add new holidays to.</param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <remarks>The method does not support lunar phases counting from the end of the month. 
     /// Holidays longer than a single day aren't supported either.</remarks>
