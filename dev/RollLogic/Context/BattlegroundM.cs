@@ -218,10 +218,17 @@ public class BattlegroundM : ICheckContextM
                 WeaponsReach.Short => Modifier.Neutral,
                 WeaponsReach.Medium => new Modifier(-4),
                 WeaponsReach.Long => new Modifier(-8),
-                _ => throw new InvalidOperationException(),
+                _ => throw new InvalidOperationException()
             };
-        else // CombatBranch.Shield
-            return new Modifier(-2); // TODO: distinguish shield size
+        else if (weapon.Branch == CombatBranch.Shield)
+            return weapon.Shield switch
+            {
+                ShieldSize.Small => new Modifier(-2),
+                ShieldSize.Medium => action.Is(Check.Combat.Attack) ? new Modifier(-4) : new Modifier(-3),
+                ShieldSize.Large => action.Is(Check.Combat.Attack) ? new Modifier(-6) : new Modifier(-4),
+                _ => throw new InvalidOperationException()
+            };
+        else return Modifier.Neutral;
     }
 
 
