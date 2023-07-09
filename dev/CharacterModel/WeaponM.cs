@@ -2,6 +2,7 @@
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FateExplorer.CharacterModel
 {
@@ -9,7 +10,7 @@ namespace FateExplorer.CharacterModel
     {
         protected const int DefaultSkillValue = 6;
 
-        protected ICharacterM Hero { get; set; }
+        public required ICharacterM Hero { get; init; }
 
 
 
@@ -228,12 +229,18 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="hero">The character carrying this weapon</param>
         /// <exception cref="ArgumentNullException"></exception>
+        [SetsRequiredMembers]
         public WeaponM(ICharacterM hero)
         {
             Hero = hero ?? throw new ArgumentNullException(nameof(hero));
         }
 
-
+        /// <summary>
+        /// EMpty constructor
+        /// </summary>
+        /// <remarks>Will probably only be used for mocking.</remarks>
+        public WeaponM()
+        {}
 
         /// <summary>
         /// Provide the weapon with all the necessary data

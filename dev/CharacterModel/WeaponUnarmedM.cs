@@ -1,10 +1,12 @@
 ﻿using FateExplorer.GameData;
 using FateExplorer.Shared;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FateExplorer.CharacterModel
 {
     public class WeaponUnarmedM : WeaponM
     {
+        [SetsRequiredMembers]
         public WeaponUnarmedM(ICharacterM hero) : base(hero)
         {}
 
