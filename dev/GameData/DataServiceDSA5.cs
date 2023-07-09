@@ -1,4 +1,5 @@
 ﻿using FateExplorer.Shared;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -99,11 +100,22 @@ namespace FateExplorer.GameData
                 || WeaponsRanged.Data.FirstOrDefault(w => w.TemplateID == TemplateId) != default;
 
 
+
+        private Task<WeaponMeleeDB> WeaponMeleeDBPromise = null;
         private WeaponMeleeDB weaponsMelee;
         public WeaponMeleeDB WeaponsMelee
         {
             get
             {
+                if (WeaponMeleeDBPromise != null) // data has not been fetched from the promise
+                {
+                    if (!WeaponMeleeDBPromise.IsCompleted) // if promise is ready, fetch immediately
+                        if (!WeaponMeleeDBPromise.Wait(TimeSpan.FromSeconds(1))) // if not, wait a second
+                            throw new HttpRequestException("Data has not been loaded");
+                    weaponsMelee = WeaponMeleeDBPromise.Result;
+                    WeaponMeleeDBPromise = null; // feed it to the GC
+                }
+
                 if (weaponsMelee is null)
                     throw new HttpRequestException("Data has not been loaded");
                 return weaponsMelee;
@@ -112,11 +124,21 @@ namespace FateExplorer.GameData
         }
 
 
+        private Task<WeaponRangedDB> WeaponRangedDBPromise = null;
         private WeaponRangedDB weaponsRanged;
         public WeaponRangedDB WeaponsRanged
         {
             get
             {
+                if (WeaponRangedDBPromise != null) // data has not been fetched from the promise
+                {
+                    if (!WeaponRangedDBPromise.IsCompleted) // if promise is ready, fetch immediately
+                        if (!WeaponRangedDBPromise.Wait(TimeSpan.FromSeconds(1))) // if not, wait a second
+                            throw new HttpRequestException("Data has not been loaded");
+                    weaponsRanged = WeaponRangedDBPromise.Result;
+                    WeaponRangedDBPromise = null; // feed it to the GC
+                }
+
                 if (weaponsRanged is null)
                     throw new HttpRequestException("Data has not been loaded");
                 return weaponsRanged;
@@ -281,8 +303,6 @@ namespace FateExplorer.GameData
 
             fileName = $"data/dis-advantages_{Language}.json";
             Task<DisAdvantagesDB> DisadvantagesTask = DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
-            //DisAdvantages = await DataSource.GetFromJsonAsync<DisAdvantagesDB>(fileName);
-
 
             fileName = $"data/resiliences_{Language}.json";
             Resiliences = await DataSource.GetFromJsonAsync<ResiliencesDB>(fileName);
@@ -299,12 +319,12 @@ namespace FateExplorer.GameData
             CombatTechs = await DataSource.GetFromJsonAsync<CombatTechDB>(fileName);
 
             fileName = $"data/weaponsmelee_{Language}.json";
-            Task<WeaponMeleeDB> WeaponMeleeTask = DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
-            //WeaponsMelee = await DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
+            //--Task<WeaponMeleeDB> WeaponMeleeTask =
+            WeaponMeleeDBPromise = DataSource.GetFromJsonAsync<WeaponMeleeDB>(fileName);
 
             fileName = $"data/weaponsranged_{Language}.json";
-            Task<WeaponRangedDB> WeaponRangedTask = DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
-            //WeaponsRanged = await DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
+            //--Task<WeaponRangedDB> WeaponRangedTask
+            WeaponRangedDBPromise = DataSource.GetFromJsonAsync<WeaponRangedDB>(fileName);
 
 
             // Skills
@@ -332,8 +352,8 @@ namespace FateExplorer.GameData
             // Wrap up - only the larger files
             SpecialAbilities = await SpecialAbilityTask;
             DisAdvantages = await DisadvantagesTask;
-            WeaponsRanged = await WeaponRangedTask;
-            WeaponsMelee = await WeaponMeleeTask;
+            //--WeaponsRanged = await WeaponRangedTask;
+            //--WeaponsMelee = await WeaponMeleeTask;
             ArcaneSkills = await ArcaneSkillsTask;
             KarmaSkills = await KarmaSkillsTask;
         }
