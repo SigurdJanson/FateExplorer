@@ -11,8 +11,8 @@ namespace UnitTests.GameData
 
 
         [Test]
-        [TestCase("de", "Basiliskenzunge", "Gildenmagische Magierkugel")]
-        [TestCase("en", "Basilisk-tongue", "Guild Magic Ball")]
+        [TestCase("de", "Basiliskenzunge", "Albernisches Langschwert")]
+        [TestCase("en", "Basilisk-tongue", "Albernian Long Sword")]
         public void LoadFromFile_ParseSuccessful(string Language, string Weapon1, string WeaponLast)
         {
             // Arrange
@@ -20,7 +20,7 @@ namespace UnitTests.GameData
             WeaponMeleeDB Result = Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(187, Result.Count);
+            Assert.AreEqual(189, Result.Count);
             Assert.AreEqual(Weapon1, Result[0].Name);
             Assert.AreEqual(WeaponLast, Result[^1].Name);
         }
