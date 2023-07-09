@@ -151,9 +151,10 @@ public class BattlegroundM : ICheckContextM
 
     public Modifier GetVisibilityMod(Check action, IWeaponM weapon)
     {
+        // Visibility only affects combat and dodge
         if (!action.IsCombat && !action.Is(Check.Roll.Dodge)) return Modifier.Neutral;
 
-        if (weapon.IsRanged && action.Is(Check.Combat.Attack))
+        if (action.Is(Check.Combat.Attack) && weapon.IsRanged)
             return Visibility switch
             {
                 Vision.Clear => Modifier.Neutral,
@@ -180,17 +181,10 @@ public class BattlegroundM : ICheckContextM
 
     public Modifier GetWaterMod(Check action, IWeaponM weapon)
     {
-        if (!action.IsCombat) return Modifier.Neutral; // DO/INI not affected
+        if (!action.IsCombat && !action.Is(Check.Roll.Dodge)) 
+            return Modifier.Neutral; // INI not affected
 
-        if (weapon.IsRanged)
-            return Water switch
-            {
-                UnderWater.Dry => Modifier.Neutral,
-                UnderWater.KneeDeep => Modifier.Neutral,
-                UnderWater.WaistDeep => new Modifier(-2),
-                _ => Modifier.Impossible
-            };
-        else
+        if (!weapon.IsRanged || action.Is(Check.Roll.Dodge))
             return Water switch
             {
                 UnderWater.Dry => Modifier.Neutral,
@@ -200,6 +194,14 @@ public class BattlegroundM : ICheckContextM
                 UnderWater.NeckDeep => new Modifier(-5),
                 UnderWater.Submerged => new Modifier(-6),
                 _ => throw new InvalidOperationException()
+            };
+
+        return Water switch
+            {
+                UnderWater.Dry => Modifier.Neutral,
+                UnderWater.KneeDeep => Modifier.Neutral,
+                UnderWater.WaistDeep => new Modifier(-2),
+                _ => Modifier.Impossible
             };
     }
 
@@ -235,9 +237,8 @@ public class BattlegroundM : ICheckContextM
     public static bool IsMovingEnabled(IWeaponM weapon) => weapon.IsRanged;
     public Modifier GetMovingMod(Check action, IWeaponM weapon)
     {
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI, PA not affected
         if (!weapon.IsRanged) return Modifier.Neutral;
-        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
 
         return Moving switch
         {
@@ -255,8 +256,7 @@ public class BattlegroundM : ICheckContextM
     public Modifier GetEnemyMovingMod(Check action, IWeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
-        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI or PA not affected
 
         return EnemyMoving switch
         {
@@ -272,8 +272,7 @@ public class BattlegroundM : ICheckContextM
     public Modifier GetEvasiveActionMod(Check action, IWeaponM weapon)
     {
         if (!weapon.IsRanged) return Modifier.Neutral;
-        if (action.Is(Check.Combat.Parry)) return Modifier.Neutral;
-        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI not affected
+        if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral; // DO/INI or PA not affected
 
         return EnemyEvasive switch
         {
@@ -352,7 +351,7 @@ public class BattlegroundM : ICheckContextM
     public Modifier GetTotalMod(int before, Check action, object asset)
     {
         if (!TotalMod.IsNeutral && action == TotalModAction) return TotalMod;
-        WeaponM weapon = asset as WeaponM; //-- ?? throw new ArgumentNullException(nameof(asset));
+        IWeaponM weapon = asset as IWeaponM; //-- ?? throw new ArgumentNullException(nameof(asset));
 
         int After = before;
 
