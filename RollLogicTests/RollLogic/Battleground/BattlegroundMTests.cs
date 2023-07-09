@@ -11,9 +11,8 @@ namespace FateExplorer.RollLogic.Tests;
 public class BattlegroundMTests
 {
     private MockRepository mockRepository;
-    private Mock<ICharacterM> hero;
+    //?private Mock<ICharacterM> hero;
     private Mock<IWeaponM> mainWeapon;
-    private Mock<IWeaponM> offWeapon;
 
     BattlegroundM bg;
 
@@ -32,9 +31,8 @@ public class BattlegroundMTests
     {
         this.mockRepository = new(MockBehavior.Strict);
 
-        hero = mockRepository.Create<ICharacterM>();
+        //?hero = mockRepository.Create<ICharacterM>();
         mainWeapon = mockRepository.Create<IWeaponM>(); // hero.Object
-        offWeapon = mockRepository.Create<IWeaponM>(); // hero.Object
         bg = new BattlegroundM();
     }
 
@@ -284,7 +282,7 @@ public class BattlegroundMTests
     {
         // Arrange
         bg.CrampedSpace = false;
-        Check TestCheck = new(Action, "CT not relevant");
+        Check TestCheck = new(Action, "CT not relevant", Branch);
 
         // Act
         Modifier result = bg.GetCrampedSpaceMod(TestCheck, mainWeapon.Object);
@@ -642,7 +640,7 @@ public class BattlegroundMTests
     }
 
     [Test()]
-    public void GetEnemyReachMod_Dodge_ReturnNeutralMod([Values] WeaponsReach Hero, [Values] WeaponsReach Enemy)
+    public void GetEnemyReachMod_Dodge_ReturnNeutralMod([Values] WeaponsReach Enemy)
     {
         // Arrange
         //mainWeapon.SetupGet(w => w.Reach).Returns(Hero); // checked later in method
@@ -654,7 +652,7 @@ public class BattlegroundMTests
         mockRepository.VerifyAll();
     }
     [Test()]
-    public void GetEnemyReachMod_Initiative_ReturnNeutralMod([Values] WeaponsReach Hero, [Values] WeaponsReach Enemy)
+    public void GetEnemyReachMod_Initiative_ReturnNeutralMod([Values] WeaponsReach Enemy)
     {
         // Arrange
         //mainWeapon.SetupGet(w => w.Reach).Returns(Hero); // checked later in method

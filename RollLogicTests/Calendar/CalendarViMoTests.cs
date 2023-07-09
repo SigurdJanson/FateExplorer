@@ -181,7 +181,7 @@ namespace UnitTests.Calendar
             DateTime result = DateTime.MinValue;
 
             // Act
-            Assert.Throws<ArgumentOutOfRangeException>(() => result = calendarViMo.Parse(dateStr));
+            Assert.Throws<FormatException>(() => result = calendarViMo.Parse(dateStr));
 
             // Assert
             mockRepository.VerifyAll();
