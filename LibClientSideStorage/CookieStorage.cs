@@ -87,8 +87,8 @@ public class CookieStorage : IClientSideStorage
         if (string.IsNullOrEmpty(resultStr)) return defaultVal;
 
         string jsonString = Encoding.UTF8.GetString(Convert.FromBase64String(resultStr));
-        T? result = JsonSerializer.Deserialize<T>(jsonString);
-        if (result is null) throw new JsonException("Stored data cannot be deserialised");
+        T? result = JsonSerializer.Deserialize<T>(jsonString) ?? 
+            throw new JsonException("Stored data cannot be deserialised");
         return result;
     }
 
