@@ -51,9 +51,10 @@ In any case after modification the final operation shall set `EV = max(EV, 0)`. 
 
 * Attack, parry from s1 to s5: 0, -1, -2, -4, -5, -6
 * Ranged: 
-  * Attack from s1 to 5: 0, 0, 2, &infin;, &infin;, &infin;
+  * Attack from s1 to 5: 0, 0, -2, &infin;, &infin;, &infin;
   * Parry: no modifiers
 * Dodge from s1 to s5: 0, -1, -2, -4, -5, -6
+
 
 ## Visibility
 
@@ -96,7 +97,9 @@ Melee, Unarmed, Shield; incl. dodge actions
 | 4 | NoVision    | `min(1, x)` |
 
 
+## Attack from Behind
 
+AT +4
 
 
 
@@ -129,6 +132,12 @@ Melee, Unarmed, Shield; incl. dodge actions
 | Kleine Schilde   | –2   |  –2 |
 | Mittlere Schilde | –4   |  –3 |
 | Große Schilde    | –6   |  –4 |
+
+
+
+## Advantageous Position
+
++2 on AT/PA
 
 
 
