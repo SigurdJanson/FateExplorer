@@ -22,11 +22,11 @@ public sealed class AppSettings
     public sealed class AppSettingsDTO
     {
         [JsonPropertyName("showImprovisedWeapons")]
-        public bool? showImprovisedWeapons { get; set; }
+        public bool? ShowImprovisedWeapons { get; set; }
         [JsonPropertyName("mostUsedSkills")]
-        public List<string> mostUsedSkills { get; set; }
+        public List<string> MostUsedSkills { get; set; }
         [JsonPropertyName("defaultCurrency")]
-        public string defaultCurrency { get; set; }
+        public string DefaultCurrency { get; set; }
     }
 
     /// <summary>
@@ -35,10 +35,12 @@ public sealed class AppSettings
     /// <returns><c>true</c> if the method finishes successfully; otherwise <c>false</c></returns>
     private bool TryStoreSettings()
     {
-        AppSettingsDTO Box = new ();
-        Box.showImprovisedWeapons = showImprovisedWeapons; // use field, not property
-        Box.defaultCurrency = defaultCurrency;
-        Box.mostUsedSkills = mostUsedSkills;
+        AppSettingsDTO Box = new()
+        {
+            ShowImprovisedWeapons = showImprovisedWeapons, // use field, not property
+            DefaultCurrency = defaultCurrency,
+            MostUsedSkills = mostUsedSkills
+        };
 
         try
         {
@@ -64,9 +66,9 @@ public sealed class AppSettings
         }
         catch (Exception) { return; }
 
-        showImprovisedWeapons = Box?.showImprovisedWeapons; // use field, not property
-        defaultCurrency = Box?.defaultCurrency;
-        mostUsedSkills = Box?.mostUsedSkills;
+        showImprovisedWeapons = Box?.ShowImprovisedWeapons; // use field, not property
+        defaultCurrency = Box?.DefaultCurrency;
+        mostUsedSkills = Box?.MostUsedSkills;
     }
 
     #endregion
@@ -100,8 +102,7 @@ public sealed class AppSettings
     {
         get 
         { 
-            if (mostUsedSkills is null) // get default
-                mostUsedSkills = Config.GetSection("FE:Skills:MostUsedSkills").Get<List<string>>();
+            mostUsedSkills ??= Config.GetSection("FE:Skills:MostUsedSkills").Get<List<string>>();
             return mostUsedSkills; 
         }
         set 
@@ -121,8 +122,7 @@ public sealed class AppSettings
     {
         get
         {
-            if (defaultCurrency is null) // get default
-                defaultCurrency = Config.GetValue<string>("FE:DefaultCurrency");
+            defaultCurrency ??= Config.GetValue<string>("FE:DefaultCurrency");
             return defaultCurrency;
         }
         set 
