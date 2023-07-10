@@ -19,27 +19,29 @@
         <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=@ToggleOpen />
     </div>
     <MudGrid Class="pb-4">
-        <MudItem sm=12 md=6>
+        <MudItem xs=12 md=6>
             <MudCard Outlined=true>
                 <MudCardContent Class="d-flex flex-column justify-center">
-                    @* Month *@
-                    <MudPaper Class="d-flex pa-21 justify-center" Elevation=0 Width="100%">
-                        <MudText Typo=Typo.body2>@Calendar.Month (@Calendar.MonthNr)</MudText>
-                    </MudPaper> 
+                    @* Week Day *@
+                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
+                        <MudText Typo=Typo.body2>@Calendar.Weekday</MudText>
+                    </MudPaper>
                     @* Current Day *@
-                    <div class="d-flex justify-space-between align-center flex-grow-1 gap-4">
+                    <div class="d-flex justify-space-between align-center flex-grow-1 gap-4 my-1">
                         <MudIconButton OnClick=@Calendar.GotoYesterday aria-label=@l10n[""]
                             Size=Size.Large Icon=@Icons.Material.Sharp.ArrowBackIos />
-                        <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 mud-theme-primary" Width="64px" Height="64px">
+                        <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 flex-grow-1 mud-theme-primary" Height="64px">
+                            @*Width="64px"*@
                             <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
                         </MudPaper>
                         <MudIconButton OnClick=@Calendar.GotoTomorrow  aria-label=@l10n[""]
                             Icon=@Icons.Material.Sharp.ArrowForwardIos Size=Size.Large />
                     </div>
-                    @* ------ *@
-                    <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
-                        <MudText Typo=Typo.body2>@Calendar.Weekday</MudText>
+                    @* Month *@
+                    <MudPaper Class="d-flex px-auto justify-center py-2" Elevation=0>
+                        <MudText Typo=Typo.body2>@Calendar.Month (@Calendar.MonthNr)</MudText>
                     </MudPaper>
+                    @* Year *@
                     <MudPaper Class="d-flex pa-2 justify-center" Elevation=0 Width="100%">
                         <MudText Typo=Typo.body2>@Calendar.Year @Calendar.Reckoning</MudText>
                     </MudPaper>
@@ -51,10 +53,10 @@
                 </MudCardActions>
             </MudCard>
         </MudItem>
-        <MudItem sm=12 md=6>
+        <MudItem xs=12 md=6>
             <MudPaper Elevation=0 Outlined=true Class="d-flex flex-nowrap">
             <MudSimpleTable Elevation=0>
-                <tbody>
+                    <tbody>
                 <tr>
                     <td><MudIcon Icon=@Calendar.SeasonIcon Title=@Calendar.Season /> </td>
                     <td>@l10n["lblSeason"]</td>
@@ -91,7 +93,7 @@
                                         {
                                         <MudExpansionPanel Class="holiday">
                                             <TitleContent>@h.Item1</TitleContent>
-                                            <ChildContent>@h.Item2</ChildContent>
+                                            <ChildContent><p>@h.Item2</p></ChildContent>
                                         </MudExpansionPanel>
                                         }
                                     }
@@ -117,7 +119,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton Color=Color.Primary OnClick=@CancelDateEdit Class="px-10">@l10n["btnCancel"]</MudButton>
-        <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@SubmitDateEdit Class="px-10">@l10n["btnDateChange"]</MudButton>
+        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick=@SubmitDateEdit Class="px-10">@l10n["btnDateChange"]</MudButton>
     </DialogActions>
 </MudDialog>
 
