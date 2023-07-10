@@ -28,13 +28,13 @@
                     </MudPaper>
                     @* Current Day *@
                     <div class="d-flex justify-space-between align-center flex-grow-1 gap-4 my-1">
-                        <MudIconButton OnClick=@Calendar.GotoYesterday aria-label=@l10n[""]
+                        <MudIconButton OnClick=@Calendar.GotoYesterday aria-label=@l10n["btnPreviousDay"]
                             Size=Size.Large Icon=@Icons.Material.Sharp.ArrowBackIos />
                         <MudPaper Class="d-flex justify-center align-center mx-auto pa-10 flex-grow-1 mud-theme-primary" Height="64px">
                             @*Width="64px"*@
                             <MudText Class="px-5" Typo=Typo.h3>@Calendar.DayOfMonth</MudText>
                         </MudPaper>
-                        <MudIconButton OnClick=@Calendar.GotoTomorrow  aria-label=@l10n[""]
+                        <MudIconButton OnClick=@Calendar.GotoTomorrow aria-label=@l10n["btnNextDay"]
                             Icon=@Icons.Material.Sharp.ArrowForwardIos Size=Size.Large />
                     </div>
                     @* Month *@

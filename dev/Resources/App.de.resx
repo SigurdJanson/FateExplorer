@@ -1549,4 +1549,10 @@
   <data name="Region.FarSouthIslands" xml:space="preserve">
     <value>Altoum und die Waldinseln</value>
   </data>
+  <data name="btnNextDay" xml:space="preserve">
+    <value>Gehe zum nächsten Tag</value>
+  </data>
+  <data name="btnPreviousDay" xml:space="preserve">
+    <value>Gehe zum vorigen Tag</value>
+  </data>
 </root>

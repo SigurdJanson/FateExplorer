@@ -1670,4 +1670,12 @@
   <data name="Region.FarSouthIslands" xml:space="preserve">
     <value>Altoum and the Forest Islands</value>
   </data>
+  <data name="btnNextDay" xml:space="preserve">
+    <value>Go to the following day</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnPreviousDay" xml:space="preserve">
+    <value>Go to the previous day</value>
+    <comment>Calendar</comment>
+  </data>
 </root>
