@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace FateExplorer.Calendar
 {
     /// <summary>
-    /// Interface that provides the current date for the game play.
+    /// Interface that provides the current date for the game play. When did the adventure take place?
     /// </summary>
     public interface IDateOfPlay
     {

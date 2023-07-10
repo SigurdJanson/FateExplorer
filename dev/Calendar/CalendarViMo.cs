@@ -8,7 +8,7 @@ namespace FateExplorer.Calendar;
 
 
 /// <summary>
-/// 
+/// Gives the View access to the calandar and the underlying 
 /// </summary>
 /// <remarks>In this early version the CalendarViMo can only be used with reckoning of Bosparan's Fall</remarks>
 public class CalendarViMo

@@ -232,7 +232,7 @@ public class CalendarDB
             {
                 if (Month != h.Month) continue; // only same or next month (because of carry over effect)
 
-                if (h.WeekDay == DereWeekDay) // first day of interval
+                if (h.WeekDay == DereWeekDay) // is the first day of an interval today?
                 {
                     int MonthLen = Generic.Month[Month].DaysInMonth;
                     if (Day > MonthLen + (WeekLen * h.Day) && Day <= MonthLen + (WeekLen * (h.Day + 1)))

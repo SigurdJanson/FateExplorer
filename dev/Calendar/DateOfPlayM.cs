@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace FateExplorer.Calendar;
 
+/// <summary>
+/// Class to contain and store the Aventurian date when the adventure took place.
+/// </summary>
 public class DateOfPlayM : IDateOfPlay
 {
     protected IClientSideStorage Storage; // injected storage
@@ -18,7 +21,7 @@ public class DateOfPlayM : IDateOfPlay
     /// Default constructor
     /// </summary>
     /// <param name="storage">A storage to keep the date across sessions</param>
-    public DateOfPlayM(IClientSideStorage storage) : this(DateTime.Now, storage) 
+    public DateOfPlayM(IClientSideStorage storage) : this(DateTime.Now, storage)
     {}
 
 

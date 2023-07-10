@@ -47,7 +47,6 @@
 
                 <MudCardActions Class="d-block">
                     <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
-                    @*<DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=@DateEditIsVisible />*@
                     <MudButton OnClick=@Calendar.GotoEarthDate Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
                 </MudCardActions>
             </MudCard>
@@ -134,8 +133,11 @@
     }
 
 
-    // POPOVER
-    #region POPOVER
+     /* 
+    * POPOVER
+    */
+    #region POPOVER ====
+
     public bool IsPopupOpen;
 
     public void ToggleOpen()
@@ -165,7 +167,6 @@
     {
         if (!DateEditIsVisible)
         {
-            //dateInputStr = Calendar.DateToString('p');
             EditedDate = Calendar.EffectiveDate;
             DateEditIsVisible = true;
             BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
@@ -193,9 +194,10 @@
     #endregion
 
 
-
-    // RENDERING
-    #region RENDERING
+    /*
+     * RENDERING
+     */
+    #region RENDERING ====
 
     RenderFragment<CalendarViMo> RenderShortDate = Value => __builder =>
     {
