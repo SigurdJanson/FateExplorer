@@ -978,7 +978,7 @@
     <comment>Calendar</comment>
   </data>
   <data name="btnSetEarthDate" xml:space="preserve">
-    <value>Zum offiziellen DAtum</value>
+    <value>Zum offiziellen Datum</value>
     <comment>Calendar</comment>
   </data>
   <data name="lblHoliday" xml:space="preserve">
