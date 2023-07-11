@@ -191,8 +191,8 @@ public class CalendarDB
     /// <param name="WeekDay"></param>
     /// <param name="Holidays"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    /// <remarks>The method does not support Weekdays counting from the end of the month. 
-    /// Holidays longer than a single day aren't support either when counting backwards.</remarks>
+    /// <remarks>
+    /// Holidays longer than a single day aren't support when counting backwards.</remarks>
     public void AddWeekHolidays(int Month, int Day, DayOfWeek WeekDay, ref List<(string Name, string Descr)> Holidays)
     {
         if (Month < 1 || Month > 13)
@@ -238,7 +238,7 @@ public class CalendarDB
                     if (Day > MonthLen + (WeekLen * h.Day) && Day <= MonthLen + (WeekLen * (h.Day + 1)))
                         Holidays.Add((h.Name, h.Descr));
                 }
-                // TODO ###################################################
+                // NOTE: Holidays longer than a single day aren't support when counting backwards.
             }
         }
     }
