@@ -5,6 +5,7 @@
 @inject IGameDataService GameData
 @inject IDateOfPlay CurrentDate
 @inject IStringLocalizer<App> l10n
+@inject IDialogService Dialog
 
 <MudTooltip Text=@LongDate>
     <MudChip Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
@@ -48,7 +49,7 @@
                 </MudCardContent>
 
                 <MudCardActions Class="d-block">
-                    <MudButton OnClick=@SetDate Variant=@ButtonVariant Color=Color.Primary>@BtnLabelSetDate</MudButton>
+                    <MudButton OnClick=@SetDate Variant=Variant.Text Color=Color.Primary>@BtnLabelSetDate</MudButton>
                     <MudButton OnClick=@Calendar.GotoEarthDate Variant=Variant.Text>@l10n["btnSetEarthDate"]</MudButton>
                 </MudCardActions>
             </MudCard>
@@ -110,18 +111,6 @@
     </MudGrid>
 </MudPopover>
 
-<MudDialog @bind-IsVisible=DateEditIsVisible>   @*Options="dialogOptions"*@
-    <TitleContent>
-        <MudText Typo="Typo.h6">@l10n["lblEditDate"]</MudText>
-    </TitleContent>
-    <DialogContent>
-        <DateEditor @bind-Value=EditedDate Calendar=@Calendar IsVisible=true />
-    </DialogContent>
-    <DialogActions>
-        <MudButton Color=Color.Primary OnClick=@CancelDateEdit Class="px-10">@l10n["btnCancel"]</MudButton>
-        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick=@SubmitDateEdit Class="px-10">@l10n["btnDateChange"]</MudButton>
-    </DialogActions>
-</MudDialog>
 
 @code {
     private CalendarViMo Calendar { get; set; }
@@ -156,41 +145,27 @@
     private const string BtnLabelSetDateSet = "btnSetDate";
     private const string BtnLabelSetDateConfirm = "btnSetDateConfirm";
     private string BtnLabelSetDate { get; set; }
-    private bool DateEditIsVisible;
-    private DateTime EditedDate { get; set; }
-    private Variant ButtonVariant = Variant.Text;
 
 
 
     /// <summary>
     /// Respond to a click of the Modify Date button
     /// </summary>
-    private void SetDate()
+    private async Task SetDate()
     {
-        if (!DateEditIsVisible)
+        DialogParameters parameters = new() 
+        { 
+            { "Calendar", Calendar },
+            { "Date", Calendar.EffectiveDate }
+        };
+        var dialog = await Dialog.ShowAsync<DateEditor>(l10n["lblEditDate"], parameters);
+        var result = await dialog.Result;
+        if (!result.Canceled)
         {
-            EditedDate = Calendar.EffectiveDate;
-            DateEditIsVisible = true;
-            BtnLabelSetDate = l10n[BtnLabelSetDateConfirm];
-            ButtonVariant = Variant.Filled;
-        }
-        else
-        {
-            Calendar.GotoDate(EditedDate);
-            DateEditIsVisible = false;
-            BtnLabelSetDate = l10n[BtnLabelSetDateSet];
-            ButtonVariant = Variant.Text;
+            Calendar.GotoDate((DateTime)result.Data);
         }
     }
 
-    protected void SubmitDateEdit() => SetDate();
-
-    protected void CancelDateEdit()
-    {
-        DateEditIsVisible = false;
-        BtnLabelSetDate = l10n[BtnLabelSetDateSet];
-        ButtonVariant = Variant.Text;
-    }
 
 
     #endregion

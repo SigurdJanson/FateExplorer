@@ -2,32 +2,41 @@
 
 @inject IStringLocalizer<App> l10n
 
+<MudDialog>
+    <TitleContent>
+        <MudText Typo=Typo.h6>@l10n["lblEditDate"]</MudText>
+    </TitleContent>
+    <DialogContent>
+        <div class=@($"d-flex flex-nowrap flex-row flex-grow-1 gap-4")>
 
-<div class=@($"d-flex {DateOpenClass} flex-nowrap flex-row flex-grow-1 gap-4")>
+            <MudNumericField Value=@InputDay ValueChanged=@OnDayChange Min=1 Max=@MaxDays
+                Label=@l10n["lblDateDay"] Format="D2" Pattern="[0-9]" T=int />  
 
-    <MudNumericField Value=@InputDay ValueChanged=@OnDayChange Min=1 Max=@MaxDays
-        Label=@l10n["lblDateDay"] Format="D2" Pattern="[0-9]" T=int />  
+            <MudSelect Value=@InputMonth ValueChanged=@OnMonthChange 
+                Label=@l10n["lblDateMonth"] ToStringFunc=@((int i) => $"{Calendar.ListOfMonths[i-1]} ({i})") T=int >
+                @for (int i = 1; i <= Calendar.ListOfMonths.Length; i++ ){<MudSelectItem Value=i />}
+            </MudSelect>
 
-    <MudSelect Value=@InputMonth ValueChanged=@OnMonthChange 
-        Label=@l10n["lblDateMonth"] ToStringFunc=@((int i) => $"{Calendar.ListOfMonths[i-1]} ({i})") T=int >
-        @for (int i = 1; i <= Calendar.ListOfMonths.Length; i++ ){<MudSelectItem Value=i />}
-    </MudSelect>
+            <MudNumericField Value=@InputYear ValueChanged=@OnYearChange Min=MinYears
+                Label=@l10n["lblDateYear"] Format="D4" Pattern="[0-9\-]" T=int />
 
-    <MudNumericField Value=@InputYear ValueChanged=@OnYearChange Min=MinYears
-        Label=@l10n["lblDateYear"] Format="D4" Pattern="[0-9\-]" T=int />
-
-</div>
-<div>
-    <MudText Typo=Typo.body2>@Message</MudText>
-</div>
-
+        </div>
+        <div>
+            <MudText Typo=Typo.body2>@Message</MudText>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color=Color.Primary OnClick=@Cancel Class="px-10">@l10n["btnCancel"]</MudButton>
+        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick=@Submit Class="px-10">@l10n["btnDateChange"]</MudButton>
+    </DialogActions>
+</MudDialog>
 @*  <MudInput T=string Mask=@(new RegexMask(CalendarViMo.DateRegex)) @bind-Value=dateInputStr
               Placeholder=@l10n["txtDateFormatPlaceholder"] Class=@DateOpenClass />*@
 
 
 @code {
-    private DateTime date;
-    private bool isVisible; // false per defult
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; }
 
     /// <summary>
     /// An aventurian calendar the dates refer to.
@@ -40,53 +49,27 @@
     /// The current date to be edited
     /// </summary>
     [Parameter]
-    public DateTime Value 
-    { 
-        get => date; 
-        set
-        {
-            if (date == value) return;
-            date = value;
-        }
-    }
+    public DateTime Date { get; set; }
+
 
     /// <summary>
     /// Fired when the Date property changes.
     /// </summary>
     [Parameter]
-    public EventCallback<DateTime> ValueChanged { get; set; }
+    public EventCallback<DateTime> DateChanged { get; set; }
 
 
-    [Parameter]
-    public bool IsVisible
-    {
-        get => isVisible;
-        set
-        {
-            if (isVisible == value) return;
-            isVisible = value;
-            IsVisibleChanged.InvokeAsync();
-        }
-    }
-
-    /// <summary>
-    /// Fired when the IsVisible property changes.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> IsVisibleChanged { get; set; }
-
-    /// <summary>
-    /// CSS class to change the visibility of this component, 
-    /// see <see href="https://mudblazor.com/utilities/display#visibility">MudBlazor</see>.
-    /// </summary>
-    private string DateOpenClass => IsVisible ? "" : "d-none"; // MudBlazor CSS class
+    //
+    void Submit() => MudDialog.Close(DialogResult.Ok(Calendar.ToDateTime(InputDay, InputMonth, InputYear)));
+    void Cancel() => MudDialog.Cancel();
 
 
+    //
     private int InputDay;
     private int MaxDays;
     private int InputMonth;
     private int InputYear;
-    private int MinYears = -976;
+    private const int MinYears = -976;
 
     private string Message = "";
 
@@ -98,9 +81,9 @@
 
         if (Calendar is null) throw new ArgumentNullException(nameof(Calendar));
 
-        InputDay = Calendar.GetDayOfMonth(Value);
-        InputMonth = Calendar.GetMonthNr(Value);
-        InputYear = Calendar.GetYear(Value);
+        InputDay = Calendar.GetDayOfMonth(Date);
+        InputMonth = Calendar.GetMonthNr(Date);
+        InputYear = Calendar.GetYear(Date);
         MaxDays = Calendar.DaysInMonth(InputYear, InputMonth);
     }
 
@@ -109,7 +92,7 @@
         Message = string.Empty;
         try
         {
-            date = Calendar.ToDateTime(InputDay, InputMonth, InputYear);
+            Date = Calendar.ToDateTime(InputDay, InputMonth, InputYear);
         }
         catch(ArgumentOutOfRangeException e)
         {
@@ -117,7 +100,7 @@
                 Message = l10n["msgDayOutOfRange"];
         }
 
-        await ValueChanged.InvokeAsync(date);
+        await DateChanged.InvokeAsync(Date);
     }
 
     protected async void OnDayChange(int day)
