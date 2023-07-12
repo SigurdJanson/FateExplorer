@@ -43,6 +43,20 @@ public class Coins
         }
     }
 
+    /// <summary>
+    /// Compute the total weight of the coins.
+    /// </summary>
+    /// <returns>Weight in Stone</returns>
+    public decimal Weight()
+    {
+        decimal result = 0;
+        for(var c = 0; c < Coin.Length; c++)
+        {
+            result += Coin[c] * Currency.CoinWeight[c];
+        }
+        return result;
+    }
+
 
     /// <summary>
     /// 
