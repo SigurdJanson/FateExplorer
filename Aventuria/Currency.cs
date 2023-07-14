@@ -1,6 +1,9 @@
 ﻿namespace Aventuria;
 
 
+/// <summary>
+/// Represents a currency used in Aventuria. Specifies names, symbols, and value.
+/// </summary>
 public class Currency : Enumeration
 {
     /// <summary>
@@ -42,6 +45,11 @@ public class Currency : Enumeration
     /// </summary>
     public required Region[] Origin { get; init; }
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="name">User-defined name of the currency</param>
+    /// <param name="value">The numeric index of the enumeration</param>
     public Currency(string name, int value) : base(name, value)
     {}
 
@@ -52,10 +60,16 @@ public class Currency : Enumeration
     /// </summary>
     public decimal Rate { get; init; }
 
-
+    /// <summary>
+    /// The enum index of the reference currency
+    /// </summary>
     public const int ReferenceValue = 1;
 
+    /// <summary>
+    /// Create and return an instance of the reference currency.
+    /// </summary>
     public static Currency ReferenceCurrency => MiddenrealmThaler;
+
 
     public static Currency MiddenrealmThaler =>
         new(nameof(MiddenrealmThaler), 1)
@@ -92,7 +106,7 @@ public class Currency : Enumeration
             }
         };
 
-    public static Currency DwarvenThaler => // Mountain Kingdom
+    public static Currency DwarvenThaler => // Mountain Kingdoms
         new(nameof(DwarvenThaler), 2)
         {
             CoinNames = new string[] { "Auromox", "Arganbrox", "Atebrox" },
