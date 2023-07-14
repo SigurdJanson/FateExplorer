@@ -18,11 +18,11 @@
             <MudPaper Elevation=0 Outlined=true Class="align-self-stretch">
                 @* FILTER *@
                 <div class="pa-2">
-                    <MudTextField @bind-Value=FilterTerm Placeholder=@l10n["lblSearch"]
+                    <MudTextField @bind-Value=FilterTerm Placeholder=@l10n["lblSearch"] OnKeyUp=FindOnEnter
                                 Adornment=Adornment.End AdornmentIcon=@Icons.Material.Filled.Search
-                                IconSize=Size.Medium Immediate=true></MudTextField>
+                                IconSize=Size.Medium Immediate=true AutoFocus=true />
                 </div>
-                <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px">
+                <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px" @ref=FilterTabs>
                     <MudTabPanel Icon=@Icons.Material.Filled.PushPin ToolTip=@l10n["lblMostUsed"]>
                         <MudList Clickable=true Style="overflow:auto; height:620px">
                         @if (FavoriteSkills is not null)
@@ -132,7 +132,8 @@
 
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
-
+    private MudTabs FilterTabs;
+    private const int AllSkillsTabIndex = 2;
 
     // SKILL REGION
     private List<Check.Skill> SkillDomains;
@@ -231,6 +232,15 @@
     {
 
     }
+
+    private void FindOnEnter(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        {
+            FilterTabs.ActivatePanel(AllSkillsTabIndex);
+        }
+    }
+
 
     private void UpdateCanRoutineCheck()
     {
