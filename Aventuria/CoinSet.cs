@@ -18,7 +18,7 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     /// <summary>
     /// Returns the coins as monetary value in the reference currency.
     /// </summary>
-    public Money RefValue => new(JoinAmount() * Currency.Rate, Currency.ReferenceCurrency);
+    public Money RefValue => new(JoinAmount(), Currency.ReferenceCurrency);
 
 
     public int Count => Coin.Length; // ICollection
@@ -114,8 +114,7 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
             decimal CoinValue = currency.CoinValue[c];
 
             // Determine maximum amount
-            int Count = (int)(value % CoinValue);
-            c += Count;
+            int Count = (int)(value / CoinValue);
             value -= CoinValue * Count;
             coins[c] = Count;
         }
@@ -159,8 +158,15 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
         return Result;
     }
 
+
+
+
     #region implement ICollection<int>
 
+    /// <summary>
+    /// Not supported by <c>CoinSet</c>
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public void Add(int item)
     {
         throw new NotImplementedException();
@@ -170,19 +176,24 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     public void Clear() => Array.Clear(Coin);
 
 
-    public bool Contains(int item) => Coin[item] != 0;
+    public bool Contains(int item)
+    {
+        foreach (var coin in Coin)
+            if (coin == item) return true;
+        return false;
+    }
 
 
     public void CopyTo(int[] array, int arrayIndex)
     {
-        throw new NotImplementedException();
+        for (int i = arrayIndex; i < Coin.Length; i++)
+            Coin[i] = array[i-arrayIndex];
     }
 
 
     public bool Remove(int item)
     {
-        Coin[item] = 0;
-        return true;
+        throw new NotImplementedException();
     }
 
 
