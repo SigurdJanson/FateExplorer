@@ -1,5 +1,4 @@
 ﻿using Aventuria;
-using Moq;
 using NUnit.Framework;
 using System;
 
@@ -52,79 +51,6 @@ namespace UnitTests.Aventuria
             return result;
         }
 
-        //[Test]
-        //public void Round_StateUnderTest_ExpectedBehavior(decimal Value = 2)
-        //{
-        //    // Arrange
-        //    Currency rc = Currency.ReferenceCurrency;
-        //    Money money = new(Value, rc);
-
-        //    // Act
-        //    var result = Money.Round(money);
-
-        //    // Assert
-        //    Assert.That();
-        //    mockRepository.VerifyAll();
-        //}
-
-        //[Test]
-        //public void Round_StateUnderTest_ExpectedBehavior1()
-        //{
-        //    // Arrange
-        //    decimal Value = 2;
-        //    Currency rc = Currency.ReferenceCurrency;
-        //    Money money = new(Value, rc);
-        //    Money m = default;
-        //    int decimals = 0;
-
-        //    // Act
-        //    var result = money.Round(m, decimals);
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
-
-        //[Test]
-        //public void Round_StateUnderTest_ExpectedBehavior2()
-        //{
-        //    // Arrange
-        //    decimal Value = 2;
-        //    Currency rc = Currency.ReferenceCurrency;
-        //    Money money = new(Value, rc);
-
-        //    Money m = default;
-        //    MidpointRounding mode = default;
-
-        //    // Act
-        //    var result = money.Round(
-        //        m,
-        //        mode);
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
-
-        //[Test]
-        //public void Round_StateUnderTest_ExpectedBehavior3()
-        //{
-        //    // Arrange
-        //    Money money = new(1.0m, Currency.ReferenceCurrency);
-        //    Money m = default;
-        //    int decimals = 0;
-        //    MidpointRounding mode = default;
-
-        //    // Act
-        //    var result = money.Round(
-        //        m,
-        //        decimals,
-        //        mode);
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
 
         [Test]
         [TestCase("1.0", "1.0", ExpectedResult = 0)]
@@ -767,53 +693,7 @@ namespace UnitTests.Aventuria
 
         }
 
-        //[Test]
-        //public void ToString_StateUnderTest_ExpectedBehavior()
-        //{
-        //    // Arrange
-        //    Money money = new(1.0m, Currency.ReferenceCurrency);
 
-        //    // Act
-        //    var result = money.ToString();
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
-
-        //[Test]
-        //public void ToString_StateUnderTest_ExpectedBehavior1()
-        //{
-        //    // Arrange
-        //    Money money = new(1.0m, Currency.ReferenceCurrency);
-        //    string format = null;
-
-        //    // Act
-        //    var result = money.ToString(
-        //        format);
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
-
-        //[Test]
-        //public void ToString_StateUnderTest_ExpectedBehavior2()
-        //{
-        //    // Arrange
-        //    Money money = new(1.0m, Currency.ReferenceCurrency);
-        //    string format = null;
-        //    IFormatProvider formatProvider = null;
-
-        //    // Act
-        //    var result = money.ToString(
-        //        format,
-        //        formatProvider);
-
-        //    // Assert
-        //    Assert.Fail();
-        //    mockRepository.VerifyAll();
-        //}
 
     }
 }
