@@ -1,4 +1,6 @@
-﻿namespace Aventuria;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Aventuria;
 
 /// <summary>
 /// A collection to count coins of a given currency.
@@ -21,6 +23,11 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
 
     public int Count => Coin.Length; // ICollection
 
+    /// <summary>
+    /// Gets the total number of coins
+    /// </summary>
+    public int CoinCount => Coin.Sum(x => x);
+
     public bool IsReadOnly => false; // ICollection
 
 
@@ -28,6 +35,7 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     /// Constructor
     /// </summary>
     /// <param name="currency">For a collection of coins the currency must be specified.</param>
+    [SetsRequiredMembers]
     public CoinSet(Currency currency)
     {
         Currency = currency;
@@ -41,6 +49,7 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     /// <param name="currency">For a collection of coins the currency must be specified.</param>
     /// <param name="coins">The number of coins in the set. Starts with the coin with highest value 
     /// and goes down. There cannot be fewer coins specified by the currency.</param>
+    [SetsRequiredMembers]
     public CoinSet(Currency currency, params int[] coins)
     {
         Currency = currency;
