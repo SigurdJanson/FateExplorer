@@ -5,23 +5,25 @@ namespace FateExplorer.CharacterModel;
 /// <summary>
 /// Represents the This is the characters’s tactical movement rate, which is especially important for combat.
 /// </summary>
-public class MovementM : IDerivedAttributeM
+public class MovementM : CharacterIstic
 {
-
-    public string[] DependentAttributes => throw new System.NotImplementedException();
-
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="hero">The character of this dodge competence</param>
-    public MovementM(int raceBaseVal, ICharacterM hero)
+    /// <param name="raceBaseVal">The base value of the character's race as basis for the movement value.</param>
+    /// <param name="hero">The character of this dodge competence.</param>
+    public MovementM(int raceBaseVal, ICharacterM hero) : base(ComputeMovement(raceBaseVal))
     {
-        Value = ComputeMovement(raceBaseVal);
+        //--Value = ComputeMovement(raceBaseVal);
         if (hero.HasAdvantage(ADV.Nimble))
-            Value += 1;
+            Imported += 1;
         if (hero.HasAdvantage(DISADV.Slow))
-            Value -= 1;
+            Imported -= 1;
+        _effective = Imported;
+        _true = Imported;
+        Min = 0;
+        Max = 20;
     }
 
     /// <summary>
@@ -31,19 +33,10 @@ public class MovementM : IDerivedAttributeM
     public static int ComputeMovement(int raceBaseVal)
         => raceBaseVal;
 
-    /// <summary>
-    /// The allowed minimum of the true/effective value
-    /// </summary>
-    public int Min { get; protected set; } = 0;
 
-    /// <summary>
-    /// The allowed maximum of the true/effective value
-    /// </summary>
-    public int Max { get; protected set; } = 20;
-
-    /// <summary>
-    /// The imported movement value
-    /// </summary>
-    public int Value { get; protected set; }
+    ///// <summary>
+    ///// The imported movement value
+    ///// </summary>
+    //public int Value { get; protected set; }
 
 }

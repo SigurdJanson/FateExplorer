@@ -1,20 +1,24 @@
-﻿namespace FateExplorer.CharacterModel
+﻿using FateExplorer.Shared;
+
+namespace FateExplorer.CharacterModel
 {
     /// <summary>
     /// Represents the competence to dodge
     /// </summary>
-    public class DodgeM : IDerivedAttributeM
+    public class DodgeM : DerivedValue
     {
-        private readonly ICharacterM Hero;
+        //--private readonly ICharacterM Hero;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="hero">The character of this dodge competence</param>
-        public DodgeM(ICharacterM hero)
+        public DodgeM(ICharacterM hero) : base(ComputeDodge(hero.GetAbility(AbilityM.AGI)))
         {
-            Hero = hero;
-            Value = ComputeDodge(Hero.GetAbility(AbilityM.AGI));
+            //--Hero = hero;
+            Min = 0;
+            Max = 20;
+            DependencyId = new string[1] { AbilityM.AGI };
         }
 
         /// <summary>
@@ -25,24 +29,10 @@
         public static int ComputeDodge(int EffectiveAgility)
             => EffectiveAgility / 2 + EffectiveAgility % 2;
 
-        /// <summary>
-        /// The allowed minimum of the true/effective value
-        /// </summary>
-        public int Min { get; protected set; } = 0;
 
-        /// <summary>
-        /// The allowed maximum of the true/effective value
-        /// </summary>
-        public int Max { get; protected set; } = 20;
-
-        /// <summary>
-        /// The imported dodge value
-        /// </summary>
-        public int Value { get; protected set; }
-
-
-        /// <inheritdoc />
-        /// <remarks>Implements <see cref="IDerivedAttributeM"/></remarks>
-        public string[] DependentAttributes => new string[1] { AbilityM.AGI };
+        ///// <summary>
+        ///// The imported dodge value
+        ///// </summary>
+        //public int Value { get; protected set; }
     }
 }

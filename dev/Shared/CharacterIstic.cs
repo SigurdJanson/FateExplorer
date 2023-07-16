@@ -6,8 +6,8 @@ namespace FateExplorer.Shared;
 
 public abstract class CharacterIstic
 {
-    private int _effective;
-    private int _true;
+    protected int _effective;
+    protected int _true;
 
     public CharacterIstic(int Value)
     {

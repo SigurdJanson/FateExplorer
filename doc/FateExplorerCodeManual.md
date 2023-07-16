@@ -3,16 +3,17 @@
 
 ## Basic Terms and Types
 
-* A **proficiency value** is anything you can use for a roll. May it be a check against a limit (e.g. ability checks) or a combative check (like initiative).
+* A **Character**istic is anything you can use for a roll. May it be a check against a limit (e.g. ability checks) or a combative check (like initiative).
   * Ability values
-  * Combat values attack and parry
+  * Combat values attack (AT, incl. ranged attack RC) and parry (PA)
   * Dodge
   * Initiative
-  * Skill values
   * Movement
-* An **energy** may be life, astral or karma energy.
-  * Roles may add/reduce energy.
-* A **resilience** is either spirit or toughness.
+  * Wound threshold
+  * An **energy** may be life, astral or karma energy.
+    * Roles may add/reduce energy.
+  * A **resilience** is either spirit (SPI) or toughness (TOU).
+* Skill values
 
 
 A `Check` is a sequence of `Roll`s. It needs at least one primary roll. The required rolls in the sequence may depend on context. Roll types (enum `RollType`) are:
