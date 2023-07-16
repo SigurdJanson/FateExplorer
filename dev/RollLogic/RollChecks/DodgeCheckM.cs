@@ -55,7 +55,7 @@ namespace FateExplorer.RollLogic
             RollAttrName = new string[1];
 
             RollAttr[0] = dodge.EffectiveValue;
-            RollAttrName[0] = ResourceId.DodgeLabelId; // TODO #125: this is a crutch. It should be the already translated string.
+            RollAttrName[0] = dodge.Name;
             Name = dodge.Name;
             CarriesWeapon = carriesWeapon;
 

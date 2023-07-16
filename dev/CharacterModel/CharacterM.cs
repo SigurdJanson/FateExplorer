@@ -111,9 +111,12 @@ namespace FateExplorer.CharacterModel
             // DODGE
             try
             {
-                Dodge = new DodgeM(this);
+                Dodge = new DodgeM(this)
+                {
+                    Name = ResourceId.DodgeLabelId // TODO #125: this is a crutch. It should be the already translated string.
+                };
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+            catch (Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
 
 
             // ENERGIES
