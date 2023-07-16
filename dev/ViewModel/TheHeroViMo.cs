@@ -89,7 +89,7 @@ namespace FateExplorer.ViewModel
             if (StoredItem?.DodgeTrue is not null)
                 DodgeTrueValue = StoredItem.DodgeTrue;
             else
-                DodgeTrueValue = characterM.Dodge.Value;
+                DodgeTrueValue = characterM.Dodge.Effective;
 
             // Add DodgeMod
 
@@ -250,7 +250,7 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public int Movement { get => characterM.Movement.Value; }
+        public int Movement { get => characterM.Movement.Effective; }
 
 
         /// <inheritdoc/>
@@ -610,7 +610,7 @@ namespace FateExplorer.ViewModel
         {
             int DodgeVal;
             var dodgeM = characterM.Dodge;
-            var Dependencies = dodgeM.DependentAttributes;
+            var Dependencies = dodgeM.GetDependencies();
             if (Dependencies == null) 
                 DodgeVal = DodgeTrueValue;
             else
@@ -629,8 +629,7 @@ namespace FateExplorer.ViewModel
 
             return new CharacterAttrDTO()
             {
-                Id = ChrAttrId.DO,
-                Name = "Dodge"/*TODO: Magic string, no l10n*/, 
+                Id = ChrAttrId.DO, Name = dodgeM.Name, 
                 EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
             };
         }
