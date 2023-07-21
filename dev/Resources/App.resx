@@ -1678,4 +1678,12 @@
     <value>Go to the previous day</value>
     <comment>Calendar</comment>
   </data>
+  <data name="lblShotTooClose" xml:space="preserve">
+    <value>Too close to attack</value>
+    <comment>Battle ground dialog</comment>
+  </data>
+  <data name="lblShotTooFar" xml:space="preserve">
+    <value>Too far away</value>
+    <comment>Battle ground dialog</comment>
+  </data>
 </root>

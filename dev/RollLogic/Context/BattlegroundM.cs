@@ -144,7 +144,8 @@ public class BattlegroundM : ICheckContextM
             WeaponsRange.Short => new Modifier(+2),
             WeaponsRange.Medium => Modifier.Neutral,
             WeaponsRange.Long => new Modifier(-2),
-            _ => throw new InvalidOperationException()
+            0 => Modifier.Impossible, // range is zero or too high
+            _ => Modifier.Impossible
         };
     }
 
@@ -285,8 +286,8 @@ public class BattlegroundM : ICheckContextM
     public static bool IsEnemyReachEnabled(IWeaponM weapon) => !weapon.IsRanged;
     public Modifier GetEnemyReachMod(Check action, IWeaponM weapon)
     {
+        if (!IsEnemyReachEnabled(weapon)) return Modifier.Neutral;
         if (!action.Is(Check.Combat.Attack)) return Modifier.Neutral;
-        if (action.Is(Check.Combat.Attack, CombatBranch.Ranged)) return Modifier.Neutral;
         if (weapon.Reach >= EnemyReach) return Modifier.Neutral;
 
         return (weapon.Reach, EnemyReach) switch

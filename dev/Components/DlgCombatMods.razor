@@ -60,10 +60,9 @@
                         <MudItem xs=12 sm=6>
                             @if (!DistanceDisabled)
                             {
-                            @l10n["lblDistanceToEnemy"]
-                            <MudSlider T=WeaponsRange Min=WeaponsRange.Short Max=WeaponsRange.Long 
-                                TickMarks=true TickMarkLabels=@DistanceLabels 
-                                @bind-value=Distance Size=Size.Large />
+                            <text>@l10n["lblDistanceToEnemy"]</text><text>: </text><text>@GetDistanceLabel(RangeBracket)</text>
+                            <MudSlider Value=Distance Min=MinRange Max=MaxRange ValueChanged=@((int d) => SetDistance(d))
+                                TickMarks=true TickMarkLabels=@RangeTicks() Step=StepRange Size=Size.Large />
                             }
                         </MudItem>
                     </MudGrid>
@@ -134,15 +133,6 @@
                         {
                         <MudItem xs=12 sm=6>
                             <div class="d-flex align-center">
-@*                            @l10n["lblCramped"]
-                            <MudIcon Icon=@Icons.Material.Filled.Accessibility />
-                                <MudSwitch Checked=CrampedSpace Size=Size.Large Title=@l10n["lblCramped"]
-                                            CheckedChanged=@((bool v) => SetCrampedSpace(v))
-                                            ThumbIconColor=@(CrampedSpace==true ? OnCol : OffCol) 
-                                            Disabled=@CrampedSpaceDisabled />
-                            <MudIcon Icon=@IconsFE.Cramped />
-                                Variant=Variant.Filled Size=Size.Large ToggledSize=Size.Large
-                                *@
                             <MudButtonGroup Color=Color.Primary Variant=Variant.Filled Size=Size.Large>
                                 <MudToggleIconButton Toggled=CrampedSpace ToggledChanged=@((bool v) => SetCrampedSpace(v))
                                     Color=OffCol ToggledColor=OnCol
@@ -323,10 +313,55 @@
 
     // SETTINGS
     //
-    private string[] DistanceLabels;
-    private WeaponsRange Distance { get => Battleground.Distance; set => Battleground.Distance = value; }
+    private WeaponViMo RangedWeapon;
+    private string[] RangeLabels;
+    private int Distance;
+    private int MinRange = 0, MaxRange = 100, StepRange = 10;
+    private WeaponsRange RangeBracket { get => Battleground.Distance; set => Battleground.Distance = value; }
     private bool DistanceDisabled =>
         !(BattlegroundViMo.IsDistanceEnabled(Hands.MainWeapon) || BattlegroundViMo.IsDistanceEnabled(Hands.OffWeapon));
+    private void SetDistance(int d)
+    {
+        Distance = d;
+        if (RangedWeapon is not null)
+        {
+            if (Distance == 0)
+                RangeBracket = 0;
+            else if (Distance <= RangedWeapon.Range.Min())
+                RangeBracket = WeaponsRange.Short;
+            else if (Distance <= RangedWeapon.Range[1])
+                RangeBracket = WeaponsRange.Medium;
+            else if (Distance <= RangedWeapon.Range.Max())
+                RangeBracket = WeaponsRange.Long;
+            else
+                RangeBracket = WeaponsRange.Long + 1;
+        }
+        else
+            RangeBracket = 0;
+    }
+    private string GetDistanceLabel(WeaponsRange Bracket)
+    {
+        if (Bracket == 0)
+            return l10n["lblShotTooClose"];
+        else if (Bracket > WeaponsRange.Long)
+            return l10n["lblShotTooFar"];
+        else
+            return RangeLabels[(int)Bracket - 1];
+    }
+    private string[] RangeTicks() // tick mark labels for the slider
+    {
+        string[] result = new string[(MaxRange - MinRange) / StepRange + 1];
+        result[0] = "0";
+        result[^1] = $"≥{MaxRange}";
+        int t = StepRange;
+        for (int i = 1; i < result.Length - 1; i++) //
+        {
+            result[i] = $"{t}";
+            t += StepRange;
+        }
+        return result;
+    }
+
 
     //
     private Vision View { get => Battleground.View; }
@@ -436,27 +471,49 @@
         MudDialog.Cancel();
     }
 
-    private void Reset() => Battleground.ResetToDefault();
+    private void Reset()
+    {
+        Battleground.ResetToDefault();
+        if (RangedWeapon is not null)
+        {
+            Distance = RangeBracket switch
+            {
+                WeaponsRange.Short => RangedWeapon.Range[(int)WeaponsRange.Short - 1],
+                WeaponsRange.Medium => RangedWeapon.Range[(int)WeaponsRange.Medium - 1],
+                WeaponsRange.Long => RangedWeapon.Range[(int)WeaponsRange.Long - 1],
+                _ => 0
+            };
+        }
+    }
 
 
 
     // RENDERING
-    //...
-    private const Color OnCol = Color.Surface;
-    private const Color OffCol = Color.Secondary;
-
 
     //
     //
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        DistanceLabels = new[] 
-        { 
-            l10n["Distance.Near"].ToString(),
-            l10n["Distance.Medium"].ToString(),
-            l10n["Distance.Far"].ToString()
-    };
+        // Range / Distance
+        if (Hands.MainWeapon.IsRanged)
+            RangedWeapon = Hands.MainWeapon;
+        else if (Hands.OffWeapon.IsRanged)
+            RangedWeapon = Hands.OffWeapon;
+        if (RangedWeapon is not null)
+        {
+            RangeLabels = new[]
+            {
+                l10n["Distance.Near"].ToString(),
+                l10n["Distance.Medium"].ToString(),
+                l10n["Distance.Far"].ToString()
+            };
+            MinRange = 0;
+            MaxRange = RangedWeapon?.Range?.Max() ?? 0;
+            MaxRange += RangedWeapon?.Range?.Min() ?? 0; // note: for some reason adding it in tha same expr. didn't work
+            StepRange = RangedWeapon.Range.Min();
+            Distance = RangedWeapon.Range[RangedWeapon.Range.Length / 2];
+        }
         // save it in case users just cancel the dialog
         BattlegroundEnabledBackup = Battleground.Apply;
         Battleground.Apply = true;
@@ -467,6 +524,10 @@
         OffParry   = new Check(Check.Combat.Parry, Hands.OffWeapon.CombatTechId, Hands.OffWeapon.Branch);
     }
 
+
+     //...
+    private const Color OnCol = Color.Surface;
+    private const Color OffCol = Color.Secondary;
 
     private RenderFragment Toggle(bool Toggled, string Icon, string Title, bool Disabled)
     {

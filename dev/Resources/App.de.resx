@@ -1555,4 +1555,10 @@
   <data name="btnPreviousDay" xml:space="preserve">
     <value>Gehe zum vorigen Tag</value>
   </data>
+  <data name="lblShotTooClose" xml:space="preserve">
+    <value>Zu nah zum Angriff</value>
+  </data>
+  <data name="lblShotTooFar" xml:space="preserve">
+    <value>Zu weit weg</value>
+  </data>
 </root>
