@@ -317,7 +317,7 @@
     private string[] RangeLabels;
     private int Distance;
     private int MinRange = 0, MaxRange = 100, StepRange = 10;
-    private WeaponsRange RangeBracket { get => Battleground.Distance; set => Battleground.Distance = value; }
+    private WeaponsRange RangeBracket { get => Battleground.DistanceBracket; set => Battleground.DistanceBracket = value; }
     private bool DistanceDisabled =>
         !(BattlegroundViMo.IsDistanceEnabled(Hands.MainWeapon) || BattlegroundViMo.IsDistanceEnabled(Hands.OffWeapon));
     private void SetDistance(int d)

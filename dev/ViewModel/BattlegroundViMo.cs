@@ -12,7 +12,12 @@ public class BattlegroundViMo : ICheckContextViMo
     public int FreeModifier { 
         get => Battleground.FreeModifier; set => Battleground.FreeModifier = value; 
     }
-    public WeaponsRange Distance { 
+    /// <remarks>
+    /// Unlike the other arguments this value is not interpreted as-is. It only stores the set distance.
+    /// To get a modifier use the <see cref="DistanceBracket"/>.
+    /// </remarks>
+    public int Distance { get; set; }
+    public WeaponsRange DistanceBracket { 
         get => Battleground.Distance; set => Battleground.Distance = value; 
     }
     public Vision View {
