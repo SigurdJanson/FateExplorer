@@ -39,7 +39,7 @@ public abstract class CharacterIstic
     /// The user may change the imported value to compensate for unrecognized (dis-)advantages, 
     /// special abilities, or any other rules.
     /// </summary>
-    public int True
+    public virtual int True
     {
         get => _true;
         set
@@ -55,7 +55,7 @@ public abstract class CharacterIstic
     /// <summary>
     /// The effective value after temporary modifiers have been applied (like charms, curses, etc.)
     /// </summary>
-    public int Effective
+    public virtual int Effective
     {
         get => _effective;
         set
@@ -124,11 +124,19 @@ public class DerivedValue : CharacterIstic
 {
     public DerivedValue(int Value) : base(Value)
     {
+        DependencyId = Array.Empty<string>();
     }
 
     protected string[] DependencyId { get; init; }
 
     public string[] GetDependencies() => DependencyId;
+
+    public bool DependsOn(string Id)
+    {
+        foreach(var dep in DependencyId) 
+            if (dep == Id) return true;
+        return false;
+    }
 }
 
 
@@ -143,6 +151,28 @@ public class RootValue : CharacterIstic, IStateContainer
 
     protected void NotifyStateChanged() => OnStateChanged?.Invoke();
 
-    // TODO: setting true or effective value shall call `NotifyStateChanged()`.
+
+    public override int True
+    {
+        get => _true;
+        set
+        {
+            if (_true == value) return;
+            base.True = value;
+            NotifyStateChanged();
+        }
+    }
+
+
+    public override int Effective
+    {
+        get => _effective;
+        set
+        {
+            if (_effective == value) return;
+            base.Effective = value;
+            NotifyStateChanged();
+        }
+    }
 }
 
