@@ -62,7 +62,7 @@
                             {
                             <text>@l10n["lblDistanceToEnemy"]</text><text>: </text><text>@GetDistanceLabel(RangeBracket)</text>
                             <MudSlider Value=Distance Min=MinRange Max=MaxRange ValueChanged=@((int d) => SetDistance(d))
-                                TickMarks=true TickMarkLabels=@RangeTicks() Step=StepRange Size=Size.Large />
+                                TickMarks=true TickMarkLabels=@RangeTicks() Step=StepRange Size=Size.Small />
                             }
                         </MudItem>
                     </MudGrid>
@@ -315,7 +315,7 @@
     //
     private WeaponViMo RangedWeapon;
     private string[] RangeLabels;
-    private int Distance;
+    private int Distance { get => Battleground.Distance; set => Battleground.Distance = value; }
     private int MinRange = 0, MaxRange = 100, StepRange = 10;
     private WeaponsRange RangeBracket { get => Battleground.DistanceBracket; set => Battleground.DistanceBracket = value; }
     private bool DistanceDisabled =>
@@ -350,21 +350,23 @@
     }
     private string[] RangeTicks() // tick mark labels for the slider
     {
-        string[] result = new string[(MaxRange - MinRange) / StepRange + 1];
-        result[0] = "0";
+        string[] result = new string[((MaxRange - MinRange) / StepRange) +1];
+        result[0] = $"{MinRange}";
         result[^1] = $"≥{MaxRange}";
         int t = StepRange;
         for (int i = 1; i < result.Length - 1; i++) //
         {
-            result[i] = $"{t}";
+            int r = i * StepRange + MinRange;
+            if (RangedWeapon.Range.Contains(r))
+                result[i] = $"{t}";
             t += StepRange;
         }
         return result;
     }
 
-
+    
     //
-    private Vision View { get => Battleground.View; }
+    private Vision View { get => Battleground.View; } 
     private bool ClearVision { get => View == Vision.Clear; }
     private bool ImpairedVision { get => View == Vision.Impaired; }
     private bool ShapyVision { get => View == Vision.ShapesOnly; }
@@ -508,10 +510,10 @@
                 l10n["Distance.Medium"].ToString(),
                 l10n["Distance.Far"].ToString()
             };
+            StepRange = GCD(RangedWeapon.Range[0], RangedWeapon.Range[1], RangedWeapon.Range[2]);
             MinRange = 0;
             MaxRange = RangedWeapon?.Range?.Max() ?? 0;
-            MaxRange += RangedWeapon?.Range?.Min() ?? 0; // note: for some reason adding it in tha same expr. didn't work
-            StepRange = RangedWeapon.Range.Min();
+            MaxRange += StepRange; // note: for some reason adding it in the same expr. didn't work
             Distance = RangedWeapon.Range[RangedWeapon.Range.Length / 2];
         }
         // save it in case users just cancel the dialog
@@ -536,6 +538,34 @@
                              ToggledChanged=@((bool v) => SetEnemyMoving(Movement.None, v))
                              Disabled=@Disabled
                              Icon=@Icon ToggledIcon=@Icon
-                             Color=OffCol ToggledColor=OnCol />;
+        Color=OffCol ToggledColor=OnCol />
+    ;
+    }
+
+     /*
+     * HELPERS
+    */
+    private static int GCD(int a, int b, int c) => GCD(GCD(a, b), c);
+
+    private static int GCD(int a, int b)
+    {
+        // Make a >= b.
+        a = Math.Abs(a);
+        b = Math.Abs(b);
+        if (a < b)
+        {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        // Pull out remainders.
+        for (; ; )
+        {
+            int remainder = a % b;
+            if (remainder == 0) return b;
+            a = b;
+            b = remainder;
+        };
     }
 }
