@@ -612,6 +612,7 @@ public class BattlegroundMTests
         WeaponsReach Hero = Enemy + 1; 
         Assume.That(Hero, Is.LessThanOrEqualTo(WeaponsReach.Long));
 
+        mainWeapon.SetupGet(w => w.IsRanged).Returns(false);
         mainWeapon.SetupGet(w => w.Reach).Returns(Hero);
         bg.EnemyReach = Enemy;
         // Act
@@ -629,6 +630,7 @@ public class BattlegroundMTests
         WeaponsReach Hero = Enemy - 1;
         Assume.That(Hero, Is.GreaterThanOrEqualTo(WeaponsReach.Short));
 
+        mainWeapon.SetupGet(w => w.IsRanged).Returns(false);
         mainWeapon.SetupGet(w => w.Reach).Returns(Hero);
         bg.EnemyReach = Enemy;
         // Act
@@ -644,6 +646,7 @@ public class BattlegroundMTests
     {
         // Arrange
         //mainWeapon.SetupGet(w => w.Reach).Returns(Hero); // checked later in method
+        mainWeapon.SetupGet(w => w.IsRanged).Returns(false);
         bg.EnemyReach = Enemy;
         // Act
         Modifier result = bg.GetEnemyReachMod(new(Check.Roll.Dodge), mainWeapon.Object);
@@ -656,6 +659,7 @@ public class BattlegroundMTests
     {
         // Arrange
         //mainWeapon.SetupGet(w => w.Reach).Returns(Hero); // checked later in method
+        mainWeapon.SetupGet(w => w.IsRanged).Returns(false);
         bg.EnemyReach = Enemy;
         // Act
         Modifier result = bg.GetEnemyReachMod(new(Check.Roll.Initiative), mainWeapon.Object);
