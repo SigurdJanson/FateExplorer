@@ -2,14 +2,15 @@
 using FateExplorer.Shared;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FateExplorer.CharacterModel
 {
-    public class WeaponM
+    public class WeaponM : IWeaponM
     {
         protected const int DefaultSkillValue = 6;
 
-        protected ICharacterM Hero { get; set; }
+        public required ICharacterM Hero { get; init; }
 
 
 
@@ -46,19 +47,26 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
 
 
-            int TwoHandedCombatTier =  Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
             {
                 false => 0,
                 true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
             };
-            int TwoHandMod = otherHand switch
-            {
-                CombatBranch.Unarmed => 0,
-                CombatBranch.Shield => 0,
-                CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
-                CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
-                _ => 0
-            };
+            int TwoHandMod;
+            // A two-handed weapon does not suffer from fighting with two hands
+            // ... and attacking with a shield suffers a penalty (that is why the
+            // condition includes shields unlike the parry value).
+            if (!IsTwoHanded)
+                TwoHandMod = otherHand switch
+                {
+                    CombatBranch.Unarmed => 0,
+                    CombatBranch.Shield => 0,
+                    CombatBranch.Ranged => -2 + TwoHandedCombatTier, // second weapon
+                    CombatBranch.Melee => -2 + TwoHandedCombatTier, // second weapon
+                    _ => 0
+                };
+            else
+                TwoHandMod = 0;
 
             // Return the result which shall not be < 0
             return Math.Max(BaseAtSkill + OffHandMod + TwoHandMod, 0);
@@ -92,7 +100,8 @@ namespace FateExplorer.CharacterModel
                 true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
             };
             int TwoHandMod;
-            if (Branch != CombatBranch.Shield)
+            // A two-handed weapon does not suffer from fighting with two hands; neither does parying with a shield
+            if (Branch != CombatBranch.Shield && !IsTwoHanded)
                 TwoHandMod = otherHand switch
                 {
                     CombatBranch.Unarmed => 0,
@@ -104,32 +113,51 @@ namespace FateExplorer.CharacterModel
             else
                 TwoHandMod = 0;
 
-
             // Determine passive bonus of parry weapon or shield
             int ParryMod;
             if (otherIsParry)
                 ParryMod = 1;
-            else if(otherHand == CombatBranch.Shield)
+            else if (otherHand == CombatBranch.Shield)
                 ParryMod = otherPaMod;
             else
                 ParryMod = 0;
+            if (IsParry && Hero.HasSpecialAbility(SA.CatchBlade))
+                ParryMod += 1;
 
             // Return the result which shall not be < 0
             return Math.Max(BasePaSkill + OffHandMod + TwoHandMod + ParryMod, 0);
         }
 
 
-
+        /// <summary>
+        /// How is the weapon called?
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Identifier of a combat technique.
+        /// </summary>
         public string CombatTechId { get; set; }
 
+        /// <inheritdoc cref="CombatBranch"/>
         public CombatBranch Branch { get; protected set; }
 
+        /// <summary>
+        /// Number of dies that determine the damage.
+        /// The 2 in "2d6 + 1".
+        /// </summary>
         public int DamageDieCount { get; set; }
 
+        /// <summary>
+        /// Number of sides the damage die need. Usually 6. Sometimes 3.
+        /// The 6 in "2d6 + 1".
+        /// </summary>
         public int DamageDieSides { get; set; }
 
+        /// <summary>
+        /// An additive constant added to the damage roll.
+        /// The 1 in "2d6 + 1".
+        /// </summary>
         public int DamageBonus { get; set; }
 
         public int DamageThreshold { get; set; }
@@ -138,9 +166,26 @@ namespace FateExplorer.CharacterModel
 
         public int ParryMod { get; set; }
 
-        public int Reach { get; set; }
+        /// <summary>
+        /// The "length" of a close combat weapon.
+        /// </summary>
+        public WeaponsReach Reach { get; set; }
 
+        /// <summary>
+        /// If the weapon is a shield, <c>Shield</c> represents the size of it.
+        /// </summary>
+        public ShieldSize Shield { get; set; }
+
+        /// <summary>
+        /// The ranges that determine distance modifiers of ranged weapons.
+        /// </summary>
         public int[] Range { get; set; }
+
+        /// <summary>
+        /// (Re-) Loading time to place a projectile in a 
+        /// ranged weapon and make it ready to shoot.
+        /// </summary>
+        public int LoadTime { get; set; }
 
 
         /// <summary>
@@ -184,12 +229,18 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="hero">The character carrying this weapon</param>
         /// <exception cref="ArgumentNullException"></exception>
+        [SetsRequiredMembers]
         public WeaponM(ICharacterM hero)
         {
             Hero = hero ?? throw new ArgumentNullException(nameof(hero));
         }
 
-
+        /// <summary>
+        /// EMpty constructor
+        /// </summary>
+        /// <remarks>Will probably only be used for mocking.</remarks>
+        public WeaponM()
+        {}
 
         /// <summary>
         /// Provide the weapon with all the necessary data
@@ -214,9 +265,15 @@ namespace FateExplorer.CharacterModel
             AttackMod = WeaponData.AttackMod;
             ParryMod = WeaponData.ParryMod;
             if (IsRanged)
+            {
+                LoadTime = WeaponData.LoadTime;
                 Range = (int[])WeaponData.Range.Clone();
+            }
             else
+            {
                 Reach = WeaponData.Reach;
+                Shield = WeaponData.Shield;
+            }
 
             BaseAtSkill = ComputeAttackVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);
             BasePaSkill = ComputeParryVal(Hero.Abilities, Hero.CombatTechs[CombatTechId]);
@@ -256,7 +313,7 @@ namespace FateExplorer.CharacterModel
         {
             // Get value for primary ability/attribute
             int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0; ; // Ability value
-            
+
             // More than 1 primary attribute? Get the highest one.
             if (PrimaryAbilityId.Length > 1)
                 for (int i = 1; i < PrimaryAbilityId.Length; i++)
@@ -269,7 +326,7 @@ namespace FateExplorer.CharacterModel
             int Parry = CombatTecSkill.ComputeParry(PrimeAbility); // no weapons modifier
 
             if (Branch == CombatBranch.Shield)
-                Parry += 2*ParryMod; // active parry with shield gives the double weapon modifier
+                Parry += 2 * ParryMod; // active parry with shield gives the double weapon modifier
             else
                 Parry += ParryMod; // attack modifier of the weapon
 
@@ -284,7 +341,7 @@ namespace FateExplorer.CharacterModel
         /// <param name="Abilities">A collection of abilities</param>
         /// <returns>A numeric value indicating the extra bonus that must be added to the
         /// weapons hit points.</returns>
-        public int HitpointBonus(Dictionary<string, AbilityM> Abilities) 
+        public int HitpointBonus(Dictionary<string, AbilityM> Abilities)
         {
             if (DamageThreshold == 0) return 0;
 

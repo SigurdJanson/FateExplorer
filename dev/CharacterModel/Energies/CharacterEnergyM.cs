@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System;
 
 namespace FateExplorer.CharacterModel
@@ -70,7 +71,7 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// Apply a modifier to the given value using an operation and a modifier.
+        /// Apply a modificator to the given value using an operation and a modificator.
         /// </summary>
         /// <param name="Value">Original energy value to be modified</param>
         /// <param name="Modifier">A value to be used in the modification</param>

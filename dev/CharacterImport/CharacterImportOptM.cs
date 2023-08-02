@@ -21,6 +21,11 @@ namespace FateExplorer.CharacterImport
         //public const string Writing = "SA_27";
     }
 
+    public static class OptRace
+    {
+        public const string Human = "R_1";
+        public const string Dwarve = "R_4";
+    }
 
     /// <summary>
     /// Importer for the optolith json character sheet
@@ -69,7 +74,7 @@ namespace FateExplorer.CharacterImport
         /// "Experience Level (EL) determines the number of Adventure Points (AP) 
         /// you receive to create your hero" (VR1).
         /// </summary>
-        [JsonPropertyName("el")] //TODO: most likely 
+        [JsonPropertyName("el")]
         public string El { get; set; }
 
         /// <summary>
@@ -174,6 +179,11 @@ namespace FateExplorer.CharacterImport
 
         public string GetDateOfBirth() => Pers.Dateofbirth;
 
+        public int GetMovementBaseVal() => Race switch
+        {
+            OptRace.Dwarve => 6,
+            _ => 8
+        };
 
         public int CountAbilities() => Attr.Abilities.Count;
 
@@ -281,8 +291,8 @@ namespace FateExplorer.CharacterImport
                 if (s.Key == OptSpecialAbility.Language && s.Value.Count > 0)
                     foreach (var l in s.Value)
                     {
-                        int LanguageId =  int.Parse(l.Sid.ToString()); // TODO: cast from dynamic seems like a bad crutch
-                        Result.Add(l.Sid.ToString(), new LanguageM(s.Key, l.Tier, (LanguageId)LanguageId));
+                        int LanguageId =  int.Parse(l.Sid);
+                        Result.Add(l.Sid, new LanguageM(s.Key, l.Tier, (LanguageId)LanguageId));
                     }
             }
             return Result;
@@ -343,9 +353,9 @@ namespace FateExplorer.CharacterImport
 
         // BELONGINGS
 
-        public double TotalWeightOfBelongings()
+        public decimal TotalWeightOfBelongings()
         {
-            double totalWeight = 0;
+            decimal totalWeight = 0;
             foreach (var i in Belongings.Items)
             {
                 totalWeight += i.Weight * i.Amount;
@@ -354,7 +364,6 @@ namespace FateExplorer.CharacterImport
         }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Less clarity")]
         public decimal TotalMoney()
         {
             decimal Ducats, Thalers, Farthings, Kreutzer;
@@ -408,7 +417,7 @@ namespace FateExplorer.CharacterImport
                     var Result = new WeaponDTO()
                     {
                         Name = i.Name ?? weaponDb?.Name ?? "Unknown",
-                        Id = i.Template ?? Guid.NewGuid().ToString(),
+                        Id = i.Id ?? Guid.NewGuid().ToString(),
                         AttackMod = i.AttackMod ?? weaponDb?.AtMod ?? 0,
                         ParryMod = i.ParryMod ?? weaponDb?.PaMod ?? 0,
                         CombatTechId = CombatTechnique,
@@ -424,12 +433,14 @@ namespace FateExplorer.CharacterImport
                     };
                     if (Melee != default)
                     {
-                        Result.Reach = i.Reach ?? Melee.Reach;
+                        Result.Reach = (WeaponsReach?)i.Reach ?? Melee.Reach;
+                        Result.Shield = Melee.Shield;
                         Result.IsParry = Melee.Parry;
                     }
                     else if (Ranged != default)
                     {
                         Result.Range = i.Range?.ToArray() ?? Ranged.Range.ToArray();
+                        Result.LoadTime = Ranged.LoadTime;
                         Result.IsParry = false; // ranged weapons can't be parry weapons
                     }
 
@@ -438,6 +449,23 @@ namespace FateExplorer.CharacterImport
             }
         }
 
+        public IEnumerable<KeyValuePair<string, BelongingM>> GetBelongings(bool WeaponsExcluded = true)
+        {
+            foreach (var i in Belongings.Items)
+            {
+                if (i.CombatTechnique is null || !WeaponsExcluded) // &&
+                    //meleeDB.Contains(i.Id) &&
+                    //rangedDB.Contains(i.Id))
+                {
+                    var result = new BelongingM() 
+                    { 
+                        Id = i.Id, Name = i.Name, Amount = i.Amount, Price = i.Price, Weight = i.Weight, Where = i.Where,
+                        Group = (GroupId)i.Group
+                    };
+                    yield return new KeyValuePair<string, BelongingM>(i.Id, result);
+                }
+            }
+        }
         #endregion
     }
 
@@ -549,11 +577,11 @@ namespace FateExplorer.CharacterImport
         [JsonPropertyName("tier")]
         public int Tier { get; set; }
 
-        [JsonPropertyName("sid")]
-        public dynamic Sid { get; set; }
+        [JsonPropertyName("sid"), JsonConverter(typeof(JsonActivatableSIDConverter))]
+        public string Sid { get; set; }
 
-        [JsonPropertyName("sid2")]
-        public dynamic Sid2 { get; set; }
+        [JsonPropertyName("sid2"), JsonConverter(typeof(JsonActivatableSIDConverter))]
+        public string Sid2 { get; set; }
     }
 
 
@@ -583,13 +611,13 @@ namespace FateExplorer.CharacterImport
         /// Item weight in stone per piece. 1 stone are 2 pounds.
         /// </summary>
         [JsonPropertyName("weight")]
-        public double Weight { get; set; }
+        public decimal Weight { get; set; }
 
         /// <summary>
         /// Typical price of the item in silverthalers.
         /// </summary>
         [JsonPropertyName("price")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// The location where the character wears/carries this item.
@@ -676,7 +704,7 @@ namespace FateExplorer.CharacterImport
         public string CombatTechnique { get; set; }
 
         /// <summary>
-        /// Weapon's reach. Close combat only.
+        /// Weapon's reach (i.e. it's length). Close combat only.
         /// </summary>
         [JsonPropertyName("reach")]
         public int? Reach { get; set; }

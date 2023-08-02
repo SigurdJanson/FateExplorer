@@ -523,18 +523,20 @@ public class BosparanCalendarTests
     [TestCase("29.9.2123", ExpectedResult = 5)] // 2. Peraine 1146
     [TestCase("8.11.2022", ExpectedResult = 0)] // 12. Ingerimm 1045, new moon
     [TestCase("5.12.2022", ExpectedResult = 27)] // 9. Rahja 1045
-    public int GetMoonPhase_FutureToRef(string Date)
+    public int GetMoonCycle_FutureToRef(string Date)
     {
         var bosparanCalendar = new BosparanCalendar();
         DateTime time;
         Assume.That(DateTime.TryParse(Date, out time));
 
         // Act
-        var result = bosparanCalendar.GetMoonPhase(time);
+        var result = bosparanCalendar.GetMoonCycle(time);
 
         // Assert
         return result;
     }
+
+
 
 
 
@@ -544,14 +546,34 @@ public class BosparanCalendarTests
     [TestCase("14.4.2021", ExpectedResult = 15)] // 14. Travia 1044; Year-1
     [TestCase("1.1.1997", ExpectedResult = 0)] // 1. Praios 1020, new moon
     [TestCase("31.12.1996", ExpectedResult = 27)] // 1. Praios 1020, new moon
-    public int GetMoonPhase_PastToRef(string Date)
+    public int GetMoonCycle_PastToRef(string Date)
     {
         var bosparanCalendar = new BosparanCalendar();
         DateTime time;
         Assume.That(DateTime.TryParse(Date, out time));
 
         // Act
-        var result = bosparanCalendar.GetMoonPhase(time);
+        var result = bosparanCalendar.GetMoonCycle(time);
+
+        // Assert
+        return result;
+    }
+
+
+
+
+    [TestCase("4.8.2005", ExpectedResult = 27)] // 5.12.2022 = 9. Rahja 1045 ======> 6. Tsa (8) 1028 = 6.8.2005
+    public int GetMoonCycle_No28(string Date)
+    {
+        var bosparanCalendar = new BosparanCalendar();
+        DateTime time;
+        Assume.That(DateTime.TryParse(Date, out time));
+        Assume.That(bosparanCalendar.GetYear(time), Is.EqualTo(1028));
+        Assume.That(bosparanCalendar.GetMonth(time), Is.EqualTo(8));
+        Assume.That(bosparanCalendar.GetDayOfMonth(time), Is.EqualTo(6));
+
+        // Act
+        var result = bosparanCalendar.GetMoonCycle(time);
 
         // Assert
         return result;

@@ -1,5 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-
+﻿
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -60,3 +59,11 @@ a, .btn-link {
     font-family: Roboto, Arial;
 }
 
+.fe-searchhighlight {
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.fe-reco {
+    font-weight: bold;
+}

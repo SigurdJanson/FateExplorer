@@ -89,7 +89,7 @@ namespace FateExplorer.ViewModel
             if (StoredItem?.DodgeTrue is not null)
                 DodgeTrueValue = StoredItem.DodgeTrue;
             else
-                DodgeTrueValue = characterM.Dodge.Value;
+                DodgeTrueValue = characterM.Dodge.Effective;
 
             // Add DodgeMod
 
@@ -166,7 +166,7 @@ namespace FateExplorer.ViewModel
         public string PlaceOfBirth { get => characterM?.PlaceOfBirth ?? ""; }
         public string DateOfBirth { get => characterM?.DateOfBirth ?? ""; }
 
-        public double CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
+        public decimal CarriedWeight { get => characterM?.CarriedWeight ?? 0; }
 
 
         #region POSESSIONS ------
@@ -212,11 +212,45 @@ namespace FateExplorer.ViewModel
             return Result;
         }
 
-        public double WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
-        public double WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+        private decimal assetValue = -1;
+        /// <summary>
+        /// What is the combined value of all assets?
+        /// </summary>
+        public decimal AssetValue
+        {
+            get
+            {
+                if (assetValue < 0)
+                {
+                    assetValue = 0;
+                    foreach (var i in characterM.Belongings.Values)
+                        assetValue += i.Price;
+                }
+                return assetValue;
+            }
+        }
+
+
+        public IEnumerable<BelongingViMo> GetBelongings()
+        {
+            foreach (var i in characterM.Belongings.Values.OrderBy(x => x.Name))
+                yield return new BelongingViMo(i);
+        }
+
+
+        /// <inheritdoc/>
+        public decimal WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
+
+        /// <inheritdoc/>
+        public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
 
         #endregion
+
+
+
+        /// <inheritdoc/>
+        public int Movement { get => characterM.Movement.Effective; }
 
 
         /// <inheritdoc/>
@@ -272,16 +306,19 @@ namespace FateExplorer.ViewModel
             foreach (var sa in characterM?.SpecialAbilities)
             {
                 string Name;
+                bool Recognized;
                 try
                 {
                     Name = GameDataService.SpecialAbilities[sa.Key].Name;
+                    Recognized = GameDataService.SpecialAbilities[sa.Key].Recognized;
                 }
-                catch (Exception) { Name = "unknown";  }
+                catch (Exception) { Name = "unknown"; Recognized = false; }
                 SpecialAbilityDTO item = new()
                 {
                     Id = sa.Key,
                     Name = Name,
-                    Tier = sa.Value.Tier
+                    Tier = sa.Value.Tier,
+                    Recognized = Recognized
                 };
                 Result.Add(item);
             }
@@ -353,16 +390,19 @@ namespace FateExplorer.ViewModel
             foreach (var adv in characterM?.Advantages)
             {
                 string Name;
+                bool Recognized;
                 try
                 {
                     Name = GameDataService.DisAdvantages[adv.Key].Name;
+                    Recognized = GameDataService.DisAdvantages[adv.Key].Recognized;
                 }
-                catch (Exception) { Name = "unknown"; }
+                catch (Exception) { Name = "unknown"; Recognized = false; }
                 DisAdvantageDTO item = new()
                 {
                     Id = adv.Key,
                     Name = Name,
-                    Tier = adv.Value.Tier
+                    Tier = adv.Value.Tier,
+                    Recognized = Recognized
                 };
                 Result.Add(item);
             }
@@ -404,7 +444,7 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public List<SkillsDTO> GetSkills(SkillDomain? Domain = null, string NameFilter = "")
+        public List<SkillsDTO> GetSkills(Check.Skill? Domain = null, string NameFilter = "")
         {
             List<SkillsDTO> Result = new();
 
@@ -422,6 +462,7 @@ namespace FateExplorer.ViewModel
                     Min = 0,
                     EffectiveValue = s.Value.Value,
                     Max = s.Value.Value,
+                    Modifications = s.Value.Modifications,
                     Domain = s.Value.Domain
                 };
                 Result.Add(skill);
@@ -512,9 +553,9 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public List<SkillDomain> GetMasteredSkillDomains()
+        public List<Check.Skill> GetMasteredSkillDomains()
         {
-            List<SkillDomain> Result = new();
+            List<Check.Skill> Result = new();
             foreach (var b in characterM.Skills.MasteredDomains)
                 if (b.Value) Result.Add(b.Key);
             return Result;
@@ -569,7 +610,7 @@ namespace FateExplorer.ViewModel
         {
             int DodgeVal;
             var dodgeM = characterM.Dodge;
-            var Dependencies = dodgeM.DependentAttributes;
+            var Dependencies = dodgeM.GetDependencies();
             if (Dependencies == null) 
                 DodgeVal = DodgeTrueValue;
             else
@@ -588,8 +629,7 @@ namespace FateExplorer.ViewModel
 
             return new CharacterAttrDTO()
             {
-                Id = ChrAttrId.DO,
-                Name = "Dodge"/*TODO: Magic string, no l10n*/, 
+                Id = ChrAttrId.DO, Name = dodgeM.Name, 
                 EffectiveValue = DodgeVal, Max = dodgeM.Max, Min = dodgeM.Min
             };
         }
@@ -670,6 +710,7 @@ namespace FateExplorer.ViewModel
                 return weapons;
             }
         }
+
 
         #endregion
     }

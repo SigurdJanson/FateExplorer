@@ -233,10 +233,6 @@
     <value>To official date</value>
     <comment>Calendar</comment>
   </data>
-  <data name="btnUploadFile" xml:space="preserve">
-    <value>Upload file</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="CHA" xml:space="preserve">
     <value>CHA</value>
     <comment>Abilities</comment>
@@ -303,51 +299,67 @@
   </data>
   <data name="iAlchimica" xml:space="preserve">
     <value>Alchemistic substances</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAmmunition" xml:space="preserve">
     <value>Ammunition</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAnimal" xml:space="preserve">
     <value>Animals</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iAnimalSupplies" xml:space="preserve">
     <value>Animal supplies</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iArmor" xml:space="preserve">
     <value>Armor</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBandagesNRemedies" xml:space="preserve">
     <value>Bandages &amp; remedies</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBooks" xml:space="preserve">
     <value>Books</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iBurglarTools" xml:space="preserve">
     <value>Burglar tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iCeremonialObjects" xml:space="preserve">
     <value>Ceremonial objects</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iClothing" xml:space="preserve">
     <value>Clothing</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iContainers" xml:space="preserve">
     <value>Containers</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iFinestoneNGems" xml:space="preserve">
     <value>Finestones and Gems</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iHerbs" xml:space="preserve">
     <value>Herbs</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iJewellery" xml:space="preserve">
     <value>Jewellery</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iLights" xml:space="preserve">
     <value>Lights</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iMagicalArtefacts" xml:space="preserve">
     <value>Magical artefacts</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iMelee" xml:space="preserve">
     <value>Melee weapons</value>
@@ -371,6 +383,7 @@
   </data>
   <data name="iMusicalInstruments" xml:space="preserve">
     <value>Musical instruments</value>
+    <comment>Shop item</comment>
   </data>
   <data name="INT" xml:space="preserve">
     <value>INT</value>
@@ -378,18 +391,23 @@
   </data>
   <data name="iOrientation" xml:space="preserve">
     <value>Orientation</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iPoisons" xml:space="preserve">
     <value>Poisons</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iRangedWeapon" xml:space="preserve">
     <value>Ranged weapon</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iRopesNChains" xml:space="preserve">
     <value>Ropes and chains</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iSacredTools" xml:space="preserve">
     <value>Tools for the Blessed</value>
+    <comment>Shop item</comment>
   </data>
   <data name="Isdira" xml:space="preserve">
     <value>Isdira</value>
@@ -397,21 +415,27 @@
   </data>
   <data name="iStationary" xml:space="preserve">
     <value>Stationaries</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iStimulantsNLuxury" xml:space="preserve">
     <value>Stimulants &amp; Luxury</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTools" xml:space="preserve">
     <value>Tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTransport" xml:space="preserve">
     <value>Means of transport</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iTravelNTools" xml:space="preserve">
     <value>Travel and tools</value>
+    <comment>Shop item</comment>
   </data>
   <data name="iWeaponAccessories" xml:space="preserve">
     <value>Weapon accessories</value>
+    <comment>Shop item</comment>
   </data>
   <data name="lblAbility" xml:space="preserve">
     <value>Ability</value>
@@ -522,7 +546,7 @@
     <comment>Calendar</comment>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
-    <value>Commonly Used</value>
+    <value>Most Used Favorites</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="lblName" xml:space="preserve">
@@ -534,10 +558,6 @@
   <data name="lblNewDiceCup" xml:space="preserve">
     <value>New Dice Cup</value>
     <comment>DlgFreeDiceCup</comment>
-  </data>
-  <data name="lblNoCharacter" xml:space="preserve">
-    <value>No character data available</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="lblNondominantHand" xml:space="preserve">
     <value>Non-dominant hand</value>
@@ -631,7 +651,7 @@
     <value>Season</value>
     <comment>Calendar</comment>
   </data>
-  <data name="lblSelectComaprisonCurrency" xml:space="preserve">
+  <data name="lblSelectComparisonCurrency" xml:space="preserve">
     <value>Select comparison currency</value>
     <comment>Shop</comment>
   </data>
@@ -692,7 +712,7 @@
     <value>Stone</value>
   </data>
   <data name="lblYourBestSkills" xml:space="preserve">
-    <value>Your Specialties</value>
+    <value>Your best talents</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="Legend" xml:space="preserve">
@@ -738,14 +758,6 @@
   <data name="msgCanCarry" xml:space="preserve">
     <value>This character can carry up to {0} stone for a longer period time and lift things with a weight up to {1} stone.</value>
   </data>
-  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
-    <value>Import botch. Source of the error: {0}</value>
-    <comment>No Character Skeleton</comment>
-  </data>
-  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
-    <value>Import botch. Reason unclear.</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} for {1} has not been implemented</value>
     <comment>Fight</comment>
@@ -765,10 +777,6 @@
   <data name="msgFindAtUlissesWiki" xml:space="preserve">
     <value>Find item at Ulisses wiki</value>
     <comment>Shop</comment>
-  </data>
-  <data name="msgLoadCharacterToUse" xml:space="preserve">
-    <value>You can import character files created by the Optolith app</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="msgMaxCarryExceeded" xml:space="preserve">
     <value>The character may suffer a penalty for too much weight.</value>
@@ -802,10 +810,6 @@
   </data>
   <data name="msgShowDetails" xml:space="preserve">
     <value>Show details</value>
-  </data>
-  <data name="msgWrongContentType" xml:space="preserve">
-    <value>This app expects a JSON file. The given file is of type {0}.</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>About FateExplorer</value>
@@ -915,16 +919,17 @@
     <value>Saga Thorwalian</value>
     <comment>enum LanguageId</comment>
   </data>
-  <data name="SkillDomain.Arcane" xml:space="preserve">
+  <data name="Check.Skill.Arcane" xml:space="preserve">
     <value>Arcane</value>
-    <comment>Translation of enum SkillDomain</comment>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
-  <data name="SkillDomain.Basic" xml:space="preserve">
-    <value>Basic</value>
-    <comment>Translation of enum SkillDomain</comment>
+  <data name="Check.Skill.Skill" xml:space="preserve">
+    <value>Worldly</value>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
-  <data name="SkillDomain.Karma" xml:space="preserve">
+  <data name="Check.Skill.Karma" xml:space="preserve">
     <value>Karma</value>
+    <comment>Translation of enum Check.Skill</comment>
   </data>
   <data name="STR" xml:space="preserve">
     <value>STR</value>
@@ -1106,5 +1111,579 @@
   <data name="lblHruruzat" xml:space="preserve">
     <value>Hruruzat</value>
     <comment>Fight</comment>
+  </data>
+  <data name="lblHero" xml:space="preserve">
+    <value>Held</value>
+  </data>
+  <data name="lblDistanceToEnemy" xml:space="preserve">
+    <value>Distance to Enemy</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCloseCombat" xml:space="preserve">
+    <value>Close combat</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemy" xml:space="preserve">
+    <value>Opponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWeapon" xml:space="preserve">
+    <value>Weapon</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCurrentValues" xml:space="preserve">
+    <value>Values</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReach" xml:space="preserve">
+    <value>Close Combat Weapon Reach of the Oponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachShort" xml:space="preserve">
+    <value>Short</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachMedium" xml:space="preserve">
+    <value>Medium</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyReachLong" xml:space="preserve">
+    <value>Long</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnvironment" xml:space="preserve">
+    <value>Environment</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisibility" xml:space="preserve">
+    <value>Visibility</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionClear" xml:space="preserve">
+    <value>Unrestricted sight</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionImpaired" xml:space="preserve">
+    <value>Vision slightly impaired (light foliage, morning mist)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionShapesOnly" xml:space="preserve">
+    <value>Target’s shape can be seen (fog, moonlight)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionBarely" xml:space="preserve">
+    <value>Target’s shape can barely be seen (dense fog, starlight)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblVisionNone" xml:space="preserve">
+    <value>Target invisible (dense smoke, complete darkness)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblUnderWater" xml:space="preserve">
+    <value>Combat in Water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWaterNone" xml:space="preserve">
+    <value>Standing on dry ground</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Knee" xml:space="preserve">
+    <value>Kneepdeep in water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Waist" xml:space="preserve">
+    <value>Water up to the waist</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Chest" xml:space="preserve">
+    <value>Water up to the chest</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWater2Neck" xml:space="preserve">
+    <value>Water up to the neck</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblWaterSubmerged" xml:space="preserve">
+    <value>Hero is completely under water</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCramped" xml:space="preserve">
+    <value>Cramped spaces</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemySize" xml:space="preserve">
+    <value>Size of Opponent</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyTiny" xml:space="preserve">
+    <value>Tiny (rat, toad, sparrow)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemySmall" xml:space="preserve">
+    <value>Small (fawn, goat, sheep)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyMedium" xml:space="preserve">
+    <value>Medium (human, dwarf, donkey)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyLarge" xml:space="preserve">
+    <value>Large (ogre, troll, cow)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblEnemyHuge" xml:space="preserve">
+    <value>Huge (dragon, elephant, giant)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCombatMovement" xml:space="preserve">
+    <value>Movement</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveStationary" xml:space="preserve">
+    <value>Standing still</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveWalk" xml:space="preserve">
+    <value>Moving slowly (4 yards or less in its last action)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveRun" xml:space="preserve">
+    <value>Moving quickly (5 yards or more in its last action)</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitWalk" xml:space="preserve">
+    <value>Mount is moving at a walk</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitTrot" xml:space="preserve">
+    <value>Mount is moving at a trot</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveGaitGallop" xml:space="preserve">
+    <value>Mount is moving at a gallop</value>
+  </data>
+  <data name="lblEnemyRunningZigZag" xml:space="preserve">
+    <value>Opponent makes evasive moves</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="abbrLoadingTime" xml:space="preserve">
+    <value>RT</value>
+  </data>
+  <data name="lblLoadingTime" xml:space="preserve">
+    <value>Reload time</value>
+  </data>
+  <data name="shopYear" xml:space="preserve">
+    <value>year</value>
+  </data>
+  <data name="shopYears" xml:space="preserve">
+    <value>years</value>
+  </data>
+  <data name="shopMonth" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="shopMonths" xml:space="preserve">
+    <value>months</value>
+  </data>
+  <data name="shopDay" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="shopDays" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="txtMoneyValue1" xml:space="preserve">
+    <value>A simple laborer needs {0} {1} to earn that kind of money.</value>
+  </data>
+  <data name="txtMoneyValue2" xml:space="preserve">
+    <value>A simple laborer needs {0} {1} and {2} {3} to earn that kind of money.</value>
+  </data>
+  <data name="btnFall" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="hArmour" xml:space="preserve">
+    <value>Armour protection</value>
+  </data>
+  <data name="hDropHeight" xml:space="preserve">
+    <value>Drop height</value>
+  </data>
+  <data name="hGround" xml:space="preserve">
+    <value>Ground condition</value>
+  </data>
+  <data name="hJump" xml:space="preserve">
+    <value>Jumping</value>
+  </data>
+  <data name="lblJump" xml:space="preserve">
+    <value>Jump</value>
+  </data>
+  <data name="lblSelectHardness" xml:space="preserve">
+    <value>Choose ground conditions</value>
+  </data>
+  <data name="titleFallDamageDialog" xml:space="preserve">
+    <value>Fall damage</value>
+  </data>
+  <data name="txtArmourProtection" xml:space="preserve">
+    <value>Armour may protect from sharp objects and rocks.</value>
+  </data>
+  <data name="txtDropHeightGallopTip" xml:space="preserve">
+    <value>Fall from a galloping horse counts as fall from 3 yards.</value>
+  </data>
+  <data name="txtDropHeightHorseTip" xml:space="preserve">
+    <value>Fall from a horse counts as fall from 2 yards.</value>
+  </data>
+  <data name="txtDropHeightTip" xml:space="preserve">
+    <value>Drop height causes 1d6 damage per yard.</value>
+  </data>
+  <data name="txtGround" xml:space="preserve">
+    <value>The ground may harden or soften the fall.</value>
+  </data>
+  <data name="txtGroundEffectBetter" xml:space="preserve">
+    <value>Reduced damage {0}</value>
+  </data>
+  <data name="txtGroundEffectNeutral" xml:space="preserve">
+    <value>No change</value>
+  </data>
+  <data name="txtGroundEffectUnknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="txtGroundEffectWorse" xml:space="preserve">
+    <value>Increased damage {0}</value>
+  </data>
+  <data name="txtJump" xml:space="preserve">
+    <value>Damage from falling can be reduced with a Body Control (Jumping) check.</value>
+  </data>
+  <data name="txtPaddingProtection" xml:space="preserve">
+    <value>Paddings may soften the fall.</value>
+  </data>
+  <data name="txtSelectHardness" xml:space="preserve">
+    <value>Choose shortcut for ground conditions</value>
+  </data>
+  <data name="GroundCondition.Soil" xml:space="preserve">
+    <value>Earth/Soil</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="btnFallDamage" xml:space="preserve">
+    <value>Suffer fall damage</value>
+  </data>
+  <data name="GroundCondition.Water" xml:space="preserve">
+    <value>Water</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Mud" xml:space="preserve">
+    <value>Mud</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Snow" xml:space="preserve">
+    <value>Snow</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Stone" xml:space="preserve">
+    <value>Smooth stone</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Gravel" xml:space="preserve">
+    <value>Gravel</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Grit" xml:space="preserve">
+    <value>Grit</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="GroundCondition.Boulders" xml:space="preserve">
+    <value>Boulder</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="lblFallProtection" xml:space="preserve">
+    <value>Reduced damage</value>
+    <comment>Fall damage</comment>
+  </data>
+  <data name="GroundCondition.Hay" xml:space="preserve">
+    <value>Hay</value>
+    <comment>enum GroundCondition</comment>
+  </data>
+  <data name="msgNoFallHeight" xml:space="preserve">
+    <value>Drop height was zero. No damage caused.</value>
+    <comment>Energy fall  damage</comment>
+  </data>
+  <data name="msgFallDamageCaused" xml:space="preserve">
+    <value>Fall damage {0}d6{1}{2} = {3}</value>
+    <comment>Energy fall  damage</comment>
+  </data>
+  <data name="msgNoFallDamage" xml:space="preserve">
+    <value>The fall did not cause damage</value>
+    <comment>Energy fall  damage</comment>
+  </data>
+  <data name="hBelongings" xml:space="preserve">
+    <value>Possessions</value>
+    <comment>Page</comment>
+  </data>
+  <data name="naviBackpack" xml:space="preserve">
+    <value>Possessions</value>
+  </data>
+  <data name="Distance.Near" xml:space="preserve">
+    <value>Near</value>
+    <comment>enum Distance</comment>
+  </data>
+  <data name="Distance.Medium" xml:space="preserve">
+    <value>Medium</value>
+    <comment>enum Distance</comment>
+  </data>
+  <data name="Distance.Far" xml:space="preserve">
+    <value>Far</value>
+    <comment>enum Distance</comment>
+  </data>
+  <data name="lblCombatModBtn" xml:space="preserve">
+    <value>Set context for combat  to get according modifiers</value>
+  </data>
+  <data name="lblOpponent" xml:space="preserve">
+    <value>Opponent</value>
+  </data>
+  <data name="btnDeactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="CombatBranch.Unarmed" xml:space="preserve">
+    <value>Unarmed</value>
+  </data>
+  <data name="CombatBranch.Melee" xml:space="preserve">
+    <value>Melee</value>
+  </data>
+  <data name="CombatBranch.Ranged" xml:space="preserve">
+    <value>Ranged</value>
+  </data>
+  <data name="CombatBranch.Shield" xml:space="preserve">
+    <value>Shield</value>
+  </data>
+  <data name="lblCombatMod" xml:space="preserve">
+    <value>Combat modifiers</value>
+  </data>
+  <data name="lblMovement" xml:space="preserve">
+    <value>Movement</value>
+  </data>
+  <data name="abbrMovement" xml:space="preserve">
+    <value>MOV</value>
+  </data>
+  <data name="abbrSilverthaler" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="lblAssetValue" xml:space="preserve">
+    <value>Asset Value</value>
+  </data>
+  <data name="msgUpdateAvailable" xml:space="preserve">
+    <value>A new version of Fate Explorer is available. Update or postpone?</value>
+  </data>
+  <data name="lblMoveHero" xml:space="preserve">
+    <value>Movement of Your Character</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblMoveEnemy" xml:space="preserve">
+    <value>Movement of enemy</value>
+    <comment>DlgCombatMods</comment>
+  </data>
+  <data name="lblCrampedOn" xml:space="preserve">
+    <value>Space is cramped</value>
+  </data>
+  <data name="lblCrampedOff" xml:space="preserve">
+    <value>Space is ample</value>
+  </data>
+  <data name="txtRecognizedAdvantage" xml:space="preserve">
+    <value>This advantage is recognized by FateExplorer and  factored in.</value>
+  </data>
+  <data name="txtRecognizedDisadvantage" xml:space="preserve">
+    <value>This disadvantage is recognized by FateExplorer and  factored in.</value>
+  </data>
+  <data name="txtRecognizedSpecialAbility" xml:space="preserve">
+    <value>This special ability is recognized by FateExplorer and  factored in.</value>
+  </data>
+  <data name="naviInn" xml:space="preserve">
+    <value>Inn</value>
+  </data>
+  <data name="lblInnMenu" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectRegion" xml:space="preserve">
+    <value>Region</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectQualityLevel" xml:space="preserve">
+    <value>Quality Level</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblSelectPriceLevel" xml:space="preserve">
+    <value>Price Level</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="msgNoMenuAvailable" xml:space="preserve">
+    <value>Looking for the menu? Create one.</value>
+  </data>
+  <data name="Quality.Lowest" xml:space="preserve">
+    <value>Lousy</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Low" xml:space="preserve">
+    <value>Bad</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Normal" xml:space="preserve">
+    <value>Standard</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Good" xml:space="preserve">
+    <value>Good</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Excellent" xml:space="preserve">
+    <value>Excellent</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Quality.Luxurious" xml:space="preserve">
+    <value>Luxurious</value>
+    <comment>enum Quality</comment>
+  </data>
+  <data name="Price.Normal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.VeryCheap" xml:space="preserve">
+    <value>Cheap</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Cheap" xml:space="preserve">
+    <value>Low priced</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Expensive" xml:space="preserve">
+    <value>Expensive</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.VeryExpensive" xml:space="preserve">
+    <value>Very expensive</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="Price.Horrendous" xml:space="preserve">
+    <value>Horrendous</value>
+    <comment>enum Price</comment>
+  </data>
+  <data name="lblPriceMatchesQuality" xml:space="preserve">
+    <value>Price matches quality</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnInnGenerateName" xml:space="preserve">
+    <value>Find name</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnInnGenerateMenu" xml:space="preserve">
+    <value>Generate menu</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="Region.EternalIce" xml:space="preserve">
+    <value>Eternal ice</value>
+  </data>
+  <data name="Region.NiveseLands" xml:space="preserve">
+    <value>Nivese lands</value>
+  </data>
+  <data name="Region.PaaviRegion" xml:space="preserve">
+    <value>Paavi region</value>
+  </data>
+  <data name="Region.ThorwalRegion" xml:space="preserve">
+    <value>Region of Thorwal</value>
+  </data>
+  <data name="Region.Gjalsker" xml:space="preserve">
+    <value>Gjalsker lands</value>
+  </data>
+  <data name="Region.RivaRegion" xml:space="preserve">
+    <value>Riva</value>
+  </data>
+  <data name="Region.Orclands" xml:space="preserve">
+    <value>Orclands</value>
+  </data>
+  <data name="Region.SvelltRegion" xml:space="preserve">
+    <value>Svellt valley</value>
+  </data>
+  <data name="Region.Bornland" xml:space="preserve">
+    <value>Bornland</value>
+  </data>
+  <data name="Region.ElvenRegion" xml:space="preserve">
+    <value>Elven region</value>
+  </data>
+  <data name="Region.Nostria" xml:space="preserve">
+    <value>Nostria</value>
+  </data>
+  <data name="Region.Andergast" xml:space="preserve">
+    <value>Andergast</value>
+  </data>
+  <data name="Region.Middenrealm" xml:space="preserve">
+    <value>Middenrealm</value>
+  </data>
+  <data name="Region.Tobrien" xml:space="preserve">
+    <value>Tobrien</value>
+  </data>
+  <data name="Region.CentralMountainKingdoms" xml:space="preserve">
+    <value>Central Mountain Kingdoms</value>
+  </data>
+  <data name="Region.Albernia" xml:space="preserve">
+    <value>Albernia</value>
+  </data>
+  <data name="Region.Maraskan" xml:space="preserve">
+    <value>Maraskan</value>
+  </data>
+  <data name="Region.Fairfields" xml:space="preserve">
+    <value>Fairfields</value>
+  </data>
+  <data name="Region.Cyclopeans" xml:space="preserve">
+    <value>Cyclopean islands</value>
+  </data>
+  <data name="Region.Arania" xml:space="preserve">
+    <value>Arania</value>
+  </data>
+  <data name="Region.SouthernMountainKingdoms" xml:space="preserve">
+    <value>Southern Mountain Kingdoms</value>
+  </data>
+  <data name="Region.Tulamidya" xml:space="preserve">
+    <value>Tulamidya</value>
+  </data>
+  <data name="Region.Khom" xml:space="preserve">
+    <value>Khom</value>
+  </data>
+  <data name="Region.ThalusaRegion" xml:space="preserve">
+    <value>Region of Thalusa</value>
+  </data>
+  <data name="Region.SzintoRegion" xml:space="preserve">
+    <value>Szinto valley</value>
+  </data>
+  <data name="Region.Harodia" xml:space="preserve">
+    <value>Harodia</value>
+  </data>
+  <data name="Region.MengbillaRegion" xml:space="preserve">
+    <value>Mengbilla region</value>
+  </data>
+  <data name="Region.Almada" xml:space="preserve">
+    <value>Almada</value>
+  </data>
+  <data name="Region.AlAnfaRegion" xml:space="preserve">
+    <value>Al'Anfa Region</value>
+  </data>
+  <data name="Region.RainMountains" xml:space="preserve">
+    <value>Rain mountains</value>
+  </data>
+  <data name="Region.CapeBrabak" xml:space="preserve">
+    <value>Cape Brabak</value>
+  </data>
+  <data name="Region.FarSouthIslands" xml:space="preserve">
+    <value>Altoum and the Forest Islands</value>
+  </data>
+  <data name="btnNextDay" xml:space="preserve">
+    <value>Go to the following day</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="btnPreviousDay" xml:space="preserve">
+    <value>Go to the previous day</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="lblShotTooClose" xml:space="preserve">
+    <value>Too close to attack</value>
+    <comment>Battle ground dialog</comment>
+  </data>
+  <data name="lblShotTooFar" xml:space="preserve">
+    <value>Too far away</value>
+    <comment>Battle ground dialog</comment>
   </data>
 </root>

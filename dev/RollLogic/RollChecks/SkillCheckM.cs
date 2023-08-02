@@ -1,6 +1,6 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
-using FateExplorer.ViewModel;
 using System;
 
 namespace FateExplorer.RollLogic
@@ -11,11 +11,14 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/skill";
 
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Domain);
+
 
         /// <summary>
         /// The domain of the skill
         /// </summary>
-        public SkillDomain Domain { get; protected set; }
+        public Check.Skill Domain { get; protected set; }
 
 
         /// <inheritdoc />
@@ -44,8 +47,8 @@ namespace FateExplorer.RollLogic
         /// <param name="ability">The abilities needed for the check</param>
         /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
         /// <param name="gameData">Access to the game data base</param>
-        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData)
-            : base(gameData)
+        public SkillCheckM(SkillsDTO skill, AbilityDTO[] ability, BaseContextM context, IGameDataService gameData)
+            : base(context, gameData)
         {
             // inherited
             RollAttr = new int[3];
@@ -55,8 +58,8 @@ namespace FateExplorer.RollLogic
                 RollAttr[a] = ability[a].EffectiveValue;
                 RollAttrName[a] = ability[a].ShortName;
             }
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+            //Context = context; //Already assigned through base
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
             TargetAttr = skill.EffectiveValue;
             TargetAttrName = skill.Name;
@@ -79,8 +82,9 @@ namespace FateExplorer.RollLogic
         public override void UpdateAfterModifierChange()
         {
             // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-            //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
-            var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+            //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModificator.Apply(RollAttr[0]));
+            int[] EffectiveSkill = Context.ApplyTotalMod(RollAttr, new Check(Domain), null);
+            var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, EffectiveSkill, TargetAttr ?? 0, 0);
             Success.Update(s, s);
         }
 
@@ -92,7 +96,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -111,7 +115,7 @@ namespace FateExplorer.RollLogic
         {
             if (Remainder < 0) return 0;
 
-            return Math.Max(((Remainder - 1) / 3) + 1, 1);
+            return Math.Max((Remainder + 2) / 3, 1);
         }
 
 
@@ -184,9 +188,10 @@ namespace FateExplorer.RollLogic
 
         public override RollSuccess.Level SuccessOfRoll(RollType Which)
         {
+            int[] EffectiveSkills = Context.ApplyTotalMod(RollAttr, new Check(Domain), null);
             return ComputeSuccess(
                         RollList[Which].OpenRoll,
-                        CheckModifier.Apply(RollAttr),
+                        EffectiveSkills,
                         TargetAttr ?? 0,
                         0); // mod not required here because skill value is already modified
         }
@@ -198,9 +203,25 @@ namespace FateExplorer.RollLogic
         {
             get => ComputeSkillRemainder(
                 RollList[RollType.Primary].OpenRoll,
-                CheckModifier.Apply(RollAttr),
+                Context.ApplyTotalMod(RollAttr, new Check(Domain), null),
                 TargetAttr ?? 0,
                 0);// mod not required here because skill value is already modified
+        }
+
+        /// <inheritdoc/>
+        public override int ModDelta
+        {
+            get
+            {
+                int[] EffectiveSkills = Context.ApplyTotalMod(RollAttr, new Check(Domain), null);
+                int MaxMod = -1;
+                for (int i = 0; i < EffectiveSkills.Length; i++)
+                {
+                    EffectiveSkills[i] = RollAttr[i] - EffectiveSkills[i];
+                    if (Math.Abs(EffectiveSkills[i]) > MaxMod) MaxMod = EffectiveSkills[i];
+                }
+                return MaxMod;
+            }
         }
 
 
@@ -258,7 +279,7 @@ namespace FateExplorer.RollLogic
 
         public override bool NeedsBotchEffect
         {
-            get => base.NeedsBotchEffect && Domain != SkillDomain.Basic;
+            get => base.NeedsBotchEffect && Domain != Check.Skill.Skill;
         }
 
         /// <inheritdoc/>
@@ -290,14 +311,25 @@ namespace FateExplorer.RollLogic
 
             if (Which == RollType.Primary)
             {
+                int[] EffectiveSkills = Context.ApplyTotalMod(RollAttr, new Check(Domain), null);
                 // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-                RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
+                RollSuccess.Level s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, EffectiveSkills, TargetAttr ?? 0, 0);
                 Success.Update(s, s);
             }
 
             return roll;
         }
 
+
+        /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Domain), null),
+                _ => throw new NotImplementedException()
+            };
+        }
 
 
         /// <inheritdoc />

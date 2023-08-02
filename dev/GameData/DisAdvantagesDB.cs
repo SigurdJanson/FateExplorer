@@ -20,5 +20,9 @@ namespace FateExplorer.GameData
 
         [JsonPropertyName("type")]
         public AdvType Type { get; set; }
+
+        [JsonPropertyName("reco")]
+        public bool Recognized{ get; set; }
+
     }
 }

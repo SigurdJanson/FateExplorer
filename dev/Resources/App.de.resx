@@ -216,10 +216,6 @@
   <data name="btnReset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
-  <data name="btnUploadFile" xml:space="preserve">
-    <value>Datei laden</value>
-    <comment>No Character Skeleton</comment>
-  </data>
   <data name="CHA" xml:space="preserve">
     <value>CH</value>
     <comment>Abilities</comment>
@@ -496,7 +492,7 @@
     <value>Modifikator</value>
   </data>
   <data name="lblMostUsed" xml:space="preserve">
-    <value>Meistverwendet</value>
+    <value>Meistverwendete Favoriten</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="lblName" xml:space="preserve">
@@ -508,10 +504,6 @@
   <data name="lblNewDiceCup" xml:space="preserve">
     <value>Neuer Würfelbecher</value>
     <comment>DlgFreeDiceCup</comment>
-  </data>
-  <data name="lblNoCharacter" xml:space="preserve">
-    <value>Keine Charakterdaten vorhanden</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="lblNondominantHand" xml:space="preserve">
     <value>Nicht-dominante Hand</value>
@@ -601,7 +593,7 @@
   <data name="lblSearch" xml:space="preserve">
     <value>Finden</value>
   </data>
-  <data name="lblSelectComaprisonCurrency" xml:space="preserve">
+  <data name="lblSelectComparisonCurrency" xml:space="preserve">
     <value>Vergleichswährung wählen</value>
     <comment>Shop</comment>
   </data>
@@ -661,7 +653,7 @@
     <value>Stein</value>
   </data>
   <data name="lblYourBestSkills" xml:space="preserve">
-    <value>Deine Spezialität</value>
+    <value>Deine besten Fertigkeiten</value>
     <comment>Character Act (Skills)</comment>
   </data>
   <data name="Legend" xml:space="preserve">
@@ -693,7 +685,7 @@
     <comment>enum LanguageId</comment>
   </data>
   <data name="msgAdd2Cart" xml:space="preserve">
-    <value>Zum Einkauf hinzufügem</value>
+    <value>Zum Einkauf hinzufügen</value>
   </data>
   <data name="msgBotchAvoided" xml:space="preserve">
     <value>Wie bist Du da wieder raus gekommen?</value>
@@ -706,14 +698,6 @@
   </data>
   <data name="msgCanCarry" xml:space="preserve">
     <value>Der Held kann maximal ein Gewicht von {0} Stein für längere Zeit tragen und bis zu {1} Stein hochheben.</value>
-  </data>
-  <data name="msgCharacterImportErrorDefined" xml:space="preserve">
-    <value>Beim Import gepatzert. Ursache: {0}</value>
-    <comment>SkeletonNoCharacterData</comment>
-  </data>
-  <data name="msgCharacterImportErrorUndefined" xml:space="preserve">
-    <value>Beim Import gepatzert. Ursache unbekannt.</value>
-    <comment>SkeletonNoCharacterData</comment>
   </data>
   <data name="msgCombatActionMissing" xml:space="preserve">
     <value>{0} für {1} ist nicht implementiert</value>
@@ -734,10 +718,6 @@
   <data name="msgFindAtUlissesWiki" xml:space="preserve">
     <value>Suche den Gegenstand im Ulisses wiki</value>
     <comment>Shop</comment>
-  </data>
-  <data name="msgLoadCharacterToUse" xml:space="preserve">
-    <value>Du kannst Heldendateien aus der Optolith-App laden</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="msgMaxCarryExceeded" xml:space="preserve">
     <value>Der Held erleidet eventuell einen Malus, denn das getragene Gewicht übersteigt seine Tragkraft.</value>
@@ -771,10 +751,6 @@
   </data>
   <data name="msgShowDetails" xml:space="preserve">
     <value>Details anzeigen</value>
-  </data>
-  <data name="msgWrongContentType" xml:space="preserve">
-    <value>Diese App erwartet eine JSON Datei. Die angegebene Datei ist vom Typ  {0}.</value>
-    <comment>No Character Skeleton</comment>
   </data>
   <data name="naviAbout" xml:space="preserve">
     <value>Über FateExplorer</value>
@@ -884,15 +860,15 @@
     <value>Saga-Thorwalsch</value>
     <comment>enum LanguageId</comment>
   </data>
-  <data name="SkillDomain.Arcane" xml:space="preserve">
+  <data name="Check.Skill.Arcane" xml:space="preserve">
     <value>Magisch</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
-  <data name="SkillDomain.Basic" xml:space="preserve">
+  <data name="Check.Skill.Skill" xml:space="preserve">
     <value>Weltlich</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
-  <data name="SkillDomain.Karma" xml:space="preserve">
+  <data name="Check.Skill.Karma" xml:space="preserve">
     <value>Karmal</value>
     <comment>Translation of enum SkillDomain</comment>
   </data>
@@ -1002,7 +978,7 @@
     <comment>Calendar</comment>
   </data>
   <data name="btnSetEarthDate" xml:space="preserve">
-    <value>Zum offiziellen DAtum</value>
+    <value>Zum offiziellen Datum</value>
     <comment>Calendar</comment>
   </data>
   <data name="lblHoliday" xml:space="preserve">
@@ -1073,7 +1049,7 @@
     <value>Schritt</value>
   </data>
   <data name="abbrvYard" xml:space="preserve">
-    <value>Schritt</value>
+    <value>Schr.</value>
   </data>
   <data name="lblRangeBrackets" xml:space="preserve">
     <value>Reichweitensegmente (nah/mittel/weit)</value>
@@ -1089,5 +1065,500 @@
   </data>
   <data name="lblHruruzat" xml:space="preserve">
     <value>Hruruzat</value>
+  </data>
+  <data name="lblEnemyReach" xml:space="preserve">
+    <value>Nahkampfreichweite des Gegners</value>
+  </data>
+  <data name="lblEnemyReachLong" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="lblEnemyReachMedium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="lblEnemyReachShort" xml:space="preserve">
+    <value>Kurz</value>
+  </data>
+  <data name="lblEnemy" xml:space="preserve">
+    <value>Gegner</value>
+  </data>
+  <data name="lblHero" xml:space="preserve">
+    <value>Hero</value>
+  </data>
+  <data name="lblEnvironment" xml:space="preserve">
+    <value>Umgebung</value>
+  </data>
+  <data name="lblWaterNone" xml:space="preserve">
+    <value>Steht auf trockenem Boden</value>
+  </data>
+  <data name="lblWater2Knee" xml:space="preserve">
+    <value>Knietief im Wasser</value>
+  </data>
+  <data name="lblWater2Chest" xml:space="preserve">
+    <value>Wasser bis zur Brust</value>
+  </data>
+  <data name="lblWater2Waist" xml:space="preserve">
+    <value>Wasser steht hüfthoch</value>
+  </data>
+  <data name="lblDistanceToEnemy" xml:space="preserve">
+    <value>Entfernung zum Gegner</value>
+  </data>
+  <data name="lblCloseCombat" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="lblWeapon" xml:space="preserve">
+    <value>Waffe</value>
+  </data>
+  <data name="lblVisibility" xml:space="preserve">
+    <value>Sicht</value>
+  </data>
+  <data name="lblVisionClear" xml:space="preserve">
+    <value>Uneingeschränkte Sicht</value>
+  </data>
+  <data name="lblVisionImpaired" xml:space="preserve">
+    <value>Leichte Störung der Sicht (leichtes Blattwerk, Morgendunst)</value>
+  </data>
+  <data name="lblVisionShapesOnly" xml:space="preserve">
+    <value>Ziel als Silhouette erkennbar (Nebel, Mondlicht)</value>
+  </data>
+  <data name="lblVisionBarely" xml:space="preserve">
+    <value>Ziel schemenhaft erkennbar (starker Nebel, Sternenlicht)</value>
+  </data>
+  <data name="lblVisionNone" xml:space="preserve">
+    <value>Ziel unsichtbar (dichter Rauch, völlige Dunkelheit)</value>
+  </data>
+  <data name="lblWater2Neck" xml:space="preserve">
+    <value>Wasser bis zum Hals</value>
+  </data>
+  <data name="lblWaterSubmerged" xml:space="preserve">
+    <value>Held befindet sich vollständig unter Wasser</value>
+  </data>
+  <data name="lblUnderWater" xml:space="preserve">
+    <value>Kampf im Wasser</value>
+  </data>
+  <data name="lblEnemyRunningZigZag" xml:space="preserve">
+    <value>Gegner macht Ausweichbewegungen</value>
+  </data>
+  <data name="lblMoveWalk" xml:space="preserve">
+    <value>Bewegt sich leicht (4 Schritt und weniger in letzter Handlung)</value>
+  </data>
+  <data name="lblMoveRun" xml:space="preserve">
+    <value>Bewegt sich schnell (5 Schritt oder mehr in letzter Handlung)</value>
+  </data>
+  <data name="lblMoveGaitWalk" xml:space="preserve">
+    <value>Reittier im Schritt</value>
+  </data>
+  <data name="lblMoveGaitTrot" xml:space="preserve">
+    <value>Reittier im Trab</value>
+  </data>
+  <data name="lblMoveGaitGallop" xml:space="preserve">
+    <value>Reittier im Galopp</value>
+  </data>
+  <data name="lblMoveStationary" xml:space="preserve">
+    <value>Steht still</value>
+  </data>
+  <data name="lblCombatMovement" xml:space="preserve">
+    <value>Bewegung</value>
+  </data>
+  <data name="lblEnemySize" xml:space="preserve">
+    <value>Größe des Gegners</value>
+  </data>
+  <data name="lblEnemyTiny" xml:space="preserve">
+    <value>Winzig (Ratte, Kröte, Spatz)</value>
+  </data>
+  <data name="lblEnemySmall" xml:space="preserve">
+    <value>Klein (Rehkitz, Schaf, Ziege)</value>
+  </data>
+  <data name="lblEnemyMedium" xml:space="preserve">
+    <value>Mittel (Mensch, Zwerg, Esel)</value>
+  </data>
+  <data name="lblEnemyLarge" xml:space="preserve">
+    <value>Groß (Oger, Troll, Rind)</value>
+  </data>
+  <data name="lblEnemyHuge" xml:space="preserve">
+    <value>Riesig (Drache, Riese, Elefant)</value>
+  </data>
+  <data name="lblCramped" xml:space="preserve">
+    <value>Beengte Umgebung</value>
+  </data>
+  <data name="lblCurrentValues" xml:space="preserve">
+    <value>Werte</value>
+  </data>
+  <data name="abbrLoadingTime" xml:space="preserve">
+    <value>LZ</value>
+  </data>
+  <data name="lblLoadingTime" xml:space="preserve">
+    <value>Ladezeit</value>
+  </data>
+  <data name="shopYears" xml:space="preserve">
+    <value>Jahren</value>
+  </data>
+  <data name="shopYear" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="shopDay" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="shopMonths" xml:space="preserve">
+    <value>Monaten</value>
+  </data>
+  <data name="shopMonth" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="shopDays" xml:space="preserve">
+    <value>Tagen</value>
+  </data>
+  <data name="txtMoneyValue1" xml:space="preserve">
+    <value>Ein einfacher Arbeiter verdient diesen Betrag in {0} {1}.</value>
+  </data>
+  <data name="txtMoneyValue2" xml:space="preserve">
+    <value>Ein einfacher Arbeiter verdient diesen Betrag in {0} {1} and {2} {3}.</value>
+  </data>
+  <data name="btnFall" xml:space="preserve">
+    <value>Stürzen</value>
+  </data>
+  <data name="hArmour" xml:space="preserve">
+    <value>Rüstungsschutz</value>
+  </data>
+  <data name="hDropHeight" xml:space="preserve">
+    <value>Fallhöhe</value>
+  </data>
+  <data name="hGround" xml:space="preserve">
+    <value>Bodenbeschaffenheit</value>
+  </data>
+  <data name="hJump" xml:space="preserve">
+    <value>Springen</value>
+  </data>
+  <data name="lblJump" xml:space="preserve">
+    <value>Springe</value>
+  </data>
+  <data name="lblSelectHardness" xml:space="preserve">
+    <value>Wähle die Bodenbeschaffenheit</value>
+  </data>
+  <data name="titleFallDamageDialog" xml:space="preserve">
+    <value>Sturzschaden</value>
+  </data>
+  <data name="txtArmourProtection" xml:space="preserve">
+    <value>Rüstung kann vor scharfen Gegenständen schützen.</value>
+  </data>
+  <data name="txtDropHeightGallopTip" xml:space="preserve">
+    <value>Sturz von  galoppierenden Pferd zählt wie 3 Schritt Höhe.</value>
+  </data>
+  <data name="txtDropHeightHorseTip" xml:space="preserve">
+    <value>Sturz vom Pferd zählt wie 2 Schritt Höhe.</value>
+  </data>
+  <data name="txtDropHeightTip" xml:space="preserve">
+    <value>Fallhöhe verursacht 1W6 Schaden pro Schritt.</value>
+  </data>
+  <data name="txtGround" xml:space="preserve">
+    <value>Der Boden kann den Sturz mildern oder verschlimmern.</value>
+  </data>
+  <data name="txtGroundEffectBetter" xml:space="preserve">
+    <value>Reduzierter Schaden {0}</value>
+  </data>
+  <data name="txtGroundEffectNeutral" xml:space="preserve">
+    <value>Keine Änderung</value>
+  </data>
+  <data name="txtGroundEffectUnknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="txtGroundEffectWorse" xml:space="preserve">
+    <value>Erhöhter Schaden {0}</value>
+  </data>
+  <data name="txtJump" xml:space="preserve">
+    <value>Mit einer Körperbeherrschung (Springen) kann der Sturzschaden verringert werden.</value>
+  </data>
+  <data name="txtPaddingProtection" xml:space="preserve">
+    <value>Wattierungen und weiche Kleidung können den Sturz mildern.</value>
+  </data>
+  <data name="txtSelectHardness" xml:space="preserve">
+    <value>Direktauswahl für Bodenbeschaffenheit</value>
+  </data>
+  <data name="btnFallDamage" xml:space="preserve">
+    <value>Erleide Sturzschaden</value>
+  </data>
+  <data name="GroundCondition.Boulders" xml:space="preserve">
+    <value>Geröll</value>
+  </data>
+  <data name="GroundCondition.Grit" xml:space="preserve">
+    <value>Split</value>
+  </data>
+  <data name="GroundCondition.Mud" xml:space="preserve">
+    <value>Schlamm</value>
+  </data>
+  <data name="GroundCondition.Snow" xml:space="preserve">
+    <value>Schnee</value>
+  </data>
+  <data name="GroundCondition.Soil" xml:space="preserve">
+    <value>Erde</value>
+  </data>
+  <data name="GroundCondition.Stone" xml:space="preserve">
+    <value>Ebener Stein</value>
+  </data>
+  <data name="GroundCondition.Water" xml:space="preserve">
+    <value>Wasser</value>
+  </data>
+  <data name="GroundCondition.Gravel" xml:space="preserve">
+    <value>Kies</value>
+  </data>
+  <data name="lblFallProtection" xml:space="preserve">
+    <value>Reduzierter Schaden</value>
+  </data>
+  <data name="GroundCondition.Hay" xml:space="preserve">
+    <value>Heu</value>
+  </data>
+  <data name="msgNoFallHeight" xml:space="preserve">
+    <value>Fallhöhe war null. Kein Schaden.</value>
+  </data>
+  <data name="msgFallDamageCaused" xml:space="preserve">
+    <value>Sturzschaden {0}W6{1}{2} = {3}</value>
+  </data>
+  <data name="msgNoFallDamage" xml:space="preserve">
+    <value>Der Sturz verursachte keinen Schaden</value>
+  </data>
+  <data name="hBelongings" xml:space="preserve">
+    <value>Besitztümer</value>
+  </data>
+  <data name="naviBackpack" xml:space="preserve">
+    <value>Besitztümer</value>
+  </data>
+  <data name="Distance.Near" xml:space="preserve">
+    <value>Nah</value>
+  </data>
+  <data name="Distance.Medium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="Distance.Far" xml:space="preserve">
+    <value>Weit</value>
+  </data>
+  <data name="btnDeactivate" xml:space="preserve">
+    <value>Deaktivieren</value>
+  </data>
+  <data name="lblOpponent" xml:space="preserve">
+    <value>Gegner</value>
+  </data>
+  <data name="lblCombatModBtn" xml:space="preserve">
+    <value>Lege die Umstände des Kampfes fest, um korrekte Modifikatoren zu bestimmen</value>
+  </data>
+  <data name="CombatBranch.Unarmed" xml:space="preserve">
+    <value>Unbewaffnet</value>
+  </data>
+  <data name="CombatBranch.Shield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="CombatBranch.Ranged" xml:space="preserve">
+    <value>Fernkampf</value>
+  </data>
+  <data name="CombatBranch.Melee" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="lblCombatMod" xml:space="preserve">
+    <value>Kampfmodifikatoren</value>
+  </data>
+  <data name="abbrMovement" xml:space="preserve">
+    <value>GS</value>
+  </data>
+  <data name="lblMovement" xml:space="preserve">
+    <value>Geschwindigkeit</value>
+  </data>
+  <data name="abbrSilverthaler" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="lblAssetValue" xml:space="preserve">
+    <value>Sachwert</value>
+  </data>
+  <data name="msgUpdateAvailable" xml:space="preserve">
+    <value>Eine neue Version des Fate Explorers ist verfügbar. Aktualisieren oder verschieben?</value>
+  </data>
+  <data name="lblMoveHero" xml:space="preserve">
+    <value>Bewegung Deines Helden</value>
+  </data>
+  <data name="lblMoveEnemy" xml:space="preserve">
+    <value>Bewegung des Gegners</value>
+  </data>
+  <data name="lblCrampedOff" xml:space="preserve">
+    <value>Ausreichend Raum</value>
+  </data>
+  <data name="lblCrampedOn" xml:space="preserve">
+    <value>Beengter Raum</value>
+  </data>
+  <data name="txtRecognizedAdvantage" xml:space="preserve">
+    <value>Dieser Vorteil wird von FateExplorer erkannt und berücksichtigt.</value>
+  </data>
+  <data name="txtRecognizedDisadvantage" xml:space="preserve">
+    <value>Dieser Nachteil wird von FateExplorer erkannt und berücksichtigt.</value>
+  </data>
+  <data name="txtRecognizedSpecialAbility" xml:space="preserve">
+    <value>Diese Sonderfertigkeit wird von FateExplorer erkannt und berücksichtigt.</value>
+  </data>
+  <data name="naviInn" xml:space="preserve">
+    <value>Gasthaus</value>
+  </data>
+  <data name="lblInnMenu" xml:space="preserve">
+    <value>Speisekarte</value>
+  </data>
+  <data name="lblSelectRegion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="lblSelectQualityLevel" xml:space="preserve">
+    <value>Qualitätstufe</value>
+  </data>
+  <data name="lblSelectPriceLevel" xml:space="preserve">
+    <value>Preisstufe</value>
+  </data>
+  <data name="msgNoMenuAvailable" xml:space="preserve">
+    <value>Wo ist die Karte? Erstelle eine.</value>
+  </data>
+  <data name="Quality.Lowest" xml:space="preserve">
+    <value>Mies</value>
+  </data>
+  <data name="Quality.Low" xml:space="preserve">
+    <value>Schlecht</value>
+  </data>
+  <data name="Quality.Normal" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Quality.Good" xml:space="preserve">
+    <value>Gut</value>
+  </data>
+  <data name="Quality.Excellent" xml:space="preserve">
+    <value>Exzellent</value>
+  </data>
+  <data name="Quality.Luxurious" xml:space="preserve">
+    <value>Luxuriös</value>
+  </data>
+  <data name="Price.Cheap" xml:space="preserve">
+    <value>Günstig</value>
+  </data>
+  <data name="Price.Expensive" xml:space="preserve">
+    <value>Teuer</value>
+  </data>
+  <data name="Price.Horrendous" xml:space="preserve">
+    <value>Horrend</value>
+  </data>
+  <data name="Price.Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Price.VeryCheap" xml:space="preserve">
+    <value>Billig</value>
+  </data>
+  <data name="Price.VeryExpensive" xml:space="preserve">
+    <value>Sehr teuer</value>
+  </data>
+  <data name="lblPriceMatchesQuality" xml:space="preserve">
+    <value>Preis entspricht Qualität</value>
+  </data>
+  <data name="btnInnGenerateName" xml:space="preserve">
+    <value>Namen finden</value>
+  </data>
+  <data name="btnInnGenerateMenu" xml:space="preserve">
+    <value>Karte erstellen</value>
+  </data>
+  <data name="Region.Tulamidya" xml:space="preserve">
+    <value>Tulamidenlande</value>
+  </data>
+  <data name="Region.Tobrien" xml:space="preserve">
+    <value>Tobrien</value>
+  </data>
+  <data name="Region.ThorwalRegion" xml:space="preserve">
+    <value>Thorwalergebiete</value>
+  </data>
+  <data name="Region.ThalusaRegion" xml:space="preserve">
+    <value>Thalusa</value>
+  </data>
+  <data name="Region.SvelltRegion" xml:space="preserve">
+    <value>Svellttal</value>
+  </data>
+  <data name="Region.SzintoRegion" xml:space="preserve">
+    <value>Szintotal</value>
+  </data>
+  <data name="Region.RivaRegion" xml:space="preserve">
+    <value>Riva</value>
+  </data>
+  <data name="Region.RainMountains" xml:space="preserve">
+    <value>Regengebirge</value>
+  </data>
+  <data name="Region.Orclands" xml:space="preserve">
+    <value>Orkland</value>
+  </data>
+  <data name="Region.Nostria" xml:space="preserve">
+    <value>Nostria</value>
+  </data>
+  <data name="Region.NiveseLands" xml:space="preserve">
+    <value>Nivesenlande</value>
+  </data>
+  <data name="Region.Harodia" xml:space="preserve">
+    <value>Harodien</value>
+  </data>
+  <data name="Region.Gjalsker" xml:space="preserve">
+    <value>Gjalskerlande</value>
+  </data>
+  <data name="Region.Fairfields" xml:space="preserve">
+    <value>Liebliches Feld</value>
+  </data>
+  <data name="Region.EternalIce" xml:space="preserve">
+    <value>Ewiges Eis</value>
+  </data>
+  <data name="Region.ElvenRegion" xml:space="preserve">
+    <value>Elfenregion</value>
+  </data>
+  <data name="Region.Cyclopeans" xml:space="preserve">
+    <value>Zyklopische Inseln</value>
+  </data>
+  <data name="Region.CapeBrabak" xml:space="preserve">
+    <value>Kap von Brabak</value>
+  </data>
+  <data name="Region.Bornland" xml:space="preserve">
+    <value>Bornland</value>
+  </data>
+  <data name="Region.Arania" xml:space="preserve">
+    <value>Aranien</value>
+  </data>
+  <data name="Region.Andergast" xml:space="preserve">
+    <value>Andergast</value>
+  </data>
+  <data name="Region.Almada" xml:space="preserve">
+    <value>Almada</value>
+  </data>
+  <data name="Region.Albernia" xml:space="preserve">
+    <value>Albernia</value>
+  </data>
+  <data name="Region.AlAnfaRegion" xml:space="preserve">
+    <value>Region Al'Anfa</value>
+  </data>
+  <data name="Region.Khom" xml:space="preserve">
+    <value>Khom</value>
+  </data>
+  <data name="Region.Maraskan" xml:space="preserve">
+    <value>Maraskan</value>
+  </data>
+  <data name="Region.Middenrealm" xml:space="preserve">
+    <value>Mittelreich</value>
+  </data>
+  <data name="Region.PaaviRegion" xml:space="preserve">
+    <value>Region Paavi</value>
+  </data>
+  <data name="Region.SouthernMountainKingdoms" xml:space="preserve">
+    <value>Südliche Bergkönigreiche</value>
+  </data>
+  <data name="Region.CentralMountainKingdoms" xml:space="preserve">
+    <value>Zentrale Bergkönigreiche</value>
+  </data>
+  <data name="Region.MengbillaRegion" xml:space="preserve">
+    <value>Region Mengbilla</value>
+  </data>
+  <data name="Region.FarSouthIslands" xml:space="preserve">
+    <value>Altoum und die Waldinseln</value>
+  </data>
+  <data name="btnNextDay" xml:space="preserve">
+    <value>Gehe zum nächsten Tag</value>
+  </data>
+  <data name="btnPreviousDay" xml:space="preserve">
+    <value>Gehe zum vorigen Tag</value>
+  </data>
+  <data name="lblShotTooClose" xml:space="preserve">
+    <value>Zu nah zum Angriff</value>
+  </data>
+  <data name="lblShotTooFar" xml:space="preserve">
+    <value>Zu weit weg</value>
   </data>
 </root>

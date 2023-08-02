@@ -86,7 +86,7 @@
     @if (Result.GetConfirmationResult() is not null)
     {
     <MudCardContent>
-        <MudText Typo=Typo.body1 Class="d-inline">@GetConfirmationMessage(Result.SuccessLevel)</MudText>
+        <MudText Typo=Typo.body1 Class="d-inline">@ConfirmationMessage(Result.SuccessLevel)</MudText>
         <MudText Typo=Typo.body1 Class="d-inline">
             [@l10n["lblRoll"] @(Result.GetRollResult(RollType.Confirm).CombinedResult)]
         </MudText>
@@ -262,9 +262,9 @@
         else
             return "inherited";
     }
-    
 
-    private Color GetAvatarIconColor(RollSuccess.Level Success) =>
+
+    private static Color GetAvatarIconColor(RollSuccess.Level Success) =>
         Success switch
         {
             RollSuccess.Level.Botch => Color.Surface,
@@ -276,14 +276,14 @@
             _ => Color.Surface
         };
 
-    private string GetConfirmationMessage(RollSuccess.Level Outcome) =>
+    private RenderFragment ConfirmationMessage(RollSuccess.Level Outcome) =>
         Outcome switch
         {
-            RollSuccess.Level.Botch => l10n["msgBotchConfirmed"],
-            RollSuccess.Level.Fail => l10n["msgBotchAvoided"],
-            RollSuccess.Level.Success => l10n["msgCriticalLost"],
-            RollSuccess.Level.Critical => l10n["msgCriticalConfirmed"],
-            _ => ""
+            RollSuccess.Level.Botch => @<PraiseOrInsult FateQuote=false Praise=false Check=@Result.Check />, //l10n["msgBotchConfirmed"]
+            RollSuccess.Level.Fail => @<span>@l10n["msgBotchAvoided"]</span>,
+            RollSuccess.Level.Success => @<span>@l10n["msgCriticalLost"]</span>,
+            RollSuccess.Level.Critical => @<PraiseOrInsult FateQuote=false Praise=true Check=@Result.Check />, //@<span>@l10n["msgCriticalConfirmed"]</span>,
+            _ =>@<span>""</span>,
         };
 
 

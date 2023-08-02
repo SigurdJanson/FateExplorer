@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.Shared;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
@@ -21,7 +22,7 @@ namespace FateExplorer.GameData
         public string ModAgainst { get; set; }
 
         [JsonIgnore]
-        public override SkillDomain Domain { get => SkillDomain.Karma; }
+        public override Check.Skill Domain { get => Check.Skill.Karma; }
     }
 
 

@@ -1,0 +1,201 @@
+﻿@using FateExplorer.ViewModel
+
+@inject IStringLocalizer<App> l10n
+@inject ITheHeroViMo Hero
+@inject IRollHandlerViMo RollHandler
+
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo=Typo.h6>
+            <MudIcon Icon=@IconsFE.Falldown Class="mr-3" /> @l10n["titleFallDamageDialog"]
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+            <MudItem sm=12 md=6>
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hDropHeight"]</MudText>
+                    <MudSlider Min=0 Max=30 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled
+                        @bind-Value=DropHeight>
+                        <MudTooltip Text=@l10n["txtDropHeightTip"]>
+                            @($"{DropHeight} {l10n["lblYard"]}")
+                        </MudTooltip>
+                    </MudSlider>
+                    <MudTooltip Text=@l10n["txtDropHeightHorseTip"]>
+                        <MudIconButton Icon=@IconsFE.Mounted0_Stand OnClick=@(()=>DropHeight=2) Variant=Variant.Filled />
+                    </MudTooltip>
+                    <MudTooltip Text=@l10n["txtDropHeightGallopTip"]>
+                        <MudIconButton Icon=@IconsFE.Mounted3_Gallop OnClick=@(()=>DropHeight=3) Variant=Variant.Filled />
+                    </MudTooltip>
+                </MudPaper>
+
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hGround"]</MudText>
+                    <MudText Typo=Typo.body2>@l10n["txtGround"]</MudText>
+                    <MudSlider Value=GroundModifier Min =-4 Max=4 Step=1 
+                        TickMarks=true Size=Size.Small Variant=Variant.Filled
+                        ValueChanged=@((int i) => GroundModChanged(i))>
+                        @string.Format(GroundEffect, GroundModifier)
+                    </MudSlider>
+                    <MudSelect T=GroundCondition? Value=Hardness Label=@l10n["lblSelectHardness"] HelperText=@l10n["txtSelectHardness"]
+                            ValueChanged=@((GroundCondition? i) => SetHardness(i))>
+                        @foreach (GroundCondition? item in Enum.GetValues(typeof(GroundCondition)).
+                                                                Cast<GroundCondition>().
+                                                                OrderByDescending(x => x))
+                        {
+                            <MudSelectItem Value=@item>@l10n[$"GroundCondition.{item}"]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem sm=12 md=6>
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hJump"]</MudText>
+                    <MudText Typo=Typo.body2>@l10n["txtJump"]</MudText>
+                    @if (QualityOfJump >= 0)
+                    {
+                        <MudText Typo=Typo.button>@l10n["lblQualityLevel"]: @QualityOfJump</MudText>
+                    }
+                    else
+                    {
+                        <MudButton OnClick=OnJump Disabled=@(QualityOfJump >= 0)>@l10n["lblJump"]</MudButton>
+                    }
+                </MudPaper>
+
+                <MudPaper Elevation=0 Outlined=true Class="pa-2">
+                    <MudText Typo=Typo.h6>@l10n["hArmour"]</MudText>
+                    <MudText Typo=Typo.body2>@l10n["txtArmourProtection"]</MudText>
+                    <MudSlider @bind-Value=ArmourProtection Min=-3 Max=0 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled>
+                        @($"{l10n["lblFallProtection"]} {ArmourProtection}")
+                    </MudSlider>
+                    <MudText Typo=Typo.body2>@l10n["txtPaddingProtection"]</MudText>
+                    <MudSlider @bind-Value=PaddingProtection Min=-3 Max=0 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled>
+                        @($"{l10n["lblFallProtection"]} {PaddingProtection}")
+                    </MudSlider>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@ResetDialog Class="px-10">
+            @l10n["btnReset"]
+        </MudButton>
+        <MudSpacer />
+        <MudButton Variant=Variant.Outlined Color=Color.Primary OnClick=@CancelDialog Class="px-10">
+            @l10n["btnCancel"]
+        </MudButton>
+        <MudButton Variant=Variant.Filled Color=Color.Primary OnClick=@SubmitDialog Class="px-10" ButtonType=ButtonType.Submit>
+            @l10n["btnFall"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    //
+    private int DropHeight { get; set; }
+    private const GroundCondition GroundConditionDefault = GroundCondition.Soil;
+    private GroundCondition? Hardness { get; set; } = GroundConditionDefault;
+    private int ArmourProtection { get; set; } = 0;
+    private int PaddingProtection { get; set; } = 0;
+
+    private int GroundModifier { get; set; } = 0;
+    private int QualityOfJump { get; set; } = -1; // some invalid value below 0 indicates that jump hasn't been checked.
+
+    private string GroundEffect => Math.Sign(GroundModifier) switch
+    {
+        -1 => l10n["txtGroundEffectBetter"],
+        0  => l10n["txtGroundEffectNeutral"],
+        +1 => l10n["txtGroundEffectWorse"],
+        _  => l10n["txtGroundEffectUnknown"]
+    };
+
+
+     /*
+    * 
+    */
+    /// <inheritdoc />
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+    }
+
+
+    /// <summary>
+    /// Respond to `Ok`
+    /// </summary>
+    private void SubmitDialog()
+    {
+        (int, int, int, int, int) Result = (DropHeight, GroundModifier, QualityOfJump, ArmourProtection, PaddingProtection);
+        MudDialog.Close(DialogResult.Ok(Result));
+    }
+
+    /// <summary>
+    /// Respond to `Cancel`
+    /// </summary>
+    private void CancelDialog()
+    {
+        MudDialog.Close(DialogResult.Cancel());
+    }
+
+    private void ResetDialog()
+    {
+        Hardness = GroundConditionDefault;
+        GroundModifier = 0;
+        ArmourProtection = 0;
+        PaddingProtection = 0;
+        DropHeight = 0;
+    }
+
+
+     /*
+    * 
+    */
+    /// <summary>
+    /// 
+    /// </summary>
+    private void OnJump() // TODO: move the selection of the skill to the model
+    {
+        SkillsDTO s = Hero.GetSkills().FirstOrDefault(s => s.Id == ChrAttrId.SkillBodyControl);
+        var cnv = Array.ConvertAll(Hero.GetSkillAbilities(s.Id), new System.Converter<AbilityDTO, ICharacterAttributDTO>((a) => (AbilityDTO)a));
+        var ActiveCheck = RollHandler.OpenRollCheck(new Check(s.Domain), s, new CheckContextViMo(), cnv);
+        QualityOfJump = Int32.Parse(ActiveCheck.Classification);
+    }
+
+
+    /*
+    * GROUND MODIFIER
+     */
+
+    private void GroundModChanged(int groundModifier)
+    {
+        if (groundModifier == 0)
+        {
+            Hardness = GroundConditionDefault;
+        }
+        else
+        {
+            if (GetHardnessMod(Hardness) != groundModifier)
+            {
+                Hardness = null;
+            }
+        }
+        GroundModifier = groundModifier;
+    }
+
+
+    private int GetHardnessMod(GroundCondition? New) => (int)(New ?? GroundConditionDefault);
+
+
+    private void SetHardness(GroundCondition? New)
+    {
+        GroundModChanged(GetHardnessMod(New));
+        Hardness = New;
+    }
+}

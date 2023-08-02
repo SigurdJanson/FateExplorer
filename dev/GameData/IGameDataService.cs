@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using FateExplorer.Shared;
+using System.Threading.Tasks;
 
 namespace FateExplorer.GameData
 {
@@ -10,7 +11,7 @@ namespace FateExplorer.GameData
 
         DisAdvantagesDB DisAdvantages { get; }
 
-        public BotchEntry GetSkillBotch(SkillDomain domain, int DiceEyes);
+        public BotchEntry GetSkillBotch(Check.Skill domain, int DiceEyes);
 
         public BotchEntry GetAttackBotch(CombatBranch technique, int DiceEyes);
 
@@ -45,6 +46,8 @@ namespace FateExplorer.GameData
         public CurrenciesDB Currencies { get; }
 
         public CalendarDB Calendar { get; }
+
+        PraiseOrInsultDB PraiseOrInsult { get; }
 
         public Task InitializeGameDataAsync();
     }

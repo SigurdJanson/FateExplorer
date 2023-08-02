@@ -1,204 +1,207 @@
 ﻿using System;
 
-namespace FateExplorer.RollLogic
+namespace FateExplorer.RollLogic;
+
+
+public class RollSuccess
 {
+    private const int Min = 1, Max = 20;
+    private const int DefaultBotchThreshold = Max;
 
-    public class RollSuccess
+    public int BotchThreshold { get; set; }
+
+    /// <summary>
+    /// Cosntructor
+    /// </summary>
+    public RollSuccess()
     {
-        protected const int Min = 1, Max = 20;
-        protected const int DefaultBotchThreshold = Max;
+        BotchThreshold = DefaultBotchThreshold;
+        PrimaryLevel = Level.na;
+        ConfirmationLevel = Level.na;
+    }
 
-        public int BotchThreshold { get; set; }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="botchThreshold">
+    /// Some checks require a botch threshold aother that ">= 20". Set it here if needed.
+    /// </param>
+    public RollSuccess(Level Prim, Level Confirm, int botchThreshold = DefaultBotchThreshold)
+    {
+        PrimaryLevel = Prim;
+        ConfirmationLevel = Confirm;
+        BotchThreshold = botchThreshold;
+    }
 
-        /// <summary>
-        /// Cosntructor
-        /// </summary>
-        public RollSuccess()
-        {
-            BotchThreshold = DefaultBotchThreshold;
+
+    public enum Level
+    {
+        Botch = 20, 
+        PendingBotch = -20,
+        Fail = 11,
+        Success = 9,
+        Critical = 1, 
+        PendingCritical = -1,
+        na = 0
+    }
+
+    public Level PrimaryLevel { get; set; } = Level.na;
+    public Level ConfirmationLevel { get; set; } = Level.na;
+
+    /// <summary>
+    /// The success level according to the current state of the <b>complete</b> check
+    /// </summary>
+    public Level CurrentLevel
+    {
+        get => CheckSuccess(PrimaryLevel, ConfirmationLevel);
+    }
+
+    /// <summary>
+    /// Determines if the current state of the check is pending (botch or critical).
+    /// </summary>
+    public bool IsPending
+    {
+        get => CurrentLevel == Level.PendingBotch || CurrentLevel == Level.PendingCritical;
+    }
+
+    /// <summary>
+    /// Update the status of the success evaluation after a new roll in the series.
+    /// This method works for 1d20 roll checks. 
+    /// </summary>
+    /// <param name="Primary">Primary roll</param>
+    /// <param name="Confirm">Confirmation roll (may be null)</param>
+    /// <param name="Attr">The attribute value to roll against (e.g. COU or AT).</param>
+    public void Update(IRollM Primary, IRollM Confirm, int Attr)
+    {
+        if (Primary is null)
             PrimaryLevel = Level.na;
-            ConfirmationLevel = Level.na;
-        }
+        else 
+            PrimaryLevel = PrimaryD20Success(Primary.OpenRoll[0], Attr);
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="botchThreshold">
-        /// Some checks require a botch threshold aother that ">= 20". Set it here if needed.
-        /// </param>
-        public RollSuccess(Level Prim, Level Confirm, int botchThreshold = DefaultBotchThreshold)
+        if (Confirm is null)
+            ConfirmationLevel = Level.na; 
+        else
+            ConfirmationLevel = D20Success(Confirm.OpenRoll[0], Attr);
+    }
+
+
+
+
+    /// <summary>
+    /// Update the status of the success evaluation after a new roll in the series.
+    /// </summary>
+    /// <param name="Primary"></param>
+    /// <param name="Confirm"></param>
+    public void Update(Level Primary, Level Confirm)
+    {
+        PrimaryLevel = Primary;
+        ConfirmationLevel = Confirm;
+    }
+
+
+
+
+    /// <summary>
+    /// Determines the success of a d20 roll against a crition.
+    /// </summary>
+    /// <param name="Eyes">The result of the roll</param>
+    /// <param name="Attribute">The criterion the roll goes against</param>
+    /// <returns>The result; criticals/botches are given as *pending*</returns>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    private Level PrimaryD20Success(int Eyes, int Attribute)
+    {
+        if (Eyes > Max || Eyes < Min) throw new ArgumentOutOfRangeException(nameof(Eyes));
+        if (Eyes == Min && Attribute >= Min) // if attribute value goes below 1 everything fails
+            return Level.PendingCritical;
+        else if (Eyes >= BotchThreshold)
+            return Level.PendingBotch;
+        else if (Eyes <= Attribute)
+            return Level.Success;
+        else
+            return Level.Fail;
+    }
+
+
+    /// <summary>
+    /// Determines the success of a d20 roll against a crition.
+    /// </summary>
+    /// <param name="Eyes">The result of the roll</param>
+    /// <param name="Attribute">The criterion the roll goes against</param>
+    /// <returns>The result</returns>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    private Level D20Success(int Eyes, int Attribute)
+    {
+        if (Eyes > Max || Eyes < Min) throw new ArgumentOutOfRangeException(nameof(Eyes));
+
+        if (Eyes == Min && Attribute >= Min) // if attribute value goes below 1 everything fails
+            return Level.Critical;
+        else if (Eyes >= BotchThreshold)
+            return Level.Botch;
+        else if (Eyes <= Attribute)
+            return Level.Success;
+        else
+            return Level.Fail;
+    }
+
+
+
+
+    /// <summary>
+    /// Combines two roll results and determines the final success level after the confirmation roll.
+    /// </summary>
+    /// <param name="Primary">Success of the primary roll</param>
+    /// <param name="Confirm">Success of the confirmation roll</param>
+    /// <returns></returns>
+    public static Level CheckSuccess(Level Primary, Level Confirm)
+    {
+        if (Primary == Level.na) return Level.na;
+
+        if (Primary == Level.Critical || Primary == Level.PendingCritical)
         {
-            PrimaryLevel = Prim;
-            ConfirmationLevel = Confirm;
-            BotchThreshold = botchThreshold;
-        }
-
-
-        public enum Level
-        {
-            Botch = 20, 
-            PendingBotch = -20,
-            Fail = 11,
-            Success = 9,
-            Critical = 1, 
-            PendingCritical = -1,
-            na = 0
-        }
-
-        public Level PrimaryLevel { get; set; } = Level.na;
-        public Level ConfirmationLevel { get; set; } = Level.na;
-
-        /// <summary>
-        /// The success level according to the current state of the <b>complete</b> check
-        /// </summary>
-        public Level CurrentLevel
-        {
-            get => CheckSuccess(PrimaryLevel, ConfirmationLevel);
-        }
-
-        /// <summary>
-        /// Determines if the current state of the check is pending (botch or critical).
-        /// </summary>
-        public bool IsPending
-        {
-            get => CurrentLevel == Level.PendingBotch || CurrentLevel == Level.PendingCritical;
-        }
-
-        /// <summary>
-        /// Update the status of the success evaluation after a new roll in the series.
-        /// This method works for 1d20 roll checks. 
-        /// </summary>
-        /// <param name="Primary">Primary roll</param>
-        /// <param name="Confirm">Confirmation roll (may be null)</param>
-        /// <param name="Attr">The attribute value to roll against (e.g. COU or AT).</param>
-        public virtual void Update(IRollM Primary, IRollM Confirm, int Attr)
-        {
-            if (Primary is null)
-                PrimaryLevel = Level.na;
-            else 
-                PrimaryLevel = PrimaryD20Success(Primary.OpenRoll[0], Attr);
-
-            if (Confirm is null)
-                ConfirmationLevel = Level.na; 
-            else
-                ConfirmationLevel = D20Success(Confirm.OpenRoll[0], Attr);
-        }
-
-
-
-
-        /// <summary>
-        /// Update the status of the success evaluation after a new roll in the series.
-        /// </summary>
-        /// <param name="Primary"></param>
-        /// <param name="Confirm"></param>
-        public void Update(Level Primary, Level Confirm)
-        {
-            PrimaryLevel = Primary;
-            ConfirmationLevel = Confirm;
-        }
-
-
-
-
-        /// <summary>
-        /// Determines the success of a d20 roll against a crition.
-        /// </summary>
-        /// <param name="Eyes">The result of the roll</param>
-        /// <param name="Attribute">The criterion the roll goes against</param>
-        /// <returns>The result; criticals/botches are given as *pending*</returns>
-        private Level PrimaryD20Success(int Eyes, int Attribute)
-        {
-            if (Eyes > Max || Eyes < Min) throw new ArgumentOutOfRangeException(nameof(Eyes));
-            if (Eyes == 1)
+            if (Confirm == Level.Botch ||
+                Confirm == Level.Fail)
+                return Level.Success;
+            else if (Confirm == Level.na)
                 return Level.PendingCritical;
-            else if (Eyes >= BotchThreshold)
-                return Level.PendingBotch;
-            else if (Eyes <= Attribute)
-                return Level.Success;
             else
-                return Level.Fail;
-        }
-
-
-        /// <summary>
-        /// Determines the success of a d20 roll against a crition.
-        /// </summary>
-        /// <param name="Eyes">The result of the roll</param>
-        /// <param name="Attribute">The criterion the roll goes against</param>
-        /// <returns>The result</returns>
-        private Level D20Success(int Eyes, int Attribute)
-        {
-            if (Eyes == 1)
                 return Level.Critical;
-            else if (Eyes >= BotchThreshold)
+        }
+        else if (Primary == Level.Botch || Primary == Level.PendingBotch)
+        {
+            if (Confirm == Level.Botch ||
+                Confirm == Level.Fail)
                 return Level.Botch;
-            else if (Eyes <= Attribute)
-                return Level.Success;
+            else if (Confirm == Level.na)
+                return Level.PendingBotch;
             else
                 return Level.Fail;
         }
+        else
+            return Primary;
+    }
 
 
 
-
-        /// <summary>
-        /// Combines two roll results and determines the final success level after the confirmation roll.
-        /// </summary>
-        /// <param name="Primary">Success of the primary roll</param>
-        /// <param name="Confirm">Success of the confirmation roll</param>
-        /// <returns></returns>
-        public static Level CheckSuccess(Level Primary, Level Confirm)
+    /// <summary>
+    /// Combines two roll results and determines the final success level after the confirmation roll.
+    /// Both are rolled against the same criterion.
+    /// </summary>
+    /// <param name="PrimaryEyes">The result of the primary roll</param>
+    /// <param name="ConfirmEyes">The result of the confirmation roll</param>
+    /// <param name="Attribute">The criterion the rolls go against</param>
+    /// <returns></returns>
+    public Level CheckSuccess(int PrimaryEyes, int ConfirmEyes, int Attribute)
+    {
+        Level Confirm;
+        Level Primary = PrimaryD20Success(PrimaryEyes, Attribute);
+        if (Primary == Level.PendingCritical || Primary == Level.PendingBotch)
         {
-            if (Primary == Level.na) return Level.na;
-
-            if (Primary == Level.Critical || Primary == Level.PendingCritical)
-            {
-                if (Confirm == Level.Botch ||
-                    Confirm == Level.Fail)
-                    return Level.Success;
-                else if (Confirm == Level.na)
-                    return Level.PendingCritical;
-                else
-                    return Level.Critical;
-            }
-            else if (Primary == Level.Botch || Primary == Level.PendingBotch)
-            {
-                if (Confirm == Level.Botch ||
-                    Confirm == Level.Fail)
-                    return Level.Botch;
-                else if (Confirm == Level.na)
-                    return Level.PendingBotch;
-                else
-                    return Level.Fail;
-            }
-            else
-                return Primary;
+            Confirm = D20Success(ConfirmEyes, Attribute);
+            return CheckSuccess(Primary, Confirm);
         }
-
-
-
-        /// <summary>
-        /// Combines two roll results and determines the final success level after the confirmation roll.
-        /// Both are rolled against the same criterion.
-        /// </summary>
-        /// <param name="PrimaryEyes">The result of the primary roll</param>
-        /// <param name="ConfirmEyes">The result of the confirmation roll</param>
-        /// <param name="Attribute">The criterion the rolls go against</param>
-        /// <returns></returns>
-        public Level CheckSuccess(int PrimaryEyes, int ConfirmEyes, int Attribute)
+        else
         {
-            Level Confirm;
-            Level Primary = PrimaryD20Success(PrimaryEyes, Attribute);
-            if (Primary == Level.PendingCritical || Primary == Level.PendingBotch)
-            {
-                Confirm = D20Success(ConfirmEyes, Attribute);
-                return CheckSuccess(Primary, Confirm);
-            }
-            else
-            {
-                return Primary;
-            }
+            return Primary;
         }
     }
 }

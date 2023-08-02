@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.Shared;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
@@ -14,11 +15,17 @@ namespace FateExplorer.GameData
         // Inherited properties 
 
         [JsonPropertyName("reach")]
-        public int Reach { get; set; }
+        public WeaponsReach Reach { get; set; }
+
+
+        [JsonPropertyName("shield")]
+        public ShieldSize Shield { get; set; }
 
 
         [JsonPropertyName("isparry")]
         public bool Parry { get; set; }
+
+
 
     }
 }

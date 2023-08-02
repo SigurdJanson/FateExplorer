@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterModel;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 
 namespace FateExplorer.ViewModel
@@ -54,9 +55,11 @@ namespace FateExplorer.ViewModel
 
         public int ParryMod { get => WeaponM.ParryMod; }
 
-        public int Reach { get => WeaponM.Reach; }
+        public WeaponsReach Reach { get => WeaponM.Reach; }
 
         public int[] Range { get => WeaponM.Range; }
+
+        public int LoadTime { get => WeaponM.LoadTime; }
 
         public bool IsImprovised { get => WeaponM.IsImprovised; }
 

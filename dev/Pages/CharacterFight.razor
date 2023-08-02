@@ -5,6 +5,7 @@
 @using FateExplorer.ViewModel
 
 @inject IStringLocalizer<App> l10n
+@inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject AppSettings Config
 @inject ITheHeroViMo Hero
@@ -99,21 +100,19 @@
                 <MudGrid>
                     <MudItem xs=6>
                         <CombatHand 
-                            HeroHands=Hero.Hands Weapon=Hero.Hands.MainWeapon
-                            WhichHand=HandsViMo.Hand.Main BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Main) 
+                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Main
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
-                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true)) 
-                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.MainWeapon, true))
-                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Main)) />
+                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true))
+                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.MainWeapon, true))
+                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
                     </MudItem>
                     <MudItem xs=6>
                         <CombatHand 
-                            HeroHands=Hero.Hands Weapon=Hero.Hands.OffWeapon
-                            WhichHand=HandsViMo.Hand.Off BareHand=Hero.Hands.IsBare(HandsViMo.Hand.Off) 
+                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Off 
                             CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
                             OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false)) 
-                            OnParryCheck=@(() => OnParryCheck(Hero.Hands.OffWeapon, false))
-                            StashWeapon=@(() => Hero.Hands.RemoveWeapon(HandsViMo.Hand.Off)) />
+                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.OffWeapon, false))
+                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Off)) />
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -125,13 +124,16 @@
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
                     @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
+                @BattlegroundButton()
             </MudPaper>
+
+
             <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
                 @if (RollCheckResults is not null && RollCheckResults.Count > 0)
                 {
                     @foreach(var r in RollCheckResults.Reverse())
                     {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons /> @* ShowValueLabel=@l10n["lblAbility"] *@
+                            <RollCheckCard Result=@r AvatarIcon=@GetCheckIcons(r) /> @* ShowValueLabel=@l10n["lblAbility"] *@
                     }
                 }
                 else
@@ -145,21 +147,48 @@
     </MudGrid>
 </MudContainer>
 }
-else
-{
-    <SkeletonNoCharacterData OnCharacterHasLoaded=LoadHeroData />
-}
+
 
 
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
 
-    private readonly string[] CheckIcons = new string[4] { 
-        IconsFE.Botch,
-        Icons.Filled.Elderly, 
-        Icons.Filled.Accessibility, 
-        IconsFE.Success};
+    private readonly string[] CheckIconsMelee = new string[4] { 
+        IconsFE.MeleeBotch, IconsFE.MeleeFail, IconsFE.MeleeSuccess, IconsFE.MeleeCritical
+    };
+    private readonly string[] CheckIconsRanged = new string[4] {
+        IconsFE.RangedBotch, IconsFE.RangedFail, IconsFE.RangedSuccess, IconsFE.RangedCritical
+    };
+    private readonly string[] CheckIconsUnarmed = new string[4] { 
+        IconsFE.UnarmedBotch, IconsFE.UnarmedFail, IconsFE.UnarmedSuccess, IconsFE.UnarmedCritical
+    };
+    private readonly string[] CheckIconsParry = new string[4] {
+        IconsFE.ParryBotch, IconsFE.ParryFail, IconsFE.ParrySuccess, IconsFE.ParryCritical
+    }; 
+    private readonly string[] CheckIconsDodge = new string[4] {
+        IconsFE.DodgeBotch, IconsFE.DodgeFail, IconsFE.DodgeSuccess, IconsFE.DodgeCritical
+    };
+    private readonly string[] DefaultCheckIcons = new string[4] {
+        Icons.Material.Filled.SentimentVeryDissatisfied, Icons.Material.Filled.Elderly, Icons.Material.Filled.Accessibility, IconsFE.Success
+    };
+    private string[] GetCheckIcons(RollCheckResultViMo r)
+    {
+        Check c = r.Check;
+        if (c.IsCombat)
+        {
+            if (c.Is(Check.Combat.Attack))
+            {
+                if (c.Is(CombatBranch.Melee)) return CheckIconsMelee;
+                if (c.Is(CombatBranch.Ranged)) return CheckIconsRanged;
+                if (c.Is(CombatBranch.Unarmed)) return CheckIconsUnarmed;
+            }
+            if (c.Is(Check.Combat.Parry)) return CheckIconsParry;
+        }
+        if (c.Is(Check.Roll.Dodge)) return CheckIconsDodge;
+        return DefaultCheckIcons;
+    }
 
+    private BattlegroundViMo Context { get; set; }
     private RollCheckResultViMo ActiveCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
     private int ModifyValue { get; set; }
@@ -173,10 +202,20 @@ else
     private void GrabWeapon(WeaponViMo weapon, bool MainHand)
     {
         if (MainHand)
+        {
             Hero.Hands.MainWeapon = weapon;
+        }
         else
+        {
             Hero.Hands.OffWeapon = weapon;
+        }
     }
+
+    /// <summary>
+    /// User puts a Weapon away and uses his/her bare hands.
+    /// </summary>
+    /// <param name="Hand">The designated hand</param>
+    private void StashWeapon(HandsViMo.Hand Hand) => Hero.Hands.RemoveWeapon(Hand);
 
 
 
@@ -196,42 +235,35 @@ else
     /// <param name="MainHand">THe hand the character holds the weapon with</param>
     private void OnAttackCheck(Check ActionId, WeaponViMo weapon, bool MainHand)
     {
-        //const string ActionId = ChrAttrId.AT;
-        //Check ActionId = new(Check.Combat.Attack, weapon.CombatTechId);
-
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Hero.Hands, MainHand, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
     /// <summary>
     /// User triggers a combat parry action
     /// </summary>
-    /// <param name="weapon">Wielded weapon for this attack</param>
-    /// <param name="MainHand">THe hand the character holds the weapon with</param>
-    private void OnParryCheck(WeaponViMo weapon, bool MainHand)
+    /// <param name="weapon">Wielded Weapon for this attack</param>
+    /// <param name="MainHand">THe hand the character holds the Weapon with</param>
+    private void OnParryCheck(Check ActionId, WeaponViMo weapon, bool MainHand)
     {
-        //const string ActionId = ChrAttrId.PA;
-        Check ActionId = new(Check.Combat.Parry, weapon.CombatTechId);
-
+        //Check ActionId = new(Check.Combat.Parry, Weapon.CombatTechId);
         try
         {
-            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, weapon, Hero.Hands);
+            ActiveCheck = RollHandler.OpenCombatRollCheck(ActionId, Hero.Hands, MainHand, Context);
         }
         catch (NotImplementedException)
         {
             Snackbar.Add(string.Format(l10n["msgCombatActionMissing"], ActionId, weapon.Name), Severity.Error);
             return;
         }
-        ActiveCheck.CheckModifier.Set(ModifyValue);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -243,8 +275,7 @@ else
     private void OnDodgeCheck(CharacterAttrDTO dodge)
     {
         bool Barehands = Hero.Hands.IsBare(HandsViMo.Hand.Main) && Hero.Hands.IsBare(HandsViMo.Hand.Off);
-        ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, !Barehands);
-        ActiveCheck.CheckModifier.Set(ModifyValue);
+        ActiveCheck = RollHandler.OpenDodgeRollCheck(new Check(Check.Roll.Dodge), dodge, Context, !Barehands);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
@@ -255,15 +286,41 @@ else
     /// <param name="initiative"></param>
     private void OnInitiativeCheck(CharacterAttrDTO initiative)
     {
-        ActiveCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Initiative), initiative);
+        ActiveCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Initiative), initiative, Context);
         RollCheckResults.Enqueue(ActiveCheck);
     }
 
 
+    /// <summary>
+    /// Responds to setting the free modifier.
+    /// </summary>
+    /// <param name="NewValue">A user-defined additive modifier</param>
     private void OnModChanged(int NewValue)
     {
         ModifyValue = NewValue;
-        ActiveCheck?.CheckModifier.Set(ModifyValue);    
+        Context.FreeModifier = ModifyValue;
+    }
+
+    /// <summary>
+    /// Opens a <see cref="DlgCombatMods">Combat Modifier Dialog</see>
+    /// </summary>
+    private async Task OnSetupBattleground()
+    {
+        var parameters = new DialogParameters { 
+            ["Hands"] = Hero.Hands, 
+            ["Hero"] = Hero.Name, 
+            ["Battleground"] = Context 
+        };
+        //DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+
+        var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            Context.Apply = true;
+            //----Hero.Money = (decimal)result.Data;
+        }
     }
 
 
@@ -275,13 +332,19 @@ else
         }
     }
 
+
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         if (RollCheckResults is null)
             RollCheckResults = new(4);
         LoadHeroData();
+        Context ??= new();
     }
+
+
+
 
 
 
@@ -303,7 +366,8 @@ else
                 &#x2694; @l10n["abbrvAttack"] @(Weapon.BaseAtSkill)
                 &#x1f6e1; @l10n["abbrvParry"] @(Weapon.BasePaSkill)
                 &#x27B9; @(Weapon.DamageDieCount)@l10n["abbrvDie"]@Weapon.DamageDieSides + @Weapon.DamageBonus
-                </span>;
+            </span>
+    ;
     }
 
 
@@ -315,6 +379,34 @@ else
         else
             return 3;
     }
+
+
+    private RenderFragment BattlegroundButton()
+    {
+        if (Context.Apply)
+        {
+            string PlusMinus = "±";
+            return
+                @<MudTooltip Text=@l10n["lblCombatModBtn"]>
+                <MudBadge Content=PlusMinus Dot=false Color=Color.Info Overlap=true Bordered=true Class="mx-6 my-4">
+                    <MudIconButton OnClick=OnSetupBattleground aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
+                       Icon=@Icons.Material.Filled.Tune
+                       Variant=Variant.Filled Color=Color.Primary Size=Size.Small />
+                </MudBadge>
+                </MudTooltip>;
+        }
+        else
+        {
+            return
+                @<MudTooltip Text=@l10n["lblCombatModBtn"]>
+                    <MudIconButton OnClick=OnSetupBattleground aria-label=@l10n["lblCombatModBtn"] aria-haspopup="dialog"
+                           Icon=@Icons.Material.Filled.Tune Class="mx-6 my-4"
+                           Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                </MudTooltip>;
+        }
+    }
+
+
 
     #endregion
 

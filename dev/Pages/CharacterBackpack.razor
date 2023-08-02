@@ -1,0 +1,168 @@
+﻿@page "/backpack"
+
+@using FateExplorer.ViewModel;
+@using FateExplorer.Components
+
+@inject IStringLocalizer<App> l10n
+@inject IDialogService DialogService
+@inject ITheHeroViMo Hero
+
+
+@if (Hero.HasBorn)
+{
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
+    <MudGrid>
+        <MudItem xs=4 Class="mb-3">
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudGrid>
+                    <MudItem xs=4 Class="mb-3">
+                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
+                            <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
+                                <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Info />
+                            </MudTooltip>
+                            @if (Hero.CarriedWeight > Hero.WhatCanCarry)
+                            {
+                                <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
+                                    <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Error />
+                                </MudTooltip>
+                            }
+                        </MudField>
+                    </MudItem>
+
+                    <MudItem xs=4 Class="mb-3">
+                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.FormatMoney()
+                            <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
+                                           Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
+                        </MudField>
+                    </MudItem>
+
+                    <MudItem xs=4 Class="mb-3">
+                        <MudField Label=@l10n["lblAssetValue"] Variant=Variant.Text DisableUnderLine=true>
+                            @Hero.AssetValue.ToString("N2") @l10n["abbrSilverthaler"] @*TODO: Use `Money.Format(...)` here*@
+                        </MudField>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+
+
+            <MudPaper Elevation=0 Outlined=true Class="pa-4">
+                <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
+                <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
+                              AdornmentIcon=@Icons.Material.Filled.Search
+                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true />
+                <MudList Clickable=true>
+                    @foreach(var i in Hero.GetBelongings())
+                    {
+                        @if (i.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                        <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
+                            <MudText Typo=Typo.body1 GutterBottom=false>
+                                <MudHighlighter Text=@i.Name HighlightedText=@SearchTerm 
+                                    Class="mud-primary-text fe-searchhighlight"/> [<span>@i.Amount</span>]
+                            </MudText>
+                            <MudText Typo=Typo.body2 GutterBottom=false>
+                                <span>@i.Weight Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] @i.Price @l10n["abbrSilverthaler"]</span>
+                            </MudText>
+                        </MudListItem>
+                        }
+                    }
+                    <MudListItem Icon=@IconsFE.Flail Text=@l10n["lblWeapon"] InitiallyExpanded=false>
+                        <NestedList>
+                            @foreach (var w in Hero.Weapons)
+                            {
+                            @if (!w.IsImprovised)
+                            {
+                            @if (w.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                            <MudListItem Icon=@CombatBranchIcon(w.Branch) IconColor=Color.Dark>
+                                <MudText Typo=Typo.body1 GutterBottom=false>
+                                    <MudHighlighter Text=@w.Name HighlightedText=@SearchTerm
+                                            Class="mud-primary-text fe-searchhighlight" /> [1]
+                                </MudText>
+                                @*<MudText Typo=Typo.body2 GutterBottom=false>
+                                    <span>??? Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] ??? @l10n["abbrSilverthaler"]</span>
+                                </MudText>*@
+                            </MudListItem>
+                            }
+                            }
+                            }
+                        </NestedList>
+                    </MudListItem>
+                </MudList>
+            </MudPaper>
+         </MudItem>
+    </MudGrid>
+</MudContainer>
+}
+
+
+@code {
+    private string SearchTerm { get; set; } = "";
+
+
+    /// <summary>
+    ///
+    /// </summary>
+    private async Task OnEditMoney()
+    {
+        var parameters = new DialogParameters { ["Amount"] = Hero.Money };
+        DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+
+        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            Hero.Money = (decimal)result.Data;
+        }
+    }
+
+
+    /*
+    * RENDERING
+    */
+    private string GroupIcon(GroupId Group) => Group switch
+    {
+        GroupId.iAlchimica => IconsFE.PestleMortar,
+        GroupId.iAmmunition => IconsFE.Ammunition,
+        GroupId.iAnimal => IconsFE.AnimalGoat,
+        GroupId.iAnimalSupplies => IconsFE.HorseShoe,
+        GroupId.iArmor => IconsFE.ArmourLamellar,
+        GroupId.iBandagesNRemedies => IconsFE.Bandages,
+        GroupId.iBooks => IconsFE.Book,
+        GroupId.iBurglarTools => IconsFE.BurglarTools,
+        GroupId.iCeremonialObjects => IconsFE.SunSceptre,
+        GroupId.iClothing => IconsFE.Shirt,
+        GroupId.iContainers => IconsFE.Chest,
+        GroupId.iFinestoneNGems => IconsFE.Gem,
+        GroupId.iHerbs => IconsFE.HerbsReed,
+        GroupId.iJewellery => IconsFE.Jewellery,
+        GroupId.iLights => IconsFE.Torch,
+        GroupId.iMagicalArtefacts => IconsFE.MagicArtefact,
+        GroupId.iMelee => IconsFE.Sword,
+        GroupId.iMusicalInstruments => IconsFE.Flute,
+        GroupId.iOrientation => IconsFE.Telescope,
+        GroupId.iPoisons => IconsFE.PotionMadness,
+        GroupId.iRangedWeapon => IconsFE.Ulisses,
+        GroupId.iRopesNChains => IconsFE.Chain,
+        GroupId.iSacredTools => IconsFE.SunSceptre,
+        GroupId.iStationary => IconsFE.Stationary,
+        GroupId.iStimulantsNLuxury => IconsFE.Shisha,
+        GroupId.iTools => IconsFE.Tools,
+        GroupId.iTransport => IconsFE.Transport,
+        GroupId.iTravelNTools => IconsFE.TreasureMap,
+        GroupId.iWeaponAccessories => IconsFE.WeaponAccessoires,
+        _ => throw new NotImplementedException()
+    };
+
+    private string CombatBranchIcon(CombatBranch Group) => Group switch
+    {
+        CombatBranch.Unarmed => IconsFE.BrassKnuckles,
+        CombatBranch.Ranged => IconsFE.Ammunition,
+        CombatBranch.Shield => IconsFE.D6_1,
+        CombatBranch.Melee => IconsFE.Sword,
+        _ => throw new NotImplementedException()
+    };
+    }

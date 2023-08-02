@@ -32,7 +32,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Abilities">Abilities needed to check that skill</param>
         /// <param name="Modifier">The check's modifier</param>
         /// <returns>true if the routine check can be performed; otherwise false</returns>
-        bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        bool CanRoutineSkillCheck(SkillsDTO Skill, AbilityDTO[] Abilities, Modifier Mod);
 
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FateExplorer.ViewModel
         /// <param name="Abilities">Abilities needed to check that skill</param>
         /// <param name="Modifier">The check's modifier</param>
         /// <returns>true if the routine check can be performed; otherwise false</returns>
-        RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, int Modifier = 0);
+        RollCheckResultViMo OpenRoutineSkillCheck(Check AttrId, SkillsDTO Skill, AbilityDTO[] Abilities, CheckContextViMo Context);
 
 
 
@@ -55,7 +55,7 @@ namespace FateExplorer.ViewModel
         /// <param name="RollAttr">Additional ability or skill values needed to 
         /// perform the roll (a skill roll e.g. needs 3 abilities)</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO AttrData, ICharacterAttributDTO[] RollAttr = null);
+        RollCheckResultViMo OpenRollCheck(Check AttrId, ICharacterAttributDTO TargetAttr, ICheckContextViMo Context, ICharacterAttributDTO[] RollAttr = null);
 
 
         /// <summary>
@@ -65,8 +65,9 @@ namespace FateExplorer.ViewModel
         /// <param name="actionId">String distinguising a type of combat action, i.e. attack or parry</param>
         /// <param name="weapon">The weapon to be used for the action</param>
         /// <param name="Hands">The Hands object of the character.</param>
+        /// <param name="Context">The battle ground (or other situation spec) where the action takes place</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenCombatRollCheck(Check actionId, WeaponViMo weapon, HandsViMo Hands);
+        RollCheckResultViMo OpenCombatRollCheck(Check actionId, HandsViMo heroHands, bool UseMainHand, BattlegroundViMo Context);
 
 
         /// <summary>
@@ -75,8 +76,9 @@ namespace FateExplorer.ViewModel
         /// </summary>
         /// <param name="AttrId">The attribute id</param>
         /// <param name="TargetAttr">The skill or ability to be used</param>
+        /// <param name="Context">The battle ground (or other situation spec) where the action takes place</param>
         /// <param name="CarriesWeapon">Does the character carry a weapon?.</param>
         /// <returns>The result object of the roll check</returns>
-        RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, bool CarriesWeapon);
+        RollCheckResultViMo OpenDodgeRollCheck(Check AttrId, CharacterAttrDTO TargetAttr, BattlegroundViMo Context, bool CarriesWeapon);
     }
 }

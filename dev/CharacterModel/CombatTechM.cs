@@ -10,7 +10,7 @@ namespace FateExplorer.CharacterModel
         public const int DefaultSkillValue = 6;
         public const string Unarmed = "CT_9";
 
-        private ICharacterM Hero;
+        private readonly ICharacterM Hero;
 
         public CombatTechM(CombatTechDbEntry gameData, int value, ICharacterM hero)
         {
@@ -106,7 +106,7 @@ namespace FateExplorer.CharacterModel
         /// <summary>
         /// Get the characters maximum value of the primary ability
         /// </summary>
-        /// <returns>Value</returns>
+        /// <returns>Ability value</returns>
         protected int GetPrimaryAbilityValue()
         {
             int PrimaryAbility = 0;

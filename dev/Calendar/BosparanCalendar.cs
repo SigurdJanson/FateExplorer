@@ -19,7 +19,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
 
-	protected const int DaysInYear = 365;
+    protected const int DaysInYear = 365;
 	protected const int DaysInMonth = 30;
 	protected const int NamelessDays = 5;
 	protected const int MonthsInYear = 13;
@@ -93,7 +93,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 
 
 	public override int GetMonth(DateTime time)
-			{
+	{
 		// Needed to determine leap years
 		GregorianCalendar EarthCalendar = new();
 
@@ -107,7 +107,7 @@ public class BosparanCalendar : System.Globalization.Calendar
 	/// <inheritdoc/>
 	/// <remarks>The Karmakortheon is included in the previous era. At the moment 
 	/// the class assumes that we always play in the 11th age.</remarks>
-	public override int GetEra(DateTime time) => 11;
+	public override int GetEra(DateTime time) => 11; //TODO: GetEra and CurrentEra
 
 	public override int GetDayOfMonth(DateTime time)
 			{
@@ -269,13 +269,14 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 
-
-	/// <summary>
-	/// Get icons by moon phase
-	/// </summary>
-	/// <returns>0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
-	/// 9 is half, 11 the phase before new moon</returns>
-	public int GetMoonPhase(DateTime time)
+    //0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
+    // 9 is half, 11 the phase before new moon
+    /// <summary>
+    /// Computes the position in the moon cycle given a date.
+    /// </summary>
+    /// <returns>0 is the first day of the moon cycle (new moon; dead Mada). 
+	/// 14 is the middle of the cycle (full moon; wheel). 27 is the cycle's end.</returns>
+    public int GetMoonCycle(DateTime time)
     {
 		// the 14.04.2022 on Earth; in Aventuria it's the 17th (16! with 1. index == 0) day of the moon phase
 		DateTime Reference = new(2022, 4, 14);

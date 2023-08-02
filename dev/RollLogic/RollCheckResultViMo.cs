@@ -19,6 +19,7 @@ namespace FateExplorer.RollLogic
 
 
         // CHECK ///////////////////////////////
+        #region Check
 
         /// <summary>
         /// Describing name
@@ -29,18 +30,10 @@ namespace FateExplorer.RollLogic
             private set => RollCheck.Name = value;
         }
 
-
-
         /// <summary>
-        /// The sum of the modifiers put into the roll.
+        /// Identify the check underlying this result.
         /// </summary>
-        public ICheckModifierM CheckModifier
-        {
-            get => RollCheck.CheckModifier;
-            set => RollCheck.CheckModifier = value;
-        }
-
-
+        public Check Check => RollCheck.WhichCheck;
 
         /// <summary>
         /// Success level of the complete check
@@ -53,9 +46,9 @@ namespace FateExplorer.RollLogic
 
         /// <summary>
         /// Get the summarized additive modifier after it has been applied to the
-        /// roll. See <seealso cref="ICheckModifierM.Total"/>.
+        /// roll.
         /// </summary>
-        public int SummarizedModifier => RollCheck?.CheckModifier?.Total ?? 0;
+        public Modifier SummarizedModifier => RollCheck?.RollModifier(RollType.Primary) ?? Modifier.Neutral;
 
 
         /// <summary>
@@ -82,11 +75,16 @@ namespace FateExplorer.RollLogic
         public int Remainder { get => RollCheck.Remainder; }
 
 
+        /// <inheritdoc cref="CheckBaseM.ClassificationDescr"/>
         public string ClassificationDescr => RollCheck.ClassificationDescr;
+
+        /// <inheritdoc cref="CheckBaseM.ClassificationLabel"/>
         public string ClassificationLabel => RollCheck.ClassificationLabel;
 
+        /// <inheritdoc cref="CheckBaseM.Classification"/>
         public string Classification => RollCheck.Classification;
 
+        #endregion /////////////////////
 
 
         // ROLLS ///////////////////////
@@ -158,12 +156,13 @@ namespace FateExplorer.RollLogic
             IRollM CurrentRoll = RollCheck.GetRoll(Which, ForceRoll);
             if (CurrentRoll is null)
                 return null;
+            int[] Delta = { RollCheck.ModDelta };
 
             RollResultViMo Result = new(RollCheck.Id, CurrentRoll.Sides, FreeDiceCupViMo.CupType.None)
             {
                 RollResult = CurrentRoll.OpenRoll,
                 SuccessLevel = RollCheck.SuccessOfRoll(Which),
-                Modifier = RollCheck.CheckModifier.LastEffectiveApply,
+                Modifier = Delta,
                 CombinedResult = CurrentRoll.OpenRollCombined(),
                 RollAgainst = RollCheck.RollAttr
             };

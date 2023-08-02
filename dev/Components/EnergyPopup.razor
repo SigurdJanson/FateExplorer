@@ -13,7 +13,7 @@
             Class="px-6 pt-4">
 
 <div class="d-flex flex-row">
-    <MudSpacer/><MudIconButton Icon=@Icons.Filled.Close OnClick=Close />
+    <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=Close />
 </div>
 
 <MudContainer>
@@ -28,18 +28,22 @@
         <MudItem xs=9 Class="mb-2">
             <MudText>@l10n["lblRegenerate6Hours"]</MudText>
             <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
-                <MudIconButton Icon=@Icons.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
+                <MudIconButton Icon=@Icons.Material.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudTooltip Text=@l10n["msgRegenerationSite.Default"]>
-                <MudIconButton Icon=@Icons.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
+                <MudIconButton Icon=@Icons.Material.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
             <MudTooltip Text=@l10n["msgRegenerationSite.Poor"]>
-                <MudIconButton Icon=@Icons.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
+                <MudIconButton Icon=@Icons.Material.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
                     Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
             </MudTooltip>
-            <MudButton OnClick=@OpenDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
+            <MudButton OnClick=@OpenRegenerateDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
+
+           <MudTooltip Text=@l10n["btnFallDamage"]>
+                <MudIconButton Icon=@IconsFE.Falldown OnClick=@OpenFallDialog Variant=Variant.Outlined Class="ml-4" />
+            </MudTooltip>
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -75,6 +79,9 @@
     }
 
 
+    /// <summary>
+    /// Close the popup
+    /// </summary>
     private void Close()
     {
         IsOpen = false;
@@ -146,7 +153,7 @@
     };
 
 
-    private async Task OpenDialog()
+    private async Task OpenRegenerateDialog()
     {
         var parameters = new DialogParameters();
         List<string> tbd = new();
@@ -158,7 +165,7 @@
         var dialog = DialogService.Show<RegenerationDialog>("", parameters, dialogOptions);
         var result = await dialog.Result;
 
-        if (!result.Cancelled)
+        if (!result.Canceled)
         {
             (RegenerationSite, RegenerationDisturbance, bool, int[]) Settings;
             Settings = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
@@ -180,4 +187,55 @@
         }
     }
 
+
+    /// <summary>
+    /// Shows a dialog window for the user to specify fall damage.
+    /// </summary>
+    /// <returns></returns>
+    private async Task OpenFallDialog()
+    {
+        var parameters = new DialogParameters();
+
+        var dialog = DialogService.Show<DlgFallDamage>("", parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            (int height, int groundMod, int JumpQl, int armourMod, int paddingMod) Settings;
+            Settings = ((int, int, int, int, int))result.Data;
+
+            string Message = "Internal Error";
+            if (Settings.height > 0)
+            {
+                foreach (var e in Energies)
+                {
+                    var Result = e.FallDamage(Settings.height, Settings.groundMod, Settings.JumpQl, Settings.armourMod, Settings.paddingMod);
+                    if (Result is null) continue;
+
+                    if (Result.CombinedResult > 0)
+                    {
+                        string Sign = Math.Sign(Result.Modifier[0]) switch
+                        {
+                            -1 => " + ", +1 => " - ", _ => string.Empty // revert the sign
+                        };
+                        string Value = Result.Modifier[0] == 0 ? "" : Math.Abs(Result.Modifier[0]).ToString();
+                        Message = String.Format(l10n["msgFallDamageCaused"], Result.RollResult.Length, Sign, Value, Result.CombinedResult);
+                    }
+                    else
+                    {
+                        Message = String.Format(l10n["msgNoFallDamage"], e.ShortName);
+                    }
+                }
+            }
+            else
+            {
+                Message = l10n["msgNoFallHeight"];
+            }
+            Snackbar.Add(Message, Severity.Info, config =>
+            {
+                config.SnackbarVariant = Variant.Outlined;
+            });
+            await EnergiesChanged.InvokeAsync(Energies);
+        }
+    }
 }

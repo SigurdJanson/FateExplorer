@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FateExplorer.Shared;
+using System.Text.Json.Serialization;
 
 namespace FateExplorer.GameData
 {
@@ -15,7 +16,7 @@ namespace FateExplorer.GameData
         // Inherited properties
 
         [JsonIgnore]
-        public override SkillDomain Domain { get => SkillDomain.Basic; }
+        public override Check.Skill Domain { get => Check.Skill.Skill; }
 
 
         // TODO: no URLs in file

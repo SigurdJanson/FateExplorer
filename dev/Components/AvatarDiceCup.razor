@@ -10,4 +10,6 @@
     [Parameter] public int[] DieSides { get; set; }
 
     [Parameter] public string Class { get; set; }
+
+    protected override bool ShouldRender() => false; // no re-rendering after initialization
 }

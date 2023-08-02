@@ -27,7 +27,7 @@ namespace UnitTests.CharacterModel
                 DamageDieCount = 1,
                 DamageDieSides = 6,
                 DamageBonus = 1,
-                Reach = 1,
+                Reach = WeaponsReach.Short,
                 Branch = CombatBranch.Melee,
                 IsParry = false,
                 IsRanged = false,
@@ -97,15 +97,17 @@ namespace UnitTests.CharacterModel
         {
             get
             {
-                Dictionary<string, int> Result = new();
-                Result.Add(AbilityM.COU, 11);
-                Result.Add(AbilityM.SGC, 10);
-                Result.Add(AbilityM.INT, 15);
-                Result.Add(AbilityM.CHA, 13);
-                Result.Add(AbilityM.DEX, 14);
-                Result.Add(AbilityM.AGI, 15);
-                Result.Add(AbilityM.CON, 11);
-                Result.Add(AbilityM.STR, 11);
+                Dictionary<string, int> Result = new()
+                {
+                    { AbilityM.COU, 11 },
+                    { AbilityM.SGC, 10 },
+                    { AbilityM.INT, 15 },
+                    { AbilityM.CHA, 13 },
+                    { AbilityM.DEX, 14 },
+                    { AbilityM.AGI, 15 },
+                    { AbilityM.CON, 11 },
+                    { AbilityM.STR, 11 }
+                };
                 return Result;
             }
         }

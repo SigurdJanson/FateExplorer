@@ -10,9 +10,12 @@ namespace FateExplorer.RollLogic
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/combat/parry";
 
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Combat.Parry, CombatTech, CombatTechType);
+
 
         /// <inheritdoc />
-        /// <remarks>In this context it is the skill value.</remarks>
+        /// <remarks>In this context it is the parry skill value.</remarks>
         public override int? TargetAttr { get; protected set; }
 
         /// <inheritdoc />
@@ -31,6 +34,20 @@ namespace FateExplorer.RollLogic
 
         // COMBAT SPECIFIC PROPERTIES
         /// <summary>
+        /// The wielded weapon int this check
+        /// </summary>
+        public WeaponM Weapon { get; protected set; }
+        /// <summary>
+        /// The weapon carried in the other hand 
+        /// </summary>
+        public WeaponM OtherWeapon { get; protected set; }
+
+        /// <summary>
+        /// The combat technique
+        /// </summary>
+        public string CombatTech { get; protected set; }
+
+        /// <summary>
         /// The kind of combat technique behind the weapon
         /// </summary>
         public CombatBranch CombatTechType { get; protected set; }
@@ -45,22 +62,21 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="weapon">The weapon to parry with</param>
-        /// <param name="mainHand">Does the character carry this weapon in the main hand (true) or off (false)?</param>
-        /// <param name="otherWeapon">The weapon in the other hand</param>
-        /// <param name="modifier">A modifier to be applied to the roll check</param>
+        /// <param name="context">A context for the roll check determining the modifier</param>
         /// <param name="gameData">Access to the data base</param>
-        public ParryCheckM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData)
-            : base(gameData)
+        public ParryCheckM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
+            : base(context, gameData)
         {
+            Weapon = weapon; // the Weapon to use
+            OtherWeapon = otherWeapon;
             // inherited properties
+            //Context = context; //Already assigned through base
+            Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = weapon.CombatTechId;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
-            RollAttr[0] = weapon.PaSkill(mainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
+            RollAttr[0] = weapon.PaSkill(isMainHand, otherWeapon.Branch, otherWeapon.IsParry, otherWeapon.ParryMod);
             RollAttrName[0] = ResourceId.ParryLabelId;
             Name = weapon.Name;
 
@@ -70,6 +86,7 @@ namespace FateExplorer.RollLogic
 
             // specialised properties
             CombatTechType = weapon.Branch;
+            CombatTech = weapon.CombatTechId;
             IsImprovised = weapon.IsImprovised;
 
             RollList = new();
@@ -82,7 +99,10 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon));
 
         /// <inheritdoc />
         protected override void Dispose(bool disposedStatus)
@@ -91,7 +111,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -163,9 +183,22 @@ namespace FateExplorer.RollLogic
             get => throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon);
+
+
         // inherited: public override bool NeedsBotchEffect
 
 
+
+        /// <summary>
+        /// Needs a roll to determine the damage caused by a combat roll. By default 
+        /// this is false.
+        /// </summary>
+        public override bool NeedsDamage
+        {
+            get => false;
+        }
 
 
         // ROLL /////////////////////////////////
@@ -196,12 +229,15 @@ namespace FateExplorer.RollLogic
                 RollType.Primary => new D20Roll(),
                 RollType.Confirm => NeedsConfirmation ? new D20Roll() : null,
                 RollType.Botch => NeedsBotchEffect ? new BotchEffectRoll() : null,
-                _ => throw new ArgumentException("Ability rolls only support primary and confirmation rolls")
+                _ => throw new ArgumentException("Combat rolls support primary, confirmation, and botch rolls")
             };
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon));
 
             return roll;
         }
@@ -219,20 +255,22 @@ namespace FateExplorer.RollLogic
 
 
         /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Combat.Parry, CombatTech), Weapon),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+
+        /// <inheritdoc/>
         /// <remarks>Not needed at the moment for combat rolls</remarks>
         public override int[] RollRemainder(RollType Which)
         {
             throw new NotImplementedException();
         }
 
-
-        /// <summary>
-        /// Needs a roll to determine the damage caused by a combat roll. By default 
-        /// this is false.
-        /// </summary>
-        public override bool NeedsDamage
-        {
-            get => false;
-        }
     }
 }

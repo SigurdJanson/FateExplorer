@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 
 namespace FateExplorer.CharacterModel
 {
@@ -24,14 +25,19 @@ namespace FateExplorer.CharacterModel
             {
                 ModifyAgainst = Arcane.ModAgainst;
                 Tradition = new string[1] { Arcane.Property.ToString() };
-                Domain = gameData.Domain;
+                Domain = Arcane.Domain;
             }
             else if (gameData is KarmaSkillDbEntry Karma)
             {
                 ModifyAgainst = Karma.ModAgainst;
                 Tradition = Karma.Tradition.Clone() as string[];
-                Domain = gameData.Domain;
+                Domain = Karma.Domain;
+            } 
+            else
+            {
+                Domain = (gameData as SkillDbEntry).Domain;
             }
+            Domain = gameData.Domain;
             //
             Value = value;
         }
@@ -47,6 +53,12 @@ namespace FateExplorer.CharacterModel
         public string[] Abilities { get; protected set; }
 
         /// <summary>
+        /// The number of modifications a character can use when casting a spell or liturgy.
+        /// </summary>
+        public int Modifications => 
+            (Domain == Check.Skill.Arcane || Domain == Check.Skill.Karma) ?  Value / 4 : 0;
+
+        /// <summary>
         /// Resilience that sets the modifier against which any rolls 
         /// have to be tested.
         /// </summary>
@@ -58,6 +70,6 @@ namespace FateExplorer.CharacterModel
         public string[] Tradition { get; protected set; } // tradition in karmaskills; Category in arcane skills
 
         //
-        public SkillDomain Domain { get; protected set; }
+        public Check.Skill Domain { get; protected set; }
     }
 }

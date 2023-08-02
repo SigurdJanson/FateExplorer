@@ -50,6 +50,12 @@ namespace FateExplorer.CharacterImport
         /// <returns>true/false</returns>
         bool IsBlessed();
 
+        /// <summary>
+        /// Get the base value (not counting dis-/advantages).
+        /// </summary>
+        /// <returns></returns>
+        int GetMovementBaseVal();
+
 
         int CountAbilities();
         IEnumerable<KeyValuePair<string, int>> GetAbilities();
@@ -97,7 +103,7 @@ namespace FateExplorer.CharacterImport
 
         // PROPERTY / BELONGINGS
 
-        double TotalWeightOfBelongings();
+        decimal TotalWeightOfBelongings();
 
         /// <summary>
         /// Get the money the character has in silver thalers

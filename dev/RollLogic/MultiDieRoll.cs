@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System;
 using System.Linq;
 
 namespace FateExplorer.RollLogic
@@ -62,7 +63,7 @@ namespace FateExplorer.RollLogic
         }
 
         /// <inheritdoc/>
-        public int OpenRollCombined()
+        public virtual int OpenRollCombined()
         {
             return OpenRoll.Aggregate(AggregateFunc);
         }
@@ -77,7 +78,7 @@ namespace FateExplorer.RollLogic
         {
             get
             {
-                if (modifiedBy == null) modifiedBy = new int[Sides.Length];
+                modifiedBy ??= new int[Sides.Length];
                 return modifiedBy;
             }
             protected set => modifiedBy = value;

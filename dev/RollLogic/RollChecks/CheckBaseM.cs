@@ -13,9 +13,10 @@ namespace FateExplorer.RollLogic
         /// Constructor
         /// </summary>
         /// <param name="gameData">Access to the data base with basic game data(injection)</param>
-        protected CheckBaseM(IGameDataService gameData)
+        protected CheckBaseM(ICheckContextM context, IGameDataService gameData)
         {
             GameData = gameData;
+            Context = context;
             Success = new();
         }
 
@@ -33,6 +34,11 @@ namespace FateExplorer.RollLogic
         /// The type of check (string in path format, e.g. "DSA5/0/skill/magic").
         /// </summary>
         public virtual string CheckTypeId { get => checkTypeId.TrimEnd('/'); }
+
+        /// <summary>
+        /// Return a check that identifies it
+        /// </summary>
+        public virtual Check WhichCheck { get; }
 
         /// <summary>
         /// The (character) attribute to be rolled against.
@@ -91,10 +97,20 @@ namespace FateExplorer.RollLogic
 
 
         /// <summary>
-        /// This checks general modifier
+        /// The context in which the check takes place. All properties that may modify the check in any way.
         /// </summary>
-        public ICheckModifierM CheckModifier { get; set; }
+        protected ICheckContextM Context { get; set; }
 
+
+        /// <summary>
+        /// The delta between the original and the effective proficiency value after modifying it.
+        /// </summary>
+        public abstract int ModDelta { get; }
+
+        /// <summary>
+        /// The remaining eyes after evaluating the check
+        /// </summary>
+        public abstract int Remainder { get; }
 
 
         /// <summary>
@@ -108,13 +124,6 @@ namespace FateExplorer.RollLogic
         /// <param name="Roll"></param>
         /// <returns></returns>
         public abstract RollSuccess.Level SuccessOfRoll(RollType Which);
-
-
-
-        /// <summary>
-        /// The remaining eyes after evaluating the check
-        /// </summary>
-        public abstract int Remainder { get; }
 
 
         /// <summary>
@@ -139,6 +148,14 @@ namespace FateExplorer.RollLogic
         /// It needs to be built roll after roll by classes implementing checks.
         /// </summary>
         protected ArrayByEnum<IRollM, RollType> RollList { get; set; }
+
+
+        /// <summary>
+        /// Get the modifier that was applied to the requested roll type..
+        /// </summary>
+        /// <param name="Which">The requested roll type</param>
+        /// <returns>A modifier</returns>
+        public abstract Modifier RollModifier(RollType Which);
 
 
         /// <summary>
@@ -208,11 +225,6 @@ namespace FateExplorer.RollLogic
         /// </summary>
         protected bool IsDisposed = false;
 
-        //public void Free()
-        //{
-        //    if (IsDisposed)
-        //        throw new ObjectDisposedException(GetType().ToString());
-        //}
 
         /// <summary>
         /// Call <c>Dispose()</c> to free resources explicitly.

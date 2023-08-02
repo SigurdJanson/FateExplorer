@@ -39,7 +39,7 @@ namespace UnitTests.CharacterModel
             var dodgeM = this.CreateDodgeM();
 
             // Assert
-            Assert.AreEqual(Expected, dodgeM.Value);
+            Assert.AreEqual(Expected, dodgeM.Effective);
             mockCharacterM.Verify(c => c.GetAbility(It.Is<string>(s => s == AbilityM.AGI)), Times.Once);
         }
 
@@ -63,7 +63,6 @@ namespace UnitTests.CharacterModel
         public void ComputeDodge_Arbosch()
         {
             // Arrange
-            //-var dodgeM = this.CreateDodgeM();
             int EffectiveAgility = HeroArbosch.AbilityValues[AbilityM.AGI];
 
             // Act

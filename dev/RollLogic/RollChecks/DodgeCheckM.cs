@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -8,6 +9,9 @@ namespace FateExplorer.RollLogic
     {
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/dodge";
+
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Roll.Dodge);
 
 
         /// <inheritdoc />
@@ -36,20 +40,22 @@ namespace FateExplorer.RollLogic
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <inheritdoc />
         /// <param name="dodge"></param>
-        /// <param name="modifier"></param>
-        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, ICheckModifierM modifier, IGameDataService gameData)
-            : base(gameData)
+        /// <param name="carriesWeapon">Does the character who dodges carry a weapon? Needed for botch rolls.</param>
+        /// <param name="context"></param>
+        public DodgeCheckM(CharacterAttrDTO dodge, bool carriesWeapon, BattlegroundM context, IGameDataService gameData)
+            : base(context, gameData)
         {
             // inherited properties
+            //Context = context; //Already assigned through base
+            Context.OnStateChanged += UpdateAfterModifierChange;
             AttributeId = dodge.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = dodge.EffectiveValue;
-            RollAttrName[0] = ResourceId.DodgeLabelId;
+            RollAttrName[0] = dodge.Name;
             Name = dodge.Name;
             CarriesWeapon = carriesWeapon;
 
@@ -62,15 +68,18 @@ namespace FateExplorer.RollLogic
         /// Update the check assessment after a modifier update
         /// </summary>
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
-               
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm],
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null));
+
         protected override void Dispose(bool disposedStatus)
         {
             if (!IsDisposed)
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -139,10 +148,10 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
-        public override int Remainder
-        {
-            get => throw new NotImplementedException();
-        }
+        public override int Remainder => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Roll.Dodge), null);
 
 
 
@@ -179,7 +188,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+                Success.Update(
+                    RollList[RollType.Primary],
+                RollList[RollType.Confirm],
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null));
 
             return roll;
         }
@@ -196,6 +208,16 @@ namespace FateExplorer.RollLogic
         }
 
 
+        /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Dodge), null),
+                _ => throw new NotImplementedException()
+            };
+        }
+        
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
         public override int[] RollRemainder(RollType Which)

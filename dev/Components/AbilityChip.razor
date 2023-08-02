@@ -27,4 +27,5 @@
 @code {
     [Parameter] public AbilityDTO Ability { get; set; }
 
+    protected override bool ShouldRender() => false; // no re-rendering after initialization
 }

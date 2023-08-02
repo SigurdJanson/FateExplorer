@@ -1,6 +1,7 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
 using FateExplorer.Shared;
+using System;
 using System.Collections.Generic;
 
 
@@ -17,6 +18,7 @@ namespace FateExplorer.CharacterModel
         public const string TwoHandedCombat = "SA_42";
         public const string TraditionElf = "SA_345";
         public const string Hruruzat = "SA_186";
+        public const string CatchBlade = "SA_52";
     }
 
 
@@ -109,9 +111,12 @@ namespace FateExplorer.CharacterModel
             // DODGE
             try
             {
-                Dodge = new DodgeM(this);
+                Dodge = new DodgeM(this)
+                {
+                    Name = ResourceId.DodgeLabelId // TODO #125: this is a crutch. It should be the already translated string.
+                };
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
+            catch (Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
 
 
             // ENERGIES
@@ -162,6 +167,10 @@ namespace FateExplorer.CharacterModel
             catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
 
 
+            // MOVEMENT
+            Movement = new MovementM(characterImportOptM.GetMovementBaseVal(), this);
+
+
             // BELONGINGS
             try
             {
@@ -176,7 +185,17 @@ namespace FateExplorer.CharacterModel
                     Weapons.Add(w.Id, weaponM);
                 }
             }
-            catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Belonging); }
+            catch (System.Exception e) { throw new ChrImportException("In the weapons", e, ChrImportException.Property.Belonging); }
+
+            try
+            {
+                Belongings = new Dictionary<string, BelongingM>();
+                foreach (var i in characterImportOptM.GetBelongings())
+                {
+                    Belongings.Add(i.Value.Id, i.Value);
+                }
+            }
+            catch (System.Exception e) { throw new ChrImportException("In other belongings", e, ChrImportException.Property.Belonging); }
         }
 
 
@@ -196,19 +215,19 @@ namespace FateExplorer.CharacterModel
         public string SpeciesId { get; protected set; }
 
         /// <inheritdoc />
-        public double CarriedWeight { get; protected set; }
+        public decimal CarriedWeight { get; protected set; }
 
         /// <inheritdoc />
         public decimal Money { get; protected set; }
 
         /// <inheritdoc />
-        public double WhatCanCarry(int EffectiveStrength)
+        public decimal WhatCanCarry(int EffectiveStrength)
         {
             return EffectiveStrength * 2;
         }
 
         /// <inheritdoc />
-        public double WhatCanLift(int EffectiveStrength)
+        public decimal WhatCanLift(int EffectiveStrength)
         {
             return EffectiveStrength * 10;
         }
@@ -224,8 +243,13 @@ namespace FateExplorer.CharacterModel
         public int Initiative
             => GetInitiative(Abilities[AbilityM.COU].Value, Abilities[AbilityM.AGI].Value);
 
+        /// <inheritdoc />
+        public MovementM Movement { get; }
+
+
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
+        public Dictionary<string, BelongingM> Belongings{ get; protected set; }
 
 
         public Dictionary<string, AbilityM> Abilities { get; set; }

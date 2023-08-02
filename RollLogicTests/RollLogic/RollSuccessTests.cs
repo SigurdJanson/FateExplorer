@@ -70,7 +70,7 @@ namespace UnitTests.RollLogic
 
 
         [Test]
-        [TestCase(1, 1, 0, RollSuccess.Level.Critical)]
+        [TestCase(1, 1, 0, RollSuccess.Level.Fail)]
         [TestCase(1, -1, 1, RollSuccess.Level.PendingCritical)]
         [TestCase(1, 2, 1, RollSuccess.Level.Success)]
         [TestCase(10, 20, 10, RollSuccess.Level.Success)] // Confirm should be ignored
@@ -78,6 +78,7 @@ namespace UnitTests.RollLogic
         [TestCase(2, -1, 1, RollSuccess.Level.Fail)]
         [TestCase(2, -1, 2, RollSuccess.Level.Success)]
         [TestCase(2, -1, 3, RollSuccess.Level.Success)]
+        [TestCase(20, 20, 0, RollSuccess.Level.Botch)]
         [TestCase(20, 20, 20, RollSuccess.Level.Botch)]
         [TestCase(19, 20, 19, RollSuccess.Level.Success)]
         [TestCase(20, 19, 19, RollSuccess.Level.Fail)]
@@ -110,9 +111,8 @@ namespace UnitTests.RollLogic
 
 
 
-
         [Test, TestCaseSource(nameof(LevelCombinations))]
-        public void staticCheckSuccess_Combinations(RollSuccess.Level Prim, RollSuccess.Level Conf, RollSuccess.Level expected)
+        public void StaticCheckSuccess_Combinations(RollSuccess.Level Prim, RollSuccess.Level Conf, RollSuccess.Level expected)
         {
             // Arrange
             //var rollSuccess = new RollSuccess();

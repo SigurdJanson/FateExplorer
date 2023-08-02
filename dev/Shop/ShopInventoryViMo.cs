@@ -63,7 +63,7 @@ namespace FateExplorer.Shop
                 (false, false) => Inventory.FindAll(i => (int)i.GroupId == GroupId)
                                            .FindAll(i => i.Name.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
             };
-            if (Selected is null) Selected = new();
+            Selected ??= new();
 
             return Selected;
         }
@@ -76,7 +76,7 @@ namespace FateExplorer.Shop
         public IEnumerable<(int id, string name)> GetGroups()
         {
             List<(int id, string name)> Groups = new();
-            foreach (var g in Enum.GetValues(typeof(ShopItemM.GroupId)))
+            foreach (var g in Enum.GetValues(typeof(GroupId)))
                 Groups.Add(((int)g, l10n[g.ToString()]));
             Groups.Sort((a, b) => a.name.CompareTo(b.name));
 

@@ -60,7 +60,7 @@
         var dialog = DialogService.Show<DlgFreeDiceCup>(l10n[""], options);
         var result = await dialog.Result;
 
-        if (!result.Cancelled)
+        if (!result.Canceled)
         {
             DiceCupViMo NewDiceCup = result.Data as DiceCupViMo;
             if (NewDiceCup is not null)

@@ -11,10 +11,10 @@ public class HruruzatAttackM : AttackCheckM
     public new const string checkTypeId = "DSA5/0/combat/attack/hruruzat";
 
 
-    public HruruzatAttackM(WeaponM weapon, bool mainHand, WeaponM otherWeapon, ICheckModifierM modifier, IGameDataService gameData) 
-        : base(weapon, mainHand, otherWeapon, modifier, gameData)
+    public HruruzatAttackM(WeaponM weapon, WeaponM otherWeapon, bool isMainHand, BattlegroundM context, IGameDataService gameData)
+        : base(weapon, otherWeapon, isMainHand, context, gameData)
     {
-        Name = ResourceId.Hruruzat;
+        Name = ResourceId.Hruruzat; // TODO #125: this is a crutch. It should be the already translated string.
     }
 
 
@@ -43,12 +43,6 @@ public class HruruzatAttackM : AttackCheckM
     {
         get
         {
-            //if (RollList[RollType.Damage] is not null)
-            //{
-            //    string Doublet = (RollList[RollType.Damage] as BestOf2d6).IsDoublet ? " (Pasch)" : "";
-            //    return $"{base.Classification}{Doublet}";
-            //}
-            //else
             return base.Classification;
         }
     }
@@ -73,7 +67,10 @@ public class HruruzatAttackM : AttackCheckM
         RollList[Which] = roll;
 
         if (Which == RollType.Primary || Which == RollType.Confirm)
-            Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
+            Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(RollAttr[0], new Check(Check.Combat.Attack, CombatTech), Weapon));
 
         return roll;
     }

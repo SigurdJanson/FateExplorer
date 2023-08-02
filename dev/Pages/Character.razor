@@ -21,7 +21,7 @@
 
 @if (Hero.HasBorn)
 {
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
     <MudGrid>
         <MudItem xs=12 sm=6 md=5 lg=4>
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
@@ -69,37 +69,12 @@
 
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
-@*                    <MudItem xs=6 Class="mb-3">
-                        <MudField Label=@l10n["lblMovement"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.Movement()
-                        </MudField>
-                    </MudItem>
-*@                    <MudItem xs=6 Class="mb-3">
-                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
-                            <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
-                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Info/>
-                            </MudTooltip>
-                            @if (Hero.CarriedWeight > Hero.WhatCanCarry)
-                            {
-                            <MudTooltip Text=@l10n["msgMaxCarryExceeded"]>
-                                <MudIcon Icon=@Icons.Filled.Info Color=Color.Error />
-                            </MudTooltip>
-                            }
-                        </MudField>
-                    </MudItem>
-
-                    @*<MudItem xs=6 Class="mb-3">
-                        <MudField Label=@l10n["lblBelongings"] Variant=Variant.Text DisableUnderLine=true>
-                            n/a
-                        </MudField>
-                    </MudItem>*@
-                    <MudItem xs=6 Class="mb-3">
-                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
-                            @Hero.FormatMoney() 
-                            <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
-                                Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
-                        </MudField>
+                    <MudItem xs=6 md=4>
+                        <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom>
+                            <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text DisableUnderLine=true>
+                                @Hero.Movement
+                            </MudField>
+                        </MudTooltip>
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -136,9 +111,7 @@
                             @{
                                 @for(int i = 0; i < SpecialAbilities.Count; i++)
                                 {
-                                    @SpecialAbilities[i].Name;
-                                    if (SpecialAbilities[i].Tier > 0) {<span> (@SpecialAbilities[i].Tier)</span>};
-                                    if (i != SpecialAbilities.Count-1) {<span>, </span>};
+                                    @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
                                 }
                             }
                         </ChildContent>
@@ -156,9 +129,7 @@
                             @{
                                 @for(int i = 0; i < Advantages.Count; i++)
                                 {
-                                    @Advantages[i].Name;
-                                    if (Advantages[i].Tier > 0) {<span> (@Advantages[i].Tier)</span>};
-                                    if (i != Advantages.Count-1) {<span>, </span>};
+                                    @Advantage(Advantages[i], i < Advantages.Count - 1, false);
                                 }
                             }
                         </ChildContent>
@@ -176,9 +147,7 @@
                             @{
                                 @for(int i = 0; i < Disadvantages.Count; i++)
                                 {
-                                    @Disadvantages[i].Name;
-                                    if (Disadvantages[i].Tier > 0) {<span> (@Disadvantages[i].Tier)</span>};
-                                    if (i != Disadvantages.Count-1) {<span>, </span>};
+                                    @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
                                 }
                             }
                         </ChildContent>
@@ -191,9 +160,9 @@
         <MudItem xs=12 sm=6 md=7 lg=8>
             <MudPaper Outlined=false Class="pa-2 d-flex justify-space-around">
                 <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
+                <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+                    @l10n["lblModifier"] @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
                 </MudSlider>
             </MudPaper>
             <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
@@ -215,20 +184,18 @@
     </MudGrid>
 </MudContainer>
 }
-else
-{
-<SkeletonNoCharacterData OnCharacterHasLoaded=@OnCharacterHasLoaded/>
-}
+
 
 @code {
     private MudTheme Theme = new MudTheme(); // Grant access to the theme
     private readonly string[] CheckIcons = new string[4] { 
-        IconsFE.Botch, Icons.Filled.Elderly, 
-        Icons.Filled.Accessibility, IconsFE.Success
+        Icons.Material.Filled.SentimentVeryDissatisfied, Icons.Material.Filled.Elderly,
+        Icons.Material.Filled.Accessibility, IconsFE.Success
     };
     private RollCheckResultViMo ActiveAbilityCheck;
     private EueuqMax<RollCheckResultViMo> RollCheckResults { get; set; }
-    private int ModifyValue { get; set; }
+    private CheckContextViMo Context { get; set; }
+
 
     private CalendarViMo Calendar { get; set; }
     private DateTime DateOfBirth { get; set; }
@@ -309,22 +276,6 @@ else
 
 
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private async Task OnEditMoney()
-    {
-        var parameters = new DialogParameters { ["Amount"]=Hero.Money };
-        DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
-
-        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth );
-        var result = await dialog.Result;
-
-        if (!result.Cancelled)
-        {
-            Hero.Money = (decimal)result.Data;
-        }
-    }
 
 
 
@@ -336,6 +287,7 @@ else
         if (RollCheckResults is null)
             RollCheckResults = new(4);
 
+        Context = new();
         CurrentDate.OnChange += OnDateChanged;
         Calendar = new(GameData.Calendar, CurrentDate);
         UpdateDate();
@@ -361,16 +313,14 @@ else
 
     private void OnAbilityCheck(AbilityDTO ability)
     {
-        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, null);
-        ActiveAbilityCheck.CheckModifier.Set(ModifyValue);
+        ActiveAbilityCheck = RollHandler.OpenRollCheck(new Check(Check.Roll.Ability), ability, Context, null);
         RollCheckResults.Enqueue(ActiveAbilityCheck);
     }
 
 
     private void OnModChanged(int NewValue)
     {
-        ModifyValue = NewValue;
-        ActiveAbilityCheck?.CheckModifier.Set(ModifyValue);
+        Context.FreeModifier = NewValue;
         StateHasChanged();
     }
 
@@ -393,6 +343,37 @@ else
         else
             return @<span></span>;
     }
+    
+    MarkupString Advantage(DisAdvantageDTO da, bool hasSuccessor, bool DisAdvantage)
+    {
+        string Tiers = da.Tier > 0 ? $" ({da.Tier})" : string.Empty;
+        string Sep = hasSuccessor ? $", " : string.Empty;
+        if (da.Recognized)
+        {
+            string Attributes = DisAdvantage ? 
+                $" class=\"fe-reco\" title=\"{l10n["txtRecognizedDisdvantage"]}\"" : 
+                $" class=\"fe-reco\" title=\"{l10n["txtRecognizedAdvantage"]}\"";
+            return (MarkupString)$"<span{Attributes}>{da.Name}{Tiers}</span>{Sep}";
+        }
+        else
+        {
+            return (MarkupString)$"<span>{da.Name}{Tiers}</span>{Sep}";
+        }
+    }
 
-
+    MarkupString SpecialAbility(SpecialAbilityDTO sa, bool hasSuccessor)
+    {
+        string Tiers = sa.Tier > 0 ? $" ({sa.Tier})" : string.Empty;
+        string Sep = hasSuccessor ? $", " : string.Empty;
+        if (sa.Recognized)
+        {
+            string Attributes = $" class=\"fe-reco\" title=\"{l10n["txtRecognizedSpecialAbility"]}\"";
+            return (MarkupString)$"<span{Attributes}>{sa.Name}{Tiers}</span>{Sep}";
+        }
+        else
+        {
+            return (MarkupString)$"<span>{sa.Name}{Tiers}</span>{Sep}";
+        }
+    }
 }
+

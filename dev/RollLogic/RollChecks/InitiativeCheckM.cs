@@ -17,6 +17,10 @@ namespace FateExplorer.RollLogic
         public new const string checkTypeId = "DSA5/0/initiative";
 
         /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Roll.Initiative);
+
+
+        /// <inheritdoc />
         /// <remarks>Not used in this context</remarks>
         public override int? TargetAttr { get; protected set; }
 
@@ -39,14 +43,15 @@ namespace FateExplorer.RollLogic
         /// </summary>
         /// <param name="InitiativeVal"></param>
         /// <param name="gameData"></param>
-        public InitiativeCheckM(CharacterAttrDTO Initiative, IGameDataService gameData)
-            : base(gameData)
+        public InitiativeCheckM(CharacterAttrDTO Initiative, BattlegroundM context, IGameDataService gameData)
+            : base(context, gameData)
         {
             // inherited properties
             AttributeId = Initiative.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = new SimpleCheckModifierM(0);
+            //Context = context; //Already assigned through base
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
             RollAttr[0] = Initiative.EffectiveValue;
             RollAttrName[0] = Initiative.Name;
@@ -63,8 +68,17 @@ namespace FateExplorer.RollLogic
         { }
 
         /// <inheritdoc />
-        protected override void Dispose(bool disposedStatus) { }
+        protected override void Dispose(bool disposedStatus)
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                // release unmanaged resources
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
+                if (disposedStatus) {/*Released managed resources*/}
+            }
+        }
 
 
         /// <inheritdoc />
@@ -74,7 +88,7 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc />
         public override string Classification 
-            => $"{RollList[RollType.Primary].OpenRoll[0] + RollAttr[0]}";
+            => $"{RollList[RollType.Primary].OpenRoll[0] + RollAttr[0] + RollModifier(RollType.Primary)}";
 
         /// <inheritdoc />
         public override string ClassificationLabel => RollAttrName[0];
@@ -90,6 +104,10 @@ namespace FateExplorer.RollLogic
         {
             get => throw new NotImplementedException();
         }
+
+        /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(RollAttr[0], new Check(Check.Roll.Initiative), null);
+
 
         /// <inheritdoc/>
         public override bool NeedsBotchEffect
@@ -137,6 +155,17 @@ namespace FateExplorer.RollLogic
         }
 
 
+        /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Initiative), null),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        
         /// <inheritdoc/>
         /// <remarks>Not needed at the moment</remarks>
         public override int[] RollRemainder(RollType Which)

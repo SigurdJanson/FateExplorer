@@ -51,28 +51,6 @@
         </MudGrid>
     </MudCardContent>
 
-@*    <MudCardActions>
-        <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
-            <MudButton OnClick=@(() => ChangeEffValue(-1))>-1</MudButton>
-            <MudMenu Icon=@Icons.Material.Sharp.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(-2)) >-2</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(-3)) >-3</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(-4)) >-4</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(-5)) >-5</MudMenuItem>
-            </MudMenu>
-        </MudButtonGroup>
-        <MudSpacer/>
-        <MudButtonGroup Color=Color.Primary Variant=Variant.Outlined  VerticalAlign=true>
-            <MudButton OnClick=@(() => ChangeEffValue(1))>+1</MudButton>
-            <MudMenu Icon=@Icons.Material.Sharp.ArrowDropDown Direction=Direction.Bottom OffsetY=true FullWidth=true>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(2))>+2</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(3))>+3</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(4))>+4</MudMenuItem>
-                <MudMenuItem OnClick=@(() => ChangeEffValue(5))>+5</MudMenuItem>
-            </MudMenu>
-        </MudButtonGroup>
-    </MudCardActions>*@
-
 </MudCard>
 
 @code {
@@ -167,8 +145,8 @@
         };
         string Aria = Math.Sign(Value) switch
         {
-            -1 => String.Format(l10n["txtEnergyDecrease"], Math.Abs(Value)), //"Reduce by {Math.Abs(Value)}",
-            1 => String.Format(l10n["txtEnergyIncrease"], Math.Abs(Value)), //$"Increase by {Math.Abs(Value)}",
+            -1 => String.Format(l10n["txtEnergyDecrease"], Math.Abs(Value)), //"Reduce by {Math.Abs(Modifier)}",
+            1 => String.Format(l10n["txtEnergyIncrease"], Math.Abs(Value)), //$"Increase by {Math.Abs(Modifier)}",
             _ => throw new Exception("Energy card: Unknown increment/decrement")
         };
         return

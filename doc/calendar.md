@@ -1,5 +1,8 @@
 # Aventurian Dates
 
+## Sources
+http://liebliches-feld.net/wiki/index.php/Jahreskalender_(Fortsetzung)
+
 ## Current Date
 
 Fate Explorer uses the **method of "equal turn of years"**. Many official publications use this method.
@@ -107,42 +110,75 @@ Overview over year conversions:
 </table>
 
 
-### Bosparan's Fall<sup>*</sup>
+## International: Bosparan's Fall<sup>*</sup> (neutral culture)
 
+### Years 
 * Identifier: "# BF" (for positive numbers) and "# v. BF" (negative numbers); English: "# b. BF"
 
-### Hal<sup>*</sup>
+### Weekdays
+```json
+"Windstag", "Erdtag", "Markttag", "Praiostag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ma", "Pr", "Ro", "Fe", "Wa"
+"W", "E", "M", "P", "R", "F", "W"
+```
+
+### Months
+```json
+"Praios", "Rondra", "Efferd", "Travia", "Boron", "Hesinde", "Firun", "Tsa", "Phex", "Peraine", "Ingerimm", "Rahja", "Namenlose Tage"
+"PRA", "RON", "EFF", "TRA", "BOR", "HES", "FIR", "TSA", "PHE", "PER", "ING", "RAH", "NL"
+```
+
+## Mittelreich: Hal<sup>*</sup>
+
+### Years
 
 Hal's calendar counts years differently:
 
 * Conversion: (Hal) + 993 = (BF)
 * Identifier: Hal
 
+### Weekdays
+see Bosparan's Fall
 
-### Andergast & Nostria
+### Months
+see Bosparan's Fall
+
+
+## Andergast & Nostria
 
 The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF + 854
 
-### Arania
+### Weekdays
+see Bosparan's Fall
 
-The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
+### Months
+see Bosparan's Fall
+
+
+
+## Arania
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF - 994
 
+### Weekdays
+see Bosparan's Fall
 
-### Kahet ni Kemi
+### Months
+see Bosparan's Fall
 
-The warring kingdoms count the years with their independence. They share their identifier with other regions honouring their independence using their calendar.
+
+
+## Kahet ni Kemi
 
 * Identifier: #### d.U. (der Unabhängigkeit); in Englisch "#### o.I." (of independence)
 * \# d.U. = \# BF - 996
 
 
-### Horasian Empire
+## Horasian Empire
 
 The Horasian Empire uses both calendars, BF and the reckoning since Horas' Arrival (1491 b. BF ).
 
@@ -150,8 +186,20 @@ The Horasian Empire uses both calendars, BF and the reckoning since Horas' Arriv
 * There is no year 0.
 * Conversion: (Horas) = (BF) + 1492
 
+### Weekdays 
+```json
+"Windstag", "Erdtag", "Horastag", "Praiostag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ho", "Pr", "Ro", "Fe", "Wa"
+"W", "E", "H", "P", "R", "F", "W"
+```
 
-### Al'Anfa<sup>*</sup>
+### Months
+see Bosparan's Fall
+
+
+
+
+## Al'Anfa<sup>*</sup>
 
 Golgaris calendar counts years since the Arrival of Golgari (686 BF). It is used only in the Empire of Al'Anfa
 
@@ -159,12 +207,35 @@ Golgaris calendar counts years since the Arrival of Golgari (686 BF). It is used
 * There is no year 0.
 * Conversion: (GE) = (BF) - 685
 
+### Wochentage
+```json
+"Windstag", "Erdtag", "Markttag", "Borontag", "Rohalstag", "Feuertag", "Wassertag"
+"Wi", "Er", "Ma", "Bo", "Ro", "Fe", "Wa"
+"W", "E", "M", "B", "R", "F", "W"
+```
 
-### Thorwal
+### Monate
+see Bosparan's Fall
+
+
+## Thorwal
 
 \- 
 
-### Maraskan<sup>*</sup>
+### Weekdays
+```json
+"Trondesdag", "Ifirnsdag", "Firunsdag", "Swafnirsdag", "Traviasdag", "Jurgasdag", "Hjaldisdag"
+"Tr", "If", "Fi", "Sw", "Tr", "Ju", "Hj"
+"T", "I", "F", "S", "T", "J", "H"
+```
+
+### Months
+```json
+"Midsonnmond", "Kornmond", "Heimamond", "Schlachtmond", "Sturmmond", "Frostmond", "Grimfrostmond", "Goimond", "Friskenmond", "Eimond", "Faramond", "Vinmond", "Hranngartage"
+```
+
+
+## Maraskan<sup>*</sup>
 
 The essential date for Maraskan is when the god Rur threw the "Disque that is the World" to his brother Gror. That was the 19. Rondra 3822 v. BF when everything began.
 
@@ -176,35 +247,46 @@ The essential date for Maraskan is when the god Rur threw the "Disque that is th
 
 Open questions: what about months and days???
 
-### Jilaskan
-\-
 
 
-### Dwarves
+## Dwarves
 
 The dwarves do not have a systematic way to count years. Among each other they use important events to identify dates, e.g. 3x3 years after the ................ of Grandfather Amaxoschs.
 
-They also use the months from Bosparan time but they use different names for the months:
-* German: Sommermond, Hitzemond, Regenmond, Weinmond, Nebelmond, Dunkelmond, Frostmond, Neugeburt, Marktmond, Saatmond, Feuer- (oder Feier)mond und Brautmond.
-  * English: Summer Moon, Heat Moon, Rain Moon, Wine Moon, Fog Moon, Dark Moon, Frozen Moon, Rebirth, Market Moon, Sewing Moon, Fire (also Feast) Moon, and Bride Moon.
-* The Nameless days are called Dragon days (Drachentage)
 * Conversion: not possible
 
+### Weekdays
+see Bosparan's Fall
 
-### Amazons
+### Months
 
-In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
+Dwarves use use the months from Bosparan time but they use different names for the months:
 
-* Format: vor/nach Kurkum; English: "before/after Kurkum".
-* Conversion: (nach Kurkum) = (BF) - 415
+```json
+"Sommermond", "Hitzemond", "Regenmond", "Weinmond", "Nebelmond", "Dunkelmond", "Frostmond", "Neugeburt", "Marktmond", "Saatmond", "Feuermond", "Brautmond", "Drachentage"
+```
+
+* Instead of "Feuermond" some use "Feiermond"
+* English translation: 
+  * Summer Moon, Heat Moon, Rain Moon, Wine Moon, Fog Moon, Dark Moon, Frozen Moon, Rebirth, Market Moon, Sewing Moon, Fire (also Feast) Moon, and Bride Moon.
+  * The Nameless days are called Dragon days (Drachentage)
 
 
-### E. File
+# L10N["Bornland"]
 
-\-
+## Weekdays
+```json
+"Windstag", "Erdtag", "Markttag", "Borontag", "Schneetag", "Feuertag", "Zinstag"
+"Wi", "Er", "Ma", "Bo", "Sc", "Fe", "Zi"
+"W", "E", "M", "B", "S", "F", "Z"
+```
+
+## Monate
+
+* TODO
 
 
-### Novadic<sup>*</sup>
+## Novadic<sup>*</sup>
 
 * Week days: ########## Zu den novadischen Tagesnamen siehe Wochentag.
 * The year starts with the 23. Boron
@@ -216,17 +298,49 @@ In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
 * Conversion: (n. d. O.) = (BF) - 759
 * There is no year 0.
 
-### L10N[NORBARDEN]
+
+
+## Black Lands (Schwarze Lande)
+
+### Months
+
+```json
+"Blakharaz", "Belhalhar", "Charyptoroth", "Lolgramoth", "Thargunitoth", "Amazeroth", "Belshirash", "Asfaloth", "Tasfarelel", "Belzhorash", "Agrimoth", "Belkelel", "Namenlose Tage"
+```
+
+
+## Amazons
+
+In the Kingdoms of the AMazons they celebrate the completion of Castle Kurkum.
+
+* Format: vor/nach Kurkum; English: "before/after Kurkum".
+* Conversion: (nach Kurkum) = (BF) - 415
+
+
+
+## Jilaskan
+\-
+
+
+
+
+## E. File
 
 \-
 
-### Orcs
+
+
+## L10N[NORBARDEN]
+
 \-
 
-### L10N[GJALSKER]
+## Orcs
 \-
 
-### L10N[SAURIAN/LIZARDS]
+## L10N[GJALSKER]
+\-
+
+## L10N[SAURIAN/LIZARDS]
 
 * A week ("wss") has 5 days (day = "ggg"): Sz'G, Drs'G, Gzht'G, Lhn'G, Rsz'G (in this order).
 * A month ("ffn") has 33 days.
@@ -243,6 +357,10 @@ The date  1. Praios 1000 BF is the 18. Tag of 219. month in the section of the D
 Dating this back to the first day of the Saurian calendar should be: 14. Rahja 50217 v. BF.
 
 
+
+<!-- ****************************************************************** */ -->
+------------------------------------------------------------------------------
+<!-- ****************************************************************** */ -->
 # Holidays
 
 Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
@@ -251,6 +369,8 @@ Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 ## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
+| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+Many holidays found in the "Regionalspielhilfen"
 
 
 **Template**
@@ -262,7 +382,7 @@ Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 * Nameless Days, "Storm Time Warring Kingdoms", "Prayers to Elida, a saint of Efferd, especially in coastal regions and Salta"
 * Anfang Phex Greifenpassrennen zur Öffnung des Passes; der erste Händler, der Gratenfels  erreicht, ist für das Jahr von Markt- und Wegzöllen befreit.
 * Mitte Phex - Albenhuser Fassfest
-
+* 
 
 **? Translation of Twergenhus**
 
@@ -273,48 +393,44 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 
 
 
-## Floating Holidays (not in Data Base)
+## Floating Holidays
 
 | Holiday  | When? | Descr |
 |---|---|---|
 | Madatag (Madaday) | PRA, 1st Earthday | Von vielen Zauberkundigen gefeiert. Zauberer gedenken Mada. Häufig wird der Tanz der Mada getanzt, Häufig kommt es zu Auseinandersetzungen mit den gleichzeitig stattfindenden Praiosfeierlichkeiten. |
-| Großes Turnier in Gareth | PRA, Starts at 1st Praiosday; 8 days | |
 | Koschtaler Bierfest | TRA, 1st Marketday | Koschtaler Bierfest; beliebtes Volksfest mit Märkten, Auktionen und vor allem Bier |
-| Wahl der Fischkönigin | EFF, first new moon | 
-| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
-| Horse Market in Teshkal | ING, 1. full moon |  |
 | Festumer Warenschau | TRA und ING, starts with 1. Marketday, lasts 1 week | |
 | Purgatoria | TRA, last Praiosday |  |
 | Warenschau und große Sklavenauktion | BOR ab dem 2. Boronstag vier Tage lang |  |
 | Avestag | PHE, last Windsday | Avestag, guter Tag für die erste große Schiffsreise nach dem Winter, Begrüßung der zurückkehrenden Zugvögel |
 |	Aves-Rennen, Gareth | PER 2. Windsday | |
-| Election of the Fisher Queen, Nostria | EFF, 1st New Moon | by the Stone of Nosteria |
-| Day of Andra’s Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
 | Big Cattle Market, Andergast | PER, 1st Week | |
-| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
 | Elenviner Ross- und Wagenmarkt, Elenvina | PHE, 1. Windsday | |
 | Tolles Treiben, Angbar | PHE, 1st Marketday | Blumengeschmücktes Vieh wird durch die Gassen getrieben |
 | Elenviner Handelshallenausstellung, Elenvina | PHE, 2. Marketday |  |
+| Wahl der Fischkönigin, Nostria (Election of the Fisher Queen) | EFF, first new moon | by the Stone of Nosteria |
+| Bukenbrinn | ING, 1. full moon | Verehrung und Feier Sumus. Man hält Wacht gegen böse Geister und sucht die Druiden auf. |
+| Horse Market in Teshkal | ING, 1. full moon |  |
+| Day of Andra's Sacrifice, Andergast | TSA, 1st full moon | Memorial Day in honor of Andrafall |
 
 
-| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
+## Floating Holidays (not in Data Base)
 
-* Great Trade Fair of Festum - first week of Ingerimm
+| Herzogenturnier, Elenvina | TRA 10.-11., alle sechs Jahre | |
+
 * Oxen Market of Baliho (18th-22nd)
 * | Immanmeisterschaften | TRA Ab 2. Rohalstag zwei Wochen lang | |
 * | Regatta der Sieben Winde auf den Zyklopeninseln | PER letzter Windstag | |
 * PER Mitte	Viehmarkt in Andergast (UdW S. 145)		Andergast
-
-{"month": 11, "day":  ???, "duration": 7,  "name": "Warenschau, Festum"},
-{"month": 11, "day":  ???, "duration": 7,  "name": "Trade Fair, Festum"},
-
 * PER 1. Woche - Gratenfelser Schützenfest, alle drei Jahre
-
+* Markttag im Phex, der auf den 1. Tag eines Monatsfünftels fällt: Horas’ Entrückung. Feiertag im Horasreich.
 
 
 ## Possible Local Additions
 
 * TRA 30. "Nacht der Ahnen (AGF Seite 84), Havena", "Nacht auf den 1. Boron" - ***Das Totenfest ist bereits berücksichtigt, hat aber eine besondere Bedeutung in Havena***.
+* https://de.wiki-aventurica.de/wiki/Andrafaller_Holzf%C3%A4llerspiele
+* http://wiki.nordmarken.de/bin/view/Nordmarken/NordmaerkerFeste
 
 
 ## Requirements for Floating Holidays
@@ -331,6 +447,11 @@ PHE 22.-24. "Twergenhausener Metallwarenmesse"
 * Fixed day but only once every N years; reference year required (e.g. Gratenfelser Schützenfest)
 
 
+
+
+<!-- ****************************************************************** */ -->
+------------------------------------------------------------------------------
+<!-- ****************************************************************** */ -->
 ## Questions
 
 * Can local customs for country-wide be handled?

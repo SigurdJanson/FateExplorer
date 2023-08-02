@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using FateExplorer.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -42,7 +42,7 @@ namespace FateExplorer.Shop
         public string WeightStr { get; protected set; }
 
 
-        public ShopItemM.GroupId GroupId => ItemM.Group;
+        public GroupId GroupId => ItemM.Group;
 
         string group;
         /// <summary>

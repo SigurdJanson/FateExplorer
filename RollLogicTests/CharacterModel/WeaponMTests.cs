@@ -282,9 +282,9 @@ namespace UnitTests.CharacterModel
 
 
 
-        // The wooden shield has a attack penalty of -4.
+        // The wooden shield has an attack penalty of -4.
         // Additional -2 for two-handed combat without special ability
-        // ONly parrying does not suffer from the off-hand penalty. So here additional -4 must be added.
+        // Only parrying does not suffer from the off-hand penalty. So here additional -4 must be added.
         [Test]
         [TestCase(TestHeroes.Grassberger, 14-4-4, CombatBranch.Unarmed)]
         [TestCase(TestHeroes.Grassberger, 14-4-4-2, CombatBranch.Melee)]

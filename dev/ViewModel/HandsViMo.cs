@@ -78,7 +78,7 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// The off hand weapon. Cannot hold two-handed weapons.
         /// <br/>
-        /// Prefer <see cref="RemoveWeapon(Hand)" over setting this to null./>
+        /// Prefer <see cref="RemoveWeapon(Hand)"/> over setting this to null.
         /// </summary>
         public WeaponViMo OffWeapon
         {

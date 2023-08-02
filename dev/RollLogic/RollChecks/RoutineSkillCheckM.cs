@@ -2,6 +2,7 @@
 using FateExplorer.Shared;
 using System;
 
+
 namespace FateExplorer.RollLogic;
 
 // Ignores RollList
@@ -10,10 +11,14 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <inheritdoc />
     public new const string checkTypeId = "DSA5/0/skill/routine";
 
+    /// <inheritdoc />
+    public override Check WhichCheck => new(Domain, true);
+
+
     /// <summary>
     /// The domain of the skill
     /// </summary>
-    public SkillDomain Domain { get; protected set; }
+    public Check.Skill Domain { get; protected set; }
 
 
     /// <inheritdoc />
@@ -33,16 +38,21 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <remarks>In this context the ability values</remarks>
     public override string[] RollAttrName { get; protected set; }
 
+    /// <summary>
+    /// Currently active modifier that applies to the check
+    /// </summary>
+    protected Modifier EffectiveMod { get; set; }
+
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="skill">The skill to check</param>
     /// <param name="ability">The abilities needed for the check</param>
-    /// <param name="modifier">An optional modifier (may be <c>null</c>).</param>
+    /// <param name="modificator">An optional modificator (may be <c>null</c>).</param>
     /// <param name="gameData">Access to the game data base</param>
-    public RoutineSkillCheckM(SkillsDTO skill, AbilityDTO[] ability, ICheckModifierM modifier, IGameDataService gameData) 
-        : base(gameData)
+    public RoutineSkillCheckM(SkillsDTO skill, AbilityDTO[] ability, BaseContextM context, IGameDataService gameData) 
+        : base(context, gameData)
     {
         RollAttr = new int[3];
         RollAttrName = new string[3];
@@ -51,8 +61,8 @@ public class RoutineSkillCheckM : CheckBaseM
             RollAttr[a] = ability[a].EffectiveValue;
             RollAttrName[a] = ability[a].ShortName;
         }
-        CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-        CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+        //Context = context; // already assigned through base
+        Context.OnStateChanged += UpdateAfterModifierChange;
 
         TargetAttr = skill.EffectiveValue;
         TargetAttrName = skill.Name;
@@ -60,6 +70,7 @@ public class RoutineSkillCheckM : CheckBaseM
         Name = skill.Name;
         AttributeId = skill.Id;
         Domain = skill.Domain;
+        EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
 
         RollList = new();
         GetRoll(RollType.Primary, AutoRoll: true);
@@ -67,15 +78,16 @@ public class RoutineSkillCheckM : CheckBaseM
 
 
     /// <summary>
-    /// Update the check assessment after a modifier update
+    /// Update the check assessment after a modificator update
     /// </summary>
     public override void UpdateAfterModifierChange()
     {
-        // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-        //--- => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(RollAttr[0]));
-        //////////////////var s = ComputeSuccess(RollList[RollType.Primary].OpenRoll, CheckModifier.Apply(RollAttr), TargetAttr ?? 0, 0);
-        int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
-        RollSuccess.Level Level = QualityLevel > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
+        EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
+        if (EffectiveMod.Operator != Modifier.Op.Add) throw new NotImplementedException(); // to be safe
+
+        int Remainder = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
+        //int QualityLevel = RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod);
+        RollSuccess.Level Level = Remainder > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
 
         Success.Update(Level, Level);
     }
@@ -87,7 +99,7 @@ public class RoutineSkillCheckM : CheckBaseM
         {
             IsDisposed = true;
             // release unmanaged resources
-            CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+            Context.OnStateChanged -= UpdateAfterModifierChange;
 
             if (disposedStatus) {/*Released managed resources*/}
         }
@@ -100,14 +112,14 @@ public class RoutineSkillCheckM : CheckBaseM
     /// </summary>
     /// <param name="Skill">The skill to be used</param>
     /// <param name="Abilities">The abilities needed to check that skill</param>
-    /// <param name="Modifier">The checks modifier</param>
+    /// <param name="Mod">The checks modificator</param>
     /// <returns>
     /// Quality level achieved by the routine check. A zero indicates that the skill 
-    /// does not support a routine check for the given modifier.
+    /// does not support a routine check for the given modificator.
     /// </returns>
-    public static int RoutineSkillCheck(int SkillValue, int[] Abilities, int Modifier = 0)
+    public static int RoutineSkillCheck(int SkillValue, int[] Abilities, Modifier Mod)
     {
-        int RemainingSkillPoints = RoutineSkillCheckRemainder(SkillValue, Abilities, Modifier);
+        int RemainingSkillPoints = RoutineSkillCheckRemainder(SkillValue, Abilities, Mod);
         return SkillCheckM.ComputeSkillQuality(RemainingSkillPoints);
     }
 
@@ -118,17 +130,17 @@ public class RoutineSkillCheckM : CheckBaseM
     /// </summary>
     /// <param name="Skill">The skill to be used</param>
     /// <param name="Abilities">The abilities needed to check that skill</param>
-    /// <param name="Modifier">The checks modifier</param>
+    /// <param name="Mod">The checks modificator</param>
     /// <returns>
     /// The remaining skill points.
     /// </returns>
-    public static int RoutineSkillCheckRemainder(int SkillValue, int[] Abilities, int Modifier = 0)
+    public static int RoutineSkillCheckRemainder(int SkillValue, int[] Abilities, Modifier Mod)
     {
         foreach (var Ability in Abilities)
             if (Ability < 13)
                 return 0;
 
-        bool SufficientSkill = (SkillValue > 0) && (SkillValue >= (-Modifier + 4) * 3 - 2);
+        bool SufficientSkill = (SkillValue > 0) && (SkillValue >= (-Mod.Delta(SkillValue) + 4) * 3 - 2);
         if (!SufficientSkill)
             return 0;
         else
@@ -144,17 +156,29 @@ public class RoutineSkillCheckM : CheckBaseM
 
     // ROLLS  ////////////////////////
 
-    public override bool NeedsBotchEffect
+    /// <inheritdoc/>
+    public override bool NeedsBotchEffect => false;
+
+    /// <inheritdoc/>
+    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
+
+    /// <inheritdoc/>
+    /// <remarks>Not needed here</remarks>
+    public override int ModDelta
     {
-        get => false;
+        get
+        {
+            EffectiveMod = Context.GetTotalMod(RollAttr[0], new Check(Domain, true), null);
+            return (int)EffectiveMod;
+        }
     }
 
 
-    public override int Remainder => RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+    public override string ClassificationLabel => 
+        Success.CurrentLevel == RollSuccess.Level.Success ? "QL" : null;
 
-    public override string ClassificationLabel => "QL";
-
-    public override string Classification => RoutineSkillCheck(TargetAttr ?? 0, RollAttr, CheckModifier.Total).ToString();
+    public override string Classification =>
+        Success.CurrentLevel == RollSuccess.Level.Success ? RoutineSkillCheck(TargetAttr ?? 0, RollAttr, EffectiveMod).ToString() : null;
 
     public override string ClassificationDescr => null;
 
@@ -165,9 +189,21 @@ public class RoutineSkillCheckM : CheckBaseM
     /// <remarks>Not implemented</remarks>
     public override RollSuccess.Level SuccessOfRoll(RollType Which)
     {
-        int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+        int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
         return RemainingSkillPoints > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
     }
+
+
+    /// <inheritdoc/>
+    public override Modifier RollModifier(RollType Which)
+    {
+        return Which switch
+        {
+            RollType.Primary => EffectiveMod,
+            _ => throw new NotImplementedException()
+        };
+    }
+
 
     /// <inheritdoc/>
     /// <remarks>Not implemented</remarks>
@@ -194,7 +230,7 @@ public class RoutineSkillCheckM : CheckBaseM
             if (Which == RollType.Primary)
             {
                 // NOTE: skill rolls cannot use the logic of RollSuccess which is made for a simple 1d20
-                int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, CheckModifier.Total);
+                int RemainingSkillPoints = RoutineSkillCheckRemainder(TargetAttr ?? 0, RollAttr, EffectiveMod);
                 RollSuccess.Level s = RemainingSkillPoints > 0 ? RollSuccess.Level.Success : RollSuccess.Level.Fail;
                 Success.Update(s, s);
             }

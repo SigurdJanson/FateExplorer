@@ -1,14 +1,29 @@
-﻿@inject IStringLocalizer<App> l10n
+﻿@using FateExplorer.ViewModel;
 
-<MudNavMenu>
-    <MudNavGroup Title="@l10n["naviCharacter"]" Expanded="true">
-        <MudNavLink Href="/overview">@l10n["naviCharacter"]</MudNavLink>
+@implements IDisposable
+
+@inject NavigationManager Navigation
+@inject IStringLocalizer<App> l10n
+@inject ITheHeroViMo Hero
+
+<MudNavMenu Bordered=true>
+    @if (Hero.HasBorn)
+    {
+    <MudNavGroup Title=@l10n["naviCharacter"] Expanded=true>
+        <MudNavLink Href=@CharacterOverviewPage>@l10n["naviCharacter"]</MudNavLink>
         <MudNavLink Href="/act">@l10n["naviAct"]</MudNavLink>
         <MudNavLink Href="/fight">@l10n["naviFight"]</MudNavLink>
+        <MudNavLink Href="/backpack">@l10n["naviBackpack"]</MudNavLink>
     </MudNavGroup>
+    }
+    else
+    {
+      <MudNavLink Href="/">@l10n["naviCharacter"]</MudNavLink>
+    }
     <MudNavLink Href="/freedice">@l10n["naviFreeDice"]</MudNavLink>
     <MudDivider />
     <MudNavLink Href="/shop">@l10n["naviShop"]</MudNavLink>
+    <MudNavLink Href="/inn">@l10n["naviInn"]</MudNavLink>
     <MudDivider />
     <MudNavLink Href="/settings">@l10n["naviSettings"]</MudNavLink>
     <MudNavLink Href="/about">@l10n["naviAbout"]</MudNavLink>
@@ -16,3 +31,33 @@
     <MudNavLink Href="/servers">Servers</MudNavLink>
     <MudNavLink Href="/counter">Testing</MudNavLink>*@
 </MudNavMenu>
+
+
+@code{
+private string CharacterOverviewPage = "/overview";
+private bool LastStateOfHasBorn;
+
+
+private void OnReBirth()
+{
+    if (Hero.HasBorn != LastStateOfHasBorn)
+    {
+        LastStateOfHasBorn = Hero.HasBorn;
+        StateHasChanged();
+        Navigation.NavigateTo(CharacterOverviewPage);
+    }
+}
+
+
+protected override void OnInitialized()
+{
+    LastStateOfHasBorn = Hero.HasBorn;
+    Hero.OnChange += OnReBirth;
+}
+
+public void Dispose()
+{
+    Hero.OnChange -= OnReBirth;
+}
+
+}

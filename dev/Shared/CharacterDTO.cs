@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FateExplorer.Shared
+﻿namespace FateExplorer.Shared
 {
     public interface ICharacterAttributDTO
     {
@@ -97,6 +95,11 @@ namespace FateExplorer.Shared
         /// The level of the special ability
         /// </summary>
         public int Tier { get; set; }
+
+        /// <summary>
+        /// Does FateExplorer recognize and handle the (dis-) advantage automatically?
+        /// </summary>
+        public bool Recognized { get; set; }
     }
 
 
@@ -114,7 +117,13 @@ namespace FateExplorer.Shared
         /// The level of the special ability
         /// </summary>
         public int Tier { get; set; }
+
+        /// <summary>
+        /// Does FateExplorer recognize and handle the (dis-) advantage automatically?
+        /// </summary>
+        public bool Recognized { get; set; }
     }
+
 
     /// <summary>
     /// DTO for a special ability of languages
@@ -158,9 +167,14 @@ namespace FateExplorer.Shared
         public int EffectiveValue { get; set; }
 
         /// <summary>
+        /// The number of modifications a character can use when casting a spell or liturgy.
+        /// </summary>
+        public int Modifications { get; set; }
+
+        /// <summary>
         /// Specifies what domain the skill is from (mundane, arcane or divine).
         /// </summary>
-        public SkillDomain Domain;
+        public Check.Skill Domain;
     }
 
 
@@ -191,8 +205,9 @@ namespace FateExplorer.Shared
     public struct WeaponDTO
     {
         /// <summary>
-        /// An object id (for the optolith it's the template id).
+        /// An object id. Just some identifier specific to the character's belongings.
         /// </summary>
+        /// <remarks>Not a universal data base or shop id.</remarks>
         public string Id { get; set; }
 
         /// <summary>
@@ -251,9 +266,21 @@ namespace FateExplorer.Shared
         public int[] Range { get; set; }
 
         /// <summary>
-        ///  Reach of melee weapon
+        /// All ranged weapons must be prepared prior to making an attack. 
+        /// Reload time represents the number of actions required to prepare the weapon 
+        /// for making an attack.
         /// </summary>
-        public int Reach { get; set; }
+        public int LoadTime { get; set; }
+
+        /// <summary>
+        ///  Reach (i.e. the length) of a close combat weapon.
+        /// </summary>
+        public WeaponsReach Reach { get; set; }
+
+        /// <summary>
+        /// Size of the shield (shields only)
+        /// </summary>
+        public ShieldSize Shield { get; set; }
     }
 
 

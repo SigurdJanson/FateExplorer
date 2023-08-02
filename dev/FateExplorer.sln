@@ -14,7 +14,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBlazorClientSideStorage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibClientSideStorage", "..\LibClientSideStorage\LibClientSideStorage.csproj", "{D165FF3A-B5DB-4373-8406-FF85948DB864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITests", "..\UITests\UITests.csproj", "{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests", "..\UITests\UITests.csproj", "{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AFE7A82-5971-4B0B-A322-4C11C9BF05B4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aventuria", "..\Aventuria\Aventuria.csproj", "{1E26641B-5437-452C-B90E-2A479895E252}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +49,17 @@ Global
 		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CFF3C0-320B-43C4-9AA0-AB82FDFDBA25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E26641B-5437-452C-B90E-2A479895E252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E26641B-5437-452C-B90E-2A479895E252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E26641B-5437-452C-B90E-2A479895E252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E26641B-5437-452C-B90E-2A479895E252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = en-GB
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"@l10n\\[\\s*\"\"$Key\"\"\\s*\\]","Extensions":".razor","IsCaseSensitive":true,"SingleLineComment":""}]}
 		SolutionGuid = {28D09E00-4F4B-4482-ACEF-645FE1B9B65D}
+		RESX_NeutralResourcesLanguage = en-GB
 	EndGlobalSection
 EndGlobal

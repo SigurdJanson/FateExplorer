@@ -105,7 +105,7 @@ namespace FateExplorer.Shop
                 Min = 0,
                 Max = 20,
                 Name = "Commerce (Haggle)", 
-                Domain = SkillDomain.Basic
+                Domain = Check.Skill.Skill
             };
 
             // Create set of abilities
@@ -133,7 +133,7 @@ namespace FateExplorer.Shop
             }
 
             // Roll check
-            var CheckResult = new SkillCheckM(skill, ability, null, GameData);
+            var CheckResult = new SkillCheckM(skill, ability, new BaseContextM() { FreeModifier = 0 }, GameData);
             HaggleQL = SkillCheckM.ComputeSkillQuality(CheckResult.Remainder);
             return HaggleQL;
         }

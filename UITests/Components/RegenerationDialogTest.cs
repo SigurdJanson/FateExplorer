@@ -5,6 +5,7 @@ using AngleSharp.Dom;
 using Bunit;
 using Moq;
 using FateExplorer.Components;
+using FateExplorer.Shared;
 
 namespace FateExplorer.UITests.Components;
 
@@ -105,7 +106,7 @@ public class RegenerationDialogTest : BUnitTestBase
         // ASSERT ===
         comp.Find("button[type=submit]").Click();
         var result = await dlgReference!.Result;
-        Assert.That(result.Cancelled, Is.False);
+        Assert.That(result.Canceled, Is.False);
 
         var DlgResult = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
         Assert.Multiple(() =>
@@ -160,7 +161,7 @@ public class RegenerationDialogTest : BUnitTestBase
         // ASSERT ===
         comp.Find("button[type=submit]").Click();
         var result = await dlgReference!.Result;
-        Assert.That(result.Cancelled, Is.False);
+        Assert.That(result.Canceled, Is.False);
 
         var DlgResult = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
         Assert.Multiple(() =>

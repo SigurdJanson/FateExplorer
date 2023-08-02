@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FateExplorer.Shared
 {
-    /// <summary>An array indexed by an Enum</summary>
+    /// <summary>An array containing objects of type T indexed by an enum U.</summary>
     /// <typeparam name="T">Type stored in array</typeparam>
     /// <typeparam name="U">Indexer Enum type</typeparam>
     /// <remarks>With regards to <seealso href="https://stackoverflow.com/a/50969107/13241545"/></remarks>

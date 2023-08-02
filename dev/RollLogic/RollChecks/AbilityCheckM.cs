@@ -1,4 +1,5 @@
-﻿using FateExplorer.GameData;
+﻿using FateExplorer.CharacterModel;
+using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
 
@@ -8,6 +9,9 @@ namespace FateExplorer.RollLogic
     {
         /// <inheritdoc />
         public new const string checkTypeId = "DSA5/0/ability";
+
+        /// <inheritdoc />
+        public override Check WhichCheck => new(Check.Roll.Ability);
 
 
         /// <inheritdoc />
@@ -41,15 +45,15 @@ namespace FateExplorer.RollLogic
         /// <param name="ability"></param>
         /// <param name="modifier"></param>
         /// <param name="gameData"></param>
-        public AbilityCheckM(AbilityDTO ability, ICheckModifierM modifier, IGameDataService gameData)
-            :base(gameData)
+        public AbilityCheckM(AbilityDTO ability, ICheckContextM context, IGameDataService gameData)
+            :base(context, gameData)
         {
             // inherited properties
             AttributeId = ability.Id;
             RollAttr = new int[1];
             RollAttrName = new string[1];
-            CheckModifier = modifier ?? new SimpleCheckModifierM(0);
-            CheckModifier.OnStateChanged += UpdateAfterModifierChange;
+            //Context = context; //Already assigned through base
+            Context.OnStateChanged += UpdateAfterModifierChange;
 
             AbilityValue = ability.EffectiveValue; // implicitely sets `this.Attribute` 
             RollAttrName[0] = ability.Name;
@@ -62,7 +66,10 @@ namespace FateExplorer.RollLogic
 
         /// <inheritdoc />
         public override void UpdateAfterModifierChange()
-            => Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(AbilityValue));
+            => Success.Update(
+                RollList[RollType.Primary], 
+                RollList[RollType.Confirm], 
+                Context.ApplyTotalMod(AbilityValue, new Check(Check.Roll.Ability), null));
 
 
         /// <inheritdoc />
@@ -72,7 +79,7 @@ namespace FateExplorer.RollLogic
             {
                 IsDisposed = true;
                 // release unmanaged resources
-                CheckModifier.OnStateChanged -= UpdateAfterModifierChange;
+                Context.OnStateChanged -= UpdateAfterModifierChange;
 
                 if (disposedStatus) {/*Released managed resources*/}
             }
@@ -106,6 +113,10 @@ namespace FateExplorer.RollLogic
         }
 
         /// <inheritdoc/>
+        public override int ModDelta => Context.ModDelta(AbilityValue, new Check(Check.Roll.Ability), null);
+
+
+        /// <inheritdoc/>
         public override bool NeedsBotchEffect
         { get => false; }
 
@@ -137,7 +148,10 @@ namespace FateExplorer.RollLogic
             RollList[Which] = roll;
 
             if (Which == RollType.Primary || Which == RollType.Confirm)
-                Success.Update(RollList[RollType.Primary], RollList[RollType.Confirm], CheckModifier.Apply(AbilityValue));
+                Success.Update(
+                    RollList[RollType.Primary], 
+                    RollList[RollType.Confirm], 
+                    Context.ApplyTotalMod(AbilityValue, new Check(Check.Roll.Ability), null));
 
             return roll;
         }
@@ -150,6 +164,17 @@ namespace FateExplorer.RollLogic
                 RollList[Which] = NextStep(Which);
 
             return RollList[Which];
+        }
+
+
+        /// <inheritdoc/>
+        public override Modifier RollModifier(RollType Which)
+        {
+            return Which switch
+            {
+                RollType.Primary => Context.GetTotalMod(RollAttr[0], new Check(Check.Roll.Ability), null),
+                _ => throw new NotImplementedException()
+            };
         }
 
 

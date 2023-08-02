@@ -29,7 +29,7 @@ namespace UnitTests.CharacterModel
         }
 
 
-        private CombatTechDB MockCombatTechDB()
+        private static CombatTechDB MockCombatTechDB()
         {
             var Result = new CombatTechDB();
             var ResultList = new List<CombatTechDbEntry>();
@@ -41,8 +41,8 @@ namespace UnitTests.CharacterModel
             return Result;
         }
 
-        private CombatTechDbEntry MockUnarmedCombatTechDbEntry()
-            => new CombatTechDbEntry()
+        private static CombatTechDbEntry MockUnarmedCombatTechDbEntry()
+            => new()
             {
                 Id = "CT_9",
                 PrimeAttrID = "ATTR_6/ATTR_8",
@@ -52,10 +52,10 @@ namespace UnitTests.CharacterModel
                 WeaponsBranch = CombatBranch.Unarmed
             };
 
-        private WeaponMeleeDB MockGameDataWeaponMelee()
+        private static WeaponMeleeDB MockGameDataWeaponMelee()
         {
             var Result = new WeaponMeleeDB();
-            List<WeaponMeleeDbEntry> Weapons = new List<WeaponMeleeDbEntry>();
+            List<WeaponMeleeDbEntry> Weapons = new();
             var Entry = new WeaponMeleeDbEntry()
             {
                 Id = "WEAPONLESS",
@@ -65,7 +65,7 @@ namespace UnitTests.CharacterModel
                 AtMod = 0,
                 PaMod = 0,
                 Bonus = 0,
-                Reach = 1,
+                Reach = WeaponsReach.Short,
                 Damage = "1W6",
                 Threshold = 21,
                 CloseRange = true,
@@ -88,16 +88,20 @@ namespace UnitTests.CharacterModel
         {
             CombatTechDbEntry combatTechDbEntry = MockUnarmedCombatTechDbEntry();
             CombatTechM CtUnarmed = new(combatTechDbEntry, SkillValue, mockCharacterM.Object);
-            Dictionary<string, CombatTechM> Result = new();
-            Result.Add(CombatTechM.Unarmed, CtUnarmed);
+            Dictionary<string, CombatTechM> Result = new()
+            {
+                { CombatTechM.Unarmed, CtUnarmed }
+            };
             return Result;
         }
 
 
-        private Dictionary<string, IActivatableM> MockSpecialAbilities(int Tier)
+        private static Dictionary<string, IActivatableM> MockSpecialAbilities(int Tier)
         {
-            Dictionary<string, IActivatableM> Result = new();
-            Result.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier, null));
+            Dictionary<string, IActivatableM> Result = new()
+            {
+                { SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier, null) }
+            };
             return Result;
         }
 

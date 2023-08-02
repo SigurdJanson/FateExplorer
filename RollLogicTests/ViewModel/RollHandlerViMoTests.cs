@@ -99,7 +99,7 @@ namespace UnitTests.ViewModel
             AbilityDTO data = new() { Id = Id };
 
             // Act
-            var Result = ClassUnderTest.OpenRollCheck(new Check(Check.Roll.Ability), data);
+            var Result = ClassUnderTest.OpenRollCheck(new Check(Check.Roll.Ability), data, new CheckContextViMo());
 
             // Assert
             Assert.NotNull(Result);
@@ -141,7 +141,7 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
             Assert.AreEqual(false, result);
@@ -165,7 +165,7 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
             Assert.AreEqual(false, result);
@@ -189,7 +189,7 @@ namespace UnitTests.ViewModel
                 ability[ai] = new() { Id = "Any", Name = "Any", EffectiveValue = AbilityVal[ai] };
 
             // Act
-            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, Modifier);
+            bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
             Assert.Less(false, result);

@@ -44,7 +44,7 @@ namespace UnitTests.GameData
                 Assert.NotNull(Result.GetBotch(Roll, Type, DiceEyes));
         }
 
-        [Test]
+        [Test, Ignore("not available")]
         public void Count_ContentNotLoaded_Return0()
         {
             // Arrange

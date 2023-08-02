@@ -1,6 +1,6 @@
 ﻿using FateExplorer.CharacterModel;
 using FateExplorer.RollLogic;
-
+using FateExplorer.Shared;
 
 namespace FateExplorer.ViewModel
 {
@@ -118,7 +118,7 @@ namespace FateExplorer.ViewModel
         /// <param name="disturb">Classifcation of the amount of disturbance</param>
         /// <param name="poisonedSick">Is the character poisoned or sick?</param>
         /// <param name="modifier">An additional free modifier (usually to factor unrecognised (dis-)advantages in</param>
-        /// <returns>The complete roll result; null if the errective value is already at max.</returns>
+        /// <returns>The complete roll result; null if the effective value is already at max.</returns>
         public RollResultViMo Regenerate(RegenerationSite site, RegenerationDisturbance disturb, bool poisonedSick, int modifier)
         {
             if (effectiveValue >= EffMax) return null;
@@ -128,6 +128,25 @@ namespace FateExplorer.ViewModel
             RollResultViMo Result = new(energyRoll);
 
             effectiveValue = Energy.ResolveValue(effectiveValue + Result.RollResult[0], EffMax, Min);
+
+            return Result;
+        }
+
+
+        /// <summary>
+        /// Roll for caused damage for falling.
+        /// </summary>
+        /// <inheritdoc cref="FallDamageRollM.FallDamageRollM(int, int, int, int, int)"/>
+        /// <returns>The complete roll result; null if the energy represented by this object is not health..</returns>
+        public RollResultViMo FallDamage(int dropHeight, int groundMod, int jumpQuality, int armourMod, int paddingMod)
+        {
+            if (Energy.Class != CharacterEnergyClass.LP) return null; // fall damage only relevant for HP
+
+            FallDamageRollM damageRoll = new(dropHeight, groundMod, jumpQuality, armourMod, paddingMod);
+            damageRoll.Roll();
+            RollResultViMo Result = new(damageRoll);
+
+            effectiveValue = Energy.ResolveValue(effectiveValue - Result.CombinedResult ?? 0, EffMax, Min);
 
             return Result;
         }

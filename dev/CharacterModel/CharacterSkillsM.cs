@@ -1,5 +1,6 @@
 ﻿using FateExplorer.CharacterImport;
 using FateExplorer.GameData;
+using FateExplorer.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace FateExplorer.CharacterModel
 
         public Dictionary<string, CharacterSkillM> Skills { get; set; }
 
-        public Dictionary<SkillDomain, bool> MasteredDomains { get; protected set; }
+        public Dictionary<Check.Skill, bool> MasteredDomains { get; protected set; }
 
 
         public CharacterSkillsM(ICharacterM character, ICharacterImporter import, IGameDataService gameData)
@@ -25,7 +26,7 @@ namespace FateExplorer.CharacterModel
 
             // BASIC (mundane) skills
             // Create ALL available skills (unlike magic and karma)
-            MasteredDomains.Add(SkillDomain.Basic, true);
+            MasteredDomains.Add(Check.Skill.Skill, true);
             foreach (var dbentry in gameData.Skills.Data)
             {
                 CharacterSkillM skill = new(dbentry, import.GetTalentSkill(dbentry.Id), character);
@@ -33,7 +34,7 @@ namespace FateExplorer.CharacterModel
             }
             // ARCANE skills
             var ToImport = import.GetArcaneSkills();
-            MasteredDomains.Add(SkillDomain.Arcane, ToImport?.Any() ?? false);
+            MasteredDomains.Add(Check.Skill.Arcane, ToImport?.Any() ?? false);
             foreach (var v in ToImport)
             {
                 CharacterSkillM skill = new(gameData.ArcaneSkills[v.Key], v.Value, character);
@@ -42,7 +43,7 @@ namespace FateExplorer.CharacterModel
 
             // KARMA skills
             ToImport = import.GetKarmaSkills();
-            MasteredDomains.Add(SkillDomain.Karma, ToImport?.Any() ?? false);
+            MasteredDomains.Add(Check.Skill.Karma, ToImport?.Any() ?? false);
             foreach (var v in ToImport)
             {
                 CharacterSkillM skill = new(gameData.KarmaSkills[v.Key], v.Value, character);
@@ -51,7 +52,7 @@ namespace FateExplorer.CharacterModel
         }
 
 
-        public List<string> GetSkillNames(SkillDomain? Domain, string Filter)
+        public List<string> GetSkillNames(Check.Skill? Domain, string Filter)
         {
             List<string> names = new();
             foreach (var s in Skills.Values)

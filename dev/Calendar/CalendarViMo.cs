@@ -1,4 +1,5 @@
 ﻿using FateExplorer.GameData;
+using FateExplorer.Shared;
 using MudBlazor;
 using System;
 using System.Text.RegularExpressions;
@@ -7,7 +8,7 @@ namespace FateExplorer.Calendar;
 
 
 /// <summary>
-/// 
+/// Gives the View access to the calandar and the underlying 
 /// </summary>
 /// <remarks>In this early version the CalendarViMo can only be used with reckoning of Bosparan's Fall</remarks>
 public class CalendarViMo
@@ -133,17 +134,17 @@ public class CalendarViMo
     public string Season => GameData.GetSeason(Calendar.GetMonth(EffectiveDate));
     public string SeasonIcon => GameData.GetSeasonId(Calendar.GetMonth(EffectiveDate)) switch
     {
-        global::Season.Spring => Icons.Material.Sharp.LocalFlorist,
-        global::Season.Summer => Icons.Material.Sharp.BrightnessHigh,
-        global::Season.Autumn => Icons.Material.Sharp.Umbrella,
-        global::Season.Winter => Icons.Material.Sharp.AcUnit,
+        Shared.Season.Spring => Icons.Material.Sharp.LocalFlorist,
+        Shared.Season.Summer => Icons.Material.Sharp.BrightnessHigh,
+        Shared.Season.Autumn => Icons.Material.Sharp.Umbrella,
+        Shared.Season.Winter => Icons.Material.Sharp.AcUnit,
         _ => throw new ArgumentOutOfRangeException($"Unknown season")
     };
 
     public string MoonPhaseName 
-        => GameData.GetMoonPhaseName(GameData.GetMoonPhase(Calendar.GetMoonPhase(EffectiveDate)));
+        => GameData.GetMoonPhaseName(GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate)));
 
-    public string MoonPhaseIcon => IconsFE.Moon(GameData.GetMoonPhase(Calendar.GetMoonPhase(EffectiveDate)));
+    public string MoonPhaseIcon => IconsFE.Moon(GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate)));
 
     public void GotoTomorrow() => EffectiveDate = EffectiveDate.AddDays(1);
 
@@ -160,8 +161,13 @@ public class CalendarViMo
         => Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
 
 
-    public (string, string)[] GetHolidays() 
-        => GameData.GetHolidays(Calendar.GetMonth(EffectiveDate), DayOfMonth);
+    public (string, string)[] GetHolidays()
+    {
+        int Month = Calendar.GetMonth(EffectiveDate);
+        DayOfWeek DoW = Calendar.GetDayOfWeek(EffectiveDate);
+        MoonPhase Phase = GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate));
+        return GameData.GetHolidays(Month, DayOfMonth, DoW, Phase);
+    }
 
 
 
@@ -172,7 +178,6 @@ public class CalendarViMo
     /// <returns>A DateTime representation of the given date.</returns>
     /// <exception cref="FormatException"></exception>
     // https://stackoverflow.com/questions/56065683/regex-for-matching-dates-month-day-year-or-m-d-yy?msclkid=f2b2cd08c3af11ec8681f35279f46fe3
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inlinevariablendeklaration", Justification = "Readibility")]
     public DateTime Parse(string dateStr)
     {
         const string DayName = "day";
@@ -209,7 +214,10 @@ public class CalendarViMo
                 throw new FormatException($"String {dateStr} could not be interpreted as date. Month could not be matched.");
         }
 
-        return Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0);
+        DateTime result;
+        try { result = Calendar.ToDateTime(Year, Month, Day, 0, 0, 0, 0); } 
+        catch { throw new FormatException($"String {dateStr} could not be interpreted as date"); }
+        return result;
     }
 
     #endregion

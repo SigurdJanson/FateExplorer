@@ -56,6 +56,10 @@ namespace UnitTests.Calendar
         {
             yield return " 2. MonthWithoutAName 1045";   // invalid month
         }
+        static IEnumerable<string> InvalidFormatStringDates()
+        {
+            yield return "973 BF";   // no day or month
+        }
 
         private MockRepository mockRepository;
         private Mock<IDateOfPlay> mockDateOfPlay;
@@ -177,7 +181,7 @@ namespace UnitTests.Calendar
             DateTime result = DateTime.MinValue;
 
             // Act
-            Assert.Throws<ArgumentOutOfRangeException>(() => result = calendarViMo.Parse(dateStr));
+            Assert.Throws<FormatException>(() => result = calendarViMo.Parse(dateStr));
 
             // Assert
             mockRepository.VerifyAll();
@@ -187,6 +191,23 @@ namespace UnitTests.Calendar
         [Test]
         [TestCaseSource(nameof(InvalidNameStringDates))]
         public void Parse_InvalidNames_FormatException(string dateStr)
+        {
+            // Arrange
+            var calendarViMo = this.CreateCalendarViMo();
+            DateTime result = DateTime.MinValue;
+
+            // Act
+            Assert.Throws<FormatException>(() => result = calendarViMo.Parse(dateStr));
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+
+
+        [Test]
+        [TestCaseSource(nameof(InvalidFormatStringDates))]
+        public void Parse_InvalidFormat_FormatException(string dateStr)
         {
             // Arrange
             var calendarViMo = this.CreateCalendarViMo();

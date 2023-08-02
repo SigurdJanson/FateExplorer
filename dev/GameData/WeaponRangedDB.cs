@@ -25,10 +25,10 @@ namespace FateExplorer.GameData
         public string Ammo { get; set; }
 
         [JsonPropertyName("range")]
-        public WeaponsRange Range { get; set; }
+        public WeaponsRangeValues Range { get; set; }
     }
 
-    public class WeaponsRange
+    public class WeaponsRangeValues
     {
         [JsonPropertyName("close")]
         public int Close { get; set; }
