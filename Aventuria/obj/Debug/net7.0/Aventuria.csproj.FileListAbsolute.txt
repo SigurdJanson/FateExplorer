@@ -1,0 +1,17 @@
+D:\Programmierung\FateExplorer\Aventuria\bin\Debug\net7.0\Aventuria.deps.json
+D:\Programmierung\FateExplorer\Aventuria\bin\Debug\net7.0\Aventuria.dll
+D:\Programmierung\FateExplorer\Aventuria\bin\Debug\net7.0\Aventuria.pdb
+D:\Programmierung\FateExplorer\Aventuria\bin\Debug\net7.0\de\Aventuria.resources.dll
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.csproj.AssemblyReference.cache
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.Properties.Resources.resources
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.Properties.Resources.de.resources
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.csproj.GenerateResource.cache
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.AssemblyInfoInputs.cache
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.AssemblyInfo.cs
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.csproj.CoreCompileInputs.cache
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\de\Aventuria.resources.dll
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.dll
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\refint\Aventuria.dll
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\Aventuria.pdb
+D:\Programmierung\FateExplorer\Aventuria\obj\Debug\net7.0\ref\Aventuria.dll
