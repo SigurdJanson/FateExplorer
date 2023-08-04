@@ -6,7 +6,7 @@ An interface to roll the dice based on the ["dark eye" rule system](https://ulis
 * **Smoother game play**. Less googling or browsing through books to find what you need. Fate Explorer helps game masters and players makes information easily accessible.
 * **Enrich your game play**. Find relevant knowledge about the vast DSA world that supports your game play. With in-app information and references to the Ulisses Wiki you can get lots of details.
 
-This is the fourth release with the code name **Phexens Sneeze Stimulus**.
+This is the fifth release with the code name **Peraines Mouth Wash**.
 
 
 ## Features
