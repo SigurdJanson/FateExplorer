@@ -4,6 +4,7 @@ namespace Aventuria;
 
 public class DereCultureInfo : CultureInfo
 {
+    private const string DefaultDereCountry = "MI";
     public readonly string[] DereCountryCodes = new[] { "MI", "HO" };
     private readonly Dictionary<string, string> CountryNames = new()
     {
@@ -17,7 +18,7 @@ public class DereCultureInfo : CultureInfo
         throw new NotImplementedException("Dere cultures cannot be initialised by LCID.");
 
     /// <inheritdoc />
-    public DereCultureInfo(string name, string DereCountry = "MI") : base(name)
+    public DereCultureInfo(string name, string DereCountry = DefaultDereCountry) : base(name)
     {
         foreach (string s in DereCountryCodes)
         {
@@ -26,9 +27,12 @@ public class DereCultureInfo : CultureInfo
         }
 
         if (string.IsNullOrWhiteSpace(Country))
-            Country = DereCountry;
+            Country = DefaultDereCountry;
         if (string.IsNullOrWhiteSpace(Country))
             throw new ArgumentException("Insufficient culture information", nameof(name));
+        Calendar = CurrentUICulture.Calendar;
+        NumberFormat = CurrentUICulture.NumberFormat;
+        TextInfo = CurrentUICulture.TextInfo;
 
         englishName = CountryNames[Country];
         this.name = englishName;
@@ -44,22 +48,32 @@ public class DereCultureInfo : CultureInfo
     /// <inheritdoc />
     public DereCultureInfo(string name, bool useUserOverride) : base(name, useUserOverride)
     {
+        if (string.IsNullOrWhiteSpace(Country))
+            Country = DefaultDereCountry;
+        Calendar = CurrentUICulture.Calendar;
+        NumberFormat = CurrentUICulture.NumberFormat;
+        TextInfo = CurrentUICulture.TextInfo;
+
+        englishName = CountryNames[Country];
+        this.name = englishName;
+        displayName = Properties.Resources.ResourceManager.GetString(nameof(Country) + Country) ?? "";
+        nativeName = displayName;
     }
 
 
-    private string Country; // the country on Dere to overwrite "Erde" cultures
+    private readonly string Country; // the country on Dere to overwrite "Erde" cultures
 
 
-    private string name = "";
+    private readonly string name = "";
     public override string Name => string.IsNullOrEmpty(name) ? base.Name : name;
 
-    private string displayName = "";
+    private readonly string displayName = "";
     public override string DisplayName => string.IsNullOrEmpty(displayName) ? base.DisplayName : displayName;
 
-    private string englishName = "";
+    private readonly string englishName = "";
     public override string EnglishName => string.IsNullOrEmpty(englishName) ? base.EnglishName : englishName;
 
-    private string nativeName = "";
+    private readonly string nativeName = "";
     public override string NativeName => string.IsNullOrEmpty(nativeName) ? base.NativeName : nativeName;
 
     //public override string TwoLetterISOLanguageName => base.TwoLetterISOLanguageName;
