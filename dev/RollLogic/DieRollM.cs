@@ -73,7 +73,7 @@ namespace FateExplorer.RollLogic
         {
             get
             {
-                if (modifiedBy == null) modifiedBy = new int[Sides.Length];
+                modifiedBy ??= new int[Sides.Length];
                 return modifiedBy;
             }
             protected set => modifiedBy = value;

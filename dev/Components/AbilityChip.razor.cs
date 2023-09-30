@@ -186,8 +186,7 @@ namespace FateExplorer.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            if (Value == null)
-                Value = this;
+            Value ??= this;
         }
 
         protected async Task OnClickHandler(MouseEventArgs ev)

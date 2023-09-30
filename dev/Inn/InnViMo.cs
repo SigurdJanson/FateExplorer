@@ -122,6 +122,7 @@ public class InnViMo
         _ => 0
     };
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "Not important")]
     private decimal PriceFactor(QualityLevel Quality, PriceLevel Price)
     {
         if (Price == 0) Price = (PriceLevel)Quality;
