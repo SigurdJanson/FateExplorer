@@ -47,7 +47,8 @@ namespace UnitTests.Calendar
             const int day = 24, month = 12, year = 2020;
             // Arrange
             var dateOfPlayM = CreateDateOfPlayM();
-            mockClientSideStorage.SetupAsync(c => c.Store(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>()));
+            mockClientSideStorage.Setup(c => c.Store(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>()))
+                .Returns(Task.CompletedTask);
 
             // Act
             dateOfPlayM.Date = new DateTime(year, month, day);
@@ -68,10 +69,10 @@ namespace UnitTests.Calendar
             // Arrange
             var dateOfPlayM = this.CreateDateOfPlayM(); // create with date = today
             var ExpectedDate = new DateTime(year, month, day);
-            mockClientSideStorage.SetupAsync(c => c.Retrieve(
+            mockClientSideStorage.Setup(c => c.Retrieve(
                 It.Is<string>(s => s == dateOfPlayM.GetType().ToString()), 
                 It.IsAny<string>()) )
-                .Returns(ExpectedDate.ToString());
+                .Returns(Task.FromResult(ExpectedDate.ToString()));
 
             // Act
             await dateOfPlayM.RestoreSavedState(); // restore date from the past
