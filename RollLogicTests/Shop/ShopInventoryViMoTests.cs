@@ -17,7 +17,7 @@ namespace UnitTests.Shop
     [TestFixture]
     public class ShopInventoryViMoTests
     {
-        public string FilenameId { get => "shop"; }
+        public static string FilenameId { get => "shop"; }
 
         #region Moq ==================
         private MockRepository mockRepository;
@@ -77,7 +77,7 @@ namespace UnitTests.Shop
             List<ShopItemM> Result = JsonSerializer.Deserialize<List<ShopItemM>>(jsonString);
 
             // Assert
-            Assert.AreEqual(1036, Result.Count);
+            Assert.AreEqual(1039, Result.Count);
         }
 
 
