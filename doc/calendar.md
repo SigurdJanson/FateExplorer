@@ -369,7 +369,6 @@ Sources: VG1, VG2, VG3, VG4, http://pdiefenbach.de/dsatool, Wiki Aventurica
 ## Holidays not in Data Base
 
 * Several trade fairs of the Almanach.
-| Markt und Spiele, Lowangen (Market and Games) | TRA and PHE; ????last week of Phex | |
 Many holidays found in the "Regionalspielhilfen"
 
 
