@@ -252,6 +252,8 @@ namespace FateExplorer.ViewModel
         /// <inheritdoc/>
         public int Movement { get => characterM.Movement.Effective; }
 
+        /// <inheritdoc/>
+        public int WoundThreshold => characterM.WoundThreshold;
 
         /// <inheritdoc/>
         public int Initiative

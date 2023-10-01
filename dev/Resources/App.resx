@@ -1686,4 +1686,10 @@
     <value>Too far away</value>
     <comment>Battle ground dialog</comment>
   </data>
+  <data name="abbrWoundThreshold" xml:space="preserve">
+    <value>WT</value>
+  </data>
+  <data name="lblWoundThreshold" xml:space="preserve">
+    <value>WoundThreshold</value>
+  </data>
 </root>

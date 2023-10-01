@@ -57,6 +57,9 @@ public interface ITheHeroViMo
     /// <summary>The characters movement value</summary>
     int Movement { get; }
 
+    /// <summary></summary>
+    int WoundThreshold { get; }
+
     /// <summary>
     /// (Effective) Initiative value of the character
     /// </summary>

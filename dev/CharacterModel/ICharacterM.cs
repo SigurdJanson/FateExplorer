@@ -51,6 +51,13 @@ namespace FateExplorer.CharacterModel
         /// <remarks>Definition: Race Base Value +/– points from dis-/advantages</remarks>
         MovementM Movement { get; }
 
+        /// <summary>
+        /// When a creature suffers damage equal to or greater than its wound threshold,
+        /// it must make a check to see if it suffers a wound effect.
+        /// </summary>
+        /// <remarks>Definition: CON / 2 (rounded up)</remarks>
+        int WoundThreshold { get; }
+
 
 
         Dictionary<string, WeaponM> Weapons { get; }

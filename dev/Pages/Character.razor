@@ -56,7 +56,7 @@
                 <MudGrid>
                 @foreach (var r in Hero.GetResiliences())
                 {
-                    <MudItem xs=6 Class="mb-3">
+                    <MudItem xs=4 Class="mb-3">
                         <MudTooltip Text=@r.Name Placement=Placement.Bottom>
                             <MudField Label="@r.ShortName" Variant=Variant.Text DisableUnderLine=true>
                                 @r.EffectiveValue @AddMaxResilience(r)
@@ -64,6 +64,13 @@
                         </MudTooltip>
                     </MudItem>
                 }
+                    <MudItem xs=4 Class="mb-3">
+                        <MudTooltip Text=@l10n["lblWoundThreshold"] Placement=Placement.Bottom>
+                                <MudField Label=@l10n["abbrWoundThreshold"] Variant=Variant.Text DisableUnderLine=true>
+                                @Hero.WoundThreshold
+                            </MudField>
+                        </MudTooltip>
+                    </MudItem>
                 </MudGrid>
             </MudPaper>
 

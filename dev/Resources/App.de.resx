@@ -1561,4 +1561,10 @@
   <data name="lblShotTooFar" xml:space="preserve">
     <value>Zu weit weg</value>
   </data>
+  <data name="abbrWoundThreshold" xml:space="preserve">
+    <value>WS</value>
+  </data>
+  <data name="lblWoundThreshold" xml:space="preserve">
+    <value>Wundschwelle</value>
+  </data>
 </root>

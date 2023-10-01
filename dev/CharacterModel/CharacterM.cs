@@ -247,6 +247,8 @@ namespace FateExplorer.CharacterModel
         public MovementM Movement { get; }
 
 
+        /// <inheritdoc />
+        public int WoundThreshold => (Abilities[AbilityM.CON].Value + 1) / 2;
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
         public Dictionary<string, BelongingM> Belongings{ get; protected set; }
