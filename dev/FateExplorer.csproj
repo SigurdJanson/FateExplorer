@@ -3,7 +3,7 @@
   <PropertyGroup>
 	  <TargetFramework>net7.0</TargetFramework>
 	  <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-	  <Version>5.0.0.1</Version>
+	  <Version>5.0.1.0</Version>
 	  <PublishTrimmed>true</PublishTrimmed>
 	  <BlazorEnableCompression>true</BlazorEnableCompression>
 	  <EmccInitialHeapSize>16777216</EmccInitialHeapSize>
