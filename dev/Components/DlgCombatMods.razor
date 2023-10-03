@@ -4,7 +4,7 @@
 @inject IStringLocalizer<App> l10n
 
 
-<MudDialog>
+<MudDialog OnBackdropClick=@BackdropClickAct>
     <DialogContent>
         <MudGrid>
             <MudItem xs="12">
@@ -280,11 +280,11 @@
         </MudGrid>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Reset">@l10n["btnReset"]</MudButton>
+        <MudButton OnClick=@Reset>@l10n["btnReset"]</MudButton>
         <MudDivider Vertical=true FlexItem=true />
-        <MudButton OnClick="Cancel">@l10n["btnCancel"]</MudButton>
-        <MudButton OnClick="Deactivate">@l10n["btnDeactivate"]</MudButton>
-        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick="Submit">@l10n["btnApply"]</MudButton>
+        <MudButton OnClick=@Cancel>@l10n["btnCancel"]</MudButton>
+        <MudButton OnClick=@Deactivate>@l10n["btnDeactivate"]</MudButton>
+        <MudButton Color=Color.Primary Variant=Variant.Filled OnClick=@Submit>@l10n["btnApply"]</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -364,7 +364,7 @@
         return result;
     }
 
-    
+
     //
     private Vision View { get => Battleground.View; } 
     private bool ClearVision { get => View == Vision.Clear; }
@@ -459,8 +459,9 @@
     }
 
 
-    //
-    // ACTIONS
+    /*
+    * ACTIONS
+    */
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     private void Deactivate()
     {
@@ -488,9 +489,19 @@
         }
     }
 
+    /// <summary>
+    /// Force a cancel action on a backdrop click. Needed here because a call to 
+    /// <c>MudDialog.Cancel</c> is not sufficient.
+    /// This component has it's own <c>Cancel()</c> method that sets <c>Battleground.Apply</c>.
+    /// </summary>
+    /// <param name="eArgs"></param>
+    void BackdropClickAct(MouseEventArgs eArgs) => Cancel();
 
 
-    // RENDERING
+
+    /*
+     * RENDERING
+     */
 
     //
     //
@@ -542,11 +553,17 @@
     ;
     }
 
-     /*
-     * HELPERS
+    /*
+    * HELPERS
     */
     private static int GCD(int a, int b, int c) => GCD(GCD(a, b), c);
 
+    /// <summary>
+    /// Determines the greatest common divisor (GCD)
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns>The GDC of the two numbers.</returns>
     private static int GCD(int a, int b)
     {
         // Make a >= b.
@@ -568,4 +585,5 @@
             b = remainder;
         };
     }
+
 }
