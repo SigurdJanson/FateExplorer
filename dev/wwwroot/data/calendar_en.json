@@ -108,7 +108,7 @@
             {"month":  6, "day": 30, "duration": 1,  "name": "Festival of Illumination", "descr": "Most important holiday for the Church of Hesinde, marked by torchlight processions."},
             {"month":  7, "day":  1, "duration": 1,  "name": "Midwinter: witches' coven"},
             {"month":  7, "day":  1, "duration": 1,  "name": "Day of the Hunt", "descr": "Holiday of the Churches of Firun and Ifirn; masked processions take place in many places to drive away winter."},
-            {"month":  7, "day":  8, "duration": 1,  "name": "National holiday, Bornland", "descr": "Every 5 years election of the Adelsmarschalls."},
+            {"month":  7, "day":  8, "duration": 1,  "name": "National holiday, Bornland", "descr": "Every 5 years election of the Noble Marshal."},
             {"month":  7, "day": 11, "duration": 1,  "name": "Day of the stag, Nostria/Bjaldorn (iron edge)", "descr": "Holiday honouring Saint Mikail. Every year 76 arrows are shot into northern direction. Often with bowyer's celebration."},
             {"month":  7, "day": 13, "duration": 1,  "name": "Hlûthars fall, Northern Marches", "descr": "Anniversary of Saint Hlûthar's death, presumed day of the first demon battle, day of mourning in the Northern Marches."},
             {"month":  7, "day": 16, "duration": 1,  "name": "Day of Devotion, Aranien", "descr": "Holiday of Saint Ascandear of Baburin. In Palmyramis women receive sweet blossom-shaped pastry. In Baburin they offer Rahja sweet dishes and flower in the local temple."},
