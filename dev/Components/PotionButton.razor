@@ -1,0 +1,87 @@
+﻿@*
+    Component to elecit an action. The users can set the quality level (or any other level) for that action.
+    Created for potions.
+*@
+<MudButtonGroup Color =Color.Primary Variant=Variant.Outlined OverrideStyles=false>
+    <MudIconButton OnClick=OnDecrease Icon=@Icons.Material.Filled.Remove Variant=Variant.Filled DisableElevation=true 
+                   Disabled=@(SelectedValue == 1) />
+    <MudButton OnClick=OnClickHandler
+               StartIcon=@Icon Variant=Variant.Outlined>@Title @Label</MudButton>
+    <MudIconButton OnClick=OnIncrease Icon=@Icons.Material.Filled.Add Variant=Variant.Filled DisableElevation=true 
+                   Disabled=@(SelectedValue == Labels.Length-1) />
+</MudButtonGroup>
+
+
+@code {
+    // PARAMETERS ///
+    /// <summary>
+    /// A title defining the topic, e.g. "LP" for life points or "AE" for arcane energy.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Title { get; set; }
+
+    /// <summary>
+    /// An icon used before the title
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; }
+
+    /// <summary>
+    /// Button click event. Elicited when the button has been clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// Respond to action click
+    /// </summary>
+    /// <param name="ev"></param>
+    /// <returns></returns>
+    protected virtual async Task OnClickHandler(MouseEventArgs ev)
+    {
+        await OnClick.InvokeAsync(ev);
+    }
+
+    /// <summary>
+    /// Respond to button click to decrease the selected value
+    /// </summary>
+    /// <param name="ev"></param>
+    /// <returns></returns>
+    protected void OnDecrease(MouseEventArgs ev)
+    {
+        if (SelectedValue > 1)
+            SelectedValue = SelectedValue - 1;
+    }
+
+    /// <summary>
+    /// Respond to button click to increase the selected value
+    /// </summary>
+    /// <param name="ev"></param>
+    /// <returns></returns>
+    protected virtual void OnIncrease(MouseEventArgs ev)
+    {
+        if (SelectedValue < Labels.Length)
+            SelectedValue = SelectedValue + 1;
+    }
+
+    /// <summary>
+    /// A label that is added to the title. It shows the selected value, unles the mouse hovers
+    /// over a value then it shows the hovered value.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string[] Labels { get; set; }
+
+
+
+    // INTERNAL ///
+    /// <summary>
+    /// The selected value of the Rating component
+    /// </summary>
+    private int SelectedValue = 3;
+
+    /// <summary>
+    /// Get current label from the list
+    /// </summary>
+    private string Label => Labels[SelectedValue];
+
+}
