@@ -30,7 +30,8 @@ public abstract class CharacterIstic
 
 
     /// <summary>
-    /// The value as determined from the imported character sheet.
+    /// The value as determined from the imported character sheet incl. changes
+    /// added by dis-/advantages or special abilities recognized by Fate Explorer.
     /// </summary>
     public int Imported { get; init; }
 
@@ -120,6 +121,9 @@ public abstract class CharacterIstic
 
 
 
+/// <summary>
+/// A value that is calculated based on other values
+/// </summary>
 public class DerivedValue : CharacterIstic
 {
     public DerivedValue(int Value) : base(Value)

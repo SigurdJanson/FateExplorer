@@ -12,7 +12,7 @@ public class MovementM : CharacterIstic
     /// Constructor
     /// </summary>
     /// <param name="raceBaseVal">The base value of the character's race as basis for the movement value.</param>
-    /// <param name="hero">The character of this dodge competence.</param>
+    /// <param name="hero">The character of this movement competence.</param>
     public MovementM(int raceBaseVal, ICharacterM hero) : base(ComputeMovement(raceBaseVal))
     {
         //--Value = ComputeMovement(raceBaseVal);

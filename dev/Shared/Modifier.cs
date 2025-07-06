@@ -17,8 +17,8 @@ public readonly struct Modifier : IEquatable<Modifier>, IFormattable
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="value">THe numeric value used to modify p check. The exact interpretation depends on <paramref name="op"/>.</param>
-    /// <param name="op">The operation used. Typical is the additive modifier.</param>
+    /// <param name="value">The numeric value used to modify a check. The exact interpretation depends on <paramref name="op"/>.</param>
+    /// <param name="op">The operation used. Default is the additive modifier.</param>
     /// <exception cref="InvalidOperationException"></exception>
     public Modifier(int value, Op op = Op.Add)
     {

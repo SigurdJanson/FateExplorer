@@ -63,7 +63,9 @@ namespace FateExplorer.CharacterModel
         Dictionary<string, WeaponM> Weapons { get; }
         Dictionary<string, BelongingM> Belongings { get; }
 
-
+        /// <summary>
+        /// list: courage, sagacity, etc.
+        /// </summary>
         Dictionary<string, AbilityM> Abilities { get; }
 
         Dictionary<string, IActivatableM> SpecialAbilities { get; }
