@@ -40,6 +40,16 @@ Roll modifiers are applied on several levels:
 * `MoonPhase` + 1 must match the `moonphase/iid` in calendar.json.
 
 
+
+## Effect of Special Abilities and Advantages on Character
+
+* Effects astral or karma energy granted by a magic/blessed tradition are handled by `CharacterEnergyM` or derived classes which uses data from "energies_xx.json".
+* Effects astral or karma energy granted by a dis-/advantages are handled by `CharacterEnergyM` which uses data from "energies_xx.json".
+
+If a special ability is represented by a specific class (derived from `TieredActivatableM` such as `GreatMeditationM`) these classes shall handle the flag `IsRecognized`. Otherwise it is specified in the game data base.
+
+
+
 # Performance
 
 ## Application Start
