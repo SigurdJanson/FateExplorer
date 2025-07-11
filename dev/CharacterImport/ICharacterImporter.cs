@@ -71,6 +71,11 @@ namespace FateExplorer.CharacterImport
         int CountKarmaSkills();
         IEnumerable<KeyValuePair<string, int>> GetKarmaSkills();
 
+        /// <summary>
+        /// Returns the characters combat skills.
+        /// </summary>
+        /// <returns>Key-value pairs with a string id and skill value</returns>
+        IEnumerable<KeyValuePair<string, int>> GetCombatSkills();
 
         // SPECIAL ABILITIES
 
@@ -80,6 +85,7 @@ namespace FateExplorer.CharacterImport
         /// <param name="saDb">Access to the game data base for special abilities.</param>
         /// <returns>List of id strings of all special abilities</returns>
         Dictionary<string, IActivatableM> GetSpecialAbilities(SpecialAbilityDB saDb);
+        Dictionary<string, (string id, int tier)> _GetSpecialAbilities(); 
 
         /// <summary>
         /// Returns the collection of languages spoken by the character.
@@ -125,5 +131,15 @@ namespace FateExplorer.CharacterImport
         /// which is only set if it is a ranged weapon.
         /// </remarks>
         IEnumerable<WeaponDTO> GetWeaponsDetails(WeaponMeleeDB meleeDB, WeaponRangedDB rangedDB, CombatTechDB combatTechDB);
+
+
+
+        /// <summary>
+        /// Gives any kinds of belongings of the character if the data file contains those.
+        /// </summary>
+        /// <param name="WeaponsExcluded">Return only objects that are not weapons. 
+        /// Improvised weapons are returned, anyway, though.</param>
+        /// <returns>Iterator for belongings</returns>
+        IEnumerable<KeyValuePair<string, BelongingM>> GetBelongings(bool WeaponsExcluded = true);
     }
 }
