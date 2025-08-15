@@ -159,7 +159,7 @@ namespace FateExplorer.Components
         /// <summary>
         /// Chip delete event, if set the delete icon will be visible.
         /// </summary>
-        [Parameter] public EventCallback<MudChip> OnClose { get; set; }
+        [Parameter] public EventCallback<MudChip<string>> OnClose { get; set; }
 
 
         /// <summary>

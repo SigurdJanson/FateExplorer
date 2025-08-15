@@ -25,24 +25,24 @@
                 <MudDivider/>
                 }
             <MudItem sm=12 md=6>
-                <MudRadioGroup @bind-SelectedOption=DialogSiteSetting>
-                    <MudRadio Option=RegenerationSite.Good Dense=true>@l10n["lblRegenerationSite.Good"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Default Dense=true>@l10n["lblRegenerationSite.Default"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Poor Dense=true>@l10n["lblRegenerationSite.Poor"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Bad  Dense=true>@l10n["lblRegenerationSite.Bad"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Terrible Dense=true>@l10n["lblRegenerationSite.Terrible"]</MudRadio>
+                <MudRadioGroup @bind-SelectedOption=DialogSiteSetting T=RegenerationSite>
+                    <MudRadio Option=RegenerationSite.Good Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Good"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Default Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Default"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Poor Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Poor"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Bad Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Bad"]</MudRadio>
+                    <MudRadio Option=RegenerationSite.Terrible Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Terrible"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem sm=12 md=6>
-                <MudRadioGroup @bind-SelectedOption=DialogDisturbSetting>
-                    <MudRadio Option=RegenerationDisturbance.None  Dense=true>@l10n["lblRegenerationDisturbance.None"]</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true>@l10n["lblRegenerationDisturbance.Brief"]</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true>@l10n["lblRegenerationDisturbance.Prolonged"]</MudRadio>
+                <MudRadioGroup @bind-SelectedOption=DialogDisturbSetting T=RegenerationDisturbance>
+                    <MudRadio Option=RegenerationDisturbance.None  Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.None"]</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Brief"]</MudRadio>
+                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Prolonged"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem xs=12>
                 @*<MudText><MudIcon Icon=@Icons.Material.Sharp.Sick Size=Size.Medium /></MudText>*@
-                <MudCheckBox @bind-Checked=DialogSickness Dense=true Label=@l10n["lblRegenerateSick"] StopClickPropagation=true  />
+                <MudCheckBox @bind-Checked=DialogSickness Dense=true Label=@l10n["lblRegenerateSick"] StopClickPropagation=true T=bool />
             </MudItem>
         </MudGrid>
     </DialogContent>
@@ -64,7 +64,7 @@
 
 
 @code {
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
 
     /// <summary>
     /// List of the names for those types of energy which the dialog is supposed to

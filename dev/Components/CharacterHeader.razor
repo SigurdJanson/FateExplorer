@@ -12,7 +12,7 @@
     {
         <MudBadge Visible=@(e.CrossedThresholds > 0)
             Origin=Origin.BottomCenter Content=e.CrossedThresholds Color=Color.Tertiary Overlap=true Dot=false Bordered=false>
-            <MudChip Label=true Variant=Variant.Filled  Color=Color.Primary Class="ml-4 rounded-0"
+            <MudChip T=bool Label=true Variant=Variant.Filled  Color=Color.Primary Class="ml-4 rounded-0"
                      Icon=@GetIcon(e.EffMax, e.EffectiveValue, e.Id)
                      OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
                         @e.EffectiveValue.ToString().PadLeft(3, '\u00A0')&nbsp;@e.ShortName

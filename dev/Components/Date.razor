@@ -8,7 +8,7 @@
 @inject IDialogService Dialog
 
 <MudTooltip Text=@LongDate>
-    <MudChip Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
+    <MudChip T=bool Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
              Icon=@Calendar.MonthIcon
              OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
              @RenderShortDate(Calendar)

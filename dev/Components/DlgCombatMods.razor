@@ -264,11 +264,11 @@
                             </MudButtonGroup>
                             @if (!EnemyEvasiveDisabled)
                             {
-                                <MudSwitch Checked=EnemyEvasive Size=Size.Large title=@l10n["lblEnemyRunningZigZag"]
-                                       CheckedChanged=@((bool v) => SetEnemyEvasive(v))
-                                       UnCheckedColor=OffCol Color=OnCol
-                                       Disabled=@EnemyEvasiveDisabled >
-                                       @l10n["lblEnemyRunningZigZag"]
+                                <MudSwitch T=bool Checked=EnemyEvasive Size=Size.Large title=@l10n["lblEnemyRunningZigZag"]
+                                    CheckedChanged=@((bool v) => SetEnemyEvasive(v))
+                                    UnCheckedColor=OffCol Color=OnCol
+                                    Disabled=@EnemyEvasiveDisabled >
+                                    @l10n["lblEnemyRunningZigZag"]
                                 </MudSwitch>
                             }
                         </MudItem>
@@ -302,7 +302,7 @@
     public BattlegroundViMo Battleground { get; set; }
 
     [CascadingParameter]
-    MudDialogInstance MudDialog { get; set; }
+    IMudDialogInstance MudDialog { get; set; }
 
     // RESULT
     private bool BattlegroundEnabledBackup;

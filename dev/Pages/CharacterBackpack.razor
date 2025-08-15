@@ -52,7 +52,7 @@
                 <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
                               AdornmentIcon=@Icons.Material.Filled.Search
                               Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true />
-                <MudList Clickable=true>
+                <MudList T=string Clickable=true>
                     @foreach(var i in Hero.GetBelongings())
                     {
                         @if (i.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))

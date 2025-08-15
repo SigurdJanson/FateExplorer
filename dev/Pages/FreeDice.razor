@@ -6,13 +6,13 @@
 @inject IStringLocalizer<App> l10n
 
 
-<MudContainer Class="mt-16" MaxWidth="MaxWidth.Medium">
-    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">@l10n["Roll Free Dice"]</MudText>
-    <MudGrid Spacing="4" Class="mt-16">
-        <MudItem xs="4">
-            <MudText Typo="Typo.h5" GutterBottom=true>@l10n["lblSelection"]</MudText>
+<MudContainer Class="mt-16" MaxWidth=MaxWidth.Medium>
+    <MudText Typo=Typo.h3 Align="Align.Center" GutterBottom=true>@l10n["Roll Free Dice"]</MudText>
+    <MudGrid Spacing=4 Class="mt-16">
+        <MudItem xs=4>
+            <MudText Typo=Typo.h5 GutterBottom=true>@l10n["lblSelection"]</MudText>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
-                <MudList Clickable="true">
+                <MudList T=string Clickable=true>
                     <MudListSubheader>@l10n["Dice Cups"]</MudListSubheader>
                     @foreach(var Cup in DiceCups.CupList)
                     {
@@ -27,13 +27,13 @@
                     </MudListItem>
                     }
                 </MudList>
-                <MudButton OnClick=@OpenAddDlg Variant="Variant.Outlined" Color="Color.Primary" FullWidth=true Class="rounded-t rounded-br">
+                <MudButton OnClick=@OpenAddDlg Variant=Variant.Outlined Color=Color.Primary FullWidth=true Class="rounded-t rounded-br">
                     @l10n["Add Dice Cup"] ...
                 </MudButton>
             </MudPaper>
         </MudItem>
-        <MudItem xs="8">
-            <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
+        <MudItem xs=8>
+            <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
                 @*<RollResultCard Name="Ability Roll / d20 Roll" />*@
                 @if (DiceCups.CupRollResults is not null)

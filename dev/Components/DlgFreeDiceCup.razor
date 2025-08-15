@@ -48,7 +48,7 @@
 
 @code {
     // BASIC DIALOG FEATURES
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
 
     private bool SubmitDisabled() => string.IsNullOrWhiteSpace(DiceCupName);
 

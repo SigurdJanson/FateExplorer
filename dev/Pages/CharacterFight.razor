@@ -18,7 +18,7 @@
     <MudGrid>
         <MudItem xs=12 sm=12 md=4>
             <MudPaper Elevation=0 Outlined=true>
-            <MudList Clickable=true>
+            <MudList T=string Clickable=true>
                 <MudListItem Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
                     <div class="d-flex align-center" >
                         <div>
@@ -64,7 +64,7 @@
 
             <MudDivider />
 
-            <MudList Clickable=true>
+            <MudList T=string Clickable=true>
                 @foreach (var w in Hero.Weapons)
                 {
                 @if (w.IsImprovised && !Config.ShowImprovisedWeapons) continue;
@@ -138,7 +138,7 @@
                 }
                 else
                 {
-                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.Palette.TextDisabled}")>
+                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
                         @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
                     </MudText>                
                 }

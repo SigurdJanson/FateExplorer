@@ -7,7 +7,7 @@
             <MudIconButton OnClick=OnMinusClick aria-label=@l10n["lblSubtractAmount1"]
                 Size=Size.Large Icon=@Icons.Material.Sharp.IndeterminateCheckBox />
             <MudField Label=@l10n["lblCashAmount"] Variant=Variant.Text HelperText=@Currency>
-                <MudChipSet @bind-SelectedChip=Selected MultiSelection=false Filter=false Mandatory=true>
+                <MudChipSet @bind-SelectedChip=Selected MultiSelection=false Filter=false Mandatory=true T=string>
                     <MudChip Text=@DucatId Default=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
                         @($"{Ducats.ToString().PadLeft(6, ' ')} {DucatId}")
                     </MudChip>
@@ -50,7 +50,7 @@
 @code {
     // API
     [CascadingParameter]
-    MudDialogInstance MudDialog { get; set; }
+    IMudDialogInstance MudDialog { get; set; }
 
     [Parameter]
     public decimal Amount { get; set; }
@@ -68,7 +68,7 @@
     private const string KreutzerId = "K"; 
     private const string Currency = "Mittelreichische Münzen";
 
-    private MudChip Selected;
+    private MudChip<string> Selected;
     private decimal Delta;
 
     private int Ducats  => (int)Math.Floor(Amount / 10);
