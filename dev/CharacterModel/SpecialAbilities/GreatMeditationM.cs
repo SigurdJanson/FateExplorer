@@ -5,6 +5,7 @@ namespace FateExplorer.CharacterModel.SpecialAbilities;
 [SpecialAbility(SA.GreatMeditation)]
 public class GreatMeditationM : TieredActivatableM
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Inheritance")]
     public GreatMeditationM(string id, int tier, string[] reference, bool recognized) : base(id, tier, reference)
     {
         if (id != SA.GreatMeditation) 

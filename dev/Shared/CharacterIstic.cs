@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace FateExplorer.Shared;
 
 
@@ -33,7 +34,7 @@ public abstract class CharacterIstic
     /// The value as determined from the imported character sheet incl. changes
     /// added by dis-/advantages or special abilities recognized by Fate Explorer.
     /// </summary>
-    public int Imported { get; init; }
+    public int Imported { get; set; }
 
 
     /// <summary>
@@ -117,8 +118,19 @@ public abstract class CharacterIstic
             Id = Id, Name = Name, EffectiveValue = Effective, Max = Max, Min = Min
         };
     }
-}
 
+    /// <summary>
+    /// Used by special abilities or dis-/advantages to modify the
+    /// value during setup.
+    /// </summary>
+    /// <param name="value">The value that is added to the base value after import</param>
+    public void AddOnSetup(int value)
+    {
+        Imported += value;
+        _effective = Imported;
+        _true = Imported;
+    }
+}
 
 
 /// <summary>

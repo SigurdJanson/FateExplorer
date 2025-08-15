@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterImport;
+using FateExplorer.CharacterModel.SpecialAbilities;
 using FateExplorer.GameData;
 using FateExplorer.Shared;
 using System;
@@ -19,6 +20,7 @@ namespace FateExplorer.CharacterModel
         public const string TraditionElf = "SA_345";
         public const string Hruruzat = "SA_186";
         public const string CatchBlade = "SA_52";
+        public const string GreatMeditation = "SA_772";
     }
 
 
@@ -34,7 +36,7 @@ namespace FateExplorer.CharacterModel
         /// </summary>
         /// <param name="gameData">Access to the data bases describing basic DSA5</param>
         /// <param name="characterImportOptM">Importer</param>
-        public CharacterM(IGameDataService gameData, CharacterImportOptM characterImportOptM)
+        public CharacterM(IGameDataService gameData, ICharacterImporter characterImportOptM)
         {
             try
             {
@@ -64,7 +66,8 @@ namespace FateExplorer.CharacterModel
             // SPECIAL ABILITIES
             try
             {
-                SpecialAbilities = characterImportOptM.GetSpecialAbilities(gameData.SpecialAbilities);
+                //SpecialAbilities = characterImportOptM.GetSpecialAbilities(gameData.SpecialAbilities);
+                SpecialAbilities = new SpecialAbilityConverter(gameData, characterImportOptM).GetAbilities();
                 Languages = characterImportOptM.GetLanguages();
             }
             catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.SpecialAbility); }
@@ -196,6 +199,10 @@ namespace FateExplorer.CharacterModel
                 }
             }
             catch (System.Exception e) { throw new ChrImportException("In other belongings", e, ChrImportException.Property.Belonging); }
+
+            // Apply all activatables that affect character attributes, like nimble -> MOV+1, etc.
+            foreach (var sa in SpecialAbilities.Values)
+                sa.Apply(this);
         }
 
 

@@ -268,7 +268,7 @@ namespace FateExplorer.CharacterImport
                     if (s.Key != OptSpecialAbility.Language)
                     {
                         string[] Reference;
-                        if (saDb != null && saDb.Contains(s.Key))
+                        if (saDb != null && saDb.Contains(s.Key)) // get reference from FE game data base
                             Reference = (string[])saDb[s.Key].Reference?.Clone() ?? null;
                         else
                             Reference = null;
@@ -311,6 +311,20 @@ namespace FateExplorer.CharacterImport
         public Dictionary<string, IActivatableM> GetDisadvantages()
             => GetActivatables(DisadvantageMarker);
 
+
+        public Dictionary<string, (string id, int tier)> _GetSpecialAbilities()
+        {
+            Dictionary<string, (string, int)> Result = new();
+            foreach (var s in Activatable)
+            {
+                if (s.Key.StartsWith(SpecialAbilityMarker) && s.Value.Count > 0)
+                    if (s.Key != OptSpecialAbility.Language)
+                    {
+                        Result.Add(s.Key, (s.Key, s.Value[0].Tier));
+                    }
+            }
+            return Result;
+        }
 
 
         // ENERGIES
@@ -453,9 +467,7 @@ namespace FateExplorer.CharacterImport
         {
             foreach (var i in Belongings.Items)
             {
-                if (i.CombatTechnique is null || !WeaponsExcluded) // &&
-                    //meleeDB.Contains(i.Id) &&
-                    //rangedDB.Contains(i.Id))
+                if (i.CombatTechnique is null || !WeaponsExcluded)
                 {
                     var result = new BelongingM() 
                     { 

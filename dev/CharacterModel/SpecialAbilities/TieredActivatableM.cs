@@ -11,12 +11,12 @@ public class TieredActivatableM : IActivatableM
 
     public TieredActivatableM(string id, int tier, string[] reference, bool recognized = false)
     {
-        if (id is null) throw new ArgumentNullException(nameof(id));
+        ArgumentNullException.ThrowIfNull(id);
         if (tier < 0) throw new ArgumentException("Error in file: a tier of a special ability cannot be negative", nameof(tier));
 
         Id = id;
         Tier = tier;
-        Reference = reference ?? Array.Empty<string>();
+        Reference = reference ?? [];
         IsRecognized = recognized;
     }
 
