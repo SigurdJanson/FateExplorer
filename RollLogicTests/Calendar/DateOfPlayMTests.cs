@@ -38,7 +38,7 @@ namespace UnitTests.Calendar
             var result = dateOfPlayM.Date;
 
             // Assert
-            Assert.AreEqual(DateTime.Today, result.Date);
+            Assert.That(DateTime.Today, Is.EqualTo(result.Date));
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace UnitTests.Calendar
             dateOfPlayM.Date = new DateTime(year, month, day);
 
             // Assert
-            Assert.AreEqual(day, dateOfPlayM.Date.Day);
-            Assert.AreEqual(month, dateOfPlayM.Date.Month);
-            Assert.AreEqual(year, dateOfPlayM.Date.Year);
+            Assert.That(day, Is.EqualTo(dateOfPlayM.Date.Day));
+            Assert.That(month, Is.EqualTo(dateOfPlayM.Date.Month));
+            Assert.That(year, Is.EqualTo(dateOfPlayM.Date.Year));
             mockClientSideStorage.Verify(c => c.Store(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>()), Times.Once);
         }
 
@@ -78,7 +78,7 @@ namespace UnitTests.Calendar
             await dateOfPlayM.RestoreSavedState(); // restore date from the past
 
             // Assert
-            Assert.AreEqual(ExpectedDate, dateOfPlayM.Date);
+            Assert.That(ExpectedDate, Is.EqualTo(dateOfPlayM.Date));
             this.mockRepository.VerifyAll();
         }
     }

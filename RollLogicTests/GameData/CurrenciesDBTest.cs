@@ -20,9 +20,9 @@ public class CurrenciesDBTest : GameDataTestsBase<CurrenciesDB, CurrencyDbEntry>
         CurrenciesDB Result = CreateDBfromFile(Language);
 
         // Assert
-        Assert.AreEqual(8, Result.Count);
-        Assert.AreEqual(Currency1, Result[0].Name);
-        Assert.AreEqual(CurrencyLast, Result[^1].Name);
+        Assert.That(8, Is.EqualTo(Result.Count));
+        Assert.That(Currency1, Is.EqualTo(Result[0].Name));
+        Assert.That(CurrencyLast, Is.EqualTo(Result[^1].Name));
     }
 
     // inherited: public void Count_ContentNotLoaded_Return0()

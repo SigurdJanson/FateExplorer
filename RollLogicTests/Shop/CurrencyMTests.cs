@@ -23,10 +23,10 @@ namespace UnitTests.Shop
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("TestId", currencyM.Id);
-                Assert.AreEqual("TestName", currencyM.Name);
-                Assert.AreEqual("TestRegion", currencyM.Origin);
-                Assert.AreEqual(1.25, currencyM.Rate);
+                Assert.That("TestId", Is.EqualTo(currencyM.Id));
+                Assert.That("TestName", Is.EqualTo(currencyM.Name));
+                Assert.That("TestRegion", Is.EqualTo(currencyM.Origin));
+                Assert.That(1.25, Is.EqualTo(currencyM.Rate));
             });
         }
     }

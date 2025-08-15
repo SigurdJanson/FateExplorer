@@ -41,8 +41,8 @@ namespace UnitTests.RollLogic
             var result = dieRoll.Roll();
 
             // Assert
-            Assert.AreEqual(MoqRandomInt, result[0]);
-            Assert.AreEqual(1, result.Length);
+            Assert.That(MoqRandomInt, Is.EqualTo(result[0]));
+            Assert.That(1, Is.EqualTo(result.Length));
         }
 
 
@@ -59,10 +59,10 @@ namespace UnitTests.RollLogic
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(1, dieRoll.OpenRoll.Length);
+                Assert.That(1, Is.EqualTo(dieRoll.OpenRoll.Length));
                 Assert.GreaterOrEqual(result[0], 1);
                 Assert.LessOrEqual(result[0], Sides);
-                Assert.AreEqual(dieRoll.OpenRoll, result);
+                Assert.That(dieRoll.OpenRoll, Is.EqualTo(result));
                 //Assert.AreEqual(0, dieRoll.PrevRoll[0]);
             });
             this.mockRepository.VerifyAll();
@@ -87,8 +87,8 @@ namespace UnitTests.RollLogic
                 Assert.GreaterOrEqual(second, 1);
                 Assert.LessOrEqual(second, Sides);
             });
-            Assert.AreEqual(dieRoll.OpenRoll[0], second);
-            Assert.AreEqual(dieRoll.PrevRoll[0], first);
+            Assert.That(dieRoll.OpenRoll[0], Is.EqualTo(second) );
+            Assert.That(dieRoll.PrevRoll[0], Is.EqualTo(first));
             this.mockRepository.VerifyAll();
         }
 

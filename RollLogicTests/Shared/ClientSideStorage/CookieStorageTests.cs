@@ -105,7 +105,7 @@ namespace UnitTests.Shared.ClientSideStorage
             var result = await cookieStorage.Retrieve(key, myDefault);
 
             // Assert
-            Assert.That(expected, result);
+            Assert.That(expected, Is.EqualTo(result));
             mockRepository.VerifyAll();
             mockJSRuntime.Verify(o
                 => o.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),
@@ -129,7 +129,7 @@ namespace UnitTests.Shared.ClientSideStorage
             var result = await cookieStorage.Retrieve(key, defaultVal: expected);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(expected, Is.EqualTo(result));
             mockRepository.VerifyAll();
             mockJSRuntime.Verify(o
                 => o.InvokeAsync<string>(It.Is<string>(s => s == "eval"), It.IsAny<object[]>()),

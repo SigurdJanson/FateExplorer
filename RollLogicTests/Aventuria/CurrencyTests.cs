@@ -30,7 +30,7 @@ public class CurrencyTests
         var currency = Currency.MiddenrealmThaler;
         var expected = new string[] { "Ducat", "Silverthaler", "Haler", "Kreutzer" };
 
-        Assert.AreEqual(expected, currency.CoinNames);
+        Assert.That(expected, Is.EqualTo(currency.CoinNames));
     }
 
     [Test]
@@ -39,7 +39,7 @@ public class CurrencyTests
         var currency = Currency.DwarvenThaler;
         var expected = new decimal[] { 12, 2, 0.2m };
 
-        Assert.AreEqual(expected, currency.CoinValue);
+        Assert.That(expected, Is.EqualTo(currency.CoinValue));
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class CurrencyTests
         var currency = Currency.PaaviGuilder;
         var expected = new string[] { "R" };
 
-        Assert.AreEqual(expected, currency.CoinAbbr);
+        Assert.That(expected, Is.EqualTo(currency.CoinAbbr));
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class CurrencyTests
         var currency = Currency.NostrianCrown;
         var expected = 5.0m;
 
-        Assert.AreEqual(expected, currency.Rate);
+        Assert.That(expected, Is.EqualTo(currency.Rate));
     }
 
     [Test]
@@ -66,7 +66,7 @@ public class CurrencyTests
         var currency = Currency.Andrathaler;
         var expected = new decimal[] { 0.025m };
 
-        Assert.AreEqual(expected, currency.CoinWeight);
+        Assert.That(expected, Is.EqualTo(currency.CoinWeight));
     }
 
     [Test]
@@ -75,7 +75,7 @@ public class CurrencyTests
         var currency = Currency.Horasdor;
         var expected = new Region[] { Region.Fairfields };
 
-        Assert.AreEqual(expected, currency.Origin);
+        Assert.That(expected, Is.EqualTo(currency.Origin));
     }
 
     [Test, Culture("de-DE")]
@@ -84,7 +84,7 @@ public class CurrencyTests
         var currency = Currency.AlanfaOreal;
         var expected = new string[] { "Dublone", "Oreal", "Kleiner Oreal", "Dirham" };
 
-        Assert.AreEqual(expected, currency.NativeCoinNames);
+        Assert.That(expected, Is.EqualTo(currency.NativeCoinNames));
     }
     [Test, Culture("en-GB")]
     public void AlanfaOreal_NativeCoinNames_En_ReturnsExpectedValue()
@@ -92,7 +92,7 @@ public class CurrencyTests
         var currency = Currency.AlanfaOreal;
         var expected = new string[] { "Dubloon", "Oreal", "Small Oreal", "Dirham" };
 
-        Assert.AreEqual(expected, currency.NativeCoinNames);
+        Assert.That(expected, Is.EqualTo(currency.NativeCoinNames));
     }
 
     [Test]
@@ -101,7 +101,7 @@ public class CurrencyTests
         var currency = Currency.BornlandPenny;
         var expected = new string[] { "BB", "BG", "BD" };
 
-        Assert.AreEqual(expected, currency.NativeCoinSymbols);
+        Assert.That(expected, Is.EqualTo(currency.NativeCoinSymbols));
     }
 
 
