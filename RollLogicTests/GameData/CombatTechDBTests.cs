@@ -20,9 +20,9 @@ namespace UnitTests.GameData
             // Act
             CombatTechDB Result = CreateDBfromFile(Language);
             // Assert
-            Assert.AreEqual(21, Result.Count);
-            Assert.AreEqual(Tech1, Result[0].Id);
-            Assert.AreEqual(TechLast, Result[^1].Id);
+            Assert.That(21, Is.EqualTo(Result.Count));
+            Assert.That(Tech1, Is.EqualTo(Result[0].Id));
+            Assert.That(TechLast, Is.EqualTo(Result[^1].Id));
         }
 
 

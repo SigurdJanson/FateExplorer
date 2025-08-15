@@ -194,7 +194,7 @@ namespace UnitTests.Shared
             string result = check;
 
             // Assert
-            Assert.AreEqual(result, check.Id); // additional test
+            Assert.That(result, Is.EqualTo(check.Id)); // additional test
             return result;
         }
 
@@ -214,7 +214,7 @@ namespace UnitTests.Shared
             string result = check;
 
             // Assert
-            Assert.AreEqual(result, check.Id); // additional test
+            Assert.That(result, Is.EqualTo(check.Id)); // additional test
             return result;
         }
 

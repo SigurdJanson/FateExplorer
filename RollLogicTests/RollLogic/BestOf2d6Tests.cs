@@ -44,7 +44,7 @@ namespace UnitTests.RollLogic
             var result = bestOf2d6.OpenRollCombined();
 
             // Assert
-            Assert.AreEqual(Math.Max(RandomResult1, RandomResult2), result);
+            Assert.That(Math.Max(RandomResult1, RandomResult2), Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
 
@@ -63,7 +63,7 @@ namespace UnitTests.RollLogic
             var result = bestOf2d6.OpenRollCombined();
 
             // Assert
-            Assert.AreEqual(2*RandomResult, result);
+            Assert.That(2 * RandomResult, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
 

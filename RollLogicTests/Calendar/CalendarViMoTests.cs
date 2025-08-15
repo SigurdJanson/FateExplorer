@@ -131,7 +131,7 @@ namespace UnitTests.Calendar
             calendarViMo.GotoEarthDate();
 
             // Assert
-            Assert.AreEqual(DateTime.Today, calendarViMo.EffectiveDate.Date);
+            Assert.That(DateTime.Today, Is.EqualTo(calendarViMo.EffectiveDate.Date));
             this.mockRepository.VerifyAll();
         }
 

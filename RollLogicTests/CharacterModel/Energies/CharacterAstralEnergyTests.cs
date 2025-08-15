@@ -99,8 +99,8 @@ namespace UnitTests.CharacterModel.Energies
             var characterAstralEnergy = this.CreateCharacterAstralEnergy(ToAdd);
 
             // Assert
-            Assert.AreEqual(ExpMin, characterAstralEnergy.Min);
-            Assert.AreEqual(ExpMax, characterAstralEnergy.Max);
+            Assert.That(ExpMin, Is.EqualTo(characterAstralEnergy.Min));
+            Assert.That(ExpMax, Is.EqualTo(characterAstralEnergy.Max));
             this.mockRepository.VerifyAll();
         }
     }

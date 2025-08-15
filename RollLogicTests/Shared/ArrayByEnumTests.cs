@@ -26,7 +26,7 @@ namespace UnitTests.Shared
             }
 
             // Assert
-            Assert.AreEqual(new string[] { "0", "1", "2", "3", "4", "5" }, arrayByEnum);
+            Assert.That(new string[] { "0", "1", "2", "3", "4", "5" }, Is.EqualTo(arrayByEnum));
         }
 
 

@@ -64,9 +64,9 @@ namespace UnitTests.CharacterModel
             var combatTechM = this.CreateCombatTechM(GameData, CtValue);
 
             // Assert
-            Assert.AreEqual(CtId, combatTechM.Id);
-            Assert.AreEqual(CtBranch == CombatBranch.Ranged, combatTechM.IsRanged);
-            Assert.AreEqual(CtValue, combatTechM.Value);
+            Assert.That(CtId, Is.EqualTo(combatTechM.Id));
+            Assert.That(CtBranch == CombatBranch.Ranged, Is.EqualTo(combatTechM.IsRanged));
+            Assert.That(CtValue, Is.EqualTo(combatTechM.Value));
         }
 
 

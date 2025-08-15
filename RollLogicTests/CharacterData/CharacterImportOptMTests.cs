@@ -27,7 +27,7 @@ namespace UnitTests.CharacterData
             CharacterImportOptM Result = JsonSerializer.Deserialize<CharacterImportOptM>(jsonString);
 
             // Assert
-            Assert.AreEqual(TargetClientVersion, Result.ClientVersion);
+            Assert.That(TargetClientVersion, Is.EqualTo(Result.ClientVersion));
         }
 
 
@@ -50,8 +50,8 @@ namespace UnitTests.CharacterData
             CharacterImportOptM Result = JsonSerializer.Deserialize<CharacterImportOptM>(jsonString);
 
             // Assert
-            Assert.AreEqual(Spellcaster, Result.IsSpellcaster());
-            Assert.AreEqual(Blessed, Result.IsBlessed());
+            Assert.That(Spellcaster, Is.EqualTo(Result.IsSpellcaster()));
+            Assert.That(Blessed, Is.EqualTo(Result.IsBlessed()));
         }
     }
 }

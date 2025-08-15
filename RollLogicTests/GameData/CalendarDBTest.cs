@@ -85,9 +85,9 @@ public class CalendarDBTests
         // Act
         CalendarDB Result = JsonSerializer.Deserialize<CalendarDB>(jsonString);
 
-        Assert.AreEqual(7, Result.Generic.WeekDays.Count);
-        Assert.AreEqual(13, Result.Generic.Month.Count);
-        Assert.AreEqual(4, Result.Generic.Season.Count);
+        Assert.That(7, Is.EqualTo(Result.Generic.WeekDays.Count));
+        Assert.That(13, Is.EqualTo(Result.Generic.Month.Count));
+        Assert.That(4, Is.EqualTo(Result.Generic.Season.Count));
     }
 
 

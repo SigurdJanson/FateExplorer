@@ -21,7 +21,7 @@ public class CoinSetTests
         // Arrange
         var coinSet = new CoinSet(Currency.MiddenrealmThaler);
         // Assert
-        Assert.AreEqual(4, coinSet.Count);
+        Assert.That(4, Is.EqualTo(coinSet.Count));
     }
 
 
@@ -32,7 +32,7 @@ public class CoinSetTests
         // Arrange
         var coinSet = new CoinSet(Currency.MiddenrealmThaler);
         // Assert
-        Assert.AreEqual(0, coinSet.CoinCount);
+        Assert.That(0, Is.EqualTo(coinSet.CoinCount));
     }
 
 

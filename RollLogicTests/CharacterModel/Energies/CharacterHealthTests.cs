@@ -91,8 +91,8 @@ namespace UnitTests.CharacterModel.Energies
             var characterHealth = this.CreateCharacterHealth(ToAdd);
 
             // Assert
-            Assert.AreEqual(ExpMin, characterHealth.Min);
-            Assert.AreEqual(ExpMax, characterHealth.Max);
+            Assert.That(ExpMin, Is.EqualTo(characterHealth.Min));
+            Assert.That(ExpMax, Is.EqualTo(characterHealth.Max));
             this.mockRepository.VerifyAll();
         }
 
@@ -117,8 +117,8 @@ namespace UnitTests.CharacterModel.Energies
             var characterHealth = this.CreateCharacterHealth(ToAdd);
 
             // Assert
-            Assert.AreEqual(ExpMin, characterHealth.Min);
-            Assert.AreEqual(ExpMax, characterHealth.Max);
+            Assert.That(ExpMin, Is.EqualTo(characterHealth.Min));
+            Assert.That(ExpMax, Is.EqualTo(characterHealth.Max));
             this.mockRepository.VerifyAll();
         }
 
@@ -149,10 +149,10 @@ namespace UnitTests.CharacterModel.Energies
             characterHealth.CalcThresholds(EffMax);
 
             // Assert
-            Assert.AreEqual(Pain1, characterHealth.Thresholds[0]);
-            Assert.AreEqual(Pain2, characterHealth.Thresholds[1]);
-            Assert.AreEqual(Pain3, characterHealth.Thresholds[2]);
-            Assert.AreEqual(Pain4, characterHealth.Thresholds[3]);
+            Assert.That(Pain1, Is.EqualTo(characterHealth.Thresholds[0]));
+            Assert.That(Pain2, Is.EqualTo(characterHealth.Thresholds[1]));
+            Assert.That(Pain3, Is.EqualTo(characterHealth.Thresholds[2]));
+            Assert.That(Pain4, Is.EqualTo(characterHealth.Thresholds[3]));
             this.mockRepository.VerifyAll();
         }
     }

@@ -43,10 +43,10 @@ namespace UnitTests.RollLogic
             
             // Assert confirmation roll
             // ... that there is no confirmation result
-            Assert.AreEqual(RollSuccess.Level.na, abilityCheckM.SuccessOfRoll(RollType.Confirm));
+            Assert.That(RollSuccess.Level.na, Is.EqualTo(abilityCheckM.SuccessOfRoll(RollType.Confirm)));
 
             // Assert total check
-            Assert.AreEqual(result, abilityCheckM.Success.CurrentLevel);
+            Assert.That(result, Is.EqualTo(abilityCheckM.Success.CurrentLevel));
         }
 
 

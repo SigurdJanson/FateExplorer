@@ -20,9 +20,9 @@ namespace UnitTests.GameData
             AbilitiesDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(8, Result.Count);
-            Assert.AreEqual(Ability1, Result[0].ShortName);
-            Assert.AreEqual(AbilityLast, Result[^1].ShortName);
+            Assert.That(8, Is.EqualTo(Result.Count));
+            Assert.That(Ability1, Is.EqualTo(Result[0].ShortName));
+            Assert.That(AbilityLast, Is.EqualTo(Result[^1].ShortName));
         }
 
         // inherited: public void Count_ContentNotLoaded_Return0()
