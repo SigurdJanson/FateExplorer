@@ -106,10 +106,15 @@ public class RegenerationDialogTest : BUnitTestBase
         // ASSERT ===
         comp.Find("button[type=submit]").Click();
         var result = await dlgReference!.Result;
-        Assert.That(result.Canceled, Is.False);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result?.Canceled, Is.False);
+        }
 
+        Assert.That(result.Data, Is.Not.Null);
         var DlgResult = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(DlgResult.Item1, Is.EqualTo(RegenerationSite.Good));
             Assert.That(DlgResult.Item2, Is.EqualTo(RegenerationDisturbance.Brief));
@@ -161,14 +166,19 @@ public class RegenerationDialogTest : BUnitTestBase
         // ASSERT ===
         comp.Find("button[type=submit]").Click();
         var result = await dlgReference!.Result;
-        Assert.That(result.Canceled, Is.False);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result?.Canceled, Is.False);
+        }
 
+        Assert.That(result.Data, Is.Not.Null);
         var DlgResult = ((RegenerationSite, RegenerationDisturbance, bool, int[]))result.Data;
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(DlgResult.Item1, Is.EqualTo(RegenerationSite.Default));
             Assert.That(DlgResult.Item2, Is.EqualTo(RegenerationDisturbance.None));
             Assert.That(DlgResult.Item3, Is.False);
-        });
+        }
     }
 }

@@ -266,7 +266,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.AtSkill(MainHand, otherHand);
 
             // Assert
-            Assert.AreEqual(AtVal, result);
+            Assert.That(AtVal, Is.EqualTo(result));
 
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
@@ -307,7 +307,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.AtSkill(MainHand, otherHand);
 
             // Assert
-            Assert.AreEqual(AtVal, result);
+            Assert.That(AtVal, Is.EqualTo(result));
 
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
@@ -349,7 +349,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.PaSkill(MainHand, otherHand, otherIsParry, otherPaSkill);
 
             // Assert
-            Assert.AreEqual(PaVal, result);
+            Assert.That(PaVal, Is.EqualTo(result));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -392,7 +392,7 @@ namespace UnitTests.CharacterModel
 
 
             // Assert
-            Assert.AreEqual(PaVal, result);
+            Assert.That(PaVal, Is.EqualTo(result));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -438,7 +438,7 @@ namespace UnitTests.CharacterModel
 
 
             // Assert
-            Assert.AreEqual(PaVal + shieldPaSkill, result);
+            Assert.That(PaVal + shieldPaSkill, Is.EqualTo(result));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -486,7 +486,7 @@ namespace UnitTests.CharacterModel
 
 
             // Assert
-            Assert.AreEqual(PaVal + ParryWeaponBonus + Penalty4TwohandedCombat, result);
+            Assert.That(PaVal + ParryWeaponBonus + Penalty4TwohandedCombat, Is.EqualTo(result));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
@@ -540,7 +540,7 @@ namespace UnitTests.CharacterModel
             var result = weaponM.HitpointBonus(HeroWipfelglanz.Abilities);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);
