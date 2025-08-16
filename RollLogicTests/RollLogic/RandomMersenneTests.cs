@@ -203,8 +203,8 @@ namespace UnitTests.RollLogic
             var result = randomMersenne.IRandom(min, max);
 
             // Assert
-            Assert.LessOrEqual(min, result);
-            Assert.GreaterOrEqual(max, result);
+            Assert.That(min, Is.LessThanOrEqualTo(result));
+            Assert.That(max, Is.GreaterThanOrEqualTo(result));
         }
 
 
@@ -222,8 +222,8 @@ namespace UnitTests.RollLogic
             var result = randomMersenne.Random();
 
             // Assert
-            Assert.LessOrEqual(min, result);
-            Assert.GreaterOrEqual(max, result);
+            Assert.That(min, Is.LessThanOrEqualTo(result));
+            Assert.That(max, Is.GreaterThanOrEqualTo(result));
         }
 
 
@@ -256,7 +256,7 @@ namespace UnitTests.RollLogic
             double p = ChiSquarePval(chi2 < 0 ? 0.00001 : chi2, length-1);
 
             // Assert
-            Assert.LessOrEqual(p, 0.95);
+            Assert.That(p, Is.LessThanOrEqualTo(0.95));
             Assume.That(p, Is.LessThan(0.80));
         }
 

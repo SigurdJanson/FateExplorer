@@ -39,7 +39,7 @@ namespace UnitTests.CharacterModel
             var dodgeM = this.CreateDodgeM();
 
             // Assert
-            Assert.AreEqual(Expected, dodgeM.Effective);
+            Assert.That(Expected, Is.EqualTo(dodgeM.Effective));
             mockCharacterM.Verify(c => c.GetAbility(It.Is<string>(s => s == AbilityM.AGI)), Times.Once);
         }
 
@@ -53,7 +53,7 @@ namespace UnitTests.CharacterModel
             var result = DodgeM.ComputeDodge(EffectiveAgility);
 
             // Assert
-            Assert.AreEqual(HeroWipfelglanz.Dodge, result);
+            Assert.That(HeroWipfelglanz.Dodge, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
 
@@ -69,7 +69,7 @@ namespace UnitTests.CharacterModel
             var result = DodgeM.ComputeDodge(EffectiveAgility);
 
             // Assert
-            Assert.AreEqual(HeroArbosch.Dodge, result);
+            Assert.That(HeroArbosch.Dodge, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
 
@@ -84,7 +84,7 @@ namespace UnitTests.CharacterModel
             var result = DodgeM.ComputeDodge(EffectiveAgility);
 
             // Assert
-            Assert.AreEqual(HeroGrassberger.Dodge, result);
+            Assert.That(HeroGrassberger.Dodge, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
     }

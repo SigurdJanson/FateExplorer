@@ -46,7 +46,7 @@ namespace UnitTests.Shared
             var result = a.Fitness(null);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.That(0, Is.EqualTo(result));
         }
     }
 }

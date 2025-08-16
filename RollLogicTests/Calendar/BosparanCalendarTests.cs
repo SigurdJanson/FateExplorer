@@ -420,7 +420,7 @@ public class BosparanCalendarTests
         var result = bosparanCalendar.IsLeapDay(Year, Month, Day, Era);
 
         // Assert
-        Assert.False(result);
+        Assert.That(result, Is.False);
     }
 
 
@@ -438,7 +438,7 @@ public class BosparanCalendarTests
         var result = bosparanCalendar.IsLeapMonth(Year, Month, Era);
 
         // Assert
-        Assert.False(result);
+        Assert.That(result, Is.False);
     }
 
 
@@ -455,7 +455,7 @@ public class BosparanCalendarTests
         var result = bosparanCalendar.IsLeapYear(Year, Era);
 
         // Assert
-        Assert.False(result);
+        Assert.That(result, Is.False);
     }
 
     #endregion

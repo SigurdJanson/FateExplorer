@@ -33,12 +33,12 @@ namespace UnitTests.RollLogic
             Assert.Multiple(() =>
             {
                 // ... that it must have changed from NA to somethign meaningful
-                Assert.AreNotEqual(RollSuccess.Level.na, result);
+                Assert.That(RollSuccess.Level.na, Is.Not.EqualTo(result));
                 // ... that it is no fail because effective ability value is 20 and that's not possible
-                Assert.AreNotEqual(RollSuccess.Level.Fail, result);
+                Assert.That(RollSuccess.Level.Fail, Is.Not.EqualTo(result));
                 // ... that there are no confirmed cricitals or botches
-                Assert.AreNotEqual(RollSuccess.Level.Critical, result);
-                Assert.AreNotEqual(RollSuccess.Level.Botch, result);
+                Assert.That(RollSuccess.Level.Critical, Is.Not.EqualTo(result));
+                Assert.That(RollSuccess.Level.Botch, Is.Not.EqualTo(result));
             });
             
             // Assert confirmation roll

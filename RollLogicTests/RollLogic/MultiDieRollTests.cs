@@ -39,7 +39,7 @@ namespace UnitTests.RollLogic
             var result = multiDieRoll.Roll();
 
             // Assert
-            Assert.AreEqual(DieCount, result.Length);
+            Assert.That(DieCount, Is.EqualTo(result.Length));
             Assert.That(result, Is.All.Matches<int>(x => x >= 1 && x <= Sides));
         }
 
@@ -60,7 +60,7 @@ namespace UnitTests.RollLogic
             var result = multiDieRoll.OpenRollCombined();
 
             // Assert
-            Assert.AreEqual(multiDieRoll.OpenRoll.Sum(), result);
+            Assert.That(multiDieRoll.OpenRoll.Sum(), Is.EqualTo(result));
         }
 
 
@@ -83,7 +83,7 @@ namespace UnitTests.RollLogic
             int product = 1;
             foreach (int i in multiDieRoll.OpenRoll)
                 product *= i;
-            Assert.AreEqual(product, result);
+            Assert.That(product, Is.EqualTo(result));
         }
 
 
@@ -106,7 +106,7 @@ namespace UnitTests.RollLogic
             Assume.That(multiDieRoll.OpenRoll[0] == 1 && multiDieRoll.OpenRoll[1] == Sides);
 
             // Assert
-            Assert.AreEqual(Sides + 1, result);
+            Assert.That(Sides + 1, Is.EqualTo(result));
         }
 
 
@@ -130,7 +130,7 @@ namespace UnitTests.RollLogic
             Assume.That(multiDieRoll.OpenRoll[0] == 1 && multiDieRoll.OpenRoll[1] == Sides);
 
             // Assert
-            Assert.AreEqual(Sides * 1, result);
+            Assert.That(Sides * 1, Is.EqualTo(result));
         }
     }
 }

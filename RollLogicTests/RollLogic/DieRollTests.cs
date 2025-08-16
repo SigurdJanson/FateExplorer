@@ -60,8 +60,8 @@ namespace UnitTests.RollLogic
             Assert.Multiple(() =>
             {
                 Assert.That(1, Is.EqualTo(dieRoll.OpenRoll.Length));
-                Assert.GreaterOrEqual(result[0], 1);
-                Assert.LessOrEqual(result[0], Sides);
+                Assert.That(result[0], Is.GreaterThanOrEqualTo(1));
+                Assert.That(result[0], Is.LessThanOrEqualTo(Sides));
                 Assert.That(dieRoll.OpenRoll, Is.EqualTo(result));
                 //Assert.AreEqual(0, dieRoll.PrevRoll[0]);
             });
@@ -84,8 +84,8 @@ namespace UnitTests.RollLogic
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.GreaterOrEqual(second, 1);
-                Assert.LessOrEqual(second, Sides);
+                Assert.That(second, Is.GreaterThanOrEqualTo(1));
+                Assert.That(second, Is.LessThanOrEqualTo(Sides));
             });
             Assert.That(dieRoll.OpenRoll[0], Is.EqualTo(second) );
             Assert.That(dieRoll.PrevRoll[0], Is.EqualTo(first));

@@ -68,14 +68,14 @@ namespace UnitTests.GameData
 
             // Act
             // Assert
-            Assert.IsTrue(Result.Count == Languages.Length);
+            Assert.That(Result.Count, Is.EqualTo(Languages.Length));
             for (int i = 0; i < Languages.Length; i++)
             {
                 for (int j = 0; j < Result[0].Data.Count; j++)
-                    Assert.IsTrue(TestHelpers.IsDeeplyEqual(
+                    Assert.That(TestHelpers.IsDeeplyEqual(
                         Result[0].Data[j],
                         Result[1].Data[j],
-                        DeepComparisonWhiteList));
+                        DeepComparisonWhiteList), Is.True);
             }
         }
 
@@ -92,7 +92,7 @@ namespace UnitTests.GameData
             int Count = DB.Count;
 
             // Assert
-            Assert.AreEqual(0, Count);
+            Assert.That(0, Is.EqualTo(Count));
         }
     }
 }

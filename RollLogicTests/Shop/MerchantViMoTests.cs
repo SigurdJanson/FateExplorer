@@ -119,7 +119,7 @@ namespace UnitTests.Shop
             //Assume.That(result, Is.Zero);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.That(0, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
             return result;
         }
@@ -156,7 +156,7 @@ namespace UnitTests.Shop
             var result = merchantViMo.DeterminePrice(Price, BuyerQL);
 
             // Assert
-            Assert.AreEqual(Price * ExpectedMultiplier, result);
+            Assert.That(Price * ExpectedMultiplier, Is.EqualTo(result));
             this.mockRepository.VerifyAll();
         }
     }

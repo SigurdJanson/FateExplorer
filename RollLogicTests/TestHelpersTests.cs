@@ -45,7 +45,7 @@ namespace UnitTests
             var result = TestHelpers.IsTier1Equal(self, to);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
 
@@ -75,7 +75,7 @@ namespace UnitTests
             var result = TestHelpers.IsTier1Equal(self, to);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
 
@@ -101,7 +101,7 @@ namespace UnitTests
             var result = TestHelpers.IsTier1Equal(self, to);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
 
@@ -129,7 +129,7 @@ namespace UnitTests
             var result = TestHelpers.IsTier1Equal(self, to);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         #endregion ---------------
@@ -164,7 +164,7 @@ namespace UnitTests
             var result = TestHelpers.IsDeeplyEqual(self, to);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         #endregion ---------------

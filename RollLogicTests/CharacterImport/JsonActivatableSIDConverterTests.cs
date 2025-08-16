@@ -47,23 +47,23 @@ public class JsonActivatableSIDConverterTests
         var Result = JsonSerializer.Deserialize<List<TestClass>>(jsonString);
 
         // Assert
-        Assert.AreEqual(4, Result.Count); // 4 objects in file
+        Assert.That(4, Is.EqualTo(Result.Count)); // 4 objects in file
 
-        Assert.AreEqual("Thirty", Result[0].Sid);
-        Assert.AreEqual("One point five", Result[0].Sid1);
-        Assert.AreEqual("999", Result[0].Sid2);
+        Assert.That("Thirty", Is.EqualTo(Result[0].Sid));
+        Assert.That("One point five", Is.EqualTo(Result[0].Sid1));
+        Assert.That("999", Is.EqualTo(Result[0].Sid2));
 
-        Assert.AreEqual("12", Result[1].Sid);
-        Assert.AreEqual("-24", Result[1].Sid1);
-        Assert.AreEqual(null, Result[1].Sid2);
+        Assert.That("12", Is.EqualTo(Result[1].Sid));
+        Assert.That("-24", Is.EqualTo(Result[1].Sid1));
+        Assert.That(null, Is.EqualTo(Result[1].Sid2));
 
-        Assert.AreEqual("0.75", Result[2].Sid);
-        Assert.AreEqual("1999", Result[2].Sid1);
-        Assert.AreEqual("-2000", Result[2].Sid2);
+        Assert.That("0.75", Is.EqualTo(Result[2].Sid));
+        Assert.That("1999", Is.EqualTo(Result[2].Sid1));
+        Assert.That("-2000", Is.EqualTo(Result[2].Sid2));
 
-        Assert.AreEqual("0", Result[3].Sid);
-        Assert.AreEqual(Int32.MaxValue.ToString(), Result[3].Sid1);
-        Assert.AreEqual(Int32.MinValue.ToString(), Result[3].Sid2);
+        Assert.That("0", Is.EqualTo(Result[3].Sid));
+        Assert.That(Int32.MaxValue.ToString(), Is.EqualTo(Result[3].Sid1));
+        Assert.That(Int32.MinValue.ToString(), Is.EqualTo(Result[3].Sid2));
     }
 
 
@@ -122,7 +122,7 @@ public class JsonActivatableSIDConverterTests
         var result = JsonSerializer.Serialize<List<TestClass>>(Tester, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
 
         // Assert
-        Assert.AreEqual(Expected, result);
+        Assert.That(Expected, Is.EqualTo(result));
     }
 
 
@@ -133,7 +133,7 @@ public class JsonActivatableSIDConverterTests
         // Arrange
         var Converter = new JsonActivatableSIDConverter();
         // Act, Assert
-        Assert.IsTrue(Converter.CanConvert(typeof(string)));
+        Assert.That(Converter.CanConvert(typeof(string)), Is.True);
         //-Assert.IsTrue(Converter.CanConvert(typeof(int)));
         //--Assert.IsTrue(Converter.CanConvert(typeof(List<int>)));
     }

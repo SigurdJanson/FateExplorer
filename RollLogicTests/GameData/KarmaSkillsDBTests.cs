@@ -18,9 +18,9 @@ namespace UnitTests.GameData
             KarmaSkillsDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(Count, Result.Count);
-            Assert.AreEqual(Skill1, Result[0].Id);
-            Assert.AreEqual(SkillLast, Result[^1].Id);
+            Assert.That(Count, Is.EqualTo(Result.Count));
+            Assert.That(Skill1, Is.EqualTo(Result[0].Id));
+            Assert.That(SkillLast, Is.EqualTo(Result[^1].Id));
         }
 
 

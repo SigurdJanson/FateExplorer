@@ -26,11 +26,11 @@ namespace UnitTests.ViewModel
             resultQueueViMo.Enqueue(new($"_{99}", new int[1] { 99 }, CupType.Single));
 
             // Assert
-            Assert.AreEqual(MaxLen, resultQueueViMo.Count);
+            Assert.That(MaxLen, Is.EqualTo(resultQueueViMo.Count));
             if (MaxLen > 1)
-                Assert.AreEqual("_2", resultQueueViMo.Peek().Name);
+                Assert.That("_2", Is.EqualTo(resultQueueViMo.Peek().Name));
             else
-                Assert.AreEqual("_99", resultQueueViMo.Peek().Name);
+                Assert.That("_99", Is.EqualTo(resultQueueViMo.Peek().Name));
         }
 
 
@@ -53,8 +53,8 @@ namespace UnitTests.ViewModel
             resultQueueViMo.MaxCount = Decreased;
 
             // Assert
-            Assert.AreEqual(Decreased, resultQueueViMo.Count);
-            Assert.AreEqual($"_{Start - Decreased + 1}", resultQueueViMo.Peek().Name);
+            Assert.That(Decreased, Is.EqualTo(resultQueueViMo.Count));
+            Assert.That($"_{Start - Decreased + 1}", Is.EqualTo(resultQueueViMo.Peek().Name));
         }
 
 
@@ -73,11 +73,11 @@ namespace UnitTests.ViewModel
 
             // Act
             // Assert
-            Assert.AreEqual(MaxLen, resultQueueViMo.Count);
+            Assert.That(MaxLen, Is.EqualTo(resultQueueViMo.Count));
             int ri = MaxLen;
             foreach (var item in resultQueueViMo.Reverse())
             {
-                Assert.AreEqual($"_{ri}", item.Name);
+                Assert.That($"_{ri}", Is.EqualTo(item.Name));
                 ri--;
             }
 

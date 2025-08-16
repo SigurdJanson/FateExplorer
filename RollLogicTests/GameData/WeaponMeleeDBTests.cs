@@ -20,9 +20,9 @@ namespace UnitTests.GameData
             WeaponMeleeDB Result = Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(189, Result.Count);
-            Assert.AreEqual(Weapon1, Result[0].Name);
-            Assert.AreEqual(WeaponLast, Result[^1].Name);
+            Assert.That(189, Is.EqualTo(Result.Count));
+            Assert.That(Weapon1, Is.EqualTo(Result[0].Name));
+            Assert.That(WeaponLast, Is.EqualTo(Result[^1].Name));
         }
 
 

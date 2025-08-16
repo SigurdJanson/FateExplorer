@@ -77,7 +77,7 @@ namespace UnitTests.Shop
             List<ShopItemM> Result = JsonSerializer.Deserialize<List<ShopItemM>>(jsonString);
 
             // Assert
-            Assert.AreEqual(1039, Result.Count);
+            Assert.That(1039, Is.EqualTo(Result.Count));
         }
 
 
@@ -110,7 +110,7 @@ namespace UnitTests.Shop
             var result = shopInventoryViMo.GetStock(Filter, null);
 
             // Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.That(1, Is.EqualTo(result.Count));
         }
 
 
@@ -130,7 +130,7 @@ namespace UnitTests.Shop
             using (IEnumerator<(string id,string name)> enumerator = result.GetEnumerator())
                 while (enumerator.MoveNext()) ResultLength++;
 
-            Assert.AreEqual(ExpectedCount, ResultLength);
+            Assert.That(ExpectedCount, Is.EqualTo(ResultLength));
             mockRepository.VerifyAll();
         }
 
@@ -147,7 +147,7 @@ namespace UnitTests.Shop
             var result = Inventory.GetDefaultCurrency();
 
             // Assert
-            Assert.AreEqual(("", ""), result);
+            Assert.That(("", ""), Is.EqualTo(result));
             mockRepository.VerifyAll();
         }
 
@@ -165,7 +165,7 @@ namespace UnitTests.Shop
             var result = Inventory.GetExchangeRate(currencyId);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
             mockRepository.VerifyAll();
         }
 

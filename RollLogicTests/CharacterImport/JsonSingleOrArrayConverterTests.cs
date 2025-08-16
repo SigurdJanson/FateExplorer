@@ -41,20 +41,20 @@ namespace UnitTests.CharacterImport
             var Result = JsonSerializer.Deserialize<List<TestClass>>(jsonString);
 
             // Assert
-            Assert.AreEqual(4, Result.Count);
+            Assert.That(4, Is.EqualTo(Result.Count));
 
-            Assert.AreEqual(30, Result[0].Stp[0]);
-            Assert.AreEqual(1, Result[0].Stp.Count);
+            Assert.That(30, Is.EqualTo(Result[0].Stp[0]));
+            Assert.That(1, Is.EqualTo(Result[0].Stp.Count));
 
-            Assert.AreEqual(2, Result[1].Stp.Count);
+            Assert.That(2, Is.EqualTo(Result[1].Stp.Count));
             Assert.That(Result[1].Stp[0], Is.EqualTo(4).Or.EqualTo(20));
             Assert.That(Result[1].Stp[1], Is.EqualTo(4).Or.EqualTo(20));
 
-            Assert.AreEqual(1, Result[2].Stp.Count);
-            Assert.AreEqual(2000, Result[2].Stp[0]);
+            Assert.That(1, Is.EqualTo(Result[2].Stp.Count));
+            Assert.That(2000, Is.EqualTo(Result[2].Stp[0]));
 
-            Assert.AreEqual(1, Result[3].Stp.Count);
-            Assert.AreEqual(80, Result[3].Stp[0]);
+            Assert.That(1, Is.EqualTo(Result[3].Stp.Count));
+            Assert.That(80, Is.EqualTo(Result[3].Stp[0]));
         }
 
 
@@ -113,7 +113,7 @@ namespace UnitTests.CharacterImport
             var result = JsonSerializer.Serialize<List<TestClass>>(Tester);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
         }
 
 
@@ -124,8 +124,8 @@ namespace UnitTests.CharacterImport
             // Arrange
             var Converter = new JsonSingleOrArrayConverter<List<int>, int>();
             // Act, Assert
-            Assert.IsTrue(Converter.CanConvert(typeof(int)));
-            Assert.IsTrue(Converter.CanConvert(typeof(List<int>)));
+            Assert.That(Converter.CanConvert(typeof(int)), Is.True);
+            Assert.That(Converter.CanConvert(typeof(List<int>)), Is.True);
         }
 
 
@@ -135,8 +135,8 @@ namespace UnitTests.CharacterImport
             // Arrange
             var Converter = new JsonSingleOrArrayConverter<List<DateOnly>, DateOnly>();
             // Act, Assert
-            Assert.IsTrue(Converter.CanConvert(typeof(DateOnly)));
-            Assert.IsTrue(Converter.CanConvert(typeof(List<DateOnly>)));
+            Assert.That(Converter.CanConvert(typeof(DateOnly)), Is.True);
+            Assert.That(Converter.CanConvert(typeof(List<DateOnly>)), Is.True);
         }
 
     }

@@ -36,9 +36,9 @@ namespace UnitTests.RollLogic
             var result = energyRollM.Roll();
 
             // Assert
-            Assert.AreEqual(1, result.Length);
-            Assert.GreaterOrEqual(result[0], 1);
-            Assert.LessOrEqual(result[0], 6);
+            Assert.That(1, Is.EqualTo(result.Length));
+            Assert.That(result[0], Is.GreaterThanOrEqualTo(1));
+            Assert.That(result[0], Is.LessThanOrEqualTo(6));
         }
 
 
@@ -68,8 +68,8 @@ namespace UnitTests.RollLogic
             var result = energyRollM.Roll();
 
             // Assert
-            Assert.AreEqual(ModifiedRoll, result[0]);
-            Assert.AreEqual(ModifiedRoll - Roll, energyRollM.ModifiedBy[0]);
+            Assert.That(ModifiedRoll, Is.EqualTo(result[0]));
+            Assert.That(ModifiedRoll - Roll, Is.EqualTo(energyRollM.ModifiedBy[0]));
             
             mockRepository.VerifyAll();
             MoqRng.Verify(Rng => Rng.IRandom(It.Is<int>(i => i == 1), It.Is<int>(i => i == 6)), Times.AtLeastOnce);

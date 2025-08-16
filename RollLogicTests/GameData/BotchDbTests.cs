@@ -41,7 +41,7 @@ namespace UnitTests.GameData
             if (Roll == "Parry" && Type == "Ranged")
                 Assert.Throws<KeyNotFoundException>(() => Result.GetBotch(Roll, Type, DiceEyes));
             else
-                Assert.NotNull(Result.GetBotch(Roll, Type, DiceEyes));
+                Assert.That(Result.GetBotch(Roll, Type, DiceEyes), Is.Not.Null);
         }
 
         [Test, Ignore("not available")]

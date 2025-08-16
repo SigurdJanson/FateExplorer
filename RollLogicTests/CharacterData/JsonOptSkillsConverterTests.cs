@@ -55,9 +55,9 @@ namespace UnitTests.CharacterData
             //var result = jsonOptSkillsConverter.Read(ref reader, typeToConvert, options);
 
             // Assert
-            Assert.AreEqual(12, Result.Spells.Count);
+            Assert.That(12, Is.EqualTo(Result.Spells.Count));
             foreach (var t in TargetResult)
-                Assert.AreEqual(t.Value, Result.Spells[t.Key]);
+                Assert.That(t.Value, Is.EqualTo(Result.Spells[t.Key]));
         }
 
 
@@ -74,7 +74,7 @@ namespace UnitTests.CharacterData
             var Result = jsonOptSkillsConverter.CanConvert(objectType);
 
             // Assert
-            Assert.IsTrue(Result);
+            Assert.That(Result, Is.True);
         }
     }
 }

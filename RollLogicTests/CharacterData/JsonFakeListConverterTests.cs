@@ -38,7 +38,7 @@ namespace UnitTests.CharacterData
             TestClass Result = JsonSerializer.Deserialize<TestClass>(jsonString);
 
             // Assert
-            Assert.AreEqual(3, Result.Items.Count);
+            Assert.That(3, Is.EqualTo(Result.Items.Count));
             //Assert.AreEqual(Ability1, Result[0].ShortName);
             //Assert.AreEqual(AbilityLast, Result[^1].ShortName);
         }
@@ -55,7 +55,7 @@ namespace UnitTests.CharacterData
             var Result = jsonFakeListConverter.CanConvert(objectType);
 
             // Assert
-            Assert.IsTrue(Result);
+            Assert.That(Result, Is.True);
         }
     }
 }

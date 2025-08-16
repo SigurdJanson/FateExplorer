@@ -81,8 +81,8 @@ namespace UnitTests.ViewModel
             var Result = JsonSerializer.Deserialize<Dictionary<string, RollMappingViMo>>(jsonString);
 
             // Assert
-            Assert.IsNotNull(Result);
-            Assert.AreEqual(44, Result.Count);
+            Assert.That(Result, Is.Not.Null);
+            Assert.That(44, Is.EqualTo(Result.Count));
             this.mockRepository.VerifyAll();
         }
 
@@ -102,7 +102,7 @@ namespace UnitTests.ViewModel
             var Result = ClassUnderTest.OpenRollCheck(new Check(Check.Roll.Ability), data, new CheckContextViMo());
 
             // Assert
-            Assert.NotNull(Result);
+            Assert.That(Result, Is.Not.Null);
         }
 
 
@@ -144,7 +144,7 @@ namespace UnitTests.ViewModel
             bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.That(false, Is.EqualTo(result));
         }
 
 
@@ -168,7 +168,7 @@ namespace UnitTests.ViewModel
             bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.That(false, Is.EqualTo(result));
         }
 
 
@@ -192,7 +192,7 @@ namespace UnitTests.ViewModel
             bool result = ClassUnderTest.CanRoutineSkillCheck(skill, ability, new Modifier(Modifier));
 
             // Assert
-            Assert.Less(false, result);
+            Assert.That(false, Is.LessThan(result));
         }
     }
 }

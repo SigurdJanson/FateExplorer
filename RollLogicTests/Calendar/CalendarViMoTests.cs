@@ -98,7 +98,7 @@ namespace UnitTests.Calendar
             calendarViMo.GotoTomorrow();
 
             // Assert
-            Assert.Greater(calendarViMo.EffectiveDate, Before);
+            Assert.That(calendarViMo.EffectiveDate, Is.GreaterThan(Before));
             this.mockRepository.VerifyAll();
         }
 
@@ -114,7 +114,7 @@ namespace UnitTests.Calendar
             calendarViMo.GotoYesterday();
 
             // Assert
-            Assert.Less(calendarViMo.EffectiveDate, After);
+            Assert.That(calendarViMo.EffectiveDate, Is.LessThan(After));
             this.mockRepository.VerifyAll();
         }
 
@@ -149,7 +149,7 @@ namespace UnitTests.Calendar
             Assert.DoesNotThrow(() => result = calendarViMo.Parse(dateStr));
 
             // Assert
-            Assert.Greater(result, DateTime.MinValue);
+            Assert.That(result, Is.GreaterThan(DateTime.MinValue));
             mockRepository.VerifyAll();
         }
 
@@ -166,8 +166,8 @@ namespace UnitTests.Calendar
             Assert.DoesNotThrow(() => result = calendarViMo.Parse(dateStr));
 
             // Assert
-            Assert.Greater(result, DateTime.MinValue);
-            Assert.Less(result.Year, 977);
+            Assert.That(result, Is.GreaterThan(DateTime.MinValue));
+            Assert.That(result.Year, Is.LessThan(977));
             mockRepository.VerifyAll();
         }
 

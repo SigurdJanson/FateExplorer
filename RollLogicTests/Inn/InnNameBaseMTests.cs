@@ -18,21 +18,21 @@ public class InnNameBaseMTests
     public void PluralIsSuffix_PluralNotNullAndSuffix_ReturnsTrue()
     {
         _innNameBaseM.Plural = "-s";
-        Assert.IsTrue(_innNameBaseM.PluralIsSuffix);
+        Assert.That(_innNameBaseM.PluralIsSuffix, Is.True);
     }
 
     [Test]
     public void PluralIsSuffix_PluralNotNullAndNotSuffix_ReturnFalse()
     {
         _innNameBaseM.Plural = "Häuser";
-        Assert.IsFalse(_innNameBaseM.PluralIsSuffix);
+        Assert.That(_innNameBaseM.PluralIsSuffix, Is.False);
     }
 
     [Test]
     public void PluralIsSuffix_PluralIsNull_ReturnsFalse()
     {
         _innNameBaseM.Plural = null;
-        Assert.IsFalse(_innNameBaseM.PluralIsSuffix);
+        Assert.That(_innNameBaseM.PluralIsSuffix, Is.False);
     }
 
 
@@ -42,7 +42,7 @@ public class InnNameBaseMTests
     {
         _innNameBaseM.Singular = "Inn";
         _innNameBaseM.Plural = "-s";
-        Assert.AreEqual("Inns", _innNameBaseM.Plural);
+        Assert.That("Inns", Is.EqualTo(_innNameBaseM.Plural));
     }
 
     [Test]
@@ -50,7 +50,7 @@ public class InnNameBaseMTests
     {
         _innNameBaseM.Singular = "Mouse";
         _innNameBaseM.Plural = "Mice";
-        Assert.AreEqual("Mice", _innNameBaseM.Plural);
+        Assert.That("Mice", Is.EqualTo(_innNameBaseM.Plural));
     }
 
     [Test]
@@ -58,6 +58,6 @@ public class InnNameBaseMTests
     {
         _innNameBaseM.Singular = "Keiler";
         _innNameBaseM.Plural = null;
-        Assert.AreEqual("Keiler", _innNameBaseM.Plural);
+        Assert.That("Keiler", Is.EqualTo(_innNameBaseM.Plural));
     }
 }

@@ -228,9 +228,9 @@ namespace UnitTests.CharacterModel
             var result = weaponM.DamageBonus;
 
             // Assert
-            Assert.AreEqual(WeaponData.DamageBonus + Mod, result);
-            Assert.AreEqual(1, weaponM.DamageDieCount);
-            Assert.AreEqual(6, weaponM.DamageDieSides);
+            Assert.That(WeaponData.DamageBonus + Mod, Is.EqualTo(result));
+            Assert.That(1, Is.EqualTo(weaponM.DamageDieCount));
+            Assert.That(6, Is.EqualTo(weaponM.DamageDieSides));
             //
             mockCharacterM.VerifyGet(p => p.Abilities, Times.AtLeastOnce);
             mockCharacterM.VerifyGet(p => p.CombatTechs, Times.AtLeastOnce);

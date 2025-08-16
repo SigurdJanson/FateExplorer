@@ -25,9 +25,9 @@ namespace UnitTests.GameData
             SpecialAbilityDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(1437, Result.Count);
-            Assert.AreEqual(SA1, Result[0].Name);
-            Assert.AreEqual(SALast, Result[^1].Name);
+            Assert.That(1437, Is.EqualTo(Result.Count));
+            Assert.That(SA1, Is.EqualTo(Result[0].Name));
+            Assert.That(SALast, Is.EqualTo(Result[^1].Name));
         }
 
 

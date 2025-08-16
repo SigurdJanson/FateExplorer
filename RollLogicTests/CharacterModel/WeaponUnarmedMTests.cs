@@ -164,15 +164,15 @@ namespace UnitTests.CharacterModel
             Fist.Initialise(mockGameDB.Object);
 
             // Assert
-            Assert.AreEqual(7, Fist.BaseAtSkill);
-            Assert.AreEqual(7, Fist.AtSkill(MainHand, CombatBranch.Unarmed));
+            Assert.That(7, Is.EqualTo(Fist.BaseAtSkill));
+            Assert.That(7, Is.EqualTo(Fist.AtSkill(MainHand, CombatBranch.Unarmed)));
 
-            Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5, Fist.PaSkill(MainHand, CombatBranch.Unarmed, false, 0));
+            Assert.That(5, Is.EqualTo(Fist.BasePaSkill));
+            Assert.That(5, Is.EqualTo(Fist.PaSkill(MainHand, CombatBranch.Unarmed, false, 0)));
 
-            Assert.AreEqual(1, Fist.DamageDieCount);
-            Assert.AreEqual(6, Fist.DamageDieSides);
-            Assert.AreEqual(0, Fist.DamageBonus);
+            Assert.That(1, Is.EqualTo(Fist.DamageDieCount));
+            Assert.That(6, Is.EqualTo(Fist.DamageDieSides));
+            Assert.That(0, Is.EqualTo(Fist.DamageBonus));
 
             //this.mockRepository.VerifyAll();
         }
@@ -200,15 +200,15 @@ namespace UnitTests.CharacterModel
             Fist.Initialise(mockGameDB.Object);
 
             // Assert
-            Assert.AreEqual(7, Fist.BaseAtSkill);
-            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!OffHand, CombatBranch.Unarmed));
+            Assert.That(7, Is.EqualTo(Fist.BaseAtSkill));
+            Assert.That(7 + ExpectedPenalty, Is.EqualTo(Fist.AtSkill(!OffHand, CombatBranch.Unarmed)));
 
-            Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(!OffHand, CombatBranch.Unarmed, false, 0));
+            Assert.That(5, Is.EqualTo(Fist.BasePaSkill));
+            Assert.That(5 + ExpectedPenalty, Is.EqualTo(Fist.PaSkill(!OffHand, CombatBranch.Unarmed, false, 0)));
 
-            Assert.AreEqual(1, Fist.DamageDieCount);
-            Assert.AreEqual(6, Fist.DamageDieSides);
-            Assert.AreEqual(0, Fist.DamageBonus);
+            Assert.That(1, Is.EqualTo(Fist.DamageDieCount));
+            Assert.That(6, Is.EqualTo(Fist.DamageDieSides));
+            Assert.That(0, Is.EqualTo(Fist.DamageBonus));
 
             //this.mockRepository.VerifyAll();
         }
@@ -244,15 +244,15 @@ namespace UnitTests.CharacterModel
             Fist.Initialise(mockGameDB.Object);
 
             // Assert
-            Assert.AreEqual(7, Fist.BaseAtSkill);
-            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(MainHand, OffHandWeapon));
+            Assert.That(7, Is.EqualTo(Fist.BaseAtSkill));
+            Assert.That(7 + ExpectedPenalty, Is.EqualTo(Fist.AtSkill(MainHand, OffHandWeapon)));
 
-            Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(5 + ExpectedPenalty, Fist.PaSkill(MainHand, OffHandWeapon, false, 0));
+            Assert.That(5, Is.EqualTo(Fist.BasePaSkill));
+            Assert.That(5 + ExpectedPenalty, Is.EqualTo(Fist.PaSkill(MainHand, OffHandWeapon, false, 0)));
 
-            Assert.AreEqual(1, Fist.DamageDieCount);
-            Assert.AreEqual(6, Fist.DamageDieSides);
-            Assert.AreEqual(0, Fist.DamageBonus);
+            Assert.That(1, Is.EqualTo(Fist.DamageDieCount));
+            Assert.That(6, Is.EqualTo(Fist.DamageDieSides));
+            Assert.That(0, Is.EqualTo(Fist.DamageBonus));
 
             //this.mockRepository.VerifyAll();
         }
@@ -290,15 +290,15 @@ namespace UnitTests.CharacterModel
             Fist.Initialise(mockGameDB.Object);
 
             // Assert
-            Assert.AreEqual(7, Fist.BaseAtSkill);
-            Assert.AreEqual(7 + ExpectedPenalty, Fist.AtSkill(!MainHand, OffHandWeapon));
+            Assert.That(7, Is.EqualTo(Fist.BaseAtSkill));
+            Assert.That(7 + ExpectedPenalty, Is.EqualTo(Fist.AtSkill(!MainHand, OffHandWeapon)));
 
-            Assert.AreEqual(5, Fist.BasePaSkill);
-            Assert.AreEqual(Math.Max(5 + ExpectedPenalty, 0), Fist.PaSkill(!MainHand, OffHandWeapon, false, 0));
+            Assert.That(5, Is.EqualTo(Fist.BasePaSkill));
+            Assert.That(Math.Max(5 + ExpectedPenalty, 0), Is.EqualTo(Fist.PaSkill(!MainHand, OffHandWeapon, false, 0)));
 
-            Assert.AreEqual(1, Fist.DamageDieCount);
-            Assert.AreEqual(6, Fist.DamageDieSides);
-            Assert.AreEqual(0, Fist.DamageBonus);
+            Assert.That(1, Is.EqualTo(Fist.DamageDieCount));
+            Assert.That(6, Is.EqualTo(Fist.DamageDieSides));
+            Assert.That(0, Is.EqualTo(Fist.DamageBonus));
 
             //this.mockRepository.VerifyAll();
         }

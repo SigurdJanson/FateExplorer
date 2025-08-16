@@ -22,11 +22,11 @@ namespace UnitTests.GameData
             // Act
             ResiliencesDB Result = CreateDBfromFile(Language);
             // Assert
-            Assert.AreEqual(2, Result.Count);
-            Assert.AreEqual(ResId1, Result[0].Id);
-            Assert.AreEqual(ResId2, Result[1].Id);
-            Assert.AreEqual(ResName1, Result[0].Name);
-            Assert.AreEqual(ResName2, Result[1].Name);
+            Assert.That(2, Is.EqualTo(Result.Count));
+            Assert.That(ResId1, Is.EqualTo(Result[0].Id));
+            Assert.That(ResId2, Is.EqualTo(Result[1].Id));
+            Assert.That(ResName1, Is.EqualTo(Result[0].Name));
+            Assert.That(ResName2, Is.EqualTo(Result[1].Name));
         }
 
 

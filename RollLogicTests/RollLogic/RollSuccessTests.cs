@@ -65,7 +65,7 @@ namespace UnitTests.RollLogic
             rollSuccess.Update(P, C);
 
             // Assert
-            Assert.AreEqual(expectedResult, rollSuccess.CurrentLevel);
+            Assert.That(expectedResult, Is.EqualTo(rollSuccess.CurrentLevel));
         }
 
 
@@ -104,7 +104,7 @@ namespace UnitTests.RollLogic
             rollSuccess.Update(pRoll, cRoll, Attr);
 
             // Assert
-            Assert.AreEqual(expectedResult, rollSuccess.CurrentLevel);
+            Assert.That(expectedResult, Is.EqualTo(rollSuccess.CurrentLevel));
         }
 
 
@@ -121,7 +121,7 @@ namespace UnitTests.RollLogic
             var result = RollSuccess.CheckSuccess(Prim, Conf);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(expected, Is.EqualTo(result));
         }
 
 

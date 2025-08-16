@@ -99,7 +99,7 @@ public class InnDishMTests
         var result = innDishM.CanBeFound(Where);
 
         // Assert
-        Assert.True(result);
+        Assert.That(result, Is.True);
     }
 
     [Test]
@@ -116,7 +116,7 @@ public class InnDishMTests
         var result = innDishM.CanBeFound(Where);
 
         // Assert
-        Assert.True(result);
+        Assert.That(result, Is.True);
     }
 
 

@@ -348,7 +348,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsComplexNumber(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -367,7 +367,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsInteger(money);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
         [Test]
         [TestCase("1.000000000000000001")]
@@ -383,7 +383,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsInteger(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
 
@@ -398,7 +398,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsRealNumber(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -411,7 +411,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsImaginaryNumber(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
 
@@ -429,7 +429,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsEvenInteger(money);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
         [Test]
         [TestCase("1.0")]
@@ -443,7 +443,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsEvenInteger(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
         [TestCase("0.00000000000001")]
         [TestCase("-0.00000000000001")]
@@ -458,7 +458,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsEvenInteger(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -473,7 +473,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsOddInteger(money);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
         [Test]
         [TestCase("0.0")]
@@ -489,7 +489,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsOddInteger(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -538,7 +538,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsPositiveInfinity(money);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -582,7 +582,7 @@ namespace UnitTests.Aventuria
             var result = Money.IsFinite(money);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
 
         }
 

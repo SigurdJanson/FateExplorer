@@ -16,7 +16,7 @@ namespace UnitTests.Shop
             var Result = shoppingCartViMo.TotalPrice;
 
             // Assert
-            Assert.AreEqual(0.0, Result);
+            Assert.That(0.0, Is.EqualTo(Result));
         }
 
 
@@ -37,7 +37,7 @@ namespace UnitTests.Shop
             var Result = shoppingCartViMo.TotalPrice;
 
             // Assert
-            Assert.AreEqual(165.0, Result);
+            Assert.That(165.0, Is.EqualTo(Result));
         }
 
 

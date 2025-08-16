@@ -30,7 +30,7 @@ public class WeightedListTests
     public void WeightedListConstructor_ShouldCreateEmptyList()
     {
         var list = CreateWeightedListInt();
-        Assert.AreEqual(0, list.Count);
+        Assert.That(0, Is.EqualTo(list.Count));
     }
 
 
@@ -40,8 +40,8 @@ public class WeightedListTests
         var list = CreateWeightedListInt();
         list.Add(1, 2);
 
-        Assert.AreEqual(1, list.Count);
-        Assert.AreEqual(1, list[0]);
+        Assert.That(1, Is.EqualTo(list.Count));
+        Assert.That(1, Is.EqualTo(list[0]));
     }
 
     [Test]
@@ -56,8 +56,8 @@ public class WeightedListTests
         list.Insert(1, 2, 1);
 
         // Assert
-        Assert.AreEqual(3, list.Count);
-        Assert.AreEqual(2, list[1]);
+        Assert.That(3, Is.EqualTo(list.Count));
+        Assert.That(2, Is.EqualTo(list[1]));
     }
 
 
@@ -73,7 +73,7 @@ public class WeightedListTests
         int result = list.Random();
 
         // Assert
-        Assert.IsTrue(list.Contains(result));
+        Assert.That(list.Contains(result), Is.True);
     }
 
 
@@ -127,8 +127,8 @@ public class WeightedListTests
         list.Compress();
 
         // Assert
-        Assert.AreEqual(1, list.Count);
-        Assert.AreEqual(1, list[0]);
+        Assert.That(1, Is.EqualTo(list.Count));
+        Assert.That(1, Is.EqualTo(list[0]));
     }
 
 
@@ -145,7 +145,7 @@ public class WeightedListTests
         // Act
         int result = list.IndexOf(Index);
 
-        Assert.AreEqual(Index, result);
+        Assert.That(Index, Is.EqualTo(result));
     }
 
 
@@ -185,8 +185,8 @@ public class WeightedListTests
 
         list.RemoveAt(1);
 
-        Assert.AreEqual(1, list.Count);
-        Assert.AreEqual(1, list[0]);
+        Assert.That(1, Is.EqualTo(list.Count));
+        Assert.That(1, Is.EqualTo(list[0]));
     }
 
 
@@ -200,9 +200,9 @@ public class WeightedListTests
 
         bool success = list.Remove(1);
 
-        Assert.IsTrue(success);
-        Assert.AreEqual(1, list.Count);
-        Assert.AreEqual(2, list[0]);
+        Assert.That(success, Is.True);
+        Assert.That(1, Is.EqualTo(list.Count));
+        Assert.That(2, Is.EqualTo(list[0]));
     }
 
 
@@ -213,8 +213,8 @@ public class WeightedListTests
         var list = CreateWeightedListInt();
         bool success = list.Remove(1);
 
-        Assert.IsFalse(success);
-        Assert.AreEqual(0, list.Count);
+        Assert.That(success, Is.False);
+        Assert.That(0, Is.EqualTo(list.Count));
     }
 
 

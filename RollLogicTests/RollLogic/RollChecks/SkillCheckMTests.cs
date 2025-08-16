@@ -59,7 +59,7 @@ namespace UnitTests.RollLogic
             var result = SkillCheckM.ComputeSkillQuality(Remainder);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
         }
 
         #endregion
@@ -81,7 +81,7 @@ namespace UnitTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { 10, 10, 10 }, 0, 0);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.That(0, Is.EqualTo(result));
         }
 
 
@@ -102,7 +102,7 @@ namespace UnitTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { Ability, Ability, Ability }, 0, 0);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
         }
 
 
@@ -121,7 +121,7 @@ namespace UnitTests.RollLogic
                 Roll, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(Skill, result);
+            Assert.That(Skill, Is.EqualTo(result));
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace UnitTests.RollLogic
                 new int[3] { v1, v2, v3 }, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(-1, result);
+            Assert.That(-1, Is.EqualTo(result));
         }
 
 
@@ -163,7 +163,7 @@ namespace UnitTests.RollLogic
                 new int[3] { Roll, Roll, Roll }, new int[3] { Ability, Ability, Ability }, 0, Modifier);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
         }
 
 
@@ -207,7 +207,7 @@ namespace UnitTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { 10, 10, 10 }, 0, 0);
 
             // Assert
-            Assert.AreEqual(RollSuccess.Level.Success, result);
+            Assert.That(RollSuccess.Level.Success, Is.EqualTo(result));
         }
 
 
@@ -225,7 +225,7 @@ namespace UnitTests.RollLogic
                 new int[3] { Eyes, Eyes, Eyes }, new int[3] { Ability, Ability, Ability }, 0, 0);
 
             // Assert
-            Assert.AreEqual(RollSuccess.Level.Fail, result);
+            Assert.That(RollSuccess.Level.Fail, Is.EqualTo(result));
         }
 
 
@@ -244,7 +244,7 @@ namespace UnitTests.RollLogic
                 Roll, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(RollSuccess.Level.Critical, result);
+            Assert.That(RollSuccess.Level.Critical, Is.EqualTo(result));
         }
 
 
@@ -261,7 +261,7 @@ namespace UnitTests.RollLogic
                 new int[3] { v1, v2, v3 }, new int[3] { Ability, Ability, Ability }, Skill, Mod);
 
             // Assert
-            Assert.AreEqual(RollSuccess.Level.Botch, result);
+            Assert.That(RollSuccess.Level.Botch, Is.EqualTo(result));
         }
 
 

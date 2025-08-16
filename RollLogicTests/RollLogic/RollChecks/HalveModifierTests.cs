@@ -25,7 +25,7 @@ namespace UnitTests.RollLogic
             var result = halfModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(Expected, Is.EqualTo(result));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace UnitTests.RollLogic
             var result = halfModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(After, result);
+            Assert.That(After, Is.EqualTo(result));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace UnitTests.RollLogic
             var result = halfModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(After, result);
+            Assert.That(After, Is.EqualTo(result));
         }
 
     }

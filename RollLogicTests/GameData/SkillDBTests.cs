@@ -17,9 +17,9 @@ namespace UnitTests.GameData
             // Act
             SkillsDB Result = CreateDBfromFile(Language);
             // Assert
-            Assert.AreEqual(59, Result.Count);
-            Assert.AreEqual(Skill1, Result[0].Name);
-            Assert.AreEqual(SkillLast, Result[58].Name);
+            Assert.That(59, Is.EqualTo(Result.Count));
+            Assert.That(Skill1, Is.EqualTo(Result[0].Name));
+            Assert.That(SkillLast, Is.EqualTo(Result[58].Name));
         }
 
 

@@ -21,11 +21,11 @@ namespace UnitTests.GameData
             EnergiesDB Result = CreateDBfromFile(Language);
 
             // Assert
-            Assert.AreEqual(EnName.Length, Result.Count);
+            Assert.That(EnName.Length, Is.EqualTo(Result.Count));
             for (int i = 0; i < EnName.Length; i++)
             {
-                Assert.AreEqual(ResId[i], Result[i].Id);
-                Assert.AreEqual(EnName[i], Result[i].Name);
+                Assert.That(ResId[i], Is.EqualTo(Result[i].Id));
+                Assert.That(EnName[i], Is.EqualTo(Result[i].Name));
             }
         }
 

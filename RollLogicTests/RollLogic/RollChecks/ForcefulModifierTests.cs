@@ -38,9 +38,9 @@ namespace UnitTests.RollLogic
             var result = forcefulModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(
+            Assert.That(
                 new int[3] { Math.Min(Expected, Before[0]), Math.Min(Expected, Before[1]), Math.Min(Expected, Before[2]) },
-                result);
+                Is.EqualTo(result));
         }
 
 
@@ -58,9 +58,9 @@ namespace UnitTests.RollLogic
             var result = forcefulModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(
+            Assert.That(
                 new int[Length] { Math.Min(Expected, Before[0]), Math.Min(Expected, Before[1]), Math.Min(Expected, Before[2]) },
-                result);
+                Is.EqualTo(result));
         }
 
 
@@ -77,7 +77,7 @@ namespace UnitTests.RollLogic
             var result = forcefulModifier.Apply(Before);
 
             // Assert
-            Assert.AreEqual(Math.Min(Expected, Before), result);
+            Assert.That(Math.Min(Expected, Before), Is.EqualTo(result));
         }
 
 
