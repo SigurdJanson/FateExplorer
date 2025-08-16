@@ -235,11 +235,11 @@
 
     private void OnSearchFieldKey(KeyboardEventArgs args)
     {
-        if (args.Key == "Enter" || args.Key == "NumpadEnter")
+        if (args.Key == KeyCode.Enter)
         {
             FilterTabs.ActivatePanel(AllSkillsTabIndex);
         }
-        else if (args.Key == "Escape")
+        else if (args.Key == KeyCode.Escape)
         {
             SearchTerm = "";
         }
