@@ -30,10 +30,8 @@
                             <MudStack Row=true Class="pb-8">
                                 <MudFab HtmlTag="label" Size=Size.Large
                                         Color=Color.Secondary Class="rounded-0" 
-                                        StartIcon=@Icons.Material.Filled.CloudUpload
-                                        for="CharacterFileInput">
-                                    @l10n["btnUploadFile"]
-                                </MudFab> <!-- Variant=Variant.Filled FullWidth=true -->
+                                        StartIcon=@Icons.Material.Filled.CloudUpload Label=@l10n["btnUploadFile"]
+                                        for="CharacterFileInput" />
                                 <MudStack>
                                     <MudText Typo=Typo.h5>@l10n["lblNoCharacter"]</MudText>
                                     <MudText Typo=Typo.body2>@l10n["msgLoadCharacterToUse"]</MudText>

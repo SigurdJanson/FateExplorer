@@ -47,7 +47,7 @@ public class RegenerationDialogTest : BUnitTestBase
             { "Names", EnergyNames[0..TestCount] }
         };
         IDialogReference? dlgReference = null;
-        await comp.InvokeAsync(() => dlgReference = dlgService!.Show<RegenerationDialog>("", parameters));
+        await comp.InvokeAsync(async () => dlgReference = await dlgService!.ShowAsync<RegenerationDialog>("", parameters));
         Assume.That(dlgReference, Is.Not.Null); // verify success
 
         // ASSERT ===
@@ -81,13 +81,13 @@ public class RegenerationDialogTest : BUnitTestBase
             { "Names", EnergyNames[0..(TestCount-1)] }
         };
         IDialogReference? dlgReference = null;
-        await comp.InvokeAsync(() => dlgReference = dlgService!.Show<RegenerationDialog>("", parameters));
+        await comp.InvokeAsync(async () => dlgReference = await dlgService!.ShowAsync<RegenerationDialog>("", parameters));
         Assume.That(dlgReference, Is.Not.Null); // verify success
 
         // Act
         IElement[] inputs;
         var RdbSite = comp.FindComponent<MudRadioGroup<RegenerationSite>>();
-        inputs = RdbSite.FindAll("input").ToArray();
+        inputs = [.. RdbSite.FindAll("input")]; // new 
         inputs[0].Click();
 
         var RdbDisturbed = comp.FindComponent<MudRadioGroup<RegenerationDisturbance>>();
@@ -99,9 +99,9 @@ public class RegenerationDialogTest : BUnitTestBase
         inputs[0].Change(true);
 
         // verify
-        Assume.That(RdbSite.Instance.SelectedOption, Is.EqualTo(RegenerationSite.Good));
-        Assume.That(RdbDisturbed.Instance.SelectedOption, Is.EqualTo(RegenerationDisturbance.Brief));
-        Assume.That(ChbSick.Instance.Checked, Is.True);
+        Assume.That(RdbSite.Instance.Value, Is.EqualTo(RegenerationSite.Good));
+        Assume.That(RdbDisturbed.Instance.Value, Is.EqualTo(RegenerationDisturbance.Brief));
+        Assume.That(ChbSick.Instance.Value, Is.True);
 
         // ASSERT ===
         comp.Find("button[type=submit]").Click();
@@ -114,7 +114,7 @@ public class RegenerationDialogTest : BUnitTestBase
             Assert.That(DlgResult.Item1, Is.EqualTo(RegenerationSite.Good));
             Assert.That(DlgResult.Item2, Is.EqualTo(RegenerationDisturbance.Brief));
             Assert.That(DlgResult.Item3, Is.True);
-        });
+        }
     }
 
     [Test]
@@ -133,7 +133,7 @@ public class RegenerationDialogTest : BUnitTestBase
             { "Names", EnergyNames[0..(TestCount-1)] }
         };
         IDialogReference? dlgReference = null;
-        await comp.InvokeAsync(() => dlgReference = dlgService!.Show<RegenerationDialog>("", parameters));
+        await comp.InvokeAsync(async () => dlgReference = await dlgService!.ShowAsync<RegenerationDialog>("", parameters));
         Assume.That(dlgReference, Is.Not.Null); // verify success
 
         // Set some values in the dialog
@@ -151,9 +151,9 @@ public class RegenerationDialogTest : BUnitTestBase
         inputs[0].Change(true);
 
         // verify
-        Assume.That(RdbSite.Instance.SelectedOption, Is.EqualTo(RegenerationSite.Good));
-        Assume.That(RdbDisturbed.Instance.SelectedOption, Is.EqualTo(RegenerationDisturbance.Brief));
-        Assume.That(ChbSick.Instance.Checked, Is.True);
+        Assume.That(RdbSite.Instance.Value, Is.EqualTo(RegenerationSite.Good));
+        Assume.That(RdbDisturbed.Instance.Value, Is.EqualTo(RegenerationDisturbance.Brief));
+        Assume.That(ChbSick.Instance.Value, Is.True);
 
         // ACT ===
         comp.Find("button[type=button]").Click(); // the first of the 2 buttons (!= submit) should be it

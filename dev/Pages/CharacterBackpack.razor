@@ -57,7 +57,7 @@
                     {
                         @if (i.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
                         {
-                        <MudListItem Ripple=false Gutters=false Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
+                        <MudListItem Ripple=false Gutters=false Icon=@GroupIcon(i.Group) IconColor=Color.Dark>
                             <MudText Typo=Typo.body1 GutterBottom=false>
                                 <MudHighlighter Text=@i.Name HighlightedText=@SearchTerm 
                                     Class="mud-primary-text fe-searchhighlight"/> [<span>@i.Amount</span>]
@@ -72,21 +72,21 @@
                         <NestedList>
                             @foreach (var w in Hero.Weapons)
                             {
-                            @if (!w.IsImprovised)
-                            {
-                            @if (w.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
-                            {
-                            <MudListItem Icon=@CombatBranchIcon(w.Branch) IconColor=Color.Dark>
-                                <MudText Typo=Typo.body1 GutterBottom=false>
-                                    <MudHighlighter Text=@w.Name HighlightedText=@SearchTerm
-                                            Class="mud-primary-text fe-searchhighlight" /> [1]
-                                </MudText>
-                                @*<MudText Typo=Typo.body2 GutterBottom=false>
-                                    <span>??? Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] ??? @l10n["abbrSilverthaler"]</span>
-                                </MudText>*@
-                            </MudListItem>
-                            }
-                            }
+                                @if (!w.IsImprovised)
+                                {
+                                @if (w.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                <MudListItem Icon=@CombatBranchIcon(w.Branch) IconColor=Color.Dark>
+                                    <MudText Typo=Typo.body1 GutterBottom=false>
+                                        <MudHighlighter Text=@w.Name HighlightedText=@SearchTerm
+                                                Class="mud-primary-text fe-searchhighlight" /> [1]
+                                    </MudText>
+                                    @*<MudText Typo=Typo.body2 GutterBottom=false>
+                                        <span>??? Stn</span><span>&nbsp;·&nbsp</span><span>@l10n["lblPrice"] ??? @l10n["abbrSilverthaler"]</span>
+                                    </MudText>*@
+                                </MudListItem>
+                                }
+                                }
                             }
                         </NestedList>
                     </MudListItem>
