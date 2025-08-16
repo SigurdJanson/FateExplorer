@@ -13,7 +13,7 @@
                 {
                 <MudItem sm=12 md=@(12 / Names.Length)>
                     <MudPaper Elevation=0 Outlined=true Class="pb-2">
-                    <MudAvatar Square=true Variant=Variant.Filled Alt=@n>@n</MudAvatar>
+                    <MudAvatar Square=true Variant=Variant.Filled title=@n>@n</MudAvatar>
                     <MudTooltip Text=@l10n["txtModifierTip"]>
                         <MudSlider Min=-6 Max=6 Step=1 TickMarks=true Size=Size.Small Variant=Variant.Filled
                             @bind-Value=Modifier[n]>
@@ -25,24 +25,24 @@
                 <MudDivider/>
                 }
             <MudItem sm=12 md=6>
-                <MudRadioGroup @bind-SelectedOption=DialogSiteSetting T=RegenerationSite>
-                    <MudRadio Option=RegenerationSite.Good Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Good"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Default Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Default"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Poor Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Poor"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Bad Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Bad"]</MudRadio>
-                    <MudRadio Option=RegenerationSite.Terrible Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Terrible"]</MudRadio>
+                <MudRadioGroup @bind-Value=DialogSiteSetting T=RegenerationSite>
+                    <MudRadio Value=RegenerationSite.Good Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Good"]</MudRadio>
+                    <MudRadio Value=RegenerationSite.Default Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Default"]</MudRadio>
+                    <MudRadio Value=RegenerationSite.Poor Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Poor"]</MudRadio>
+                    <MudRadio Value=RegenerationSite.Bad Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Bad"]</MudRadio>
+                    <MudRadio Value=RegenerationSite.Terrible Dense=true T=RegenerationSite>@l10n["lblRegenerationSite.Terrible"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem sm=12 md=6>
-                <MudRadioGroup @bind-SelectedOption=DialogDisturbSetting T=RegenerationDisturbance>
-                    <MudRadio Option=RegenerationDisturbance.None  Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.None"]</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Brief Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Brief"]</MudRadio>
-                    <MudRadio Option=RegenerationDisturbance.Prolonged Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Prolonged"]</MudRadio>
+                <MudRadioGroup @bind-Value=DialogDisturbSetting T=RegenerationDisturbance>
+                    <MudRadio Value=RegenerationDisturbance.None  Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.None"]</MudRadio>
+                    <MudRadio Value=RegenerationDisturbance.Brief Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Brief"]</MudRadio>
+                    <MudRadio Value=RegenerationDisturbance.Prolonged Dense=true T=RegenerationDisturbance>@l10n["lblRegenerationDisturbance.Prolonged"]</MudRadio>
                 </MudRadioGroup>
             </MudItem>
             <MudItem xs=12>
                 @*<MudText><MudIcon Icon=@Icons.Material.Sharp.Sick Size=Size.Medium /></MudText>*@
-                <MudCheckBox @bind-Checked=DialogSickness Dense=true Label=@l10n["lblRegenerateSick"] StopClickPropagation=true T=bool />
+                <MudCheckBox @bind-Value=DialogSickness Dense=true Label=@l10n["lblRegenerateSick"] StopClickPropagation=true T=bool />
             </MudItem>
         </MudGrid>
     </DialogContent>

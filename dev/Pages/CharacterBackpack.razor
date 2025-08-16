@@ -16,7 +16,7 @@
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
                     <MudItem xs=4 Class="mb-3">
-                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text DisableUnderLine=true>
+                        <MudField Label=@l10n["lblWeight"] Variant=Variant.Text UnderLine=false>
                             @Hero.CarriedWeight.ToString("F2") @l10n["lblWeightUnit"]
                             <MudTooltip Text=@string.Format(l10n["msgCanCarry"], Hero.WhatCanCarry, Hero.WhatCanLift)>
                                 <MudIcon Icon=@Icons.Material.Filled.Info Color=Color.Info />
@@ -31,7 +31,7 @@
                     </MudItem>
 
                     <MudItem xs=4 Class="mb-3">
-                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text DisableUnderLine=true>
+                        <MudField Label=@l10n["lblWealth"] Variant=Variant.Text UnderLine=false>
                             @Hero.FormatMoney()
                             <MudIconButton OnClick=OnEditMoney aria-label=@l10n["lblEditCash"] aria-haspopup="dialog"
                                            Icon=@Icons.Material.Sharp.CurrencyExchange Variant=Variant.Outlined Color=Color.Primary Size=Size.Small />
@@ -39,7 +39,7 @@
                     </MudItem>
 
                     <MudItem xs=4 Class="mb-3">
-                        <MudField Label=@l10n["lblAssetValue"] Variant=Variant.Text DisableUnderLine=true>
+                        <MudField Label=@l10n["lblAssetValue"] Variant=Variant.Text UnderLine=false>
                             @Hero.AssetValue.ToString("N2") @l10n["abbrSilverthaler"] @*TODO: Use `Money.Format(...)` here*@
                         </MudField>
                     </MudItem>
@@ -52,12 +52,12 @@
                 <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
                               AdornmentIcon=@Icons.Material.Filled.Search
                               Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true />
-                <MudList T=string Clickable=true>
+                <MudList T=string ReadOnly=false>
                     @foreach(var i in Hero.GetBelongings())
                     {
                         @if (i.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase))
                         {
-                        <MudListItem DisableRipple=true DisableGutters=true Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
+                        <MudListItem Ripple=false Gutters=false Avatar=@GroupIcon(i.Group) IconColor=Color.Dark>
                             <MudText Typo=Typo.body1 GutterBottom=false>
                                 <MudHighlighter Text=@i.Name HighlightedText=@SearchTerm 
                                     Class="mud-primary-text fe-searchhighlight"/> [<span>@i.Amount</span>]
@@ -68,7 +68,7 @@
                         </MudListItem>
                         }
                     }
-                    <MudListItem Icon=@IconsFE.Flail Text=@l10n["lblWeapon"] InitiallyExpanded=false>
+                    <MudListItem Icon=@IconsFE.Flail Text=@l10n["lblWeapon"] Expanded=false>
                         <NestedList>
                             @foreach (var w in Hero.Weapons)
                             {
@@ -110,7 +110,7 @@
         var parameters = new DialogParameters { ["Amount"] = Hero.Money };
         DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
 
-        var dialog = DialogService.Show<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth);
+        var dialog = await DialogService.ShowAsync<DlgMoney>(l10n["lblEditCash"], parameters, maxWidth);
         var result = await dialog.Result;
 
         if (!result.Canceled)

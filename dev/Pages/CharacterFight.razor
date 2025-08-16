@@ -18,8 +18,8 @@
     <MudGrid>
         <MudItem xs=12 sm=12 md=4>
             <MudPaper Elevation=0 Outlined=true>
-            <MudList T=string Clickable=true>
-                <MudListItem Icon=@Icons.Material.Sharp.PersonOff DisableRipple=true>
+            <MudList T=string ReadOnly=false>
+                <MudListItem Icon=@Icons.Material.Sharp.PersonOff Ripple=false>
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.DodgeLabelId]</MudText>
@@ -33,14 +33,14 @@
                     <MudSpacer/>*@
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
                         OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
-                        Title=@l10n["lblDoRoll"]
+                        title=@l10n["lblDoRoll"]
                         aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.DodgeLabelId]) />
                     @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                         aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
                     </div>
                 </MudListItem>
 
-                <MudListItem Icon=@Icons.Material.Sharp.Sort DisableRipple=true>
+                <MudListItem Icon=@Icons.Material.Sharp.Sort Ripple=false>
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.IniLabelId]</MudText>
@@ -54,7 +54,7 @@
                     <MudSpacer/>*@
                     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
                         OnClick=@(() => OnInitiativeCheck(Hero.GetInitiative()))
-                        Title=@l10n["lblDoRoll"]
+                        title=@l10n["lblDoRoll"]
                         aria-label=@(l10n["lblDoRoll"] + " " + @l10n[ResourceId.IniLabelId]) />
                     @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
                         aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
@@ -64,12 +64,12 @@
 
             <MudDivider />
 
-            <MudList T=string Clickable=true>
+            <MudList T=string ReadOnly=false>
                 @foreach (var w in Hero.Weapons)
                 {
                 @if (w.IsImprovised && !Config.ShowImprovisedWeapons) continue;
 
-                <MudListItem DisableRipple=true> 
+                <MudListItem Ripple=false> 
                     <div class="d-flex align-center" >
                         <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
@@ -80,12 +80,12 @@
                         <MudSpacer/>
                         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.FrontHand
                             OnClick=@(() => GrabWeapon(w, true))
-                            Title=@l10n["lblPickItemWithDominantHand"]
+                            title=@l10n["lblPickItemWithDominantHand"]
                             aria-label=@l10n["lblPickItemWithDominantHand"] />
                         <MudIconButton Color=Color.Dark Icon=@IconsFE.BackHandLeft
                             OnClick=@(() => GrabWeapon(w, false))
                             Disabled=w.IsTwohanded
-                            Title=@l10n["lblPickItemWithNondominantHand"]
+                            title=@l10n["lblPickItemWithNondominantHand"]
                             aria-label=@l10n["lblPickItemWithNondominantHand"] />
                     </div>
                 </MudListItem>
@@ -313,7 +313,7 @@
         };
         //DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
 
-        var dialog = DialogService.Show<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
+        var dialog = await DialogService.ShowAsync<DlgCombatMods>(l10n["lblCombatMod"], parameters); // , maxWidth
         var result = await dialog.Result;
 
         if (!result.Canceled)

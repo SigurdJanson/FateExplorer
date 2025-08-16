@@ -22,7 +22,7 @@
                 <div class="RightHeader pl-2">
                     <MudSelect T=string Label=@(HasCombatStyles ? l10n["lblDefaultCombatStyle"] : "") 
                         Variant=Variant.Text Clearable=@HasCombatStyles
-                        ReadOnly=@(!HasCombatStyles) DisableUnderLine=@(!HasCombatStyles) 
+                        ReadOnly=@(!HasCombatStyles) UnderLine=@(HasCombatStyles) 
                         Adornment=@(HasCombatStyles ? Adornment.End : Adornment.None)
                         @bind-Value=SelectedCombatStyle>
                         @if (HasCombatStyles)
@@ -48,13 +48,13 @@
         <MudIconButton Color=Color.Dark Icon=@IconsFE.Sword
             OnClick=AttackCheckCalled
             Disabled=HeroHands.IsDisabled(WhichHand)
-            Title=@TitleAttack aria-label=@AriaAttack />
+            title=@TitleAttack aria-label=@AriaAttack />
         @if (Weapon.CanParry)
         {
         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Shield
             OnClick=ParryCheckCalled
             Disabled=HeroHands.IsDisabled(WhichHand)
-            Title=@TitleParry aria-label=@AriaParry />
+            title=@TitleParry aria-label=@AriaParry />
         }
 @*      <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
             Disabled=Hero.Hands.IsDisabled(HandsViMo.Hand.Main)

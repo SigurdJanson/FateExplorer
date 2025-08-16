@@ -14,7 +14,7 @@
             <MudText Typo=Typo.h5 GutterBottom=true>@l10n["lblWeapons"]</MudText>
             <MudGrid>
                 <MudItem xs="12">
-                    <MudCheckBox T="bool" @bind-Checked=AppCfg.ShowImprovisedWeapons Required=false Class="ml-n2" Label=@l10n["chbShowImprovisedWeapons"]/>
+                    <MudCheckBox T="bool" @bind-Value=AppCfg.ShowImprovisedWeapons Required=false Class="ml-n2" Label=@l10n["chbShowImprovisedWeapons"] />
                 </MudItem>
             </MudGrid>
         </MudItem>

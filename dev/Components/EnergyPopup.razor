@@ -8,7 +8,7 @@
 @inject IDialogService DialogService
 
 
-<MudPopover @bind-Open=IsOpen Square=true RelativeWidth=true
+<MudPopover @bind-Open=IsOpen Square=true RelativeWidth=DropdownWidth.Relative
             OverflowBehavior=OverflowBehavior.FlipAlways AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter 
             Class="px-6 pt-4">
 
@@ -136,9 +136,9 @@
             else
                 Message = String.Format(l10n["msgNoRegeneration"], e.ShortName);
             Snackbar.Add(Message, Severity.Info, config =>
-                {
-                    config.SnackbarVariant = Variant.Outlined;
-                });
+            {
+                config.SnackbarVariant = Variant.Outlined;
+            });
         }
         EnergiesChanged.InvokeAsync(Energies);
     }
@@ -162,7 +162,7 @@
 
         parameters.Add("Names", tbd.ToArray() );
 
-        var dialog = DialogService.Show<RegenerationDialog>("", parameters, dialogOptions);
+        var dialog = await DialogService.ShowAsync<RegenerationDialog>("", parameters, dialogOptions);
         var result = await dialog.Result;
 
         if (!result.Canceled)
@@ -196,7 +196,7 @@
     {
         var parameters = new DialogParameters();
 
-        var dialog = DialogService.Show<DlgFallDamage>("", parameters, dialogOptions);
+        var dialog = await DialogService.ShowAsync<DlgFallDamage>("", parameters, dialogOptions);
         var result = await dialog.Result;
 
         if (!result.Canceled)

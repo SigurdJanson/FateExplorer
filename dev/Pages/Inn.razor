@@ -24,7 +24,7 @@
                     <MudSelectItem Value=@item>@l10n[$"Quality.{item}"]</MudSelectItem>
                 }
             </MudSelect>
-            <MudSwitch T=bool @bind-Checked=PriceMatchesQuality>@l10n["lblPriceMatchesQuality"]</MudSwitch>
+            <MudSwitch T=bool @bind-Value=PriceMatchesQuality>@l10n["lblPriceMatchesQuality"]</MudSwitch>
             <MudSelect @bind-Value=SelectedPrice Label=@l10n["lblSelectPriceLevel"] FullWidth=true Disabled=PriceMatchesQuality>
                 @foreach (PriceLevel item in Enum.GetValues(typeof(PriceLevel)))
                 {

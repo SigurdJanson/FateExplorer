@@ -7,13 +7,14 @@
     MaxWidth=MaxWidth.Medium FullWidth=true
     Position=DialogPosition.Center
     NoHeader=false CloseButton=true
-    DisableBackdropClick=false
+    BackdropClick=true
     CloseOnEscapeKey=true />
 <MudSnackbarProvider />
+<MudPopoverProvider />
 
 <MudLayout>
     <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Sharp.Menu" Color="Color.Inherit" Edge="Edge.Start" 
+        <MudIconButton Icon=@Icons.Material.Sharp.Menu Color=Color.Inherit Edge=Edge.Start 
                        OnClick="@((e) => DrawerToggle())" aria-label="@l10n["btnOpenMenu"]"/>
         <FateExplorer.Components.CharacterHeader />
         <MudSpacer /> 

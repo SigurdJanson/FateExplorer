@@ -2,7 +2,7 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudCard Outlined=true Squared=true Class="mb-4">
+<MudCard Outlined=true Square=true Class="mb-4">
 
     <MudCardHeader>
         <CardHeaderContent>
@@ -21,7 +21,7 @@
         @EnergyPlusMinus(-2)
         @EnergyPlusMinus(-1)
         <MudBadge Origin=Origin.BottomCenter Content=@Energy.CrossedThresholds Color=Color.Tertiary Overlap=true Dot=false Bordered=false>
-            <MudAvatar Square=true Color=Color.Primary Size=Size.Large Alt=@l10n["lblAvailable"]>@EffValue</MudAvatar>
+            <MudAvatar Square=true Color=Color.Primary Size=Size.Large title=@l10n["lblAvailable"]>@EffValue</MudAvatar>
         </MudBadge>
         @EnergyPlusMinus(1)
         @EnergyPlusMinus(2)
@@ -150,7 +150,7 @@
             _ => throw new Exception("Energy card: Unknown increment/decrement")
         };
         return
-    @<MudIconButton OnClick=@(() => ChangeEffValue(Value)) Icon=@IconLabel Title=@Aria aria-label=@Aria Size=Size.Large /> 
+    @<MudIconButton OnClick=@(() => ChangeEffValue(Value)) Icon=@IconLabel title=@Aria aria-label=@Aria Size=Size.Large /> 
     @*l10n*@
     ;
     }

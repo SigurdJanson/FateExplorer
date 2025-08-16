@@ -12,7 +12,7 @@
         <MudItem xs=4>
             <MudText Typo=Typo.h5 GutterBottom=true>@l10n["lblSelection"]</MudText>
             <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined=true>
-                <MudList T=string Clickable=true>
+                <MudList T=string ReadOnly=false>
                     <MudListSubheader>@l10n["Dice Cups"]</MudListSubheader>
                     @foreach(var Cup in DiceCups.CupList)
                     {
@@ -57,7 +57,7 @@
     private async Task OpenAddDlg()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<DlgFreeDiceCup>(l10n[""], options);
+        var dialog = await DialogService.ShowAsync<DlgFreeDiceCup>(l10n[""], options);
         var result = await dialog.Result;
 
         if (!result.Canceled)

@@ -29,11 +29,11 @@
                             <InputFile id="CharacterFileInput" OnChange="UploadCharacterFile" hidden />
                             <MudStack Row=true Class="pb-8">
                                 <MudFab HtmlTag="label" Size=Size.Large
-                                        Variant=Variant.Filled Color=Color.Secondary Class="rounded-0" FullWidth=true
+                                        Color=Color.Secondary Class="rounded-0" 
                                         StartIcon=@Icons.Material.Filled.CloudUpload
                                         for="CharacterFileInput">
                                     @l10n["btnUploadFile"]
-                                </MudFab>
+                                </MudFab> <!-- Variant=Variant.Filled FullWidth=true -->
                                 <MudStack>
                                     <MudText Typo=Typo.h5>@l10n["lblNoCharacter"]</MudText>
                                     <MudText Typo=Typo.body2>@l10n["msgLoadCharacterToUse"]</MudText>
@@ -98,11 +98,11 @@
 
         <MudItem xs=12>
             <MudPaper Class="pa-4" Elevation=0>
-                <MudText Typo="Typo.body1">@l10n["Cookie1"]</MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie2"]</MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie3"]</MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie4"]</MudText>
-                <MudText Typo="Typo.body2" Class="mt-1">@l10n["Cookie5"]</MudText>
+                <MudText Typo=Typo.body1>@l10n["Cookie1"]</MudText>
+                <MudText Typo=Typo.body2 Class="mt-1">@l10n["Cookie2"]</MudText>
+                <MudText Typo=Typo.body2 Class="mt-1">@l10n["Cookie3"]</MudText>
+                <MudText Typo=Typo.body2 Class="mt-1">@l10n["Cookie4"]</MudText>
+                <MudText Typo=Typo.body2 Class="mt-1">@l10n["Cookie5"]</MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>

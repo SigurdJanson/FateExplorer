@@ -57,16 +57,16 @@
                 @foreach (var r in Hero.GetResiliences())
                 {
                     <MudItem xs=4 Class="mb-3">
-                        <MudTooltip Text=@r.Name Placement=Placement.Bottom>
-                            <MudField Label="@r.ShortName" Variant=Variant.Text DisableUnderLine=true>
+                        <MudTooltip Text=@r.Name Placement=Placement.Bottom Inline=false>
+                            <MudField Label=@r.ShortName Variant=Variant.Text UnderLine=false>
                                 @r.EffectiveValue @AddMaxResilience(r)
                             </MudField>
                         </MudTooltip>
                     </MudItem>
                 }
                     <MudItem xs=4 Class="mb-3">
-                        <MudTooltip Text=@l10n["lblWoundThreshold"] Placement=Placement.Bottom>
-                                <MudField Label=@l10n["abbrWoundThreshold"] Variant=Variant.Text DisableUnderLine=true>
+                        <MudTooltip Text=@l10n["lblWoundThreshold"] Placement=Placement.Bottom Inline=false>
+                            <MudField Label=@l10n["abbrWoundThreshold"] Variant=Variant.Text UnderLine=false>
                                 @Hero.WoundThreshold
                             </MudField>
                         </MudTooltip>
@@ -77,8 +77,8 @@
             <MudPaper Elevation=0 Outlined=true Class="pa-4">
                 <MudGrid>
                     <MudItem xs=6 md=4>
-                        <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom>
-                            <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text DisableUnderLine=true>
+                        <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom Inline=false>
+                            <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text UnderLine=false>
                                 @Hero.Movement
                             </MudField>
                         </MudTooltip>
@@ -87,7 +87,7 @@
             </MudPaper>
 
             <MudPaper Elevation=0 Outlined=true>
-                <MudExpansionPanels DisableBorders=true Elevation=0 MultiExpansion=true >
+                <MudExpansionPanels Outlined=false Elevation=0 MultiExpansion=true >
                     <MudExpansionPanel HideIcon=true>
                         <TitleContent>
                             <div class="d-flex">

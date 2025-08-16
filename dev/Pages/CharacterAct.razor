@@ -24,7 +24,7 @@
                 </div>
                 <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px" @ref=FilterTabs>
                     <MudTabPanel Icon=@Icons.Material.Filled.PushPin ToolTip=@l10n["lblMostUsed"]>
-                        <MudList T=SkillsDTO Clickable=true Style="overflow:auto; height:620px">
+                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
                         @if (FavoriteSkills is not null)
                         {
                             @foreach (var skill in FavoriteSkills)
@@ -41,7 +41,7 @@
                         </MudList>
                     </MudTabPanel>
                     <MudTabPanel Icon=@Icons.Material.Filled.HotelClass ToolTip=@l10n["lblYourBestSkills"]>
-                        <MudList T=SkillsDTO Clickable=true Style="overflow:auto; height:620px">
+                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
                         @if (BestSkills is not null)
                         {
                             @foreach (var skill in BestSkills)
@@ -58,7 +58,7 @@
                         </MudList>
                     </MudTabPanel>
                     <MudTabPanel Icon=@Icons.Material.Filled.DensitySmall ToolTip=@l10n["lblAll"]>
-                        <MudList T=SkillsDTO Clickable=true Style="overflow:auto; height:620px">
+                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
                         @foreach (var skill in SkillList)
                         {
                             @if (CheckFilter(skill.Name))
@@ -76,7 +76,7 @@
                         @foreach (var d in SkillDomains)
                         {
                         <MudTabPanel Text=@l10n["Check.Skill."+d.ToString()]>
-                            <MudList T=SkillsDTO Clickable=true Style="overflow:auto; height:620px">
+                            <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
                             @foreach (var skill in SkillList)
                             {
                                 @if (skill.Domain == d)

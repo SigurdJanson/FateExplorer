@@ -7,7 +7,7 @@
             <MudIconButton OnClick=OnMinusClick aria-label=@l10n["lblSubtractAmount1"]
                 Size=Size.Large Icon=@Icons.Material.Sharp.IndeterminateCheckBox />
             <MudField Label=@l10n["lblCashAmount"] Variant=Variant.Text HelperText=@Currency>
-                <MudChipSet @bind-SelectedChip=Selected MultiSelection=false Filter=false Mandatory=true T=string>
+                <MudChipSet @bind-SelectedValue=Selected CheckMark=false SelectionMode=SelectionMode.SingleSelection>
                     <MudChip Text=@DucatId Default=true Variant=Variant.Text Color=Color.Default SelectedColor=Color.Primary Label=true>
                         @($"{Ducats.ToString().PadLeft(6, ' ')} {DucatId}")
                     </MudChip>
@@ -32,10 +32,10 @@
             <MudPaper Width="25%" Elevation=0>
                 <MudNumericField @bind-Value=Delta Clearable=false Step=1 Label=@l10n["lblSilverthalers"] Format="N2"/>
             </MudPaper>
-            <MudButton OnClick=OnAdd StartIcon=@Icons.Material.Sharp.Add Variant=Variant.Filled Disabled=@(Delta == 0)>
+            <MudButton OnClick=OnAdd StartIcon=@Icons.Material.Sharp.Add Variant=Variant.Filled Disabled=@(Delta == 0) >
                 @l10n["btnAdd"]
             </MudButton>
-            <MudButton OnClick=OnSubtract StartIcon=@Icons.Material.Sharp.Remove Variant=Variant.Filled Disabled=@(Delta <= 0 || Amount-Delta < 0)>
+            <MudButton OnClick=OnSubtract StartIcon=@Icons.Material.Sharp.Remove Variant=Variant.Filled Disabled=@(Delta <= 0 || Amount-Delta < 0) >
                 @l10n["btnRemove"]
             </MudButton>
         </div>

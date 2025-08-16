@@ -81,7 +81,7 @@
                                 var Holidays = Calendar.GetHolidays();
                                 if (Holidays.Length > 0)
                                 {
-                                <MudExpansionPanels Class="holidays" Dense=true DisableGutters=true DisableBorders=true Elevation=0>
+                                <MudExpansionPanels Class="holidays" Dense=true Gutters=false Outlined=false Elevation=0>
                                     @foreach (var h in Holidays)
                                     {
                                         @if (string.IsNullOrWhiteSpace(h.Item2)) 

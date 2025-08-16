@@ -68,11 +68,11 @@
                     <PropertyColumn Property="x => x.Group" Title=@l10n["lblGroup"] />
                     <TemplateColumn CellClass="d-flex justify-end" Resizable=false >
                         <CellTemplate>
-                            <MudIconButton Icon=@Icons.Material.Filled.AddShoppingCart Title=@Tooltips[msgAdd2Cart] 
+                            <MudIconButton Icon=@Icons.Material.Filled.AddShoppingCart title=@Tooltips[msgAdd2Cart] 
                                 OnClick=@(() => OnAdd2Cart(context.Item)) />
-                            <MudIconButton Icon=@Icons.Material.Filled.Info Title=@Tooltips[msgShowDetails] 
+                            <MudIconButton Icon=@Icons.Material.Filled.Info title=@Tooltips[msgShowDetails] 
                                 OnClick=@(() => OnOpenDetails(context.Item)) />
-                            <MudIconButton Icon=@IconsFE.Ulisses Title=@Tooltips[msgFindAtUlissesWiki]
+                            <MudIconButton Icon=@IconsFE.Ulisses title=@Tooltips[msgFindAtUlissesWiki]
                                            Href=@("https://ulisses-regelwiki.de/suche.html?keywords=" + context.Item.Name)
                                            Target="_blank" />
                         </CellTemplate>

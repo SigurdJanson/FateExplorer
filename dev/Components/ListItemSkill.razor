@@ -2,7 +2,7 @@
 
 @inject IStringLocalizer<App> l10n
 
-<MudListItem T=SkillsDTO @key=Skill.Id DisableRipple=true>
+<MudListItem T=SkillsDTO @key=Skill.Id Ripple=false>
     <div class="d-flex align-center" >
     <div>
         <MudHighlighter Class="mud-primary-text fe-searchhighlight" 
@@ -18,21 +18,21 @@
     {
     <MudIconButton Color=Color.Dark Icon=@IconsFE.Blindfold
             OnClick=@(() => RoutineSkillCheck.InvokeAsync(Skill))
-            Title=@(l10n["lblRoutineCheck"])
+            title=@(l10n["lblRoutineCheck"])
             aria-label=@($"{Skill.Name} {l10n["lblRoutineCheck"]}") />
     }    
     @if (RollSkill.HasDelegate)
     {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
             OnClick=@(() => RollSkill.InvokeAsync(Skill))
-            Title=@(l10n["lblRoll"])
+            title=@(l10n["lblRoll"])
             aria-label=@($"{Skill.Name} {l10n["lblRoll"]}") />
     }
     @if (ViewSkill.HasDelegate)
     {
     <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
             OnClick=@(() => ViewSkill.InvokeAsync(Skill))
-            Title=@(l10n["lblView"])
+            title=@(l10n["lblView"])
             aria-label=@($"{Skill.Name} {l10n["lblView"]}") />
     }
     </div>
