@@ -37,9 +37,10 @@
                     Virtualize=true SortMode=SortMode.Single FixedHeader=true Hover=true Striped=true Height="600px"
                          Filterable=true QuickFilter=@OnFilter ShowFilterIcons=false>
                 <ToolBarContent>
-                    <MudTextField @bind-Value=searchString Clearable=true TextUpdateSuppression=false 
-                        Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start DebounceInterval=250 Immediate=true
-                        AdornmentIcon=@Icons.Material.Sharp.Search IconSize=Size.Medium Class="mt-0" />
+                        <MudTextField @bind-Value=SearchTerm Clearable=true TextUpdateSuppression=false
+                                      Placeholder=@l10n["lblSearch"] Adornment=Adornment.Start DebounceInterval=250
+                                      Immediate=true OnKeyUp=@OnSearchFieldKey
+                                      AdornmentIcon=@Icons.Material.Sharp.Search IconSize=Size.Medium Class="mt-0" />
                     <MudSpacer />
                     <MudSelect T="int?" @bind-Value=selectedGroupId Class="mt-0" Clearable 
                         Label=@l10n["lblSelectStockCategory"]>
@@ -176,7 +177,7 @@
 
     private ShopInventoryViMo Stock { get; set; }
 
-    private string searchString = null;
+    private string SearchTerm = "";
     private int? selectedGroupId = null;
 
     private (string id, string name) ComparisonCurrency = ("", "");
@@ -196,16 +197,28 @@
             if (x.GroupId != selectedGroupId)
                 return false;
 
-        if (string.IsNullOrWhiteSpace(searchString))
+        if (string.IsNullOrWhiteSpace(SearchTerm))
             return true;
-        if (x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (x.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (x.Group.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (x.Group.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
             return true;
 
         return false;
     };
 
+
+    /// <summary>
+    /// Check for a key press of ESC to clear the search field
+    /// </summary>
+    /// <param name="eventArgs"></param>
+    private void OnSearchFieldKey(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Code == "Escape")
+        {
+            SearchTerm = "";
+        }
+    }
 
     /// <summary>
     /// Responds to a change of the comparison currency

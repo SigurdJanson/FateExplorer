@@ -51,7 +51,8 @@
                 <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
                 <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
                               AdornmentIcon=@Icons.Material.Filled.Search
-                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true Clearable=true />
+                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true 
+                                  Clearable=true OnKeyUp=@OnSearchFieldKey />
                 <MudList T=string ReadOnly=false>
                     @foreach(var i in Hero.GetBelongings())
                     {
@@ -99,8 +100,21 @@
 
 
 @code {
+    /// <summary>The string used to filter the belonging</summary>
     private string SearchTerm { get; set; } = "";
 
+
+    /// <summary>
+    /// Check for a key press of ESC to clear the search field
+    /// </summary>
+    /// <param name="eventArgs"></param>
+    private void OnSearchFieldKey(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Code == "Escape")
+        {
+            SearchTerm = "";
+        }
+    }
 
     /// <summary>
     ///

@@ -18,7 +18,7 @@
             <MudPaper Elevation=0 Outlined=true Class="align-self-stretch">
                 @* FILTER *@
                 <div class="pa-2">
-                    <MudTextField @bind-Value=FilterTerm Placeholder=@l10n["lblSearch"] OnKeyUp=FindOnEnter
+                    <MudTextField @bind-Value=SearchTerm Placeholder=@l10n["lblSearch"] OnKeyUp=OnSearchFieldKey
                                 Adornment=Adornment.End AdornmentIcon=@Icons.Material.Filled.Search
                                 IconSize=Size.Medium Immediate=true AutoFocus=true Clearable=true/>
                 </div>
@@ -33,7 +33,7 @@
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] 
+                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
                                     @key=skill.Id/> @*ViewSkill=OnSkillView*@
                                 }
                             }
@@ -50,7 +50,7 @@
                                 {
                                 <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@FilterTerm Abilities=@Abilities[skill.Id]
+                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
                                     @key=skill.Id /> @*ViewSkill=OnSkillView*@
                                 }
                             }
@@ -65,7 +65,7 @@
                             {
                                 <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
                                     CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] 
+                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
                                     @key=skill.Id /> @*ViewSkill=OnSkillView*@
                             }
                         }
@@ -85,7 +85,7 @@
                                     {
                                         <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
                                             CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                            TextFilter=@FilterTerm Abilities=@Abilities[skill.Id] 
+                                            TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
                                             @key=skill.Id /> @*ViewSkill=OnSkillView*@
                                     }
                                 }
@@ -148,15 +148,15 @@
 
     private Dictionary<string,bool> CanRoutineCheck { get; set; }
 
-    /// <summary></summary>
-    private string FilterTerm = "";
+    /// <summary>The string used to filter the skills</summary>
+    private string SearchTerm = "";
 
 
     /// <summary>Verifies if the set filter matches an item string</summary>
     /// <returns></returns>
     private bool CheckFilter(string Item)
     {
-        return Item.ToLower().Contains(FilterTerm.ToLower());
+        return Item.ToLower().Contains(SearchTerm.ToLower());
     }
 
 
@@ -233,11 +233,15 @@
 
     }
 
-    private void FindOnEnter(KeyboardEventArgs args)
+    private void OnSearchFieldKey(KeyboardEventArgs args)
     {
         if (args.Key == "Enter" || args.Key == "NumpadEnter")
         {
             FilterTabs.ActivatePanel(AllSkillsTabIndex);
+        }
+        else if (args.Key == "Escape")
+        {
+            SearchTerm = "";
         }
     }
 
