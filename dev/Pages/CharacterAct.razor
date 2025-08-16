@@ -20,7 +20,7 @@
                 <div class="pa-2">
                     <MudTextField @bind-Value=FilterTerm Placeholder=@l10n["lblSearch"] OnKeyUp=FindOnEnter
                                 Adornment=Adornment.End AdornmentIcon=@Icons.Material.Filled.Search
-                                IconSize=Size.Medium Immediate=true AutoFocus=true />
+                                IconSize=Size.Medium Immediate=true AutoFocus=true Clearable=true/>
                 </div>
                 <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px" @ref=FilterTabs>
                     <MudTabPanel Icon=@Icons.Material.Filled.PushPin ToolTip=@l10n["lblMostUsed"]>

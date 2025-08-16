@@ -51,7 +51,7 @@
                 <MudText Typo=Typo.body1 Class="mb-3">@l10n["hBelongings"]</MudText>
                 <MudTextField @bind-Value=@SearchTerm Placeholder=@l10n["lblSearch"]
                               AdornmentIcon=@Icons.Material.Filled.Search
-                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true />
+                              Adornment=Adornment.End Immediate=true IconSize=Size.Medium AutoFocus=true Clearable=true />
                 <MudList T=string ReadOnly=false>
                     @foreach(var i in Hero.GetBelongings())
                     {
