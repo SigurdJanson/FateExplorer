@@ -3,11 +3,11 @@
     Created for potions.
 *@
 <MudButtonGroup Color =Color.Primary Variant=Variant.Outlined OverrideStyles=false>
-    <MudIconButton OnClick=OnDecrease Icon=@Icons.Material.Filled.Remove Variant=Variant.Filled DisableElevation=true 
+    <MudIconButton OnClick=OnDecrease Icon=@Icons.Material.Filled.Remove Variant=Variant.Filled DropShadow=false
                    Disabled=@(SelectedValue == 1) />
     <MudButton OnClick=OnClickHandler
                StartIcon=@Icon Variant=Variant.Outlined>@Title @Label</MudButton>
-    <MudIconButton OnClick=OnIncrease Icon=@Icons.Material.Filled.Add Variant=Variant.Filled DisableElevation=true 
+    <MudIconButton OnClick=OnIncrease Icon=@Icons.Material.Filled.Add Variant=Variant.Filled DropShadow=false
                    Disabled=@(SelectedValue == Labels.Length-1) />
 </MudButtonGroup>
 
