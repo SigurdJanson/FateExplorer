@@ -15,11 +15,6 @@ public class MovementM : CharacterIstic
     /// <param name="hero">The character of this movement competence.</param>
     public MovementM(int raceBaseVal, ICharacterM hero) : base(ComputeMovement(raceBaseVal))
     {
-        //--Value = ComputeMovement(raceBaseVal);
-        if (hero.HasAdvantage(ADV.Nimble))
-            Imported += 1;
-        if (hero.HasAdvantage(DISADV.Slow))
-            Imported -= 1;
         _effective = Imported;
         _true = Imported;
         Min = 0;

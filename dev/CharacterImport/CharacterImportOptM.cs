@@ -326,6 +326,18 @@ namespace FateExplorer.CharacterImport
             return Result;
         }
 
+        public Dictionary<string, (string id, int tier)> GetDisAdvantages()
+        {
+            Dictionary<string, (string, int)> Result = new();
+            foreach (var s in Activatable)
+            {
+                if ((s.Key.StartsWith(AdvantageMarker) || s.Key.StartsWith(DisadvantageMarker)) && s.Value.Count > 0)
+                    Result.Add(s.Key, (s.Key, s.Value[0].Tier));
+            }
+            return Result;
+        }
+
+
 
         // ENERGIES
 

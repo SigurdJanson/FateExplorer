@@ -24,5 +24,7 @@ namespace FateExplorer.GameData
         [JsonPropertyName("reco")]
         public bool Recognized{ get; set; }
 
+        [JsonPropertyName("ref")]
+        public string[] Reference { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FateExplorer.CharacterImport;
+using FateExplorer.CharacterModel.DisAdvantages;
 using FateExplorer.CharacterModel.SpecialAbilities;
 using FateExplorer.GameData;
 using FateExplorer.Shared;
@@ -76,8 +77,11 @@ namespace FateExplorer.CharacterModel
             // DIS-ADVANTAGES
             try
             {
-                Advantages = characterImportOptM.GetAdvantages();
-                Disadvantages = characterImportOptM.GetDisadvantages();
+                var DisAdv = new DisAdvantagesConverter(gameData, characterImportOptM).GetDisAdvantages();
+                Advantages = DisAdv.Item1;
+                Disadvantages = DisAdv.Item2;
+                //Advantages = characterImportOptM.GetAdvantages();
+                //Disadvantages = characterImportOptM.GetDisadvantages();
             }
             catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.DisAdvantage); }
 
@@ -203,6 +207,10 @@ namespace FateExplorer.CharacterModel
             // Apply all activatables that affect character attributes, like nimble -> MOV+1, etc.
             foreach (var sa in SpecialAbilities.Values)
                 sa.Apply(this);
+            foreach (var adv in Advantages.Values)
+                adv.Apply(this);
+            foreach (var disadv in Disadvantages.Values)
+                disadv.Apply(this);
         }
 
 

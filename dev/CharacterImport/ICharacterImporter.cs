@@ -99,12 +99,14 @@ namespace FateExplorer.CharacterImport
         /// <returns>List of id strings</returns>
         Dictionary<string, IActivatableM> GetAdvantages();
 
+
         /// <summary>
         /// Returns the ids of the character's disadvantages
         /// </summary>
         /// <returns>List of id strings</returns>
         Dictionary<string, IActivatableM> GetDisadvantages();
 
+        Dictionary<string, (string id, int tier)> GetDisAdvantages();
 
 
         // PROPERTY / BELONGINGS
