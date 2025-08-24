@@ -4,29 +4,15 @@ using System;
 namespace FateExplorer.CharacterModel
 {
 
-    public class LanguageM : IActivatableM
+    public class LanguageM : TieredActivatableM
     {
-        const string ExpectedId = "SA_29";
-
-        public LanguageM(string id, int tier, LanguageId language)
+        public LanguageM(string id, int tier, LanguageId language) : base(id, tier, Array.Empty<string>())
         {
-            if (id is null) throw new ArgumentNullException(nameof(id));
-            if (id != ExpectedId) throw new ArgumentException("Special ability is not a language", nameof(id));
+            if (id != SA.Language) throw new ArgumentException("Unexpected id for language", id);
             if (tier < 0 || tier > 4) throw new ArgumentException("Language allows skill only between 0-4", nameof(tier));
 
-            Id = id;
-            Tier = tier;
             Language = language;
         }
-
-
-        /// <inheritdoc/>
-        public string Id { get; protected set; }
-
-
-        /// <inheritdoc/>
-        /// <remarks>The skill; 4 is a native language.</remarks>
-        public int Tier { get; protected set; }
 
 
         /// <summary>
@@ -37,9 +23,11 @@ namespace FateExplorer.CharacterModel
 
         /// <inheritdoc/>
         /// <remarks>Returns true</remarks>
-        public bool IsRecognized => true;
+        public override bool IsRecognized => true;
 
-        /// <inheritdoc />
-        public string[] Reference => throw new NotImplementedException("References are not implemented for languages");
+
+        /// <inheritdoc cref="TieredActivatableM.Apply(CharacterM)"/>
+        public override void Apply(CharacterM character)
+        {}
     }
 }
