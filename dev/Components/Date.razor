@@ -10,12 +10,14 @@
 <MudTooltip Text=@LongDate>
     <MudChip T=bool Label=true Variant=Variant.Filled Color=Color.Primary Class="ml-4 rounded-0"
              Icon=@Calendar.MonthIcon
-             OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+             OnClick=ToggleOpen Disabled=Disabled>
              @RenderShortDate(Calendar)
     </MudChip>
 </MudTooltip>
 
-<MudPopover Open=@IsPopupOpen Fixed=true Class="datepop px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter Style="max-width: 800px">
+<MudPopover Open=@Open Fixed=true Class="datepop px-4 pt-4" AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter Style="max-width: 800px"
+            @onkeyup=HandleKeyUp>
+<MudFocusTrap>
     <div class="d-flex flex-row">
         <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=@ToggleOpen />
     </div>
@@ -109,6 +111,7 @@
             </MudPaper>
         </MudItem>
     </MudGrid>
+</MudFocusTrap>
 </MudPopover>
 
 
@@ -124,21 +127,45 @@
     }
 
 
-     /* 
+    /* 
     * POPOVER
     */
     #region POPOVER ====
 
-    public bool IsPopupOpen;
+    /// <summary>
+    /// Determines whether the popup is open or closed.
+    /// </summary>
+    [Parameter] public bool Open { get; set; }
+
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>
+    /// Determines whether the button to open / close the popup is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter] public EventCallback<bool> DisabledChanged { get; set; }
+
 
     public void ToggleOpen()
     {
-        if (IsPopupOpen)
-            IsPopupOpen = false;
-        else
-            IsPopupOpen = true;
+        Open = !Open;
+        OpenChanged.InvokeAsync(Open);
     }
 
+
+    /// <summary>
+    /// Handle keyboard events
+    /// </summary>
+    /// <param name="e"></param>
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == KeyCode.Escape)
+        {
+            Open = false;
+            OpenChanged.InvokeAsync(Open);
+        }
+    }
 
 
     // SET DATE Button

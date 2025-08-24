@@ -7,10 +7,8 @@
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 
-<MudPopover Open=IsOpen Square=true RelativeWidth=DropdownWidth.Relative
+<MudPopover Open=Open Square=true RelativeWidth=DropdownWidth.Relative
             OverflowBehavior=OverflowBehavior.FlipAlways AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter 
-            Class="px-6 pt-4">
-
 <div class="d-flex flex-row">
     <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=Close />
 </div>
@@ -46,6 +44,7 @@
         </MudItem>
     </MudGrid>
 </MudContainer>
+</MudFocusTrap>
 </MudPopover>
 
 
@@ -55,9 +54,18 @@
     /// <summary>
     /// Determines whether the popup is open or closed.
     /// </summary>
-    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public bool Open { get; set; }
 
-    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+
+    
+    /// <summary>
+    /// Determines whether the button to open / close the popup is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter] public EventCallback<bool> DisabledChanged { get; set; }
+
 
     /// <summary>
     /// Data container for the energies to be displayed.
@@ -79,12 +87,25 @@
 
 
     /// <summary>
+    /// Handle keyboard events
+    /// </summary>
+    /// <param name="e"></param>
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == KeyCode.Escape)
+        {
+            Open = false;
+            OpenChanged.InvokeAsync(Open);
+        }
+    }
+
+    /// <summary>
     /// Close the popup
     /// </summary>
     private void Close()
     {
-        IsOpen = false;
-        IsOpenChanged.InvokeAsync(IsOpen);
+        Open = false;
+        OpenChanged.InvokeAsync(Open);
     }
 
 

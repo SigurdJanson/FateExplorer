@@ -14,13 +14,13 @@
             Origin=Origin.BottomCenter Content=e.CrossedThresholds Color=Color.Tertiary Overlap=true Dot=false Bordered=false>
             <MudChip T=bool Label=true Variant=Variant.Filled  Color=Color.Primary Class="ml-4 rounded-0"
                      Icon=@GetIcon(e.EffMax, e.EffectiveValue, e.Id)
-                     OnClick=@(() => IsPopupOpen = !IsPopupOpen)>
+                     Disabled=@(IsDateOpen) OnClick=@(() => IsEnergiesOpen = !IsEnergiesOpen) >
                         @e.EffectiveValue.ToString().PadLeft(3, '\u00A0')&nbsp;@e.ShortName
             </MudChip>
         </MudBadge>
     }
 
-    <EnergyPopup @bind-IsOpen=IsPopupOpen Energies=Hero?.GetEnergies() EnergiesChanged=@UpdateEnergies />
+    <EnergyPopup @bind-Open=IsEnergiesOpen @bind-Disabled=IsDateOpen Energies=Hero?.GetEnergies() EnergiesChanged=@UpdateEnergies />
 }
 else
 {
@@ -29,22 +29,20 @@ else
     </MudText>
 }
 <MudSpacer/>
-<Date />
+<Date @bind-Open=IsDateOpen @bind-Disabled=IsEnergiesOpen />
 
 
 
 @code {
     //
-
-
-    //
-    private bool IsPopupOpen { get; set; }
+    private bool IsEnergiesOpen { get; set; }
+    private bool IsDateOpen { get; set; }
 
     //
-
     private readonly string[] LifeIcon = { Icons.Material.Filled.Favorite, Icons.Material.Filled.FavoriteBorder, Icons.Material.Filled.HeartBroken };
     private readonly string[] AstralIcon = { Icons.Material.Filled.AutoFixHigh, Icons.Material.Filled.AutoFixNormal, Icons.Material.Filled.AutoFixOff };
     private readonly string[] KarmaIcon = { Icons.Material.Filled.Star, Icons.Material.Filled.StarHalf, Icons.Material.Filled.StarOutline };
+
 
     private string GetIcon(int Max, int Eff, string Id)
     {
