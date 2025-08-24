@@ -254,29 +254,6 @@ namespace FateExplorer.CharacterImport
         const string AdvantageMarker = "ADV_";
         const string DisadvantageMarker = "DISADV_";
 
-        /// <summary>
-        /// Request item ids from the collection of (dis-) advantages and special abilities not incl. languages.
-        /// </summary>
-        /// <param name="Id">An complete id string or a part of it (is looked for by "starts with ...")</param>
-        /// <returns>List of id strings that match the request</returns>
-        public Dictionary<string, IActivatableM> GetActivatables(string Id, SpecialAbilityDB saDb = null)
-        {
-            Dictionary<string, IActivatableM> Result = new();
-            foreach (var s in Activatable)
-            {
-                if (s.Key.StartsWith(Id) && s.Value.Count > 0)
-                    if (s.Key != OptSpecialAbility.Language)
-                    {
-                        string[] Reference;
-                        if (saDb != null && saDb.Contains(s.Key)) // get reference from FE game data base
-                            Reference = (string[])saDb[s.Key].Reference?.Clone() ?? null;
-                        else
-                            Reference = null;
-                        Result.Add(s.Key, new TieredActivatableM(s.Key, s.Value[0].Tier, Reference));
-                    }
-            }
-            return Result;
-        }
 
 
         /// <summary>
@@ -299,20 +276,10 @@ namespace FateExplorer.CharacterImport
         }
 
 
-        /// <inheritdoc />
-        public Dictionary<string, IActivatableM> GetSpecialAbilities(SpecialAbilityDB saDb = null)
-            => GetActivatables(SpecialAbilityMarker, saDb);
-
-        /// <inheritdoc />
-        public Dictionary<string, IActivatableM> GetAdvantages()
-            => GetActivatables(AdvantageMarker);
-
-        /// <inheritdoc />
-        public Dictionary<string, IActivatableM> GetDisadvantages()
-            => GetActivatables(DisadvantageMarker);
 
 
-        public Dictionary<string, (string id, int tier)> _GetSpecialAbilities()
+        ///// <inheritdoc />
+        public Dictionary<string, (string id, int tier)> GetSpecialAbilities()
         {
             Dictionary<string, (string, int)> Result = new();
             foreach (var s in Activatable)
@@ -326,6 +293,8 @@ namespace FateExplorer.CharacterImport
             return Result;
         }
 
+
+        ///// <inheritdoc />
         public Dictionary<string, (string id, int tier)> GetDisAdvantages()
         {
             Dictionary<string, (string, int)> Result = new();

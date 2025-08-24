@@ -32,7 +32,7 @@ public class SpecialAbilityConverter
 
         try
         {
-            abilities = Importer._GetSpecialAbilities();
+            abilities = Importer.GetSpecialAbilities();
         }
         catch (System.Exception e) { throw new ChrImportException("", e, ChrImportException.Property.SpecialAbility); }
 

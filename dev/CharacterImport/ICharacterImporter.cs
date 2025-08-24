@@ -82,10 +82,8 @@ namespace FateExplorer.CharacterImport
         /// <summary>
         /// Returns the ids of the character's special abilities
         /// </summary>
-        /// <param name="saDb">Access to the game data base for special abilities.</param>
         /// <returns>List of id strings of all special abilities</returns>
-        Dictionary<string, IActivatableM> GetSpecialAbilities(SpecialAbilityDB saDb);
-        Dictionary<string, (string id, int tier)> _GetSpecialAbilities(); 
+        Dictionary<string, (string id, int tier)> GetSpecialAbilities(); 
 
         /// <summary>
         /// Returns the collection of languages spoken by the character.
@@ -93,20 +91,13 @@ namespace FateExplorer.CharacterImport
         /// <returns></returns>
         Dictionary<string, LanguageM> GetLanguages();
 
-        /// <summary>
-        /// Returns the ids of the character's advantages
-        /// </summary>
-        /// <returns>List of id strings</returns>
-        Dictionary<string, IActivatableM> GetAdvantages();
-
 
         /// <summary>
-        /// Returns the ids of the character's disadvantages
+        /// Returns the ids of the character's advantages and disadvantages
         /// </summary>
         /// <returns>List of id strings</returns>
-        Dictionary<string, IActivatableM> GetDisadvantages();
-
         Dictionary<string, (string id, int tier)> GetDisAdvantages();
+
 
 
         // PROPERTY / BELONGINGS
