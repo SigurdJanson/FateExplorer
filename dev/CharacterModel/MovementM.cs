@@ -15,8 +15,8 @@ public class MovementM : CharacterIstic
     /// <param name="hero">The character of this movement competence.</param>
     public MovementM(int raceBaseVal, ICharacterM hero) : base(ComputeMovement(raceBaseVal))
     {
-        _effective = Imported;
-        _true = Imported;
+        _effectivemod = Imported;
+        _truemod = Imported;
         Min = 0;
         Max = 20;
     }
@@ -27,11 +27,5 @@ public class MovementM : CharacterIstic
     /// <returns>A movement value</returns>
     public static int ComputeMovement(int raceBaseVal)
         => raceBaseVal;
-
-
-    ///// <summary>
-    ///// The imported movement value
-    ///// </summary>
-    //public int Value { get; protected set; }
 
 }

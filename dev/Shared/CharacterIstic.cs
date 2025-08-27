@@ -7,14 +7,14 @@ namespace FateExplorer.Shared;
 
 public abstract class CharacterIstic
 {
-    protected int _effective;
-    protected int _true;
+    protected int _effectivemod;
+    protected int _truemod;
 
     public CharacterIstic(int Value)
     {
         Imported = Value;
-        _effective = Imported;
-        _true = Imported;
+        _effectivemod = 0;
+        _truemod = 0;
     }
 
 
@@ -34,7 +34,7 @@ public abstract class CharacterIstic
     /// The value as determined from the imported character sheet incl. changes
     /// added by dis-/advantages or special abilities recognized by Fate Explorer.
     /// </summary>
-    public int Imported { get; set; }
+    public virtual int Imported { get; set; }
 
 
     /// <summary>
@@ -43,11 +43,11 @@ public abstract class CharacterIstic
     /// </summary>
     public virtual int True
     {
-        get => _true;
+        get => Imported + _truemod;
         set
         {
             if (value >= Min && value <= Max)
-                _true = value;
+                _truemod = value - Imported;
             else
                 throw new ArgumentOutOfRangeException(nameof(value));
         }
@@ -59,11 +59,11 @@ public abstract class CharacterIstic
     /// </summary>
     public virtual int Effective
     {
-        get => _effective;
+        get => True + _effectivemod;
         set
         {
             if (value >= Min && value <= Max)
-                _effective = value;
+                _effectivemod = value - True;
             else
                 throw new ArgumentOutOfRangeException(nameof(value));
         }
@@ -73,12 +73,12 @@ public abstract class CharacterIstic
     /// <summary>
     /// True and effective min value
     /// </summary>
-    public int Min { get; protected set; }
+    public int Min { get; protected set; } = Int32.MinValue;
 
     /// <summary>
     /// True and effective max value
     /// </summary>
-    public int Max { get; protected set; }
+    public int Max { get; protected set; } = Int32.MaxValue;
 
 
     /// <summary>
@@ -91,7 +91,7 @@ public abstract class CharacterIstic
 
     public override int GetHashCode() => Id.GetHashCode();
 
-    public override string ToString() => $"{Id} = {_effective}";
+    public override string ToString() => $"{Id} = {_effectivemod}";
 
 
     /// <summary>
@@ -124,39 +124,86 @@ public abstract class CharacterIstic
     /// value during setup.
     /// </summary>
     /// <param name="value">The value that is added to the base value after import</param>
-    public void AddOnSetup(int value)
+    public virtual void AddOnSetup(int value)
     {
         Imported += value;
-        _effective = Imported;
-        _true = Imported;
+        _effectivemod = 0;
+        _truemod = 0;
     }
 }
 
 
 /// <summary>
-/// A value that is calculated based on other values
+/// A character attribute that is calculated based on other values.
 /// </summary>
 public class DerivedValue : CharacterIstic
 {
+    protected int _imported;
+
+    /// <summary>
+    /// A modifier set by an activatable, i.e. a special ability or dis-/advantage.
+    /// These are added to the value '<see cref="CharacterIstic.Imported"/>'.
+    /// </summary>
+    public int ActivatableModifier { get; protected set; } = 0;
+
+
+
+    /// <inheritdoc/>
+    public override int Imported 
+    { 
+        get => _imported + ActivatableModifier; 
+        set
+        {
+            if (value >= Min && value <= Max)
+                _imported = value - ActivatableModifier;
+            else
+                throw new ArgumentOutOfRangeException(nameof(value));
+        }
+    }
+
+
     public DerivedValue(int Value) : base(Value)
     {
-        DependencyId = Array.Empty<string>();
+        DependencyId = [];
+        Min = -100;
+        Max = +100;
     }
+
 
     protected string[] DependencyId { get; init; }
 
+
     public string[] GetDependencies() => DependencyId;
 
+
+    /// <summary>
+    /// Tests if the characterIstic depends on the attribute <paramref name="Id"/>.
+    /// </summary>
+    /// <param name="Id">The id of a character attribute.</param>
+    /// <returns>true/false</returns>
     public bool DependsOn(string Id)
     {
         foreach(var dep in DependencyId) 
             if (dep == Id) return true;
         return false;
     }
+
+
+    /// <inheritdoc/>
+    public override void AddOnSetup(int value)
+    {
+        ActivatableModifier = value;
+        _truemod = 0;
+        _effectivemod = 0;
+    }
 }
 
 
 
+/// <summary>
+/// A character attribute that is atomic.
+/// Derived attributes (see <see cref="DerivedValue"/>) are calculated based on these.
+/// </summary>
 public class RootValue : CharacterIstic, IStateContainer
 {
     public RootValue(int Value) : base(Value)
@@ -170,10 +217,10 @@ public class RootValue : CharacterIstic, IStateContainer
 
     public override int True
     {
-        get => _true;
+        get => _truemod;
         set
         {
-            if (_true == value) return;
+            if (_truemod == value) return;
             base.True = value;
             NotifyStateChanged();
         }
@@ -182,10 +229,10 @@ public class RootValue : CharacterIstic, IStateContainer
 
     public override int Effective
     {
-        get => _effective;
+        get => _effectivemod;
         set
         {
-            if (_effective == value) return;
+            if (_effectivemod == value) return;
             base.Effective = value;
             NotifyStateChanged();
         }
