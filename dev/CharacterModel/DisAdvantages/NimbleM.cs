@@ -3,6 +3,10 @@
 namespace FateExplorer.CharacterModel.DisAdvantages;
 
 
+/// <summary>
+/// Contains the game logic for the advantage 'nimble' (VR1, p. 168) which "raises your hero's 
+/// <c>Movement</c> by 1.
+/// </summary>
 
 [DisAdvantage(ADV.Nimble)]
 public class NimbleM : TieredActivatableM

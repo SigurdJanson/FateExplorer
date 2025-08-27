@@ -3,7 +3,10 @@
 namespace FateExplorer.CharacterModel.DisAdvantages;
 
 
-
+/// <summary>
+/// Contains the game logic for the disadvantage 'slow' (VR1, p. 177) which "reduces your hero's 
+/// <c>Movement</c> by 1.
+/// </summary>
 [DisAdvantage(DISADV.Slow)]
 public class SlowM : TieredActivatableM
 {
