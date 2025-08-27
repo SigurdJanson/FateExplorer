@@ -47,7 +47,7 @@ public class CookieStorage : IClientSideStorage
 
         string EncValue = Uri.EscapeDataString(value);
         var curExp = (days != null) ? (days > 0 ? DateToUTC(days.Value) : "") : expires;
-        await SetCookie($"{key}={EncValue}; expires={curExp}; path=/");
+        await SetCookie($"{key}={EncValue};secure;expires={curExp};path=/");
     }
 
 
