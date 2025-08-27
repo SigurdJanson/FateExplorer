@@ -3,6 +3,7 @@ using FateExplorer.GameData;
 using FateExplorer.Shared;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace UnitTests.CharacterModel
 {
@@ -36,7 +37,7 @@ namespace UnitTests.CharacterModel
             // Arrange
             ResilienceDbEntry Db = new()
             {
-                DependantAbilities = new string[] { "ATTR_1", "ATTR_2", "ATTR_3"},
+                DependantAbilities = ["ATTR_1", "ATTR_2", "ATTR_3"],
                 Id = "NEUTRAL", Name = "TEST", ShortName = "T",
                 RaceBaseValue = new ResilienceBaseValue[]
                 {
@@ -44,7 +45,7 @@ namespace UnitTests.CharacterModel
                     new ResilienceBaseValue { RaceId = "R2", Value = -5 }
                 }
             };
-
+            
             mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_1")))
                 .Returns(ab1v);
             mockCharacterM.Setup(c => c.GetAbility(It.Is<string>(s => s == "ATTR_2")))
@@ -53,9 +54,11 @@ namespace UnitTests.CharacterModel
                 .Returns(ab3v);
             mockCharacterM.SetupGet(c => c.SpeciesId)
                 .Returns(RaceId);
+            mockCharacterM.SetupGet(c => c.Abilities)
+                .Returns([]);
 
             // Act
-            var result = new ResilienceM(Db, mockCharacterM.Object).Value;
+            var result = new ResilienceM(Db, mockCharacterM.Object).Effective;
 
             // Assert
             mockRepository.VerifyAll();
@@ -63,8 +66,8 @@ namespace UnitTests.CharacterModel
         }
 
 
-        [TestCase(ChrAttrId.SPI, ExpectedResult = 1+1)]
-        [TestCase(ChrAttrId.TOU, ExpectedResult = 1+1)]
+        [TestCase(ChrAttrId.SPI, ExpectedResult = 1)]
+        [TestCase(ChrAttrId.TOU, ExpectedResult = 1)]
         public int Advantage_ValuePlusOne(string Which)
         {
             int ab1v = 10, ab2v = 11, ab3v = 12;
@@ -72,7 +75,7 @@ namespace UnitTests.CharacterModel
             // Arrange
             ResilienceDbEntry Db = new()
             {
-                DependantAbilities = new string[] { "ATTR_1", "ATTR_2", "ATTR_3" },
+                DependantAbilities = ["ATTR_1", "ATTR_2", "ATTR_3"],
                 Id = Which,
                 Name = Which,
                 ShortName = "T",
@@ -91,23 +94,11 @@ namespace UnitTests.CharacterModel
                 .Returns(ab3v);
             mockCharacterM.SetupGet(c => c.SpeciesId)
                 .Returns(RaceId);
-            if (Which == ChrAttrId.SPI)
-            {
-                mockCharacterM.Setup(c => c.HasAdvantage(ADV.IncreasedSpirit))
-                    .Returns(true);
-                mockCharacterM.Setup(c => c.HasDisadvantage(DISADV.DecreasedSpirit))
-                    .Returns(false);
-            }
-            else if (Which == ChrAttrId.TOU)
-            {
-                mockCharacterM.Setup(c => c.HasAdvantage(ADV.IncreasedToughness))
-                    .Returns(true);
-                mockCharacterM.Setup(c => c.HasDisadvantage(DISADV.DecreasedToughness))
-                    .Returns(false);
-            }
+            mockCharacterM.SetupGet(c => c.Abilities)
+                .Returns([]);
 
             // Act
-            var result = new ResilienceM(Db, mockCharacterM.Object).Value;
+            var result = new ResilienceM(Db, mockCharacterM.Object).Effective;
 
             // Assert
             mockRepository.VerifyAll();

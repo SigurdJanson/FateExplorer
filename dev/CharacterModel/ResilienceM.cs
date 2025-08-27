@@ -6,43 +6,37 @@ using System.Linq;
 
 namespace FateExplorer.CharacterModel;
 
-public class ResilienceM
+
+/// <summary>
+/// Resiliences are either spirit (<see cref="ChrAttrId.SPI"/>) or toughness (<see cref="ChrAttrId.TOU"/>).
+/// </summary>
+public class ResilienceM : DerivedValue
 {
+    /// <summary>
+    /// Highest/lowest race base value + min attributes / 6 + modifiers from activatables
+    /// </summary>
+    protected const int MinResilience = -6 + (3 * 8 / 6) - 2;
+    protected const int MaxResilience = -4 + (3 * 20 / 6) +2;
     private ICharacterM Hero { get; set; }
 
-    /// <summary>
-    /// Identifies the resilience. Shall be <see cref="ChrAttrId.SPI"/> or <see cref="ChrAttrId.TOU"/>.
-    /// </summary>
-    private string Id { get; set; }
+
 
     /// <summary>
-    /// For character generation each race has a base value.
+    /// Constructor
     /// </summary>
-    public int BaseValue { get; protected set; }
-
-    /// <summary>
-    /// Extra points from dis-/advantages added to the base value.
-    /// </summary>
-    public int? ExtraValue { get; protected set; } = null;
-
-    /// <summary>
-    /// List of ids to identify the attributes needed to compute this attribute.
-    /// </summary>
-    public string[] DependentAbilities { get; set; }
-
-    private int? value = null;
-    public int Value
+    /// <param name="gameData">Resilience object taken from <see cref="IGameDataService"/>.</param>
+    /// <param name="hero">The hero this resilience belongs to.</param>
+    public ResilienceM(ResilienceDbEntry gameData, ICharacterM hero) : base(0)
     {
-        get
-        {
-            this.value ??= ComputeValue();
-
-            return (int)this.value;
-        }
-        protected set
-        {
-            this.value = value;
-        }
+        Hero = hero;
+        Id = gameData.Id;
+        DependencyId = gameData.DependantAbilities.Clone() as string[];
+        int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
+        Imported = ComputeValue(RaceBaseValue, hero.Abilities);
+        Min = MinResilience;
+        Max = MaxResilience;
+        if (Imported <  Min || Imported > Max)
+            throw new NotSupportedException("Resilience out of range");
     }
 
 
@@ -54,48 +48,22 @@ public class ResilienceM
     /// If not given, the method will work with the character's base values
     /// </param>
     /// <returns></returns>
-    public int ComputeValue(Dictionary<string, int> Abilities = null)
+    public int ComputeValue(int RaceBaseValue, Dictionary<string, AbilityM> Abilities = null)
     {
         int AbSum = 0;
-        foreach (var a in DependentAbilities)
-            AbSum += Abilities?[a] ?? Hero.GetAbility(a);
-
-        int Mod = 0;
-        if (Id == ChrAttrId.SPI)
+        if (Abilities is not null && Abilities.Count > 0)
         {
-            if (Hero.HasAdvantage(ADV.IncreasedSpirit))
-                ++Mod;
-            if (Hero.HasDisadvantage(DISADV.DecreasedSpirit))
-                --Mod;
-        } 
-        else if (Id == ChrAttrId.TOU)
-        {
-            if (Hero.HasAdvantage(ADV.IncreasedToughness))
-                ++Mod;
-            if (Hero.HasDisadvantage(DISADV.DecreasedToughness))
-                --Mod;
+            foreach (var a in DependencyId)
+                AbSum += Abilities[a].Value;
         }
-
-
-        int V = BaseValue + (int)Math.Floor((AbSum / 6.0m) + 0.5m) + (ExtraValue ?? 0) + Mod; // Round rounds .5 to even numbers, not up
-
+        else
+        {
+            foreach (var a in DependencyId)
+                AbSum += Hero.GetAbility(a);
+        }
+        int V = RaceBaseValue + (int)Math.Floor((AbSum / 6.0m) + 0.5m) + ActivatableModifier; // Round rounds .5 to even numbers, not up
         return V;
     }
 
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="gameData">Resilience object taken from <see cref="IGameDataService"/>.</param>
-    /// <param name="hero">The hero this resilience belongs to.</param>
-    public ResilienceM(ResilienceDbEntry gameData, ICharacterM hero)
-    {
-        Hero = hero;
-        Id = gameData.Id;
-        DependentAbilities = gameData.DependantAbilities.Clone() as string[];
-        int RaceBaseValue = gameData.RaceBaseValue.First(bv => bv.RaceId == Hero.SpeciesId).Value;
-        BaseValue = RaceBaseValue;
-        ExtraValue = 0; // Unknown at this points, because we do not know dis-/advantages
-    }
 
 }

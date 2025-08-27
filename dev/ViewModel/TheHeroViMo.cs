@@ -127,7 +127,7 @@ namespace FateExplorer.ViewModel
                 if (StoredItem?.EffectiveResilience?.TryGetValue(chre.Key, out int StoredValue) ?? false)
                     ResilienceEffValues.Add(chre.Key, StoredValue);
                 else
-                    ResilienceEffValues.Add(chre.Key, chre.Value.ComputeValue(AbilityEffValues));
+                    ResilienceEffValues.Add(chre.Key, chre.Value.Effective);
 
             // BELONGINGS
             EffectiveMoney = StoredItem?.EffectiveMoney ?? 0;
@@ -682,9 +682,10 @@ namespace FateExplorer.ViewModel
                 {
                     Name = GameDataService.Resiliences[r.Key].Name,
                     ShortName = GameDataService.Resiliences[r.Key].ShortName,
-                    Max = r.Value.Value,
+                    Min = r.Value.Min,
+                    Max = r.Value.Max,
                     Id = r.Key,
-                    EffectiveValue = r.Value.ComputeValue(AbilityEffValues)
+                    EffectiveValue = r.Value.Effective
                 };
                 Result.Add(resilience);
             }
