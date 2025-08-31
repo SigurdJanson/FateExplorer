@@ -52,7 +52,6 @@ namespace FateExplorer.CharacterModel
             // SPECIAL ABILITIES
             try
             {
-                //SpecialAbilities = characterImportOptM.GetSpecialAbilities(gameData.SpecialAbilities);
                 SpecialAbilities = new SpecialAbilityConverter(gameData, characterImportOptM).GetAbilities();
                 Languages = characterImportOptM.GetLanguages();
             }
