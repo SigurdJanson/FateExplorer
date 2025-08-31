@@ -1567,4 +1567,10 @@
   <data name="lblWoundThreshold" xml:space="preserve">
     <value>Wundschwelle</value>
   </data>
+  <data name="descFreeD3" xml:space="preserve">
+    <value>Einfacher W3</value>
+  </data>
+  <data name="lblD3" xml:space="preserve">
+    <value>W3</value>
+  </data>
 </root>

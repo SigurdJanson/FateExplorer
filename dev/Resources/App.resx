@@ -1692,4 +1692,11 @@
   <data name="lblWoundThreshold" xml:space="preserve">
     <value>WoundThreshold</value>
   </data>
+  <data name="lblD3" xml:space="preserve">
+    <value>D3</value>
+  </data>
+  <data name="descFreeD3" xml:space="preserve">
+    <value>Simple d3 rolls</value>
+    <comment>Free Dice</comment>
+  </data>
 </root>
