@@ -77,7 +77,7 @@ namespace UnitTests.Shop
             List<ShopItemM> Result = JsonSerializer.Deserialize<List<ShopItemM>>(jsonString);
 
             // Assert
-            Assert.That(1039, Is.EqualTo(Result.Count));
+            Assert.That(Result.Count, Is.EqualTo(1048));
         }
 
 
