@@ -24,7 +24,7 @@ namespace FateExplorer.FreeDiceCupViMo
             if (sides.Length == 1)
             {
                 Type = CupType.Single;
-                Sides = new int[1] { sides[0] };
+                Sides = [sides[0]];
             }
             else
             {
