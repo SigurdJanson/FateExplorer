@@ -130,6 +130,6 @@ namespace UnitTests.CharacterModel
             DISADV.BadLuck, DISADV.PersonalityFlaw/* Weltfremd gegenüber Religion */, DISADV.SensitiveNose, 
             DISADV.Incompetent /* Brett- & Glücksspiel und Zechen */ };
         public static string[] SpecialAbilities = {
-            "SA_22"/*Ortskenntnis*/, "SA_9"/*Fertigkeitsspezialisierung*/,  SA.TraditionElf};
+            "SA_22"/*Ortskenntnis*/, "SA_9"/*Fertigkeitsspezialisierung*/,  SA.TraditionElves};
     }
 }

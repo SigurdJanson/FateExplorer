@@ -91,7 +91,7 @@ namespace UnitTests.CharacterModel.Energies
             mockCharacterM.SetupGet(c => c.SpeciesId).Returns(Species);
             mockCharacterM.SetupGet(c => c.Abilities).Returns(HeroWipfelglanz.Abilities);
             // Layariel honours only the tradition "Elves"
-            MockSpecialAbility(mockCharacterM, new string[] { SA.TraditionElf });
+            MockSpecialAbility(mockCharacterM, new string[] { SA.TraditionElves });
             MockHasAdvantage(mockCharacterM, HeroWipfelglanz.Advantages);
             MockHasDisadvantage(mockCharacterM, HeroWipfelglanz.Disadvantages);
             

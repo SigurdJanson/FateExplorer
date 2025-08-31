@@ -47,10 +47,10 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
 
 
-            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoWeaponCombat) switch
             {
                 false => 0,
-                true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
+                true => Hero.SpecialAbilities[SA.TwoWeaponCombat].Tier
             };
             int TwoHandMod;
             // A two-handed weapon does not suffer from fighting with two hands
@@ -94,10 +94,10 @@ namespace FateExplorer.CharacterModel
                 OffHandMod = !MainHand ? -4 : 0;
 
 
-            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoHandedCombat) switch
+            int TwoHandedCombatTier = Hero.HasSpecialAbility(SA.TwoWeaponCombat) switch
             {
                 false => 0,
-                true => Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
+                true => Hero.SpecialAbilities[SA.TwoWeaponCombat].Tier
             };
             int TwoHandMod;
             // A two-handed weapon does not suffer from fighting with two hands; neither does parying with a shield

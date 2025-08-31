@@ -10,21 +10,6 @@ using System.Collections.Generic;
 
 namespace FateExplorer.CharacterModel
 {
-    /// <summary>
-    /// Holds the strings to identify special abilities
-    /// </summary>
-    public static class SA
-    {
-        public const string Writing = "SA_27";
-        public const string Language = "SA_29";
-        public const string TwoHandedCombat = "SA_42";
-        public const string TraditionElf = "SA_345";
-        public const string Hruruzat = "SA_186";
-        public const string CatchBlade = "SA_52";
-        public const string GreatMeditation = "SA_772";
-    }
-
-
 
     /// <summary>
     /// 

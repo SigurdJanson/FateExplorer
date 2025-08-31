@@ -68,7 +68,7 @@ namespace UnitTests.CharacterModel
 
         private Dictionary<string, CombatTechM> MakeCombatTechDict(int Skill, ICharacterM character)
         {
-            Dictionary<string, CombatTechM> Result = new();
+            Dictionary<string, CombatTechM> Result = [];
 
             Result.Add(CombatTechDaggers.Id, MakeCombatTechM(CombatTechDaggers, Skill, character));
             Result.Add(CombatTechBows.Id, MakeCombatTechM(CombatTechBows, Skill, character));
@@ -189,11 +189,11 @@ namespace UnitTests.CharacterModel
 
             if (TwoHandedTier is not null)
             {
-                mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)))
+                mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)))
                     .Returns(TwoHandedTier > 0);
                 // Add mocked call like this: Hero.SpecialAbilities[SA.TwoHandedCombat].Tier
-                Dictionary<string, IActivatableM> SpecAbs = new();
-                SpecAbs.Add(SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, TwoHandedTier ?? 0, null));
+                Dictionary<string, IActivatableM> SpecAbs = [];
+                SpecAbs.Add(SA.TwoWeaponCombat, new TieredActivatableM(SA.TwoWeaponCombat, TwoHandedTier ?? 0, null));
                 mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(SpecAbs);
             }
 
@@ -277,7 +277,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 
@@ -318,7 +318,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 
@@ -359,7 +359,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 
@@ -402,7 +402,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_8")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 
@@ -448,7 +448,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 
@@ -496,7 +496,7 @@ namespace UnitTests.CharacterModel
             mockCharacterM.Verify(m => m.GetAbility(It.Is<string>(s => s == "ATTR_6")), Times.AtLeastOnce);
 
             mockCharacterM.Verify(m => m.HasAdvantage(It.Is<string>(s => s == ADV.Ambidextrous)), Times.Once);
-            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoHandedCombat)), Times.Once);
+            mockCharacterM.Verify(m => m.HasSpecialAbility(It.Is<string>(s => s == SA.TwoWeaponCombat)), Times.Once);
         }
 
 

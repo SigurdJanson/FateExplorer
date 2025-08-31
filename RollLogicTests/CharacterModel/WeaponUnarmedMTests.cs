@@ -55,7 +55,7 @@ namespace UnitTests.CharacterModel
         private static WeaponMeleeDB MockGameDataWeaponMelee()
         {
             var Result = new WeaponMeleeDB();
-            List<WeaponMeleeDbEntry> Weapons = new();
+            List<WeaponMeleeDbEntry> Weapons = [];
             var Entry = new WeaponMeleeDbEntry()
             {
                 Id = "WEAPONLESS",
@@ -100,7 +100,7 @@ namespace UnitTests.CharacterModel
         {
             Dictionary<string, IActivatableM> Result = new()
             {
-                { SA.TwoHandedCombat, new TieredActivatableM(SA.TwoHandedCombat, Tier, null) }
+                { SA.TwoWeaponCombat, new TieredActivatableM(SA.TwoWeaponCombat, Tier, null) }
             };
             return Result;
         }
@@ -116,7 +116,7 @@ namespace UnitTests.CharacterModel
 
             mockCharacterM.Setup(m => m.HasAdvantage(It.Is<string>(a => a == ADV.Ambidextrous)))
                 .Returns(IsAmbidext);
-            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoHandedCombat)))
+            mockCharacterM.Setup(m => m.HasSpecialAbility(It.Is<string>(a => a == SA.TwoWeaponCombat)))
                 .Returns(TwoHandedTier > 0);
             mockCharacterM.SetupGet(p => p.SpecialAbilities).Returns(MockSpecialAbilities(TwoHandedTier));
         }
