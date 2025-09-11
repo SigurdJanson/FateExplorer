@@ -9,39 +9,56 @@
 
 <MudPopover Open=Open Square=true RelativeWidth=DropdownWidth.Relative
             OverflowBehavior=OverflowBehavior.FlipAlways AnchorOrigin=Origin.BottomCenter TransformOrigin=Origin.TopCenter 
+            Class="px-6 pt-4"
+            @onkeyup=HandleKeyUp>
+<MudFocusTrap>
 <div class="d-flex flex-row">
     <MudSpacer/><MudIconButton Icon=@Icons.Material.Filled.Close OnClick=Close />
 </div>
 
 <MudContainer>
     <MudGrid Justify=Justify.Center>
+        <MudItem xs=2>
+            @*  Class="mb-2" *@
+            @*<MudToolBar WrapContent=true>*@
+            <MudStack Row=false Spacing=2 Class="ps-5">
+                <MudText Typo=Typo.caption>@l10n["lblRegenerate6Hours"]</MudText>
+                <MudStack Row=true>
+                    <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
+                        <MudIconButton Icon=@Icons.Material.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None))
+                                        Variant=Variant.Outlined Disabled=@(!CanRegenerate()) />
+                    </MudTooltip>
+                    <MudTooltip Text=@l10n["msgRegenerationSite.Default"]>
+                        <MudIconButton Icon=@Icons.Material.Sharp.Fireplace OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))
+                                        Variant=Variant.Outlined Disabled=@(!CanRegenerate()) />
+                    </MudTooltip>
+                    <MudTooltip Text=@l10n["msgRegenerationSite.Poor"]>
+                        <MudIconButton Icon=@Icons.Material.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None))
+                                        Variant=Variant.Outlined Disabled=@(!CanRegenerate()) />
+                    </MudTooltip>
+                </MudStack>
+                <MudButton OnClick=@OpenRegenerateDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate()) FullWidth=true>
+                    @l10n["btnRegenerate"] ...
+                </MudButton>
+            </MudStack>
+
+            <MudStack Row=false Spacing=2 Class="ps-5">
+                <MudText Typo=Typo.caption>@l10n["lblDamageCalculators"]</MudText>
+                <MudStack Row=true>
+                    <MudTooltip Text=@l10n["btnFallDamage"]>
+                        <MudIconButton Icon=@IconsFE.Falldown OnClick=@OpenFallDialog Variant=Variant.Outlined />
+                    </MudTooltip>
+                </MudStack>
+            </MudStack>
+            @*</MudToolBar>*@
+        </MudItem>
+
         @foreach (var energy in Energies)
         {
-        <MudItem xs=4 xl=4 xxl=2>
+        <MudItem xs=@(10 / Energies.Count) xxl=@(6 / Energies.Count)>
             <EnergyCard Energy=@energy EnergyChanged=@OnEnergyChanged />
         </MudItem>
         }
-
-        <MudItem xs=9 Class="mb-2">
-            <MudText>@l10n["lblRegenerate6Hours"]</MudText>
-            <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
-                <MudIconButton Icon=@Icons.Material.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None)) 
-                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
-            </MudTooltip>
-            <MudTooltip Text=@l10n["msgRegenerationSite.Default"]>
-                <MudIconButton Icon=@Icons.Material.Sharp.Fireplace  OnClick=@(() => Regenerate(RegenerationSite.Default, RegenerationDisturbance.None))  
-                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
-            </MudTooltip>
-            <MudTooltip Text=@l10n["msgRegenerationSite.Poor"]>
-                <MudIconButton Icon=@Icons.Material.Sharp.AcUnit OnClick=@(() => Regenerate(RegenerationSite.Poor, RegenerationDisturbance.None)) 
-                    Variant=Variant.Outlined Disabled=@(!CanRegenerate())/>
-            </MudTooltip>
-            <MudButton OnClick=@OpenRegenerateDialog Variant=Variant.Outlined Disabled=@(!CanRegenerate())>@l10n["btnRegenerate"] ...</MudButton>
-
-           <MudTooltip Text=@l10n["btnFallDamage"]>
-                <MudIconButton Icon=@IconsFE.Falldown OnClick=@OpenFallDialog Variant=Variant.Outlined Class="ml-4" />
-            </MudTooltip>
-        </MudItem>
     </MudGrid>
 </MudContainer>
 </MudFocusTrap>
@@ -164,7 +181,10 @@
     }
 
 
-    // DIALOG
+
+
+
+    // DIALOG ///
 
     private DialogOptions dialogOptions = new() 
     { 
