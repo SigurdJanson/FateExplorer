@@ -12,120 +12,113 @@
 
 @if (Hero.HasBorn)
 {
-<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
-    <MudGrid>
-        <MudItem xs=12 sm=6 md=5 lg=4>
-            <MudPaper Elevation=0 Outlined=true Class="align-self-stretch">
-                @* FILTER *@
-                <div class="pa-2">
-                    <MudTextField @bind-Value=SearchTerm Placeholder=@l10n["lblSearch"] OnKeyUp=OnSearchFieldKey
-                                Adornment=Adornment.End AdornmentIcon=@Icons.Material.Filled.Search
-                                IconSize=Size.Medium Immediate=true AutoFocus=true Clearable=true/>
-                </div>
-                <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px" @ref=FilterTabs>
-                    <MudTabPanel Icon=@Icons.Material.Filled.PushPin ToolTip=@l10n["lblMostUsed"]>
-                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
-                        @if (FavoriteSkills is not null)
+<ContentSideBar>
+<Sidebar>
+    <div class="pa-2"> @* FILTER *@
+        <MudTextField @bind-Value=SearchTerm Placeholder=@l10n["lblSearch"] OnKeyUp=OnSearchFieldKey
+                      Adornment=Adornment.End AdornmentIcon=@Icons.Material.Filled.Search
+                      IconSize=Size.Medium Immediate=true AutoFocus=true Clearable=true />
+    </div>
+    <MudTabs Elevation=0 Rounded=false Centered=false MinimumTabWidth="48px" @ref=FilterTabs>
+        <MudTabPanel Icon=@Icons.Material.Filled.PushPin ToolTip=@l10n["lblMostUsed"]>
+            <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto">
+                @if (FavoriteSkills is not null)
+                {
+                    @foreach (var skill in FavoriteSkills)
+                    {
+                        @if (CheckFilter(skill.Name))
                         {
-                            @foreach (var skill in FavoriteSkills)
-                            {
-                                @if (CheckFilter(skill.Name))
-                                {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
-                                    CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
-                                    @key=skill.Id/> @*ViewSkill=OnSkillView*@
-                                }
-                            }
+                            <ListItemSkill Skill=@skill RollSkill=OnSkillCheck
+                                            CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                            TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
+                                            @key=skill.Id /> @*ViewSkill=OnSkillView*@
                         }
-                        </MudList>
-                    </MudTabPanel>
-                    <MudTabPanel Icon=@Icons.Material.Filled.HotelClass ToolTip=@l10n["lblYourBestSkills"]>
-                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
-                        @if (BestSkills is not null)
+                    }
+                }
+            </MudList>
+        </MudTabPanel>
+        <MudTabPanel Icon=@Icons.Material.Filled.HotelClass ToolTip=@l10n["lblYourBestSkills"]>
+            <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto;">
+                @if (BestSkills is not null)
+                {
+                    @foreach (var skill in BestSkills)
+                    {
+                        @if (CheckFilter(skill.Name))
                         {
-                            @foreach (var skill in BestSkills)
-                            {
-                                @if (CheckFilter(skill.Name))
-                                {
-                                <ListItemSkill Skill=@skill RollSkill=OnSkillCheck 
-                                    CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
-                                    @key=skill.Id /> @*ViewSkill=OnSkillView*@
-                                }
-                            }
+                            <ListItemSkill Skill=@skill RollSkill=OnSkillCheck
+                                            CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                            TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
+                                            @key=skill.Id /> @*ViewSkill=OnSkillView*@
                         }
-                        </MudList>
-                    </MudTabPanel>
-                    <MudTabPanel Icon=@Icons.Material.Filled.DensitySmall ToolTip=@l10n["lblAll"]>
-                        <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
+                    }
+                }
+            </MudList>
+        </MudTabPanel>
+        <MudTabPanel Icon=@Icons.Material.Filled.DensitySmall ToolTip=@l10n["lblAll"]>
+            <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto">
+                @foreach (var skill in SkillList)
+                {
+                    @if (CheckFilter(skill.Name))
+                    {
+                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck
+                                        CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                        TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
+                                        @key=skill.Id /> @*ViewSkill=OnSkillView*@
+                    }
+                }
+            </MudList>
+        </MudTabPanel>
+        @if (SkillDomains is not null && SkillDomains.Count > 1)
+        {
+            @foreach (var d in SkillDomains)
+            {
+                <MudTabPanel Text=@l10n["Check.Skill." + d.ToString()]>
+                    <MudList T=SkillsDTO ReadOnly=false Style=@("overflow:auto;")>
                         @foreach (var skill in SkillList)
                         {
-                            @if (CheckFilter(skill.Name))
+                            @if (skill.Domain == d)
                             {
-                                <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
-                                    CanRoutine=CanRoutineCheck[skill.Id]  RoutineSkillCheck=OnRoutineSkillCheck
-                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
-                                    @key=skill.Id /> @*ViewSkill=OnSkillView*@
-                            }
-                        }
-                        </MudList>
-                    </MudTabPanel>
-                    @if (SkillDomains is not null && SkillDomains.Count > 1)
-                    {
-                        @foreach (var d in SkillDomains)
-                        {
-                        <MudTabPanel Text=@l10n["Check.Skill."+d.ToString()]>
-                            <MudList T=SkillsDTO ReadOnly=false Style="overflow:auto; height:620px">
-                            @foreach (var skill in SkillList)
-                            {
-                                @if (skill.Domain == d)
+                                @if (CheckFilter(skill.Name))
                                 {
-                                    @if (CheckFilter(skill.Name))
-                                    {
-                                        <ListItemSkill Skill=skill RollSkill=OnSkillCheck 
-                                            CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
-                                            TextFilter=@SearchTerm Abilities=@Abilities[skill.Id] 
-                                            @key=skill.Id /> @*ViewSkill=OnSkillView*@
-                                    }
+                                    <ListItemSkill Skill=skill RollSkill=OnSkillCheck
+                                                    CanRoutine=CanRoutineCheck[skill.Id] RoutineSkillCheck=OnRoutineSkillCheck
+                                                    TextFilter=@SearchTerm Abilities=@Abilities[skill.Id]
+                                                    @key=skill.Id /> @*ViewSkill=OnSkillView*@
                                 }
                             }
-                            </MudList>
-                        </MudTabPanel>
                         }
-                    }
-                </MudTabs>
-            </MudPaper>
-        </MudItem>
-
-        <MudItem xs=12 sm=6 md=7 lg=8>
-            <MudPaper Class="pa-2 d-flex justify-space-around">
-                <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
+                    </MudList>
+                </MudTabPanel>
+            }
+        }
+    </MudTabs>
+</Sidebar>
+<MainArea>
+    <MudPaper Class="d-flex justify-space-around pa-2">
+        <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
+        <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i))
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"]: @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
-                </MudSlider>
-            </MudPaper>
+            @l10n["lblModifier"]: @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
+        </MudSlider>
+    </MudPaper>
 
-            <MudPaper Class="pa-2 d-flex flex-column align-self-stretch" Style="height:100%;" Outlined=true>
-                @if (RollCheckResults is not null && RollCheckResults.Count > 0)
-                {
-                    @foreach(var r in RollCheckResults.Reverse())
-                    {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons />
-                    }
-                }
-                else
-                {
-                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
-                        @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
-                    </MudText>
-                }
-            </MudPaper>
-        </MudItem>
-
-    </MudGrid>
-</MudContainer>
+    <div Class="py-2 d-flex flex-column" Style="height:100%;" Outlined=false>
+        @if (RollCheckResults is not null && RollCheckResults.Count > 0)
+        {
+            @foreach (var r in RollCheckResults.Reverse())
+            {
+                <RollCheckCard Result=@r AvatarIcon=@CheckIcons />
+            }
+        }
+        else
+        {
+            <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
+                @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
+            </MudText>
+        }
+    </div>
+</MainArea>
+</ContentSideBar>
 }
 
 
@@ -147,6 +140,8 @@
     private Dictionary<string,AbilityDTO[]> Abilities { get; set; }
 
     private Dictionary<string,bool> CanRoutineCheck { get; set; }
+
+   private string SkillListHeight { get; set; } = "calc(100vh - var(--mud-appbar-height) - (2 * 4 * 4) - (32 - 2 * 8) - 48px)";
 
     /// <summary>The string used to filter the skills</summary>
     private string SearchTerm = "";
