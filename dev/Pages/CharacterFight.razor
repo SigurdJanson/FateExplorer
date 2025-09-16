@@ -14,138 +14,133 @@
 
 @if (Hero.HasBorn)
 {
-<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
-    <MudGrid>
-        <MudItem xs=12 sm=12 md=4>
-            <MudPaper Elevation=0 Outlined=true>
-            <MudList T=string ReadOnly=false>
-                <MudListItem Icon=@Icons.Material.Sharp.PersonOff Ripple=false>
-                    <div class="d-flex align-center" >
-                        <div>
+<ContentSideBar>
+    <Sidebar>
+        <MudList T=string ReadOnly=false>
+            <MudListItem Icon=@Icons.Material.Sharp.PersonOff Ripple=false>
+                <div class="d-flex align-center">
+                    <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.DodgeLabelId]</MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>
                             @l10n["abbrDodge"] @Hero.GetDodge().EffectiveValue
                         </MudText>
-                        </div>
-                    <MudSpacer/>
-                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
-                        aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
-                    <MudSpacer/>*@
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
-                        OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
-                        title=@l10n["lblDoRoll"]
-                        aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.DodgeLabelId]) />
-                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
                     </div>
-                </MudListItem>
+                    <MudSpacer />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
+                    aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
+                <MudSpacer/>*@
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
+                                    OnClick=@(() => OnDodgeCheck(Hero.GetDodge()))
+                                    title=@l10n["lblDoRoll"]
+                                    aria-label=@(l10n["lblRoll"] + " " + @l10n[ResourceId.DodgeLabelId]) />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+                    aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
+                </div>
+            </MudListItem>
 
-                <MudListItem Icon=@Icons.Material.Sharp.Sort Ripple=false>
-                    <div class="d-flex align-center" >
-                        <div>
+            <MudListItem Icon=@Icons.Material.Sharp.Sort Ripple=false>
+                <div class="d-flex align-center">
+                    <div>
                         <MudText Typo=Typo.body1 GutterBottom=false>@l10n[ResourceId.IniLabelId]</MudText>
                         <MudText Typo=Typo.body2 GutterBottom=false>
                             @l10n["abbrInitiative"] @Hero.GetInitiative().EffectiveValue
                         </MudText>
-                        </div>
-                    <MudSpacer/>
-                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
-                        aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
-                    <MudSpacer/>*@
-                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
-                        OnClick=@(() => OnInitiativeCheck(Hero.GetInitiative()))
-                        title=@l10n["lblDoRoll"]
-                        aria-label=@(l10n["lblDoRoll"] + " " + @l10n[ResourceId.IniLabelId]) />
-                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
-                        aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
                     </div>
-                </MudListItem>
-            </MudList>
+                    <MudSpacer />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Edit
+                    aria-label=@(l10n["lblEdit"] + " " + @l10n[ResourceId.DodgeLabelId]) />
+                <MudSpacer/>*@
+                    <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Casino
+                                    OnClick=@(() => OnInitiativeCheck(Hero.GetInitiative()))
+                                    title=@l10n["lblDoRoll"]
+                                    aria-label=@(l10n["lblDoRoll"] + " " + @l10n[ResourceId.IniLabelId]) />
+                    @*<MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.Visibility
+                    aria-label=@(l10n["lblView"] + " " + @l10n[ResourceId.DodgeLabelId]) />*@
+                </div>
+            </MudListItem>
+        </MudList>
 
-            <MudDivider />
+        <MudDivider Light=true Class="flex-grow-0" /> @*flex-grow corrects a bug, 2025-09-16*@
 
-            <MudList T=string ReadOnly=false>
-                @foreach (var w in Hero.Weapons)
-                {
+        <MudList T=string ReadOnly=false>
+            @foreach (var w in Hero.Weapons)
+            {
                 @if (w.IsImprovised && !Config.ShowImprovisedWeapons) continue;
 
-                <MudListItem Ripple=false> 
-                    <div class="d-flex align-center" >
+                <MudListItem Ripple=false>
+                    <div class="d-flex align-center">
                         <div>
-                        <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
-                        <MudText Typo=Typo.body2 GutterBottom=false>
-                            @BaseWeaponProps(w)
-                        </MudText>
+                            <MudText Typo=Typo.body1 GutterBottom=false>@w.Name</MudText>
+                            <MudText Typo=Typo.body2 GutterBottom=false>
+                                @BaseWeaponProps(w)
+                            </MudText>
                         </div>
-                        <MudSpacer/>
+                        <MudSpacer />
                         <MudIconButton Color=Color.Dark Icon=@Icons.Material.Sharp.FrontHand
-                            OnClick=@(() => GrabWeapon(w, true))
-                            title=@l10n["lblPickItemWithDominantHand"]
-                            aria-label=@l10n["lblPickItemWithDominantHand"] />
+                                        OnClick=@(() => GrabWeapon(w, true))
+                                        title=@l10n["lblPickItemWithDominantHand"]
+                                        aria-label=@l10n["lblPickItemWithDominantHand"] />
                         <MudIconButton Color=Color.Dark Icon=@IconsFE.BackHandLeft
-                            OnClick=@(() => GrabWeapon(w, false))
-                            Disabled=w.IsTwohanded
-                            title=@l10n["lblPickItemWithNondominantHand"]
-                            aria-label=@l10n["lblPickItemWithNondominantHand"] />
+                                        OnClick=@(() => GrabWeapon(w, false))
+                                        Disabled=w.IsTwohanded
+                                        title=@l10n["lblPickItemWithNondominantHand"]
+                                        aria-label=@l10n["lblPickItemWithNondominantHand"] />
                     </div>
                 </MudListItem>
-                }
-            </MudList>
-            </MudPaper>
-        </MudItem>
+            }
+        </MudList>
+    </Sidebar>
+
+    <MainArea>
+        <MudPaper Class="pa-2">
+            <MudGrid>
+                <MudItem xs=6>
+                    <CombatHand HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Main
+                                CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
+                                OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true))
+                                OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.MainWeapon, true))
+                                StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
+                </MudItem>
+                <MudItem xs=6>
+                    <CombatHand HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Off
+                                CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
+                                OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false))
+                                OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.OffWeapon, false))
+                                StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Off)) />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
 
 
-        <MudItem xs=12 sm=12 md=8>
-            <MudPaper Class="pa-2">
-                <MudGrid>
-                    <MudItem xs=6>
-                        <CombatHand 
-                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Main
-                            CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.MainWeapon.CombatTechId)
-                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.MainWeapon, true))
-                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.MainWeapon, true))
-                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Main)) />
-                    </MudItem>
-                    <MudItem xs=6>
-                        <CombatHand 
-                            HeroHands=Hero.Hands WhichHand=HandsViMo.Hand.Off 
-                            CombatStyles=@Hero.GetCombatStyleSpecialAbilities(Hero.Hands.OffWeapon.CombatTechId)
-                            OnAttackCheck=@(CheckId => OnAttackCheck(CheckId, Hero.Hands.OffWeapon, false)) 
-                            OnParryCheck=@(CheckId => OnParryCheck(CheckId, Hero.Hands.OffWeapon, false))
-                            StashWeapon=@(() => StashWeapon(HandsViMo.Hand.Off)) />
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
+        <MudPaper  Outlined=true Class="pa-2 d-flex justify-space-around">
+            <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
+            <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i))
+                        Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
+                @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
+            </MudSlider>
+            @BattlegroundButton()
+        </MudPaper>
 
 
-            <MudPaper Outlined=false Elevation=0 Class="pa-2 d-flex justify-space-around">
-                <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=ModifyValue ValueChanged=@((int i) => OnModChanged(i)) 
-                    Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"] @ModifyValue @(ModifyValue >= 0 ? "Bonus" : "Malus")
-                </MudSlider>
-                @BattlegroundButton()
-            </MudPaper>
-
-
-            <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
-                @if (RollCheckResults is not null && RollCheckResults.Count > 0)
+        <div class="py-2 d-flex flex-column" style="height:100%;">
+            @if (RollCheckResults is not null && RollCheckResults.Count > 0)
+            {
+                @foreach (var r in RollCheckResults.Reverse())
                 {
-                    @foreach(var r in RollCheckResults.Reverse())
-                    {
-                            <RollCheckCard Result=@r AvatarIcon=@GetCheckIcons(r) /> @* ShowValueLabel=@l10n["lblAbility"] *@
-                    }
+                    <RollCheckCard Result=@r AvatarIcon=@GetCheckIcons(r) /> @* ShowValueLabel=@l10n["lblAbility"] *@
                 }
-                else
-                {
-                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
-                        @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
-                    </MudText>                
-                }
-            </MudPaper>
-        </MudItem>
-    </MudGrid>
-</MudContainer>
+            }
+            else
+            {
+                <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
+                    @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
+                </MudText>
+            }
+        </div>
+
+    </MainArea>
+</ContentSideBar>
+
 }
 
 

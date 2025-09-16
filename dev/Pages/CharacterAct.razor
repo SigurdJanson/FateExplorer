@@ -94,15 +94,15 @@
     </MudTabs>
 </Sidebar>
 <MainArea>
-    <MudPaper Class="d-flex justify-space-around pa-2">
+    <MudPaper Class="d-flex justify-space-around pa-2"  Outlined=true>
         <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
         <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i))
                     Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-            @l10n["lblModifier"]: @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
+            @l10n["lblModifier"] @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
         </MudSlider>
     </MudPaper>
 
-    <div Class="py-2 d-flex flex-column" Style="height:100%;" Outlined=false>
+    <div class="py-2 d-flex flex-column" style="height:100%;">
         @if (RollCheckResults is not null && RollCheckResults.Count > 0)
         {
             @foreach (var r in RollCheckResults.Reverse())
