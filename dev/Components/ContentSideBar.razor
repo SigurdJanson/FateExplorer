@@ -1,4 +1,5 @@
 ﻿@using MudBlazor.Utilities
+@using System.Text.RegularExpressions
 <style>
     .fe-content-group {
         height: calc(100vh - var(--mud-appbar-height));
@@ -17,34 +18,33 @@
         border: 1px solid var(--mud-palette-lines-default);
     }
 
-    .fe-workarea {
+    .fe-mainarea {
         flex: 1; /* Take remaining width */
         display: flex;
         flex-direction: column;
         overflow-y: auto; /* Scrollbar inside if content overflows */
         background-color: white;
-        padding-left: var(--fe-contentsidebar-width);
+        /*padding-left: var(--fe-contentsidebar-width) !important;*/
     }
 </style>
 <div class=@Classname style=@Stylename role="group">
-    <div class="fe-contentsidebar pa-4"> @* Side Bar*@
+    <div class="fe-contentsidebar pa-4">
         @Sidebar
     </div>
-    <div class="fe-workarea pa-4">
-        @* Work Area *@
-        @WorkArea
+    <div class=@MainClassname>
+        @MainArea
     </div>
 </div>
 @code {
     /// <summary>
-    /// Child content of the side bar within this component.
+    /// Child content of the side bar within this component. <br/> Supports a parameter <c>string Class</c>.
     /// </summary>
     [Parameter] public RenderFragment Sidebar { get; set; }
 
     /// <summary>
     /// Child content of the left area within this component.
     /// </summary>
-    [Parameter] public RenderFragment WorkArea { get; set; }
+    [Parameter] public RenderFragment MainArea { get; set; }
 
     /// <summary>
     /// Width of the component.
@@ -58,6 +58,14 @@
     /// Defaults to <c>null</c>. You can use spaces to separate multiple classes. Use the <see cref="Style"/> property to apply custom CSS styles.
     /// </remarks>
     [Parameter] public string Class { get; set; }
+
+    /// <summary>
+    /// The CSS classes applied to the sub-component <c>MainArea</c>.
+    /// </summary>
+    /// <remarks>
+    /// Defaults to <c>null</c>. You can use spaces to separate multiple classes. Use the <see cref="Style"/> property to apply custom CSS styles.
+    /// </remarks>
+    [Parameter] public string MainClass { get; set; }
 
     /// <summary>
     /// The CSS styles applied to this component.
@@ -89,4 +97,10 @@
             .AddStyle("--fe-contentsidebar-width", Width, !string.IsNullOrWhiteSpace(Width))
             .AddStyle(Style)
             .Build();
+
+    protected string MainClassname => new CssBuilder("fe-mainarea")
+        .AddClass("pa-4", MainClass is not null && Regex.Matches(MainClass, @"(^|\s)p[axytblrse]-\d\d?(\s|$)", RegexOptions.None).Count == 0)
+        .AddClass("pa-4", MainClass is not null && Regex.Matches(MainClass, @"(^|\s)p[axytblrse]-\d\d?(\s|$)", RegexOptions.None).Count == 0)
+        .AddClass(MainClass)
+        .Build();
 }

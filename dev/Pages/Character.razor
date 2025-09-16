@@ -21,175 +21,173 @@
 
 @if (Hero.HasBorn)
 {
-<MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.False>
+<ContentSideBar MainClass="pa-0">
+<Sidebar>
     <MudGrid>
-        <MudItem xs=12 sm=6 md=5 lg=4>
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudText Typo=Typo.body1 Class="mb-3">@Hero.Name</MudText>
-                <MudGrid>
-                    <MudItem xs=6 md=4>
-                        <MudText Typo=Typo.caption>@l10n["lblPlaceOfBirth"]</MudText>
-                        <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
-                    </MudItem>
-                    <MudItem xs=6 md=4>
-                        <MudText Typo=Typo.caption>@l10n["lblDateOfBirth"]</MudText>
-                        <MudText Typo=Typo.body2>@DateOfBirthStr</MudText>
-                    </MudItem>
-                    <MudItem xs=6 md=4>
-                        <MudText Typo=Typo.caption>@l10n["lblAge"]</MudText>
-                        <MudText Typo=Typo.body2>@AgeStr</MudText>
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
+        <MudItem xs=12>
+            <MudText Typo=Typo.body1 Class="my-3">@Hero.Name</MudText>
+            <MudGrid>
+                <MudItem xs=6 md=4>
+                    <MudText Typo=Typo.caption>@l10n["lblPlaceOfBirth"]</MudText>
+                    <MudText Typo=Typo.body2 Class="mb-3">@Hero.PlaceOfBirth</MudText>
+                </MudItem>
+                <MudItem xs=6 md=4>
+                    <MudText Typo=Typo.caption>@l10n["lblDateOfBirth"]</MudText>
+                    <MudText Typo=Typo.body2>@DateOfBirthStr</MudText>
+                </MudItem>
+                <MudItem xs=6 md=4>
+                    <MudText Typo=Typo.caption>@l10n["lblAge"]</MudText>
+                    <MudText Typo=Typo.body2>@AgeStr</MudText>
+                </MudItem>
+            </MudGrid>
 
+            <MudDivider Light=true />
 
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <div>
-                @foreach (var ab in Hero.GetAbilites().OrderBy(a => a.Id))
-                {
-                <AbilityChip Ability=@ab OnClick=@((MouseEventArgs e) => OnAbilityCheck(ab)) />
-                }
-                </div>
-            </MudPaper>
+            <div Class="my-3">
+            @foreach (var ab in Hero.GetAbilites().OrderBy(a => a.Id))
+            {
+            <AbilityChip Ability=@ab OnClick=@((MouseEventArgs e) => OnAbilityCheck(ab)) />
+            }
+            </div>
 
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudGrid>
-                @foreach (var r in Hero.GetResiliences())
-                {
-                    <MudItem xs=4 Class="mb-3">
-                        <MudTooltip Text=@r.Name Placement=Placement.Bottom Inline=false>
-                            <MudField Label=@r.ShortName Variant=Variant.Text UnderLine=false>
-                                @r.EffectiveValue @AddMaxResilience(r)
-                            </MudField>
-                        </MudTooltip>
-                    </MudItem>
-                }
-                    <MudItem xs=4 Class="mb-3">
-                        <MudTooltip Text=@l10n["lblWoundThreshold"] Placement=Placement.Bottom Inline=false>
-                            <MudField Label=@l10n["abbrWoundThreshold"] Variant=Variant.Text UnderLine=false>
-                                @Hero.WoundThreshold
-                            </MudField>
-                        </MudTooltip>
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
+            <MudDivider Light=true />
 
-            <MudPaper Elevation=0 Outlined=true Class="pa-4">
-                <MudGrid>
-                    <MudItem xs=6 md=4>
-                        <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom Inline=false>
-                            <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text UnderLine=false>
-                                @Hero.Movement
-                            </MudField>
-                        </MudTooltip>
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
+            <MudGrid>
+            @foreach (var r in Hero.GetResiliences())
+            {
+                <MudItem xs=4 Class="my-3">
+                    <MudTooltip Text=@r.Name Placement=Placement.Bottom Inline=false>
+                        <MudField Label=@r.ShortName Variant=Variant.Text UnderLine=false>
+                            @r.EffectiveValue @AddMaxResilience(r)
+                        </MudField>
+                    </MudTooltip>
+                </MudItem>
+            }
+                <MudItem xs=4 Class="my-3">
+                    <MudTooltip Text=@l10n["lblWoundThreshold"] Placement=Placement.Bottom Inline=false>
+                        <MudField Label=@l10n["abbrWoundThreshold"] Variant=Variant.Text UnderLine=false>
+                            @Hero.WoundThreshold
+                        </MudField>
+                    </MudTooltip>
+                </MudItem>
+            </MudGrid>
 
-            <MudPaper Elevation=0 Outlined=true>
-                <MudExpansionPanels Outlined=false Elevation=0 MultiExpansion=true >
-                    <MudExpansionPanel HideIcon=true>
-                        <TitleContent>
-                            <div class="d-flex">
-                                <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
-                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Langs.Count</MudAvatar>
-                            </div>
-                        </TitleContent>
-                        <ChildContent>
-                            @{
-                                @for(int i = 0; i < Langs.Count; i++)
-                                {
-                                    @l10n[Langs[i].Name];
-                                    if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
-                                    if (i != Langs.Count-1) {<span>, </span>};
-                                }
+            <MudDivider Light=true />
+
+            <MudGrid>
+                <MudItem xs=6 md=4 Class="my-3">
+                    <MudTooltip Text=@l10n["lblMovement"] Placement=Placement.Bottom Inline=false>
+                        <MudField Label=@l10n["abbrMovement"] Variant=Variant.Text UnderLine=false>
+                            @Hero.Movement
+                        </MudField>
+                    </MudTooltip>
+                </MudItem>
+            </MudGrid>
+
+            <MudDivider Light=true />
+
+            <MudExpansionPanels Outlined=false Elevation=0 MultiExpansion=true >
+                <MudExpansionPanel HideIcon=true>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
+                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Langs.Count</MudAvatar>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        @{
+                            @for(int i = 0; i < Langs.Count; i++)
+                            {
+                                @l10n[Langs[i].Name];
+                                if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
+                                if (i != Langs.Count-1) {<span>, </span>};
                             }
-                        </ChildContent>
-                    </MudExpansionPanel>
+                        }
+                    </ChildContent>
+                </MudExpansionPanel>
 
-                    <MudExpansionPanel HideIcon=true>
-                        <TitleContent>
-                            <div class="d-flex">
-                                <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
-                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@SpecialAbilities.Count</MudAvatar>
-                            </div>
-                        </TitleContent>
-                        <ChildContent>
-                            @{
-                                @for(int i = 0; i < SpecialAbilities.Count; i++)
-                                {
-                                    @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
-                                }
+                <MudExpansionPanel HideIcon=true>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
+                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@SpecialAbilities.Count</MudAvatar>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        @{
+                            @for(int i = 0; i < SpecialAbilities.Count; i++)
+                            {
+                                @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
                             }
-                        </ChildContent>
-                    </MudExpansionPanel>
+                        }
+                    </ChildContent>
+                </MudExpansionPanel>
 
 
-                    <MudExpansionPanel HideIcon=true>
-                        <TitleContent>
-                            <div class="d-flex">
-                                <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
-                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Advantages.Count</MudAvatar>
-                            </div>
-                        </TitleContent>
-                        <ChildContent>
-                            @{
-                                @for(int i = 0; i < Advantages.Count; i++)
-                                {
-                                    @Advantage(Advantages[i], i < Advantages.Count - 1, false);
-                                }
+                <MudExpansionPanel HideIcon=true>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
+                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Advantages.Count</MudAvatar>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        @{
+                            @for(int i = 0; i < Advantages.Count; i++)
+                            {
+                                @Advantage(Advantages[i], i < Advantages.Count - 1, false);
                             }
-                        </ChildContent>
-                    </MudExpansionPanel>
+                        }
+                    </ChildContent>
+                </MudExpansionPanel>
 
 
-                    <MudExpansionPanel HideIcon=true>
-                        <TitleContent>
-                            <div class="d-flex">
-                                <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
-                                <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Disadvantages.Count</MudAvatar>
-                            </div>
-                        </TitleContent>
-                        <ChildContent>
-                            @{
-                                @for(int i = 0; i < Disadvantages.Count; i++)
-                                {
-                                    @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
-                                }
+                <MudExpansionPanel HideIcon=true>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
+                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Disadvantages.Count</MudAvatar>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        @{
+                            @for(int i = 0; i < Disadvantages.Count; i++)
+                            {
+                                @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
                             }
-                        </ChildContent>
-                    </MudExpansionPanel>
-                </MudExpansionPanels>
+                        }
+                    </ChildContent>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
 
-            </MudPaper>
-        </MudItem>
-
-        <MudItem xs=12 sm=6 md=7 lg=8>
-            <MudPaper Outlined=false Class="pa-2 d-flex justify-space-around">
-                <MudText Typo="Typo.h5" GutterBottom=true>@l10n["Roll Results"]</MudText>
-                <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
-                    Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
-                    @l10n["lblModifier"] @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
-                </MudSlider>
-            </MudPaper>
-            <MudPaper Class="pa-2 d-flex flex-column" Style="height:100%;" Outlined=true>
-                @if (RollCheckResults is not null && RollCheckResults.Count > 0)
-                {
-                    @foreach(var r in RollCheckResults.Reverse())
-                    {
-                        <RollCheckCard Result=@r AvatarIcon=@CheckIcons ShowValueLabel=@l10n["lblAbility"]/>
-                    }
-                }
-                else
-                {
-                    <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
-                        @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
-                    </MudText>
-                }
-            </MudPaper>
         </MudItem>
     </MudGrid>
-</MudContainer>
+</Sidebar>
+<MainArea> 
+    <MudPaper Outlined=true Class="d-flex justify-space-around pa-2">
+        <MudText Typo=Typo.h5 GutterBottom=true>@l10n["Roll Results"]</MudText>
+        <MudSlider T=int Value=Context.FreeModifier ValueChanged=@((int i) => OnModChanged(i)) 
+            Min=-10 Max=10 Step=1 Color=Color.Primary Class="mx-8" TickMarks=true Size=Size.Small Variant=Variant.Filled>
+            @l10n["lblModifier"] @Context.FreeModifier @(Context.FreeModifier >= 0 ? "Bonus" : "Malus")
+        </MudSlider>
+    </MudPaper>
+    <div Class="py-2 d-flex flex-column" Style="height:100%;" Outlined=false>
+        @if (RollCheckResults is not null && RollCheckResults.Count > 0)
+        {
+            @foreach(var r in RollCheckResults.Reverse())
+            {
+                <RollCheckCard Result=@r AvatarIcon=@CheckIcons ShowValueLabel=@l10n["lblAbility"]/>
+            }
+        }
+        else
+        {
+            <MudText Typo=Typo.h5 Align=Align.Center Style=@($"color:{Theme.PaletteLight.TextDisabled}")>
+                @l10n["msgCallToAction4Rolls"].ToString().ToUpper()
+            </MudText>
+        }
+    </div>
+</MainArea>
+</ContentSideBar>
 }
 
 
