@@ -1699,4 +1699,32 @@
     <value>Simple d3 rolls</value>
     <comment>Free Dice</comment>
   </data>
+  <data name="btnAddMenuEntry" xml:space="preserve">
+    <value>Add Menu Entry</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnAddMainDish" xml:space="preserve">
+    <value>Add main dish</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnAddColdDish" xml:space="preserve">
+    <value>Add cold dish</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnAddDessert" xml:space="preserve">
+    <value>Add dessert</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnAddNonAlcBeverage" xml:space="preserve">
+    <value>Add Soft Drink</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="btnAddAlcoholic" xml:space="preserve">
+    <value>Add Alcoholic Beverage</value>
+    <comment>Inn</comment>
+  </data>
+  <data name="lblInnNoName" xml:space="preserve">
+    <value>Inn of the Nameless One</value>
+    <comment>Inn</comment>
+  </data>
 </root>

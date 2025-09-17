@@ -145,10 +145,10 @@ public class InnViMo
     /// used to indicate an "enclave" inn (e.g. the tavern "Old Gear" in Vinsalt).</param>
     /// <param name="Quality">The quality level of the inn between 1-6.</param>
     /// <returns>A list of dishes</returns>
-    public InnMenuItemDTO[] GetMenu(Region region, QualityLevel Quality, PriceLevel Price)
+    public List<InnMenuItemDTO> GetMenu(Region region, QualityLevel Quality, PriceLevel Price)
     {
         int Total =  0;
-        foreach (Food f in Enum.GetValues(typeof(Food)).Cast<Food>()) 
+        foreach (Food f in Enum.GetValues<Food>().Cast<Food>()) 
             Total += GetMenuSectionLen(f, Quality);
 
         List<InnMenuItemDTO> Result = new(Total);
@@ -156,7 +156,7 @@ public class InnViMo
         WeightedList<InnDishM> ToPickFrom = new(innData.Dish.Where(i => i.CanBeFound(region)));
 
         // Pick beverages and dishes: cycle through all kinds to get a balanced menu.
-        foreach (Food f in Enum.GetValues(typeof(Food)).Cast<Food>())
+        foreach (Food f in Enum.GetValues<Food>().Cast<Food>())
         {
             // ... set weights, first, ...
             for (int i = 0; i < ToPickFrom.Count; i++)
@@ -168,7 +168,7 @@ public class InnViMo
                     Probability = 0;
                 ToPickFrom.SetWeightAt(i, Probability);
             }
-            // ... pick and add to result.
+            // ... pick and add to Result.
             for (int dish = 0; dish < GetMenuSectionLen(f, Quality); dish++)
             {
                 if (ToPickFrom.TrueCount == 0) break;
@@ -183,9 +183,40 @@ public class InnViMo
             }
         }
 
-        return Result.ToArray();
+        return Result;
     }
 
+
+    public InnMenuItemDTO? GetMenuEntry(Region region, QualityLevel Quality, PriceLevel Price, Food food)
+    {
+        InnMenuItemDTO? Result = null;
+
+        // Select dishes available in selected region
+        WeightedList<InnDishM> ToPickFrom = new(innData.Dish.Where(i => i.CanBeFound(region)));
+
+        // ... set weights, first, ...
+        for (int i = 0; i < ToPickFrom.Count; i++)
+        {
+            float Probability;
+            if (ToPickFrom[i].Is(food))
+                Probability = ToPickFrom[i].GetProbability(Quality);
+            else
+                Probability = 0;
+            ToPickFrom.SetWeightAt(i, Probability);
+        }
+        // ... pick and add to Result.
+        if (ToPickFrom.TrueCount == 0) return null;
+        var r = ToPickFrom.Random();
+        Result = new()
+        {
+            Name = r.Name,
+            Price = r.Price * PriceFactor(Quality, Price),
+            Unit = r.Unit,
+            Section = food
+        };
+
+        return Result;
+    }
 
 
 

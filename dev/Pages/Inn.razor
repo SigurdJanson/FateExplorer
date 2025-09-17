@@ -7,8 +7,6 @@
 @inject HttpClient httpClient
 
 <MudContainer Class="mt-16 px-8" MaxWidth=MaxWidth.ExtraExtraLarge>
-    <MudText Typo=Typo.h3 Align=Align.Center GutterBottom=true>@l10n["naviInn"]</MudText>
-
     <MudGrid Spacing=4 Class="mt-16">
         <MudItem xs=12 md=2>
             <MudStack Spacing=4>
@@ -31,17 +29,34 @@
                     <MudSelectItem Value=@item>@l10n[$"Price.{item}"]</MudSelectItem>
                 }
             </MudSelect>
+            <MudDivider />
+            <MudButton OnClick=@GenerateName StartIcon=@Icons.Material.Sharp.Restaurant
+                        Size=Size.Large Variant=Variant.Outlined FullWidth=true>
+                @l10n["btnInnGenerateName"]
+            </MudButton>
+            <MudButton OnClick=@GenerateMenu StartIcon=@Icons.Material.Sharp.MenuBook
+                        Size=Size.Large Variant=Variant.Outlined FullWidth=true>
+                @l10n["btnInnGenerateMenu"]
+            </MudButton>
+            <MudMenu Label=@l10n["btnAddMenuEntry"] EndIcon=@Icons.Material.Filled.ArrowDropDown
+                     Size=Size.Large Variant=Variant.Outlined>
+                <MudMenuItem OnClick=@(() => AddMenuEntry(Food.MainDish))>@l10n["btnAddMainDish"]</MudMenuItem>
+                <MudMenuItem OnClick=@(() => AddMenuEntry(Food.BreadDish))>@l10n["btnAddColdDish"]</MudMenuItem>
+                <MudMenuItem OnClick=@(() => AddMenuEntry(Food.Dessert))>@l10n["btnAddDessert"]</MudMenuItem>
+                <MudDivider />
+                <MudMenuItem OnClick=@(() => AddMenuEntry(Food.NonAlcoholic))>@l10n["btnAddNonAlcBeverage"]</MudMenuItem>
+                <MudMenuItem OnClick=@(() => AddMenuEntry(Food.Alcoholic))>@l10n["btnAddAlcoholic"]</MudMenuItem>
+            </MudMenu>
             </MudStack>
         </MudItem>
         <MudItem xs=12 md=10>
-            <MudStack Row=true Justify=Justify.FlexEnd>
-                <MudButton OnClick=@GenerateName StartIcon=@Icons.Material.Sharp.Restaurant 
-                    Size=Size.Large Variant=Variant.Outlined>@l10n["btnInnGenerateName"]</MudButton>
-                <MudButton OnClick=@GenerateMenu StartIcon=@Icons.Material.Sharp.MenuBook 
-                    Size=Size.Large Variant=Variant.Outlined>@l10n["btnInnGenerateMenu"]</MudButton>
-            </MudStack>
-
-            <MudText Typo=Typo.h4 Align=Align.Center GutterBottom=true>@InnName</MudText>
+            @if (string.IsNullOrWhiteSpace(InnName))
+            {
+                <MudText Typo=Typo.h4 Align=Align.Center Class="mud-text-disabled" GutterBottom=true>@l10n["lblInnNoName"]</MudText>
+            } else
+            {
+                <MudText Typo=Typo.h4 Align=Align.Center GutterBottom=true>Gasthaus @InnName</MudText>
+            }
 
             <MudPaper Class="d-flex flex-column pa-3" Outlined=true>
                 <MudGrid>
@@ -51,7 +66,7 @@
 
                     <MudItem xs=12>
                         <MudContainer MaxWidth=MaxWidth.Small>
-                        @if (Menu is null || Menu.Length == 0)
+                        @if (Menu is null || Menu.Count == 0)
                         {
                             <MudText Align=Align.Center GutterBottom=true>@l10n["msgNoMenuAvailable"]</MudText>
                         }
@@ -82,17 +97,18 @@
 
 
 @code {
-
     private InnViMo InnGenerator { get; set; }
-
-    private string InnName { get; set; } = "-";
 
     private Region SelectedRegion { get; set; } = Region.Middenrealm;
     private QualityLevel SelectedQuality { get; set; } = QualityLevel.Normal;
     private PriceLevel SelectedPrice { get; set; } = PriceLevel.Normal;
     private bool PriceMatchesQuality { get; set; } = true;
 
-    private InnMenuItemDTO[] Menu { get; set; }
+    private string InnName { get; set; } = "";
+
+    private List<InnMenuItemDTO> Menu { get; set; }
+
+
 
     private void GenerateName()
     {
@@ -104,12 +120,29 @@
         Menu = InnGenerator.GetMenu(SelectedRegion, SelectedQuality, SelectedPrice);
     }
 
+
+    private void AddMenuEntry(Food FoodType)
+    {
+        InnMenuItemDTO? newItem = InnGenerator.GetMenuEntry(SelectedRegion, SelectedQuality, SelectedPrice, FoodType);
+        if (newItem is not null)
+        {
+            if (Menu is null) Menu = new();
+            Menu.Add(newItem ?? new InnMenuItemDTO()); // compiler error without null-coalescing operator
+        }
+    }
+
+    /// <summary>
+    /// Update the quality when the user changes the selection AND
+    /// update the prices if the user has linked quality and price.
+    /// </summary>
+    /// <param name="quality">Selected quality level</param>
     private void QualityChanged(QualityLevel quality)
     {
         SelectedQuality = quality;
         if (PriceMatchesQuality)
             SelectedPrice = (PriceLevel)quality;
     }
+
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
