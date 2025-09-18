@@ -86,79 +86,71 @@
 
             <MudDivider Light=true />
 
-            <MudExpansionPanels Outlined=false Elevation=0 MultiExpansion=true >
-                <MudExpansionPanel HideIcon=true>
-                    <TitleContent>
-                        <div class="d-flex">
-                            <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
-                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Langs.Count</MudAvatar>
-                        </div>
-                    </TitleContent>
-                    <ChildContent>
-                        @{
-                            @for(int i = 0; i < Langs.Count; i++)
-                            {
-                                @l10n[Langs[i].Name];
-                                if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
-                                if (i != Langs.Count-1) {<span>, </span>};
-                            }
-                        }
-                    </ChildContent>
-                </MudExpansionPanel>
+            <MudStack Class="my-4" Spacing=2>
+                <MudLink OnClick=@(() => Collapsed.Languages = !Collapsed.Languages) Underline=Underline.None Color=Color.Primary>
+                    <div class="d-flex align-baseline justify-start gap-3">
+                        <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true>@Langs.Count</MudAvatar>
+                        <MudText Typo=Typo.caption>@l10n["lblLanguages"]</MudText>
+                    </div>
+                </MudLink>
+                <MudCollapse Expanded=@(!Collapsed.Languages)>
+                @{
+                    @for(int i = 0; i < Langs.Count; i++)
+                    {
+                        @l10n[Langs[i].Name];
+                        if (Langs[i].Tier > LanguageAbility.lngNone) { <span> (@l10n[Langs[i].Tier.ToString()])</span> }
+                        if (i != Langs.Count-1) {<span>, </span>};
+                    }
+                }
+                </MudCollapse>
+            </MudStack>
 
-                <MudExpansionPanel HideIcon=true>
-                    <TitleContent>
-                        <div class="d-flex">
-                            <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
-                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@SpecialAbilities.Count</MudAvatar>
-                        </div>
-                    </TitleContent>
-                    <ChildContent>
-                        @{
-                            @for(int i = 0; i < SpecialAbilities.Count; i++)
-                            {
-                                @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
-                            }
-                        }
-                    </ChildContent>
-                </MudExpansionPanel>
+            <MudStack Class="my-4" Spacing=2>
+                <MudLink OnClick=@(() => Collapsed.SpecialAbs = !Collapsed.SpecialAbs) Underline=Underline.None Color=Color.Primary>
+                    <div class="d-flex align-baseline justify-start gap-3">
+                        <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true>@SpecialAbilities.Count</MudAvatar>
+                        <MudText Typo=Typo.caption>@l10n["lblSpecialAbilities"]</MudText>
+                    </div>
+                </MudLink>
+                <MudCollapse Expanded=@(!Collapsed.SpecialAbs)>
+                @{
+                    @for (int i = 0; i < SpecialAbilities.Count; i++)
+                    {
+                        @SpecialAbility(SpecialAbilities[i], i < SpecialAbilities.Count - 1);
+                    }
+                }
+                </MudCollapse>
+            </MudStack>
 
+            <MudStack Class="my-4" Spacing=2>
+                <MudLink OnClick=@(() => Collapsed.Advantages = !Collapsed.Advantages) Underline=Underline.None Color=Color.Primary>
+                    <div class="d-flex align-baseline justify-start gap-3">
+                        <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true>@Advantages.Count</MudAvatar>
+                        <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
+                    </div>
+                </MudLink>
+                <MudCollapse Expanded=@(!Collapsed.Advantages)>
+                    @for(int i = 0; i < Advantages.Count; i++)
+                    {
+                        @Advantage(Advantages[i], i < Advantages.Count - 1, false);
+                    }
+                </MudCollapse>
+            </MudStack>
 
-                <MudExpansionPanel HideIcon=true>
-                    <TitleContent>
-                        <div class="d-flex">
-                            <MudText Typo=Typo.caption>@l10n["lblAdvantages"]</MudText>
-                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Advantages.Count</MudAvatar>
-                        </div>
-                    </TitleContent>
-                    <ChildContent>
-                        @{
-                            @for(int i = 0; i < Advantages.Count; i++)
-                            {
-                                @Advantage(Advantages[i], i < Advantages.Count - 1, false);
-                            }
-                        }
-                    </ChildContent>
-                </MudExpansionPanel>
-
-
-                <MudExpansionPanel HideIcon=true>
-                    <TitleContent>
-                        <div class="d-flex">
-                            <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
-                            <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true Class="ml-auto">@Disadvantages.Count</MudAvatar>
-                        </div>
-                    </TitleContent>
-                    <ChildContent>
-                        @{
-                            @for(int i = 0; i < Disadvantages.Count; i++)
-                            {
-                                @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
-                            }
-                        }
-                    </ChildContent>
-                </MudExpansionPanel>
-            </MudExpansionPanels>
+            <MudStack Class="my-4" Spacing=2>
+                <MudLink OnClick=@(() => Collapsed.Disadvantages = !Collapsed.Disadvantages) Underline=Underline.None Color=Color.Primary>
+                    <div class="d-flex align-baseline justify-start gap-3">
+                        <MudAvatar Color=Color.Tertiary Size=Size.Small Square=true>@Disadvantages.Count</MudAvatar>
+                        <MudText Typo=Typo.caption>@l10n["lblDisadvantages"]</MudText>
+                    </div>
+                </MudLink>
+                <MudCollapse Expanded=@(!Collapsed.Disadvantages)>
+                    @for (int i = 0; i < Disadvantages.Count; i++)
+                    {
+                        @Advantage(Disadvantages[i], i < Disadvantages.Count - 1, true);
+                    }
+                </MudCollapse>
+            </MudStack>
 
         </MudItem>
     </MudGrid>
@@ -207,6 +199,7 @@
     private string DateOfBirthStr { get; set; }
     private string AgeStr { get; set; }
 
+    private (bool Languages, bool SpecialAbs, bool Advantages, bool Disadvantages) Collapsed = (true, true, true, true);
     private List<LanguageDTO> langs;
     private List<LanguageDTO> Langs
     {
@@ -381,4 +374,3 @@
         }
     }
 }
-
