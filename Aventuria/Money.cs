@@ -6,7 +6,9 @@ namespace Aventuria;
 
 
 
-
+/// <summary>
+/// This class represents the value of money but not actual coins.
+/// </summary>
 public readonly struct Money : IFormattable, // IParsable<TSelf>
     IEquatable<Money>, IEqualityOperators<Money, Money, bool>,
     ISubtractionOperators<Money, Money, Money>, IDecrementOperators<Money>,
@@ -18,6 +20,10 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     IUnaryNegationOperators<Money, Money>, IUnaryPlusOperators<Money, Money>,
     IMinMaxValue<Money>
 {
+
+    /// <summary>
+    /// The currency of this amount of money
+    /// </summary>
     public required Currency Currency { get; init; }
 
     public string CurrencyName => Currency.Name;

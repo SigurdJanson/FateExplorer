@@ -2,7 +2,12 @@
 
 
 /// <summary>
-/// Represents a currency used in Aventuria. Specifies names, symbols, and value.
+/// Represents a currency used in Aventuria. Specifies names, symbols, and value.<br/>
+/// <list type="bullet">
+/// <item><description>Coin value is specified relative to middenrealm Ducats.</description></item>
+/// <item><description>Every currency has a key coin. Currencies are referenced by that key coin. Non-native names are used. Use the coin Aventurians would use.</description></item>
+/// <item><c>KeyCoin * Rate</c> gives the value of 1 key coin in Ducat.</item>
+/// </list>
 /// </summary>
 public class Currency : Enumeration
 {
@@ -13,7 +18,7 @@ public class Currency : Enumeration
     /// <summary>
     /// Internally used coin abbreviations in English
     /// </summary>
-    public required string[] CoinAbbr { get; init; }
+    public required string[] CoinCodes { get; init; }
 
     /// <summary>
     /// Localised coin names
@@ -22,28 +27,47 @@ public class Currency : Enumeration
     /// <summary>
     /// Localised coin abbreviations
     /// </summary>
-    public required string[] NativeCoinAbbr { get; init; }
+    public required string[] NativeCoinCodes { get; init; }
     /// <summary>
     /// Localised coin symbols
     /// </summary>
     public required string[] NativeCoinSymbols { get; init; }
 
     /// <summary>
-    /// Par value (dt. Nennwert)
+    /// Par value (dt. Nennwert). The <see cref="KeyCoinIndex">key coin</see> must have a value 
+    /// of 1. Other coin values are in relation to that.
     /// </summary>
     public required decimal[] CoinValue { get; init; }
+
     /// <summary>
     /// Real value (dt. Realwert)
     /// </summary>
     public required decimal[] CoinRealValue { get; init; }
+
     /// <summary>
     /// Each coin's weight in Stone
     /// </summary>
     public required decimal[] CoinWeight { get; init; }
+
     /// <summary>
     /// The regions where the currency is commonly traded with
     /// </summary>
     public required Region[] Origin { get; init; }
+
+    /// <summary>
+    /// The coin to identify the currency with.
+    /// </summary>
+    public required int KeyCoinIndex { get; init; }
+
+    /// <summary>
+    /// The name of the key coin
+    /// </summary>
+    public string KeyCoin { get => CoinNames[KeyCoinIndex]; }
+
+    /// <summary>
+    /// The code of the key coin
+    /// </summary>
+    public string KeyCoinCode { get => CoinCodes[KeyCoinIndex]; }
 
     /// <summary>
     /// Constructor
@@ -54,8 +78,8 @@ public class Currency : Enumeration
     {}
 
     /// <summary>
-    /// The exchange rate defined by the rate between the two reference
-    /// Coin of Middenrealm (Silver-) Thaler and the current currency.
+    /// The exchange rate defined by the rate between the two key (reference)
+    /// coin of Middenrealm Ducat and the current currency.
     /// This rate is used to convert money amounts stored as decimals.
     /// </summary>
     public decimal Rate { get; init; }
@@ -68,231 +92,239 @@ public class Currency : Enumeration
     /// <summary>
     /// Create and return an instance of the reference currency.
     /// </summary>
-    public static Currency ReferenceCurrency => MiddenrealmThaler;
+    public static Currency ReferenceCurrency => MiddenrealmDucat;
 
 
-    public static Currency MiddenrealmThaler =>
-        new(nameof(MiddenrealmThaler), 1)
+    public static Currency MiddenrealmDucat =>
+        new(nameof(MiddenrealmDucat), 1)
         {
-            CoinNames = new string[] { "Ducat", "Silverthaler", "Haler", "Kreutzer" },
-            CoinAbbr = new string[] { "D", "S", "H", "K" },
+            CoinNames = ["Ducat", "Silverthaler", "Haler", "Kreutzer"],
+            CoinCodes = ["D", "S", "H", "K"],
             Rate = 1.0m,
-            CoinValue = new decimal[] { 10, 1, 0.1m, 0.01m },
-            CoinRealValue = new decimal[] { 10, 1, 0.1m, 0.01m },
-            CoinWeight = new decimal[] { 0.025m, 0.005m, 0.0025m, 0.00125m },
-            Origin = new[] { Region.Middenrealm },
+            CoinValue = [1, 0.1m, 0.01m, 0.001m],
+            CoinRealValue = [10, 1, 0.1m, 0.01m],
+            CoinWeight = [0.025m, 0.005m, 0.0025m, 0.00125m],
+            Origin = [Region.Middenrealm],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[] 
-            {
+            NativeCoinNames =
+            [
                 Properties.Resources.MiddenrealmDucatName,
                 Properties.Resources.MiddenrealmSilverthalerName,
                 Properties.Resources.MiddenrealmHalerName,
                 Properties.Resources.MiddenrealmKreutzerName
-            },
-            NativeCoinAbbr = new string[] 
-            {
+            ],
+            NativeCoinCodes =
+            [
                 Properties.Resources.MiddenrealmDucatAbbr,
                 Properties.Resources.MiddenrealmSilverthalerAbbr,
                 Properties.Resources.MiddenrealmHalerAbbr,
                 Properties.Resources.MiddenrealmKreutzerAbbr 
-            },
-            NativeCoinSymbols = new string[]
-            {
+            ],
+            NativeCoinSymbols =
+            [
                 Properties.Resources.MiddenrealmDucatSymbol,
                 Properties.Resources.MiddenrealmSilverthalerSymbol,
                 Properties.Resources.MiddenrealmHalerSymbol,
                 Properties.Resources.MiddenrealmKreutzerSymbol
-            }
+            ]
         };
 
     public static Currency DwarvenThaler => // Mountain Kingdoms
         new(nameof(DwarvenThaler), 2)
         {
-            CoinNames = new string[] { "Auromox", "Arganbrox", "Atebrox" },
-            CoinAbbr = new string[] { "R", "G", "T" },
-            Rate = 12.0m,
-            CoinValue = new decimal[] { 12, 2, 0.2m },
-            CoinRealValue = new decimal[] { 12, 2, 0.2m },
-            CoinWeight = new decimal[] { 0.025m, 0.01m, 0.01m },
-            Origin = new[] { Region.CentralMountainKingdoms, Region.SouthernMountainKingdoms },
+            CoinNames = ["Dwarventhaler", "Dwarvenshilling", "Dwarvenpenny"],
+            CoinCodes = ["T", "S", "G"], // ᛁ ᛐ ᛪ
+            Rate = 1.20m,
+            CoinValue = [1.0m, 2.0m/12m, 0.2m/12m],
+            CoinRealValue = [12, 2, 0.2m],
+            CoinWeight = [0.025m, 0.01m, 0.01m],
+            Origin = [Region.CentralMountainKingdoms, Region.SouthernMountainKingdoms],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[] 
-            { 
+            NativeCoinNames =
+            [
                 Properties.Resources.DwarvenAuromoxName, 
                 Properties.Resources.DwarvenArganbroxName, 
                 Properties.Resources.DwarvenAtebroxName 
-            },
-            NativeCoinAbbr = new string[] 
-            {
+            ],
+            NativeCoinCodes =
+            [
                 Properties.Resources.DwarvenAuromoxAbbr, 
                 Properties.Resources.DwarvenArganbroxAbbr,
                 Properties.Resources.DwarvenAtebroxAbbr 
-            },
-            NativeCoinSymbols = new string[]
-            {
+            ],
+            NativeCoinSymbols =
+            [
                 Properties.Resources.DwarvenAuromoxSymbol,
                 Properties.Resources.DwarvenArganbroxSymbol,
                 Properties.Resources.DwarvenAtebroxSymbol
-            }
+            ]
         };
 
     public static Currency PaaviGuilder =>
         new(nameof(PaaviGuilder), 3)
         {
-            CoinNames = new string[] { "Guilder" },
-            CoinAbbr = new string[] { "R" },
+            CoinNames = ["Guilder"],
+            CoinCodes = ["PG"],
             Rate = 5.0m,
-            CoinValue = new decimal[] { 5 },
-            CoinRealValue = new decimal[] { 5 },
-            CoinWeight = new decimal[] { 0.0125m  },
-            Origin = new[] { Region.PaaviRegion },
+            CoinValue = [1],
+            CoinRealValue = [1],
+            CoinWeight = [0.0125m],
+            Origin = [Region.PaaviRegion],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[] { Properties.Resources.PaaviGuilderName },
-            NativeCoinAbbr = new string[] { Properties.Resources.PaaviGuilderAbbr },
-            NativeCoinSymbols = new string[] { Properties.Resources.PaaviGuilderSymbol }
+            NativeCoinNames = [Properties.Resources.PaaviGuilderName],
+            NativeCoinCodes = [Properties.Resources.PaaviGuilderAbbr],
+            NativeCoinSymbols = [Properties.Resources.PaaviGuilderSymbol]
         };
 
     public static Currency NostrianCrown =>
         new(nameof(NostrianCrown), 4)
         {
-            CoinNames = new string[] { "Crown" },
-            CoinAbbr = new string[] { "Cr" },
+            CoinNames = ["Crown"],
+            CoinCodes = ["Cr"],
             Rate = 5.0m,
-            CoinValue = new decimal[] { 5 },
-            CoinRealValue = new decimal[] { 2.5m },
-            CoinWeight = new decimal[] { 0.025m }, // 25
-            Origin = new[] { Region.Nostria },
+            CoinValue = [1],
+            CoinRealValue = [0.5m],
+            CoinWeight = [0.025m], // 25
+            Origin = [Region.Nostria],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[] { Properties.Resources.NostrianKroneName },
-            NativeCoinAbbr = new string[] { Properties.Resources.NostrianKroneAbbr },
-            NativeCoinSymbols = new string[] { Properties.Resources.NostrianKroneSymbol }
+            NativeCoinNames = [Properties.Resources.NostrianKroneName],
+            NativeCoinCodes = [Properties.Resources.NostrianKroneAbbr],
+            NativeCoinSymbols = [Properties.Resources.NostrianKroneSymbol]
         };
 
     public static Currency Andrathaler =>
         new(nameof(Andrathaler), 5)
         {
-            CoinNames = new string[] { "Andrathaler" },
-            CoinAbbr = new string[] { "A" },
+            CoinNames = ["Andrathaler"],
+            CoinCodes = ["A"],
             Rate = 5.0m,
-            CoinValue = new decimal[] { 5 },
-            CoinRealValue = new decimal[] { 2.5m },
-            CoinWeight = new decimal[] { 0.025m }, // 25
-            Origin = new[] { Region.Andergast },
+            CoinValue = [1],
+            CoinRealValue = [0.5m],
+            CoinWeight = [0.025m], // 25
+            Origin = [Region.Andergast],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[] { Properties.Resources.AndrathalerName },
-            NativeCoinAbbr = new string[] { Properties.Resources.AndrathalerAbbr },
-            NativeCoinSymbols = new string[] { Properties.Resources.AndrathalerSymbol }
+            NativeCoinNames = [Properties.Resources.AndrathalerName],
+            NativeCoinCodes = [Properties.Resources.AndrathalerAbbr],
+            NativeCoinSymbols = [Properties.Resources.AndrathalerSymbol]
         };
 
 
     public static Currency Horasdor =>
         new (nameof(Horasdor), 6)
         {
-            CoinNames = new string[] { "Horasdor", "Dukat", "Silbertaler", "Heller", "Kreutzer" },
-            CoinAbbr = new string[] { "H", "D", "S", "H", "K" },
-            Rate = 1.0m,
-            CoinValue = new decimal[] { 200, 10, 1, 0.1m, 0.01m },
-            CoinRealValue = new decimal[] { 200, 10, 1, 0.1m, 0.01m },
-            CoinWeight = new decimal[] { 0.5m, 0.025m, 0.005m, 0.0025m, 0.00125m }, // 500, 25, 5, 2.5, 1.25
-            Origin = new[] { Region.Fairfields },
+            CoinNames = ["Horasdor", "Ducat", "Silverthaler", "Haler", "Kreutzer"],
+            CoinCodes = ["H", "D", "S", "H", "K"],
+            Rate = 20.0m,
+            CoinValue = [1, 1/20, 1/200, 0.1m/200, 0.01m/200],
+            CoinRealValue = [1, 1 / 20, 1 / 200, 0.1m / 200, 0.01m / 200],
+            CoinWeight = [0.5m, 0.025m, 0.005m, 0.0025m, 0.00125m], // 500, 25, 5, 2.5, 1.25
+            Origin = [Region.Fairfields],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[]
-            {
+            NativeCoinNames =
+            [
                 Properties.Resources.HorasdorName,
                 Properties.Resources.MiddenrealmDucatName,
                 Properties.Resources.MiddenrealmSilverthalerName,
                 Properties.Resources.MiddenrealmHalerName,
                 Properties.Resources.MiddenrealmKreutzerName
-            },
-            NativeCoinAbbr = new string[]
-            {
+            ],
+            NativeCoinCodes =
+            [
                 Properties.Resources.HorasdorAbbr,
                 Properties.Resources.MiddenrealmDucatAbbr,
                 Properties.Resources.MiddenrealmSilverthalerAbbr,
                 Properties.Resources.MiddenrealmHalerAbbr,
                 Properties.Resources.MiddenrealmKreutzerAbbr
-            },
-            NativeCoinSymbols = new string[]
-            {
+            ],
+            NativeCoinSymbols =
+            [
                 Properties.Resources.HorasdorSymbol,
                 Properties.Resources.MiddenrealmDucatSymbol,
                 Properties.Resources.MiddenrealmSilverthalerSymbol,
                 Properties.Resources.MiddenrealmHalerSymbol,
                 Properties.Resources.MiddenrealmKreutzerSymbol
-            }
+            ]
         };
 
-    public static Currency AlanfaOreal =>
-        new(nameof(AlanfaOreal), 7)
+    public static Currency AlanfaDoubloon =>
+        new(nameof(AlanfaDoubloon), 7)
         {
-            CoinNames = new string[] { "Doubloon", "Oreal", "Small Oreal", "Dirham" },
-            CoinAbbr = new string[] { "Do", "Or", "so", "d" },
-            Rate = 1.0m,
-            CoinValue = new decimal[] { 20, 1, 0.5m, 0.01m },
-            CoinRealValue = new decimal[] { 20, 1, 0.5m, 0.01m },
-            CoinWeight = new decimal[] { 0.050m, 0.005m, 0.003m, 0.003m }, // 50, 5, 3, 3
-            Origin = new[] { Region.AlAnfaRegion },
+            CoinNames = ["Doubloon", "Oreal", "Small Oreal", "Dirham"],
+            CoinCodes = ["ↀ", "O", "ō", "Dᵈ"],
+            Rate = 2.0m,
+            CoinValue = [1, 0.05m, 0.025m, 0.0005m],
+            CoinRealValue = [1, 0.05m, 0.025m, 0.0005m],
+            CoinWeight = [0.050m, 0.005m, 0.003m, 0.003m], // 50, 5, 3, 3
+            Origin = [Region.AlAnfaRegion],
+            KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = new string[]
-            {
+            NativeCoinNames =
+            [
                 Properties.Resources.AlanfaDoubloonName,
                 Properties.Resources.AlanfaOrealName,
                 Properties.Resources.AlanfaSmallOrealName,
                 Properties.Resources.AlanfaDirhamName
-            },
-            NativeCoinAbbr = new string[]
-            {
+            ],
+            NativeCoinCodes =
+            [
                 Properties.Resources.AlanfaDoubloonAbbr,
                 Properties.Resources.AlanfaOrealAbbr,
                 Properties.Resources.AlanfaSmallOrealAbbr,
                 Properties.Resources.AlanfaDirhamAbbr
-            },
-            NativeCoinSymbols = new string[]
-            {
+            ],
+            NativeCoinSymbols =
+            [
                 Properties.Resources.AlanfaDoubloonSymbol,
                 Properties.Resources.AlanfaOrealSymbol,
                 Properties.Resources.AlanfaSmallOrealSymbol,
                 Properties.Resources.AlanfaDirhamSymbol
-            }
+            ]
         };
 
-    public static Currency BornlandPenny =>
-        new(nameof(BornlandPenny), 8)
+    public static Currency BornlandLump =>
+        new(nameof(BornlandLump), 8)
         {
-            CoinNames = new string[] { "Lump", "Penny", "Slightling" },
-            CoinAbbr = new string[] { "BB", "BG", "BD" },
+            CoinNames = ["Lump", "Penny", "Slightling"],
+            CoinCodes = ["bL", "bP", "bS"],
             Rate = 1.0m,
-            CoinValue = new decimal[] { 10, 1, 0.1m },
-            CoinRealValue = new decimal[] { 10, 1, 0.1m },
-            CoinWeight = new decimal[] { 0.025m, 0.005m, 0.005m }, // 25, 5, 5
-            Origin = new[] { Region.Bornland },
+            CoinValue = [1, 0.1m, 0.01m],
+            CoinRealValue = [1, 0.1m, 0.01m],
+            CoinWeight = [0.025m, 0.005m, 0.005m], // 25, 5, 5
+            Origin = [Region.Bornland],
+            KeyCoinIndex = 1,
 
             // set according to UI language
-            NativeCoinNames = new string[]
-            {
+            NativeCoinNames =
+            [
                 Properties.Resources.BornlandLumpName,
                 Properties.Resources.BornlandPennyName,
                 Properties.Resources.BornlandSlightlingName
-            },
-            NativeCoinAbbr = new string[]
-            {
+            ],
+            NativeCoinCodes =
+            [
                 Properties.Resources.BornlandLumpAbbr,
                 Properties.Resources.BornlandPennyAbbr,
                 Properties.Resources.BornlandSlightlingAbbr
-            },
-            NativeCoinSymbols = new string[]
-            {
+            ],
+            NativeCoinSymbols =
+            [
                 Properties.Resources.BornlandLumpSymbol,
                 Properties.Resources.BornlandPennySymbol,
                 Properties.Resources.BornlandSlightlingSymbol
-            }
+            ]
         };
 
 
