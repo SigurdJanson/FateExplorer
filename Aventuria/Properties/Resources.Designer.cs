@@ -61,7 +61,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die d ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dᵈ ähnelt.
         /// </summary>
         internal static string AlanfaDirhamAbbr {
             get {
@@ -79,16 +79,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ꔷ ähnelt.
-        /// </summary>
-        internal static string AlanfaDirhamSymbol {
-            get {
-                return ResourceManager.GetString("AlanfaDirhamSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Do ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ↀ ähnelt.
         /// </summary>
         internal static string AlanfaDoubloonAbbr {
             get {
@@ -106,16 +97,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ⴲ ähnelt.
-        /// </summary>
-        internal static string AlanfaDoubloonSymbol {
-            get {
-                return ResourceManager.GetString("AlanfaDoubloonSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Or ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die O ähnelt.
         /// </summary>
         internal static string AlanfaOrealAbbr {
             get {
@@ -133,16 +115,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ⴱ ähnelt.
-        /// </summary>
-        internal static string AlanfaOrealSymbol {
-            get {
-                return ResourceManager.GetString("AlanfaOrealSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die so ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ō ähnelt.
         /// </summary>
         internal static string AlanfaSmallOrealAbbr {
             get {
@@ -156,15 +129,6 @@ namespace Aventuria.Properties {
         internal static string AlanfaSmallOrealName {
             get {
                 return ResourceManager.GetString("AlanfaSmallOrealName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ☉ ähnelt.
-        /// </summary>
-        internal static string AlanfaSmallOrealSymbol {
-            get {
-                return ResourceManager.GetString("AlanfaSmallOrealSymbol", resourceCulture);
             }
         }
         
@@ -187,16 +151,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝓐 ähnelt.
-        /// </summary>
-        internal static string AndrathalerSymbol {
-            get {
-                return ResourceManager.GetString("AndrathalerSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BL ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die bL ähnelt.
         /// </summary>
         internal static string BornlandLumpAbbr {
             get {
@@ -214,16 +169,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BL ähnelt.
-        /// </summary>
-        internal static string BornlandLumpSymbol {
-            get {
-                return ResourceManager.GetString("BornlandLumpSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BP ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die bP ähnelt.
         /// </summary>
         internal static string BornlandPennyAbbr {
             get {
@@ -241,16 +187,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BP ähnelt.
-        /// </summary>
-        internal static string BornlandPennySymbol {
-            get {
-                return ResourceManager.GetString("BornlandPennySymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BS ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die bS ähnelt.
         /// </summary>
         internal static string BornlandSlightlingAbbr {
             get {
@@ -264,15 +201,6 @@ namespace Aventuria.Properties {
         internal static string BornlandSlightlingName {
             get {
                 return ResourceManager.GetString("BornlandSlightlingName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die BS ähnelt.
-        /// </summary>
-        internal static string BornlandSlightlingSymbol {
-            get {
-                return ResourceManager.GetString("BornlandSlightlingSymbol", resourceCulture);
             }
         }
         
@@ -295,7 +223,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die AG ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᚷ ähnelt.
         /// </summary>
         internal static string DwarvenArganbroxAbbr {
             get {
@@ -313,16 +241,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ᚻ ähnelt.
-        /// </summary>
-        internal static string DwarvenArganbroxSymbol {
-            get {
-                return ResourceManager.GetString("DwarvenArganbroxSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die AT ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᛏ ähnelt.
         /// </summary>
         internal static string DwarvenAtebroxAbbr {
             get {
@@ -340,16 +259,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ᚳ ähnelt.
-        /// </summary>
-        internal static string DwarvenAtebroxSymbol {
-            get {
-                return ResourceManager.GetString("DwarvenAtebroxSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die AR ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ᚢ ähnelt.
         /// </summary>
         internal static string DwarvenAuromoxAbbr {
             get {
@@ -367,16 +277,61 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ᛕ ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die DP ähnelt.
         /// </summary>
-        internal static string DwarvenAuromoxSymbol {
+        internal static string DwarvenPennyAbbr {
             get {
-                return ResourceManager.GetString("DwarvenAuromoxSymbol", resourceCulture);
+                return ResourceManager.GetString("DwarvenPennyAbbr", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die HD ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Penny ähnelt.
+        /// </summary>
+        internal static string DwarvenPennyName {
+            get {
+                return ResourceManager.GetString("DwarvenPennyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die DS ähnelt.
+        /// </summary>
+        internal static string DwarvenShillingAbbr {
+            get {
+                return ResourceManager.GetString("DwarvenShillingAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Shilling ähnelt.
+        /// </summary>
+        internal static string DwarvenShillingName {
+            get {
+                return ResourceManager.GetString("DwarvenShillingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die DT ähnelt.
+        /// </summary>
+        internal static string DwarvenThalerAbbr {
+            get {
+                return ResourceManager.GetString("DwarvenThalerAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Thaler ähnelt.
+        /// </summary>
+        internal static string DwarvenThalerName {
+            get {
+                return ResourceManager.GetString("DwarvenThalerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔻 ähnelt.
         /// </summary>
         internal static string HorasdorAbbr {
             get {
@@ -394,16 +349,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔻 ähnelt.
-        /// </summary>
-        internal static string HorasdorSymbol {
-            get {
-                return ResourceManager.GetString("HorasdorSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die D ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔇 ähnelt.
         /// </summary>
         internal static string MiddenrealmDucatAbbr {
             get {
@@ -421,16 +367,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔇 ähnelt.
-        /// </summary>
-        internal static string MiddenrealmDucatSymbol {
-            get {
-                return ResourceManager.GetString("MiddenrealmDucatSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die H ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔥 ähnelt.
         /// </summary>
         internal static string MiddenrealmHalerAbbr {
             get {
@@ -448,16 +385,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔥 ähnelt.
-        /// </summary>
-        internal static string MiddenrealmHalerSymbol {
-            get {
-                return ResourceManager.GetString("MiddenrealmHalerSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die K ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔨 ähnelt.
         /// </summary>
         internal static string MiddenrealmKreutzerAbbr {
             get {
@@ -475,16 +403,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔨 ähnelt.
-        /// </summary>
-        internal static string MiddenrealmKreutzerSymbol {
-            get {
-                return ResourceManager.GetString("MiddenrealmKreutzerSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die S ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔖 ähnelt.
         /// </summary>
         internal static string MiddenrealmSilverthalerAbbr {
             get {
@@ -502,38 +421,20 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝔖 ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cr ähnelt.
         /// </summary>
-        internal static string MiddenrealmSilverthalerSymbol {
+        internal static string NostrianCrownAbbr {
             get {
-                return ResourceManager.GetString("MiddenrealmSilverthalerSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die cr ähnelt.
-        /// </summary>
-        internal static string NostrianKroneAbbr {
-            get {
-                return ResourceManager.GetString("NostrianKroneAbbr", resourceCulture);
+                return ResourceManager.GetString("NostrianCrownAbbr", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Crown ähnelt.
         /// </summary>
-        internal static string NostrianKroneName {
+        internal static string NostrianCrownName {
             get {
-                return ResourceManager.GetString("NostrianKroneName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 𝓝 ähnelt.
-        /// </summary>
-        internal static string NostrianKroneSymbol {
-            get {
-                return ResourceManager.GetString("NostrianKroneSymbol", resourceCulture);
+                return ResourceManager.GetString("NostrianCrownName", resourceCulture);
             }
         }
         
@@ -552,15 +453,6 @@ namespace Aventuria.Properties {
         internal static string PaaviGuilderName {
             get {
                 return ResourceManager.GetString("PaaviGuilderName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ₲ ähnelt.
-        /// </summary>
-        internal static string PaaviGuilderSymbol {
-            get {
-                return ResourceManager.GetString("PaaviGuilderSymbol", resourceCulture);
             }
         }
         

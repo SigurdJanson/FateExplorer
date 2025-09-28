@@ -39,6 +39,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
             return string.Empty;
         }
     }
+    public string CurrencySymbol => Currency.KeyCoinCode;
 
     public static Money MaxValue => new(decimal.MaxValue, Currency.ReferenceCurrency);
 

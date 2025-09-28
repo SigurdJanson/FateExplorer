@@ -21,31 +21,32 @@ public class Currency : Enumeration
     public required string[] CoinCodes { get; init; }
 
     /// <summary>
-    /// Localised coin names
+    /// Localised coin names in the language of the Aventurian people
     /// </summary>
     public required string[] NativeCoinNames { get; init; }
     /// <summary>
-    /// Localised coin abbreviations
+    /// Localised coin abbreviations in the language of the Aventurian people
     /// </summary>
     public required string[] NativeCoinCodes { get; init; }
-    /// <summary>
-    /// Localised coin symbols
-    /// </summary>
-    public required string[] NativeCoinSymbols { get; init; }
+
 
     /// <summary>
     /// Par value (dt. Nennwert). The <see cref="KeyCoinIndex">key coin</see> must have a value 
-    /// of 1. Other coin values are in relation to that.
+    /// of 1. Other coin values are in relation to that. Coin values must be ordered by value 
+    /// starting with the highest.
     /// </summary>
     public required decimal[] CoinValue { get; init; }
 
     /// <summary>
-    /// Real value (dt. Realwert)
+    /// Real value (dt. Realwert) i.e. the material value rather than the value appointed by the 
+    /// minting authority.<br/>
+    /// Values must be ordered by <see cref="CoinValue">par value</see>
     /// </summary>
     public required decimal[] CoinRealValue { get; init; }
 
     /// <summary>
-    /// Each coin's weight in Stone
+    /// Each coin's weight in Stone.<br/>
+    /// Values must be ordered by <see cref="CoinValue">par value</see>
     /// </summary>
     public required decimal[] CoinWeight { get; init; }
 
@@ -70,6 +71,12 @@ public class Currency : Enumeration
     public string KeyCoinCode { get => CoinCodes[KeyCoinIndex]; }
 
     /// <summary>
+    /// Retrieve the number of coins available in the currency system.
+    /// </summary>
+    public int CoinCount { get => CoinValue.Length; }
+
+
+    /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="name">User-defined name of the currency</param>
@@ -84,10 +91,6 @@ public class Currency : Enumeration
     /// </summary>
     public decimal Rate { get; init; }
 
-    /// <summary>
-    /// The enum index of the reference currency
-    /// </summary>
-    public const int ReferenceValue = 1;
 
     /// <summary>
     /// Create and return an instance of the reference currency.
@@ -98,8 +101,14 @@ public class Currency : Enumeration
     public static Currency MiddenrealmDucat =>
         new(nameof(MiddenrealmDucat), 1)
         {
-            CoinNames = ["Ducat", "Silverthaler", "Haler", "Kreutzer"],
-            CoinCodes = ["D", "S", "H", "K"],
+            CoinNames = [Properties.Resources.MiddenrealmDucatName, 
+                Properties.Resources.MiddenrealmSilverthalerName,
+                Properties.Resources.MiddenrealmHalerName, 
+                Properties.Resources.MiddenrealmKreutzerName],
+            CoinCodes = [Properties.Resources.MiddenrealmDucatAbbr,
+                Properties.Resources.MiddenrealmSilverthalerAbbr,
+                Properties.Resources.MiddenrealmHalerAbbr,
+                Properties.Resources.MiddenrealmKreutzerAbbr],
             Rate = 1.0m,
             CoinValue = [1, 0.1m, 0.01m, 0.001m],
             CoinRealValue = [10, 1, 0.1m, 0.01m],
@@ -121,21 +130,18 @@ public class Currency : Enumeration
                 Properties.Resources.MiddenrealmSilverthalerAbbr,
                 Properties.Resources.MiddenrealmHalerAbbr,
                 Properties.Resources.MiddenrealmKreutzerAbbr 
-            ],
-            NativeCoinSymbols =
-            [
-                Properties.Resources.MiddenrealmDucatSymbol,
-                Properties.Resources.MiddenrealmSilverthalerSymbol,
-                Properties.Resources.MiddenrealmHalerSymbol,
-                Properties.Resources.MiddenrealmKreutzerSymbol
             ]
         };
 
     public static Currency DwarvenThaler => // Mountain Kingdoms
         new(nameof(DwarvenThaler), 2)
         {
-            CoinNames = ["Dwarventhaler", "Dwarvenshilling", "Dwarvenpenny"],
-            CoinCodes = ["T", "S", "G"], // ᛁ ᛐ ᛪ
+            CoinNames = [Properties.Resources.DwarvenThalerName,
+                Properties.Resources.DwarvenShillingName,
+                Properties.Resources.DwarvenPennyName],
+            CoinCodes = [Properties.Resources.DwarvenThalerAbbr,
+                Properties.Resources.DwarvenShillingAbbr,
+                Properties.Resources.DwarvenPennyAbbr],
             Rate = 1.20m,
             CoinValue = [1.0m, 2.0m/12m, 0.2m/12m],
             CoinRealValue = [12, 2, 0.2m],
@@ -155,20 +161,14 @@ public class Currency : Enumeration
                 Properties.Resources.DwarvenAuromoxAbbr, 
                 Properties.Resources.DwarvenArganbroxAbbr,
                 Properties.Resources.DwarvenAtebroxAbbr 
-            ],
-            NativeCoinSymbols =
-            [
-                Properties.Resources.DwarvenAuromoxSymbol,
-                Properties.Resources.DwarvenArganbroxSymbol,
-                Properties.Resources.DwarvenAtebroxSymbol
             ]
         };
 
     public static Currency PaaviGuilder =>
         new(nameof(PaaviGuilder), 3)
         {
-            CoinNames = ["Guilder"],
-            CoinCodes = ["PG"],
+            CoinNames = [Properties.Resources.PaaviGuilderName],
+            CoinCodes = [Properties.Resources.PaaviGuilderAbbr],
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [1],
@@ -178,15 +178,14 @@ public class Currency : Enumeration
 
             // set according to UI language
             NativeCoinNames = [Properties.Resources.PaaviGuilderName],
-            NativeCoinCodes = [Properties.Resources.PaaviGuilderAbbr],
-            NativeCoinSymbols = [Properties.Resources.PaaviGuilderSymbol]
+            NativeCoinCodes = [Properties.Resources.PaaviGuilderAbbr]
         };
 
     public static Currency NostrianCrown =>
         new(nameof(NostrianCrown), 4)
         {
-            CoinNames = ["Crown"],
-            CoinCodes = ["Cr"],
+            CoinNames = [Properties.Resources.NostrianCrownName],
+            CoinCodes = [Properties.Resources.NostrianCrownAbbr],
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [0.5m],
@@ -195,16 +194,15 @@ public class Currency : Enumeration
             KeyCoinIndex = 0,
 
             // set according to UI language
-            NativeCoinNames = [Properties.Resources.NostrianKroneName],
-            NativeCoinCodes = [Properties.Resources.NostrianKroneAbbr],
-            NativeCoinSymbols = [Properties.Resources.NostrianKroneSymbol]
+            NativeCoinNames = [Properties.Resources.NostrianCrownName],
+            NativeCoinCodes = [Properties.Resources.NostrianCrownAbbr]
         };
 
     public static Currency Andrathaler =>
         new(nameof(Andrathaler), 5)
         {
-            CoinNames = ["Andrathaler"],
-            CoinCodes = ["A"],
+            CoinNames = [Properties.Resources.AndrathalerName],
+            CoinCodes = [Properties.Resources.AndrathalerAbbr],
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [0.5m],
@@ -214,16 +212,27 @@ public class Currency : Enumeration
 
             // set according to UI language
             NativeCoinNames = [Properties.Resources.AndrathalerName],
-            NativeCoinCodes = [Properties.Resources.AndrathalerAbbr],
-            NativeCoinSymbols = [Properties.Resources.AndrathalerSymbol]
+            NativeCoinCodes = [Properties.Resources.AndrathalerAbbr]
         };
 
 
     public static Currency Horasdor =>
         new (nameof(Horasdor), 6)
         {
-            CoinNames = ["Horasdor", "Ducat", "Silverthaler", "Haler", "Kreutzer"],
-            CoinCodes = ["H", "D", "S", "H", "K"],
+            CoinNames = [
+                Properties.Resources.HorasdorName,
+                Properties.Resources.MiddenrealmDucatName,
+                Properties.Resources.MiddenrealmSilverthalerName,
+                Properties.Resources.MiddenrealmHalerName,
+                Properties.Resources.MiddenrealmKreutzerName
+            ],
+            CoinCodes = [
+                Properties.Resources.HorasdorAbbr,
+                Properties.Resources.MiddenrealmDucatAbbr,
+                Properties.Resources.MiddenrealmSilverthalerAbbr,
+                Properties.Resources.MiddenrealmHalerAbbr,
+                Properties.Resources.MiddenrealmKreutzerAbbr
+            ],
             Rate = 20.0m,
             CoinValue = [1, 1/20, 1/200, 0.1m/200, 0.01m/200],
             CoinRealValue = [1, 1 / 20, 1 / 200, 0.1m / 200, 0.01m / 200],
@@ -247,22 +256,20 @@ public class Currency : Enumeration
                 Properties.Resources.MiddenrealmSilverthalerAbbr,
                 Properties.Resources.MiddenrealmHalerAbbr,
                 Properties.Resources.MiddenrealmKreutzerAbbr
-            ],
-            NativeCoinSymbols =
-            [
-                Properties.Resources.HorasdorSymbol,
-                Properties.Resources.MiddenrealmDucatSymbol,
-                Properties.Resources.MiddenrealmSilverthalerSymbol,
-                Properties.Resources.MiddenrealmHalerSymbol,
-                Properties.Resources.MiddenrealmKreutzerSymbol
             ]
         };
 
     public static Currency AlanfaDoubloon =>
         new(nameof(AlanfaDoubloon), 7)
         {
-            CoinNames = ["Doubloon", "Oreal", "Small Oreal", "Dirham"],
-            CoinCodes = ["ↀ", "O", "ō", "Dᵈ"],
+            CoinNames = [Properties.Resources.AlanfaDoubloonName,
+                Properties.Resources.AlanfaOrealName,
+                Properties.Resources.AlanfaSmallOrealName,
+                Properties.Resources.AlanfaDirhamName],
+            CoinCodes = [Properties.Resources.AlanfaDoubloonAbbr,
+                Properties.Resources.AlanfaOrealAbbr,
+                Properties.Resources.AlanfaSmallOrealAbbr,
+                Properties.Resources.AlanfaDirhamAbbr],
             Rate = 2.0m,
             CoinValue = [1, 0.05m, 0.025m, 0.0005m],
             CoinRealValue = [1, 0.05m, 0.025m, 0.0005m],
@@ -284,21 +291,18 @@ public class Currency : Enumeration
                 Properties.Resources.AlanfaOrealAbbr,
                 Properties.Resources.AlanfaSmallOrealAbbr,
                 Properties.Resources.AlanfaDirhamAbbr
-            ],
-            NativeCoinSymbols =
-            [
-                Properties.Resources.AlanfaDoubloonSymbol,
-                Properties.Resources.AlanfaOrealSymbol,
-                Properties.Resources.AlanfaSmallOrealSymbol,
-                Properties.Resources.AlanfaDirhamSymbol
             ]
         };
 
     public static Currency BornlandLump =>
         new(nameof(BornlandLump), 8)
         {
-            CoinNames = ["Lump", "Penny", "Slightling"],
-            CoinCodes = ["bL", "bP", "bS"],
+            CoinNames = [Properties.Resources.BornlandLumpName,
+                Properties.Resources.BornlandPennyName,
+                Properties.Resources.BornlandSlightlingName],
+            CoinCodes = [Properties.Resources.BornlandLumpAbbr,
+                Properties.Resources.BornlandPennyAbbr,
+                Properties.Resources.BornlandSlightlingAbbr],
             Rate = 1.0m,
             CoinValue = [1, 0.1m, 0.01m],
             CoinRealValue = [1, 0.1m, 0.01m],
@@ -318,12 +322,6 @@ public class Currency : Enumeration
                 Properties.Resources.BornlandLumpAbbr,
                 Properties.Resources.BornlandPennyAbbr,
                 Properties.Resources.BornlandSlightlingAbbr
-            ],
-            NativeCoinSymbols =
-            [
-                Properties.Resources.BornlandLumpSymbol,
-                Properties.Resources.BornlandPennySymbol,
-                Properties.Resources.BornlandSlightlingSymbol
             ]
         };
 

@@ -118,34 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MiddenrealmDucatAbbr" xml:space="preserve">
-    <value>D</value>
+    <value>𝔇</value>
   </data>
   <data name="MiddenrealmDucatName" xml:space="preserve">
     <value>Ducat</value>
   </data>
-  <data name="MiddenrealmDucatSymbol" xml:space="preserve">
-    <value>𝔇</value>
-  </data>
   <data name="MiddenrealmHalerAbbr" xml:space="preserve">
-    <value>H</value>
+    <value>𝔥</value>
   </data>
   <data name="MiddenrealmHalerName" xml:space="preserve">
     <value>Haler</value>
   </data>
   <data name="MiddenrealmKreutzerAbbr" xml:space="preserve">
-    <value>K</value>
+    <value>𝔨</value>
   </data>
   <data name="MiddenrealmKreutzerName" xml:space="preserve">
     <value>Kreutzer</value>
   </data>
   <data name="MiddenrealmSilverthalerAbbr" xml:space="preserve">
-    <value>S</value>
+    <value>𝔖</value>
   </data>
   <data name="MiddenrealmSilverthalerName" xml:space="preserve">
     <value>Silverthaler</value>
-  </data>
-  <data name="MiddenrealmSilverthalerSymbol" xml:space="preserve">
-    <value>𝔖</value>
   </data>
   <data name="WeightCarat" xml:space="preserve">
     <value>Carat</value>
@@ -192,29 +186,17 @@
   <data name="WeightStoneSymbol" xml:space="preserve">
     <value>ﬆ</value>
   </data>
-  <data name="MiddenrealmKreutzerSymbol" xml:space="preserve">
-    <value>𝔨</value>
-  </data>
-  <data name="MiddenrealmHalerSymbol" xml:space="preserve">
-    <value>𝔥</value>
-  </data>
   <data name="PaaviGuilderAbbr" xml:space="preserve">
     <value>G</value>
   </data>
   <data name="PaaviGuilderName" xml:space="preserve">
     <value>Guilder</value>
   </data>
-  <data name="PaaviGuilderSymbol" xml:space="preserve">
-    <value>₲</value>
+  <data name="NostrianCrownAbbr" xml:space="preserve">
+    <value>Cr</value>
   </data>
-  <data name="NostrianKroneAbbr" xml:space="preserve">
-    <value>cr</value>
-  </data>
-  <data name="NostrianKroneName" xml:space="preserve">
+  <data name="NostrianCrownName" xml:space="preserve">
     <value>Crown</value>
-  </data>
-  <data name="NostrianKroneSymbol" xml:space="preserve">
-    <value>𝓝</value>
   </data>
   <data name="AndrathalerName" xml:space="preserve">
     <value>Andrathaler</value>
@@ -222,89 +204,59 @@
   <data name="AndrathalerAbbr" xml:space="preserve">
     <value>AT</value>
   </data>
-  <data name="AndrathalerSymbol" xml:space="preserve">
-    <value>𝓐</value>
-  </data>
   <data name="DwarvenAuromoxName" xml:space="preserve">
     <value>Auromox</value>
   </data>
   <data name="DwarvenAuromoxAbbr" xml:space="preserve">
-    <value>AR</value>
-  </data>
-  <data name="DwarvenAuromoxSymbol" xml:space="preserve">
-    <value>ᛕ</value>
+    <value>ᚢ</value>
   </data>
   <data name="DwarvenArganbroxName" xml:space="preserve">
     <value>Arganbrox</value>
   </data>
   <data name="DwarvenArganbroxAbbr" xml:space="preserve">
-    <value>AG</value>
-  </data>
-  <data name="DwarvenArganbroxSymbol" xml:space="preserve">
-    <value>ᚻ</value>
+    <value>ᚷ</value>
   </data>
   <data name="DwarvenAtebroxName" xml:space="preserve">
     <value>Atebrox</value>
   </data>
   <data name="DwarvenAtebroxAbbr" xml:space="preserve">
-    <value>AT</value>
-  </data>
-  <data name="DwarvenAtebroxSymbol" xml:space="preserve">
-    <value>ᚳ</value>
+    <value>ᛏ</value>
   </data>
   <data name="HorasdorName" xml:space="preserve">
     <value>Horasdor</value>
   </data>
   <data name="HorasdorAbbr" xml:space="preserve">
-    <value>HD</value>
-  </data>
-  <data name="HorasdorSymbol" xml:space="preserve">
     <value>𝔻</value>
   </data>
   <data name="AlanfaDoubloonName" xml:space="preserve">
     <value>Doubloon</value>
   </data>
   <data name="AlanfaDoubloonAbbr" xml:space="preserve">
-    <value>Do</value>
-  </data>
-  <data name="AlanfaDoubloonSymbol" xml:space="preserve">
-    <value>ⴲ</value>
+    <value>ↀ</value>
   </data>
   <data name="AlanfaOrealName" xml:space="preserve">
     <value>Oreal</value>
   </data>
   <data name="AlanfaOrealAbbr" xml:space="preserve">
-    <value>Or</value>
-  </data>
-  <data name="AlanfaOrealSymbol" xml:space="preserve">
-    <value>ⴱ</value>
+    <value>O</value>
   </data>
   <data name="AlanfaSmallOrealName" xml:space="preserve">
     <value>Small Oreal</value>
   </data>
   <data name="AlanfaSmallOrealAbbr" xml:space="preserve">
-    <value>so</value>
-  </data>
-  <data name="AlanfaSmallOrealSymbol" xml:space="preserve">
-    <value>☉</value>
+    <value>ō</value>
   </data>
   <data name="AlanfaDirhamName" xml:space="preserve">
     <value>Dirham</value>
   </data>
   <data name="AlanfaDirhamAbbr" xml:space="preserve">
-    <value>d</value>
-  </data>
-  <data name="AlanfaDirhamSymbol" xml:space="preserve">
-    <value>ꔷ</value>
+    <value>Dᵈ</value>
   </data>
   <data name="BornlandLumpName" xml:space="preserve">
     <value>Lump</value>
   </data>
   <data name="BornlandLumpAbbr" xml:space="preserve">
-    <value>BL</value>
-  </data>
-  <data name="BornlandLumpSymbol" xml:space="preserve">
-    <value>BL</value>
+    <value>bL</value>
   </data>
   <data name="BornlandPennyName" xml:space="preserve">
     <value>Penny</value>
@@ -313,21 +265,33 @@
     <value>Slightling</value>
   </data>
   <data name="BornlandPennyAbbr" xml:space="preserve">
-    <value>BP</value>
+    <value>bP</value>
   </data>
   <data name="BornlandSlightlingAbbr" xml:space="preserve">
-    <value>BS</value>
-  </data>
-  <data name="BornlandPennySymbol" xml:space="preserve">
-    <value>BP</value>
-  </data>
-  <data name="BornlandSlightlingSymbol" xml:space="preserve">
-    <value>BS</value>
+    <value>bS</value>
   </data>
   <data name="CountryMI" xml:space="preserve">
     <value>Middenrealm</value>
   </data>
   <data name="CountryHO" xml:space="preserve">
     <value>Horasian Empire</value>
+  </data>
+  <data name="DwarvenThalerName" xml:space="preserve">
+    <value>Thaler</value>
+  </data>
+  <data name="DwarvenShillingName" xml:space="preserve">
+    <value>Shilling</value>
+  </data>
+  <data name="DwarvenPennyName" xml:space="preserve">
+    <value>Penny</value>
+  </data>
+  <data name="DwarvenThalerAbbr" xml:space="preserve">
+    <value>DT</value>
+  </data>
+  <data name="DwarvenShillingAbbr" xml:space="preserve">
+    <value>DS</value>
+  </data>
+  <data name="DwarvenPennyAbbr" xml:space="preserve">
+    <value>DP</value>
   </data>
 </root>
