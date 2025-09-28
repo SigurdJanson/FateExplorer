@@ -20,6 +20,12 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     IUnaryNegationOperators<Money, Money>, IUnaryPlusOperators<Money, Money>,
     IMinMaxValue<Money>
 {
+    /// <summary>
+    /// Hack silver is made of coin fragments when the material value of a coin is equal
+    /// to it's par value. The precision of split coins is limited to n hack silver digits.
+    /// </summary>
+    private const int HackSilverDigits = 4;
+    private const decimal HackSilverPrecision = 1 ^ (HackSilverDigits * -1);
 
     /// <summary>
     /// The currency of this amount of money
@@ -27,18 +33,6 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     public required Currency Currency { get; init; }
 
     public string CurrencyName => Currency.Name;
-    public string CurrencySymbol
-    {
-        get
-        {
-            for (int i = 0; i < Currency.CoinValue.Length; i++)
-            {
-                if (Currency.CoinValue[i] == Currency.Rate)
-                    return Currency.NativeCoinSymbols[i];
-            }
-            return string.Empty;
-        }
-    }
     public string CurrencySymbol => Currency.KeyCoinCode;
 
     public static Money MaxValue => new(decimal.MaxValue, Currency.ReferenceCurrency);
@@ -66,6 +60,48 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     }
 
 
+
+    /// <summary>
+    /// Method for calculating the optimal denomination (St�ckelung). This is not a real set of coins
+    /// but an imputed set based on the amount of money and the coins of the currency.
+    /// </summary>
+    /// <returns>An array of coins. Each position in the array represents the number of coins. 
+    /// The coins are ordered by par value starting with highest value. 
+    /// The last digit can be a fraction.</returns>
+    public decimal[] OptimizeDenomination()
+    {
+        decimal[] result = new decimal[Currency.CoinValue.Length];
+
+        decimal[] value = Currency.CoinValue;
+        Array.Sort(value);
+        Array.Reverse(value);
+
+        decimal Amount = Math.Abs(JointAmount);
+        int index = 0;
+        while(Amount > 0 && index < Currency.CoinValue.Length)
+        {
+            if (Amount >= value[index])
+            {
+                result[index] = Math.Floor(Amount / value[index]);
+                Amount -= result[index] * value[index];
+            }
+            else
+            {
+                result[index] = 0.0m;
+            }
+            index++;
+        }
+        if (Amount > HackSilverPrecision)
+        {
+            var fraction = Amount / value[^1];
+            // round to nearest 1/100000000... of a coin
+            result[^1] += Math.Round(fraction, HackSilverDigits, MidpointRounding.AwayFromZero);
+        }
+
+        return result; 
+    }
+
+
     /// <summary>
     /// Converts the amount of money into another currency.
     /// </summary>
@@ -84,6 +120,25 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         return Value / currency.Rate;
     }
 
+
+    /// <summary>
+    /// Returns a decimal representation of the amount of money.
+    /// </summary>
+    /// <param name="Coin">The index of the coin of the currency that shall be used as reference. 
+    /// If negative, the key coin is used.</param>
+    /// <returns>An amount of money expressed in the chosen coin.</returns>
+    public decimal ToDecimal(int Coin = -1)
+    {
+        if (Coin < 0)
+        {
+            return JointAmount;
+        }
+        else if (Coin >= Currency.CoinCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(Coin), "Currency has fewer coins");
+        }
+        return JointAmount / Currency.CoinValue[Coin];
+    }
 
 
     #region Math
