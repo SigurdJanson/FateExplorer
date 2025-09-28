@@ -27,7 +27,7 @@ public class CurrencyTests
     [Test]
     public void MiddenrealmThaler_CoinNames_ReturnsExpectedValue()
     {
-        var currency = Currency.MiddenrealmThaler;
+        var currency = Currency.MiddenrealmDucat;
         var expected = new string[] { "Ducat", "Silverthaler", "Haler", "Kreutzer" };
 
         Assert.That(expected, Is.EqualTo(currency.CoinNames));
@@ -48,7 +48,7 @@ public class CurrencyTests
         var currency = Currency.PaaviGuilder;
         var expected = new string[] { "R" };
 
-        Assert.That(expected, Is.EqualTo(currency.CoinAbbr));
+        Assert.That(expected, Is.EqualTo(currency.CoinCodes));
     }
 
     [Test]
@@ -81,7 +81,7 @@ public class CurrencyTests
     [Test, Culture("de-DE")]
     public void AlanfaOreal_NativeCoinNames_ReturnsExpectedValue()
     {
-        var currency = Currency.AlanfaOreal;
+        var currency = Currency.AlanfaDoubloon;
         var expected = new string[] { "Dublone", "Oreal", "Kleiner Oreal", "Dirham" };
 
         Assert.That(expected, Is.EqualTo(currency.NativeCoinNames));
@@ -89,20 +89,12 @@ public class CurrencyTests
     [Test, Culture("en-GB")]
     public void AlanfaOreal_NativeCoinNames_En_ReturnsExpectedValue()
     {
-        var currency = Currency.AlanfaOreal;
+        var currency = Currency.AlanfaDoubloon;
         var expected = new string[] { "Dubloon", "Oreal", "Small Oreal", "Dirham" };
 
         Assert.That(expected, Is.EqualTo(currency.NativeCoinNames));
     }
 
-    [Test]
-    public void BornlandPenny_NativeCoinSymbols_ReturnsExpectedValue()
-    {
-        var currency = Currency.BornlandPenny;
-        var expected = new string[] { "BB", "BG", "BD" };
-
-        Assert.That(expected, Is.EqualTo(currency.NativeCoinSymbols));
-    }
 
 
 
@@ -110,7 +102,7 @@ public class CurrencyTests
     public void TestMethod1()
     {
         // Arrange
-        var currency = Currency.BornlandPenny;
+        var currency = Currency.BornlandLump;
 
         // Act
 

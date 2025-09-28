@@ -19,7 +19,7 @@ public class CoinSetTests
     public void Constructor_NoCoins_CountCorrectMintages()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         // Assert
         Assert.That(4, Is.EqualTo(coinSet.Count));
     }
@@ -30,7 +30,7 @@ public class CoinSetTests
     public void Constructor_NoCoins_CountZeroCoins()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         // Assert
         Assert.That(0, Is.EqualTo(coinSet.CoinCount));
     }
@@ -43,7 +43,7 @@ public class CoinSetTests
     public int FindCoinIndex_ExistingName_ReturnCorrectIndex(string coinName)
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
 
         // Act
         var result = coinSet.FindCoinIndex(coinName);
@@ -59,7 +59,7 @@ public class CoinSetTests
     public int FindCoinIndex_InvalidName_ReturnMinus1(string coinName)
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
 
         // Act
         var result = coinSet.FindCoinIndex(coinName);
@@ -75,7 +75,7 @@ public class CoinSetTests
     {
         // Arrange
         decimal value = 0m;
-        Currency currency = Currency.MiddenrealmThaler;
+        Currency currency = Currency.MiddenrealmDucat;
         int ExpectedLength = 4;
         int[] Expected = new int[] { 0, 0, 0, 0 };
 
@@ -93,7 +93,7 @@ public class CoinSetTests
     {
         // Arrange
         decimal value = 12.32m;
-        Currency currency = Currency.MiddenrealmThaler;
+        Currency currency = Currency.MiddenrealmDucat;
         int ExpectedLength = 4;
         int[] Expected = new int[] { 1, 2, 3, 2 };
 
@@ -110,7 +110,7 @@ public class CoinSetTests
     public void ParseAmount_ValidValue_SetsCoinsCorrectly()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         decimal value = 10.01m;
 
         // Act
@@ -129,7 +129,7 @@ public class CoinSetTests
     public void Value_ReturnsCorrectMoney()
     {
         // Arrange
-        CoinSet coinSet = new(Currency.MiddenrealmThaler)
+        CoinSet coinSet = new(Currency.MiddenrealmDucat)
         {
             [0] = 2,
             [1] = 3,
@@ -142,7 +142,7 @@ public class CoinSetTests
         Money result = coinSet.Value;
 
         // Assert
-        Assert.That(result, Is.EqualTo(new Money(expected, Currency.MiddenrealmThaler)));
+        Assert.That(result, Is.EqualTo(new Money(expected, Currency.MiddenrealmDucat)));
     }
 
 
@@ -162,7 +162,7 @@ public class CoinSetTests
         Money result = coinSet.RefValue;
 
         // Assert
-        Assert.That(result, Is.EqualTo(new Money(expected, Currency.MiddenrealmThaler)));
+        Assert.That(result, Is.EqualTo(new Money(expected, Currency.MiddenrealmDucat)));
     }
 
 
@@ -177,7 +177,7 @@ public class CoinSetTests
     public decimal Weight_StateUnderTest_ReturnCorrectWeight(decimal Amount)
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         coinSet.ParseAmount(Amount);
 
         // Act
@@ -194,7 +194,7 @@ public class CoinSetTests
     public void Clear_StateUnderTest_ExpectedBehavior()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         for (int i = 0; i < coinSet.Count; i++) 
         {
             coinSet[i] = 1;
@@ -215,7 +215,7 @@ public class CoinSetTests
     public void Contains_ReturnsCorrectAnswer()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         for (int i = 0; i < coinSet.Count; i++)
             coinSet[i] = i + 1;
 
@@ -233,7 +233,7 @@ public class CoinSetTests
     public void CopyTo_AllCoins_SetsCoinsCorrectly()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         int[] array = new int[] { 1, 2, 0, 4 };
         int arrayIndex = 0;
 
@@ -251,7 +251,7 @@ public class CoinSetTests
     public void Add_NotImplemented()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler);
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
         int coin = 1;
 
         // Act
@@ -263,7 +263,7 @@ public class CoinSetTests
     public void Remove_NotImplemented()
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmThaler)
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat)
         {
             [0] = 1, [1] = 1, [2] = 1, [3] = 1
         };
