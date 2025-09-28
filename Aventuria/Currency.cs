@@ -234,8 +234,8 @@ public class Currency : Enumeration
                 Properties.Resources.MiddenrealmKreutzerAbbr
             ],
             Rate = 20.0m,
-            CoinValue = [1, 1/20, 1/200, 0.1m/200, 0.01m/200],
-            CoinRealValue = [1, 1 / 20, 1 / 200, 0.1m / 200, 0.01m / 200],
+            CoinValue = [1, 1/20m, 1/200m, 0.1m/200m, 0.01m/200m],
+            CoinRealValue = [1.0m, 1.0m / 20m, 1.0m / 200m, 0.1m / 200m, 0.01m / 200m],
             CoinWeight = [0.5m, 0.025m, 0.005m, 0.0025m, 0.00125m], // 500, 25, 5, 2.5, 1.25
             Origin = [Region.Fairfields],
             KeyCoinIndex = 0,

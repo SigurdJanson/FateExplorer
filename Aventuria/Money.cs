@@ -62,7 +62,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
 
 
     /// <summary>
-    /// Method for calculating the optimal denomination (Stï¿½ckelung). This is not a real set of coins
+    /// Method for calculating the optimal denomination (Stückelung). This is not a real set of coins
     /// but an imputed set based on the amount of money and the coins of the currency.
     /// </summary>
     /// <returns>An array of coins. Each position in the array represents the number of coins. 
@@ -137,8 +137,28 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         {
             throw new ArgumentOutOfRangeException(nameof(Coin), "Currency has fewer coins");
         }
-        return JointAmount / Currency.CoinValue[Coin];
+        return Round(JointAmount / Currency.CoinValue[Coin]);
     }
+
+
+    public decimal Round() => Round(JointAmount);
+
+    public decimal Round(decimal value)
+    {
+        //int digits = HackSilverDigits + (int)Math.Ceiling(Math.Log10(1.0m / Currency.CoinValue.Min()));
+        //return Math.Round(value, digits, MidpointRounding.AwayFromZero);
+
+        // determine the number of digits for the coin with the lowest value
+        decimal remainder = Currency.CoinValue.Min();
+        int digits = 0;
+        while (remainder < 1m)
+        {
+            digits++;
+            remainder *= 10;
+        }
+        return Math.Round(value, digits + HackSilverDigits, MidpointRounding.AwayFromZero);
+    }
+
 
 
     #region Math
@@ -525,8 +545,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <remarks>The string returned is not intended for UI display.</remarks>
     public override string ToString()
     {
-        // TODO
-        return string.Concat(JointAmount.ToString(CultureInfo.CurrentUICulture), " ", Currency.ToString());
+        return string.Concat(JointAmount.ToString(CultureInfo.CurrentCulture), " ", Currency.ToString());
     }
 
     /// <summary>
@@ -536,8 +555,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <remarks>The string returned is not intended for UI display.</remarks>
     public string ToString(string format)
     {
-        // TODO
-        return string.Concat(JointAmount.ToString(CultureInfo.CurrentUICulture), " ", Currency.ToString());
+        return string.Concat(string.Format(new MoneyFormatter(), format, this), " ", Currency.ToString());
     }
 
     /// <inheritdoc/>

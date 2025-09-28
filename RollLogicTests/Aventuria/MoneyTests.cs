@@ -112,6 +112,31 @@ public class MoneyTests
     }
 
 
+    [Test]
+    [TestCase(0.006666666, "Ducat", ExpectedResult = 0.0066667)]
+    [TestCase(0.006666666, "Horasdor", ExpectedResult = 0.006666666)] // digits still fit within precision range
+    [TestCase(0.0133333333, "Al'Anfa", ExpectedResult = 0.01333333)]
+    [TestCase(0.0133333333, "Dwarves", ExpectedResult = 0.013333)]
+    public decimal Round_Success(decimal value, string aCurrency)
+    {
+        // Arrange
+        Currency currency = aCurrency switch
+        {
+            "Ducat" => Currency.MiddenrealmDucat,
+            "Horasdor" => Currency.Horasdor,
+            "Dwarves" => Currency.DwarvenThaler,
+            "Al'Anfa" => Currency.AlanfaDoubloon,
+            _ => throw new ArgumentException("Unknown currency", nameof(aCurrency))
+        };
+        Money m = new(value, currency);
+
+        // Act
+        decimal result = m.Round(value);
+
+        // Assert
+        return result;
+    }
+
 
     [Test]
     [TestCase("Ducat")]
