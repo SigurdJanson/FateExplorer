@@ -37,6 +37,13 @@ public abstract class Enumeration : IComparable,
     public override string ToString() => Name;
 
     
+    /// <summary>
+    /// Retrieves all instances of the specified enumeration type.
+    /// </summary>
+    /// <remarks>This method uses reflection to find all public, static, and declared fields of the specified
+    /// enumeration type <typeparamref name="T"/> and returns them as instances of <typeparamref name="T"/>.</remarks>
+    /// <typeparam name="T">The type of the enumeration. Must be a class derived from <see cref="Enumeration"/>.</typeparam>
+    /// <returns>An <see cref="IEnumerable{T}"/> containing all instances of the specified enumeration type.</returns>
     public static IEnumerable<T> GetAll<T>() where T : Enumeration =>
         typeof(T).GetFields(BindingFlags.Public |
                             BindingFlags.Static |
