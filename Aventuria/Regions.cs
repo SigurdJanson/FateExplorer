@@ -23,14 +23,14 @@ public enum Region
     Orclands,
     SvelltRegion,
     Bornland, // Bornland
-    ElvenRegion, // freie Städte des Nordens und elfisches Kernland
+    ElvenRegion= 207, // freie Städte des Nordens und elfisches Kernland
 
     Nostria = 301,
     Andergast, 
     Middenrealm,    // Mittelreich (ohne Perricum und Warunkei)
     Tobrien,        // Warunkei und Schattenlande
     CentralMountainKingdoms, // Bergkönigreiche
-    Albernia,
+    Albernia = 306,
 
     Maraskan = 401, // Insel Maraskan und Blutige See
     Fairfields, // Horasreich 
@@ -43,12 +43,12 @@ public enum Region
     SzintoRegion,   // Shadif, Selem, Echsensümpfe
     Harodia,    // Region between Loch Harodrol and Khom
     MengbillaRegion,
-    Almada,
+    Almada = 412,
 
     AlAnfaRegion = 501, // Imperium von Al'Anfa
     RainMountains,// Die Wälder und Inseln des Südens
     CapeBrabak,
-    FarSouthIslands
+    FarSouthIslands = 504
 }
 
 
