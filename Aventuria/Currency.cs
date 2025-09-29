@@ -12,20 +12,20 @@
 public class Currency : Enumeration
 {
     /// <summary>
-    /// Internally used coin names in English
+    /// Coin name (sorted by <see cref="CoinValue">coin value</see>)
     /// </summary>
     public required string[] CoinNames { get; init; }
     /// <summary>
-    /// Internally used coin abbreviations in English
+    /// Coin abbreviations / symbols / codes (sorted by <see cref="CoinValue">coin value</see>)
     /// </summary>
     public required string[] CoinCodes { get; init; }
 
     /// <summary>
-    /// Localised coin names in the language of the Aventurian people
+    /// Localised coin names in the language of the Aventurian people (sorted by <see cref="CoinValue">coin value</see>)
     /// </summary>
     public required string[] NativeCoinNames { get; init; }
     /// <summary>
-    /// Localised coin abbreviations in the language of the Aventurian people
+    /// Localised coin abbreviations in the language of the Aventurian people (sorted by <see cref="CoinValue">coin value</see>)
     /// </summary>
     public required string[] NativeCoinCodes { get; init; }
 
