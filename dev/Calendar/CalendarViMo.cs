@@ -12,7 +12,7 @@ namespace FateExplorer.Calendar;
 /// Gives the View access to the calandar and the underlying 
 /// </summary>
 /// <remarks>In this early version the CalendarViMo can only be used with reckoning of Bosparan's Fall</remarks>
-public class CalendarViMo
+public partial class CalendarViMo
 {
     private CalendarDB GameData { get; set; } // injected
     private IDateOfPlay DateOfPlay { get; set; } // injected
@@ -35,6 +35,14 @@ public class CalendarViMo
     protected const string ReckoningRegex = @"(?<reck>[vVbB]?\.?\s*[A-Za-z]*)"; // interprets the calendar designation
     protected const string BeforeReckoningRegex = @"(?<reck>[vVbB][\.\s]?\s*[bfBF]{2})$"; // interprets the calendar designation
     public const string DateRegex = @"^\s*" + DayRegex + @"\s*" + MonthRegex + @"\s*" + YearRegex + @"\s*" + ReckoningRegex + @"\s*$";
+
+
+    [GeneratedRegex(DateRegex, RegexOptions.IgnoreCase, "de-DE")]
+    private static partial Regex GeneratedDateRegex();
+
+    [GeneratedRegex(BeforeReckoningRegex)]
+    private static partial Regex GeneratedReckoningRegex();
+
 
 
     public CalendarViMo(CalendarDB gameData, IDateOfPlay dateOfPlay)
@@ -186,7 +194,7 @@ public class CalendarViMo
         const string YearName = "year";
         const string ReckoningName = "reck";
 
-        Regex rgx = new(DateRegex, RegexOptions.IgnoreCase);
+        Regex rgx = GeneratedDateRegex();
         Match match = rgx.Match(dateStr);
         if (!match.Success)
             throw new FormatException($"String {dateStr} could not be interpreted as date");
@@ -198,7 +206,7 @@ public class CalendarViMo
 
         int Day = int.Parse(match.Groups[DayName].Value);
         int Year = int.Parse(match.Groups[YearName].Value);
-        if (Regex.Match(xReckoning, BeforeReckoningRegex).Success) // if calendar is "b.FB"
+        if (GeneratedReckoningRegex().Match(xReckoning).Success) // if calendar is "b.FB"
             Year *= -1;
 
         int Month;
@@ -234,6 +242,7 @@ public class CalendarViMo
     {
         return Calendar.GetDaysInMonth(year, month);
     }
+
 
     #endregion
 }
