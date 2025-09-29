@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Aventuria\Aventuria.csproj" />
     <ProjectReference Include="..\dev\FateExplorer.csproj" />
     <ProjectReference Include="..\LibClientSideStorage\LibClientSideStorage.csproj" />
   </ItemGroup>
