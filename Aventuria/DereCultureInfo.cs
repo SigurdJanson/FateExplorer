@@ -1,3 +1,4 @@
+using Aventuria.Calendar;
 using System.Globalization;
 
 namespace Aventuria;
@@ -135,7 +136,7 @@ public class DereCultureInfo : CultureInfo
     --ReadOnly
     */
 
-    public override Calendar Calendar { get; }
+    public override System.Globalization.Calendar Calendar { get; }
     public override NumberFormatInfo NumberFormat { get; set; }
     //CurrencySymbol
 

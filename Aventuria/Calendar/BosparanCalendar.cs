@@ -1,22 +1,21 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
 
-namespace FateExplorer.Calendar;
+namespace Aventuria.Calendar;
 
 
 /// <summary>
 /// Provides functions to convert an earthen DateTime into a date of an Aventurian calendar.
 /// </summary>
 /// <remarks>
-/// Can  handle dates starting with the 11th era after 977 b. FB.
+/// Can handle dates starting with the 11th era after 977 b. FB.
 /// 11th era is fixed at the moment because we do not know, yet, when the 12th starts.
 /// Some methods may work independent of those restrictions but that is guaranteed if those methods do not
 /// need to use the DateTime struct to work.
 /// </remarks>
 public class BosparanCalendar : System.Globalization.Calendar
 {
-	public override int[] Eras => new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+	public override int[] Eras => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 
     protected const int DaysInYear = 365;

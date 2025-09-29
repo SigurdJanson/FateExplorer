@@ -1,8 +1,8 @@
-﻿using FateExplorer.Calendar;
+﻿using Aventuria.Calendar;
 using NUnit.Framework;
 using System;
 
-namespace UnitTests.Calendar;
+namespace UnitTests.Aventuria;
 
 
 #pragma warning disable IDE0018 // Inlinevariablendeklaration
