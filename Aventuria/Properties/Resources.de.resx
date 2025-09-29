@@ -318,4 +318,844 @@
   <data name="AranianHallahAbbr" xml:space="preserve">
     <value>aĦ</value>
   </data>
+  <data name="Month12GodsName1" xml:space="preserve">
+    <value>Praios</value>
+  </data>
+  <data name="Month12GodsName2" xml:space="preserve">
+    <value>Rondra</value>
+  </data>
+  <data name="Month12GodsName3" xml:space="preserve">
+    <value>Efferd</value>
+  </data>
+  <data name="Month12GodsName4" xml:space="preserve">
+    <value>Travia</value>
+  </data>
+  <data name="Month12GodsName5" xml:space="preserve">
+    <value>Boron</value>
+  </data>
+  <data name="Month12GodsName6" xml:space="preserve">
+    <value>Hesinde</value>
+  </data>
+  <data name="Month12GodsName7" xml:space="preserve">
+    <value>Firun</value>
+  </data>
+  <data name="Month12GodsName8" xml:space="preserve">
+    <value>Tsa</value>
+  </data>
+  <data name="Month12GodsName9" xml:space="preserve">
+    <value>Phex</value>
+  </data>
+  <data name="Month12GodsName10" xml:space="preserve">
+    <value>Peraine</value>
+  </data>
+  <data name="Month12GodsName11" xml:space="preserve">
+    <value>Ingerimm</value>
+  </data>
+  <data name="Month12GodsName12" xml:space="preserve">
+    <value>Rahja</value>
+  </data>
+  <data name="Month12GodsName13" xml:space="preserve">
+    <value>Namenlose Tage</value>
+  </data>
+  <data name="Month12GodsAbbr1" xml:space="preserve">
+    <value>PRA</value>
+  </data>
+  <data name="Month12GodsAbbr2" xml:space="preserve">
+    <value>RON</value>
+  </data>
+  <data name="Month12GodsAbbr3" xml:space="preserve">
+    <value>EFF</value>
+  </data>
+  <data name="Month12GodsAbbr4" xml:space="preserve">
+    <value>TRA</value>
+  </data>
+  <data name="Month12GodsAbbr5" xml:space="preserve">
+    <value>BOR</value>
+  </data>
+  <data name="Month12GodsAbbr6" xml:space="preserve">
+    <value>HES</value>
+  </data>
+  <data name="Month12GodsAbbr7" xml:space="preserve">
+    <value>FIR</value>
+  </data>
+  <data name="Month12GodsAbbr8" xml:space="preserve">
+    <value>TSA</value>
+  </data>
+  <data name="Month12GodsAbbr9" xml:space="preserve">
+    <value>PHE</value>
+  </data>
+  <data name="Month12GodsAbbr10" xml:space="preserve">
+    <value>PER</value>
+  </data>
+  <data name="Month12GodsAbbr11" xml:space="preserve">
+    <value>ING</value>
+  </data>
+  <data name="Month12GodsAbbr12" xml:space="preserve">
+    <value>RAH</value>
+  </data>
+  <data name="Month12GodsAbbr13" xml:space="preserve">
+    <value>NL</value>
+  </data>
+  <data name="MonthAndergastName1" xml:space="preserve">
+    <value>Hitzemond</value>
+  </data>
+  <data name="MonthAndergastName2" xml:space="preserve">
+    <value>Apfelmond</value>
+  </data>
+  <data name="MonthAndergastName3" xml:space="preserve">
+    <value>Erntemond</value>
+  </data>
+  <data name="MonthAndergastName4" xml:space="preserve">
+    <value>Zehntmond</value>
+  </data>
+  <data name="MonthAndergastName5" xml:space="preserve">
+    <value>Nebelmond</value>
+  </data>
+  <data name="MonthAndergastName6" xml:space="preserve">
+    <value>Kurzer Mond</value>
+  </data>
+  <data name="MonthAndergastName7" xml:space="preserve">
+    <value>Eismond</value>
+  </data>
+  <data name="MonthAndergastName8" xml:space="preserve">
+    <value>Hoffnungsmond</value>
+  </data>
+  <data name="MonthAndergastName9" xml:space="preserve">
+    <value>Blütenmond</value>
+  </data>
+  <data name="MonthAndergastName10" xml:space="preserve">
+    <value>Regenmond</value>
+  </data>
+  <data name="MonthAndergastName11" xml:space="preserve">
+    <value>Saatmond</value>
+  </data>
+  <data name="MonthAndergastName12" xml:space="preserve">
+    <value>Hexenmond</value>
+  </data>
+  <data name="MonthAndergastName13" xml:space="preserve">
+    <value>Geistertage</value>
+  </data>
+  <data name="MonthAndergastAbbr1" xml:space="preserve">
+    <value>HIT</value>
+  </data>
+  <data name="MonthAndergastAbbr2" xml:space="preserve">
+    <value>APF</value>
+  </data>
+  <data name="MonthAndergastAbbr3" xml:space="preserve">
+    <value>ERN</value>
+  </data>
+  <data name="MonthAndergastAbbr4" xml:space="preserve">
+    <value>ZEH</value>
+  </data>
+  <data name="MonthAndergastAbbr5" xml:space="preserve">
+    <value>NEB</value>
+  </data>
+  <data name="MonthAndergastAbbr6" xml:space="preserve">
+    <value>KUR</value>
+  </data>
+  <data name="MonthAndergastAbbr7" xml:space="preserve">
+    <value>EIS</value>
+  </data>
+  <data name="MonthAndergastAbbr8" xml:space="preserve">
+    <value>HOF</value>
+  </data>
+  <data name="MonthAndergastAbbr9" xml:space="preserve">
+    <value>BLÜ</value>
+  </data>
+  <data name="MonthAndergastAbbr10" xml:space="preserve">
+    <value>REG</value>
+  </data>
+  <data name="MonthAndergastAbbr11" xml:space="preserve">
+    <value>SAA</value>
+  </data>
+  <data name="MonthAndergastAbbr12" xml:space="preserve">
+    <value>HEX</value>
+  </data>
+  <data name="MonthAndergastAbbr13" xml:space="preserve">
+    <value>GEI</value>
+  </data>
+  <data name="MonthNostriaName1" xml:space="preserve">
+    <value>Hitzemond</value>
+  </data>
+  <data name="MonthNostriaName2" xml:space="preserve">
+    <value>Apfelmond</value>
+  </data>
+  <data name="MonthNostriaName3" xml:space="preserve">
+    <value>Erntemond</value>
+  </data>
+  <data name="MonthNostriaName4" xml:space="preserve">
+    <value>Zehntmond</value>
+  </data>
+  <data name="MonthNostriaName5" xml:space="preserve">
+    <value>Nebelmond</value>
+  </data>
+  <data name="MonthNostriaName6" xml:space="preserve">
+    <value>Kurzer Mond</value>
+  </data>
+  <data name="MonthNostriaName7" xml:space="preserve">
+    <value>Eismond</value>
+  </data>
+  <data name="MonthNostriaName8" xml:space="preserve">
+    <value>Hoffnungsmond</value>
+  </data>
+  <data name="MonthNostriaName9" xml:space="preserve">
+    <value>Blütenmond</value>
+  </data>
+  <data name="MonthNostriaName10" xml:space="preserve">
+    <value>Regenmond</value>
+  </data>
+  <data name="MonthNostriaName11" xml:space="preserve">
+    <value>Saatmond</value>
+  </data>
+  <data name="MonthNostriaName12" xml:space="preserve">
+    <value>Hexenmond</value>
+  </data>
+  <data name="MonthNostriaName13" xml:space="preserve">
+    <value>Sturmtage</value>
+  </data>
+  <data name="MonthNostriaAbbr1" xml:space="preserve">
+    <value>HIT</value>
+  </data>
+  <data name="MonthNostriaAbbr2" xml:space="preserve">
+    <value>APF</value>
+  </data>
+  <data name="MonthNostriaAbbr3" xml:space="preserve">
+    <value>ERN</value>
+  </data>
+  <data name="MonthNostriaAbbr4" xml:space="preserve">
+    <value>ZEH</value>
+  </data>
+  <data name="MonthNostriaAbbr5" xml:space="preserve">
+    <value>NEB</value>
+  </data>
+  <data name="MonthNostriaAbbr6" xml:space="preserve">
+    <value>KUR</value>
+  </data>
+  <data name="MonthNostriaAbbr7" xml:space="preserve">
+    <value>EIS</value>
+  </data>
+  <data name="MonthNostriaAbbr8" xml:space="preserve">
+    <value>HOF</value>
+  </data>
+  <data name="MonthNostriaAbbr9" xml:space="preserve">
+    <value>BLÜ</value>
+  </data>
+  <data name="MonthNostriaAbbr10" xml:space="preserve">
+    <value>REG</value>
+  </data>
+  <data name="MonthNostriaAbbr11" xml:space="preserve">
+    <value>SAA</value>
+  </data>
+  <data name="MonthNostriaAbbr12" xml:space="preserve">
+    <value>HEX</value>
+  </data>
+  <data name="MonthNostriaAbbr13" xml:space="preserve">
+    <value>STU</value>
+  </data>
+  <data name="MonthThorwalName1" xml:space="preserve">
+    <value>Midsonnmond</value>
+  </data>
+  <data name="MonthThorwalName2" xml:space="preserve">
+    <value>Kornmond</value>
+  </data>
+  <data name="MonthThorwalName3" xml:space="preserve">
+    <value>Heimamond</value>
+  </data>
+  <data name="MonthThorwalName4" xml:space="preserve">
+    <value>Schlachtmond</value>
+  </data>
+  <data name="MonthThorwalName5" xml:space="preserve">
+    <value>Sturmmond</value>
+  </data>
+  <data name="MonthThorwalName6" xml:space="preserve">
+    <value>Frostmond</value>
+  </data>
+  <data name="MonthThorwalName7" xml:space="preserve">
+    <value>Grimfrostmond</value>
+  </data>
+  <data name="MonthThorwalName8" xml:space="preserve">
+    <value>Goimond</value>
+  </data>
+  <data name="MonthThorwalName9" xml:space="preserve">
+    <value>Friskenmond</value>
+  </data>
+  <data name="MonthThorwalName10" xml:space="preserve">
+    <value>Eimond</value>
+  </data>
+  <data name="MonthThorwalName11" xml:space="preserve">
+    <value>Faramond</value>
+  </data>
+  <data name="MonthThorwalName12" xml:space="preserve">
+    <value>Vinmond</value>
+  </data>
+  <data name="MonthThorwalName13" xml:space="preserve">
+    <value>Hranngar-Tage</value>
+  </data>
+  <data name="MonthThorwalAbbr1" xml:space="preserve">
+    <value>SON</value>
+  </data>
+  <data name="MonthThorwalAbbr2" xml:space="preserve">
+    <value>KOR</value>
+  </data>
+  <data name="MonthThorwalAbbr3" xml:space="preserve">
+    <value>HEI</value>
+  </data>
+  <data name="MonthThorwalAbbr4" xml:space="preserve">
+    <value>SCH</value>
+  </data>
+  <data name="MonthThorwalAbbr5" xml:space="preserve">
+    <value>STU</value>
+  </data>
+  <data name="MonthThorwalAbbr6" xml:space="preserve">
+    <value>FRO</value>
+  </data>
+  <data name="MonthThorwalAbbr7" xml:space="preserve">
+    <value>GRI</value>
+  </data>
+  <data name="MonthThorwalAbbr8" xml:space="preserve">
+    <value>GOI</value>
+  </data>
+  <data name="MonthThorwalAbbr9" xml:space="preserve">
+    <value>FRI</value>
+  </data>
+  <data name="MonthThorwalAbbr10" xml:space="preserve">
+    <value>EI</value>
+  </data>
+  <data name="MonthThorwalAbbr11" xml:space="preserve">
+    <value>FAR</value>
+  </data>
+  <data name="MonthThorwalAbbr12" xml:space="preserve">
+    <value>VIN</value>
+  </data>
+  <data name="MonthThorwalAbbr13" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="MonthBlacklandsName1" xml:space="preserve">
+    <value>Blakharaz</value>
+  </data>
+  <data name="MonthBlacklandsName2" xml:space="preserve">
+    <value>Belhalhar</value>
+  </data>
+  <data name="MonthBlacklandsName3" xml:space="preserve">
+    <value>Charyptoroth</value>
+  </data>
+  <data name="MonthBlacklandsName4" xml:space="preserve">
+    <value>Lolgramoth</value>
+  </data>
+  <data name="MonthBlacklandsName5" xml:space="preserve">
+    <value>Thargunitoth</value>
+  </data>
+  <data name="MonthBlacklandsName6" xml:space="preserve">
+    <value>Amazeroth</value>
+  </data>
+  <data name="MonthBlacklandsName7" xml:space="preserve">
+    <value>Belshirash</value>
+  </data>
+  <data name="MonthBlacklandsName8" xml:space="preserve">
+    <value>Tsa</value>
+  </data>
+  <data name="MonthBlacklandsName9" xml:space="preserve">
+    <value>Tasfarelel</value>
+  </data>
+  <data name="MonthBlacklandsName10" xml:space="preserve">
+    <value>Belzhorash</value>
+  </data>
+  <data name="MonthBlacklandsName11" xml:space="preserve">
+    <value>Agrimoth</value>
+  </data>
+  <data name="MonthBlacklandsName12" xml:space="preserve">
+    <value>Belkelel</value>
+  </data>
+  <data name="MonthBlacklandsName13" xml:space="preserve">
+    <value>Namenlose Tage</value>
+  </data>
+  <data name="MonthBlacklandsAbbr1" xml:space="preserve">
+    <value>BKZ</value>
+  </data>
+  <data name="MonthBlacklandsAbbr2" xml:space="preserve">
+    <value>BLH</value>
+  </data>
+  <data name="MonthBlacklandsAbbr3" xml:space="preserve">
+    <value>CPT</value>
+  </data>
+  <data name="MonthBlacklandsAbbr4" xml:space="preserve">
+    <value>LGM</value>
+  </data>
+  <data name="MonthBlacklandsAbbr5" xml:space="preserve">
+    <value>TGT</value>
+  </data>
+  <data name="MonthBlacklandsAbbr6" xml:space="preserve">
+    <value>AMZ</value>
+  </data>
+  <data name="MonthBlacklandsAbbr7" xml:space="preserve">
+    <value>BLS</value>
+  </data>
+  <data name="MonthBlacklandsAbbr8" xml:space="preserve">
+    <value>TSA</value>
+  </data>
+  <data name="MonthBlacklandsAbbr9" xml:space="preserve">
+    <value>TSF</value>
+  </data>
+  <data name="MonthBlacklandsAbbr10" xml:space="preserve">
+    <value>BLZ</value>
+  </data>
+  <data name="MonthBlacklandsAbbr11" xml:space="preserve">
+    <value>AGM</value>
+  </data>
+  <data name="MonthBlacklandsAbbr12" xml:space="preserve">
+    <value>BLL</value>
+  </data>
+  <data name="MonthBlacklandsAbbr13" xml:space="preserve">
+    <value>NL</value>
+  </data>
+  <data name="MonthDwarvesName1" xml:space="preserve">
+    <value>Sommermond</value>
+  </data>
+  <data name="MonthDwarvesName2" xml:space="preserve">
+    <value>Hitzemond</value>
+  </data>
+  <data name="MonthDwarvesName3" xml:space="preserve">
+    <value>Regenmond</value>
+  </data>
+  <data name="MonthDwarvesName4" xml:space="preserve">
+    <value>Heimmond</value>
+  </data>
+  <data name="MonthDwarvesName5" xml:space="preserve">
+    <value>Nebelmond</value>
+  </data>
+  <data name="MonthDwarvesName6" xml:space="preserve">
+    <value>Dunkelmond</value>
+  </data>
+  <data name="MonthDwarvesName7" xml:space="preserve">
+    <value>Frostmond</value>
+  </data>
+  <data name="MonthDwarvesName8" xml:space="preserve">
+    <value>Neugeburt</value>
+  </data>
+  <data name="MonthDwarvesName9" xml:space="preserve">
+    <value>Marktmond</value>
+  </data>
+  <data name="MonthDwarvesName10" xml:space="preserve">
+    <value>Saatmond</value>
+  </data>
+  <data name="MonthDwarvesName11" xml:space="preserve">
+    <value>Feuermond</value>
+  </data>
+  <data name="MonthDwarvesName12" xml:space="preserve">
+    <value>Brautmond</value>
+  </data>
+  <data name="MonthDwarvesAbbr1" xml:space="preserve">
+    <value>SOM</value>
+  </data>
+  <data name="MonthDwarvesAbbr2" xml:space="preserve">
+    <value>HIT</value>
+  </data>
+  <data name="MonthDwarvesAbbr3" xml:space="preserve">
+    <value>REG</value>
+  </data>
+  <data name="MonthDwarvesAbbr4" xml:space="preserve">
+    <value>HEI</value>
+  </data>
+  <data name="MonthDwarvesAbbr5" xml:space="preserve">
+    <value>NEB</value>
+  </data>
+  <data name="MonthDwarvesAbbr6" xml:space="preserve">
+    <value>DUN</value>
+  </data>
+  <data name="MonthDwarvesAbbr7" xml:space="preserve">
+    <value>FRO</value>
+  </data>
+  <data name="MonthDwarvesAbbr8" xml:space="preserve">
+    <value>NEU</value>
+  </data>
+  <data name="MonthDwarvesAbbr9" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MonthDwarvesAbbr10" xml:space="preserve">
+    <value>SAA</value>
+  </data>
+  <data name="MonthDwarvesAbbr11" xml:space="preserve">
+    <value>FEU</value>
+  </data>
+  <data name="MonthDwarvesAbbr12" xml:space="preserve">
+    <value>BRA</value>
+  </data>
+  <data name="MonthDwarvesAbbr13" xml:space="preserve">
+    <value>DR</value>
+  </data>
+  <data name="Day12GodsName1" xml:space="preserve">
+    <value>Windstag</value>
+  </data>
+  <data name="Day12GodsName2" xml:space="preserve">
+    <value>Erdstag</value>
+  </data>
+  <data name="Day12GodsName3" xml:space="preserve">
+    <value>Markttag</value>
+  </data>
+  <data name="Day12GodsName4" xml:space="preserve">
+    <value>Praiostag</value>
+  </data>
+  <data name="Day12GodsName5" xml:space="preserve">
+    <value>Rohalstag</value>
+  </data>
+  <data name="Day12GodsName6" xml:space="preserve">
+    <value>Feuertag</value>
+  </data>
+  <data name="Day12GodsName7" xml:space="preserve">
+    <value>Wassertag</value>
+  </data>
+  <data name="Day12GodsAbbr1" xml:space="preserve">
+    <value>Wi</value>
+  </data>
+  <data name="Day12GodsAbbr2" xml:space="preserve">
+    <value>Er</value>
+  </data>
+  <data name="Day12GodsAbbr3" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="Day12GodsAbbr4" xml:space="preserve">
+    <value>Pr</value>
+  </data>
+  <data name="Day12GodsAbbr5" xml:space="preserve">
+    <value>Ro</value>
+  </data>
+  <data name="Day12GodsAbbr6" xml:space="preserve">
+    <value>Fe</value>
+  </data>
+  <data name="Day12GodsAbbr7" xml:space="preserve">
+    <value>Wa</value>
+  </data>
+  <data name="DayAndergastName1" xml:space="preserve">
+    <value>1. Tag</value>
+  </data>
+  <data name="DayAndergastName2" xml:space="preserve">
+    <value>2. Tag</value>
+  </data>
+  <data name="DayAndergastName3" xml:space="preserve">
+    <value>3. Tag</value>
+  </data>
+  <data name="DayAndergastName4" xml:space="preserve">
+    <value>4. Tag</value>
+  </data>
+  <data name="DayAndergastName5" xml:space="preserve">
+    <value>5. Tag</value>
+  </data>
+  <data name="DayAndergastName6" xml:space="preserve">
+    <value>6. Tag</value>
+  </data>
+  <data name="DayAndergastName7" xml:space="preserve">
+    <value>Sumutag</value>
+  </data>
+  <data name="DayAndergastAbbr1" xml:space="preserve">
+    <value>1.</value>
+  </data>
+  <data name="DayAndergastAbbr2" xml:space="preserve">
+    <value>2.</value>
+  </data>
+  <data name="DayAndergastAbbr3" xml:space="preserve">
+    <value>3.</value>
+  </data>
+  <data name="DayAndergastAbbr4" xml:space="preserve">
+    <value>4.</value>
+  </data>
+  <data name="DayAndergastAbbr5" xml:space="preserve">
+    <value>5.</value>
+  </data>
+  <data name="DayAndergastAbbr6" xml:space="preserve">
+    <value>6.</value>
+  </data>
+  <data name="DayAndergastAbbr7" xml:space="preserve">
+    <value>SUM</value>
+  </data>
+  <data name="DayNostriaName1" xml:space="preserve">
+    <value>1. Tag</value>
+  </data>
+  <data name="DayNostriaName2" xml:space="preserve">
+    <value>2. Tag</value>
+  </data>
+  <data name="DayNostriaName3" xml:space="preserve">
+    <value>3. Tag</value>
+  </data>
+  <data name="DayNostriaName4" xml:space="preserve">
+    <value>4. Tag</value>
+  </data>
+  <data name="DayNostriaName5" xml:space="preserve">
+    <value>5. Tag</value>
+  </data>
+  <data name="DayNostriaName6" xml:space="preserve">
+    <value>6. Tag</value>
+  </data>
+  <data name="DayNostriaName7" xml:space="preserve">
+    <value>Efferdtag</value>
+  </data>
+  <data name="DayNostriaAbbr1" xml:space="preserve">
+    <value>1.</value>
+  </data>
+  <data name="DayNostriaAbbr2" xml:space="preserve">
+    <value>2.</value>
+  </data>
+  <data name="DayNostriaAbbr3" xml:space="preserve">
+    <value>3.</value>
+  </data>
+  <data name="DayNostriaAbbr4" xml:space="preserve">
+    <value>4.</value>
+  </data>
+  <data name="DayNostriaAbbr5" xml:space="preserve">
+    <value>5.</value>
+  </data>
+  <data name="DayNostriaAbbr6" xml:space="preserve">
+    <value>6.</value>
+  </data>
+  <data name="DayNostriaAbbr7" xml:space="preserve">
+    <value>EF</value>
+  </data>
+  <data name="DayThorwalName1" xml:space="preserve">
+    <value>Trondesdag</value>
+  </data>
+  <data name="DayThorwalName2" xml:space="preserve">
+    <value>Ifirnsdag</value>
+  </data>
+  <data name="DayThorwalName3" xml:space="preserve">
+    <value>Firunsdag</value>
+  </data>
+  <data name="DayThorwalName4" xml:space="preserve">
+    <value>Swafnirsdag</value>
+  </data>
+  <data name="DayThorwalName5" xml:space="preserve">
+    <value>Traviasdag</value>
+  </data>
+  <data name="DayThorwalName6" xml:space="preserve">
+    <value>Jurgasdag</value>
+  </data>
+  <data name="DayThorwalName7" xml:space="preserve">
+    <value>Hjaldisdag</value>
+  </data>
+  <data name="DayThorwalAbbr1" xml:space="preserve">
+    <value>Tro</value>
+  </data>
+  <data name="DayThorwalAbbr2" xml:space="preserve">
+    <value>If</value>
+  </data>
+  <data name="DayThorwalAbbr3" xml:space="preserve">
+    <value>Fi</value>
+  </data>
+  <data name="DayThorwalAbbr4" xml:space="preserve">
+    <value>Sw</value>
+  </data>
+  <data name="DayThorwalAbbr5" xml:space="preserve">
+    <value>Tra</value>
+  </data>
+  <data name="DayThorwalAbbr6" xml:space="preserve">
+    <value>Ju</value>
+  </data>
+  <data name="DayThorwalAbbr7" xml:space="preserve">
+    <value>Hj</value>
+  </data>
+  <data name="DayBlacklandsName1" xml:space="preserve">
+    <value>Windstag</value>
+  </data>
+  <data name="DayBlacklandsName2" xml:space="preserve">
+    <value>Erdstag</value>
+  </data>
+  <data name="DayBlacklandsName3" xml:space="preserve">
+    <value>Markttag</value>
+  </data>
+  <data name="DayBlacklandsName4" xml:space="preserve">
+    <value>Blakharaztag</value>
+  </data>
+  <data name="DayBlacklandsName5" xml:space="preserve">
+    <value>Boarbaradstag</value>
+  </data>
+  <data name="DayBlacklandsName6" xml:space="preserve">
+    <value>Feuertag</value>
+  </data>
+  <data name="DayBlacklandsName7" xml:space="preserve">
+    <value>Wassertag</value>
+  </data>
+  <data name="DayBlacklandsAbbr1" xml:space="preserve">
+    <value>Wi</value>
+  </data>
+  <data name="DayBlacklandsAbbr2" xml:space="preserve">
+    <value>Er</value>
+  </data>
+  <data name="DayBlacklandsAbbr3" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="DayBlacklandsAbbr4" xml:space="preserve">
+    <value>Bl</value>
+  </data>
+  <data name="DayBlacklandsAbbr5" xml:space="preserve">
+    <value>Bo</value>
+  </data>
+  <data name="DayBlacklandsAbbr6" xml:space="preserve">
+    <value>Fe</value>
+  </data>
+  <data name="DayBlacklandsAbbr7" xml:space="preserve">
+    <value>Wa</value>
+  </data>
+  <data name="DayDwarvesName1" xml:space="preserve">
+    <value>Windstag</value>
+  </data>
+  <data name="DayDwarvesName2" xml:space="preserve">
+    <value>Erdstag</value>
+  </data>
+  <data name="DayDwarvesName3" xml:space="preserve">
+    <value>Markttag</value>
+  </data>
+  <data name="DayDwarvesName4" xml:space="preserve">
+    <value>Praiostag</value>
+  </data>
+  <data name="DayDwarvesName5" xml:space="preserve">
+    <value>Rohalstag</value>
+  </data>
+  <data name="DayDwarvesName6" xml:space="preserve">
+    <value>Feuertag</value>
+  </data>
+  <data name="DayDwarvesName7" xml:space="preserve">
+    <value>Wassertag</value>
+  </data>
+  <data name="DayDwarvesAbbr1" xml:space="preserve">
+    <value>Wi</value>
+  </data>
+  <data name="DayDwarvesAbbr2" xml:space="preserve">
+    <value>Er</value>
+  </data>
+  <data name="DayDwarvesAbbr3" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="DayDwarvesAbbr4" xml:space="preserve">
+    <value>Pr</value>
+  </data>
+  <data name="DayDwarvesAbbr5" xml:space="preserve">
+    <value>Ro</value>
+  </data>
+  <data name="DayDwarvesAbbr6" xml:space="preserve">
+    <value>Fe</value>
+  </data>
+  <data name="DayDwarvesAbbr7" xml:space="preserve">
+    <value>Wa</value>
+  </data>
+  <data name="MonthBornlandName1" xml:space="preserve">
+    <value>Praios</value>
+  </data>
+  <data name="MonthBornlandName2" xml:space="preserve">
+    <value>Rondra</value>
+  </data>
+  <data name="MonthBornlandName3" xml:space="preserve">
+    <value>Efferd</value>
+  </data>
+  <data name="MonthBornlandName4" xml:space="preserve">
+    <value>Travia</value>
+  </data>
+  <data name="MonthBornlandName5" xml:space="preserve">
+    <value>Boron</value>
+  </data>
+  <data name="MonthBornlandName6" xml:space="preserve">
+    <value>Hesinde</value>
+  </data>
+  <data name="MonthBornlandName7" xml:space="preserve">
+    <value>Firun</value>
+  </data>
+  <data name="MonthBornlandName8" xml:space="preserve">
+    <value>Tsa</value>
+  </data>
+  <data name="MonthBornlandName9" xml:space="preserve">
+    <value>Phex</value>
+  </data>
+  <data name="MonthBornlandName10" xml:space="preserve">
+    <value>Peraine</value>
+  </data>
+  <data name="MonthBornlandName11" xml:space="preserve">
+    <value>Ingerimm</value>
+  </data>
+  <data name="MonthBornlandName12" xml:space="preserve">
+    <value>Rahja</value>
+  </data>
+  <data name="MonthBornlandName13" xml:space="preserve">
+    <value>Namenlose Tage</value>
+  </data>
+  <data name="MonthBornlandAbbr1" xml:space="preserve">
+    <value>PRA</value>
+  </data>
+  <data name="MonthBornlandAbbr2" xml:space="preserve">
+    <value>RON</value>
+  </data>
+  <data name="MonthBornlandAbbr3" xml:space="preserve">
+    <value>EFF</value>
+  </data>
+  <data name="MonthBornlandAbbr4" xml:space="preserve">
+    <value>TRA</value>
+  </data>
+  <data name="MonthBornlandAbbr5" xml:space="preserve">
+    <value>BOR</value>
+  </data>
+  <data name="MonthBornlandAbbr6" xml:space="preserve">
+    <value>HES</value>
+  </data>
+  <data name="MonthBornlandAbbr7" xml:space="preserve">
+    <value>FIR</value>
+  </data>
+  <data name="MonthBornlandAbbr8" xml:space="preserve">
+    <value>TSA</value>
+  </data>
+  <data name="MonthBornlandAbbr9" xml:space="preserve">
+    <value>PHE</value>
+  </data>
+  <data name="MonthBornlandAbbr10" xml:space="preserve">
+    <value>PER</value>
+  </data>
+  <data name="MonthBornlandAbbr11" xml:space="preserve">
+    <value>ING</value>
+  </data>
+  <data name="MonthBornlandAbbr12" xml:space="preserve">
+    <value>RAH</value>
+  </data>
+  <data name="MonthBornlandAbbr13" xml:space="preserve">
+    <value>NL</value>
+  </data>
+  <data name="DayBornlandName1" xml:space="preserve">
+    <value>Windstag</value>
+  </data>
+  <data name="DayBornlandName2" xml:space="preserve">
+    <value>Erdstag</value>
+  </data>
+  <data name="DayBornlandName3" xml:space="preserve">
+    <value>Markttag</value>
+  </data>
+  <data name="DayBornlandName4" xml:space="preserve">
+    <value>Rondratag</value>
+  </data>
+  <data name="DayBornlandName5" xml:space="preserve">
+    <value>Schneetag</value>
+  </data>
+  <data name="DayBornlandName6" xml:space="preserve">
+    <value>Feuertag</value>
+  </data>
+  <data name="DayBornlandName7" xml:space="preserve">
+    <value>Zinstag</value>
+  </data>
+  <data name="DayBornlandAbbr1" xml:space="preserve">
+    <value>Wi</value>
+  </data>
+  <data name="DayBornlandAbbr2" xml:space="preserve">
+    <value>Er</value>
+  </data>
+  <data name="DayBornlandAbbr3" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="DayBornlandAbbr4" xml:space="preserve">
+    <value>Pr</value>
+  </data>
+  <data name="DayBornlandAbbr5" xml:space="preserve">
+    <value>Ro</value>
+  </data>
+  <data name="DayBornlandAbbr6" xml:space="preserve">
+    <value>Fe</value>
+  </data>
+  <data name="DayBornlandAbbr7" xml:space="preserve">
+    <value>Wa</value>
+  </data>
+  <data name="MonthDwarvesName13" xml:space="preserve">
+    <value>Drachentage</value>
+  </data>
 </root>

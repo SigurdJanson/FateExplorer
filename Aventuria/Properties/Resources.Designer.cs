@@ -295,6 +295,888 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wi ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr1 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ea ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr2 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ma ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr3 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pr ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr4 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ro ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr5 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fi ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr6 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wa ähnelt.
+        /// </summary>
+        internal static string Day12GodsAbbr7 {
+            get {
+                return ResourceManager.GetString("Day12GodsAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Windday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName1 {
+            get {
+                return ResourceManager.GetString("Day12GodsName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Earthday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName2 {
+            get {
+                return ResourceManager.GetString("Day12GodsName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Marketday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName3 {
+            get {
+                return ResourceManager.GetString("Day12GodsName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Praiosday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName4 {
+            get {
+                return ResourceManager.GetString("Day12GodsName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rohalsday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName5 {
+            get {
+                return ResourceManager.GetString("Day12GodsName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fireday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName6 {
+            get {
+                return ResourceManager.GetString("Day12GodsName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Waterday ähnelt.
+        /// </summary>
+        internal static string Day12GodsName7 {
+            get {
+                return ResourceManager.GetString("Day12GodsName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 1. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr1 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 2. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr2 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 3. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr3 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 4. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr4 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 5. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr5 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 6. ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr6 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SUM ähnelt.
+        /// </summary>
+        internal static string DayAndergastAbbr7 {
+            get {
+                return ResourceManager.GetString("DayAndergastAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 1st day ähnelt.
+        /// </summary>
+        internal static string DayAndergastName1 {
+            get {
+                return ResourceManager.GetString("DayAndergastName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 2nd day ähnelt.
+        /// </summary>
+        internal static string DayAndergastName2 {
+            get {
+                return ResourceManager.GetString("DayAndergastName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 3rd day ähnelt.
+        /// </summary>
+        internal static string DayAndergastName3 {
+            get {
+                return ResourceManager.GetString("DayAndergastName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 4th day ähnelt.
+        /// </summary>
+        internal static string DayAndergastName4 {
+            get {
+                return ResourceManager.GetString("DayAndergastName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 5th day ähnelt.
+        /// </summary>
+        internal static string DayAndergastName5 {
+            get {
+                return ResourceManager.GetString("DayAndergastName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 6th ähnelt.
+        /// </summary>
+        internal static string DayAndergastName6 {
+            get {
+                return ResourceManager.GetString("DayAndergastName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sumuday ähnelt.
+        /// </summary>
+        internal static string DayAndergastName7 {
+            get {
+                return ResourceManager.GetString("DayAndergastName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wi ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr1 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ea ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr2 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ma ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr3 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bl ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr4 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bo ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr5 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fi ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr6 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wa ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsAbbr7 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Windday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName1 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Earthday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName2 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Marketday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName3 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Blakharazday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName4 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Borbaradsday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName5 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fireday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName6 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Waterday ähnelt.
+        /// </summary>
+        internal static string DayBlacklandsName7 {
+            get {
+                return ResourceManager.GetString("DayBlacklandsName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wi ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr1 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ea ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr2 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ma ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr3 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pr ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr4 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ro ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr5 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fi ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr6 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wa ähnelt.
+        /// </summary>
+        internal static string DayBornlandAbbr7 {
+            get {
+                return ResourceManager.GetString("DayBornlandAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Windday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName1 {
+            get {
+                return ResourceManager.GetString("DayBornlandName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Earthday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName2 {
+            get {
+                return ResourceManager.GetString("DayBornlandName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Marketday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName3 {
+            get {
+                return ResourceManager.GetString("DayBornlandName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rondraday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName4 {
+            get {
+                return ResourceManager.GetString("DayBornlandName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Snowday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName5 {
+            get {
+                return ResourceManager.GetString("DayBornlandName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fireday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName6 {
+            get {
+                return ResourceManager.GetString("DayBornlandName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Interestday ähnelt.
+        /// </summary>
+        internal static string DayBornlandName7 {
+            get {
+                return ResourceManager.GetString("DayBornlandName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wi ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr1 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ea ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr2 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ma ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr3 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pr ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr4 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ro ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr5 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fi ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr6 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wa ähnelt.
+        /// </summary>
+        internal static string DayDwarvesAbbr7 {
+            get {
+                return ResourceManager.GetString("DayDwarvesAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Windday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName1 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Earthday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName2 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Marketday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName3 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Praiosday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName4 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rohalsday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName5 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fireday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName6 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Waterday ähnelt.
+        /// </summary>
+        internal static string DayDwarvesName7 {
+            get {
+                return ResourceManager.GetString("DayDwarvesName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 1. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr1 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 2. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr2 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 3. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr3 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 4. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr4 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 5. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr5 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 6. ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr6 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die EF ähnelt.
+        /// </summary>
+        internal static string DayNostriaAbbr7 {
+            get {
+                return ResourceManager.GetString("DayNostriaAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 1st day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName1 {
+            get {
+                return ResourceManager.GetString("DayNostriaName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 2nd day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName2 {
+            get {
+                return ResourceManager.GetString("DayNostriaName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 3rd day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName3 {
+            get {
+                return ResourceManager.GetString("DayNostriaName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 4th day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName4 {
+            get {
+                return ResourceManager.GetString("DayNostriaName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 5th day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName5 {
+            get {
+                return ResourceManager.GetString("DayNostriaName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 6th day ähnelt.
+        /// </summary>
+        internal static string DayNostriaName6 {
+            get {
+                return ResourceManager.GetString("DayNostriaName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Efferdday ähnelt.
+        /// </summary>
+        internal static string DayNostriaName7 {
+            get {
+                return ResourceManager.GetString("DayNostriaName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tro ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr1 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die If ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr2 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fi ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr3 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sw ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr4 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tra ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr5 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ju ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr6 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hj ähnelt.
+        /// </summary>
+        internal static string DayThorwalAbbr7 {
+            get {
+                return ResourceManager.GetString("DayThorwalAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Trondedæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName1 {
+            get {
+                return ResourceManager.GetString("DayThorwalName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ifirnsdæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName2 {
+            get {
+                return ResourceManager.GetString("DayThorwalName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Firunsdæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName3 {
+            get {
+                return ResourceManager.GetString("DayThorwalName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Swafnirdæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName4 {
+            get {
+                return ResourceManager.GetString("DayThorwalName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Traviadæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName5 {
+            get {
+                return ResourceManager.GetString("DayThorwalName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Jurgadæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName6 {
+            get {
+                return ResourceManager.GetString("DayThorwalName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hjaldidæg ähnelt.
+        /// </summary>
+        internal static string DayThorwalName7 {
+            get {
+                return ResourceManager.GetString("DayThorwalName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die ᚷ ähnelt.
         /// </summary>
         internal static string DwarvenArganbroxAbbr {
@@ -489,6 +1371,1644 @@ namespace Aventuria.Properties {
         internal static string MiddenrealmSilverthalerName {
             get {
                 return ResourceManager.GetString("MiddenrealmSilverthalerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PRA ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr1 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PER ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr10 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ING ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr11 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RAH ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr12 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die NL ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr13 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RON ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr2 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die EFF ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr3 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TRA ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr4 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BOR ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr5 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HES ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr6 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FIR ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr7 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSA ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr8 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PHE ähnelt.
+        /// </summary>
+        internal static string Month12GodsAbbr9 {
+            get {
+                return ResourceManager.GetString("Month12GodsAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Praios ähnelt.
+        /// </summary>
+        internal static string Month12GodsName1 {
+            get {
+                return ResourceManager.GetString("Month12GodsName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Peraine ähnelt.
+        /// </summary>
+        internal static string Month12GodsName10 {
+            get {
+                return ResourceManager.GetString("Month12GodsName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ingerimm ähnelt.
+        /// </summary>
+        internal static string Month12GodsName11 {
+            get {
+                return ResourceManager.GetString("Month12GodsName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rahja ähnelt.
+        /// </summary>
+        internal static string Month12GodsName12 {
+            get {
+                return ResourceManager.GetString("Month12GodsName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nameless Days ähnelt.
+        /// </summary>
+        internal static string Month12GodsName13 {
+            get {
+                return ResourceManager.GetString("Month12GodsName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rondra ähnelt.
+        /// </summary>
+        internal static string Month12GodsName2 {
+            get {
+                return ResourceManager.GetString("Month12GodsName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Efferd ähnelt.
+        /// </summary>
+        internal static string Month12GodsName3 {
+            get {
+                return ResourceManager.GetString("Month12GodsName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Travia ähnelt.
+        /// </summary>
+        internal static string Month12GodsName4 {
+            get {
+                return ResourceManager.GetString("Month12GodsName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Boron ähnelt.
+        /// </summary>
+        internal static string Month12GodsName5 {
+            get {
+                return ResourceManager.GetString("Month12GodsName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hesinde ähnelt.
+        /// </summary>
+        internal static string Month12GodsName6 {
+            get {
+                return ResourceManager.GetString("Month12GodsName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Firun ähnelt.
+        /// </summary>
+        internal static string Month12GodsName7 {
+            get {
+                return ResourceManager.GetString("Month12GodsName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tsa ähnelt.
+        /// </summary>
+        internal static string Month12GodsName8 {
+            get {
+                return ResourceManager.GetString("Month12GodsName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Phex ähnelt.
+        /// </summary>
+        internal static string Month12GodsName9 {
+            get {
+                return ResourceManager.GetString("Month12GodsName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HEA ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RAI ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SEE ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die WIT ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die GHO ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die APP ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HAR ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TIT ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FOG ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SHO ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ICE ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HOP ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FLO ähnelt.
+        /// </summary>
+        internal static string MonthAndergastAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthAndergastAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Heatmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName1 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rainmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName10 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Seedmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName11 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Witchmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName12 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ghostdays ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName13 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Applemoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName2 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Harvestmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName3 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tithemoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName4 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fogmoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName5 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Short Moon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName6 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Icemoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName7 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hopemoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName8 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Flowermoon ähnelt.
+        /// </summary>
+        internal static string MonthAndergastName9 {
+            get {
+                return ResourceManager.GetString("MonthAndergastName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BKZ ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLZ ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AGM ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLL ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die NL ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLH ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CPT ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die LGM ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TGT ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die AMZ ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLS ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSA ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSF ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Blakharaz ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName1 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Belzhorash ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName10 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Agrimoth ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName11 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Belkelel ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName12 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nameless Days ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName13 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Belhahar ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName2 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Charyptoroth ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName3 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Lolgramoth ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName4 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Thargunitoth ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName5 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Amazeroth ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName6 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Belshirash ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName7 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tsa ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName8 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tasfarelel ähnelt.
+        /// </summary>
+        internal static string MonthBlacklandsName9 {
+            get {
+                return ResourceManager.GetString("MonthBlacklandsName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PRA ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PER ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ING ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RAH ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die NL ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RON ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die EFF ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TRA ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BOR ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HES ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FIR ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSA ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PHE ähnelt.
+        /// </summary>
+        internal static string MonthBornlandAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthBornlandAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Praios ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName1 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Peraine ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName10 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ingerimm ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName11 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rahja ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName12 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nameless Days ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName13 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rondra ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName2 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Efferd ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName3 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Travia ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName4 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Boron ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName5 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hesinde ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName6 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Firun ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName7 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tsa ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName8 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Phex ähnelt.
+        /// </summary>
+        internal static string MonthBornlandName9 {
+            get {
+                return ResourceManager.GetString("MonthBornlandName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SUM ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SOW ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FIR ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BRI ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die DR ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ARD ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RAI ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die WIN ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die MIS ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die DAR ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FRO ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die REB ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die MAR ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Summermoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName1 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sowingmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName10 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Firemoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName11 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bridemoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName12 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dragon Days ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName13 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ardormoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName2 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rainmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName3 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Winemoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName4 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Mistmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName5 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Darkmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName6 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Frostmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName7 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rebirth ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName8 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Marketmoon ähnelt.
+        /// </summary>
+        internal static string MonthDwarvesName9 {
+            get {
+                return ResourceManager.GetString("MonthDwarvesName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HEA ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RAI ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SEE ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die WIT ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die STO ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die APP ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HAR ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TIT ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FOG ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SHO ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ICE ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HOP ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FLO ähnelt.
+        /// </summary>
+        internal static string MonthNostriaAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthNostriaAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Heatmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName1 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rainmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName10 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Seedmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName11 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Witchmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName12 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Stormdays ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName13 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Applemoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName2 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Harvestmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName3 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tithemoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName4 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fogmoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName5 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Short Moon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName6 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Icemoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName7 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hopemoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName8 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Flowermoon ähnelt.
+        /// </summary>
+        internal static string MonthNostriaName9 {
+            get {
+                return ResourceManager.GetString("MonthNostriaName9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die SUN ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr1 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die EGG ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr10 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FAR ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr11 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die VIN ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr12 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HR ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr13 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die COR ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr2 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die HEI ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr3 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BAT ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr4 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die STO ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr5 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FRO ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr6 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die GRI ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr7 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die GOI ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr8 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die FRI ähnelt.
+        /// </summary>
+        internal static string MonthThorwalAbbr9 {
+            get {
+                return ResourceManager.GetString("MonthThorwalAbbr9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Midsunmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName1 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eggmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName10 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Faramoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName11 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vinmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName12 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hranngars&apos; Days ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName13 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cornmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName2 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Heimamoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName3 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Battlemoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName4 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Stormmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName5 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Frostmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName6 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Grimmfrostmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName7 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Goimoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName8 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Friskenmoon ähnelt.
+        /// </summary>
+        internal static string MonthThorwalName9 {
+            get {
+                return ResourceManager.GetString("MonthThorwalName9", resourceCulture);
             }
         }
         
