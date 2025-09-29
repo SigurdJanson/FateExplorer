@@ -294,4 +294,28 @@
   <data name="DwarvenPennyAbbr" xml:space="preserve">
     <value>ZG</value>
   </data>
+  <data name="AranianShekelName" xml:space="preserve">
+    <value>Schekel</value>
+  </data>
+  <data name="AranianHallahName" xml:space="preserve">
+    <value>Hallah</value>
+  </data>
+  <data name="AranianKurushName" xml:space="preserve">
+    <value>Kurush</value>
+  </data>
+  <data name="AranianDinarName" xml:space="preserve">
+    <value>Dinar</value>
+  </data>
+  <data name="AranianShekelAbbr" xml:space="preserve">
+    <value>aS</value>
+  </data>
+  <data name="AranianKurushAbbr" xml:space="preserve">
+    <value>aK</value>
+  </data>
+  <data name="AranianDinarAbbr" xml:space="preserve">
+    <value>aĐ</value>
+  </data>
+  <data name="AranianHallahAbbr" xml:space="preserve">
+    <value>aĦ</value>
+  </data>
 </root>

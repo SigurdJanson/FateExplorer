@@ -326,6 +326,44 @@ public class Currency : Enumeration
         };
 
 
+    public static Currency AranianDinar =>
+    new(nameof(AranianDinar), 9)
+    {
+        CoinNames = [
+            Properties.Resources.AranianDinarName,
+            Properties.Resources.AranianShekelName,
+            Properties.Resources.AranianHallahName,
+            Properties.Resources.AranianKurushName
+        ],
+        CoinCodes = [
+            Properties.Resources.AranianDinarAbbr,
+            Properties.Resources.AranianShekelAbbr,
+            Properties.Resources.AranianHallahAbbr,
+            Properties.Resources.AranianKurushAbbr
+        ],
+        Rate = 1.0m,
+        CoinValue = [1, 0.1m, 0.01m, 0.001m],
+        CoinRealValue = [1, 0.1m, 0.01m, 0.001m],
+        CoinWeight = [0.025m, 0.005m, 0.0025m, 0.00125m],
+        Origin = [Region.Arania, Region.Tulamidya, Region.ThalusaRegion],
+        KeyCoinIndex = 0,
+
+        // set according to UI language
+        NativeCoinNames =
+        [
+            Properties.Resources.AranianDinarName,
+            Properties.Resources.AranianShekelName,
+            Properties.Resources.AranianHallahName,
+            Properties.Resources.AranianKurushName
+        ],
+        NativeCoinCodes =
+        [
+            Properties.Resources.AranianDinarAbbr,
+            Properties.Resources.AranianShekelAbbr,
+            Properties.Resources.AranianHallahAbbr,
+            Properties.Resources.AranianKurushAbbr
+        ]
+    };
     /*
      * TEMPLATE
      */

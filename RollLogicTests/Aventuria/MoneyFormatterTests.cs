@@ -264,6 +264,7 @@ public class MoneyFormatterTests
     [TestCase("L", "Dwarven", ExpectedResult = "0 Thaler 0 Shilling 0 Penny")]
     [TestCase("S", "Nostrian", ExpectedResult = "0 Cr")]
     [TestCase("L", "Nostrian", ExpectedResult = "0 Crown")]
+    [TestCase("S", "Dinar", ExpectedResult = "0 aĐ 0 aS 0 aĦ 0 aK")]
     public string Format_CoinSets_CultureSpecificFormat(string FormatSpec, string aCurrency)
     {
         // Arrange
@@ -274,6 +275,7 @@ public class MoneyFormatterTests
             "Ducat" => Currency.MiddenrealmDucat,
             "Dwarven" => Currency.DwarvenThaler,
             "Nostrian" => Currency.NostrianCrown,
+            "Dinar" => Currency.AranianDinar,
             _ => throw new ArgumentException("Unknown currency in unit test")
         };
         // Act

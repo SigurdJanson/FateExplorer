@@ -151,6 +151,78 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die aĐ ähnelt.
+        /// </summary>
+        internal static string AranianDinarAbbr {
+            get {
+                return ResourceManager.GetString("AranianDinarAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dinar ähnelt.
+        /// </summary>
+        internal static string AranianDinarName {
+            get {
+                return ResourceManager.GetString("AranianDinarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die aĦ ähnelt.
+        /// </summary>
+        internal static string AranianHallahAbbr {
+            get {
+                return ResourceManager.GetString("AranianHallahAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hallah ähnelt.
+        /// </summary>
+        internal static string AranianHallahName {
+            get {
+                return ResourceManager.GetString("AranianHallahName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die aK ähnelt.
+        /// </summary>
+        internal static string AranianKurushAbbr {
+            get {
+                return ResourceManager.GetString("AranianKurushAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kurush ähnelt.
+        /// </summary>
+        internal static string AranianKurushName {
+            get {
+                return ResourceManager.GetString("AranianKurushName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die aS ähnelt.
+        /// </summary>
+        internal static string AranianShekelAbbr {
+            get {
+                return ResourceManager.GetString("AranianShekelAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Shekel ähnelt.
+        /// </summary>
+        internal static string AranianShekelName {
+            get {
+                return ResourceManager.GetString("AranianShekelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die bL ähnelt.
         /// </summary>
         internal static string BornlandLumpAbbr {
