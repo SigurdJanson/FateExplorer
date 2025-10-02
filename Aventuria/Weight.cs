@@ -90,7 +90,7 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
 
 
 
-    public override bool Equals(object? obj) => obj is not null && Equals((Weight)obj); // IEquatable
+    public override bool Equals(object? obj) => obj is not null && obj is Weight && Equals((Weight)obj); // IEquatable
     public bool Equals(Weight other) => Value == other.Value; // IEquatable
     public override int GetHashCode() => Value.GetHashCode(); // IEquatable
     #endregion
