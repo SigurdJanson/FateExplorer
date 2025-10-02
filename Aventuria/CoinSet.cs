@@ -11,14 +11,14 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     public required Currency Currency { get; init; }
 
     /// <summary>
-    /// Returns the coins as monetary value it the currency of the CoinSet.
+    /// Returns the coins as monetary value of the currency of the CoinSet.
     /// </summary>
     public Money Value => new(JoinAmount(), Currency);
 
     /// <summary>
     /// Returns the coins as monetary value in the reference currency.
     /// </summary>
-    public Money RefValue => new(JoinAmount(), Currency.ReferenceCurrency);
+    public Money RefValue => new Money(JoinAmount(), Currency).ToCurrency(Currency.ReferenceCurrency); // * Currency.Rate, Currency.ReferenceCurrency);
 
 
     public int Count => Coin.Length; // ICollection
@@ -73,30 +73,6 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
         set => Coin[index] = value;
     }
 
-    /// <summary>
-    /// Get or set the number of coins for a specific coin identified by it's name.
-    /// </summary>
-    /// <param name="coin"></param>
-    /// <returns></returns>
-    public int this[string coin]
-    {
-        get => Coin[FindCoinIndex(coin)];
-        set => Coin[FindCoinIndex(coin)] = value;
-    }
-
-    /// <summary>
-    /// Searches for the coin with the given name and and returns the zero-based 
-    /// index of the occurrence within the range.
-    /// </summary>
-    /// <param name="coin">The english name of the coin as specified </param>
-    /// <returns>The zero-based index of the first occurrence of an element that 
-    /// matches the name, if found; otherwise, -1.</returns>
-    public int FindCoinIndex(string coin)
-    {
-        for (int i = 0; i < Currency.CoinNames.Length; i++)
-            if (Currency.CoinNames[i] == coin) return i;
-        return -1;
-    }
 
     /// <summary>
     /// Takes an amount, converts it into a set of coins.
@@ -133,17 +109,17 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
 
 
     /// <summary>
-    /// Compute the total weight of the coins.
+    /// Compute the total <see cref="Aventuria.Weight">weight</see> of the coins in the default unit.
     /// </summary>
     /// <returns>Weight in Stone</returns>
-    public decimal Weight()
+    public Weight Weight()
     {
         decimal result = 0;
         for(var c = 0; c < Coin.Length; c++)
         {
-            result += Coin[c] * Currency.CoinWeight[c];
+            result += (decimal)Coin[c] * Currency.CoinWeight[c];
         }
-        return result;
+        return new Weight(result);
     }
 
 
@@ -205,5 +181,24 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
 
     System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
+    #endregion
+
+
+    #region Math
+    /// <summary>
+    /// Add another set of coins of the same currency.
+    /// </summary>
+    /// <param name="coins">A coin set to add</param>
+    /// <exception cref="ArgumentException">When the currencies do not match.</exception>
+    public void Add(CoinSet coins)
+    {
+        if (coins.Currency != Currency)
+            throw new ArgumentException("Trying to add a currency that does not match this coin set");
+        for (int i = 0; i < Coin.Length; i++)
+        {
+            if (coins[i] < 0) throw new ArgumentOutOfRangeException($"{nameof(coins)}[{i}] was negative");
+            Coin[i] += coins[i];
+        }
+    }
     #endregion
 }

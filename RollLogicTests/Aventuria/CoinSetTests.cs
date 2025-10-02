@@ -1,6 +1,8 @@
 ﻿using Aventuria;
+using FateExplorer.Shop;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace UnitTests.Aventuria;
 
@@ -14,59 +16,136 @@ public class CoinSetTests
     }
 
 
+    protected Currency String2Currency(string currencyStr)
+    {
+        return currencyStr switch
+        {
+            "MiddenrealmDucat" => Currency.MiddenrealmDucat,
+            "Dwarventhaler" => Currency.DwarvenThaler,
+            "NostrianCrown" => Currency.NostrianCrown,
+            _ => throw new System.Exception()
+        };
+    }
+
+
 
     [Test, Description("Newly created set contains given number of coin mintages")]
-    public void Constructor_NoCoins_CountCorrectMintages()
+    [TestCase("MiddenrealmDucat", 4)]
+    [TestCase("Dwarventhaler", 3)]
+    [TestCase("NostrianCrown", 1)]
+    public void Constructor_NoCoins_CountCorrectMintages(string currency, int coinsInCurrency)
     {
+        Currency c = String2Currency(currency);
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
+        var coinSet = new CoinSet(c);
         // Assert
-        Assert.That(4, Is.EqualTo(coinSet.Count));
+        Assert.That(coinsInCurrency, Is.EqualTo(coinSet.Count));
     }
 
 
 
     [Test, Description("Newly created set contains no coins")]
-    public void Constructor_NoCoins_CountZeroCoins()
+    [TestCase("MiddenrealmDucat")]
+    [TestCase("Dwarventhaler")]
+    [TestCase("NostrianCrown")]
+    public void Constructor_NoCoins_CountZeroCoins(string currency)
     {
+        Currency c = String2Currency(currency);
+
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
+        var coinSet = new CoinSet(c);
         // Assert
         Assert.That(0, Is.EqualTo(coinSet.CoinCount));
     }
 
 
 
-    [Test]
-    [TestCase("Ducat", ExpectedResult = 0)] // highest value must be first
-    [TestCase("Kreutzer", ExpectedResult = 3)] // Lowest value must be last
-    public int FindCoinIndex_ExistingName_ReturnCorrectIndex(string coinName)
+    [Test, Description("Newly created set contains the given coins")]
+    [TestCase("MiddenrealmDucat", new int[] {1, 2, 3, 4})]
+    [TestCase("Dwarventhaler", new int[] {91, 92, 93})]
+    public void Constructor_Coins_(string aCurrency, params int[] coins)
     {
+        Currency currency = String2Currency(aCurrency);
+        int sum = 0; foreach(int c in coins) sum += c;
+
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
-
-        // Act
-        var result = coinSet.FindCoinIndex(coinName);
-
+        var coinSet = new CoinSet(currency, coins); //CoinSet(Currency currency, params int[] coins)
         // Assert
-        return result;
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(coinSet.Count, Is.EqualTo(coins.Length));
+            Assert.That(coinSet.CoinCount, Is.EqualTo(sum));
+            for (int i = 0; i < coins.Length; i++)
+                Assert.That(coinSet[i], Is.EqualTo(coins[i]));
+        }
     }
 
-    [Test]
-    [TestCase("Dukat", ExpectedResult = -1)] // German writing
-    [TestCase("", ExpectedResult = -1)] // empty string
-    [TestCase(null, ExpectedResult = -1)] // null string
-    public int FindCoinIndex_InvalidName_ReturnMinus1(string coinName)
+
+
+    [TestCase("0", new int[] { 5, 6, 942135153 }, "2")]
+    public void DummyTestArray(string a, int[] values, string b)
     {
-        // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
-
-        // Act
-        var result = coinSet.FindCoinIndex(coinName);
-
-        // Assert
-        return result;
+        Assert.That(values != null);
+        Assert.That(a == "0");
+        Assert.That(values[0] == 5);
+        Assert.That(values[1] == 6);
+        Assert.That(values[2] == 942135153);
+        Assert.That(b == "2");
     }
+
+    [TestCase("0", new int[] { 5, 6, 942135153 })]
+    public void DummyTestParamsNArray(string a, params int[] values)
+    {
+        Assert.That(values != null);
+        Assert.That(a == "0");
+        Assert.That(values[0] == 5);
+        Assert.That(values[1] == 6);
+        Assert.That(values[2] == 942135153);
+    }
+
+    [TestCase("0", 5, 6, 942135153)]
+    [TestCase("0", 5, 6, 942135153, 99)]
+    public void DummyTestJustParams(string a, params int[] values)
+    {
+        Assert.That(values != null);
+        Assert.That(a == "0");
+        Assert.That(values[0] == 5);
+        Assert.That(values[1] == 6);
+        Assert.That(values[2] == 942135153);
+    }
+
+
+    // Finding coins by name does not seem necessary at the moment
+    //[Test]
+    //[TestCase("Ducat", ExpectedResult = 0)] // highest value must be first
+    //[TestCase("Kreutzer", ExpectedResult = 3)] // Lowest value must be last
+    //public int FindCoinIndex_ExistingName_ReturnCorrectIndex(string coinName)
+    //{
+    //    // Arrange
+    //    var coinSet = new CoinSet(Currency.MiddenrealmDucat);
+
+    //    // Act
+    //    var result = coinSet.FindCoinIndex(coinName);
+
+    //    // Assert
+    //    return result;
+    //}
+
+    //[Test]
+    //[TestCase("Dukat", ExpectedResult = -1)] // German writing
+    //[TestCase("", ExpectedResult = -1)] // empty string
+    //[TestCase(null, ExpectedResult = -1)] // null string
+    //public int FindCoinIndex_InvalidName_ReturnMinus1(string coinName)
+    //{
+    //    // Arrange
+    //    var coinSet = new CoinSet(Currency.MiddenrealmDucat);
+
+    //    // Act
+    //    var result = coinSet.FindCoinIndex(coinName);
+
+    //    // Assert
+    //    return result;
+    //}
 
 
 
@@ -77,7 +156,7 @@ public class CoinSetTests
         decimal value = 0m;
         Currency currency = Currency.MiddenrealmDucat;
         int ExpectedLength = 4;
-        int[] Expected = new int[] { 0, 0, 0, 0 };
+        int[] Expected = [0, 0, 0, 0];
 
         // Act
         var result = CoinSet.ParseAmount(value, currency);
@@ -92,10 +171,10 @@ public class CoinSetTests
     public void StaticParseAmount_NotZero_ReturnCorrectValues()
     {
         // Arrange
-        decimal value = 12.32m;
+        decimal value = 1.232m;
         Currency currency = Currency.MiddenrealmDucat;
         int ExpectedLength = 4;
-        int[] Expected = new int[] { 1, 2, 3, 2 };
+        int[] Expected = [1, 2, 3, 2];
 
         // Act
         var result = CoinSet.ParseAmount(value, currency);
@@ -117,10 +196,10 @@ public class CoinSetTests
         coinSet.ParseAmount(value);
 
         // Assert
-        Assert.That(coinSet[0], Is.EqualTo(1));
+        Assert.That(coinSet[0], Is.EqualTo(10));
         Assert.That(coinSet[1], Is.EqualTo(0));
-        Assert.That(coinSet[2], Is.EqualTo(0));
-        Assert.That(coinSet[3], Is.EqualTo(1));
+        Assert.That(coinSet[2], Is.EqualTo(1));
+        Assert.That(coinSet[3], Is.EqualTo(0));
     }
 
 
@@ -136,7 +215,7 @@ public class CoinSetTests
             [2] = 4,
             [3] = 5
         };
-        decimal expected = 23.45m;
+        decimal expected = 2.345m;
 
         // Act
         Money result = coinSet.Value;
@@ -156,13 +235,14 @@ public class CoinSetTests
             [1] = 3,
             [2] = 4
         };
-        decimal expected = 30.8m; // 2 * 12  +  3 * 2  +   4 * 0.2
+        decimal expected = 1.2m * (2m + 3m / 6m + 4m * 2m / 120m)  / 1.000000000000000000000000000000000m; // 1.2 * (2 +  3/6  +  4 * 2/120) = 3.08m
 
         // Act
         Money result = coinSet.RefValue;
 
         // Assert
-        Assert.That(result, Is.EqualTo(new Money(expected, Currency.MiddenrealmDucat)));
+        Assert.That(result.ToDecimal(), Is.EqualTo(expected));
+        //Assert.That(result, Is.EqualTo(new Money(expected, Currency.DwarvenThaler)));
     }
 
 
@@ -170,10 +250,10 @@ public class CoinSetTests
 
 
     [Test]
-    [TestCase(0, ExpectedResult = 0)]
-    [TestCase(1, ExpectedResult = 0.005)]
-    [TestCase(5, ExpectedResult = 0.005 * 5)]
-    [TestCase(15.5, ExpectedResult = 0.025 + 5 * 0.005 + 5 * 0.0025)]
+    [TestCase(0.0, ExpectedResult = 0.0)]
+    [TestCase(1.0, ExpectedResult = 0.025)]
+    [TestCase(5.0, ExpectedResult = 0.025 * 5)]
+    [TestCase(15.531, ExpectedResult = 15 * 0.025 + 5 * 0.005 + 3 * 0.0025 + 1 * 0.00125)]
     public decimal Weight_StateUnderTest_ReturnCorrectWeight(decimal Amount)
     {
         // Arrange
@@ -184,7 +264,7 @@ public class CoinSetTests
         var result = coinSet.Weight();
 
         // Assert
-        return result;
+        return result.ToStone();
     }
 
 
@@ -206,7 +286,7 @@ public class CoinSetTests
 
         // Assert
         Assert.That(coinSet.CoinCount, Is.EqualTo(0));
-        Assert.That(coinSet.Weight, Is.EqualTo(0));
+        Assert.That(coinSet.Weight, Is.EqualTo(Weight.Zero));
     }
 
 
@@ -234,7 +314,7 @@ public class CoinSetTests
     {
         // Arrange
         var coinSet = new CoinSet(Currency.MiddenrealmDucat);
-        int[] array = new int[] { 1, 2, 0, 4 };
+        int[] array = [1, 2, 0, 4];
         int arrayIndex = 0;
 
         // Act
@@ -248,16 +328,46 @@ public class CoinSetTests
 
 
     [Test]
-    public void Add_NotImplemented()
+    [TestCase("MiddenrealmDucat", new int[] { 1, 2, 3, 4 }, new int[] { 0, 0, 0, 0 })] // all zeroes
+    [TestCase("MiddenrealmDucat", new int[] { 1, 2, 3, 4 }, new int[] { 4, 3, 2, 1 })]
+    //[TestCase("MiddenrealmDucat", new int[] { 1, 2, 3, 4 }, new int[] { 4, 3, 2, 1 })]
+    [TestCase("Dwarventhaler", new int[] { 91, 92, 93 }, new int[] { 1, 0, 3 })]
+    public void Add_GetCorrectSums(string aCurrency, int[] coins, int[] moreCoins)
     {
         // Arrange
-        var coinSet = new CoinSet(Currency.MiddenrealmDucat);
-        int coin = 1;
+        Currency currency = String2Currency(aCurrency);
+        int sum = 0; foreach (int c in coins) sum += c;
+        var coinSet = new CoinSet(currency, coins);
+        var coinSetToAdd = new CoinSet(currency, moreCoins);
+
+        // Act
+        coinSet.Add(coinSetToAdd);
+
+        // Assert
+        using (Assert.EnterMultipleScope())
+        {
+            for (int i = 0; i < coins.Length; i++)
+                Assert.That(coinSet[i], Is.EqualTo(coins[i] + moreCoins[i]));
+        }
+    }
+
+
+    [Test]
+    public void Add_WrongCurrency()
+    {
+        // Arrange
+
+        var coinSet = new CoinSet(Currency.MiddenrealmDucat, [1, 2, 3, 4]);
+        var coinSetToAdd = new CoinSet(Currency.AlanfaDoubloon, [3, 4, 5, 6]);
 
         // Act
         // Assert
-        Assert.That(() => coinSet.Add(coin), Throws.Exception);
+        Assert.That(() => coinSet.Add(coinSetToAdd), Throws.ArgumentException);
+
     }
+
+
+
 
     [Test]
     public void Remove_NotImplemented()
