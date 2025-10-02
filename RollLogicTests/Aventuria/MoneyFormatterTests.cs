@@ -181,11 +181,11 @@ public class MoneyFormatterTests
     [TestCase("C", "Ducat", 0.0063, ExpectedResult = "0,0063 𝔇", Description = "High denomiation")]
     [TestCase("c", "Ducat", 0.0063, ExpectedResult = "6,3 𝔨", Description = "Low denomination")]
     [TestCase("K", "Dwarven", 0.87666666, ExpectedResult = "0,87666666 ZT", Description = "")]
-    [TestCase("C", "Dwarven", 0.87666666, ExpectedResult = "0,87666666 ZT", Description = "")]
-    [TestCase("c", "Dwarven", 0.87666666, ExpectedResult = "52,599999599999999999999999895 ZG", Description = "")]
+    [TestCase("C", "Dwarven", 0.87666666, ExpectedResult = "0,876667 ZT", Description = "")]
+    [TestCase("c", "Dwarven", 0.87666666, ExpectedResult = "52,6 ZG", Description = "")]
     [TestCase("K", "Nostrian", 2.7493333, ExpectedResult = "2,7493333 Kr", Description = "")]
-    [TestCase("C", "Nostrian", 2.7493333, ExpectedResult = "2,7493333 Kr", Description = "")]
-    [TestCase("c", "Nostrian", 2.7493333, ExpectedResult = "2,7493333 Kr", Description = "")]
+    [TestCase("C", "Nostrian", 2.7493333, ExpectedResult = "2,7493 Kr", Description = "")]
+    [TestCase("c", "Nostrian", 2.7493333, ExpectedResult = "2,7493 Kr", Description = "")]
     public string Format_Coins_DefaultFormat(string FormatSpec, string aCurrency, decimal Amount)
     {
         // Arrange

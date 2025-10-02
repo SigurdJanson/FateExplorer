@@ -55,8 +55,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     [SetsRequiredMembers]
     public Money(decimal amount, Currency currency)
     {
-        JointAmount = amount;
         Currency = currency;
+        JointAmount = amount;
     }
 
 
@@ -116,8 +116,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <returns>New monetary as decimal in new currency</returns>
     public decimal ToCurrencyValue(Currency currency)
     {
-        decimal Value = JointAmount * Currency.Rate;
-        return Value / currency.Rate;
+        decimal Value = JointAmount * Currency.Rate; // convert to reference currency
+        return Round(Value / currency.Rate); // convert to designated currency
     }
 
 
@@ -145,9 +145,6 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
 
     public decimal Round(decimal value)
     {
-        //int digits = HackSilverDigits + (int)Math.Ceiling(Math.Log10(1.0m / Currency.CoinValue.Min()));
-        //return Math.Round(value, digits, MidpointRounding.AwayFromZero);
-
         // determine the number of digits for the coin with the lowest value
         decimal remainder = Currency.CoinValue.Min();
         int digits = 0;
@@ -156,7 +153,8 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
             digits++;
             remainder *= 10;
         }
-        return Math.Round(value, digits + HackSilverDigits, MidpointRounding.AwayFromZero);
+        // Round and normalize (see https://stackoverflow.com/a/7983330/13241545)
+        return Math.Round(value, digits + HackSilverDigits, MidpointRounding.AwayFromZero) / 1.000000000000000000000000000000000m;
     }
 
 
@@ -467,10 +465,19 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         new(Math.Abs(value.JointAmount) * (sign >= 0 ? 1 : -1), value.Currency); 
     public static int Sign(Money value) => decimal.Sign(value.JointAmount);
 
+    /// <summary>
+    /// Clamps a value to an inclusive minimum and maximum value.
+    /// </summary>
+    /// <param name="value">The value to clamp.</param>
+    /// <param name="min">The inclusive minimum to which <c>value</c> should clamp.</param>
+    /// <param name="max">The inclusive maximum to which <c>value</c> should clamp.</param>
+    /// <returns>The result of clamping <c>value</c> to the inclusive range of <c>min</c> and <c>max</c>.</returns>
     public static Money Clamp(Money value, Money min, Money max) => 
         new(decimal.Clamp(value.JointAmount, min.ToCurrencyValue(value.Currency), max.ToCurrencyValue(value.Currency)), value.Currency);
 
-    #endregion
+    #endregion 
+
+
 
 
     /// <inheritdoc/>

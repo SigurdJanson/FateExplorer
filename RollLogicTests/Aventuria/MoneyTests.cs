@@ -92,6 +92,8 @@ public class MoneyTests
     [TestCase(5.12, "Dwarves", 2, ExpectedResult = 5.120 * 60)]
     [TestCase(1.0, "Al'Anfa", 1, ExpectedResult = 1/0.05)]
     [TestCase(1.0, "Al'Anfa", 3, ExpectedResult = 1/0.0005)]
+    [TestCase(5.12, "BornlandLump", -1, ExpectedResult = 5.12)]
+    [TestCase(5.12, "BornlandLump", 1, ExpectedResult = 51.2)]
     public decimal ToDecimal(decimal Amount, string aCurrency, int Coin)
     {
         // Arrange
@@ -100,6 +102,7 @@ public class MoneyTests
             "Ducat" => Currency.MiddenrealmDucat,
             "Dwarves" => Currency.DwarvenThaler,
             "Al'Anfa" => Currency.AlanfaDoubloon,
+            "BornlandLump" => Currency.BornlandLump,
             _ => throw new ArgumentException("Unknown currency", nameof(aCurrency))
         };
         Money m = new(Amount, currency);
@@ -530,10 +533,10 @@ public class MoneyTests
         Assert.That(result, Is.True);
     }
     [Test]
-    [TestCase("1.000000000000000001")]
-    [TestCase("-1.0000000000000000001")]
-    [TestCase("0.99999999999999999999")]
-    [TestCase("-0.99999999999999999999")]
+    [TestCase("1.0000001")]
+    [TestCase("-1.0000001")]
+    [TestCase("0.9999999")]
+    [TestCase("-0.9999999")]
     public void IsInteger_NoInteger_False(decimal m)
     {
         // Arrange
@@ -591,6 +594,7 @@ public class MoneyTests
         // Assert
         Assert.That(result, Is.True);
     }
+
     [Test]
     [TestCase("1.0")]
     [TestCase("-1.0")]
@@ -605,10 +609,12 @@ public class MoneyTests
         // Assert
         Assert.That(result, Is.False);
     }
-    [TestCase("0.00000000000001")]
-    [TestCase("-0.00000000000001")]
-    [TestCase("2.00000000000001")]
-    [TestCase("-2.00000000000001")]
+
+    [Test] // Ducats have 7 significant digits, 4 HackSilverDigits and 3 for the Kreutzer
+    [TestCase("0.0000001")]
+    [TestCase("-0.0000001")]
+    [TestCase("2.0000001")]
+    [TestCase("-2.0000001")]
     public void IsEvenInteger_NoIntegerEven_True(decimal m)
     {
         // Arrange
@@ -746,11 +752,11 @@ public class MoneyTests
 
     }
 
-    [Test]
-    [TestCase("+1.0000000001", ExpectedResult = 1)]
-    [TestCase("-1.0000000001", ExpectedResult = -1)]
-    [TestCase("+0.999999999999", ExpectedResult = 0)]
-    [TestCase("-0.999999999999", ExpectedResult = 0)]
+    [Test] // consider the 7 significant digits of Ducats (4 hacksilver digits + 3 for Kreutzers)
+    [TestCase("+1.0000001", ExpectedResult = 1)]
+    [TestCase("-1.0000001", ExpectedResult = -1)]
+    [TestCase("+0.9999999", ExpectedResult = 0)]
+    [TestCase("-0.9999999", ExpectedResult = 0)]
     public decimal Truncate(decimal m)
     {
         // Arrange
