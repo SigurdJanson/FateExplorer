@@ -308,7 +308,7 @@ public class Currency : Enumeration
             CoinRealValue = [1, 0.1m, 0.01m],
             CoinWeight = [0.025m, 0.005m, 0.005m], // 25, 5, 5
             Origin = [Region.Bornland],
-            KeyCoinIndex = 1,
+            KeyCoinIndex = 0,
 
             // set according to UI language
             NativeCoinNames =
