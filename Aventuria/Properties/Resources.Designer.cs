@@ -61,7 +61,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Dᵈ ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ḋ ähnelt.
         /// </summary>
         internal static string AlanfaDirhamAbbr {
             get {
@@ -115,7 +115,7 @@ namespace Aventuria.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ō ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ȯ ähnelt.
         /// </summary>
         internal static string AlanfaSmallOrealAbbr {
             get {
