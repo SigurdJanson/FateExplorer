@@ -65,6 +65,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// Method for calculating the optimal denomination (Stückelung). This is not a real set of coins
     /// but an imputed set based on the amount of money and the coins of the currency.
     /// </summary>
+    /// <remarks>As a representation of a set of coins it will drop the sign for negative values (debts).</remarks>
     /// <returns>An array of coins. Each position in the array represents the number of coins. 
     /// The coins are ordered by par value starting with highest value. 
     /// The last digit can be a fraction.</returns>
@@ -76,7 +77,7 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
         Array.Sort(value);
         Array.Reverse(value);
 
-        decimal Amount = Math.Abs(JointAmount);
+        decimal Amount = Math.Abs(JointAmount); // drops the sign
         int index = 0;
         while(Amount > 0 && index < Currency.CoinValue.Length)
         {
@@ -562,13 +563,17 @@ public readonly struct Money : IFormattable, // IParsable<TSelf>
     /// <remarks>The string returned is not intended for UI display.</remarks>
     public string ToString(string format)
     {
-        return string.Concat(string.Format(new MoneyFormatter(), format, this), " ", Currency.ToString());
+        return string.Concat(ToString(format, new MoneyFormatter()), " ", Currency.ToString());
     }
 
     /// <inheritdoc/>
     public string ToString(string? format, IFormatProvider? formatProvider)
     {
-        return JointAmount.ToString(format, formatProvider);
+        formatProvider ??= new MoneyFormatter();
+        if (formatProvider is MoneyFormatter moneyFormatter)
+            return moneyFormatter.Format(format, this, moneyFormatter);
+        else
+            return ToDecimal(-1).ToString(format ?? "", formatProvider);
     }
 
 

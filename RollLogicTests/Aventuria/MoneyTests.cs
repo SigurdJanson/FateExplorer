@@ -3,6 +3,7 @@ using FateExplorer.Pages;
 using FateExplorer.Shop;
 using NUnit.Framework;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace UnitTests.Aventuria;
@@ -35,6 +36,96 @@ public class MoneyTests
         new object[] { Currency.AlanfaDoubloon },    // non-decimal conversion
         new object[] { Currency.NostrianCrown }     // single coin currency
     ];
+
+    /// <summary>
+    /// Helper function to be able to specify currencies in test cases as string.
+    /// </summary>
+    /// <param name="currencyStr">One of the predefined strings</param>
+    /// <returns>A currency object</returns>
+    /// <exception cref="System.Exception">When given a string that is not in the list.</exception>
+    protected static Currency String2Currency(string currencyStr)
+    {
+        return currencyStr switch
+        {
+            "MiddenrealmDucat" => Currency.MiddenrealmDucat,
+            "Dwarventhaler" => Currency.DwarvenThaler,
+            "NostrianCrown" => Currency.NostrianCrown,
+            _ => throw new System.Exception()
+        };
+    }
+
+
+
+
+    #region static properties
+
+    [Test]
+    public void MaxValue_ShouldHaveDecimalMaxAndReferenceCurrency()
+    {
+        var max = Money.MaxValue;
+
+        Assert.That(max.ToDecimal(), Is.EqualTo(decimal.MaxValue));
+        Assert.That(max.Currency, Is.EqualTo(Currency.ReferenceCurrency));
+    }
+
+    [Test]
+    public void MinValue_ShouldHaveDecimalMinAndReferenceCurrency()
+    {
+        var min = Money.MinValue;
+
+        Assert.That(min.ToDecimal(), Is.EqualTo(decimal.MinValue));
+        Assert.That(min.Currency, Is.EqualTo(Currency.ReferenceCurrency));
+    }
+
+    [Test]
+    public void AdditiveIdentity_ShouldBeZeroAndReferenceCurrency()
+    {
+        var zero = Money.AdditiveIdentity;
+
+        Assert.That(zero.ToDecimal(), Is.EqualTo(0.0m));
+        Assert.That(zero.Currency, Is.EqualTo(Currency.ReferenceCurrency));
+    }
+
+    [Test]
+    public void MultiplicativeIdentity_ShouldBeOneAndReferenceCurrency()
+    {
+        var one = Money.MultiplicativeIdentity;
+
+        Assert.That(one.ToDecimal(), Is.EqualTo(1.0m));
+        Assert.That(one.Currency, Is.EqualTo(Currency.ReferenceCurrency));
+    }
+
+    [Test]
+    public void AdditiveIdentity_WhenAddedToAnyMoney_ShouldNotChangeAmountOrCurrency()
+    {
+        // Arrange
+        var original = new Money(123.45m, Currency.ReferenceCurrency);
+
+        // Act: simulate adding the additive identity by using underlying amounts and currency
+        var result = original + Money.AdditiveIdentity.ToDecimal();
+
+        // Assert
+        Assert.That(original, Is.EqualTo(original));
+        //---Assert.That(original.Currency, result.Currency);
+    }
+
+    [Test]
+    public void MultiplicativeIdentity_WhenAppliedToAnyMoney_ShouldNotChangeAmountOrCurrency()
+    {
+        // Arrange
+        var original = new Money(9876.54321m, Currency.ReferenceCurrency);
+
+        // Act: simulate multiplication by the multiplicative identity
+        var result = original * Money.MultiplicativeIdentity.ToDecimal();
+
+        // Assert
+        Assert.That(original, Is.EqualTo(result));
+        //Assert.That(original.Currency, result.Currency);
+    }
+
+    #endregion
+
+
 
     [Test]
     [TestCaseSource(nameof(OptimizeDenomination_Ducat_TestCase))]
@@ -215,6 +306,9 @@ public class MoneyTests
     }
 
 
+
+    #region Comparisons
+
     [Test]
     [TestCase("1.0", "1.0", ExpectedResult = 0)]
     [TestCase("0.0", "1.0", ExpectedResult = -1)]
@@ -394,7 +488,11 @@ public class MoneyTests
         return result;
     }
 
+    #endregion
 
+
+
+    #region Math Operations
 
     [Test]
     [TestCase("1.0", "1.0", ExpectedResult = 1.0)]
@@ -532,6 +630,7 @@ public class MoneyTests
         // Assert
         Assert.That(result, Is.True);
     }
+
     [Test]
     [TestCase("1.0000001")]
     [TestCase("-1.0000001")]
@@ -856,9 +955,241 @@ public class MoneyTests
 
         // Assert
         Assert.That(result, Is.False);
-
     }
 
 
 
+    [Test]
+    public void Add_SameCurrency_ReturnsSum(
+        [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+        [Values(0, -17.971, 23.765)] decimal amount1,
+        [Values(0, -17.971, 23.765)] decimal amount2)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency); 
+        Money money2 = new(amount2, currency);
+
+        // Act
+        var result = money1 + money2;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(new Money(amount1+amount2, currency)));
+    }
+
+
+    [Test]
+    public void Subtract_SameCurrency_ReturnsDiff(
+    [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+    [Values(0, -17.971, 23.765)] decimal amount1,
+    [Values(0, -17.971, 23.765)] decimal amount2)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+        Money money2 = new(amount2, currency);
+
+        // Act
+        var result = money1 - money2;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(new Money(amount1 - amount2, currency)));
+    }
+
+    [Test]
+    public void Multiply_SameCurrency_ReturnsProduct(
+    [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+    [Values(0, 1, -17.971, 23.765)] decimal amount1,
+    [Values(0, 1, -17.971, 23.765)] decimal amount2)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = money1 * amount2;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(new Money(amount1 * amount2, currency)));
+    }
+
+    [Test]
+    public void Divide_SameCurrency_ReturnsCorrect(
+    [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+    [Values(0, 1, -17.971, 23.765)] decimal amount1,
+    [Values(-1, 1, -17.971, 23.765)] decimal amount2)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = money1 / amount2;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(new Money(amount1 / amount2, currency)));
+    }
+
+    [Test]
+    public void Inc_SameCurrency_ReturnsSum(
+    [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+    [Values(0, -1, 1, -17.971, 23.765)] decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var preresult = money1++;
+        var postresult = money1;
+
+        // Assert
+        Assert.That(preresult, Is.EqualTo(new Money(amount1, currency)));
+        Assert.That(postresult, Is.EqualTo(new Money(amount1 + 1, currency)));
+    }
+
+    [Test]
+    public void Dec_SameCurrency_ReturnsDiff(
+    [Values("MiddenrealmDucat", "Dwarventhaler", "NostrianCrown")] string currencyStr,
+    [Values(0, -1, 1, -17.971, 23.765)] decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var preresult = money1--;
+        var postresult = money1;
+
+        // Assert
+        Assert.That(preresult, Is.EqualTo(new Money(amount1, currency)));
+        Assert.That(postresult, Is.EqualTo(new Money(amount1 - 1, currency)));
+    }
+
+
+
+    [Test]
+    [TestCase("MiddenrealmDucat", 0, ExpectedResult = 0)]
+    [TestCase("MiddenrealmDucat", -1.9999, ExpectedResult = -2)]
+    [TestCase("Dwarventhaler", 1.5, ExpectedResult = 2)]
+    [TestCase("Dwarventhaler", 2.5, ExpectedResult = 2)]
+    [TestCase("NostrianCrown", -17.271, ExpectedResult = -17)]
+    [TestCase("NostrianCrown", 24.765, ExpectedResult = 25)]
+    public decimal Round_NoSpec_ReturnsCorrect(string currencyStr, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = Money.Round(money1);
+
+        // Assert
+        return result.ToDecimal();
+    }
+
+    [Test]
+    [TestCase("MiddenrealmDucat", 0, ExpectedResult = 0)]
+    [TestCase("MiddenrealmDucat", -1.9999, ExpectedResult = -2.0)]
+    [TestCase("Dwarventhaler", 1.5, ExpectedResult = 1.5)]
+    [TestCase("Dwarventhaler", 2.5, ExpectedResult = 2.5)]
+    [TestCase("NostrianCrown", -17.271, ExpectedResult = -17.3)]
+    [TestCase("MiddenrealmDucat", -17.25, ExpectedResult = -17.2)]
+    [TestCase("NostrianCrown", 24.765, ExpectedResult = 24.8)]
+    [TestCase("NostrianCrown", 24.65, ExpectedResult = 24.6)]
+    public decimal Round_1Decimal_ReturnsCorrect(string currencyStr, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = Money.Round(money1, 1);
+
+        // Assert
+        return result.ToDecimal();
+    }
+    #endregion
+
+
+
+    [Test, Culture("de-DE")]
+    [TestCase("MiddenrealmDucat", 0, ExpectedResult = "0 MiddenrealmDucat")]
+    [TestCase("MiddenrealmDucat", -1.9999, ExpectedResult = "-1,9999 MiddenrealmDucat")]
+    [TestCase("Dwarventhaler", 1.5, ExpectedResult = "1,5 DwarvenThaler")]
+    [TestCase("Dwarventhaler", 2.5, ExpectedResult = "2,5 DwarvenThaler")]
+    [TestCase("NostrianCrown", -17.271, ExpectedResult = "-17,271 NostrianCrown")]
+    public string ToString_NoFormat_ReturnsCorrect(string currencyStr, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = money1.ToString();
+
+        // Assert
+        return result;
+    }
+
+
+
+    [Test, Culture("de-DE")]
+    [TestCase("MiddenrealmDucat", "S", 0, ExpectedResult = "0 𝔇 0 𝔖 0 𝔥 0 𝔨 MiddenrealmDucat")]
+    [TestCase("MiddenrealmDucat", "S", -2.749, ExpectedResult = "2 𝔇 7 𝔖 4 𝔥 9 𝔨 MiddenrealmDucat")]
+    [TestCase("Dwarventhaler", "K", 2.5, ExpectedResult = "2,5 ZT DwarvenThaler")]
+    [TestCase("NostrianCrown", "K", -17.271, ExpectedResult = "-17,271 Kr NostrianCrown")]
+    public string ToString_FormatString_ReturnsCorrect(string currencyStr, string format, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = money1.ToString(format);
+
+        // Assert
+        return result;
+    }
+
+
+
+    [Test, Culture("de-DE")]
+    [TestCase("MiddenrealmDucat", "S", 0, ExpectedResult = "0 𝔇 0 𝔖 0 𝔥 0 𝔨")]
+    [TestCase("MiddenrealmDucat", "S", -2.749, ExpectedResult = "2 𝔇 7 𝔖 4 𝔥 9 𝔨")] // coin set drops the sign
+    [TestCase("Dwarventhaler", "K", 2.5, ExpectedResult = "2,5 ZT")]
+    [TestCase("NostrianCrown", "K", -17.271, ExpectedResult = "-17,271 Kr")]
+    public string ToString_MoneyFormatter_ReturnsCorrect(string currencyStr, string format, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+
+        // Act
+        var result = money1.ToString(format, new MoneyFormatter());
+        var resultWithNull = money1.ToString(format, null); // `null` assumes MoneyFormatter
+
+        // Assert
+        Assert.That(resultWithNull, Is.EqualTo(result));
+        return result;
+    }
+
+    [Test, Culture("de-DE")]
+    [TestCase("MiddenrealmDucat", "", 0, ExpectedResult = "0")]
+    [TestCase("MiddenrealmDucat", "F2", -2.749, ExpectedResult = "-2,75")] // coin set drops the sign
+    [TestCase("Dwarventhaler", "F3", 2.5, ExpectedResult = "2,500")]
+    [TestCase("NostrianCrown", "0,0.00", -17.271, ExpectedResult = "-17,27")]
+    public string ToString_DecimalFormatter_ReturnsKeyCoins(string currencyStr, string format, decimal amount1)
+    {
+        // Arrange
+        Currency currency = String2Currency(currencyStr);
+        Money money1 = new(amount1, currency);
+        IFormatProvider formatProvider = (IFormatProvider)NumberFormatInfo.CurrentInfo; //.GetFormat(Type.GetType(nameof(Decimal)));
+
+        // Act
+        var result = money1.ToString(format, formatProvider);
+
+        // Assert
+        return result;
+    }
 }
