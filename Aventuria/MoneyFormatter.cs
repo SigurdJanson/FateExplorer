@@ -22,12 +22,12 @@ namespace Aventuria;
 public class MoneyFormatter : IFormatProvider, ICustomFormatter
 {
     private const string FormatCoinsLong = "L";
-    private const string FormatCoinsShort = "S";
+    private const string FormatCoinsShort = "S"; // 0D 2S 3H 0K
 
-    private const string FormatAllCoins = "O";
-    private const string FormatTrailingCoins = ">";
-    private const string FormatLeadingCoins = "<";
-    private const string FormatDropAll0 = "|";
+    private const string FormatAllCoins = "O";     // 0D 2S 3H 0K
+    private const string FormatTrailingCoins = ">";   // 2S 3H 0K
+    private const string FormatLeadingCoins = "<"; // 0D 2S 3H
+    private const string FormatDropAll0 = "|";     //    2S 3H
     private const string FormatTrailWithFraction = "f";
     private const string FormatAllWithFraction = "F";
 
@@ -58,11 +58,11 @@ public class MoneyFormatter : IFormatProvider, ICustomFormatter
     }
 
 
-    // IFormatProvider.GetFormat implementation.
+    // Implements IFormatProvider.GetFormat(...)
     public object? GetFormat(Type? formatType)
     {
         // Determine whether custom formatting object is requested.
-        if (formatType == typeof(ICustomFormatter))
+        if (formatType == typeof(MoneyFormatter))
             return this;
         else
             return null;
@@ -79,16 +79,17 @@ public class MoneyFormatter : IFormatProvider, ICustomFormatter
     /// <paramref name="format"/> and <paramref name="formatProvider"/>.</returns>
     public string Format(string? format, object? arg, IFormatProvider? formatProvider)
     {
-        // Check whether this is an appropriate callback
-        if (!this.Equals(formatProvider))
-            return "";
-
         Money amount = (Money)(arg ?? Money.Zero);
-        string result = "";
+        string result = String.Empty;
+
+        // Check whether this is an appropriate callback
+        if (!Equals(formatProvider))
+            return HandleOtherFormats(format ?? string.Empty, amount);
+
 
         // Set default format specifier
         if (string.IsNullOrEmpty(format))
-            format = FormatCoinsShort.ToString();
+            format = FormatCoinsShort;
 
         // "Set of Coins" block
         if (format.StartsWith(FormatCoinsShort) || format.StartsWith(FormatCoinsLong))
@@ -215,4 +216,12 @@ public class MoneyFormatter : IFormatProvider, ICustomFormatter
     }
 
 
+
+    private string HandleOtherFormats(string format, object arg)
+    {
+        if (arg is IFormattable formattable)
+            return formattable.ToString(format, CultureInfo.CurrentCulture);
+        else 
+            return arg?.ToString() ?? string.Empty;
+    }
 }
