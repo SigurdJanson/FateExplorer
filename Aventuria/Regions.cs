@@ -1,6 +1,16 @@
-﻿
+﻿namespace Aventuria;
 
-public enum SupraRegions
+public enum DereContintent
+{
+    Aventuria, Myranor, Rakshazar, Uthuria, Lahmaria, RasTabor, Vesayama
+}
+
+public enum DereOcean
+{
+    SeaOf7Winds, SouthernSea, SeaOfPearls, IfirnsOcean, SeaOfLost, GlacierSea, ShadowSea, SeaOfMists, SilentSea
+}
+
+public enum AventuriaZones
 {
     HighNorth = 100,  // Nivesenlande, Paavi und Hoher Norden
     North = 200,
