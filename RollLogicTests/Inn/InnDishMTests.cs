@@ -1,5 +1,6 @@
 ﻿using FateExplorer.Inn;
 using FateExplorer.Shared;
+using Aventuria;
 using NUnit.Framework;
 using System;
 

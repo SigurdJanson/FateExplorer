@@ -1,6 +1,7 @@
 ﻿using FateExplorer.Shared;
 using System;
 using System.Text.Json.Serialization;
+using Aventuria;
 
 namespace FateExplorer.Inn;
 
