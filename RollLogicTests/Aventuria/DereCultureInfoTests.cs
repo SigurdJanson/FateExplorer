@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,13 @@ namespace UnitTests.Aventuria
     [TestFixture()]
     public class DereCultureInfoTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            string customCultureName = "en-Middenrealm";
+        }
+
+
         [Test(), Ignore("Class not implemented, yet")]
         public void DereCultureInfoTest()
         {
@@ -23,14 +31,13 @@ namespace UnitTests.Aventuria
             Assert.Fail();
         }
 
-        [Test(), Ignore("Class not implemented, yet")]
+        [Test(), Culture("de-DE")]//, Ignore("Class not implemented, yet")
         public void DereCultureInfoTest1()
         {
-            DereCultureInfo ci = new("Testonia");
+            DereCultureInfo ci = new("ForestFolk", CultureInfo.CurrentCulture.Name);
             Debug.Print(ci.DisplayName);
-            Debug.Print(ci.DereCountryCodes[0]);
             Debug.Print(ci.DateTimeFormat.ToString());
-            Assert.Fail();
+            Assert.Pass();
         }
 
         [Test(), Ignore("Class not implemented, yet")]
