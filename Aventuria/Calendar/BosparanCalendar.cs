@@ -13,77 +13,22 @@ namespace Aventuria.Calendar;
 /// Some methods may work independent of those restrictions but that is guaranteed if those methods do not
 /// need to use the DateTime struct to work.
 /// </remarks>
-public class BosparanCalendar : System.Globalization.Calendar
+public class BosparanCalendar : DereCalendar
 {
 	public override int[] Eras => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    //public override bool HasYear0 => true; // not required because inherited from DereCalendar
 
 
     protected const int DaysInYear = 365;
 	protected const int DaysInMonth = 30;
+
+    //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
 	protected const int NamelessDays = 5;
 	protected const int MonthsInYear = 13;
 	protected const int YearCorrectionFromGregorian = -977; // make this virtual to adapt all kinds of other calendars
 															// TODO: Add public virtual bool HasYear0 => true/false; // to adapt all kinds of other calendars
 	protected const int AssumedEra = 11;
 
-	/// <summary>
-	/// Determines the ABSOLUTE difference of FULL years between two dates.
-	/// Leap days are ignored; the 29th of February is treated as if it was the 28th
-	/// (conforming with Aventurian calendars).
-	/// </summary>
-	/// <param name="Early">The earlier date</param>
-	/// <param name="Late">THe later date</param>
-	/// <returns>Difference in full years (absolute value >= 0)</returns>
-	public static int AbsDeltaInYears(DateTime Early, DateTime Late)
-	{
-		if (Early > Late) throw new ArgumentException("'Late' must be greater or equal to 'Early'");
-
-		// Aventurian calendars do not have leap years: check for Feb, 29th
-		const int Feb = 2;
-		const int LeapDay = 29;
-		if (Early.Day == LeapDay && Early.Month == Feb) Early = Early.AddDays(-1);
-		if (Late.Day == LeapDay && Late.Month == Feb) Late = Late.AddDays(-1);
-
-		int Delta = Late.Year - Early.Year;
-
-		// correction if the one year is not a full year
-		if (Late.Month < Early.Month || (Late.Month == Early.Month && Late.Day < Early.Day))
-			Delta--;
-
-		return Delta;
-	}
-
-
-	/// <summary>
-	/// Calculate the difference in days.
-	/// </summary>
-	/// <param name="time"></param>
-	/// <param name="reference"></param>
-	/// <returns></returns>
-	public static int DeltaInDays(DateTime time, DateTime reference)
-    {
-		// Needed to determine leap years
-		GregorianCalendar EarthCalendar = new();
-
-		DateTime Early = time <= reference ? time : reference;
-		DateTime Late = time > reference ? time : reference;
-		int Years = AbsDeltaInYears(Early, Late);
-
-		// skip leap days by using whole years
-		int Days = Years * DaysInYear;
-		// add remaining interval
-		DateTime EarlyPlusYears = Early.AddYears(Years);
-		Days += (Late - EarlyPlusYears).Days;
-		// One leap day may be left, remove if necessary
-		if (EarthCalendar.IsLeapYear(EarlyPlusYears.Year) && EarlyPlusYears.DayOfYear < 31 + 29)
-			Days--;
-		else
-		{
-			if (EarthCalendar.IsLeapYear(Late.Year) && Late.DayOfYear > 31 + 28)
-				Days--;
-		}
-		return Days;
-	}
 
 
 
@@ -150,12 +95,12 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 
-	public override int GetDaysInYear(int year) => DaysInYear;
-	public override int GetDaysInYear(int year, int era) => DaysInYear;
-
 	/// <inheritdoc/>
 	/// <remarks>Treats the days of the Nameless One as 13th month</remarks>
 	public override int GetMonthsInYear(int year, int era) => MonthsInYear;
+    public override int GetDaysInYear(int year) => DaysInDereYear;
+	public override int GetDaysInYear(int year, int era) => DaysInDereYear;
+
 
 
 	public override int GetDaysInMonth(int year, int month) 
@@ -268,31 +213,5 @@ public class BosparanCalendar : System.Globalization.Calendar
 	}
 
 
-    //0-11, 0 is new moon (dead mada), 3 is half, 6 is full moon (wheel),
-    // 9 is half, 11 the phase before new moon
-    /// <summary>
-    /// Computes the position in the moon cycle given a date.
-    /// </summary>
-    /// <returns>0 is the first day of the moon cycle (new moon; dead Mada). 
-	/// 14 is the middle of the cycle (full moon; wheel). 27 is the cycle's end.</returns>
-    public int GetMoonCycle(DateTime time)
-    {
-		// the 14.04.2022 on Earth; in Aventuria it's the 17th (16! with 1. index == 0) day of the moon phase
-		DateTime Reference = new(2022, 4, 14);
-		const int MoonPhaseRef = 16;
-		const int MoonCycle = 28;
-
-		int Days = DeltaInDays(time, Reference);
-		int Offset = Days % MoonCycle;
-
-		int Result;
-		if (time >= Reference)
-			Result = Offset + MoonPhaseRef;
-		else
-			Result = (Offset == 0 ? 0 : MoonCycle - Offset) + MoonPhaseRef;
-
-		if (Result >= MoonCycle) Result -= MoonCycle;
-		return Result;
-	}
 }
 
