@@ -11,30 +11,15 @@ public abstract class DereCalendar : System.Globalization.Calendar
     #region Exceptions and Messages
 
     internal const string ArgumentOutOfRange_BadYearMonthDay = "The year, month, and day parameters describe an un-representable DateTime.";
-    internal const string ArgumentOutOfRange_BadYear = "The year parameter must be between {0} and {1}";
-    internal const string ArgumentOutOfRange_BadMonth = "The month parameter must be between {0} and {1}";
-    internal const string ArgumentOutOfRange_BadDay = "The day of month parameter must be between {0} and {1}";
-    internal const string ArgumentOutOfRange_InvalidEraValue = "The era parameter is not in the valid range.";
+    internal const string ArgumentOutOfRange = "The '{0}' parameter must be between {1} and {2}";
     internal const string ArgumentOutOfRange_HasNoYear0 = "The calendar does not support a year zero";
 
-    internal static void CheckArgumentOutOfRange_BadDay(int value, int min, int max, [CallerArgumentExpression(nameof(value))] string? argument = null)
+    internal static void CheckArgumentOutOfRange(int value, int min, int max, [CallerArgumentExpression(nameof(value))] string? argument = null)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(argument, value, string.Format(ArgumentOutOfRange_BadDay, min, max));
+            throw new ArgumentOutOfRangeException(argument, value, string.Format(ArgumentOutOfRange, argument, min, max));
     }
-    internal static void CheckArgumentOutOfRange_BadMonth(int value, int min, int max, [CallerArgumentExpression(nameof(value))] string? argument = null)
-    {
-        if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(argument, value, string.Format(ArgumentOutOfRange_BadMonth, min, max));
-    }
-    internal static void CheckArgumentOutOfRange_BadYear(int value, int min, int max, [CallerArgumentExpression(nameof(value))] string? argument = null)
-    {
-        if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(argument, value, string.Format(ArgumentOutOfRange_BadYear, min, max));
-    }
-    
-    [DoesNotReturn]
-    internal static void ThrowYear0Exception() => throw new ArgumentOutOfRangeException("year", ArgumentOutOfRange_HasNoYear0);
+
 
     #endregion
 

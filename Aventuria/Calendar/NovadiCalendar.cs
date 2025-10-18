@@ -190,19 +190,16 @@ public class NovadiCalendar : DereCalendar
 
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
     {
-        CheckArgumentOutOfRange_BadDay(day, 1, DaysInMonth);
-        CheckArgumentOutOfRange_BadMonth(month, 1, MonthsInYear);
-        if (era < -1 || era > 0)
-            throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras -1 and 0");
+        CheckArgumentOutOfRange(day, 1, DaysInMonth);
+        CheckArgumentOutOfRange(month, 1, MonthsInYear);
+        CheckArgumentOutOfRange(era, -1, 0);
         if (era == 0 && year < 0 || era == -1 && year > 0)
             throw new ArgumentOutOfRangeException(nameof(year), year, "The year does not fit in that era");
-        if (year == 0) ThrowYear0Exception();
+        ArgumentOutOfRangeException.ThrowIfZero(year, nameof(year));
 
         int EarthYear = year - YearCorrectionFromGregorian;
         if (month * DaysInMonth + day < NewYearsDeltaDays) EarthYear--;
-        CheckArgumentOutOfRange_BadYear(EarthYear, 1 + YearCorrectionFromGregorian, 9999 - YearCorrectionFromGregorian);
-        //if (EarthYear < 1)
-        //    throw new ArgumentOutOfRangeException(nameof(year), year, "Calendar is limited to earth years later than year 1");
+        CheckArgumentOutOfRange(EarthYear, 1 + YearCorrectionFromGregorian, 9999 - YearCorrectionFromGregorian);
 
 
         DateTime time = AddMonths(RastullahsAppearance, (year - 1) * MonthsInYear + month - 1);
