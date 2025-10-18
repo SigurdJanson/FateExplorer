@@ -8,60 +8,70 @@ namespace Aventuria.Calendar;
 /// Provides functions to convert an earthen DateTime into a date of an Aventurian calendar.
 /// </summary>
 /// <remarks>
-/// Can handle dates starting with the 11th era after 977 b. FB.
-/// 11th era is fixed at the moment because we do not know, yet, when the 12th starts.
-/// Some methods may work independent of those restrictions but that is guaranteed if those methods do not
-/// need to use the DateTime struct to work.
+/// <list type="bullet">
+/// <item>The calendar has 12 months of 30 days each and a "month" of 5 nameless days at the end of the year.</item>
+/// <item>Uses the New Year method to convert Earth dates to Dere dates: the year on Dere begins when the Earth year 
+/// begins, so 1. Praios corresponds to 1. January.</item>
+/// <item>Can handle dates starting with the 11th era after 977 b. FB.</item>
+/// <item>11th era is fixed at the moment because we do not know, yet, when the 12th starts.</item>
+/// <item>Some methods may work independent of those restrictions but that is guaranteed if those methods do not
+/// need to use the DateTime struct to work.</item>
+/// </list>
 /// </remarks>
 public class BosparanCalendar : DereCalendar
 {
-	public override int[] Eras => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     //public override bool HasYear0 => true; // not required because inherited from DereCalendar
 
+    public override int[] Eras => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-    protected const int DaysInYear = 365;
-	protected const int DaysInMonth = 30;
 
     //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
+    protected const int DaysInMonth = 30;
+	protected const int DaysInWeek = 7;
 	protected const int NamelessDays = 5;
 	protected const int MonthsInYear = 13;
 	protected const int YearCorrectionFromGregorian = -977; // make this virtual to adapt all kinds of other calendars
 															// TODO: Add public virtual bool HasYear0 => true/false; // to adapt all kinds of other calendars
 	protected const int AssumedEra = 11;
+    public new const int CurrentEra = AssumedEra; // override `Calendar.CurrentEra`
 
 
 
 
-	/// <inheritdoc/>
-	public override CalendarAlgorithmType AlgorithmType => CalendarAlgorithmType.SolarCalendar;
+    /// <inheritdoc/>
+    public override CalendarAlgorithmType AlgorithmType => CalendarAlgorithmType.SolarCalendar;
 
 
 	public override int GetMonth(DateTime time)
 	{
 		// Needed to determine leap years
-		GregorianCalendar EarthCalendar = new();
+		var EarthCalendar = CultureInfo.InvariantCulture.Calendar;
 
 		int Days = time.DayOfYear;
 		if (EarthCalendar.IsLeapYear(time.Year) && Days > 31 + 28) Days--;
 		return ((Days - 1) / DaysInMonth) + 1;
 	}
 
+
 	public override int GetYear(DateTime time) => time.Year + YearCorrectionFromGregorian; // TODO: use HasYear0
 
-	/// <inheritdoc/>
-	/// <remarks>The Karmakortheon is included in the previous era. At the moment 
-	/// the class assumes that we always play in the 11th age.</remarks>
-	public override int GetEra(DateTime time) => 11; //TODO: GetEra and CurrentEra
+    /// <inheritdoc/>
+    /// <remarks>The Karmakortheon is included in the previous era. At the moment 
+    /// the class assumes that we always play in the 11th age because <see cref="DateTime"/> 
+	/// can only go back until 977 b. FB.</remarks>
+    public override int GetEra(DateTime time) => AssumedEra;
+
 
 	public override int GetDayOfMonth(DateTime time)
 			{
 		// Needed to determine leap years
-		GregorianCalendar EarthCalendar = new();
+		var EarthCalendar = CultureInfo.InvariantCulture.Calendar;
 
 		int Days = time.DayOfYear;
 		if (EarthCalendar.IsLeapYear(time.Year) && Days > 31 + 28) Days--;
 		return ((Days - 1) % 30) + 1;
 	}
+
 
 	/// <inheritdoc/>
 	public override DayOfWeek GetDayOfWeek(DateTime time)
@@ -69,7 +79,7 @@ public class BosparanCalendar : DereCalendar
 		// the 14.04.2022 on Earth is a Thursday; in Aventuria it is a Day of Praios (Sunday)
 		DateTime Reference = new(2022, 4, 14);
 		int Days = DeltaInDays(time, Reference);
-		int Offset = Days % 7;
+		int Offset = Days % DaysInWeek;
 
 		DayOfWeek Result;
 		if (time > Reference)
@@ -81,12 +91,10 @@ public class BosparanCalendar : DereCalendar
 	}
 
 
-
-
 	/// <inheritdoc/>
 	public override int GetDayOfYear(DateTime time)
 	{
-		GregorianCalendar EarthCal = new();
+		var EarthCal = CultureInfo.InvariantCulture.Calendar;
 
 		if (EarthCal.IsLeapYear(time.Year))
 			if (time.DayOfYear > 31 + 28) // days Jan. + Feb.
@@ -96,11 +104,27 @@ public class BosparanCalendar : DereCalendar
 
 
 	/// <inheritdoc/>
-	/// <remarks>Treats the days of the Nameless One as 13th month</remarks>
-	public override int GetMonthsInYear(int year, int era) => MonthsInYear;
+	/// <param name="rule">Is ignored in this reckoning.</param>
+	/// <param name="firstDayOfWeek">Is ignored in this reckoning.</param>
+	public override int GetWeekOfYear(DateTime time, CalendarWeekRule rule = CalendarWeekRule.FirstDay, DayOfWeek firstDayOfWeek = DayOfWeek.Thursday)
+    {
+		return time.DayOfYear / DaysInWeek + 1;
+    }
+
+
+    #region Calendar Info
+
     public override int GetDaysInYear(int year) => DaysInDereYear;
 	public override int GetDaysInYear(int year, int era) => DaysInDereYear;
 
+
+    /// <inheritdoc/>
+    /// <remarks>Treats the days of the Nameless One as 13th month</remarks>
+    public override int GetMonthsInYear(int year) => MonthsInYear;
+
+    /// <inheritdoc/>
+    /// <remarks>Treats the days of the Nameless One as 13th month</remarks>
+    public override int GetMonthsInYear(int year, int era) => MonthsInYear;
 
 
 	public override int GetDaysInMonth(int year, int month) 
@@ -118,18 +142,50 @@ public class BosparanCalendar : DereCalendar
 
 		return (month <= 12 ? DaysInMonth : NamelessDays);
 	}
-    
+
+    #endregion
 
 
-	public override DateTime AddYears(DateTime time, int years) => time.AddYears(years);
+    #region Add Methods
+
+    public override DateTime AddDays(DateTime time, int days)
+	{
+        time = IgnoreLeapDay(time, -1);
+		int Years = days / DaysInDereYear;
+		time = time.AddYears(Years);
+
+        int Leftover = days % DaysInDereYear;
+		if (Leftover == 0)
+			return time;
+
+        DateTime result = time.AddDays(Leftover);
+
+		// The potential leap day is always Feb 29th
+		DateTime leapDay;
+        // Check if this specific leap day is within the inclusive range
+		if (DateTime.IsLeapYear(time.Year))
+		{
+			leapDay= new(time.Year, 2, 29);
+            if (IsBetween(leapDay, time, result))
+                return result.AddDays(1 * Math.Sign(days)); // skip leap day that does not exist in Aventuria
+        }
+		if (DateTime.IsLeapYear(result.Year))
+		{
+			leapDay = new(result.Year, 2, 29);
+			if (IsBetween(leapDay, time, result))
+                return result.AddDays(1 * Math.Sign(days)); // skip leap day that does not exist in Aventuria
+		}
+
+		return result;
+    }
 
 
-	/// <inheritdoc/>
-	/// <remarks>Treats the days of the Nameless One as 13th month</remarks>
-	public override DateTime AddMonths(DateTime time, int months)
+    /// <inheritdoc/>
+    /// <remarks>Treats the days of the Nameless One as 13th month</remarks>
+    public override DateTime AddMonths(DateTime time, int months)
 	{
 		// Needed to determine leap years
-		GregorianCalendar EarthCalendar = new();
+		var EarthCalendar = CultureInfo.InvariantCulture.Calendar;
 
 		// 
 		int Month = GetMonth(time);
@@ -173,16 +229,25 @@ public class BosparanCalendar : DereCalendar
 		}
 	}
 
-	public override int GetLeapMonth(int year, int era) => 0;
-	public override bool IsLeapDay(int year, int month, int day) => false;
-	public override bool IsLeapDay(int year, int month, int day, int era) => false;
-	public override bool IsLeapMonth(int year, int month, int era) => false;
-	public override bool IsLeapYear(int year, int era) => false;
+
+    /// <inheritdoc/>
+    public override DateTime AddYears(DateTime time, int years)
+    {
+        var EarthCalendar = CultureInfo.InvariantCulture.Calendar; // Needed to determine leap years
+        DateTime result = time.AddYears(years);
+        if (EarthCalendar.IsLeapDay(result.Year, result.Month, result.Day))
+            result = result.AddDays(-1); // skip leap day that does not exist in Aventuria
+        return result;
+    }
+
+    #endregion
 
 
-	/// <inheritdoc/>
-	/// <remarks>Assumes current 11th era</remarks>
-	public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
+
+
+    /// <inheritdoc/>
+    /// <remarks>Assumes current 11th era</remarks>
+    public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
         return ToDateTime(year, month, day, hour, minute, second, millisecond, AssumedEra);
     }
@@ -190,23 +255,19 @@ public class BosparanCalendar : DereCalendar
 
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
 	{
-		if (day < 1 || day > 30)
-			throw new ArgumentOutOfRangeException(nameof(day), day, "Day of month must be between 1 and 30");
-		if (month < 1 || month > 13)
-			throw new ArgumentOutOfRangeException(nameof(month), month, "Calendar knows 12 months and 1 pseudo-month of 5 days of the Nameless One");
-		if (month == 13 && day > 5)
-			throw new ArgumentOutOfRangeException(nameof(day), day, "Day of 13th month must be between 1 and 5");
-		if (era < 1 || era > 12)
-			throw new ArgumentOutOfRangeException(nameof(era), era, "Calendar knows only eras from 1 to 12");
+		CheckArgumentOutOfRange(day, 1, DaysInMonth);
+        if (month == MonthsInYear)
+            CheckArgumentOutOfRange(day, 1, NamelessDays);
+        CheckArgumentOutOfRange(month, 1, MonthsInYear);
+        CheckArgumentOutOfRange(year, 1 + YearCorrectionFromGregorian, 9999 - YearCorrectionFromGregorian);
+        CheckArgumentOutOfRange(era, 1, 12);
 
-		int EarthYear = year - YearCorrectionFromGregorian;
-		if (EarthYear < 1)
-			throw new ArgumentOutOfRangeException(nameof(year), year, "Calendar is limited to earth years later than year 1");
+        int EarthYear = year - YearCorrectionFromGregorian;
 
 		DateTime result = new(EarthYear, 1, 1, hour, minute, second, millisecond, DateTimeKind.Local);
 		int DaysToAdd = (day - 1) + (month - 1) * DaysInMonth; // correct day by 1 because we already have the 1. of Jan.
 		// Add extra leap day that does not exist in Aventuria
-		GregorianCalendar EarthCalendar = new(); // Needed to determine leap years
+		var EarthCalendar = CultureInfo.InvariantCulture.Calendar; // Needed to determine leap years
 		if (EarthCalendar.IsLeapYear(EarthYear) && DaysToAdd >= 31+28) DaysToAdd++;
 
 		return result.AddDays(DaysToAdd);
