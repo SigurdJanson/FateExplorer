@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 
-namespace UnitTests.Aventuria;
+namespace UnitTests.Aventuria.Calendar;
 
 
 #pragma warning disable IDE0018 // Inlinevariablendeklaration
@@ -248,13 +248,14 @@ public class BosparanCalendarTests
     #region Add Functions
 
     [Test]
-    [TestCase("30.1.2000", 11, ExpectedResult = 2011)] // Leap year
-    [TestCase("31.1.2000", 12, ExpectedResult = 2012)] // Leap year
-    [TestCase("18.4.2022", 0, ExpectedResult = 2022)]
-    [TestCase("26.12.2005", -1, ExpectedResult = 2004)]
-    [TestCase("27.12.2005", 3, ExpectedResult = 2008)]
-    [TestCase("30.06.1988", 11, ExpectedResult = 1999)] // Leap year
-    public int AddYears(string Date, int Years)
+    [TestCase("30.1.2000", 11, ExpectedResult = "30.1.2011")] // Leap year
+    [TestCase("31.1.2000", 12, ExpectedResult = "31.1.2012")] // Leap year
+    [TestCase("18.4.2022", 0, ExpectedResult = "18.4.2022")]
+    [TestCase("26.12.2005", -1, ExpectedResult = "26.12.2004")]
+    [TestCase("27.12.2005", 3, ExpectedResult = "27.12.2008")]
+    [TestCase("30.06.1988", 11, ExpectedResult = "30.6.1999")] // Leap year
+    [TestCase("29.02.1996", 4, ExpectedResult = "28.2.2000")] // Leap year to no leap year
+    public string AddYears(string Date, int Years)
     {
         // Arrange
         var bosparanCalendar = new BosparanCalendar();
@@ -265,14 +266,14 @@ public class BosparanCalendarTests
         var result = bosparanCalendar.AddYears(time, Years);
 
         // Assert
-        return result.Year;
+        return result.ToString("dd.M.yyyy");
     }
 
 
 
     [Test]
-    [TestCase("30.1.2000", 1, ExpectedResult = "01.3.2000")] // Leap year
-    [TestCase("30.1.2000", 2, ExpectedResult = "31.3.2000")] // Leap year
+    [TestCase("30.1.2000", 1, ExpectedResult = "01.3.2000")] // Leap year before Feb 29
+    [TestCase("30.1.2000", 2, ExpectedResult = "31.3.2000")] // Leap year incl. Feb 29
     [TestCase("30.1.1999", 1, ExpectedResult = "01.3.1999")]
     [TestCase("30.1.1999", 2, ExpectedResult = "31.3.1999")]
     [TestCase("28.11.2005", 1, ExpectedResult = "28.12.2005")] // 2. Rahja -> 2. Namenlosen
@@ -299,6 +300,7 @@ public class BosparanCalendarTests
 
 
     [Test]
+    [TestCase("02.1.1998", 30, ExpectedResult = "02.5.2000")] // Add over a year incl. lap year
     [TestCase("30.1.2000", 13, ExpectedResult = "30.1.2001")] // Leap year
     [TestCase("31.1.2000", 13, ExpectedResult = "31.1.2001")] // Leap year
     [TestCase("18.4.2022", 2 * 13, ExpectedResult = "18.4.2024")]
@@ -344,6 +346,35 @@ public class BosparanCalendarTests
 
         // Assert
         return result.ToString("dd.M.yyyy");
+    }
+
+
+
+    [Test]
+    [TestCase("01.01.2000", -1, ExpectedResult = "31.12.1999")] // between years
+    [TestCase("31.12.1999", +1, ExpectedResult = "01.01.2000")] // between years
+    [TestCase("01.03.2004", -1, ExpectedResult = "28.02.2004")] // Skip the leap day that does not exist in Aventuria
+    [TestCase("28.02.2004", +1, ExpectedResult = "01.03.2004")] // Skip the leap day that does not exist in Aventuria
+    [TestCase("01.01.2000", 365, ExpectedResult = "01.01.2001")]  // exactly 365 days, between years, regular year
+    [TestCase("01.01.2001", -365, ExpectedResult = "01.01.2000")] // exactly -365 days, between years, regular year
+    [TestCase("01.01.2004", 365, ExpectedResult = "01.01.2005")]  // exactly 365 days, between years, leap year
+    [TestCase("01.01.2005", -365, ExpectedResult = "01.01.2004")] // exactly -365 days, between years, leap year
+    [TestCase("01.01.2100", 390, ExpectedResult = "26.01.2101")]  // > 365 days, between years, regular year
+    [TestCase("01.01.2101", -390, ExpectedResult = "07.12.2099")] // > 365 days, between years, regular year
+    [TestCase("01.01.2004", 390, ExpectedResult = "26.01.2005")]  // > 365 days, between years, leap year
+    [TestCase("01.01.2005", -390, ExpectedResult = "07.12.2003")] // > 365 days, between years, leap year
+    public string AddDays(string Date, int Days)
+    {
+        // Arrange
+        var bosparanCalendar = new BosparanCalendar();
+        DateTime time;
+        Assume.That(DateTime.TryParse(Date, out time));
+
+        // Act
+        var result = bosparanCalendar.AddDays(time, Days);
+
+        // Assert
+        return result.ToString("dd.MM.yyyy");
     }
 
     #endregion
@@ -485,7 +516,7 @@ public class BosparanCalendarTests
     }
 
 
-
+    #region Dere Calendar Method
 
     [Test]
     [TestCase(2000, 2, 29, 2009, 2, 27, ExpectedResult = 8)]
@@ -530,7 +561,7 @@ public class BosparanCalendarTests
         Assume.That(DateTime.TryParse(Date, out time));
 
         // Act
-        var result = bosparanCalendar.GetMoonCycle(time);
+        var result = BosparanCalendar.GetMoonCycle(time);
 
         // Assert
         return result;
@@ -553,7 +584,7 @@ public class BosparanCalendarTests
         Assume.That(DateTime.TryParse(Date, out time));
 
         // Act
-        var result = bosparanCalendar.GetMoonCycle(time);
+        var result = BosparanCalendar.GetMoonCycle(time);
 
         // Assert
         return result;
@@ -573,11 +604,45 @@ public class BosparanCalendarTests
         Assume.That(bosparanCalendar.GetDayOfMonth(time), Is.EqualTo(6));
 
         // Act
-        var result = bosparanCalendar.GetMoonCycle(time);
+        var result = BosparanCalendar.GetMoonCycle(time);
 
         // Assert
         return result;
     }
+
+
+
+    [Test]
+    // Same day
+    [TestCase("29.2.2000", "29.2.2000", ExpectedResult = 0)] //
+    // Same year
+    [TestCase("30.1.1796", "11.11.1796", ExpectedResult = 1)]  // Leap day in start & end year
+    [TestCase("1.3.1796", "11.11.1796", ExpectedResult = 0)]   // Leap year but start & end after leap day
+    [TestCase("31.1.3896", "28.2.3896", ExpectedResult = 0)]   // Leap year but start & end before leap day
+    // Next Year
+    [TestCase("1.1.2001", "1.1.2002", ExpectedResult = 0)]  // 
+    [TestCase("1.1.2000", "1.1.2001", ExpectedResult = 1)]  // 1 leap day in 2000
+    [TestCase("1.1.2000", "1.3.2001", ExpectedResult = 1)]  // 1 leap day in 2000
+    [TestCase("1.3.2000", "1.3.2001", ExpectedResult = 0)]  // 
+    [TestCase("29.11.1995", "28.11.1996", ExpectedResult = 1, Category = "Yr+1", Description = "Leap year, jump over leap day")] // Leap year in 1996
+    // Multiple Years
+    [TestCase("1.3.2000", "28.2.2004", ExpectedResult = 0)]  // No leap days, exactly between leap days
+    [TestCase("29.2.2000", "29.2.2004", ExpectedResult = 2)] // exactly both leap days in 2 years
+    [TestCase("1.3.0004", "1.3.0008", ExpectedResult = 1)]   // exactly one leap day in 4 years
+    [TestCase("1.3.1096", "28.2.1104", ExpectedResult = 0)]  // no leap day in 8 years
+    public int GetLeapDays(string StartDate, string EndDate)
+    {
+        // Arrange
+        DateTime start, end;
+        Assume.That(DateTime.TryParse(StartDate, out start));
+        Assume.That(DateTime.TryParse(EndDate, out end));
+        // Act
+        var result = BosparanCalendar.GetLeapDays(start, end);
+        // Assert
+        return result;
+    }
+
+    #endregion
 }
 
 #pragma warning restore IDE0018 // Inlinevariablendeklaration
