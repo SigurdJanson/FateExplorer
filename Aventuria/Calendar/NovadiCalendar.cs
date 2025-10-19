@@ -178,7 +178,7 @@ public override DateTime AddHours(DateTime time, int hours);
 
     public override int GetEra(DateTime time)
     { 
-        return GetYear(time) > 0 ? Eras[1] : Eras[0];
+        return GetYear(time) > 0 ? Eras[0] : Eras[1];
     }
 
     /// <summary>

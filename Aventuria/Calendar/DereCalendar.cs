@@ -27,7 +27,6 @@ public abstract class DereCalendar : System.Globalization.Calendar
 
     public virtual bool HasYear0 => true;
     protected const int DaysInDereYear = 365;
-    public new const int CurrentEra = 11; // override `Calendar.CurrentEra`
     internal int _twoDigitYearMax = -1;
 
 
