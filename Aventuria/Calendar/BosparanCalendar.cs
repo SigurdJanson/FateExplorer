@@ -22,7 +22,7 @@ public class BosparanCalendar : DereCalendar
 {
     //public override bool HasYear0 => true; // not required because inherited from DereCalendar
 
-    public override int[] Eras => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    public override int[] Eras => [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]; // remember, eras are listed in reverse order
 
 
     //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
@@ -70,7 +70,7 @@ public class BosparanCalendar : DereCalendar
     /// <remarks>The Karmakortheon is included in the previous era. At the moment 
     /// the class assumes that we always play in the 11th age because <see cref="DateTime"/> 
 	/// can only go back until 977 b. FB.</remarks>
-    public override int GetEra(DateTime time) => CurrentEra;
+    public override int GetEra(DateTime time) => Eras[CurrentEra];
 
 
 	public override int GetDayOfMonth(DateTime time)
@@ -139,7 +139,7 @@ public class BosparanCalendar : DereCalendar
 
 
 	public override int GetDaysInMonth(int year, int month) 
-		=> GetDaysInMonth(year, month, CurrentEra);
+		=> GetDaysInMonth(year, month, Eras[CurrentEra]);
 
 
 	/// <inheritdoc/>
@@ -260,7 +260,7 @@ public class BosparanCalendar : DereCalendar
     /// <remarks>Assumes current 11th era</remarks>
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        return ToDateTime(year, month, day, hour, minute, second, millisecond, CurrentEra);
+        return ToDateTime(year, month, day, hour, minute, second, millisecond, Eras[CurrentEra]);
     }
 
 

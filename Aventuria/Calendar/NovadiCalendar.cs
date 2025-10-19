@@ -18,8 +18,7 @@ public class NovadiCalendar : DereCalendar
 {
     public override bool HasYear0 => false;
 
-    public override int[] Eras => [-1, 0];
-    public new const int CurrentEra = 0; // override `Calendar.CurrentEra`
+    public override int[] Eras => [0, -1]; // remember, eras are listed in reverse order
 
     //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
     protected const int DaysInMonth = 73;
@@ -142,7 +141,7 @@ public override DateTime AddHours(DateTime time, int hours);
 
 
     /// <inheritdoc/>
-    public override int GetDayOfYear(DateTime time) // TODO: Use `NewYearsDeltaDays`
+    public override int GetDayOfYear(DateTime time)
     {
         var EarthCal = CultureInfo.InvariantCulture.Calendar;
 
@@ -211,7 +210,7 @@ public override DateTime AddHours(DateTime time, int hours);
 
 
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
-        => ToDateTime(year, month, day, hour, minute, second, millisecond, CurrentEra);
+        => ToDateTime(year, month, day, hour, minute, second, millisecond, Eras[CurrentEra]);
     
 
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, int era)
