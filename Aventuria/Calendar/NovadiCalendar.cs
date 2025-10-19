@@ -13,11 +13,13 @@ namespace Aventuria.Calendar;
 /// has include the upcoming Rastullahellah.</item>
 /// </list>
 /// </summary>
+// TODO:Add Year 0 leap to add methods
 public class NovadiCalendar : DereCalendar
 {
     public override bool HasYear0 => false;
 
     public override int[] Eras => [-1, 0];
+    public new const int CurrentEra = 0; // override `Calendar.CurrentEra`
 
     //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
     protected const int DaysInMonth = 73;
@@ -39,9 +41,6 @@ public class NovadiCalendar : DereCalendar
     protected const int NewYearsDeltaMonths = 1; // Novadi months 
     protected const int NewYearsDeltaDaysInMonth = 70;
 
-    protected const int AssumedEra = 0;
-    public new const int CurrentEra = AssumedEra; // override `Calendar.CurrentEra`
-
     public readonly DateTime RastullahsAppearance = new(1737, 5, 23); // 23. Boron 1
 
 
@@ -50,7 +49,34 @@ public class NovadiCalendar : DereCalendar
 
 
 
-    #region Add Methods - TODO: implement
+    /*
+public override DateTime AddMilliseconds(DateTime time, double milliseconds);
+public override DateTime AddSeconds(DateTime time, int seconds);
+public virtual DateTime AddMinutes(DateTime time, int minutes);
+public override DateTime AddHours(DateTime time, int hours);
+
+
+*/
+
+    public override int TwoDigitYearMax
+    {
+        get
+        {
+            if (_twoDigitYearMax == -1)
+                _twoDigitYearMax = 359; // Default to 359 after Rastullahs appearance
+
+            return _twoDigitYearMax;
+        }
+        set
+        {
+            if (IsReadOnly)
+                throw new InvalidOperationException("Calendar is read-only");
+            _twoDigitYearMax = value;
+        }
+    }
+
+
+    #region Add Methods
 
     public override DateTime AddDays(DateTime time, int days)
     {
@@ -215,14 +241,4 @@ public class NovadiCalendar : DereCalendar
     }
 
 
-
-    public override int ToFourDigitYear(int year)
-    {
-        throw new NotImplementedException("Not implemented");
-        //if (year < 100 && year >= 0)
-        //{
-        //    return (TwoDigitYearMax / 100 - (year > TwoDigitYearMax % 100 ? 1 : 0)) * 100 + year;
-        //}
-        //return year;
-    }
 }

@@ -31,16 +31,27 @@ public class BosparanCalendar : DereCalendar
 	protected const int NamelessDays = 5;
 	protected const int MonthsInYear = 13;
 	protected const int YearCorrectionFromGregorian = -977; // make this virtual to adapt all kinds of other calendars
-															// TODO: Add public virtual bool HasYear0 => true/false; // to adapt all kinds of other calendars
-	protected const int AssumedEra = 11;
-    public new const int CurrentEra = AssumedEra; // override `Calendar.CurrentEra`
-
-
 
 
     /// <inheritdoc/>
     public override CalendarAlgorithmType AlgorithmType => CalendarAlgorithmType.SolarCalendar;
 
+    public override int TwoDigitYearMax
+    {
+        get
+        {
+            if (_twoDigitYearMax == -1)
+                _twoDigitYearMax = 1099; // Default to 1050 FB
+
+            return _twoDigitYearMax;
+        }
+        set
+        {
+            if (IsReadOnly)
+                throw new InvalidOperationException("Calendar is read-only");
+            _twoDigitYearMax = value;
+        }
+    }
 
 	public override int GetMonth(DateTime time)
 	{
@@ -53,13 +64,13 @@ public class BosparanCalendar : DereCalendar
 	}
 
 
-	public override int GetYear(DateTime time) => time.Year + YearCorrectionFromGregorian; // TODO: use HasYear0
+	public override int GetYear(DateTime time) => time.Year + YearCorrectionFromGregorian;
 
     /// <inheritdoc/>
     /// <remarks>The Karmakortheon is included in the previous era. At the moment 
     /// the class assumes that we always play in the 11th age because <see cref="DateTime"/> 
 	/// can only go back until 977 b. FB.</remarks>
-    public override int GetEra(DateTime time) => AssumedEra;
+    public override int GetEra(DateTime time) => CurrentEra;
 
 
 	public override int GetDayOfMonth(DateTime time)
@@ -128,7 +139,7 @@ public class BosparanCalendar : DereCalendar
 
 
 	public override int GetDaysInMonth(int year, int month) 
-		=> GetDaysInMonth(year, month, AssumedEra);
+		=> GetDaysInMonth(year, month, CurrentEra);
 
 
 	/// <inheritdoc/>
@@ -249,7 +260,7 @@ public class BosparanCalendar : DereCalendar
     /// <remarks>Assumes current 11th era</remarks>
     public override DateTime ToDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
     {
-        return ToDateTime(year, month, day, hour, minute, second, millisecond, AssumedEra);
+        return ToDateTime(year, month, day, hour, minute, second, millisecond, CurrentEra);
     }
 
 

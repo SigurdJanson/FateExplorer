@@ -27,7 +27,8 @@ public abstract class DereCalendar : System.Globalization.Calendar
 
     public virtual bool HasYear0 => true;
     protected const int DaysInDereYear = 365;
-
+    public new const int CurrentEra = 11; // override `Calendar.CurrentEra`
+    internal int _twoDigitYearMax = -1;
 
 
     /// <summary>
@@ -209,7 +210,7 @@ public abstract class DereCalendar : System.Globalization.Calendar
     }
 
 
-    #region Leap Year Methods are obsolete on Dere
+    #region Leap Year Methods are obsolete on Dere - DateTime inheritance
 
     public override int GetLeapMonth(int year) => 0;
     public override int GetLeapMonth(int year, int era) => 0;
@@ -223,4 +224,34 @@ public abstract class DereCalendar : System.Globalization.Calendar
     #endregion
 
 
+    #region DateTime Analysis - Calendar inheritance
+
+    // inherited from Calendar
+    //public virtual int GetHour(DateTime time);
+    //public virtual int GetMinute(DateTime time);
+    //public virtual int GetSecond(DateTime time);
+    //public virtual double GetMilliseconds(DateTime time);
+
+    #endregion
+
+    /// <inheritdoc/>
+    /// <remarks>
+    /// Override this in every derived class to provide a proper default value. Here it uses FB reckoning.
+    /// </remarks>
+    public override int TwoDigitYearMax
+    {
+        get
+        {
+            if (_twoDigitYearMax == -1)
+                _twoDigitYearMax = 1099; // Default to 1050 FB
+
+            return _twoDigitYearMax;
+        }
+        set
+        {
+            if (IsReadOnly)
+                throw new InvalidOperationException("Calendar is read-only");
+            _twoDigitYearMax = value;
+        }
+    }
 }
