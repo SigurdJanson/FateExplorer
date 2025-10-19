@@ -102,7 +102,7 @@ public override DateTime AddHours(DateTime time, int hours);
         GregorianCalendar EarthCalendar = new(); // Needed to determine leap years
 
         int years = Math.DivRem(months, MonthsInYear, out int Leftover);
-        DateTime result = time.AddYears(months / MonthsInYear);
+        DateTime result = time.AddYears(years);
 
         if (Leftover != 0) // now between 0 and 4 (i.e. MonthsInYear-1)
         {
