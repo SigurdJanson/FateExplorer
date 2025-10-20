@@ -80,11 +80,40 @@ public abstract class DereCalendar : System.Globalization.Calendar
 
 
     public static DateTime AddTicks(DateTime time, long ticks)
+    public override DateTime AddDays(DateTime time, int days)
     {
         time = IgnoreLeapDay(time, -1);
         DateTime result = time.AddTicks(ticks);
         return result.AddDays(GetLeapDays(time, result) * -1); // remove leap days in between
+        int Years = days / DaysInDereYear;
+        time = time.AddYears(Years);
+
+        int Leftover = days % DaysInDereYear;
+        if (Leftover == 0)
+            return time;
+
+        DateTime result = time.AddDays(Leftover);
+
+        // The potential leap day is always Feb 29th
+        DateTime leapDay;
+        // Check if this specific leap day is within the inclusive range
+        if (DateTime.IsLeapYear(time.Year))
+        {
+            leapDay = new(time.Year, 2, 29);
+            if (IsBetween(leapDay, time, result))
+                return result.AddDays(1 * Math.Sign(days)); // skip leap day that does not exist in Aventuria
+        }
+        if (DateTime.IsLeapYear(result.Year))
+        {
+            leapDay = new(result.Year, 2, 29);
+            if (IsBetween(leapDay, time, result))
+                return result.AddDays(1 * Math.Sign(days)); // skip leap day that does not exist in Aventuria
+        }
+
+        return result;
     }
+
+
 
     /// <summary>
     /// Corrects a <paramref name="time"/> to compensate for leap days in the Gregorian calendar.

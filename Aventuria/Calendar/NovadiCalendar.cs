@@ -77,13 +77,6 @@ public override DateTime AddHours(DateTime time, int hours);
 
     #region Add Methods
 
-    public override DateTime AddDays(DateTime time, int days)
-    {
-        DateTime result = time.AddDays(days);
-        result = result.AddDays(GetLeapDays(time, result)); // add leap days in between
-        return IgnoreLeapDay(result, +1);
-    }
-
 
     public override DateTime AddWeeks(DateTime time, int weeks)
     {
