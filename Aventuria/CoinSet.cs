@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Aventuria.Measures;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Aventuria;
 
@@ -109,7 +110,7 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
 
 
     /// <summary>
-    /// Compute the total <see cref="Aventuria.Weight">weight</see> of the coins in the default unit.
+    /// Compute the total <see cref="Measures.Weight">weight</see> of the coins in the default unit.
     /// </summary>
     /// <returns>Weight in Stone</returns>
     public Weight Weight()

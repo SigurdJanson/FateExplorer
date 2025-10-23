@@ -1,8 +1,6 @@
 ﻿using Aventuria;
-using FateExplorer.Shop;
-using Moq;
+using Aventuria.Measures;
 using NUnit.Framework;
-using System;
 
 namespace UnitTests.Aventuria;
 
@@ -15,7 +13,12 @@ public class CoinSetTests
     {
     }
 
-
+    /// <summary>
+    /// Helper function to be able to specify currencies in test cases as string.
+    /// </summary>
+    /// <param name="currencyStr">One of the predefined strings</param>
+    /// <returns>A currency object</returns>
+    /// <exception cref="System.Exception">When given a string that is not in the list.</exception>
     protected Currency String2Currency(string currencyStr)
     {
         return currencyStr switch
@@ -35,8 +38,9 @@ public class CoinSetTests
     [TestCase("NostrianCrown", 1)]
     public void Constructor_NoCoins_CountCorrectMintages(string currency, int coinsInCurrency)
     {
-        Currency c = String2Currency(currency);
         // Arrange
+        Currency c = String2Currency(currency);
+        // Act
         var coinSet = new CoinSet(c);
         // Assert
         Assert.That(coinsInCurrency, Is.EqualTo(coinSet.Count));
@@ -363,7 +367,6 @@ public class CoinSetTests
         // Act
         // Assert
         Assert.That(() => coinSet.Add(coinSetToAdd), Throws.ArgumentException);
-
     }
 
 
