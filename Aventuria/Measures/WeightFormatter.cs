@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Aventuria;
+namespace Aventuria.Measures;
 
 
 /// <summary>

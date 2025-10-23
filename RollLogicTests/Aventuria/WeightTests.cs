@@ -1,4 +1,5 @@
 ﻿using Aventuria;
+using Aventuria.Measures;
 using NUnit.Framework;
 using System.Globalization;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Aventuria;
+namespace Aventuria.Measures;
 
 public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<Weight>, IEqualityOperators<Weight, Weight, bool>, 
