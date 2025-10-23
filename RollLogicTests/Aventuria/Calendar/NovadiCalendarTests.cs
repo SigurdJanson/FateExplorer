@@ -438,19 +438,22 @@ namespace UnitTests.Aventuria.Calendar
 
 
         [Test]
-        public void ToFourDigitYear_StateUnderTest_ExpectedBehavior()
+        [TestCase(60, ExpectedResult = 260)]
+        [TestCase(59, ExpectedResult = 359)]
+        [TestCase(45, ExpectedResult = 345)]
+        [TestCase(0, ExpectedResult = 300)]
+        [TestCase(99, ExpectedResult = 299)]
+        public int To4DigitYear(int Year)
         {
             // Arrange
-            var novadiCalendar = this.CreateNovadiCalendar();
-            int year = 0;
+            var novadiCalendar = CreateNovadiCalendar();
 
             // Act
-            Assert.Throws<NotImplementedException>(() => { var result = novadiCalendar.ToFourDigitYear(year); });
-            //var result = novadiCalendar.ToFourDigitYear(year);
+            var result = novadiCalendar.ToFourDigitYear(Year);
 
             // Assert
-            Assert.Pass();
-            //this.mockRepository.VerifyAll();
+            return result;
         }
+
     }
 }
