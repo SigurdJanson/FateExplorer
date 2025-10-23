@@ -28,11 +28,6 @@ public class NovadiCalendar : DereCalendar
     protected const int WeeksInYear = 40;
 
     //
-    private const int MillisPerSecond = 1000;
-    private const int MillisPerMinute = MillisPerSecond * 60;
-    private const int MillisPerHour = MillisPerMinute * 60;
-
-    //
     protected const int RastullahellahDays = 5; // Novadi holidays
     protected const int YearCorrectionFromGregorian = -977 - 760; // make this virtual to adapt all kinds of other calendars
 
@@ -47,15 +42,6 @@ public class NovadiCalendar : DereCalendar
     public override CalendarAlgorithmType AlgorithmType => CalendarAlgorithmType.Unknown;
 
 
-
-    /*
-public override DateTime AddMilliseconds(DateTime time, double milliseconds);
-public override DateTime AddSeconds(DateTime time, int seconds);
-public virtual DateTime AddMinutes(DateTime time, int minutes);
-public override DateTime AddHours(DateTime time, int hours);
-
-
-*/
 
     public override int TwoDigitYearMax
     {

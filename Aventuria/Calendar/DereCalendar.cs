@@ -5,7 +5,10 @@ using System.Runtime.CompilerServices;
 namespace Aventuria.Calendar;
 
 
-
+/// <summary>
+/// The base class for all Dere calendars. It provides methods for calendars without leap years that still match
+/// earth years.
+/// </summary>
 public abstract class DereCalendar : System.Globalization.Calendar
 {
     #region Exceptions and Messages
@@ -13,32 +16,48 @@ public abstract class DereCalendar : System.Globalization.Calendar
     internal const string ArgumentOutOfRange_BadYearMonthDay = "The year, month, and day parameters describe an un-representable DateTime.";
     internal const string ArgumentOutOfRange = "The '{0}' parameter must be between {1} and {2}";
     internal const string ArgumentOutOfRange_HasNoYear0 = "The calendar does not support a year zero";
+    internal const string Argument_ResultCalendarRange = "The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive";
 
     internal static void CheckArgumentOutOfRange(int value, int min, int max, [CallerArgumentExpression(nameof(value))] string? argument = null)
     {
         if (value < min || value > max)
             throw new ArgumentOutOfRangeException(argument, value, string.Format(ArgumentOutOfRange, argument, min, max));
     }
+    internal static void CheckResultOutOfRange(long value, long min, long max, [CallerArgumentExpression(nameof(value))] string? argument = null)
+    {
+        if (value < min || value > max)
+            throw new ArgumentOutOfRangeException(argument, value, string.Format(Argument_ResultCalendarRange, min, max));
+    }
 
 
     #endregion
 
+    // Number of milliseconds per time unit
+    internal const int MillisPerSecond = 1000;
+    internal const int MillisPerMinute = MillisPerSecond * 60;
+    internal const int MillisPerHour = MillisPerMinute * 60;
+    internal const int MillisPerDay = MillisPerHour * 24;
 
+    // Number of days in a Dere year (there are no leap years on Dere!)
+    protected const int DaysInDereYear = 365;
 
     public virtual bool HasYear0 => true;
-    protected const int DaysInDereYear = 365;
     internal int _twoDigitYearMax = -1;
 
 
     /// <summary>
-    /// Returns the number of full leap days (Feb 29) between two dates.
+    /// Returns the number of <b>full</b> leap days (Feb 29) between two dates.
     /// </summary>
     /// <param name="start">Start date of time period</param>
     /// <param name="end">End date of time period</param>
-    /// <returns><list type="bullet"><item>The number of leap days between start and end</item>
-    /// 0 when start to end covers less than a whole day; 0 when </list></returns>
+    /// <returns><list type="bullet">
+    /// <item>The number of leap days between start and end</item>
+    /// <item>0 when start to end covers less than a whole day.</item>
+    /// </list></returns>
     public static int GetLeapDays(DateTime start, DateTime end)
     {
+        if (end < start) // make sure the direction is correct
+            (start, end) = (end, start);
         if (end - start < TimeSpan.FromDays(1)) return 0; // No full day
 
         int LeapDays = 0;
@@ -72,6 +91,10 @@ public abstract class DereCalendar : System.Globalization.Calendar
             {
                 LeapDays += (endYear / 4) - (endYear / 100) + (endYear / 400);
                 LeapDays -= (startYear / 4) - (startYear / 100) + (startYear / 400);
+            } 
+            else if (endYear == startYear)
+            {
+                if (DateTime.IsLeapYear(startYear)) LeapDays++;
             }
 
             return LeapDays;
@@ -79,12 +102,60 @@ public abstract class DereCalendar : System.Globalization.Calendar
     }
 
 
-    public static DateTime AddTicks(DateTime time, long ticks)
+
+    /// <inheritdoc/>
+    /// <remarks>This method adds milliseconds but excludes leap days. 
+    /// Hence, for every leap day in the given period it adds another day.
+    /// What happens in this code, when the added days actually cross another 
+    /// leap day?</remarks>
+    public override DateTime AddMilliseconds(DateTime time, double milliseconds)
+    {
+        const long TicksPerMillisecond = 10000;
+        const int DaysPer100Years = (365 * 4 + 1) * 25 - 1;
+        const int DaysTo10000 = (DaysPer100Years * 4 + 1) * 25 - 366;
+        const long MaxMillis = (long)DaysTo10000 * MillisPerDay;
+
+        // If overflow occurs converting a floating-point type to an integer, or if the floating-point value
+        // being converted to an integer is a NaN, the value returned is unspecified.
+        //
+        // Based upon this, this method should be performing the comparison against the double
+        // before attempting a cast. Otherwise, the result is undefined.
+        double tempMillis = milliseconds + (milliseconds >= 0 ? 0.5 : -0.5);
+        if (!((tempMillis > -(double)MaxMillis) && (tempMillis < (double)MaxMillis)))
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(milliseconds), milliseconds, 
+                string.Format(ArgumentOutOfRange, nameof(milliseconds), -(double)MaxMillis, (double)MaxMillis));
+        }
+
+        // Convert to long after checking the range
+        long millis = (long)tempMillis;
+        long ticks = time.Ticks + millis * TicksPerMillisecond;
+        CheckResultOutOfRange(ticks, DateTime.MinValue.Ticks, DateTime.MaxValue.Ticks);
+        DateTime result = new(ticks);
+
+        // remove leap days in between
+        int LeapDays = GetLeapDays(time, result); //GetLeapDays(time, result)
+        result = result.AddDays(LeapDays * Math.Sign(milliseconds));
+
+        return IgnoreLeapDay(result, Math.Sign(milliseconds));
+    }
+
+
+    public override DateTime AddSeconds(DateTime time, int seconds) 
+        => AddMilliseconds(time, seconds * MillisPerSecond);
+    
+
+    public override DateTime AddMinutes(DateTime time, int minutes)
+        => AddMilliseconds(time, minutes * MillisPerMinute);
+
+    public override DateTime AddHours(DateTime time, int hours)
+        => AddMilliseconds(time, hours * MillisPerHour);
+
+
     public override DateTime AddDays(DateTime time, int days)
     {
         time = IgnoreLeapDay(time, -1);
-        DateTime result = time.AddTicks(ticks);
-        return result.AddDays(GetLeapDays(time, result) * -1); // remove leap days in between
         int Years = days / DaysInDereYear;
         time = time.AddYears(Years);
 
