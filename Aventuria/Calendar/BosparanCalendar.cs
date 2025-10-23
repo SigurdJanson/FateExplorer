@@ -22,7 +22,7 @@ public class BosparanCalendar : DereCalendar
 {
     //public override bool HasYear0 => true; // not required because inherited from DereCalendar
 
-    public override int[] Eras => [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]; // remember, eras are listed in reverse order
+    public override int[] Eras => [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]; // remember, eras are listed in reverse order
 
 
     //protected const int DaysInYear = DereCalendar.DaysInDereYear; // inherited from DereCalendar
