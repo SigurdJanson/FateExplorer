@@ -75,17 +75,26 @@ public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     public static LengthMeasure operator ++(LengthMeasure value) // IIncrementOperators
         => new(value.Value + 1);
 
+    /// <exception cref="DivideByZeroException"></exception>
     public static double operator /(LengthMeasure left, LengthMeasure right) // IDivisionOperators
     {
         if (right.Value == 0) throw new DivideByZeroException();
         return left.Value / right.Value;
     }
 
+    /// <exception cref="DivideByZeroException"></exception>
     public static LengthMeasure operator /(LengthMeasure left, int right) // IDivisionOperators
-        => new(left.Value / right);
+    {
+        if (right == 0) throw new DivideByZeroException();
+        return new(left.Value / right);
+    }
 
+    /// <exception cref="DivideByZeroException"></exception>
     public static LengthMeasure operator /(LengthMeasure left, double right) // IDivisionOperators
-        => new(left.Value / right);
+    {
+        if (right == 0) throw new DivideByZeroException();
+        return new(left.Value / right);
+    }
 
     public static LengthMeasure operator *(LengthMeasure left, int right) // IMultiplyOperators
         => new(left.Value * right);
