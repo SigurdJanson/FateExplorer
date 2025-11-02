@@ -17,9 +17,10 @@ public readonly struct SquareMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     IDecrementOperators<SquareMeasure>,
     IAdditionOperators<SquareMeasure, SquareMeasure, SquareMeasure>,
     IIncrementOperators<SquareMeasure>,
-    IDivisionOperators<SquareMeasure, SquareMeasure, double>, IDivisionOperators<SquareMeasure, int, SquareMeasure>, IDivisionOperators<SquareMeasure, double, SquareMeasure>,
+    IDivisionOperators<SquareMeasure, SquareMeasure, double>, IDivisionOperators<SquareMeasure, LengthMeasure, LengthMeasure>,
+    IDivisionOperators<SquareMeasure, int, SquareMeasure>, IDivisionOperators<SquareMeasure, double, SquareMeasure>,
     IMultiplyOperators<SquareMeasure, int, SquareMeasure>, IMultiplyOperators<SquareMeasure, double, SquareMeasure>,
-    // Todo: multiple an area with a 2 MeasureLength it gives an VolumeMeasure; Division of an Area by a Length gives a Length
+    IMultiplyOperators<SquareMeasure, LengthMeasure, VolumeMeasure>,
     IAdditiveIdentity<SquareMeasure, SquareMeasure>,
     IMultiplicativeIdentity<SquareMeasure, SquareMeasure>,
     IMinMaxValue<SquareMeasure>
@@ -85,7 +86,19 @@ public readonly struct SquareMeasure : IFormattable, // IParsable<TSelf>, ISpanP
         => new(value.Value + 1);
 
     public static double operator /(SquareMeasure left, SquareMeasure right) // IDivisionOperators
-        => left.Value / right.Value;
+    {
+        if (right.Value == 0)
+            throw new DivideByZeroException("Division by zero.");
+        return left.Value / right.Value;
+    }
+
+    public static LengthMeasure operator /(SquareMeasure left, LengthMeasure right) // IDivisionOperators
+    {
+        if ((double)right == 0)
+            throw new DivideByZeroException("Division by zero.");
+        return new(left.Value / (double)right);
+    }
+
 
     public static SquareMeasure operator /(SquareMeasure left, int right) // IDivisionOperators
     {
@@ -106,6 +119,9 @@ public readonly struct SquareMeasure : IFormattable, // IParsable<TSelf>, ISpanP
 
     public static SquareMeasure operator *(SquareMeasure left, double right) // IMultiplyOperators
         => new(left.Value * right);
+
+    public static VolumeMeasure operator *(SquareMeasure area, LengthMeasure length) // IMultiplyOperators
+        => new(area.Value * (double)length);
 
     public static SquareMeasure AdditiveIdentity => new(0); // IAdditiveIdentity
 

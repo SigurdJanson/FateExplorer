@@ -236,7 +236,7 @@ public class SquareMeasureTests
         Assert.That((double)result, Is.EqualTo(expected));
     }
 
-    [TestCase(10.0, 2.0, 5.0)]
+    [TestCase(11.0, 2.0, 5.5)]
     public void DivisionByDoubleOperator_ShouldReturnCorrectResult(double left, double right, double expected)
     {
         // Arrange
@@ -248,6 +248,21 @@ public class SquareMeasureTests
         // Assert
         Assert.That((double)result, Is.EqualTo(expected));
     }
+
+    [TestCase(27.9, 9.0, 3.1)]
+    public void DivisionByLengthOperator_ShouldReturnCorrectResult(double left, double right, double expected)
+    {
+        // Arrange
+        var squareMeasure = new SquareMeasure(left);
+        var lengthMeasure = new LengthMeasure(right);
+
+        // Act
+        var result = squareMeasure / lengthMeasure;
+
+        // Assert
+        Assert.That((double)result, Is.EqualTo(expected).Within(1).Ulps);
+    }
+
 
     [TestCase(10.0, 2, 20.0)]
     public void MultiplicationByIntOperator_ShouldReturnCorrectResult(double left, int right, double expected)
@@ -270,6 +285,20 @@ public class SquareMeasureTests
 
         // Act
         var result = squareMeasure * right;
+
+        // Assert
+        Assert.That((double)result, Is.EqualTo(expected));
+    }
+
+    [TestCase(10.0, 2.25, 22.5)]
+    public void MultiplicationByLengthOperator_ShouldReturnCorrectResult(double left, double right, double expected)
+    {
+        // Arrange
+        var squareMeasure = new SquareMeasure(left);
+        var lengthMeasure = new LengthMeasure(right);
+
+        // Act
+        var result = squareMeasure * lengthMeasure;
 
         // Assert
         Assert.That((double)result, Is.EqualTo(expected));
