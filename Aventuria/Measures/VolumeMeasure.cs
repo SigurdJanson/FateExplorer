@@ -16,8 +16,9 @@ public readonly struct VolumeMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     IDecrementOperators<VolumeMeasure>,
     IAdditionOperators<VolumeMeasure, VolumeMeasure, VolumeMeasure>,
     IIncrementOperators<VolumeMeasure>,
-    IDivisionOperators<VolumeMeasure, VolumeMeasure, double>, IDivisionOperators<VolumeMeasure, int, VolumeMeasure>, IDivisionOperators<VolumeMeasure, double, VolumeMeasure>,
-    IMultiplyOperators<VolumeMeasure, int, VolumeMeasure>, IMultiplyOperators<VolumeMeasure, double, VolumeMeasure>, // Todo: multiple 2 lengths gives an area
+    IDivisionOperators<VolumeMeasure, VolumeMeasure, double>, IDivisionOperators<VolumeMeasure, SquareMeasure, LengthMeasure>, IDivisionOperators<VolumeMeasure, LengthMeasure, SquareMeasure>,
+    IDivisionOperators<VolumeMeasure, int, VolumeMeasure>, IDivisionOperators<VolumeMeasure, double, VolumeMeasure>,
+    IMultiplyOperators<VolumeMeasure, int, VolumeMeasure>, IMultiplyOperators<VolumeMeasure, double, VolumeMeasure>,
     IAdditiveIdentity<VolumeMeasure, VolumeMeasure>,
     IMultiplicativeIdentity<VolumeMeasure, VolumeMeasure>,
     IMinMaxValue<VolumeMeasure>
@@ -90,6 +91,21 @@ public readonly struct VolumeMeasure : IFormattable, // IParsable<TSelf>, ISpanP
         if (right.Value == 0)
             throw new DivideByZeroException("Division by zero.");
         return left.Value / right.Value;
+    }
+
+    /// <exception cref="DivideByZeroException"></exception>
+    public static LengthMeasure operator /(VolumeMeasure left, SquareMeasure right) // IDivisionOperators
+    {
+        if ((double)right == 0)
+            throw new DivideByZeroException("Division by zero.");
+        return new(left.Value / (double)right);
+    }
+
+    public static SquareMeasure operator /(VolumeMeasure left, LengthMeasure right) // IDivisionOperators
+    {
+        if ((double)right == 0)
+            throw new DivideByZeroException("Division by zero.");
+        return new(left.Value / (double)right);
     }
 
     /// <exception cref="DivideByZeroException"></exception>

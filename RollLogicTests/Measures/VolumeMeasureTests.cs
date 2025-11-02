@@ -42,19 +42,7 @@ public class VolumeMeasureTests
     //    this.mockRepository.VerifyAll();
     //}
 
-    //[Test]
-    //public void GetHashCode_StateUnderTest_ExpectedBehavior()
-    //{
-    //    // Arrange
-    //    var volumeMeasure = this.CreateVolumeMeasure(0);
 
-    //    // Act
-    //    var result = volumeMeasure.GetHashCode();
-
-    //    // Assert
-    //    Assert.Fail();
-    //    this.mockRepository.VerifyAll();
-    //}
 
     //[Test]
     //public void ToString_StateUnderTest_ExpectedBehavior()
@@ -119,9 +107,50 @@ public class VolumeMeasureTests
         Assert.That((double)volumeMeasure, Is.EqualTo(volume));
     }
 
+    [Test]
+    public void Constructor_WithDoubleMaxValue_ShouldInitializeCorrectly()
+    {
+        // Arrange
+        double volume = double.MaxValue;
+
+        // Act
+        var volumeMeasure = new VolumeMeasure(volume);
+
+        // Assert
+        Assert.That((double)volumeMeasure, Is.EqualTo(double.MaxValue));
+    }
+
+    [Test]
+    public void Constructor_WithDoubleMinValue_ShouldInitializeCorrectly()
+    {
+        // Arrange
+        double volume = double.MinValue;
+
+        // Act
+        var volumeMeasure = new VolumeMeasure(volume);
+
+        // Assert
+        Assert.That((double)volumeMeasure, Is.EqualTo(double.MinValue));
+    }
+
     #endregion
 
 
+    #region Inherited from Object Tests
+    [Test]
+    [TestCase(7826346476.333)]
+    public void GetHashCode_StateUnderTest_ExpectedBehavior(double value)
+    {
+        // Arrange
+        var volumeMeasure = CreateVolumeMeasure(value);
+
+        // Act
+        var result = volumeMeasure.GetHashCode();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(value.GetHashCode()));
+    }
+    #endregion
 
     #region Explicit Conversion Tests
 
@@ -140,6 +169,8 @@ public class VolumeMeasureTests
     }
 
     #endregion
+
+
 
     #region Equality Tests
 
@@ -252,6 +283,36 @@ public class VolumeMeasureTests
         Assert.That((double)result, Is.EqualTo(expected));
     }
 
+    [TestCase(10.0, 2.0, 5.0)]
+    [TestCase(-4.0, 2.0, -2.0)]
+    public void DivisionBySquareOperator_ShouldReturnCorrectResult(double value, double divisor, double expected)
+    {
+        // Arrange
+        var volume = new VolumeMeasure(value);
+        var squareDivisor = new SquareMeasure(divisor);
+
+        // Act
+        var result = volume / squareDivisor;
+
+        // Assert
+        Assert.That((double)result, Is.EqualTo(expected));
+    }
+
+    [TestCase(10.0, 2.0, 5.0)]
+    [TestCase(-4.0, 2.0, -2.0)]
+    public void DivisionByLengthOperator_ShouldReturnCorrectResult(double value, double divisor, double expected)
+    {
+        // Arrange
+        var volume = new VolumeMeasure(value);
+        var lengthDivisor = new LengthMeasure(divisor);
+
+        // Act
+        var result = volume / lengthDivisor;
+
+        // Assert
+        Assert.That((double)result, Is.EqualTo(expected));
+    }
+
     [TestCase(10.0, 2, 20.0)]
     [TestCase(-4.0, 3, -12.0)]
     public void MultiplicationByIntOperator_ShouldReturnCorrectResult(double value, int multiplier, double expected)
@@ -312,6 +373,8 @@ public class VolumeMeasureTests
 
     #endregion
 
+
+
     #region Identity and Min/Max Value Tests
 
     [Test]
@@ -356,6 +419,8 @@ public class VolumeMeasureTests
 
     #endregion
 
+
+
     #region ToString Tests
 
     [TestCase(10.5, "10.5")]
@@ -390,34 +455,11 @@ public class VolumeMeasureTests
 
     #endregion
 
+
+
     #region Edge Case Tests
 
-    [Test]
-    public void Constructor_WithDoubleMaxValue_ShouldInitializeCorrectly()
-    {
-        // Arrange
-        double volume = double.MaxValue;
-
-        // Act
-        var volumeMeasure = new VolumeMeasure(volume);
-
-        // Assert
-        Assert.That((double)volumeMeasure, Is.EqualTo(double.MaxValue));
-    }
-
-    [Test]
-    public void Constructor_WithDoubleMinValue_ShouldInitializeCorrectly()
-    {
-        // Arrange
-        double volume = double.MinValue;
-
-        // Act
-        var volumeMeasure = new VolumeMeasure(volume);
-
-        // Assert
-        Assert.That((double)volumeMeasure, Is.EqualTo(double.MinValue));
-    }
-
+   
     [Test]
     public void DivisionByZero_MeasureLength_ShouldThrowDivideByZeroException()
     {
