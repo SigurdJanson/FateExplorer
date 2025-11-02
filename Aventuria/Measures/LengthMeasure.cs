@@ -9,7 +9,8 @@ public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     IAdditionOperators<LengthMeasure, LengthMeasure, LengthMeasure>,
     IIncrementOperators<LengthMeasure>,
     IDivisionOperators<LengthMeasure, LengthMeasure, double>, IDivisionOperators<LengthMeasure, int, LengthMeasure>, IDivisionOperators<LengthMeasure, double, LengthMeasure>,
-    IMultiplyOperators<LengthMeasure, int, LengthMeasure>, IMultiplyOperators<LengthMeasure, double, LengthMeasure>, // Todo: multiple 2 lengths gives an area
+    IMultiplyOperators<LengthMeasure, int, LengthMeasure>, IMultiplyOperators<LengthMeasure, double, LengthMeasure>, 
+    IMultiplyOperators<LengthMeasure, LengthMeasure, SquareMeasure>,
     IAdditiveIdentity<LengthMeasure, LengthMeasure>,
     IMultiplicativeIdentity<LengthMeasure, LengthMeasure>,
     IMinMaxValue<LengthMeasure>
@@ -101,6 +102,10 @@ public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanP
 
     public static LengthMeasure operator *(LengthMeasure left, double right) // IMultiplyOperators
         => new(left.Value * right);
+
+    public static SquareMeasure operator *(LengthMeasure left, LengthMeasure right) // IMultiplyOperators
+        => new(left.Value * right.Value); // results in an area
+
 
     public static LengthMeasure AdditiveIdentity => new(0); // IAdditiveIdentity
 

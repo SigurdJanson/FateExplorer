@@ -308,6 +308,24 @@ public class LengthMeasureTests
         Assert.That(result, Is.EqualTo(expected));
     }
 
+
+    [Test]
+    [TestCase(5.0, 2.5)]
+    public void Multiplication_ByLength_ShouldReturnCorrectSquare(double a, double b)
+    {
+        // Arrange
+        var lengthA = new LengthMeasure(a);
+        var lengthB = new LengthMeasure(b);
+        var expected = new SquareMeasure(a*b);
+
+        // Act
+        var result = lengthA * lengthB;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+
     // Identity and Min/Max Value Tests
     [Test]
     public void AdditiveIdentity_ShouldBeZero()
