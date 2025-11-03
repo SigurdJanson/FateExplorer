@@ -1,6 +1,7 @@
 ﻿using Aventuria;
 using Aventuria.Measures;
 using NUnit.Framework;
+using System;
 using System.Globalization;
 
 namespace UnitTests.Aventuria;
@@ -8,6 +9,115 @@ namespace UnitTests.Aventuria;
 [TestFixture]
 class WeightTests
 {
+    protected const decimal Decimal_Epsilon = 1.0E-28m; // only for numbers < 10
+
+    public static decimal GetEpsilon(decimal x)
+    {
+        if (x == 0) return Decimal_Epsilon;
+        // The smallest difference is 1 / (10 ^ scale), where scale is the number of decimal places.
+        // decimal.GetBits()[1] contains the 16 least significant bits, where bits 0-15 represent the scale.
+        x *= Math.Sign(x); // ignore the sign
+        int scale = (int)Math.Truncate(Math.Log10((double)x)); //(int)(decimal.GetBits(x)[3] >> 16) & 0xFF;
+        return (decimal)Math.Pow(10, -28+scale);
+    }
+
+    #region Constructor Tests
+
+    [Test]
+    public void Constructor_IntParameter_SetsValueCorrectly()
+    {
+        // Arrange
+        int weight = 10;
+
+        // Act
+        var weightObj = new Weight(weight);
+
+        // Assert
+        Assert.That(weightObj.ToStone(), Is.EqualTo(weight));
+    }
+
+    [Test]
+    public void Constructor_DecimalParameter_SetsValueCorrectly()
+    {
+        // Arrange
+        decimal weight = 10.5m;
+
+        // Act
+        var weightObj = new Weight(weight);
+
+        // Assert
+        Assert.That(weightObj.ToStone(), Is.EqualTo(weight));
+    }
+
+    #endregion
+
+
+
+    #region Object inherited Methods
+
+    [Test]
+    [TestCase(10, ExpectedResult = true)]
+    [TestCase(10.00001, ExpectedResult = false)]
+    public bool EqualsMethod_Weight_ReturnsCorrectValue(decimal value)
+    {
+        // Arrange
+        var weight = new Weight(10m);
+        object obj = new Weight(value);
+
+        // Act
+        var result = weight.Equals(obj);
+
+        // Assert
+        return result;
+    }
+
+
+    [Test]
+    public void EqualsMethod_DifferentTypes_ReturnsFalse()
+    {
+        // Arrange
+        var weight = new Weight(10m);
+        object obj = new();
+
+        // Act
+        var result = weight.Equals(obj);
+
+        // Assert
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void EqualsMethod_Null_ReturnsFalse()
+    {
+        // Arrange
+        var weight = new Weight(10m);
+        object obj = null;
+
+        // Act
+        var result = weight.Equals(obj);
+
+        // Assert
+        Assert.That(result, Is.False);
+    }
+
+
+    [Test]
+    public void GetHashCode_SameHashAsDecimal([Random(-9999, 9999, 1)] decimal inStone)
+    {
+        // Arrange
+        var weight = new Weight(inStone);
+
+        // Act
+        var result = weight.GetHashCode();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(inStone.GetHashCode()));
+    }
+
+    #endregion
+
+
+
     [Test]
     [TestCase(2, ExpectedResult = "2")]
     [TestCase(-3, ExpectedResult = "-3")]
@@ -70,7 +180,7 @@ class WeightTests
     [TestCase(2, -2.1, ExpectedResult = false)]
     [TestCase(2, -1.9, ExpectedResult = false)]
     [TestCase(-3.191, 0, ExpectedResult = false)]
-    public bool Eq(decimal a, decimal b)
+    public bool EqOperator(decimal a, decimal b)
     {
         // Arrange
         Weight A = new(a);
@@ -90,7 +200,7 @@ class WeightTests
     [TestCase(2, -2.1, ExpectedResult = true)]
     [TestCase(2, -1.9, ExpectedResult = true)]
     [TestCase(-3.191, 0, ExpectedResult = true)]
-    public bool NEq(decimal a, decimal b)
+    public bool NEqOperator(decimal a, decimal b)
     {
         // Arrange
         Weight A = new(a);
@@ -308,6 +418,23 @@ class WeightTests
      * GENERIC MATHS INTERFACES
      */
     #region GENERIC_MATH
+
+    [Test]
+    [TestCase(2.01, ExpectedResult = 2.01)]
+    [TestCase(-2.01, ExpectedResult = 2.01)]
+    [TestCase(0.0000, ExpectedResult = 0.0000)]
+    public decimal Abs_Weigh_ReturnsCorrectValuet(decimal a)
+    {
+        // Arrange
+        Weight A = new(a);
+        // Act
+        var result = Weight.Abs(A);
+        // Assert
+        return (decimal)result;
+    }
+
+
+
     [Test]
     [TestCase(2, 2, ExpectedResult = 1)]
     [TestCase(2, -2, ExpectedResult = -1)]
@@ -403,5 +530,198 @@ class WeightTests
     {
         Assert.That(Weight.MultiplicativeIdentity * a, Is.EqualTo(new Weight(a)));
     }
+
+
+    [Test]
+    public void IncrementOperator_ShouldIncrementValueByOne()
+    {
+        // Arrange
+        var w = new Weight(4.1m);
+        var expected = new Weight(5.1m);
+
+        // Act
+        var result = ++w; // decrement before assignment
+        Assume.That((decimal)w, Is.EqualTo(5.1));
+        var after = w++; // decrement after assignment
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(after, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void DecrementOperator_ShouldIncrementValueByOne()
+    {
+        // Arrange
+        var w = new Weight(4.1m);
+        var expected = new Weight(3.1m);
+
+        // Act
+        var result = --w; // decrement before assignment
+        Assume.That((decimal)w, Is.EqualTo(3.1));
+        var after = w--; // decrement after assignment
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+        Assert.That(after, Is.EqualTo(expected));
+    }
+    #endregion
+
+
+
+    /*
+     * STATIC PROPERTIES
+     */
+    #region Static Properties Tests - INumberBase
+
+    [Test]
+    public void RefValue_ReturnsWeightWithValueOfOne()
+    {
+        // Arrange & Act
+        var result = Weight.RefValue;
+
+        // Assert
+        Assert.That(result, Is.EqualTo(new Weight(1)));
+    }
+
+    [Test]
+    public void One_ReturnsWeightWithValueOfOne()
+    {
+        // Arrange & Act
+        var one = Weight.One;
+
+        // Assert
+        Assert.That(one, Is.EqualTo(new Weight(1)));
+    }
+
+    [Test]
+    public void Zero_ReturnsWeightWithValueOfZero()
+    {
+        // Arrange & Act
+        var zero = Weight.Zero;
+
+        // Assert
+        Assert.That(zero, Is.EqualTo(new Weight(0)));
+    }
+
+    #endregion
+
+    #region Utility Methods - INumberBase
+
+    [TestCase(1.0, 0, ExpectedResult = false)]
+    [TestCase(0.0, +1, ExpectedResult = false)]
+    [TestCase(0.0, 0, ExpectedResult = true)]
+    [TestCase(0.0, -1, ExpectedResult = false)]
+    public bool IsZero_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    {
+        // Arrange
+        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+
+        // Act
+        bool result = Weight.IsZero(weight);
+
+        // Assert
+        return result;
+    }
+
+    [TestCase(-10, ExpectedResult = true)]
+    [TestCase(10, ExpectedResult = false)]
+    public bool IsNegative_ReturnsCorrectValue(decimal weightValue)
+    {
+        // Arrange
+        var weight = new Weight(weightValue);
+
+        // Act
+        bool result = Weight.IsNegative(weight);
+
+        // Assert
+        return result;
+    }
+
+    [TestCase(-10, ExpectedResult = false)]
+    [TestCase(10, ExpectedResult = true)]
+    public bool IsPositive_ReturnsCorrectValue(decimal weightValue)
+    {
+        // Arrange
+        var weight = new Weight(weightValue);
+
+        // Act
+        bool result = Weight.IsPositive(weight);
+
+        // Assert
+        return result;
+    }
+
+
+    [TestCase(-10, 0, ExpectedResult = true)]
+    [TestCase(12, 0, ExpectedResult = true)]
+    [TestCase(13, -1, ExpectedResult = false)] // not integer
+    [TestCase(13, 0, ExpectedResult = true)]
+    [TestCase(0, +1, ExpectedResult = false)] // not integer
+    [TestCase(0, -1, ExpectedResult = false)] // not integer
+    public bool IsInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    {
+        // Arrange
+        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+
+        // Act
+        bool result = Weight.IsInteger(weight);
+
+        // Assert
+        return result;
+    }
+
+
+
+    [TestCase(-10, 0, ExpectedResult = true)]
+    [TestCase(12, 0, ExpectedResult = true)]
+    [TestCase(13, -1, ExpectedResult = false)] // not integer
+    [TestCase(13, 0, ExpectedResult = false)]
+    [TestCase(0, +1, ExpectedResult = false)] // not integer
+    [TestCase(0, -1, ExpectedResult = false)] // not integer
+    public bool IsEvenInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    {
+        // Arrange
+        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+
+        // Act
+        bool result = Weight.IsEvenInteger(weight);
+
+        // Assert
+        return result;
+    }
+
+    [TestCase(-10, 0, ExpectedResult = false)]
+    [TestCase(12, 0, ExpectedResult = false)]
+    [TestCase(13, -1, ExpectedResult = false)]
+    [TestCase(13, 0, ExpectedResult = true)]
+    [TestCase(0, 1, ExpectedResult = false)]
+    public bool IsOddInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    {
+        // Arrange
+        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+
+        // Act
+        bool result = Weight.IsOddInteger(weight);
+
+        // Assert
+        return result;
+    }
+
+    [TestCase(-101, -1, ExpectedResult = -101)]
+    [TestCase(-10, +1, ExpectedResult = -9)]
+    [TestCase(17, -1, ExpectedResult = 16)]
+    public decimal Truncate_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    {
+        // Arrange
+        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+
+        // Act
+        var result = Weight.Truncate(weight);
+
+        // Assert
+        return (decimal)result;
+    }
+
     #endregion
 }
