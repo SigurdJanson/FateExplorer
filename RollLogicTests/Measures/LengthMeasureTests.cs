@@ -1,5 +1,4 @@
 ﻿using Aventuria.Measures;
-using Moq;
 using NUnit.Framework;
 using System;
 
@@ -8,9 +7,6 @@ namespace UnitTests.Measures;
 [TestFixture]
 public class LengthMeasureTests
 {
-    //private MockRepository mockRepository;
-
-
 
     [SetUp]
     public void SetUp()
@@ -26,12 +22,12 @@ public class LengthMeasureTests
 
 
     [Test]
-    public void Equals_Equal_True([Random(-9999, 9999, 1)] double inYards)
+    public void Equals_Equal_True([Random(-9999, 9999, 1)] double inPaces)
     {
 #nullable enable
         // Arrange
-        var lengthMeasure = CreateLengthMeasure(inYards);
-        object? obj = CreateLengthMeasure(inYards);
+        var lengthMeasure = CreateLengthMeasure(inPaces);
+        object? obj = CreateLengthMeasure(inPaces);
 
         // Act
         var result = lengthMeasure.Equals(obj);
@@ -42,12 +38,12 @@ public class LengthMeasureTests
     }
 
     [Test]
-    public void Equals_Unequal_False([Random(-9999, 9999, 1)] double inYards, [Random(0.0001, 9999, 1)] double delta)
+    public void Equals_Unequal_False([Random(-9999, 9999, 1)] double inPaces, [Random(0.0001, 9999, 1)] double delta)
     {
 #nullable enable
         // Arrange
-        var lengthMeasure = CreateLengthMeasure(inYards);
-        object? obj = CreateLengthMeasure(inYards + delta);
+        var lengthMeasure = CreateLengthMeasure(inPaces);
+        object? obj = CreateLengthMeasure(inPaces + delta);
 
         // Act
         var result = lengthMeasure.Equals(obj);
@@ -58,11 +54,11 @@ public class LengthMeasureTests
     }
 
     [Test]
-    public void Equals_Null_False([Random(-9999, 9999, 1)] double inYards)
+    public void Equals_Null_False([Random(-9999, 9999, 1)] double inPaces)
     {
 #nullable enable
         // Arrange
-        var lengthMeasure = CreateLengthMeasure(inYards);
+        var lengthMeasure = CreateLengthMeasure(inPaces);
         object? obj = null;
 
         // Act
@@ -78,16 +74,16 @@ public class LengthMeasureTests
 
 
     [Test]
-    public void GetHashCode_StateUnderTest_ExpectedBehavior([Random(-9999, 9999, 1)] double inYards)
+    public void GetHashCode_StateUnderTest_ExpectedBehavior([Random(-9999, 9999, 1)] double inPaces)
     {
         // Arrange
-        var lengthMeasure = CreateLengthMeasure(inYards);
+        var lengthMeasure = CreateLengthMeasure(inPaces);
 
         // Act
         var result = lengthMeasure.GetHashCode();
 
         // Assert
-        Assert.That(result, Is.EqualTo(inYards.GetHashCode()));
+        Assert.That(result, Is.EqualTo(inPaces.GetHashCode()));
     }
 
 
