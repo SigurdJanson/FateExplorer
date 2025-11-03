@@ -14,6 +14,7 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     IAdditiveIdentity<Weight, Weight>,
     IMultiplicativeIdentity<Weight, Weight>,
     IMinMaxValue<Weight>
+    // INumberBase<Weight> // interface is only partially implemented
 {
     /// <summary>
     /// The weight internally represented in Stone (i.e. kg in Earthen terms).
@@ -38,7 +39,7 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     }
 
     /// <summary>
-    /// Returns the value of the weight as decimal.
+    /// Returns the w of the weight as decimal.
     /// </summary>
     /// <param name="w">A <see cref="Weight"/> object</param>
     public static explicit operator decimal(Weight w) => w.Value;
@@ -107,7 +108,7 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsComplexNumber(Weight w) => false;
-    public static bool IsInteger(Weight w) => decimal.IsInteger(w.Value);
+    public static bool IsInteger(Weight w) => w.Value == Truncate(w).Value;
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Nicht verwendete Parameter entfernen", Justification = "Parameter required for Interface")]
     public static bool IsRealNumber(Weight w) => true;
@@ -116,6 +117,24 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     public static bool IsPositive(Weight w) => decimal.IsPositive(w.Value);
     public static bool IsNegative(Weight w) => decimal.IsNegative(w.Value);
     public static Weight Truncate(Weight w) => new(decimal.Truncate(w.Value));
+
+    public static bool IsCanonical(Weight w) => decimal.IsCanonical(w.Value);
+    public static bool IsFinite(Weight w) => true;
+    public static bool IsInfinity(Weight w) => false;
+    public static bool IsNaN(Weight w) => false;
+    public static bool IsNegativeInfinity(Weight w) => false;
+    public static bool IsPositiveInfinity(Weight w) => false;
+    public static bool IsImaginaryNumber(Weight w) => false;
+    public static bool IsNormal(Weight w) => w.Value != 0;
+    public static bool IsSubnormal(Weight w) => w.Value == 0;
+    public static Weight MaxMagnitude(Weight x, Weight y) => new(decimal.MaxMagnitude(x.Value, y.Value));
+    public static Weight MaxMagnitudeNumber(Weight x, Weight y) => MaxMagnitude(x, y);
+    public static Weight MinMagnitude(Weight x, Weight y) => new(decimal.MinMagnitude(x.Value, y.Value));
+    public static Weight MinMagnitudeNumber(Weight x, Weight y) => MinMagnitude(x, y);
+    public static int Radix => 10;
+    public static Weight operator -(Weight w) => new(-w.Value);
+    public static Weight operator +(Weight w) => w;
+    public static Weight operator *(Weight left, Weight right) => throw new InvalidOperationException();
 
     #endregion
 
@@ -147,4 +166,6 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     public static Weight MultiplicativeIdentity => new(1);
 
     #endregion
+
+
 }
