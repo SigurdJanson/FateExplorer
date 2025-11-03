@@ -1,4 +1,5 @@
 using Aventuria.Calendar;
+using Aventuria.Measures;
 using System.Globalization;
 
 
@@ -158,7 +159,7 @@ public class DereCultureInfo : IFormatProvider, ICloneable
         //TextInfo = BaseCulture.TextInfo;  // not necessary
 
         // Names
-        englishName = CultureNames[Country];
+        englishName = CultureNames[name];
         this.name = englishName;
         displayName = Properties.Resources.ResourceManager.GetString(nameof(Country) + Country) ?? "";
         nativeName = displayName;
