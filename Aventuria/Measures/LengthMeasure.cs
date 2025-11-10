@@ -125,23 +125,8 @@ public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     // Metric Middenrealm units
     public double ToPaces() => Value;
 
-    // Naval Rohal Units
-    //public double ToRohalFathom() => Value * CmPerYard / 500; // 1 Rohal Fathom
-    //public double ToRohalLot() => Value * CmPerYard / 1000; // 1 Rohal Lot
-
     // Dwarven Units
-    //public double ToRim() => Value * RimPerYard; // 1 notch = 2.25 inches
-    //public double ToDrom() => Value * RimPerYard / 70; //
     public double ToDrumod() => Value / MeterPerDrumod; //
-    //public double ToDrash() => Value * RimPerYard / 70 / 6 / 4; //
-    //public double ToDumad() => Value * RimPerYard / 70 / 6 / 4 / 11; //
 
-    //// Andergast Units
-    //public double ToTeshkalerCubit() => Value * CmPerYard / 150;
-    //public double ToThuranianCubit() => Value * CmPerYard / 50;
-
-    //// Other units
-    //public double ToEmperorsArm() => Value * CmPerYard / 5; // 1 Emperor's Arm = 4 span
-    //public double ToNiveseDaysMarch() => Value * CmPerYard / 100000 / 12; // 1 Nivese Day's March = 12 km
     #endregion
 }
