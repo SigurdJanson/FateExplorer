@@ -348,7 +348,7 @@ public class Currency : Enumeration
         Origin = [Region.Arania, Region.Tulamidya, Region.ThalusaRegion],
         KeyCoinIndex = 0,
 
-        // set according to UI language
+        // set according to current culture
         NativeCoinNames =
         [
             Properties.Resources.AranianDinarName,
@@ -362,6 +362,42 @@ public class Currency : Enumeration
             Properties.Resources.AranianShekelAbbr,
             Properties.Resources.AranianHallahAbbr,
             Properties.Resources.AranianKurushAbbr
+        ]
+    };
+
+
+    public static Currency CaliphateMaravedi =>
+    new(nameof(CaliphateMaravedi), 10)
+    {
+        CoinNames = [
+            Properties.Resources.CaliphateMaravediName,
+            Properties.Resources.CaliphateZechineName,
+            Properties.Resources.CaliphateMuwlatName
+        ],
+        CoinCodes = [
+            Properties.Resources.CaliphateMaravediAbbr,
+            Properties.Resources.CaliphateZechineAbbr,
+            Properties.Resources.CaliphateMuwlatAbbr
+        ],
+        Rate = 2.0m,
+        CoinValue = [1, 0.1m, 0.0025m],
+        CoinRealValue = [1, 0.1m, 0.0025m],
+        CoinWeight = [0.05m, 0.01m, 0.0025m], // 50, 10, 2.5
+        Origin = [Region.Khom, Region.SzintoRegion],
+        KeyCoinIndex = 0,
+
+        // set according to current culture
+        NativeCoinNames =
+        [
+            Properties.Resources.CaliphateMaravediName,
+            Properties.Resources.CaliphateZechineName,
+            Properties.Resources.CaliphateMuwlatName
+        ],
+        NativeCoinCodes =
+        [
+            Properties.Resources.CaliphateMaravediAbbr,
+            Properties.Resources.CaliphateZechineAbbr,
+            Properties.Resources.CaliphateMuwlatAbbr
         ]
     };
     /*
