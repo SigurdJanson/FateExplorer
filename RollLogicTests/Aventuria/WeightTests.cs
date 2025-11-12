@@ -9,17 +9,12 @@ namespace UnitTests.Aventuria;
 [TestFixture]
 class WeightTests
 {
-    protected const decimal Decimal_Epsilon = 1.0E-28m; // only for numbers < 10
+    /// <summary>
+    /// Represents the smallest positive value considered significant for floating-point comparisons within this
+    /// context.
+    /// </summary>
+    protected const double Epsilon = 1.0E-12; //
 
-    public static decimal GetEpsilon(decimal x)
-    {
-        if (x == 0) return Decimal_Epsilon;
-        // The smallest difference is 1 / (10 ^ scale), where scale is the number of decimal places.
-        // decimal.GetBits()[1] contains the 16 least significant bits, where bits 0-15 represent the scale.
-        x *= Math.Sign(x); // ignore the sign
-        int scale = (int)Math.Truncate(Math.Log10((double)x)); //(int)(decimal.GetBits(x)[3] >> 16) & 0xFF;
-        return (decimal)Math.Pow(10, -28+scale);
-    }
 
     #region Constructor Tests
 
@@ -40,7 +35,7 @@ class WeightTests
     public void Constructor_DecimalParameter_SetsValueCorrectly()
     {
         // Arrange
-        decimal weight = 10.5m;
+        double weight = 10.5;
 
         // Act
         var weightObj = new Weight(weight);
@@ -58,10 +53,10 @@ class WeightTests
     [Test]
     [TestCase(10, ExpectedResult = true)]
     [TestCase(10.00001, ExpectedResult = false)]
-    public bool EqualsMethod_Weight_ReturnsCorrectValue(decimal value)
+    public bool EqualsMethod_Weight_ReturnsCorrectValue(double value)
     {
         // Arrange
-        var weight = new Weight(10m);
+        var weight = new Weight(10);
         object obj = new Weight(value);
 
         // Act
@@ -76,7 +71,7 @@ class WeightTests
     public void EqualsMethod_DifferentTypes_ReturnsFalse()
     {
         // Arrange
-        var weight = new Weight(10m);
+        var weight = new Weight(10);
         object obj = new();
 
         // Act
@@ -90,7 +85,7 @@ class WeightTests
     public void EqualsMethod_Null_ReturnsFalse()
     {
         // Arrange
-        var weight = new Weight(10m);
+        var weight = new Weight(10);
         object obj = null;
 
         // Act
@@ -102,7 +97,7 @@ class WeightTests
 
 
     [Test]
-    public void GetHashCode_SameHashAsDecimal([Random(-9999, 9999, 1)] decimal inStone)
+    public void GetHashCode_SameHashAsDecimal([Random(-9999, 9999, 1)] double inStone)
     {
         // Arrange
         var weight = new Weight(inStone);
@@ -122,7 +117,7 @@ class WeightTests
     [TestCase(2, ExpectedResult = "2")]
     [TestCase(-3, ExpectedResult = "-3")]
     [TestCase(5.12345, ExpectedResult = "5,12345")]
-    public string ToString_(decimal v)
+    public string ToString_(double v)
     {
         // Arrange
         Weight weight = new(v);
@@ -136,10 +131,10 @@ class WeightTests
 
     [Test]
     [TestCase(2, -2, ExpectedResult = 0.0)]
-    [TestCase(2, -2.1, ExpectedResult = -0.1)]
-    [TestCase(2, -1.9, ExpectedResult = 0.1)]
-    [TestCase(-3.191, 0, ExpectedResult = -3.191)]
-    public decimal Plus_WeightWeight(decimal a, decimal b)
+    [TestCase(2, -2.1, ExpectedResult = 2 - 2.1)]
+    [TestCase(2, -1.9, ExpectedResult = 2 - 1.9)]
+    [TestCase(-3.191, 0, ExpectedResult = -3.191 + 0)]
+    public double Plus_WeightWeight(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -150,7 +145,7 @@ class WeightTests
 
         // Assert
         Assert.That(result, Is.TypeOf(typeof(Weight)));
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -159,7 +154,7 @@ class WeightTests
     [TestCase(2, -2.1, ExpectedResult = 4.1)]
     [TestCase(2, -1.9, ExpectedResult = 3.9)]
     [TestCase(-3.191, 0, ExpectedResult = -3.191)]
-    public decimal Minus_WeightWeight(decimal a, decimal b)
+    public double Minus_WeightWeight(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -170,7 +165,7 @@ class WeightTests
 
         // Assert
         Assert.That(result, Is.TypeOf(typeof(Weight)));
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -180,7 +175,7 @@ class WeightTests
     [TestCase(2, -2.1, ExpectedResult = false)]
     [TestCase(2, -1.9, ExpectedResult = false)]
     [TestCase(-3.191, 0, ExpectedResult = false)]
-    public bool EqOperator(decimal a, decimal b)
+    public bool EqOperator(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -200,7 +195,7 @@ class WeightTests
     [TestCase(2, -2.1, ExpectedResult = true)]
     [TestCase(2, -1.9, ExpectedResult = true)]
     [TestCase(-3.191, 0, ExpectedResult = true)]
-    public bool NEqOperator(decimal a, decimal b)
+    public bool NEqOperator(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -224,7 +219,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 / 1000)]
     [TestCase(5.12345, ExpectedResult = 5.12345 / 1000)]
     [TestCase(1000, ExpectedResult = 1)]
-    public decimal ToCuboids(decimal w)
+    public double ToCuboids(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -242,7 +237,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 / 100)]
     [TestCase(5.12345, ExpectedResult = 5.12345 / 100)]
     [TestCase(1000, ExpectedResult = 10.0)]
-    public decimal ToSack(decimal w)
+    public double ToSack(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -259,7 +254,7 @@ class WeightTests
     [TestCase(2, ExpectedResult = 2.0)]
     [TestCase(-3, ExpectedResult = -3.0)]
     [TestCase(5.12345, ExpectedResult = 5.12345)]
-    public decimal ToStone(decimal w)
+    public double ToStone(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -277,7 +272,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 * 40)]
     [TestCase(5.12345, ExpectedResult = 5.12345 * 40)]
     [TestCase(1, ExpectedResult = 40)]
-    public decimal ToOunce(decimal w)
+    public double ToOunce(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -295,7 +290,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 * 40 * 25)]
     [TestCase(5.12345, ExpectedResult = 5.12345 * 40 * 25)]
     [TestCase(1, ExpectedResult = 1000)]
-    public decimal ToScruple(decimal w)
+    public double ToScruple(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -313,7 +308,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 * 40 * 25 * 5)]
     [TestCase(5.12345, ExpectedResult = 5.12345 * 40 * 25 * 5)]
     [TestCase(1, ExpectedResult = 5000)]
-    public decimal ToCarat(decimal w)
+    public double ToCarat(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -331,7 +326,7 @@ class WeightTests
     [TestCase(-3, ExpectedResult = -3.0 * 40 * 25 * 5 * 5)]
     [TestCase(5.12345, ExpectedResult = 5.12345 * 40 * 25 * 5 * 5)]
     [TestCase(1, ExpectedResult = 25000)]
-    public decimal ToGran(decimal w)
+    public double ToGran(double w)
     {
         // Arrange
         Weight W = new(w);
@@ -354,7 +349,7 @@ class WeightTests
     //[TestCase(2.7654, "g", ExpectedResult = "2.7654")]
     [TestCase(2.7654, ExpectedResult = "2,7654")]
     [TestCase(234.7654, ExpectedResult = "234,7654")]
-    public string ToString(decimal Value)
+    public string ToString(double Value)
     {
         // Arrange
         Weight W = new(Value);
@@ -370,12 +365,12 @@ class WeightTests
     [TestCase(2.7654, "g", ExpectedResult = "2,765")]
     [TestCase(2.7654, "G", ExpectedResult = "2,765 Stein")]
     [TestCase(2.7654, "r", ExpectedResult = "2,765 St")]
-    [TestCase(2.7654, "R", ExpectedResult = "0 Q 2 St 30 oz 15 s 2 kt 0,0000 gr")]
+    [TestCase(2.7654, "R", ExpectedResult = "0 Q 2 St 30 oz 15 s 2 kt 0 gr")]
     [TestCase(2.7654, "g4", ExpectedResult = "2,7654")]
     [TestCase(2.7654, "G4", ExpectedResult = "2,7654 Stein")]
     [TestCase(2.7654, "r4", ExpectedResult = "2,7654 St")]
     [TestCase(0.0654, "r4", ExpectedResult = "2,6160 oz")] //
-    public string ToString_WithFormat(decimal Value, string Format)
+    public string ToString_WithFormat(double Value, string Format)
     {
         // Arrange
         Weight W = new(Value);
@@ -392,12 +387,12 @@ class WeightTests
     [TestCase(2.7654, "g", ExpectedResult = "2,765")]
     [TestCase(2.7654, "G", ExpectedResult = "2,765 stone")]
     [TestCase(2.7654, "r", ExpectedResult = "2,765 st")]
-    [TestCase(2.7654, "R", ExpectedResult = "0 C 2 st 30 oz 15 s 2 ct 0,0000 gr")]
+    [TestCase(2.7654, "R", ExpectedResult = "0 C 2 st 30 oz 15 s 2 ct 0 gr")]
     [TestCase(2.7654, "g4", ExpectedResult = "2,7654")]
     [TestCase(2.7654, "G4", ExpectedResult = "2,7654 stone")]
     [TestCase(2.7654, "r4", ExpectedResult = "2,7654 st")]
     [TestCase(0.0654, "r4", ExpectedResult = "2,6160 oz")] //
-    public string ToString_WithFormat_CultureEn(decimal Value, string Format)
+    public string ToString_WithFormat_CultureEn(double Value, string Format)
     {
         // Arrange
         //---CultureInfo.CurrentCulture = new("en");
@@ -423,14 +418,14 @@ class WeightTests
     [TestCase(2.01, ExpectedResult = 2.01)]
     [TestCase(-2.01, ExpectedResult = 2.01)]
     [TestCase(0.0000, ExpectedResult = 0.0000)]
-    public decimal Abs_Weigh_ReturnsCorrectValuet(decimal a)
+    public double Abs_Weigh_ReturnsCorrectValuet(double a)
     {
         // Arrange
         Weight A = new(a);
         // Act
         var result = Weight.Abs(A);
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
 
@@ -441,7 +436,7 @@ class WeightTests
     [TestCase(2, 4, ExpectedResult = 0.5)]
     [TestCase(26, 25, ExpectedResult = 1.04)]
     [TestCase(2, 1, ExpectedResult = 2)] // Edge case - returns identity
-    public decimal Division_Weight_Int_NotZero(decimal a, int b)
+    public double Division_Weight_Int_NotZero(double a, int b)
     {
         // Arrange
         Weight A = new(a);
@@ -450,7 +445,7 @@ class WeightTests
         var result = A / b;
 
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -460,7 +455,7 @@ class WeightTests
     [TestCase(26, 25.0, ExpectedResult = 1.04)]
     [TestCase(26, 6.5, ExpectedResult = 4.0)]
     [TestCase(2, 1.0, ExpectedResult = 2.0)] // Edge case - returns identity
-    public decimal Division_Weight_Double_NotZero(decimal a, decimal b)
+    public double Division_Weight_Double_NotZero(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -469,7 +464,7 @@ class WeightTests
         var result = A / b;
 
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -478,7 +473,7 @@ class WeightTests
     [TestCase(26, 25, ExpectedResult = 26 * 25)]
     [TestCase(2, 1, ExpectedResult = 2)] // Edge case - returns identity
     [TestCase(2, 0, ExpectedResult = 0)] // Edge case - returns zero
-    public decimal Multiplication_Weight_Int(decimal a, int b)
+    public double Multiplication_Weight_Int(double a, int b)
     {
         // Arrange
         Weight A = new(a);
@@ -487,7 +482,7 @@ class WeightTests
         var result = A * b;
 
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -497,7 +492,7 @@ class WeightTests
     [TestCase(3, 0.33, ExpectedResult = 0.99)]
     [TestCase(2, 1.0, ExpectedResult = 2.0)] // Edge case - returns identity
     [TestCase(2, 0.0, ExpectedResult = 0.0)] // Edge case - returns zero
-    public decimal Multiplication_Weight_Double_NotZero(decimal a, decimal b)
+    public double Multiplication_Weight_Double_NotZero(double a, double b)
     {
         // Arrange
         Weight A = new(a);
@@ -506,7 +501,7 @@ class WeightTests
         var result = A * b;
 
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
     [Test]
@@ -515,7 +510,7 @@ class WeightTests
     [TestCase(3.3333)]
     [TestCase(1)] // Edge case - returns identity
     [TestCase(0)] // Edge case - returns zero
-    public void Addition_AdditiveIdentity(decimal a)
+    public void Addition_AdditiveIdentity(double a)
     {
         Assert.That(Weight.AdditiveIdentity + new Weight(a), Is.EqualTo(new Weight(a)));
     }
@@ -526,7 +521,7 @@ class WeightTests
     [TestCase(3.3333)]
     [TestCase(1)] // Edge case - returns identity
     [TestCase(0)] // Edge case - returns zero
-    public void Multiplication_MultiplicativeIdentity(decimal a)
+    public void Multiplication_MultiplicativeIdentity(double a)
     {
         Assert.That(Weight.MultiplicativeIdentity * a, Is.EqualTo(new Weight(a)));
     }
@@ -536,12 +531,12 @@ class WeightTests
     public void IncrementOperator_ShouldIncrementValueByOne()
     {
         // Arrange
-        var w = new Weight(4.1m);
-        var expected = new Weight(5.1m);
+        var w = new Weight(4.1);
+        var expected = new Weight(5.1);
 
         // Act
         var result = ++w; // decrement before assignment
-        Assume.That((decimal)w, Is.EqualTo(5.1));
+        Assume.That((double)w, Is.EqualTo(5.1));
         var after = w++; // decrement after assignment
 
         // Assert
@@ -553,12 +548,12 @@ class WeightTests
     public void DecrementOperator_ShouldIncrementValueByOne()
     {
         // Arrange
-        var w = new Weight(4.1m);
-        var expected = new Weight(3.1m);
+        var w = new Weight(4.1);
+        var expected = new Weight(3.1);
 
         // Act
         var result = --w; // decrement before assignment
-        Assume.That((decimal)w, Is.EqualTo(3.1));
+        Assume.That((double)w, Is.EqualTo(3.1));
         var after = w--; // decrement after assignment
 
         // Assert
@@ -612,10 +607,10 @@ class WeightTests
     [TestCase(0.0, +1, ExpectedResult = false)]
     [TestCase(0.0, 0, ExpectedResult = true)]
     [TestCase(0.0, -1, ExpectedResult = false)]
-    public bool IsZero_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    public bool IsZero_ReturnsCorrectValue(double weightValue, int deltaSign)
     {
         // Arrange
-        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+        var weight = new Weight(weightValue + deltaSign * Epsilon);
 
         // Act
         bool result = Weight.IsZero(weight);
@@ -626,7 +621,7 @@ class WeightTests
 
     [TestCase(-10, ExpectedResult = true)]
     [TestCase(10, ExpectedResult = false)]
-    public bool IsNegative_ReturnsCorrectValue(decimal weightValue)
+    public bool IsNegative_ReturnsCorrectValue(double weightValue)
     {
         // Arrange
         var weight = new Weight(weightValue);
@@ -640,7 +635,7 @@ class WeightTests
 
     [TestCase(-10, ExpectedResult = false)]
     [TestCase(10, ExpectedResult = true)]
-    public bool IsPositive_ReturnsCorrectValue(decimal weightValue)
+    public bool IsPositive_ReturnsCorrectValue(double weightValue)
     {
         // Arrange
         var weight = new Weight(weightValue);
@@ -659,10 +654,10 @@ class WeightTests
     [TestCase(13, 0, ExpectedResult = true)]
     [TestCase(0, +1, ExpectedResult = false)] // not integer
     [TestCase(0, -1, ExpectedResult = false)] // not integer
-    public bool IsInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    public bool IsInteger_ReturnsCorrectValue(double weightValue, int deltaSign)
     {
         // Arrange
-        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+        var weight = new Weight(weightValue + deltaSign * Epsilon);
 
         // Act
         bool result = Weight.IsInteger(weight);
@@ -679,10 +674,10 @@ class WeightTests
     [TestCase(13, 0, ExpectedResult = false)]
     [TestCase(0, +1, ExpectedResult = false)] // not integer
     [TestCase(0, -1, ExpectedResult = false)] // not integer
-    public bool IsEvenInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    public bool IsEvenInteger_ReturnsCorrectValue(double weightValue, int deltaSign)
     {
         // Arrange
-        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+        var weight = new Weight(weightValue + deltaSign * Epsilon);
 
         // Act
         bool result = Weight.IsEvenInteger(weight);
@@ -696,10 +691,10 @@ class WeightTests
     [TestCase(13, -1, ExpectedResult = false)]
     [TestCase(13, 0, ExpectedResult = true)]
     [TestCase(0, 1, ExpectedResult = false)]
-    public bool IsOddInteger_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    public bool IsOddInteger_ReturnsCorrectValue(double weightValue, int deltaSign)
     {
         // Arrange
-        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+        var weight = new Weight(weightValue + deltaSign * Epsilon);
 
         // Act
         bool result = Weight.IsOddInteger(weight);
@@ -711,16 +706,16 @@ class WeightTests
     [TestCase(-101, -1, ExpectedResult = -101)]
     [TestCase(-10, +1, ExpectedResult = -9)]
     [TestCase(17, -1, ExpectedResult = 16)]
-    public decimal Truncate_ReturnsCorrectValue(decimal weightValue, int deltaSign)
+    public double Truncate_ReturnsCorrectValue(double weightValue, int deltaSign)
     {
         // Arrange
-        var weight = new Weight(weightValue + deltaSign * GetEpsilon(weightValue));
+        var weight = new Weight(weightValue + deltaSign * Epsilon);
 
         // Act
         var result = Weight.Truncate(weight);
 
         // Assert
-        return (decimal)result;
+        return (double)result;
     }
 
     #endregion

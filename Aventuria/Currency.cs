@@ -48,7 +48,7 @@ public class Currency : Enumeration
     /// Each coin's weight in Stone.<br/>
     /// Values must be ordered by <see cref="CoinValue">par value</see>
     /// </summary>
-    public required decimal[] CoinWeight { get; init; }
+    public required double[] CoinWeight { get; init; }
 
     /// <summary>
     /// The regions where the currency is commonly traded with
@@ -112,7 +112,7 @@ public class Currency : Enumeration
             Rate = 1.0m,
             CoinValue = [1, 0.1m, 0.01m, 0.001m],
             CoinRealValue = [10, 1, 0.1m, 0.01m],
-            CoinWeight = [0.025m, 0.005m, 0.0025m, 0.00125m],
+            CoinWeight = [0.025, 0.005, 0.0025, 0.00125],
             Origin = [Region.Middenrealm],
             KeyCoinIndex = 0,
 
@@ -145,7 +145,7 @@ public class Currency : Enumeration
             Rate = 1.20m,
             CoinValue = [1.0m, 2.0m/12m, 0.2m/12m],
             CoinRealValue = [12, 2, 0.2m],
-            CoinWeight = [0.025m, 0.01m, 0.01m],
+            CoinWeight = [0.025, 0.01, 0.01],
             Origin = [Region.CentralMountainKingdoms, Region.SouthernMountainKingdoms],
             KeyCoinIndex = 0,
 
@@ -172,7 +172,7 @@ public class Currency : Enumeration
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [1],
-            CoinWeight = [0.0125m],
+            CoinWeight = [0.0125],
             Origin = [Region.PaaviRegion],
             KeyCoinIndex = 0,
 
@@ -189,7 +189,7 @@ public class Currency : Enumeration
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [0.5m],
-            CoinWeight = [0.025m], // 25
+            CoinWeight = [0.025], // 25
             Origin = [Region.Nostria],
             KeyCoinIndex = 0,
 
@@ -206,7 +206,7 @@ public class Currency : Enumeration
             Rate = 5.0m,
             CoinValue = [1],
             CoinRealValue = [0.5m],
-            CoinWeight = [0.025m], // 25
+            CoinWeight = [0.025], // 25
             Origin = [Region.Andergast],
             KeyCoinIndex = 0,
 
@@ -236,7 +236,7 @@ public class Currency : Enumeration
             Rate = 20.0m,
             CoinValue = [1, 1/20m, 1/200m, 0.1m/200m, 0.01m/200m],
             CoinRealValue = [1.0m, 1.0m / 20m, 1.0m / 200m, 0.1m / 200m, 0.01m / 200m],
-            CoinWeight = [0.5m, 0.025m, 0.005m, 0.0025m, 0.00125m], // 500, 25, 5, 2.5, 1.25
+            CoinWeight = [0.5, 0.025, 0.005, 0.0025, 0.00125], // 500, 25, 5, 2.5, 1.25
             Origin = [Region.Fairfields],
             KeyCoinIndex = 0,
 
@@ -273,7 +273,7 @@ public class Currency : Enumeration
             Rate = 2.0m,
             CoinValue = [1, 0.05m, 0.025m, 0.0005m],
             CoinRealValue = [1, 0.05m, 0.025m, 0.0005m],
-            CoinWeight = [0.050m, 0.005m, 0.003m, 0.003m], // 50, 5, 3, 3
+            CoinWeight = [0.050, 0.005, 0.003, 0.003], // 50, 5, 3, 3
             Origin = [Region.AlAnfaRegion],
             KeyCoinIndex = 0,
 
@@ -306,7 +306,7 @@ public class Currency : Enumeration
             Rate = 1.0m,
             CoinValue = [1, 0.1m, 0.01m],
             CoinRealValue = [1, 0.1m, 0.01m],
-            CoinWeight = [0.025m, 0.005m, 0.005m], // 25, 5, 5
+            CoinWeight = [0.025, 0.005, 0.005], // 25, 5, 5
             Origin = [Region.Bornland],
             KeyCoinIndex = 0,
 
@@ -344,7 +344,7 @@ public class Currency : Enumeration
         Rate = 1.0m,
         CoinValue = [1, 0.1m, 0.01m, 0.001m],
         CoinRealValue = [1, 0.1m, 0.01m, 0.001m],
-        CoinWeight = [0.025m, 0.005m, 0.0025m, 0.00125m],
+        CoinWeight = [0.025, 0.005, 0.0025, 0.00125],
         Origin = [Region.Arania, Region.Tulamidya, Region.ThalusaRegion],
         KeyCoinIndex = 0,
 
@@ -382,7 +382,7 @@ public class Currency : Enumeration
         Rate = 2.0m,
         CoinValue = [1, 0.1m, 0.0025m],
         CoinRealValue = [1, 0.1m, 0.0025m],
-        CoinWeight = [0.05m, 0.01m, 0.0025m], // 50, 10, 2.5
+        CoinWeight = [0.05, 0.01, 0.0025], // 50, 10, 2.5
         Origin = [Region.Khom, Region.SzintoRegion],
         KeyCoinIndex = 0,
 

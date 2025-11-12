@@ -141,28 +141,28 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     /// <returns>A formatted string</returns>
     protected static string Split(Weight W)
     {
-        decimal Ref;
-        decimal w = (decimal)W;
+        double Ref;
+        double w = (double)W;
 
-        Ref = Weight.ToCuboids(1m);
+        Ref = Weight.ToCuboids(1);
         int Cubes = (int)Math.Floor(w * Ref);
         w -= Cubes / Ref;
         int Stones = (int)Math.Floor(w);
         w -= Stones;
 
-        Ref = Weight.ToOunce(1m);
+        Ref = Weight.ToOunce(1);
         int Ounce = (int)Math.Floor(w * Ref);
         w -= Ounce / Ref;
 
-        Ref = Weight.ToScruple(1m);
-        int Scruple = (int)Math.Floor(w * Weight.ToScruple(1m));
+        Ref = Weight.ToScruple(1);
+        int Scruple = (int)Math.Floor(w * Weight.ToScruple(1));
         w -= Scruple / Ref;
 
-        Ref = Weight.ToCarat(1m);
-        int Carat = (int)Math.Floor(w * Weight.ToCarat(1m));
+        Ref = Weight.ToCarat(1);
+        int Carat = (int)Math.Floor(w * Weight.ToCarat(1));
         w -= Carat / Ref;
 
-        decimal Gran = w * Weight.ToGran(1m);
+        double Gran = double.Round(w, Weight.SignificantDigits, MidpointRounding.AwayFromZero) * Weight.ToGran(1);
 
         return $"{Cubes} {CuboidUnitAbbr} {Stones} {StoneUnitAbbr} {Ounce} {OunceUnitAbbr} {Scruple} {ScrupleUnitAbbr} {Carat} {CaratUnitAbbr} {Gran} {GranUnitAbbr}";
     }
@@ -177,25 +177,25 @@ public class WeightFormatter : IFormatProvider, ICustomFormatter
     protected static string Best(Weight W, int Precision)
     {
         const int Threshold = 1;
-        decimal w = (decimal)W;
+        double w = (double)W;
         string Format = $"{{0:F{Precision}}} {{1}}";
 
-        int Cubes = (int)Math.Floor(w * Weight.ToCuboids(1m));
+        int Cubes = (int)Math.Floor(w * Weight.ToCuboids(1));
         if (Cubes > Threshold) return string.Format(Format, Weight.ToCuboids(w), CuboidUnitAbbr);
 
         int Stones = (int)Math.Floor(w);
         if (Stones > Threshold) return string.Format(Format, w, StoneUnitAbbr);
 
-        int Ounce = (int)Math.Floor(w * Weight.ToOunce(1m));
+        int Ounce = (int)Math.Floor(w * Weight.ToOunce(1));
         if (Ounce > Threshold) return string.Format(Format, Weight.ToOunce(w), OunceUnitAbbr);
 
-        int Scruple = (int)Math.Floor(w * Weight.ToScruple(1m));
+        int Scruple = (int)Math.Floor(w * Weight.ToScruple(1));
         if (Scruple > 4) return string.Format(Format, Weight.ToScruple(w), ScrupleUnitAbbr);
 
-        int Carat = (int)Math.Floor(w * Weight.ToCarat(1m));
+        int Carat = (int)Math.Floor(w * Weight.ToCarat(1));
         if (Carat > Threshold) return string.Format(Format, Weight.ToCarat(w), CaratUnitAbbr);
 
-        decimal Gran = w * Weight.ToGran(1m);
+        double Gran = w * Weight.ToGran(1);
         return string.Format(Format, Gran, GranUnitAbbr);
     }
 

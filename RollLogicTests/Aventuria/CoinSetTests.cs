@@ -258,7 +258,7 @@ public class CoinSetTests
     [TestCase(1.0, ExpectedResult = 0.025)]
     [TestCase(5.0, ExpectedResult = 0.025 * 5)]
     [TestCase(15.531, ExpectedResult = 15 * 0.025 + 5 * 0.005 + 3 * 0.0025 + 1 * 0.00125)]
-    public decimal Weight_StateUnderTest_ReturnCorrectWeight(decimal Amount)
+    public double Weight_StateUnderTest_ReturnCorrectWeight(decimal Amount)
     {
         // Arrange
         var coinSet = new CoinSet(Currency.MiddenrealmDucat);

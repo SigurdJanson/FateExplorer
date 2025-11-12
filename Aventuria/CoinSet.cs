@@ -115,10 +115,10 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     /// <returns>Weight in Stone</returns>
     public Weight Weight()
     {
-        decimal result = 0;
+        double result = 0;
         for(var c = 0; c < Coin.Length; c++)
         {
-            result += (decimal)Coin[c] * Currency.CoinWeight[c];
+            result += Coin[c] * Currency.CoinWeight[c];
         }
         return new Weight(result);
     }
