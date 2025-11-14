@@ -11,7 +11,7 @@ namespace Aventuria.Measures;
 /// involving area. Division by zero when using the division operators will result in a DivideByZeroException.
 /// SquareMeasure implements several numeric interfaces, allowing it to be used in generic numeric algorithms and
 /// collections.</remarks>
-public readonly struct SquareMeasure : IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
+public readonly struct SquareMeasure : IMeasure, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<SquareMeasure>, IEqualityOperators<SquareMeasure, SquareMeasure, bool>,
     ISubtractionOperators<SquareMeasure, SquareMeasure, SquareMeasure>,
     IDecrementOperators<SquareMeasure>,
@@ -130,4 +130,13 @@ public readonly struct SquareMeasure : IFormattable, // IParsable<TSelf>, ISpanP
     public static SquareMeasure MinValue => new(double.MinValue); // IMinMaxValue
 
     public static SquareMeasure MaxValue => new(double.MaxValue); // IMinMaxValue
+
+
+
+    #region IMeasure Members
+    public double ToDouble() => Value;
+
+    public decimal ToDecimal() => throw new NotImplementedException();
+
+    #endregion
 }

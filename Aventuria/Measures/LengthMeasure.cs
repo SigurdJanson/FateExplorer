@@ -2,7 +2,7 @@
 
 namespace Aventuria.Measures;
 
-public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
+public readonly struct LengthMeasure : IMeasure, IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<LengthMeasure>, IEqualityOperators<LengthMeasure, LengthMeasure, bool>,
     ISubtractionOperators<LengthMeasure, LengthMeasure, LengthMeasure>,
     IDecrementOperators<LengthMeasure>,
@@ -127,6 +127,15 @@ public readonly struct LengthMeasure : IFormattable, // IParsable<TSelf>, ISpanP
 
     // Dwarven Units
     public double ToDrumod() => Value / MeterPerDrumod; //
+
+    #endregion
+
+
+
+    #region IMeasure Members
+    public double ToDouble() => Value;
+
+    public decimal ToDecimal() => throw new NotImplementedException();
 
     #endregion
 }

@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Aventuria.Measures;
 
-public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
+public readonly struct Weight : IMeasure, IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<Weight>, IEqualityOperators<Weight, Weight, bool>, 
     ISubtractionOperators<Weight, Weight, Weight>,
     IDecrementOperators<Weight>,
@@ -185,4 +185,11 @@ public readonly struct Weight : IFormattable, // IParsable<TSelf>, ISpanParsable
     #endregion
 
 
+
+    #region IMeasure Members
+    public double ToDouble() => Value;
+
+    public decimal ToDecimal() => throw new NotImplementedException();
+
+    #endregion
 }
