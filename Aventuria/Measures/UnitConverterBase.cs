@@ -15,7 +15,8 @@ public enum StandardMeasureSize
 /// <typeparam name="TMeasure">The type of the target measurement, such as <see cref="LengthMeasure"/></typeparam>
 /// <typeparam name="TUnit">The type of the target unit the measure is represented in.</typeparam>
 internal abstract class UnitConverterBase<TMeasure, TBaseType> 
-    where TMeasure : IMultiplyOperators<TMeasure, int, TMeasure>, 
+    where TMeasure : IMeasure,
+                     IMultiplyOperators<TMeasure, int, TMeasure>, 
                      IMultiplyOperators<TMeasure, TBaseType, TMeasure>
 {
     public required DereCultureInfo DereCulture { get; init; }
@@ -42,7 +43,7 @@ internal abstract class UnitConverterBase<TMeasure, TBaseType>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    public abstract TBaseType ConvertToBase(LengthMeasure value);
+    public abstract TBaseType ConvertToBase(TMeasure value);
 
 
     /// <summary>
@@ -55,17 +56,37 @@ internal abstract class UnitConverterBase<TMeasure, TBaseType>
     /// <param name="medium">Conversion function used for 'medium' units ('M').</param>
     /// <param name="large">Conversion function used for 'large' units ('L').</param>
     /// <returns></returns>
-    protected static double ResolvePurposeSize(LengthMeasure value, string Format, Func<double, double> 
-        small, Func<double, double> medium, Func<double, double> large)
+    protected static double ResolvePurposeSize(TMeasure value, string Format, 
+        Func<double, double> small, 
+        Func<double, double> medium, 
+        Func<double, double> large)
     {
         if (Format.Length > 1)
         {
             if (Format[1] == 'L')
-                return large((double)value);
+                return large(value.ToDouble());
             if (Format[1] == 'M')
-                return medium((double)value);
+                return medium(value.ToDouble());
         }
-        return small((double)value);
+        return small(value.ToDouble());
+    }
+
+
+
+    /// <inheritdoc cref="ResolvePurposeSize"/>
+    protected static decimal ResolvePurposeSize(TMeasure value, string Format,
+        Func<decimal, decimal> small,
+        Func<decimal, decimal> medium,
+        Func<decimal, decimal> large)
+    {
+        if (Format.Length > 1)
+        {
+            if (Format[1] == 'L')
+                return large(value.ToDecimal());
+            if (Format[1] == 'M')
+                return medium(value.ToDecimal());
+        }
+        return small(value.ToDecimal());
     }
 }
 
