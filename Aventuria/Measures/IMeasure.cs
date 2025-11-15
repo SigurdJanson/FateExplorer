@@ -1,5 +1,4 @@
-﻿
-namespace Aventuria.Measures;
+﻿namespace Aventuria.Measures;
 
 internal interface IMeasure : IFormattable
 {

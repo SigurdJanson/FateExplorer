@@ -10,7 +10,7 @@ namespace Aventuria.Measures;
 /// IFormattable interface. It is immutable and can be used in calculations involving volume quantities. The value is
 /// internally stored as a double representing anglepaces. Use the provided operators and methods to perform arithmetic
 /// and comparison operations. Division by zero will result in a DivideByZeroException.</remarks>
-public readonly struct VolumeMeasure : IMeasure, IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
+public readonly struct VolumeMeasure : IMeasure, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<VolumeMeasure>, IEqualityOperators<VolumeMeasure, VolumeMeasure, bool>,
     ISubtractionOperators<VolumeMeasure, VolumeMeasure, VolumeMeasure>,
     IDecrementOperators<VolumeMeasure>,

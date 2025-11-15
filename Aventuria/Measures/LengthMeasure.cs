@@ -2,7 +2,7 @@
 
 namespace Aventuria.Measures;
 
-public readonly struct LengthMeasure : IMeasure, IFormattable, // IParsable<TSelf>, ISpanParsable<TSelf>, 
+public readonly struct LengthMeasure : IMeasure, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<LengthMeasure>, IEqualityOperators<LengthMeasure, LengthMeasure, bool>,
     ISubtractionOperators<LengthMeasure, LengthMeasure, LengthMeasure>,
     IDecrementOperators<LengthMeasure>,
