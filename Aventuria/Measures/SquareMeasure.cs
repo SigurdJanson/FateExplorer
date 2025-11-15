@@ -26,7 +26,7 @@ public readonly struct SquareMeasure : IMeasure, // IParsable<TSelf>, ISpanParsa
     IMinMaxValue<SquareMeasure>
 {
     /// <summary>
-    /// The weight internally represented in Stone (i.e. kg in Earthen terms).
+    /// The weight internally represented in anglepace units (i.e. m² in Earthen terms).
     /// </summary>
     private double Value { get; init; }
 

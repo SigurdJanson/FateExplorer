@@ -2,6 +2,15 @@
 
 namespace Aventuria.Measures;
 
+/// <summary>
+/// Represents a measurement of length, supporting arithmetic, comparison, and conversion operations across multiple
+/// units.
+/// </summary>
+/// <remarks>LengthMeasure provides methods and operators for performing calculations with lengths, including
+/// addition, subtraction, multiplication, and division. It supports conversion between paces (meters), yards, and
+/// drumods, and implements several numeric and comparison interfaces for interoperability with .NET numeric types.
+/// Instances are immutable and can be used in mathematical expressions and comparisons. Thread safety is guaranteed due
+/// to its value type and immutability.</remarks>
 public readonly struct LengthMeasure : IMeasure, // IParsable<TSelf>, ISpanParsable<TSelf>, 
     IEquatable<LengthMeasure>, IEqualityOperators<LengthMeasure, LengthMeasure, bool>,
     ISubtractionOperators<LengthMeasure, LengthMeasure, LengthMeasure>,
@@ -27,7 +36,7 @@ public readonly struct LengthMeasure : IMeasure, // IParsable<TSelf>, ISpanParsa
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="length">Sets the length in unit "paces" ()</param>
+    /// <param name="length">Sets the length in unit "paces" (meters)</param>
     public LengthMeasure(double length)
     {
         Value = length;

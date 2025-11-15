@@ -3,8 +3,8 @@
 namespace Aventuria.Measures;
 
 /// <summary>
-/// Represents a measurement of volume in the custom unit "anglepace." Provides arithmetic, comparison, and formatting
-/// operations for volume values.
+/// Represents a measurement of volume in the custom unit "quart" (German: Maß, 1 quart = 1 liter). 
+/// Provides arithmetic, comparison, and formatting operations for volume values.
 /// </summary>
 /// <remarks>This struct supports standard arithmetic operators, equality checks, and formatting via the
 /// IFormattable interface. It is immutable and can be used in calculations involving volume quantities. The value is
@@ -23,15 +23,18 @@ public readonly struct VolumeMeasure : IMeasure, // IParsable<TSelf>, ISpanParsa
     IMultiplicativeIdentity<VolumeMeasure, VolumeMeasure>,
     IMinMaxValue<VolumeMeasure>
 {
+    internal const double LitersPerOunce = 0.0284130642624675;
+    internal const double LitersPerRoomYard = 764.554857984;
+
     /// <summary>
-    /// The weight internally represented in Stone (i.e. kg in Earthen terms).
+    /// The weight internally represented in quarts (i.e. liter in Earthen terms).
     /// </summary>
     private double Value { get; init; }
 
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="volume">Sets the volumne in unit "anglepace" ()</param>
+    /// <param name="volume">Sets the volume in unit "quarts" (i.e. liter = dm³)</param>
     public VolumeMeasure(double volume)
     {
         Value = volume;
