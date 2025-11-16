@@ -24,8 +24,8 @@ public readonly struct LengthMeasure : IMeasure, // IParsable<TSelf>, ISpanParsa
     IMultiplicativeIdentity<LengthMeasure, LengthMeasure>,
     IMinMaxValue<LengthMeasure>
 {
-    const double MeterPerYard = 0.9144;
-    const double MeterPerDrumod = 1.68; // 
+    internal const double MeterPerYard = 0.9144; // 1 yard = 0.9144 meter
+    internal const double MeterPerDrumod = 1.68; // 1 drumod = 1.68 meter
 
 
     /// <summary>
