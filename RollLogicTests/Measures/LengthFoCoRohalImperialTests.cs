@@ -23,14 +23,13 @@ public class LengthFoCoRohalImperialTests
         };
     }
 
-    internal static LengthFoCoRohalImperial CreateTestObject()
+    internal static LengthFoCoRohalImperial CreateLengthFoCo()
     {
         return new LengthFoCoRohalImperial(new DereCultureInfo("MidRealm", "de"))
         {
             DereCulture = new DereCultureInfo("MidRealm", "de")
         };
     }
-
 
 
 
@@ -53,6 +52,26 @@ public class LengthFoCoRohalImperialTests
 
         // Assert
         return result;
+    }
+
+    [Test]
+    public void ConvertByPurpose_SupportedPurposes_ReturnsNumbersInCorrectOrder(
+        [Random(-1000.0, 1000.0, 1)] double inAnglePaces,
+        [Values("t", "b", "m", "c", "f", "d")] string purpose)
+    {
+        const string Small = "S", Medium = "M", Large = "L";
+        // Arrange
+        var lengthFoCo = CreateLengthFoCo();
+        LengthMeasure value = new(inAnglePaces);
+
+        // Act
+        double resultSmall = lengthFoCo.ConvertByPurpose(value, purpose + Small);
+        double resultMedium = lengthFoCo.ConvertByPurpose(value, purpose + Medium);
+        double resultLarge = lengthFoCo.ConvertByPurpose(value, purpose + Large);
+
+        // Assert
+        Assert.That(Math.Abs(resultSmall), Is.GreaterThanOrEqualTo(Math.Abs(resultMedium)));
+        Assert.That(Math.Abs(resultMedium), Is.GreaterThanOrEqualTo(Math.Abs(resultLarge)));
     }
 
     [Test]
@@ -105,7 +124,7 @@ public class LengthFoCoRohalImperialTests
             LengthFoCoRohalImperial.ToYard,
             LengthFoCoRohalImperial.ToMiddenmile
         ];
-        var lengthFoCo = CreateTestObject();
+        var lengthFoCo = CreateLengthFoCo();
         LengthMeasure value = new(inPaces);
 
         for (int i = 0; i < Format.Length; i++)

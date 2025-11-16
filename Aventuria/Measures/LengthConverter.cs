@@ -107,7 +107,7 @@ internal class LengthFoCoRohalImperial : UnitConverterBase<LengthMeasure, double
             't' => ToMiddenmile((double)value), // travel distance in miles
             'b' => ResolvePurposeSize(value, Format, small: ToHalfThumb, medium: ToHalfThumb, large: ToYard), // body measures
             'm' => ResolvePurposeSize(value, Format, small: ToYard, medium: ToPlummet, large: ToPlummet), // mining measures
-            'c' => ResolvePurposeSize(value, Format, small: ToFoot, medium: ToPlummet, large: ToYard), // construction measures
+            'c' => ResolvePurposeSize(value, Format, small: ToFoot, medium: ToYard, large: ToPlummet), // construction measures
             'f' => ResolvePurposeSize(value, Format, small: ToHalfThumb, medium: ToFoot, large: ToYard), // fabric measures
             'd' => ResolvePurposeSize(value, Format, small: ToFathom, medium: ToFathom, large: ToPlummet),
             _ => throw new NotSupportedException($"Size format '{Format}' is not supported."),
