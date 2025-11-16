@@ -23,7 +23,7 @@ public class LengthFoCoRohalMetricTests
     ];
 
 
-    internal static LengthFoCoRohalMetric CreateLengthFoCoRohalMetric()
+    internal static LengthFoCoRohalMetric CreateLengthFoCo()
     {
         return new LengthFoCoRohalMetric(new DereCultureInfo("MidRealm", "de"))
         {
@@ -37,7 +37,7 @@ public class LengthFoCoRohalMetricTests
     public void ConvertToBase(double inMeter)
     {
         // Arrange
-        var lengthFoCoRohalMetric = CreateLengthFoCoRohalMetric();
+        var lengthFoCoRohalMetric = CreateLengthFoCo();
         LengthMeasure value = new(inMeter);
 
         // Act
@@ -54,7 +54,7 @@ public class LengthFoCoRohalMetricTests
         const double ConversionFactor = 0.001;
         const string Purpose = "t";
 
-        var lengthFoCoRohalMetric = CreateLengthFoCoRohalMetric();
+        var lengthFoCoRohalMetric = CreateLengthFoCo();
         LengthMeasure value = new(inPaces);
         string Format = Purpose + size;
 
@@ -72,7 +72,7 @@ public class LengthFoCoRohalMetricTests
         double ConversionFactor = size == "L" ? 1 : 100;
         const string Purpose = "b";
 
-        var lengthFoCoRohalMetric = CreateLengthFoCoRohalMetric();
+        var lengthFoCoRohalMetric = CreateLengthFoCo();
         LengthMeasure value = new(inPaces);
         string Format = Purpose + size;
 
@@ -83,7 +83,25 @@ public class LengthFoCoRohalMetricTests
         Assert.That(result, Is.EqualTo(inPaces * ConversionFactor));
     }
 
+    [Test]
+    public void ConvertByPurpose_SupportedPurposes_ReturnsNumbersInCorrectOrder(
+        [Random(-1000.0, 1000.0, 1)] double inAnglePaces,
+        [Values("t", "b", "m", "c", "f", "d")] string purpose)
+    {
+        const string Small = "S", Medium = "M", Large = "L";
+        // Arrange
+        var lengthFoCo = CreateLengthFoCo();
+        LengthMeasure value = new(inAnglePaces);
 
+        // Act
+        double resultSmall = lengthFoCo.ConvertByPurpose(value, purpose + Small);
+        double resultMedium = lengthFoCo.ConvertByPurpose(value, purpose + Medium);
+        double resultLarge = lengthFoCo.ConvertByPurpose(value, purpose + Large);
+
+        // Assert
+        Assert.That(Math.Abs(resultSmall), Is.GreaterThanOrEqualTo(Math.Abs(resultMedium)));
+        Assert.That(Math.Abs(resultMedium), Is.GreaterThanOrEqualTo(Math.Abs(resultLarge)));
+    }
 
 
     [Test]
@@ -99,7 +117,7 @@ public class LengthFoCoRohalMetricTests
             LengthFoCoRohalMetric.ToPace,
             LengthFoCoRohalMetric.ToMile
         ];
-        var lengthFoCo = CreateLengthFoCoRohalMetric();
+        var lengthFoCo = CreateLengthFoCo();
         LengthMeasure value = new(inPaces);
 
         for (int i = 0; i < Format.Length; i++)
@@ -116,7 +134,7 @@ public class LengthFoCoRohalMetricTests
     public void ConvertBySize_UnsupportedSize_ThrowsNotSupportedException()
     {
         // Arrange
-        var lengthFoCo = CreateLengthFoCoRohalMetric();
+        var lengthFoCo = CreateLengthFoCo();
         var lengthMeasure = new LengthMeasure(100.0);
         var unsupportedSize = (StandardMeasureSize)999; // invalid size
 

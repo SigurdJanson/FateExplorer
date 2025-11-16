@@ -26,7 +26,7 @@ internal class LengthFoCoRohalMetric : UnitConverterBase<LengthMeasure, double>
             't' => ToMile((double)value), // travel distance in miles
             'b' => ResolvePurposeSize(value, Format, small: ToHalfFinger, medium: ToHalfFinger, large:ToPace), // body measures
             'm' => ResolvePurposeSize(value, Format, small: ToPace, medium: ToPlummet, large: ToPlummet), // mining measures
-            'c' => ResolvePurposeSize(value, Format, small: ToSpan, medium: ToPlummet, large: ToPace), // construction measures
+            'c' => ResolvePurposeSize(value, Format, small: ToSpan, medium: ToPace, large: ToPlummet), // construction measures
             'f' => ResolvePurposeSize(value, Format, small: ToHalfFinger, medium: ToSpan, large: ToPace), // fabric measures
             'd' => ResolvePurposeSize(value, Format, small: ToFathom, medium: ToFathom, large: ToPlummet),
             _ => throw new NotSupportedException($"Size format '{Format}' is not supported."),
@@ -76,8 +76,6 @@ internal class LengthFoCoRohalMetric : UnitConverterBase<LengthMeasure, double>
 
     /// <inheritdoc cref="ToHalfFinger(double)"/>
     public static double ToPlummet(double Value) => Value / 10; // 10 m
-
-
 
 }
 
