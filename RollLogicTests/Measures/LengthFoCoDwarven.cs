@@ -20,6 +20,13 @@ public class LengthFoCoDwarvenTests
         };
     }
 
+    internal static LengthFoCoDwarven CreateLengthFoCo()
+    {
+        return new LengthFoCoDwarven(new DereCultureInfo("MidRealm", "de"))
+        {
+            DereCulture = new DereCultureInfo("MidRealm", "de")
+        };
+    }
 
 
     #region ConvertByPurpose Tests
@@ -40,6 +47,26 @@ public class LengthFoCoDwarvenTests
 
         // Assert
         return result;
+    }
+
+    [Test]
+    public void ConvertByPurpose_SupportedPurposes_ReturnsNumbersInCorrectOrder(
+    [Random(-1000.0, 1000.0, 1)] double inAnglePaces,
+    [Values("t", "b", "m", "c", "f", "d")] string purpose)
+    {
+        const string Small = "S", Medium = "M", Large = "L";
+        // Arrange
+        var lengthFoCoDwarven = CreateLengthFoCo();
+        LengthMeasure value = new(inAnglePaces);
+
+        // Act
+        double resultSmall = lengthFoCoDwarven.ConvertByPurpose(value, purpose + Small);
+        double resultMedium = lengthFoCoDwarven.ConvertByPurpose(value, purpose + Medium);
+        double resultLarge = lengthFoCoDwarven.ConvertByPurpose(value, purpose + Large);
+
+        // Assert
+        Assert.That(Math.Abs(resultSmall), Is.GreaterThanOrEqualTo(Math.Abs(resultMedium)));
+        Assert.That(Math.Abs(resultMedium), Is.GreaterThanOrEqualTo(Math.Abs(resultLarge)));
     }
 
     [Test]
