@@ -14,12 +14,11 @@ public enum StandardMeasureSize
 /// </summary>
 /// <typeparam name="TMeasure">The type of the target measurement, such as <see cref="LengthMeasure"/></typeparam>
 /// <typeparam name="TUnit">The type of the target unit the measure is represented in.</typeparam>
-internal abstract class UnitConverterBase<TMeasure, TBaseType> 
+public abstract class UnitConverterBase<TMeasure, TBaseType> 
     where TMeasure : IMeasure,
                      IMultiplyOperators<TMeasure, int, TMeasure>, 
                      IMultiplyOperators<TMeasure, TBaseType, TMeasure>
 {
-    public required DereCultureInfo DereCulture { get; init; }
 
     /// <summary>
     /// Convert value into another unit using a purpose-based format definition.

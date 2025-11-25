@@ -1,6 +1,6 @@
 ﻿namespace Aventuria.Measures;
 
-internal interface IMeasure : IFormattable
+public interface IMeasure : IFormattable
 {
     double ToDouble();
     decimal ToDecimal();
