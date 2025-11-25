@@ -19,10 +19,7 @@ public class VolumeFoCoDwarvenMetricTests
 
     internal static VolumeFoCoDwarvenMetric CreateFoCo()
     {
-        return new VolumeFoCoDwarvenMetric(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new VolumeFoCoDwarvenMetric();
     }
 
 

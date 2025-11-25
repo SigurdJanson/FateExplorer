@@ -19,10 +19,7 @@ public class VolumeFocoDwarvenImperialTests
 
     internal static VolumeFoCoDwarvenImperial CreateFoCo()
     {
-        return new VolumeFoCoDwarvenImperial(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new VolumeFoCoDwarvenImperial();
     }
 
 

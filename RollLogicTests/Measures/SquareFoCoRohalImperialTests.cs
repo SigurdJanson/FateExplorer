@@ -25,10 +25,7 @@ public class SquareFoCoRohalImperialTests
 
     internal static SquareFoCoRohalImperial CreateSquareFoCoRohalImperial()
     {
-        return new SquareFoCoRohalImperial(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new SquareFoCoRohalImperial();
     }
 
 

@@ -19,10 +19,7 @@ public class VolumeFoCoRohalImperialTests
 
     internal static VolumeFoCoRohalImperial CreateFoCo()
     {
-        return new VolumeFoCoRohalImperial(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new VolumeFoCoRohalImperial();
     }
 
 

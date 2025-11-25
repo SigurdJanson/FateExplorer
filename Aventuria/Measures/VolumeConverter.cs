@@ -13,7 +13,7 @@ internal class VolumeFoCoRohalMetric : UnitConverterBase<VolumeMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
 
-    public VolumeFoCoRohalMetric(DereCultureInfo culture) => DereCulture = culture;
+    public VolumeFoCoRohalMetric() { }
 
     public override double ConvertToBase(VolumeMeasure value) => (double)value; // convert to meter
 
@@ -97,7 +97,7 @@ internal class VolumeFoCoRohalImperial : UnitConverterBase<VolumeMeasure, double
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
 
-    public VolumeFoCoRohalImperial(DereCultureInfo culture) => DereCulture = culture;
+    public VolumeFoCoRohalImperial() { }
 
     public override double ConvertToBase(VolumeMeasure value) => (double)value; // convert to meter
 
@@ -178,7 +178,7 @@ internal class VolumeFoCoDwarvenMetric : UnitConverterBase<VolumeMeasure, double
 {
     //public DereCultureInfo DereCulture { get; init; } // inherited;
 
-    public VolumeFoCoDwarvenMetric(DereCultureInfo culture) => DereCulture = culture;
+    public VolumeFoCoDwarvenMetric() { }
 
     public override double ConvertByPurpose(VolumeMeasure value, string Format)
     {
@@ -231,7 +231,7 @@ internal class VolumeFoCoDwarvenImperial : UnitConverterBase<VolumeMeasure, doub
 {
     //public DereCultureInfo DereCulture { get; init; } // inherited;
 
-    public VolumeFoCoDwarvenImperial(DereCultureInfo culture) => DereCulture = culture;
+    public VolumeFoCoDwarvenImperial() { }
 
     public override double ConvertByPurpose(VolumeMeasure value, string Format)
     {

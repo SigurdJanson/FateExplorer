@@ -12,7 +12,7 @@ internal class LengthFoCoRohalMetric : UnitConverterBase<LengthMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
 
-    public LengthFoCoRohalMetric(DereCultureInfo culture) => DereCulture = culture;
+    public LengthFoCoRohalMetric() { }
 
     public override double ConvertToBase(LengthMeasure value) => (double)value; // convert to meter
 
@@ -93,7 +93,7 @@ internal class LengthFoCoRohalImperial : UnitConverterBase<LengthMeasure, double
     //public DereCultureInfo DereCulture { get; init; } = culture; // inherited
 
     /// <param name="culture">The culture information used to format and interpret length measurements.</param>
-    public LengthFoCoRohalImperial(DereCultureInfo culture) => DereCulture = culture;
+    public LengthFoCoRohalImperial() { }
 
 
     public override double ConvertByPurpose(LengthMeasure value, string Format)
@@ -158,7 +158,7 @@ internal class LengthFoCoDwarven : UnitConverterBase<LengthMeasure, double>
 
     //public DereCultureInfo DereCulture { get; init; } // inherited;
 
-    public LengthFoCoDwarven(DereCultureInfo culture) => DereCulture = culture;
+    public LengthFoCoDwarven() { }
 
     public override double ConvertByPurpose(LengthMeasure value, string Format)
     {
@@ -212,7 +212,7 @@ internal class LengthFoCoDwarven : UnitConverterBase<LengthMeasure, double>
 /// It adds the Novadi baryd unit (day's march).
 /// </summary>
 /// <param name="culture">The culture information used to format and interpret length measurements.</param>
-internal class LengthFoCoNovadiMetric(DereCultureInfo culture) : LengthFoCoRohalMetric(culture)
+internal class LengthFoCoNovadiMetric() : LengthFoCoRohalMetric()
 {
     public static double ToBaryd(double Value) => Value / 1000 / 15; // 1 baryd = 15 miles
 }
@@ -226,7 +226,7 @@ internal class LengthFoCoNovadiMetric(DereCultureInfo culture) : LengthFoCoRohal
 /// It adds the Novadi baryd unit (day's march).
 /// </summary>
 /// <param name="culture">The culture information used to format and interpret length measurements.</param>
-internal class LengthFoCoNovadiImperial(DereCultureInfo culture) : LengthFoCoRohalImperial(culture)
+internal class LengthFoCoNovadiImperial() : LengthFoCoRohalImperial()
 {
     public static double ToBaryd(double Value) => Value * MeterPerYard / 1000 / 15; // 1 baryd = 15 miles
 }

@@ -19,10 +19,7 @@ public class VolumeFoCoRohalMetricTests
 
     internal static VolumeFoCoRohalMetric CreateFoCo()
     {
-        return new VolumeFoCoRohalMetric(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new VolumeFoCoRohalMetric();
     }
 
 

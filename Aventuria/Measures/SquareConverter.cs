@@ -13,7 +13,7 @@ internal class SquareFoCoRohalMetric : UnitConverterBase<SquareMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
 
-    public SquareFoCoRohalMetric(DereCultureInfo culture) => DereCulture = culture;
+    public SquareFoCoRohalMetric() { }
 
     public override double ConvertToBase(SquareMeasure value) => (double)value; // convert to square meter
 
@@ -85,7 +85,7 @@ internal class SquareFoCoRohalImperial : UnitConverterBase<SquareMeasure, double
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
 
-    public SquareFoCoRohalImperial(DereCultureInfo culture) => DereCulture = culture;
+    public SquareFoCoRohalImperial() { }
 
     public override double ConvertToBase(SquareMeasure value) => ToImperialYard((double)value) ; // convert to square yard
 

@@ -25,10 +25,7 @@ public class LengthFoCoRohalMetricTests
 
     internal static LengthFoCoRohalMetric CreateLengthFoCo()
     {
-        return new LengthFoCoRohalMetric(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new LengthFoCoRohalMetric();
     }
 
 

@@ -25,10 +25,7 @@ public class SquareFoCoRohalMetricTests
 
     internal static SquareFoCoRohalMetric CreateSquareFoCoRohalMetric()
     {
-        return new SquareFoCoRohalMetric(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new SquareFoCoRohalMetric();
     }
 
 

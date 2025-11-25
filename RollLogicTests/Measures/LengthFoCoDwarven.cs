@@ -13,19 +13,12 @@ public class LengthFoCoDwarvenTests
     [SetUp]
     public void SetUp()
     {
-        var _dereCulture = new DereCultureInfo("MidRealm", "en");
-        _converter = new LengthFoCoDwarven(_dereCulture)
-        { 
-            DereCulture = _dereCulture
-        };
+        _converter = new LengthFoCoDwarven();
     }
 
     internal static LengthFoCoDwarven CreateLengthFoCo()
     {
-        return new LengthFoCoDwarven(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new LengthFoCoDwarven();
     }
 
 

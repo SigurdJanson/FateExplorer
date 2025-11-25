@@ -11,24 +11,16 @@ public class LengthFoCoRohalImperialTests
 {
 
     private LengthFoCoRohalImperial _converter;
-    private DereCultureInfo _dereCulture;
 
     [SetUp]
     public void Setup()
     {
-        _dereCulture = new DereCultureInfo("MidRealm", "en");
-        _converter = new LengthFoCoRohalImperial(_dereCulture)
-        { 
-            DereCulture = _dereCulture
-        };
+        _converter = new LengthFoCoRohalImperial();
     }
 
     internal static LengthFoCoRohalImperial CreateLengthFoCo()
     {
-        return new LengthFoCoRohalImperial(new DereCultureInfo("MidRealm", "de"))
-        {
-            DereCulture = new DereCultureInfo("MidRealm", "de")
-        };
+        return new LengthFoCoRohalImperial();
     }
 
 
