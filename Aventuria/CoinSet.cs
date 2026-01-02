@@ -168,6 +168,10 @@ public class CoinSet : ICollection<int>, IEnumerable<int>
     }
 
 
+    /// <summary>
+    /// Not supported by <c>CoinSet</c>
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public bool Remove(int item)
     {
         throw new NotImplementedException();

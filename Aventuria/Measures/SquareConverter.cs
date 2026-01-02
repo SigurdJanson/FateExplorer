@@ -6,9 +6,8 @@ namespace Aventuria.Measures;
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the metric system.
+/// This format converter (FoCo) provides square/area conversion operations using the Rohal standard measures and the metric system.
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class SquareFoCoRohalMetric : UnitConverterBase<SquareMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
@@ -81,6 +80,9 @@ internal class SquareFoCoRohalMetric : UnitConverterBase<SquareMeasure, double>
 
 
 
+/// <summary>
+/// This format converter (FoCo) provides square/area conversion operations using the Rohal standard measures and the imperial system.
+/// </summary>
 internal class SquareFoCoRohalImperial : UnitConverterBase<SquareMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited

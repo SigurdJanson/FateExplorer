@@ -6,9 +6,8 @@ namespace Aventuria.Measures;
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the metric system.
+/// This format converter (FoCo) provides volume conversion operations using the Rohal standard measures and the metric system.
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class VolumeFoCoRohalMetric : UnitConverterBase<VolumeMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
@@ -93,6 +92,9 @@ internal class VolumeFoCoRohalMetric : UnitConverterBase<VolumeMeasure, double>
 
 
 
+/// <summary>
+/// This format converter (FoCo) provides volume conversion operations using the Rohal standard measures and the imperial system.
+/// </summary>
 internal class VolumeFoCoRohalImperial : UnitConverterBase<VolumeMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
@@ -171,9 +173,8 @@ internal class VolumeFoCoRohalImperial : UnitConverterBase<VolumeMeasure, double
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the dwarven measures and the metric system..
+/// This format converter (FoCo) provides volume conversion operations using the dwarven measures and the metric system..
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class VolumeFoCoDwarvenMetric : UnitConverterBase<VolumeMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; } // inherited;
@@ -224,9 +225,8 @@ internal class VolumeFoCoDwarvenMetric : UnitConverterBase<VolumeMeasure, double
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the dwarven measures and the imperial system.
+/// This format converter (FoCo) provides volume conversion operations using the dwarven measures and the imperial system.
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class VolumeFoCoDwarvenImperial : UnitConverterBase<VolumeMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; } // inherited;

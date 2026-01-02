@@ -5,9 +5,8 @@ namespace Aventuria.Measures;
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the metric system.
+/// This format converter (FoCo) provides length conversion operations using the Rohal standard measures and the metric system.
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class LengthFoCoRohalMetric : UnitConverterBase<LengthMeasure, double>
 {
     //public DereCultureInfo DereCulture { get; init; }; // inherited
@@ -83,7 +82,7 @@ internal class LengthFoCoRohalMetric : UnitConverterBase<LengthMeasure, double>
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the imperial system.
+/// This format converter (FoCo) provides length conversion operations using the Rohal standard measures and the imperial system.
 /// </summary>
 internal class LengthFoCoRohalImperial : UnitConverterBase<LengthMeasure, double>
 {
@@ -148,10 +147,9 @@ internal class LengthFoCoRohalImperial : UnitConverterBase<LengthMeasure, double
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the dwarven measures. Because dwarven units are
+/// This format converter (FoCo) provides length conversion operations using the dwarven measures. Because dwarven units are
 /// hard to interpred, anyway, this converter does not distinguish between metric and imperial systems.
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class LengthFoCoDwarven : UnitConverterBase<LengthMeasure, double>
 {
     protected const double RimPerMeter = 250; // 
@@ -208,10 +206,9 @@ internal class LengthFoCoDwarven : UnitConverterBase<LengthMeasure, double>
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the imperial system.
+/// This format converter (FoCo) provides length conversion operations using the Rohal standard measures and the metric system.
 /// It adds the Novadi baryd unit (day's march).
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class LengthFoCoNovadiMetric() : LengthFoCoRohalMetric()
 {
     public static double ToBaryd(double Value) => Value / 1000 / 15; // 1 baryd = 15 miles
@@ -222,10 +219,9 @@ internal class LengthFoCoNovadiMetric() : LengthFoCoRohalMetric()
 
 
 /// <summary>
-/// This format converter (FoCo) Provides length conversion operations using the Rohal standard measures and the imperial system.
+/// This format converter (FoCo) provides length conversion operations using the Rohal standard measures and the imperial system.
 /// It adds the Novadi baryd unit (day's march).
 /// </summary>
-/// <param name="culture">The culture information used to format and interpret length measurements.</param>
 internal class LengthFoCoNovadiImperial() : LengthFoCoRohalImperial()
 {
     public static double ToBaryd(double Value) => Value * MeterPerYard / 1000 / 15; // 1 baryd = 15 miles
