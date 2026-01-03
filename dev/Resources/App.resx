@@ -1692,6 +1692,18 @@
   <data name="lblWoundThreshold" xml:space="preserve">
     <value>WoundThreshold</value>
   </data>
+  <data name="msgHealingPotion" xml:space="preserve">
+    <value>Select the quality level of the healing potion and use it</value>
+  </data>
+  <data name="msgMagicalPotion" xml:space="preserve">
+    <value>Select the quality level of the magic potion and use it</value>
+  </data>
+  <data name="lblDamageCalculators" xml:space="preserve">
+    <value>Damage</value>
+  </data>
+  <data name="lblEnergyPotions" xml:space="preserve">
+    <value>Potions</value>
+  </data>
   <data name="lblD3" xml:space="preserve">
     <value>D3</value>
   </data>
@@ -1726,5 +1738,49 @@
   <data name="lblInnNoName" xml:space="preserve">
     <value>Inn of the Nameless One</value>
     <comment>Inn</comment>
+  </data>
+  <data name="lblHealingPotion" xml:space="preserve">
+    <value>Healing Potion</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblArcanePotion" xml:space="preserve">
+    <value>Magic Potion</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblPotionRestock" xml:space="preserve">
+    <value>Restock used potions</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblPotionAdd2Belongings" xml:space="preserve">
+    <value>Add 1 potion</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblPotionReset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblIncreaseQualityLevel" xml:space="preserve">
+    <value>Increase quality</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblDecreaseQualityLevel" xml:space="preserve">
+    <value>Decrease quality</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblUsePotion" xml:space="preserve">
+    <value>Use</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="lblPotionsUsed%dVsPotionsOwned%d" xml:space="preserve">
+    <value>Used {0} of {1}</value>
+    <comment>Potion buttons</comment>
+  </data>
+  <data name="msgDrinkingPotion" xml:space="preserve">
+    <value>{0} with QL {1} gives {2} = {3}</value>
+    <comment>Energy potions, arguments: potion name, QL, roll format, result</comment>
+  </data>
+  <data name="msgPotionNotFitForCharacter" xml:space="preserve">
+    <value>Character does not benefit from selected potion</value>
+    <comment>Energy potions</comment>
   </data>
 </root>

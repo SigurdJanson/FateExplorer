@@ -1,87 +1,222 @@
-﻿@*
+﻿@using FateExplorer.ViewModel
+@inject IStringLocalizer<App> l10n
+
+@*
     Component to elecit an action. The users can set the quality level (or any other level) for that action.
-    Created for potions.
+    Created for potions (healing/arcane).
+
+    <style>
+    .mud-input-control.mud-field .mud-input>input.mud-input-root-outlined {
+        padding: 0px 14px;
+    }
+</style>
 *@
-<MudButtonGroup Color =Color.Primary Variant=Variant.Outlined OverrideStyles=false>
-    <MudIconButton OnClick=OnDecrease Icon=@Icons.Material.Filled.Remove Variant=Variant.Filled DropShadow=false
-                   Disabled=@(SelectedValue == 1) />
-    <MudButton OnClick=OnClickHandler
-               StartIcon=@Icon Variant=Variant.Outlined>@Title @Label</MudButton>
-    <MudIconButton OnClick=OnIncrease Icon=@Icons.Material.Filled.Add Variant=Variant.Filled DropShadow=false
-                   Disabled=@(SelectedValue == Labels.Length-1) />
-</MudButtonGroup>
+<style>
+    .MaxInfoWidth {
+        max-width:25%;
+    }
+</style>
+
+<MudGrid>
+    <MudItem xs=12 sm=6 lg=4>
+        <MudStack>
+            <MudField Label=@Label Variant=Variant.Outlined AdornmentAriaLabel=@(l10n[PotionTypeBaseKey + Label])
+                      AdornmentIcon=@Icon AdornmentColor=Color.Primary
+                      ShrinkLabel=false Adornment=Adornment.Start InnerPadding=false
+                      Style="min-width:300px">
+                <MudStack Row Class="mud-input" Spacing=4 AlignItems=AlignItems.Center Justify=Justify.SpaceBetween
+                          tabindex=-1>
+                    <MudMenu Class="MaxInfoWidth" ActivationEvent=@MouseEvent.LeftClick>
+                        <ActivatorContent>
+                            <MudPaper Outlined=true>
+                            <MudText Class="cursor-help">
+                                @PotionsUsed&nbsp;/&nbsp;@PotionsInInventory
+                            </MudText>
+                            </MudPaper>
+                        </ActivatorContent>
+                        <ChildContent>
+                            <div class="pa-3">
+                                @string.Format(l10n["lblPotionsUsed%dVsPotionsOwned%d"], PotionsUsed, PotionsInInventory)
+                            </div>
+                            <MudMenuItem Label=@l10n[RestockKey] OnClick=RestockPotions />
+                            <MudMenuItem Label=@l10n[AddKey] OnClick=AddPotion />
+                            @* <MudMenuItem Label=@l10n[ResetKey] /> *@
+                        </ChildContent>
+                    </MudMenu>
+
+                    <MudStack Row=true Spacing=0>
+                        <MudIconButton Icon=@Icons.Material.Filled.DoNotDisturbOn Title=@l10n[DecreaseKey]
+                                       OnClick=@(() => SetLevel(-1)) Disabled=@(QualityLevel <= MinLevel) />
+                        <MudStack Spacing=0>
+                            @*Style="width:5rem;"*@
+                            <MudText Typo=Typo.body1>@QualityLevelStr</MudText>
+                            <MudText Typo=Typo.caption>@CheckLabel</MudText>
+                        </MudStack>
+                        <MudIconButton Icon=@Icons.Material.Filled.AddCircle Title=@l10n[IncreaseKey]
+                                       OnClick=@(() => SetLevel(+1)) Disabled=@(QualityLevel >= MaxLevel) />
+                    </MudStack>
+
+                    <MudIconButton Color=Color.Secondary Size=Size.Medium
+                                   Variant=Variant.Filled
+                                   Icon=@Icons.Material.Filled.Casino
+                                   Title=@l10n[UseKey]
+                                   aria-label=@l10n[UseKey]
+                                   tabindex=0
+                                   OnClick=@(() => UsePotion(QualityLevel))
+                                   Disabled="PotionsUsed >= PotionsInInventory"
+                                   @onmousedown:stopPropagation />
+                </MudStack>
+            </MudField>
+        </MudStack>
+    </MudItem>
+</MudGrid>
 
 
 @code {
+
     // PARAMETERS ///
     /// <summary>
-    /// A title defining the topic, e.g. "LP" for life points or "AE" for arcane energy.
+    /// The label for this input.
     /// </summary>
-    [Parameter, EditorRequired]
-    public string Title { get; set; }
+    [Parameter]
+    public PotionDescriptorFactory.Potion Type { get; set; }
 
     /// <summary>
     /// An icon used before the title
     /// </summary>
-    [Parameter]
-    public string Icon { get; set; }
+    [Parameter] public string Icon { get; set; }
+
+
+    /// <summary>
+    /// The lowest supported quality level
+    /// </summary>
+    [Parameter] public int MinLevel { get; set; } = 1;
+
+    /// <summary>
+    /// The highest supported quality level
+    /// </summary>
+    [Parameter] public int MaxLevel { get; set; } = 6;
+
+    /// <summary>
+    /// The currently set quality level
+    /// </summary>
+    [Parameter] public int QualityLevel { get; set; }
+
+    /// <summary>
+    /// Supports two-way binding for the quality level
+    /// </summary>
+    [Parameter] public EventCallback<int> QualityLevelChanged { get; set; }
+
+    /// <summary>
+    /// The number of potions owned by a character
+    /// </summary>
+    [Parameter] public int PotionsOwned { get; set; } = 0;
+
+    /// <summary>
+    /// The number of potions that have been used so far.
+    /// </summary>
+    [Parameter] public int PotionsUsed { get; set; } = 0;
 
     /// <summary>
     /// Button click event. Elicited when the button has been clicked.
     /// </summary>
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter] public EventCallback<int> OnClick { get; set; }
+
+
+    // UI LABELS
+    // string id's
+    private const string PotionTypeBaseKey = "lblPotionType";
+    private const string RestockKey = "lblPotionRestock";
+    private const string AddKey = "lblPotionAdd2Belongings";
+    private const string ResetKey = "lblPotionReset";
+    private const string DecreaseKey = "lblDecreaseQualityLevel";
+    private const string IncreaseKey = "lblIncreaseQualityLevel";
+    private const string UseKey = "lblUsePotion";
+
+    private List<DieCheckFormula> CheckLabels;
+
+    protected string Label => l10n[PotionDescriptorFactory.GetPotionLabel(Type)];
+
+    protected string QualityLevelStr { get; set; }
+
+    protected RenderFragment CheckLabel => RenderRollCheck(l10n, CheckLabels[QualityLevel - 1]);
 
     /// <summary>
-    /// Respond to action click
+    /// Renders a die check formula in the format "XdY+Z" such as "2d6+3" for the damage of a windlass crossbow.
     /// </summary>
-    /// <param name="ev"></param>
+    /// <param name="L"></param>
+    /// <param name="formula"></param>
     /// <returns></returns>
-    protected virtual async Task OnClickHandler(MouseEventArgs ev)
+    public RenderFragment RenderRollCheck(IStringLocalizer L, DieCheckFormula formula) => builder =>
     {
-        await OnClick.InvokeAsync(ev);
+        builder.AddContent(0, formula.DieCount);
+        builder.AddContent(1, L["abbrvDie"]);
+        builder.AddContent(2, formula.Sides);
+        if (formula.HasMod)
+        {
+            builder.AddContent(3, formula.Op);
+            builder.AddContent(4, formula.AbsMod);
+        }
+    };
+
+
+    // LOGIC
+    int PotionsInInventory;
+
+    /// <summary>
+    /// Change the quality level by adding <c>delta</c>.
+    /// </summary>
+    /// <param name="delta"></param>
+    private async Task SetLevel(int delta)
+    {
+        int v = QualityLevel + delta;
+        if (v <= MaxLevel && v >= MinLevel)
+            QualityLevel = v;
+        QualityLevelStr = l10n["QL"] + " " + QualityLevel;
+
+        await QualityLevelChanged.InvokeAsync(QualityLevel);
     }
 
     /// <summary>
-    /// Respond to button click to decrease the selected value
+    /// Adds a potion to the inventory.
     /// </summary>
-    /// <param name="ev"></param>
-    /// <returns></returns>
-    protected void OnDecrease(MouseEventArgs ev)
+    /// <remarks>
+    /// This stays within this component; no event is raised.
+    /// </remarks>
+    private void AddPotion() 
     {
-        if (SelectedValue > 1)
-            SelectedValue = SelectedValue - 1;
+        PotionsInInventory += 1;
     }
 
-    /// <summary>
-    /// Respond to button click to increase the selected value
-    /// </summary>
-    /// <param name="ev"></param>
-    /// <returns></returns>
-    protected virtual void OnIncrease(MouseEventArgs ev)
+    private void RestockPotions()
     {
-        if (SelectedValue < Labels.Length)
-            SelectedValue = SelectedValue + 1;
+        PotionsUsed = 0;
     }
 
+
     /// <summary>
-    /// A label that is added to the title. It shows the selected value, unles the mouse hovers
-    /// over a value then it shows the hovered value.
+    /// Roll the dice to drink the potion and determine the effect.
     /// </summary>
-    [Parameter, EditorRequired]
-    public string[] Labels { get; set; }
+    /// <param name="ql">The quality level of the potion</param>
+    private void UsePotion(int ql)
+    {
+        if (PotionsInInventory > PotionsOwned)
+            PotionsInInventory--;
+        else 
+            PotionsUsed++;
+        OnClick.InvokeAsync(QualityLevel);
+    }
+
 
 
 
     // INTERNAL ///
-    /// <summary>
-    /// The selected value of the Rating component
-    /// </summary>
-    private int SelectedValue = 3;
 
-    /// <summary>
-    /// Get current label from the list
-    /// </summary>
-    private string Label => Labels[SelectedValue];
+    protected override async Task OnInitializedAsync()
+    {
+        PotionsInInventory = PotionsOwned;
+        CheckLabels = PotionDescriptorFactory.GetQualityLevelsFor(Type);
+        await SetLevel(MinLevel);
+    }
 
 }

@@ -23,7 +23,7 @@
             @*<MudToolBar WrapContent=true>*@
             <MudStack Row=false Spacing=2 Class="ps-5">
                 <MudText Typo=Typo.caption>@l10n["lblRegenerate6Hours"]</MudText>
-                <MudStack Row=true>
+                <MudStack Row=true StretchItems=StretchItems.All >
                     <MudTooltip Text=@l10n["msgRegenerationSite.Good"]>
                         <MudIconButton Icon=@Icons.Material.Sharp.Hotel OnClick=@(() => Regenerate(RegenerationSite.Good, RegenerationDisturbance.None))
                                         Variant=Variant.Outlined Disabled=@(!CanRegenerate()) />

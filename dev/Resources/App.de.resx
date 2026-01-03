@@ -1567,10 +1567,73 @@
   <data name="lblWoundThreshold" xml:space="preserve">
     <value>Wundschwelle</value>
   </data>
+  <data name="msgHealingPotion" xml:space="preserve">
+    <value>Wähle die Qualitätsstufe des Heiltranks und verwende ihn</value>
+  </data>
+  <data name="lblEnergyPotions" xml:space="preserve">
+    <value>Tränke</value>
+  </data>
+  <data name="msgMagicalPotion" xml:space="preserve">
+    <value>Wähle die Qualitätsstufe des Zaubertranks und verwende ihn</value>
+  </data>
   <data name="descFreeD3" xml:space="preserve">
     <value>Einfacher W3</value>
   </data>
   <data name="lblD3" xml:space="preserve">
     <value>W3</value>
+  </data>
+  <data name="btnAddMenuEntry" xml:space="preserve">
+    <value>Menüeintrag ergänzen</value>
+  </data>
+  <data name="btnAddMainDish" xml:space="preserve">
+    <value>Hauptgang hinzufügen</value>
+  </data>
+  <data name="btnAddColdDish" xml:space="preserve">
+    <value>Brotzeit hinzufügen</value>
+  </data>
+  <data name="btnAddDessert" xml:space="preserve">
+    <value>Süßspeise hinzufügen</value>
+  </data>
+  <data name="btnAddAlcoholic" xml:space="preserve">
+    <value>Alkoholische Getränk hinzufügen</value>
+  </data>
+  <data name="btnAddNonAlcBeverage" xml:space="preserve">
+    <value>Getränk hinzufügen</value>
+  </data>
+  <data name="lblInnNoName" xml:space="preserve">
+    <value>Gasthaus des Namenlosen</value>
+  </data>
+  <data name="lblHealingPotion" xml:space="preserve">
+    <value>Heiltrank</value>
+  </data>
+  <data name="lblArcanePotion" xml:space="preserve">
+    <value>Zaubertrank</value>
+  </data>
+  <data name="lblPotionRestock" xml:space="preserve">
+    <value>Verbrauchte wiedererwerben</value>
+  </data>
+  <data name="lblPotionAdd2Belongings" xml:space="preserve">
+    <value>Ein Trank hinzufügen</value>
+  </data>
+  <data name="lblPotionReset" xml:space="preserve">
+    <value>Wiederherstellen</value>
+  </data>
+  <data name="lblDecreaseQualityLevel" xml:space="preserve">
+    <value>Qualität reduzieren</value>
+  </data>
+  <data name="lblIncreaseQualityLevel" xml:space="preserve">
+    <value>Qualität erhöhen</value>
+  </data>
+  <data name="lblUsePotion" xml:space="preserve">
+    <value>Verwenden</value>
+  </data>
+  <data name="lblPotionsUsed%dVsPotionsOwned%d" xml:space="preserve">
+    <value>{0} von {1} verbraucht</value>
+  </data>
+  <data name="msgDrinkingPotion" xml:space="preserve">
+    <value>{0} mit QS {1} ergibt {2} = {3}</value>
+  </data>
+  <data name="msgPotionNotFitForCharacter" xml:space="preserve">
+    <value>Der Held braucht diesen Trank nicht</value>
   </data>
 </root>

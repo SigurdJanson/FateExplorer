@@ -98,12 +98,12 @@
                 <MudText Typo=Typo.caption>@l10n["lblEnergyPotions"]</MudText>
                 <MudStack Row=true>
                     <MudTooltip Text=@l10n["msgHealingPotion"]>
-                        <PotionButton Label="LP" Icon=@IconsFE.PotionLife OnClick=DrinkHealingPotion /> @* Labels=HealingPotionLabels*@
+                        <PotionButton Type=PotionDescriptorFactory.Potion.Healing Icon=@IconsFE.PotionLife PotionsOwned=1 OnClick=DrinkHealingPotion />
                     </MudTooltip>
                     @if (Hero?.GetEnergies().Any(e => e.Id == ChrAttrId.AE) ?? false)
                     {
                         <MudTooltip Text=@l10n["msgMagicalPotion"]>
-                            <PotionButton Label="AE" Icon=@IconsFE.PotionArcane OnClick=DrinkMagicPotion /> @*Labels=HealingPotionLabels*@
+                            <PotionButton Type=PotionDescriptorFactory.Potion.Arcane Icon=@IconsFE.PotionArcane PotionsOwned=1 OnClick=DrinkMagicPotion />
                         </MudTooltip>
                     }
                 </MudStack>
@@ -213,21 +213,44 @@
         return Max;
     }
 
-    private void DrinkHealingPotion()
+    private void DrinkHealingPotion(int qualityLevel)
     {
+        DrinkEnergyPotion(qualityLevel, ChrAttrId.LP, "lblHealingPotion");
+    }
+
+    private void DrinkMagicPotion(int qualityLevel)
+    {
+        DrinkEnergyPotion(qualityLevel, ChrAttrId.AE, "lblArcanePotion");
+    }
+
+    private void DrinkEnergyPotion(int qualityLevel, string type, string label)
+    {
+        RollLogic.RollResultViMo result;
+        string Msg = ""; 
+        Severity MsgSeverity = Severity.Info;
+
         foreach (EnergyViMo e in Hero?.GetEnergies()) // find the correct energy
-            if (e.Id == ChrAttrId.LP) e.DrinkPotion(0);
-        Snackbar.Add("Heal", Severity.Info, config =>
+        {
+            if (e.Id == type)
+            {
+                result = e.DrinkPotion(qualityLevel);
+                int energy = result.CombinedResult ?? 0;
+                char dieChar = l10n["abbrvDie"].Value[0];
+                Msg = string.Format(l10n["msgDrinkingPotion"], l10n[label], qualityLevel, result.RollToString(dieChar), energy);
+                //MsgSeverity = Severity.Info; // already set
+            }
+        }
+        if (string.IsNullOrEmpty(Msg))
+        {
+            Msg = l10n["msgPotionNotFitForCharacter"]; //
+            MsgSeverity = Severity.Warning;
+        }
+
+        Snackbar.Add(Msg, MsgSeverity, config =>
         {
             config.SnackbarVariant = Variant.Outlined;
         });
     }
 
-    private void DrinkMagicPotion()
-    {
-        Snackbar.Add("Magic", Severity.Info, config =>
-        {
-            config.SnackbarVariant = Variant.Outlined;
-        });
-    }
+
 }
