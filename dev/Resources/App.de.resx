@@ -1567,6 +1567,9 @@
   <data name="lblWoundThreshold" xml:space="preserve">
     <value>Wundschwelle</value>
   </data>
+  <data name="lblDamageCalculators" xml:space="preserve">
+    <value>Schaden</value>
+  </data>
   <data name="msgHealingPotion" xml:space="preserve">
     <value>Wähle die Qualitätsstufe des Heiltranks und verwende ihn</value>
   </data>

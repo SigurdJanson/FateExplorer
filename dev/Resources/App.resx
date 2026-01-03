@@ -254,7 +254,7 @@
     <comment>enum LanguageId</comment>
   </data>
   <data name="descFreeAbility" xml:space="preserve">
-    <value>Plain d20 rolls</value>
+    <value>Simple d20 rolls</value>
     <comment>Free Dice</comment>
   </data>
   <data name="descFreeBotch" xml:space="preserve">
@@ -262,7 +262,7 @@
     <comment>Free Dice</comment>
   </data>
   <data name="descFreeSix" xml:space="preserve">
-    <value>Plain d6 rolls</value>
+    <value>Simple d6 rolls</value>
     <comment>Free Dice</comment>
   </data>
   <data name="descFreeSkill" xml:space="preserve">
