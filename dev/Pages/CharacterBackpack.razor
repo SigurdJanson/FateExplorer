@@ -158,36 +158,36 @@
     */
     private string GroupIcon(GroupId Group) => Group switch
     {
-        GroupId.iAlchimica => IconsFE.PestleMortar,
-        GroupId.iAmmunition => IconsFE.Ammunition,
-        GroupId.iAnimal => IconsFE.AnimalGoat,
-        GroupId.iAnimalSupplies => IconsFE.HorseShoe,
-        GroupId.iArmor => IconsFE.ArmourLamellar,
-        GroupId.iBandagesNRemedies => IconsFE.Bandages,
-        GroupId.iBooks => IconsFE.Book,
-        GroupId.iBurglarTools => IconsFE.BurglarTools,
-        GroupId.iCeremonialObjects => IconsFE.SunSceptre,
-        GroupId.iClothing => IconsFE.Shirt,
-        GroupId.iContainers => IconsFE.Chest,
-        GroupId.iFinestoneNGems => IconsFE.Gem,
-        GroupId.iHerbs => IconsFE.HerbsReed,
-        GroupId.iJewellery => IconsFE.Jewellery,
-        GroupId.iLights => IconsFE.Torch,
-        GroupId.iMagicalArtefacts => IconsFE.MagicArtefact,
-        GroupId.iMelee => IconsFE.Sword,
-        GroupId.iMusicalInstruments => IconsFE.Flute,
-        GroupId.iOrientation => IconsFE.Telescope,
-        GroupId.iPoisons => IconsFE.PotionMadness,
-        GroupId.iRangedWeapon => IconsFE.Ulisses,
-        GroupId.iRopesNChains => IconsFE.Chain,
-        GroupId.iSacredTools => IconsFE.SunSceptre,
-        GroupId.iStationary => IconsFE.Stationary,
-        GroupId.iStimulantsNLuxury => IconsFE.Shisha,
-        GroupId.iTools => IconsFE.Tools,
-        GroupId.iTransport => IconsFE.Transport,
-        GroupId.iTravelNTools => IconsFE.TreasureMap,
-        GroupId.iWeaponAccessories => IconsFE.WeaponAccessoires,
-        _ => throw new NotImplementedException()
+    GroupId.iAlchimica => IconsFE.PestleMortar,
+    GroupId.iAmmunition => IconsFE.Ammunition,
+    GroupId.iAnimal => IconsFE.AnimalGoat,
+    GroupId.iAnimalSupplies => IconsFE.HorseShoe,
+    GroupId.iArmor => IconsFE.ArmourLamellar,
+    GroupId.iBandagesNRemedies => IconsFE.Bandages,
+    GroupId.iBooks => IconsFE.Book,
+    GroupId.iBurglarTools => IconsFE.BurglarTools,
+    GroupId.iCeremonialObjects => IconsFE.SunSceptre,
+    GroupId.iClothing => IconsFE.Shirt,
+    GroupId.iContainers => IconsFE.Chest,
+    GroupId.iFinestoneNGems => IconsFE.Gem,
+    GroupId.iHerbs => IconsFE.HerbsReed,
+    GroupId.iJewellery => IconsFE.Jewellery,
+    GroupId.iLights => IconsFE.Torch,
+    GroupId.iMagicalArtefacts => IconsFE.MagicArtefact,
+    GroupId.iMelee => IconsFE.Sword,
+    GroupId.iMusicalInstruments => IconsFE.Flute,
+    GroupId.iOrientation => IconsFE.Telescope,
+    GroupId.iPoisons => IconsFE.PotionMadness,
+    GroupId.iRangedWeapon => IconsFE.Ulisses,
+    GroupId.iRopesNChains => IconsFE.Chain,
+    GroupId.iSacredTools => IconsFE.SunSceptre,
+    GroupId.iStationary => IconsFE.Stationary,
+    GroupId.iStimulantsNLuxury => IconsFE.Shisha,
+    GroupId.iTools => IconsFE.Tools,
+    GroupId.iTransport => IconsFE.Transport,
+    GroupId.iTravelNTools => IconsFE.TreasureMap,
+    GroupId.iWeaponAccessories => IconsFE.WeaponAccessoires,
+    _ => throw new NotImplementedException()
     };
 
     private string CombatBranchIcon(CombatBranch Group) => Group switch
@@ -203,8 +203,6 @@
 
 
     // POTIONS
-    private string[] HealingPotionLabels = new string[] { "?", "1W3", "1W6", "1W6+2", "1W6+4", "1W6+6", "1W6+8" };
-
     private int PotionLabelLength(string[] Labels)
     {
         int Max = 0;

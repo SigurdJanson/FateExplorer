@@ -6,7 +6,7 @@ namespace FateExplorer.CharacterModel;
 public class BelongingM
 {
     /// <summary>
-    /// The item id in the characters' file specific to the belongings of the character..
+    /// The item id in the characters' file specific to the belongings of the character.
     /// </summary>
     /// <remarks>Not a universal id (like a data base or shop id).</remarks>
     public string Id { get; set; }
