@@ -113,7 +113,7 @@ public interface ITheHeroViMo
     /// <param name="IncludeTies">Return exactly 'Count' skills or shall skills with same 
     /// proficiency be added?</param>
     /// <returns>List as DTO for the View</returns>
-    List<SkillsDTO> GetBestSkills(uint Count = 4, bool IncludeTies = true);
+    List<SkillsDTO> GetBestSkills(uint Count = 8, bool IncludeTies = true);
 
     /// <summary>
     /// Returns a list with the presumably most used skills, esp. perception.

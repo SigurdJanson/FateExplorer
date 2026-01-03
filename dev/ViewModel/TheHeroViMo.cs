@@ -500,7 +500,7 @@ namespace FateExplorer.ViewModel
         }
 
         /// <inheritdoc/>
-        public List<SkillsDTO> GetBestSkills(uint Count = 4, bool IncludeTies = true)
+        public List<SkillsDTO> GetBestSkills(uint Count = 8, bool IncludeTies = true)
         {
             List<SkillsDTO> Result = new();
 
