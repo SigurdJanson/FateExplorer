@@ -80,7 +80,7 @@ namespace FateExplorer.ViewModel
                 if (StoredItem?.Abilities?.TryGetValue(chab.Key, out int StoredValue) ?? false)
                     AbilityEffValues.Add(chab.Key, StoredValue);
                 else
-                    AbilityEffValues.Add(chab.Key, chab.Value.Value);
+                    AbilityEffValues.Add(chab.Key, chab.Value.Effective);
 
             // COMBAT
             Hands = new(characterM, GameDataService);
@@ -291,7 +291,7 @@ namespace FateExplorer.ViewModel
                     Name = chab.Value.Name,
                     ShortName = chab.Value.ShortName,
                     EffectiveValue = AbilityEffValues[chab.Key],
-                    Max = chab.Value.Value,
+                    Max = chab.Value.Effective,
                     Min = 0
                 });
             }
@@ -580,7 +580,7 @@ namespace FateExplorer.ViewModel
                     Name = Ability.Name,
                     ShortName = Ability.ShortName,
                     EffectiveValue = AbilityEffValues[Ability.Id],
-                    Max = Ability.Value,
+                    Max = Ability.Effective,
                     Min = 0
                 };
             }

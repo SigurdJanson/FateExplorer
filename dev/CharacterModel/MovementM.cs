@@ -1,10 +1,11 @@
-﻿using FateExplorer.Shared;
-
-namespace FateExplorer.CharacterModel;
+﻿namespace FateExplorer.CharacterModel;
 
 /// <summary>
 /// This is the characters’s tactical movement rate, which is especially important for combat.
 /// </summary>
+/// <remarks>Movement can directly be derived from <see cref="CharacterIstic"/>. 
+/// It is neither an atomic <see cref="RootValue"/> nor does it have any dependencies to other 
+/// attributes except the base value of the character's species.</remarks>
 public class MovementM : CharacterIstic
 {
 

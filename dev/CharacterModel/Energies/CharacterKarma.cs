@@ -23,7 +23,7 @@ namespace FateExplorer.CharacterModel
             // basic ability (COU, SAG, ...) to the energy level
             foreach (var (specialability, ability) in gameData.TraditionBonus)
                 if (hero.HasSpecialAbility(specialability))
-                    Max += Hero.Abilities[ability].Value;
+                    Max += Hero.Abilities[ability].Effective;
 
             Max += AddedEnergy;
             Max += GetDisAdvantageModifier(gameData);
@@ -41,13 +41,13 @@ namespace FateExplorer.CharacterModel
 
             // We may not need all thresholds when Max is low
             if (EffMax >= 41) // we need all levels then
-                Thresholds = new int[] { EffMax - 10, EffMax - 20, EffMax - 30, EffMax - 40 };
+                Thresholds = [EffMax - 10, EffMax - 20, EffMax - 30, EffMax - 40];
             else if (EffMax >= 31)
-                Thresholds = new int[] { EffMax - 10, EffMax - 20, EffMax - 30 };
+                Thresholds = [EffMax - 10, EffMax - 20, EffMax - 30];
             else if (EffMax >= 21)
-                Thresholds = new int[] { EffMax - 10, EffMax - 20 };
+                Thresholds = [EffMax - 10, EffMax - 20];
             else if (EffMax >= 11)
-                Thresholds = new int[] { EffMax - 10 };
+                Thresholds = [EffMax - 10];
         }
     }
 }

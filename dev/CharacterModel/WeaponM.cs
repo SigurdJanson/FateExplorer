@@ -291,7 +291,7 @@ namespace FateExplorer.CharacterModel
         public int ComputeAttackVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
             // Ability "Courage" is default for attack
-            int Courage = Abilities[AbilityM.COU].Value;
+            int Courage = Abilities[AbilityM.COU].Effective;
 
             int Attack = CombatTecSkill.ComputeAttack(Courage); // no weapons modifier
             Attack += AttackMod; // attack modifier of the weapon
@@ -312,13 +312,13 @@ namespace FateExplorer.CharacterModel
         public int ComputeParryVal(Dictionary<string, AbilityM> Abilities, CombatTechM CombatTecSkill)
         {
             // Get value for primary ability/attribute
-            int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0; ; // Ability value
+            int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Effective ?? 0; ; // Ability value
 
             // More than 1 primary attribute? Get the highest one.
             if (PrimaryAbilityId.Length > 1)
                 for (int i = 1; i < PrimaryAbilityId.Length; i++)
                 {
-                    PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Value);
+                    PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Effective);
                 }
 
             //
@@ -346,11 +346,11 @@ namespace FateExplorer.CharacterModel
             if (DamageThreshold == 0) return 0;
 
             // Get value for primary ability/attribute
-            int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Value ?? 0;
+            int PrimeAbility = Abilities[PrimaryAbilityId[0]]?.Effective ?? 0;
             if (PrimaryAbilityId.Length > 1) // more than 1 primary attribute
             {
                 for (int i = 1; i < PrimaryAbilityId.Length; i++)
-                    PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Value);
+                    PrimeAbility = Math.Max(PrimeAbility, Abilities[PrimaryAbilityId[i]].Effective);
             }
 
             int Bonus = Math.Max(PrimeAbility - DamageThreshold, 0);

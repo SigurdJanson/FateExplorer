@@ -104,7 +104,7 @@ namespace FateExplorer.CharacterModel
             {
                 Dodge = new DodgeM(this)
                 {
-                    Name = ResourceId.DodgeLabelId // TODO #125: this is a crutch. It should be the already translated string.
+                    Name = ResourceId.DodgeLabelId // TODO #125: this is a crutch.
                 };
             }
             catch (Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
@@ -160,7 +160,6 @@ namespace FateExplorer.CharacterModel
 
             // MOVEMENT
             Movement = new MovementM(characterImportOptM.GetMovementBaseVal(), this);
-
 
             // BELONGINGS
             try
@@ -240,14 +239,14 @@ namespace FateExplorer.CharacterModel
 
         /// <inheritdoc />
         public int Initiative
-            => GetInitiative(Abilities[AbilityM.COU].Value, Abilities[AbilityM.AGI].Value);
+            => GetInitiative(Abilities[AbilityM.COU].Effective, Abilities[AbilityM.AGI].Effective);
 
         /// <inheritdoc />
         public MovementM Movement { get; }
 
 
         /// <inheritdoc />
-        public int WoundThreshold => (Abilities[AbilityM.CON].Value + 1) / 2;
+        public int WoundThreshold => (Abilities[AbilityM.CON].Effective + 1) / 2;
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
         public Dictionary<string, BelongingM> Belongings{ get; protected set; }
@@ -255,7 +254,7 @@ namespace FateExplorer.CharacterModel
 
         public Dictionary<string, AbilityM> Abilities { get; set; }
 
-        public int GetAbility(string Id) => Abilities[Id].Value;
+        public int GetAbility(string Id) => Abilities[Id].Effective;
 
         public Dictionary<string, IActivatableM> SpecialAbilities { get; protected set; }
 

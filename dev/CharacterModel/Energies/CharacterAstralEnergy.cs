@@ -20,7 +20,7 @@ namespace FateExplorer.CharacterModel
             // basic ability (COU, SAG, ...) to the energy level
             foreach (var (specialability, ability) in gameData.TraditionBonus)
                 if (hero.HasSpecialAbility(specialability))
-                    Max += Hero.Abilities[ability].Value;
+                    Max += Hero.Abilities[ability].Effective;
 
             Max += AddedEnergy;
             Max += GetDisAdvantageModifier(gameData);

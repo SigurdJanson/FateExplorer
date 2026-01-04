@@ -17,7 +17,7 @@ namespace FateExplorer.CharacterModel
 
             Max = gameData.RaceBaseValue.FirstOrDefault(bv => bv.RaceId == Hero.SpeciesId)?.Value ?? 0;
             foreach (var a in gameData.DependantAbilities)
-                Max += Hero.Abilities[a].Value;
+                Max += Hero.Abilities[a].Effective;
             Max += AddedEnergy;
             Max += GetDisAdvantageModifier(gameData);
 

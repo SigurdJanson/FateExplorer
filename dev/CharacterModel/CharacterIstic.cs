@@ -1,18 +1,20 @@
-﻿using System;
+﻿using FateExplorer.Shared;
+using System;
 
 
-namespace FateExplorer.Shared;
+namespace FateExplorer.CharacterModel;
 
 
 
 public abstract class CharacterIstic
 {
+    protected int _imported;
     protected int _effectivemod;
     protected int _truemod;
 
     public CharacterIstic(int Value)
     {
-        Imported = Value;
+        _imported = Value;
         _effectivemod = 0;
         _truemod = 0;
     }
@@ -31,11 +33,31 @@ public abstract class CharacterIstic
 
 
     /// <summary>
+    /// A modifier set by an activatable, i.e. a special ability or dis-/advantage.
+    /// These are added to the value '<see cref="CharacterIstic.Imported"/>'.
+    /// </summary>
+    /// <remarks>
+    /// Some attributes need the activatables separated to calculate the character's attribute.
+    /// </remarks>
+    public int ActivatableModifier { get; protected set; } = 0;
+
+
+
+    /// <summary>
     /// The value as determined from the imported character sheet incl. changes
     /// added by dis-/advantages or special abilities recognized by Fate Explorer.
     /// </summary>
-    public virtual int Imported { get; set; }
-
+    public virtual int Imported
+    {
+        get => _imported + ActivatableModifier;
+        set
+        {
+            if (value >= Min && value <= Max)
+                _imported = value - ActivatableModifier;
+            else
+                throw new ArgumentOutOfRangeException(nameof(value));
+        }
+    }
 
     /// <summary>
     /// The user may change the imported value to compensate for unrecognized (dis-)advantages, 
@@ -126,122 +148,11 @@ public abstract class CharacterIstic
     /// Used by special abilities or dis-/advantages to modify the
     /// value during setup.
     /// </summary>
-    /// <param name="value">The value that is added to the base value after import</param>
+    /// <param name="value">The value that is added to the imported value after import</param>
     public virtual void AddOnSetup(int value)
     {
-        Imported += value;
-    }
-}
-
-
-/// <summary>
-/// A character attribute that is calculated based on other values.
-/// Unlike <see cref="RootValue"/>s, other attributes cannot be derived from a derived value.
-/// </summary>
-public class DerivedValue : CharacterIstic
-{
-    protected int _imported;
-
-    /// <summary>
-    /// A modifier set by an activatable, i.e. a special ability or dis-/advantage.
-    /// These are added to the value '<see cref="CharacterIstic.Imported"/>'.
-    /// </summary>
-    public int ActivatableModifier { get; protected set; } = 0;
-
-
-
-    /// <inheritdoc/>
-    public override int Imported 
-    { 
-        get => _imported + ActivatableModifier; 
-        set
-        {
-            if (value >= Min && value <= Max)
-                _imported = value - ActivatableModifier;
-            else
-                throw new ArgumentOutOfRangeException(nameof(value));
-        }
+        ActivatableModifier += value;
     }
 
-
-    public DerivedValue(int Value) : base(Value)
-    {
-        DependencyId = [];
-        Min = -100;
-        Max = +100;
-    }
-
-
-    protected string[] DependencyId { get; init; }
-
-
-    public string[] GetDependencies() => DependencyId;
-
-
-    /// <summary>
-    /// Tests if the characterIstic depends on the attribute <paramref name="Id"/>.
-    /// </summary>
-    /// <param name="Id">The id of a character attribute.</param>
-    /// <returns>true/false</returns>
-    public bool DependsOn(string Id)
-    {
-        foreach(var dep in DependencyId) 
-            if (dep == Id) return true;
-        return false;
-    }
-
-
-    /// <inheritdoc/>
-    public override void AddOnSetup(int value)
-    {
-        ActivatableModifier = value;
-        _truemod = 0;
-        _effectivemod = 0;
-    }
-}
-
-
-
-/// <summary>
-/// A character attribute that is atomic. It is not calculated based on other values.
-/// It can be modified by special abilities or dis-/advantages.
-/// Derived attributes (see <see cref="DerivedValue"/>) are calculated based on these. Therefore,
-/// it allows other attributes to register as listeners to state changes.
-/// </summary>
-public class RootValue : CharacterIstic, IStateContainer
-{
-    public RootValue(int Value) : base(Value)
-    {
-    }
-
-    public event Action OnStateChanged;
-
-    protected void NotifyStateChanged() => OnStateChanged?.Invoke();
-
-
-    public override int True
-    {
-        get => base.True;
-        set
-        {
-            int oldmod = _truemod;
-            base.True = value; // correct _truemod
-            if (oldmod != _truemod)
-                NotifyStateChanged();
-        }
-    }
-
-
-    public override int Effective
-    {
-        get => base.Effective;
-        set
-        {
-            int oldmod = _effectivemod;
-            base.Effective = value;
-            if (oldmod != _effectivemod)
-                NotifyStateChanged();
-        }
-    }
 }
 

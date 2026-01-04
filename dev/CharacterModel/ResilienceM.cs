@@ -44,6 +44,7 @@ public class ResilienceM : DerivedValue
     /// <summary>
     /// Computes the resilience value.
     /// </summary>
+    /// <param name="RaceBaseValue">The base value of the character species'</param>
     /// <param name="Abilities">
     /// If not given, the method will work with the character's base values
     /// </param>
@@ -54,7 +55,7 @@ public class ResilienceM : DerivedValue
         if (Abilities is not null && Abilities.Count > 0)
         {
             foreach (var a in DependencyId)
-                AbSum += Abilities[a].Value;
+                AbSum += Abilities[a].Effective;
         }
         else
         {
