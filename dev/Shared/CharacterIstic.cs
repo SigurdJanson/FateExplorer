@@ -47,7 +47,10 @@ public abstract class CharacterIstic
         set
         {
             if (value >= Min && value <= Max)
+            {
                 _truemod = value - Imported;
+
+            }
             else
                 throw new ArgumentOutOfRangeException(nameof(value));
         }
@@ -91,7 +94,7 @@ public abstract class CharacterIstic
 
     public override int GetHashCode() => Id.GetHashCode();
 
-    public override string ToString() => $"{Id} = {_effectivemod}";
+    public override string ToString() => $"{Id} = {Effective}";
 
 
     /// <summary>
@@ -100,10 +103,10 @@ public abstract class CharacterIstic
     public bool Equals(CharacterIstic other) => other.Id == Id;
 
     /// <summary>
-    /// 
+    /// Determines whether the specified object is equal to the current object.
     /// </summary>
     /// <param name="obj"></param>
-    /// <returns></returns>
+    /// <returns><c>true</c> if the specified object is equal to the current object.</returns>
     public override bool Equals(Object obj)
     {
         if (obj is not CharacterIstic other) return false;
@@ -127,14 +130,13 @@ public abstract class CharacterIstic
     public virtual void AddOnSetup(int value)
     {
         Imported += value;
-        _effectivemod = 0;
-        _truemod = 0;
     }
 }
 
 
 /// <summary>
 /// A character attribute that is calculated based on other values.
+/// Unlike <see cref="RootValue"/>s, other attributes cannot be derived from a derived value.
 /// </summary>
 public class DerivedValue : CharacterIstic
 {
@@ -201,8 +203,10 @@ public class DerivedValue : CharacterIstic
 
 
 /// <summary>
-/// A character attribute that is atomic.
-/// Derived attributes (see <see cref="DerivedValue"/>) are calculated based on these.
+/// A character attribute that is atomic. It is not calculated based on other values.
+/// It can be modified by special abilities or dis-/advantages.
+/// Derived attributes (see <see cref="DerivedValue"/>) are calculated based on these. Therefore,
+/// it allows other attributes to register as listeners to state changes.
 /// </summary>
 public class RootValue : CharacterIstic, IStateContainer
 {
@@ -217,24 +221,26 @@ public class RootValue : CharacterIstic, IStateContainer
 
     public override int True
     {
-        get => _truemod;
+        get => base.True;
         set
         {
-            if (_truemod == value) return;
-            base.True = value;
-            NotifyStateChanged();
+            int oldmod = _truemod;
+            base.True = value; // correct _truemod
+            if (oldmod != _truemod)
+                NotifyStateChanged();
         }
     }
 
 
     public override int Effective
     {
-        get => _effectivemod;
+        get => base.Effective;
         set
         {
-            if (_effectivemod == value) return;
+            int oldmod = _effectivemod;
             base.Effective = value;
-            NotifyStateChanged();
+            if (oldmod != _effectivemod)
+                NotifyStateChanged();
         }
     }
 }

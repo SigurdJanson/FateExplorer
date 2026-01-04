@@ -3,7 +3,7 @@
 namespace FateExplorer.CharacterModel;
 
 /// <summary>
-/// Represents the This is the characters’s tactical movement rate, which is especially important for combat.
+/// This is the characters’s tactical movement rate, which is especially important for combat.
 /// </summary>
 public class MovementM : CharacterIstic
 {
@@ -15,8 +15,6 @@ public class MovementM : CharacterIstic
     /// <param name="hero">The character of this movement competence.</param>
     public MovementM(int raceBaseVal, ICharacterM hero) : base(ComputeMovement(raceBaseVal))
     {
-        _effectivemod = Imported;
-        _truemod = Imported;
         Min = 0;
         Max = 20;
     }
