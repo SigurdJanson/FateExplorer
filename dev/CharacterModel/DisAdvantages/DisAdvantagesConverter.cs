@@ -22,9 +22,10 @@ public class DisAdvantagesConverter(IGameDataService gameData, ICharacterImporte
 
 
     /// <summary>
-    /// 
+    /// Uses a flat list of an character importer splits them into advantages and disadvantages,
+    /// identifies recognized dis-/advantages and applies their changes.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A tupel with advantages <c>Item1</c> and disadvantages <c>Item2</c>.</returns>
     /// <exception cref="ChrImportException"></exception>
     public (Dictionary<string, IActivatableM>, Dictionary<string, IActivatableM>) GetDisAdvantages()
     {
@@ -42,6 +43,7 @@ public class DisAdvantagesConverter(IGameDataService gameData, ICharacterImporte
         // and populate with data from FE game data base
         Type[] allTypes = Assembly.GetExecutingAssembly().GetTypes();
 
+        // First, only those with dedicated classes
         foreach (Type type in allTypes)
         {
             if (typeof(IActivatableM).IsAssignableFrom(type) && !type.IsAbstract)
@@ -55,14 +57,13 @@ public class DisAdvantagesConverter(IGameDataService gameData, ICharacterImporte
                     bool IsRecognized;
                     string[] Reference;
                     var DbEntry = GameData.DisAdvantages[ImportAttr.id];
-                    if (GameData.DisAdvantages.Contains(ImportAttr.id))
-                    {
-                        
+                    if (GameData.DisAdvantages.Contains(ImportAttr.id)) // found in game data base of FE
+                    {   // Add details from database entry
                         IsRecognized = DbEntry.Recognized;
                         Reference = DbEntry.Reference ?? [];
                         instance = (IActivatableM)Activator.CreateInstance(type, [ImportAttr.id, ImportAttr.tier, Reference, IsRecognized]);
                     }
-                    else
+                    else // import as-is
                     {
                         instance = (IActivatableM)Activator.CreateInstance(type, [ImportAttr.id, ImportAttr.tier]);
                     }
@@ -106,7 +107,7 @@ public class DisAdvantagesConverter(IGameDataService gameData, ICharacterImporte
         }
 
 
-        return (AdvResult, DisadvResult);
+        return (AdvResult, DisadvResult); // CReate tuple and return it
     }
 
 }
