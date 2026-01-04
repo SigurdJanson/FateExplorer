@@ -57,7 +57,7 @@
         {"name": "Inner Clock", "id": "ADV_51", "type": 1},
         {"name": "Two-Voiced Singing", "id": "ADV_52", "type": 1, "reco":false},
         {"name": "Dwarf's Nose", "id": "ADV_53", "type": 1},
-        {"name": "Unyielding", "id": "ADV_54", "type": 1},
+        {"name": "Unyielding", "id": "ADV_54", "type": 1, "reco":true},
         {"name": "Resilient", "id": "ADV_55", "type": 1},
         {"name": "Affinity for Demons", "id": "ADV_56", "type": 1},
         {"name": "Affinity for Elementals", "id": "ADV_57", "type": 1},
@@ -224,7 +224,7 @@
         {"name": "Fewer Visions I-II", "id": "DISADV_73", "type": -1},
 
         {"name": "de:Friedlos", "id": "", "type": -1},
-        {"name": "de:Gläsern", "id": "", "type": -1},
+        {"name": "Brittle Bones", "id": "DISADV_56", "type": -1, "reco":true},
         {"name": "de:Empfindlichkeit (unedle Metalle)", "id": "", "type": -1},
         {"name": "Susceptible to Heat II", "id": "", "type": -1},
         {"name": "de:Lästige Blütenfeen", "id": "", "type": -1},

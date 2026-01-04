@@ -25,7 +25,7 @@ public static class ADV
     public const string Luck = "ADV_14";
     public const string GoodLooks = "ADV_15";
     public const string ExceptionalSkill = "ADV_16";
-    public const string ExceptionalCombatTechnique = "ADV_20";
+    public const string ExceptionalCombatTechnique = "ADV_17";
     public const string ExceptionalSense = "ADV_21";
     public const string ResistantToHeat = "ADV_22";
     public const string IncreasedArcanePower = "ADV_23";
@@ -163,4 +163,5 @@ public static class DISADV
     public const string AlcoholIntolerance = "DISADV_71";
     public const string FewerSermons = "DISADV_72";
     public const string FewerVisions = "DISADV_73";
+    public const string BrittleBones = "DISADV_56";
 }

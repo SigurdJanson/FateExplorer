@@ -49,7 +49,7 @@
 {"name": "Zeitgefühl", "id": "ADV_51", "type": 1, "reco":false},
 {"name": "Zweistimmiger Gesang", "id": "ADV_52", "type": 1, "reco":false},
 {"name": "Zwergennase", "id": "ADV_53", "type": 1},
-{"name": "Eisern", "id": "ADV_54", "type": 1},
+{"name": "Eisern", "id": "ADV_54", "type": 1, "reco":true},
 {"name": "Hart im Nehmen", "id": "ADV_55", "type": 1},
 {"name": "Affinität zu Dämonen", "id": "ADV_56", "type": 1},
 {"name": "Affinität zu Elementaren", "id": "ADV_57", "type": 1},
@@ -207,7 +207,7 @@
 {"name": "Wenige Visionen I-II", "id": "DISADV_73", "type": -1},
 
 {"name": "Friedlos", "id": "", "type": -1},
-{"name": "Gläsern", "id": "", "type": -1},
+{"name": "Gläsern", "id": "DISADV_56", "type": -1, "reco":true},
 {"name": "Empfindlichkeit (unedle Metalle)", "id": "", "type": -1},
 {"name": "Hitzeempfindlich II", "id": "", "type": -1},
 {"name": "Lästige Blütenfeen", "id": "", "type": -1},
