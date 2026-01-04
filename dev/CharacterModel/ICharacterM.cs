@@ -31,19 +31,9 @@ namespace FateExplorer.CharacterModel
 
 
         /// <summary>
-        /// Compute initiative based on given character abilities.
+        /// The initiative value (INI)
         /// </summary>
-        /// <param name="courage">Character's courage value</param>
-        /// <param name="agility">Character's agility value</param>
-        /// <returns>Initiative value</returns>
-        public int GetInitiative(int courage, int agility);
-
-
-        /// <summary>
-        /// The (imported) initiative value (INI)
-        /// </summary>
-        /// <remarks>Definition: (COU + AGI) / 2 +/– points from dis-/advantages</remarks>
-        public int Initiative { get; }
+        public InitiativeM Initiative { get; }
 
         /// <summary>
         /// The (imported) core value for movement (MOV)
@@ -56,7 +46,7 @@ namespace FateExplorer.CharacterModel
         /// it must make a check to see if it suffers a wound effect.
         /// </summary>
         /// <remarks>Definition: CON / 2 (rounded up)</remarks>
-        int WoundThreshold { get; }
+        WoundThresholdM WoundThreshold { get; }
 
 
 

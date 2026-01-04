@@ -106,6 +106,7 @@ namespace FateExplorer.CharacterModel
                 {
                     Name = ResourceId.DodgeLabelId // TODO #125: this is a crutch.
                 };
+                RegisterDependency(Dodge);
             }
             catch (Exception e) { throw new ChrImportException("", e, ChrImportException.Property.Attribute); }
 
@@ -160,6 +161,12 @@ namespace FateExplorer.CharacterModel
 
             // MOVEMENT
             Movement = new MovementM(characterImportOptM.GetMovementBaseVal(), this);
+            // INITIATIVE
+            Initiative = new InitiativeM(this);
+            RegisterDependency(Initiative);
+            // WOUND THRESHOLD
+            WoundThreshold = new WoundThresholdM(this);
+            RegisterDependency(WoundThreshold);
 
             // BELONGINGS
             try
@@ -232,21 +239,14 @@ namespace FateExplorer.CharacterModel
 
 
         /// <inheritdoc />
-        public int GetInitiative(int courage, int agility)
-        {
-            return (courage + agility + 1) / 2;
-        }
-
-        /// <inheritdoc />
-        public int Initiative
-            => GetInitiative(Abilities[AbilityM.COU].Effective, Abilities[AbilityM.AGI].Effective);
+        public InitiativeM Initiative { get; }
 
         /// <inheritdoc />
         public MovementM Movement { get; }
 
-
         /// <inheritdoc />
-        public int WoundThreshold => (Abilities[AbilityM.CON].Effective + 1) / 2;
+        public WoundThresholdM WoundThreshold { get; }
+
 
         public Dictionary<string, WeaponM> Weapons { get; protected set; }
         public Dictionary<string, BelongingM> Belongings{ get; protected set; }
@@ -280,5 +280,20 @@ namespace FateExplorer.CharacterModel
         public DodgeM Dodge { get; set; }
 
         public CharacterSkillsM Skills { get; set; }
+
+
+        //
+
+        protected void RegisterDependency(DerivedValue derived)
+        {
+            foreach (var depId in derived.GetDependencies())
+            {
+                if (Abilities.TryGetValue(depId, out AbilityM value))
+                {
+                    value.OnStateChanged += derived.DependencyHasChanged;
+                }
+            }
+        }
+
     }
 }

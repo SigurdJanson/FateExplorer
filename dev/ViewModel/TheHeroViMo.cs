@@ -71,16 +71,6 @@ namespace FateExplorer.ViewModel
             // Create character with default values
             // Set either default value or effective value from storage
             //
-            // ABILITIES
-            if (AbilityEffValues is null)
-                AbilityEffValues = new();
-            else
-                AbilityEffValues.Clear();
-            foreach (var chab in characterM?.Abilities)
-                if (StoredItem?.Abilities?.TryGetValue(chab.Key, out int StoredValue) ?? false)
-                    AbilityEffValues.Add(chab.Key, StoredValue);
-                else
-                    AbilityEffValues.Add(chab.Key, chab.Value.Effective);
 
             // COMBAT
             Hands = new(characterM, GameDataService);
@@ -91,7 +81,6 @@ namespace FateExplorer.ViewModel
             else
                 DodgeTrueValue = characterM.Dodge.Effective;
 
-            // Add DodgeMod
 
             // ENERGIES
             EffEnergy = new();
@@ -141,13 +130,18 @@ namespace FateExplorer.ViewModel
         protected async void SaveAttributes()
         {
             string StorageId = $"{GetType()}/{characterM?.Id}";
+
+            Dictionary<string, int> EffectiveAbilities = [];
+            foreach (var ab in characterM.Abilities)
+                EffectiveAbilities.Add(ab.Key, ab.Value.Effective);
+
             HeroStorageDTO Data2Store = new()
             {
-                Abilities = this.AbilityEffValues,
+                Abilities = EffectiveAbilities,
                 DodgeTrue = this.DodgeTrueValue,
                 DodgeMod  = this.DodgeEffMod,
-                EffectiveEnergy = new(),
-                EffectiveMaxEnergy = new(),
+                EffectiveEnergy = [],
+                EffectiveMaxEnergy = [],
                 EffectiveResilience = this.ResilienceEffValues,
                 EffectiveMoney = this.EffectiveMoney
             };
@@ -240,10 +234,10 @@ namespace FateExplorer.ViewModel
 
 
         /// <inheritdoc/>
-        public decimal WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValues[AbilityM.STR]) ?? 0; }
+        public decimal WhatCanCarry { get => characterM?.WhatCanCarry(AbilityEffValue(AbilityM.STR)) ?? 0; }
 
         /// <inheritdoc/>
-        public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValues[AbilityM.STR]) ?? 0; }
+        public decimal WhatCanLift { get => characterM?.WhatCanLift(AbilityEffValue(AbilityM.STR)) ?? 0; }
 
         #endregion
 
@@ -253,11 +247,11 @@ namespace FateExplorer.ViewModel
         public int Movement { get => characterM.Movement.Effective; }
 
         /// <inheritdoc/>
-        public int WoundThreshold => characterM.WoundThreshold;
+        public int WoundThreshold => characterM.WoundThreshold.Effective;
 
         /// <inheritdoc/>
-        public int Initiative
-            => characterM.GetInitiative(AbilityEffValues[AbilityM.COU], AbilityEffValues[AbilityM.AGI]);
+        public int Initiative => characterM.Initiative.Effective;
+
 
         /// <inheritdoc/>
         public CharacterAttrDTO GetInitiative()
@@ -277,7 +271,8 @@ namespace FateExplorer.ViewModel
         /// <summary>
         /// The effective values of the character's abilities.
         /// </summary>
-        Dictionary<string, int> AbilityEffValues { get; set; } // TODO: send to storage as soon as a change of true/effective value is supported
+        public int AbilityEffValue(string abilityId) => characterM?.Abilities[abilityId].Effective ?? 0;  // TODO: send to storage as soon as a change of true/effective value is supported
+
 
         public List<AbilityDTO> GetAbilites()
         {
@@ -290,7 +285,7 @@ namespace FateExplorer.ViewModel
                     Id = chab.Value.Id,
                     Name = chab.Value.Name,
                     ShortName = chab.Value.ShortName,
-                    EffectiveValue = AbilityEffValues[chab.Key],
+                    EffectiveValue = chab.Value.Effective,
                     Max = chab.Value.Effective,
                     Min = 0
                 });
@@ -298,7 +293,8 @@ namespace FateExplorer.ViewModel
 
             return Result;
         }
-        #endregion
+
+        #endregion ABILITIES
 
 
         /// <inheritdoc />
@@ -579,15 +575,15 @@ namespace FateExplorer.ViewModel
                     Id = Ability.Id,
                     Name = Ability.Name,
                     ShortName = Ability.ShortName,
-                    EffectiveValue = AbilityEffValues[Ability.Id],
-                    Max = Ability.Effective,
-                    Min = 0
+                    EffectiveValue = Ability.Effective,
+                    Max = Ability.Max,
+                    Min = Ability.Min
                 };
             }
             return Result;
         }
 
-        #endregion
+        #endregion SKILLS
 
 
 
@@ -619,8 +615,8 @@ namespace FateExplorer.ViewModel
             {
                 // TODO: Make this logic flexible so that it can apply to all calculated values
                 bool Same = true;
-                foreach (var d in Dependencies)
-                    if (characterM.GetAbility(d) != AbilityEffValues[d])
+                foreach (string d in Dependencies)
+                    if (characterM.GetAbility(d) != AbilityEffValue(d))
                         Same = false;
 
                 if (Same)
@@ -636,7 +632,7 @@ namespace FateExplorer.ViewModel
             };
         }
 
-        #endregion
+        #endregion COMBAT & DODGE
 
 
 
@@ -674,7 +670,7 @@ namespace FateExplorer.ViewModel
 
         public List<ResilienceDTO> GetResiliences()
         {
-            List<ResilienceDTO> Result = new();
+            List<ResilienceDTO> Result = [];
 
             foreach (var r in characterM.Resiliences)
             {
