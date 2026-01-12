@@ -214,6 +214,6 @@
 {"name": "Lernfaul", "id": "", "type": -1},
 {"name": "Lichtempfindlich II", "id": "", "type": -1},
 {"name": "Misslungene Reifeprüfung", "id": "", "type": -1},
-{"name": "Verweichlicht", "id": "", "type": -1}
+{"name": "Verweichlicht", "id": "DISADV_57", "type": -1, "reco":true}
 
 ]}

@@ -231,6 +231,6 @@
         {"name": "de:Lernfaul", "id": "", "type": -1},
         {"name": "Sensitive to Sunlight II", "id": "", "type": -1},
         {"name": "de:Misslungene Reifeprüfung", "id": "", "type": -1},
-        {"name": "de:Verweichlicht", "id": "", "type": -1}
+        {"name": "Glass Jaw", "id": "DISADV_57", "type": -1, "reco":true}
     ]
 }
