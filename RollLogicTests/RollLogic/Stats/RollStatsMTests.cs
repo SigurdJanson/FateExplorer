@@ -1,0 +1,369 @@
+﻿using FateExplorer.RollLogic.Stats;
+using Moq;
+using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
+namespace UnitTests.RollLogic.Stats
+{
+    [TestFixture]
+    public class RollStatsMTests
+    {
+        [SetUp]
+        public void SetUp()
+        {}
+
+        private RollStatsM CreateRollStatsM()
+        {
+            return new RollStatsM();
+        }
+
+        #region Skills
+
+        [TestCase(10, 10, 10,  2, 0, 0)]
+        [TestCase(10, 11, 12,  5, 0, 1)]
+        [TestCase( 2, 10, 18,  9, 0, 2)]
+        [TestCase(19,  6, 14,  4, 5, 3)] // use case where fumbles must be subtracted from successes 
+        [TestCase( 1,  5,  5,  1, 0, 4)]
+        [TestCase( 6, 16, 18, 18, 0, 5)]
+        [TestCase(12, 19, 19, 13, 0, 6)]
+        public void ChancesOfSkill_BF_KnownTestCases_CorrectResult(int ab1, int ab2, int ab3, int skill, int mod, int exp)
+        {
+            // Arrange
+            int[] abilities = [ab1, ab2, ab3];
+            (List <string>, List<double>) expected = exp switch
+            {
+                0 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"], 
+                      [0.00725, 0.786, 0.1995, 0.00725, 0.206750, 0.0, 0.0, 0.0, 0.0, 0.0]),
+                1 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"], 
+                      [0.00725, 0.5575, 0.428, 0.00725, 0.222, 0.21325, 0.0, 0.0, 0.0, 0.0]),
+                2 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"], 
+                      [0.00725, 0.588875, 0.396625, 0.00725, 0.1825, 0.110625, 0.11075, 0.0, 0.0, 0.0]),
+                3 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.246375, 0.739125, 0.00725, 0.222625, 0.523750, 0.0, 0.0, 0.0, 0.0]),
+                4 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.9795, 0.006, 0.00725, 0.013250, 0.0, 0.0, 0.0, 0.0, 0.0]),
+                5 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.0, 0.9855, 0.00725, 0.027, 0.14925, 0.14925, 0.14925, 0.17225, 0.34575]),
+                6 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.0, 0.9855, 0.00725, 0.0, 0.0995, 0.14925, 0.20125, 0.54275, 0.0]),
+                _ => throw new ArgumentException("")
+            };
+
+            // Act
+            var result = RollStatsM.ChancesOfSkill_BF(abilities, skill, mod);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected).Within(1).Ulps);
+        }
+
+
+        [TestCase(10, 10, 10, 2, 0, 0)]
+        [TestCase(10, 11, 12, 5, 0, 1)]
+        [TestCase( 2, 10, 18, 9, 0, 2)]
+        [TestCase(19,  6, 14, 4, 5, 3)] // Success too high by 14; fails too low by 14; ql1 too high by 14; ql2 ok // use case where fumbles must be subtracted from successes
+        [TestCase( 1,  5,  5, 1, 0, 4)]
+        [TestCase( 6, 16, 18, 18, 0, 5)]
+        [TestCase(12, 19, 19, 13, 0, 6)]
+        public void ChancesOfSkill_KnownTestCases_CorrectResult(int ab1, int ab2, int ab3, int skill, int mod, int exp)
+        {
+            // Arrange
+            int[] abilities = [ab1, ab2, ab3];
+            (List<string>, List<double>) expected = exp switch
+            {
+                0 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.786, 0.1995, 0.00725, 0.206750, 0.0, 0.0, 0.0, 0.0, 0.0]),
+                1 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.5575, 0.428, 0.00725, 0.222, 0.21325, 0.0, 0.0, 0.0, 0.0]),
+                2 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.588875, 0.396625, 0.00725, 0.1825, 0.110625, 0.11075, 0.0, 0.0, 0.0]),
+                3 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.246375, 0.739125, 0.00725, 0.222625, 0.523750, 0.0, 0.0, 0.0, 0.0]),
+                4 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.9795, 0.006, 0.00725, 0.013250, 0.0, 0.0, 0.0, 0.0, 0.0]),
+                5 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.0, 0.9855, 0.00725, 0.027, 0.14925, 0.14925, 0.14925, 0.17225, 0.34575]),
+                6 => (["Fumble", "Fail", "Success", "Critical", "QL1", "QL2", "QL3", "QL4", "QL5", "QL6"],
+                      [0.00725, 0.0, 0.9855, 0.00725, 0.0, 0.0995, 0.14925, 0.20125, 0.54275, 0.0]),
+                _ => throw new ArgumentException("")
+            };
+
+            // Act
+            var result = RollStatsM.ChancesOfSkill(abilities, skill, mod);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected).Within(1).Ulps);
+        }
+
+
+
+
+        [Test, Sequential] // 
+        public void CompareMethods_IdenticalResultsExpected(
+            [Random(0, 20, 5)] int ab1, [Random(0, 20, 5)] int ab2, [Random(0, 20, 5)] int ab3,
+            [Random(0, 20, 5)] int skill,
+            [Random(-20, 20, 5)] int mod)
+        {
+            // Arrange
+            int[] abilities = [ab1, ab2, ab3];
+            if (ab1 + mod < 0) mod = -ab1;
+            if (ab2 + mod < 0) mod = -ab2;
+            if (ab3 + mod < 0) mod = -ab3;
+
+            // Act
+            var resultB = RollStatsM.ChancesOfSkill_BF(abilities, skill, mod);
+            var resultO = RollStatsM.ChancesOfSkill(abilities, skill, mod);
+
+            // Assert
+            Assert.That(resultO, Is.EqualTo(resultB).Within(1.0 / 16000));
+        }
+
+
+        [Test, Sequential]
+        public void ChancesOfSkill_BF_RandomInput_SumIs1(
+            [Random(0, 20, 5)] int ab1, [Random(0, 20, 5)] int ab2, [Random(0, 20, 5)] int ab3,
+            [Random(0, 20, 5)] int skill,
+            [Values(-10, -5, 0, 5, 10)] int mod)
+        {
+            // Arrange
+            int[] abilities = [ab1, ab2, ab3];
+            if (ab1 + mod < 0) mod = -ab1;
+            if (ab2 + mod < 0) mod = -ab2;
+            if (ab3 + mod < 0) mod = -ab3;
+
+            // Act
+            var result = RollStatsM.ChancesOfSkill_BF(abilities, skill, mod);
+
+            // Assert
+            Assert.That(result.Chances[0..4].Sum(), Is.EqualTo(1.0).Within(1).Ulps);
+        }
+
+
+        [Test, Sequential]
+        public void ChancesOfSkill_RandomInput_SumIs1(
+            [Random(0, 20, 5)] int ab1, [Random(0, 20, 5)] int ab2, [Random(0, 20, 5)] int ab3,
+            [Random(0, 20, 5)] int skill,
+            [Values(-10, -5, 0, 5, 10)] int mod)
+        {
+            // Arrange
+            int[] abilities = [ab1, ab2, ab3];
+            if (ab1 + mod < 0) mod = -ab1;
+            if (ab2 + mod < 0) mod = -ab2;
+            if (ab3 + mod < 0) mod = -ab3;
+
+            // Act
+            var result = RollStatsM.ChancesOfSkill(abilities, skill, mod);
+
+            // Assert
+            Assert.That(result.Chances[0..4].Sum(), Is.EqualTo(1.0).Within(1).Ulps);
+        }
+
+        #endregion Skills
+
+
+
+        #region Combat
+
+        [Test]
+        [TestCase(5, 0, "5+0")]
+        [TestCase(5, 5, "5+5")] // same as 10+0
+        [TestCase(10, 0, "10+0")]
+        [TestCase(10, 1, "10+1")]
+        public void ChancesOfCombat_KnownTestCases_CorrectResult(int skill, int mod, string exp)
+        {
+            // Arrange
+            List<double> expectedValues = exp switch
+            {
+                "5+0" => [1.0 / 20 * 3 / 4, 3.0 / 4 - 3.0 / 4 / 20,   1.0 / 4 - 1.0 / 20 * 1.0 / 4, 1.0 / 20 * 1.0 / 4],
+                "5+5" => [1.0 / 20 * 0.5,   1.0 / 2 - 1.0 / 2 / 20,   1.0 / 2 - 1.0 / 20 * 1.0 / 2,   1.0 / 20 * 1.0 / 2],
+                "10+0" => [1.0 / 20 * 0.5,  1.0 / 2 - 1.0 / 2 / 20,   1.0 / 2 - 1.0 / 20 * 1.0 / 2,   1.0 / 20 * 1.0 / 2],
+                "10+1" => [1.0 / 20 * 9.0 / 20, 9.0 / 20 - 9.0 / 20 / 20,  11.0 / 20 - 1.0 / 20 * 11.0 / 20,   1.0 / 20 * 11.0 / 20],
+                _ => throw new ArgumentException("Unknown expectation")
+            };
+            List<string> expectedNames = ["Fumble", "Fail", "Success", "Critical"];
+            var Expected = (expectedNames, expectedValues);
+            Assume.That(expectedValues.Sum(), Is.EqualTo(1.0).Within(1.0).Ulps);
+
+            // Act
+            var result = RollStatsM.ChancesOfCombat(skill, mod);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(Expected).Within(1.0).Ulps);
+        }
+
+
+        [Test, Sequential]
+        public void ChancesOfCombat_RandomInput_SumIs1([Random(0, 20, 5)] int skill, [Values(-10, -5, 0, 5, 10)] int mod)
+        {
+            // Arrange
+
+            // Act
+            var result = RollStatsM.ChancesOfCombat(skill, mod);
+
+            // Assert
+            Assert.That(result.Chances.Sum(), Is.EqualTo(1).Within(1.0 / Math.Pow(10, 15)));
+        }
+
+
+
+        #endregion Combat
+
+
+
+        #region ProbabilityDistributions
+
+        [Test, Sequential]
+        public void UniformD20SumDistribution_CompareMethods_IdenticalResultsExpected()
+        {
+            // Arrange
+            // Act
+            var resultB = RollStatsM.UniformD20SumDistributionBF();
+            var resultO = RollStatsM.UniformD20SumDistribution();
+
+            // Assert
+            Assert.That(resultO, Is.EqualTo(resultB));
+        }
+
+
+
+        [Test, Sequential]
+        public void UniformSkillSumDistributionTrunc_CompareMethods_IdenticalResultsExpected(
+            [Random(1, 30, 50)] int lowera, [Random(1, 30, 50)] int lowerb, [Random(1, 30, 50)] int lowerc)
+        {
+            // Arrange
+            // Act
+            var resultB = RollStatsM.UniformSkillSumDistributionTrunc(lowera, lowerb, lowerc);
+            var resultO = RollStatsM.UniformSkillSumDistributionTruncO(lowera, lowerb, lowerc);
+            for (int i = 0; i < resultB.Count; i++)
+            {
+                TestContext.WriteLine($"{i + 3}: {resultB[i]} vs {resultO[i]}");
+            }
+            //TestContext.WriteLine(resultB.);
+            //TestContext.WriteLine(resultO);
+            
+            // Assert
+            Assume.That(resultB.Sum(), Is.EqualTo(20 * 20 *20));
+            Assert.That(resultO, Is.EqualTo(resultB));
+        }
+
+
+        [TestCase( 5, 15, 10, 0)]
+        [TestCase( 9, 10, 11, 1)]
+        [TestCase(20, 20, 20, 2)]
+        [TestCase( 1,  1,  1, 3)]
+        public void UniformSkillCriticalDistributionTrunc(int lowera, int lowerb, int lowerc, int exp)
+        {
+            // Arrange
+            List<int> expected = exp switch
+            {
+                0 => ([.. Enumerable.Repeat(0, 29), 28, 3, 3, 3, 3, 3,  2, 2, 2, 2, 2,  1, 1, 1, 1, 1, .. Enumerable.Repeat(0, 15)]),
+                1 => ([.. Enumerable.Repeat(0, 29), 28, .. Enumerable.Repeat(3, 9), 2, 1, .. Enumerable.Repeat(0, 19)]),
+                2 => ([.. Enumerable.Repeat(0, 59), 58]),
+                3 => ([0, 0, 1, .. Enumerable.Repeat(3, 19), .. Enumerable.Repeat(0, 38)]),
+                _ => throw new ArgumentException("")
+            };
+
+            // Act
+            var result = RollStatsM.UniformSkillCriticalDistributionTrunc((uint)lowera, (uint)lowerb, (uint)lowerc);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        #endregion ProbabilityDistributions
+
+
+
+
+        #region Helpers
+
+        [TestCase(0, ExpectedResult = 1)]
+        [TestCase(3, ExpectedResult = 1)]
+        [TestCase(4, ExpectedResult = 2)]
+        [TestCase(6, ExpectedResult = 2)]
+        [TestCase(7, ExpectedResult = 3)]
+        [TestCase(9, ExpectedResult = 3)]
+        [TestCase(10, ExpectedResult = 4)]
+        [TestCase(12, ExpectedResult = 4)]
+        [TestCase(13, ExpectedResult = 5)]
+        [TestCase(15, ExpectedResult = 5)]
+        [TestCase(16, ExpectedResult = 6)]
+        public int SkillPoints2QualityLevels_PositiveBorderValues_CorrectResult(int skillPoints)
+        {
+            return RollStatsM.SkillPoints2QualityLevels(skillPoints);
+        }
+
+        [TestCase(17, ExpectedResult = 6)]
+        [TestCase(25, ExpectedResult = 6)]
+        [TestCase(57, ExpectedResult = 6)]
+        public int SkillPoints2QualityLevels_SPAbove16_Returns6(int skillPoints)
+        {
+            return RollStatsM.SkillPoints2QualityLevels(skillPoints);
+        }
+
+        [TestCase(-1, ExpectedResult = 1)]
+        [TestCase(-5, ExpectedResult = 1)]
+        [TestCase(-547, ExpectedResult = 1)]
+        public int SkillPoints2QualityLevels_NegativeSP16_Return1(int skillPoints)
+        {
+            return RollStatsM.SkillPoints2QualityLevels(skillPoints);
+        }
+
+
+
+        [TestCase(1, 4, ExpectedResult = 1)]
+        [TestCase(2, 2, ExpectedResult = 1)]
+        [TestCase(2, 7, ExpectedResult = 6)]
+        [TestCase(2, 12, ExpectedResult = 1)]
+        [TestCase(3, 2, ExpectedResult = 0)] // below min
+        [TestCase(3, 7, ExpectedResult = 15)]
+        //[TestCase(7, 30, ExpectedResult = 27132)]
+        public int NoOfWays_d6(int nDice, int sum)
+        {
+            // Arrange
+            const int sides = 6;
+            // Act
+            var result = RollStatsM.NoOfWays(sides, nDice, sum);
+            // Assert
+            //Assert.That(result, Is.EqualTo(15));
+            return result;
+        }
+
+
+
+        [Test]
+        public void ConvolveCounts_d6_ReturnsCorrectValue()
+        {
+            // Arrange
+            List<int> pmfA = [1, 1, 1, 1, 1, 1];
+            List<int> pmfB = [1, 1, 1, 1, 1, 1];
+
+            // Act
+            var result = RollStatsM.ConvolveCounts(pmfA, pmfB);
+
+            // Assert
+            Assert.That(result, Is.EqualTo([1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]));
+        }
+
+
+        [Test]
+        public void ConvolveCounts_d3_ReturnsCorrectValue()
+        {
+            // Arrange
+            List<int> pmfA = [1, 1, 1];
+            List<int> pmfB = [1, 1, 1];
+
+            // Act
+            var result = RollStatsM.ConvolveCounts(pmfA, pmfB);
+
+            // Assert
+            Assert.That(result, Is.EqualTo([1, 2, 3, 2, 1]));
+        }
+
+        #endregion Helpers
+
+    }
+}
