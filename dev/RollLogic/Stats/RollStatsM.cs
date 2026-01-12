@@ -303,6 +303,45 @@ public class RollStatsM
         return FormatChances(names, result);
     }
 
+
+
+    /// <summary>
+    /// Computes the probabilities of all possible outcomes when rolling a specified 
+    /// number of dice with a given number of sides, including an optional modifier.
+    /// </summary>
+    /// <param name="sides">Sides (faces) of the dice</param>
+    /// <param name="count">The number of dice (all with <paramref name="sides"/> sides)</param>
+    /// <param name="modifier">A bonus (> 0) or penalty (< 0), otherwise zero.</param>
+    /// <returns></returns>
+    public static (List<string> Names, List<double> Chances) ChancesOfDiceRolls(int sides, int count, int modifier)
+    {
+        double total = Math.Pow(sides, count);
+
+        //List<int> pd = [];
+        //for(int i = 0; i < sides; i++) pd.Add(1);
+
+        //List<int> sumCount = [];
+        //sumCount = pd;
+        //for (int i = 1; i < count; i++)
+        //{
+        //    sumCount = ConvolveCounts(sumCount, pd);
+        //}
+        var sumCount = DiceSumDistribution(sides, count, modifier);
+        while (sumCount[0] == 0) sumCount.RemoveAt(0); // Remove leading zeroes
+
+        List<double> result= [];
+        List<string> names = [];
+        for (int i = 0; i < sumCount.Count; i++)
+        {
+            result.Add( sumCount[i] / total );
+            names.Add($"{i + count + modifier}");
+        }
+
+        return FormatChances(names, result);
+    }
+
+
+
     #region ProbabilityDistributions
     /// <summary>
     /// Generates the distribution of sums for rolling a specified number of dice with a 

@@ -102,7 +102,7 @@ namespace UnitTests.RollLogic.Stats
 
 
         [Test, Sequential] // 
-        public void CompareMethods_IdenticalResultsExpected(
+        public void ChancesOfSkill_CompareMethods_IdenticalResultsExpected(
             [Random(0, 20, 5)] int ab1, [Random(0, 20, 5)] int ab2, [Random(0, 20, 5)] int ab3,
             [Random(0, 20, 5)] int skill,
             [Random(-20, 20, 5)] int mod)
@@ -159,6 +159,59 @@ namespace UnitTests.RollLogic.Stats
 
             // Assert
             Assert.That(result.Chances[0..4].Sum(), Is.EqualTo(1.0).Within(1).Ulps);
+        }
+
+
+        [TestCase(3, 1, 0, "1d3")]
+        [TestCase(3, 1, 1, "1d3+1")]
+        [TestCase(20, 1, 2, "1d20+2")]
+        [TestCase(6, 2, 1, "2d6+1")]
+        [TestCase(6, 3, 7, "3d6+7")]
+        public void ChancesOfDiceRolls_KnownTestCases([Values(3, 6, 6)] int sides, [Values(1, 2, 3)] int count, [Values(0, 0, 11)] int modifier, string expected)
+        {
+            // Arrange
+            List<string> expectedNames = expected switch
+            {
+                "1d3" => ["1", "2", "3"],
+                "1d3+1" => ["2", "3", "4"],
+                "1d20+2" => Enumerable.Range(3, 20).Select(i => i.ToString()).ToList(),
+                "2d6+1" => Enumerable.Range(3, 11).Select(i => i.ToString()).ToList(),
+                "3d6+7" => Enumerable.Range(10, 16).Select(i => i.ToString()).ToList(),
+                _ => throw new ArgumentException("Unknown expectation")
+            };
+            List<double> expectedValues = expected switch
+            {
+                "1d3" => [1.0 / 3, 1.0 / 3, 1.0 / 3],
+                "1d3+1" => [1.0 / 3, 1.0 / 3, 1.0 / 3],
+                "1d20+2" => Enumerable.Repeat(1.0/20, 20).ToList(),
+                "2d6+1" => [1.0/36, 1.0 / 18, 1.0 / 12, 1.0 / 9, 5.0/36, 1.0 / 6, 
+                            5.0 / 36, 1.0 / 9, 1.0 / 12, 1.0 / 18, 1.0 /36],
+                "3d6+7" => [1.0 / 216, 3.0/216, 6.0 / 216, 10.0 / 216, 15.0 / 216, 21.0 / 216, 25.0 / 216, 27.0 / 216, 
+                            27.0 / 216, 25.0 / 216, 21.0 / 216, 15.0 / 216, 10.0 / 216, 6.0 / 216, 3.0 / 216, 1.0 / 216],
+                _ => throw new ArgumentException("Unknown expectation")
+            };
+            // Act
+            var (Names, Chances) = RollStatsM.ChancesOfDiceRolls(sides, count, modifier);
+
+            // Assert
+            Assert.That(Names, Is.EqualTo(expectedNames));
+            Assert.That(Chances, Is.EqualTo(expectedValues));
+        }
+
+
+        [Test, Sequential]
+        public void ChancesOfDiceRolls_RandomInput_SumIs1([Values(3, 6, 6)] int sides, [Values(1, 2, 3)] int count, [Values(0, 0, 11)] int modifier)
+        {
+            // Arrange
+            // Act
+            var result = RollStatsM.ChancesOfDiceRolls(sides, count, modifier);
+            //for (int i = 0; i < result.Names.Count; i++)
+            //{
+            //    TestContext.WriteLine($"{result.Names[i]} = {result.Chances[i]}");
+            //}
+
+            // Assert
+            Assert.That(result.Chances.Sum(), Is.EqualTo(1).Within(1.0 / Math.Pow(10, 15)));
         }
 
         #endregion Skills
