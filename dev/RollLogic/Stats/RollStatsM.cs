@@ -304,6 +304,52 @@ public class RollStatsM
     }
 
 
+    /// <summary>
+    /// Calculates the probabilities of achieving various hit point outcomes based on skill, check modifier, 
+    /// and dice parameters to get the hit points for an attack with a weapon.
+    /// </summary>
+    /// <param name="skill">The AT value to roll against</param>
+    /// <param name="checkmod">The AT modifier</param>
+    /// <param name="hpsides">The faces (sides) of the dice to get the hit points</param>
+    /// <param name="hpcount">The number of dice</param>
+    /// <param name="hpmod">A modifier to be added to the hit point roll</param>
+    /// <returns></returns>
+    public static (List<string> Names, List<double> Chances) ChancesOfHitPoints(int skill, int checkmod, int hpsides, int hpcount, int hpmod)
+    {
+        double TotalOutcomes = (int)Math.Pow(hpsides, hpcount);
+        double effective = Math.Min(Math.Max(skill + checkmod, 0), MaxD20);
+        int maxHp = (hpcount * hpsides + hpmod) * 2;
+
+        double critical = 1.0 / MaxD20 * effective / MaxD20; // Critical if die is 1 and confirmed with 'success'
+        double success = effective / MaxD20 - critical;
+        double fumble = critical;        // Fumble if die is 20 and *not* avoided with 'success'
+        double fail = 1.0 - success - critical - fumble;
+
+        var sumCount = DiceSumDistribution(hpsides, hpcount, hpmod);
+        while (sumCount[0] == 0)
+            sumCount.RemoveAt(0); // Remove leading zeroes
+
+        int lowest = hpcount + hpmod; // lowest possible outcome
+        List<string> hitPointNames = [.. Enumerable.Range(hpcount+hpmod, maxHp - lowest + 1).Select(n => n.ToString())];
+        List<double> hitPointChances = [.. Enumerable.Repeat(0.0, maxHp - lowest + 1)];
+
+        // Add regular successes
+        for (int i = 0; i < sumCount.Count; i++)
+        {
+            hitPointChances[i] = sumCount[i] / TotalOutcomes * success;
+        }
+        // Add criticals
+        for (int i = 0; i < sumCount.Count; i++)
+        {
+            int index = (i + hpmod + 1) * 2 + (hpcount - 1) - (hpmod + 1);
+            hitPointChances[index] += sumCount[i] / TotalOutcomes * critical;
+        }
+        // TODO
+
+        return FormatChances(hitPointNames, hitPointChances);
+    }
+
+
 
     /// <summary>
     /// Computes the probabilities of all possible outcomes when rolling a specified 

@@ -262,6 +262,79 @@ namespace UnitTests.RollLogic.Stats
 
 
 
+        [Test]
+        [TestCase( 4, 0, 2, 1, 1, "AT4 1W2+1")]
+        [TestCase(10, 0, 3, 1, 0, "AT10 1W3+0")]
+        [TestCase(12, 0, 6, 1, 0, "AT12 1W6+0")]
+        [TestCase(12, 0, 6, 1, 2, "AT12 1W6+2")]
+        [TestCase(8, 0, 7, 1, 2, "AT8 1W7+2")]
+        [TestCase(11, 0, 6, 2, 0, "AT11 2W6+0")]
+        [TestCase(19, 0, 3, 3, 4, "AT19 3W3+4")]
+        public void ChancesOfHitPoints_KnownTestCases_CorrectResult(int skill, int mod, int hpsides, int hpcount, int hpmod, string exp)
+        {
+            // Arrange
+            double critchance = 0.05 * skill / 20; // 1/20 = 0.05
+            double successchance = (double)skill / 20 - critchance;
+            List<double> expectedValues = exp switch
+            {
+                "AT4 1W2+1"  => [0.095, 0.095, 0.005, 0.0, 0.005],
+                "AT10 1W3+0" => [successchance/3.0, (successchance + critchance) / 3.0, successchance / 3.0, critchance / 3.0, 0.0, critchance / 3.0],
+                "AT12 1W6+0" => [0.095, (successchance + critchance) / 6.0, successchance / 6.0, (successchance + critchance) / 6.0, 
+                                 successchance / 6.0, (successchance + critchance) / 6.0,
+                                 0.0, critchance / 6.0, 0.0, critchance / 6.0, 0.0, critchance / 6.0],
+                "AT12 1W6+2" => [0.095, successchance / 6.0, successchance / 6.0, 
+                                 (successchance + critchance) / 6.0, successchance / 6.0, (successchance + critchance) / 6.0,
+                                 0.0, critchance / 6.0, 0.0, critchance / 6.0, 0.0, critchance / 6.0, 0.0, critchance / 6.0],
+                "AT8 1W7+2"  => [0.0542857142857143, 0.0542857142857143, 0.0542857142857143, 0.0571428571428572, 
+                                 0.0542857142857143, 0.0571428571428572, 0.0542857142857143, 0.00285714285714286, 0,   
+                                 0.00285714285714286, 0, 0.00285714285714286, 0, 0.00285714285714286, 0, 0.00285714285714286],
+                "AT11 2W6+0" => [0.0145138888888889, 0.0290277777777778, 0.0443055555555556, 
+                    0.0580555555555556, 0.0740972222222222, 0.0870833333333334, 0.0748611111111111, 
+                    0.0580555555555556, 0.0465972222222222, 0.0290277777777778, 0.0183333333333333, 
+                    0.0, 0.00458333333333333, 0.0, 0.00381944444444444, 0.0, 0.00305555555555556,
+                    0.0, 0.00229166666666667, 0.0, 0.00152777777777778, 0.0, 0.000763888888888889],
+                "AT19 3W3+4" => [0.0334259259259259, 0.100277777777778, 0.200555555555556, 0.233981481481481, 0.200555555555556,
+                    0.100277777777778, 0.0334259259259259, 0.00175925925925926, 0, 0.00527777777777778, 0, 0.0105555555555556, 0, 
+                    0.0123148148148148, 0, 0.0105555555555556, 0, 0.00527777777777778, 0, 0.00175925925925926],
+                _ => throw new ArgumentException("Unknown expectation")
+            };
+            List<string> expectedNames = exp switch
+            {
+                "AT4 1W2+1"  => ["2", "3", "4", "5", "6"],
+                "AT10 1W3+0" => ["1", "2", "3", "4", "5", "6"],
+                "AT12 1W6+0" => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                "AT12 1W6+2" => ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"],
+                "AT8 1W7+2"  => ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
+                "AT11 2W6+0" => ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+                "AT19 3W3+4" => ["7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"],
+                _ => throw new ArgumentException("Unknown expectation")
+            };
+
+            // Act
+            var result = RollStatsM.ChancesOfHitPoints(skill, mod, hpsides, hpcount, hpmod);
+
+            // Assert
+            Assert.That(result.Names, Is.EqualTo(expectedNames));
+            Assert.That(result.Chances, Is.EqualTo(expectedValues).Within(Math.Pow(10, -15)));
+        }
+
+
+
+        [Test, Sequential]
+        public void ChancesOfHitPoints_RandomInput_SumEqualsTotalAT(
+            [Random(0, 20, 3)] int skill, [Values(0, 1, 5)] int mod,
+            [Random(1, 5, 3)] int hpsides, [Random(1, 5, 3)] int hpcount, [Random(0, 10, 3)] int hpmod)
+        {
+            // Arrange
+            double probEffectiveAT = Math.Min((double)(skill + mod) / 20, 1.0);
+
+            // Act
+            var result = RollStatsM.ChancesOfHitPoints(skill, mod, hpsides, hpcount, hpmod);
+
+            // Assert
+            Assert.That(result.Chances.Sum(), Is.EqualTo(probEffectiveAT).Within(Math.Pow(10, -15)));
+        }
+
         #endregion Combat
 
 
