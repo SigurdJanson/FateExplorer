@@ -631,6 +631,27 @@ public class RollStatsM
     }
 
 
+    /// <summary>
+    /// Determines whether the specified value is exactly halfway between two consecutive integers. 
+    /// It supports a specified tolerance to account for floating-point precision issues.
+    /// </summary>
+    /// <remarks>This method is useful for detecting values that are equidistant from two integers, such as
+    /// when rounding or handling floating-point precision.</remarks>
+    /// <param name="value">The value to evaluate for being halfway between two integers.</param>
+    /// <param name="tolerance">The maximum allowed difference from the exact halfway point. 
+    /// Must be a non-negative number. The default is 1e-8.</param>
+    /// <returns><c>true</c> if the value is within the specified tolerance of the midpoint 
+    /// between two consecutive integers; otherwise, <c>false</c>.</returns>
+    public static bool IsExactlyHalfway(double value, double tolerance = 1e-8)
+    {
+        // Calculate the midpoint
+        double midpoint = (Math.Ceiling(value) + Math.Floor(value)) / 2.0;
+
+        // Compare with tolerance
+        return Math.Abs(value - midpoint) < tolerance;
+    }
+
+
     #endregion Helpers
 
 

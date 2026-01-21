@@ -505,6 +505,37 @@ namespace UnitTests.RollLogic.Stats
             Assert.That(result, Is.EqualTo([1, 2, 3, 2, 1]));
         }
 
+
+        [Test]
+        [TestCase(+0.50 + 1e-7, ExpectedResult = false)]
+        [TestCase(+0.50 - 1e-7, ExpectedResult = false)]
+        [TestCase(-6.50 - 1e-8, ExpectedResult = true)]
+        [TestCase(+3.50 + 1e-8, ExpectedResult = true)]
+        [TestCase(-9.50 + 1e-7, ExpectedResult = false)]
+        [TestCase(-9.50 - 1e-7, ExpectedResult = false)]
+        public bool IsExactlyHalfway_BoundaryValues_CorrectResult(double value)
+        {
+            // Arrange
+            // Act
+            var result = RollStatsM.IsExactlyHalfway(value);
+            // Assert
+            return result;
+        }
+
+        [Test]
+        [TestCase(+0.50 + 1e-7, 1e-5, ExpectedResult = true)]
+        [TestCase(+0.50 + 1e-7, 1e-6, ExpectedResult = true)]
+        [TestCase(+0.50 + 1e-7, 1e-7, ExpectedResult = true, Description = "Because the comparison is 'less than' not 'less or equal'.")]
+        [TestCase(+0.50 + 1e-7, 1e-8, ExpectedResult = false)]
+        public bool IsExactlyHalfway_ToleranceBoundary(double value, double tolerance)
+        {
+            // Arrange
+            // Act
+            var result = RollStatsM.IsExactlyHalfway(value, tolerance);
+            // Assert
+            return result;
+        }
+
         #endregion Helpers
 
     }
