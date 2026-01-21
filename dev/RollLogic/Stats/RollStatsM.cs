@@ -549,6 +549,24 @@ public class RollStatsM
 
 
 
+    #region AverageAndMedian
+
+    /// <summary>
+    /// Computes the average result of rolling a specified number of dice with a given number of sides, 
+    /// including an optional modifier.
+    /// </summary>
+    /// <param name="sides">The sides (faces) of all <paramref name="count"/> dice. The 3 in <c>3d6+1</c>.</param>
+    /// <param name="count">The number of dice. The 6 in <c>3d6+1</c>.</param>
+    /// <param name="modifier">An additive modifier. The 1 in <c>3d6+1</c>.</param>
+    /// <returns></returns>
+    /// <remarks>Formula: n × (h + 1) / 2 + m with n = count, h = sides, m = modifier.</remarks>
+    public static double DiceSumAverage(int sides, int count, int modifier)
+    {
+        return count * (sides + 1) / 2.0 + modifier;
+    }
+
+    #endregion AverageAndMedian
+
 
 
     #region Helpers

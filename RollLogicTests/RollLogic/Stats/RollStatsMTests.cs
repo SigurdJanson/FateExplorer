@@ -402,7 +402,23 @@ namespace UnitTests.RollLogic.Stats
         #endregion ProbabilityDistributions
 
 
+        #region Average and Median
 
+        [Test]
+        [TestCase(6, 1, 0, ExpectedResult = 3.5)]
+        [TestCase(6, 1, 1, ExpectedResult = 4.5)]
+        [TestCase(6, 2, 99, ExpectedResult = 106)]
+        [TestCase(6, 3, -1, ExpectedResult = 9.5)]
+        public double DiceSumAverage(int sides, int count, int modifier)
+        {
+            // Arrange
+            // Act
+            var result = RollStatsM.DiceSumAverage(sides, count, modifier);
+            // Assert
+            return result;
+        }
+
+        #endregion Average and Median
 
         #region Helpers
 
