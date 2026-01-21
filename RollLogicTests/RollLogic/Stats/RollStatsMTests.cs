@@ -405,11 +405,13 @@ namespace UnitTests.RollLogic.Stats
         #region Average and Median
 
         [Test]
+        [TestCase(2, 1, 0, ExpectedResult = 1.5)] // smallest possible die and count
         [TestCase(6, 1, 0, ExpectedResult = 3.5)]
         [TestCase(6, 1, 1, ExpectedResult = 4.5)]
         [TestCase(6, 2, 99, ExpectedResult = 106)]
         [TestCase(6, 3, -1, ExpectedResult = 9.5)]
-        public double DiceSumAverage(int sides, int count, int modifier)
+        [TestCase(99, 99, 99, ExpectedResult = 4950 + 99)]
+        public double DiceSumAverage_KnownCases(int sides, int count, int modifier)
         {
             // Arrange
             // Act
@@ -418,7 +420,22 @@ namespace UnitTests.RollLogic.Stats
             return result;
         }
 
+        [TestCase(6, 0, 0)]   // no dice
+        [TestCase(0, 1, 0)]   // no sides
+        public void DiceSumAverage_InvalidDice_ThrowsException(int sides, int count, int modifier)
+        {
+            // Arrange
+            // Act
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.DiceSumAverage(sides, count, modifier));
+        }
+
+
         #endregion Average and Median
+
+
+
 
         #region Helpers
 
