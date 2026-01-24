@@ -565,6 +565,27 @@ public class RollStatsM
         return count * (sides + 1) / 2.0 + modifier;
     }
 
+
+    /// <summary>
+    /// Calculates the mean value from a discrete probability distribution.
+    /// </summary>
+    /// <param name="values">A list of discrete numeric events</param>
+    /// <param name="probabilities">A list of probabilities in the same order as <paramref name="values"/>.</param>
+    /// <returns>The arithmetic mean of the distribution.</returns>
+    /// <remarks>This method does not validate the probabily distribution.</remarks>
+    public static double MeanFromDistribution(List<int> values, List<double> probabilities)
+    {
+        ArgumentOutOfRangeException.ThrowIfNotEqual(values.Count, probabilities.Count,
+            "Internal error: Values and probabilities must have the same length.");
+
+        double sum = 0;
+        for (int i = 0; i < probabilities.Count; i++)
+            sum += probabilities[i] * values[i];
+
+        return sum;
+    }
+
+
     #endregion AverageAndMedian
 
 

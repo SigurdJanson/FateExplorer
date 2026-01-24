@@ -432,6 +432,46 @@ namespace UnitTests.RollLogic.Stats
         }
 
 
+        public static IEnumerable<(List<double>, List<int>, double mean, double median)> TestDiceCombinations
+        {
+            get
+            {
+                yield return ([1.0 / 3, 1.0 / 3, 1.0 / 3], [1, 2, 3], 2, 2); // 1d3
+                yield return ([1.0 / 3, 1.0 / 3, 1.0 / 3], [2, 3, 4], 3, 3); // 1d3 + 1
+                yield return ([1.0 / 9, 2.0 / 9, 3.0/9, 2.0 / 9, 1.0 / 9], [2, 3, 4, 5, 6], 4, 4); // 2d3
+                yield return ([1.0/36, 1.0/18, 1.0/12, 1.0/9, 5.0/36, 1.0/6, 5.0 / 36, 1.0 / 9, 1.0 / 12, 1.0 / 18, 1.0 / 36], 
+                              [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 11.0, 11.0); // 2d6 + 4
+                yield return ([0.30, .. Enumerable.Repeat(0.05, 14)], 
+                    [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 11.25, 10);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(TestDiceCombinations))]
+        public void MeanFromDistribution_KnownCases((List<double> p, List<int> v, double mean, double median) value)
+        {
+            // Arrange
+            Console.WriteLine($"{value.mean}"); // because we cannot distinguish test cases otherwise
+            Assume.That(value.p.Sum(), Is.EqualTo(1.0).Within(1e-10));
+            // Act
+            var result = RollStatsM.MeanFromDistribution(value.v, value.p);
+            // Assert
+            Assert.That(result, Is.EqualTo(value.mean).Within(1e-10));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(TestDiceCombinations))]
+        public void MeanFromDistribution_UnequalSequenceLength_Exception((List<double> p, List<int> v, double mean, double median) value)
+        {
+            // Arrange
+            Console.WriteLine($"{value.mean}"); // because we cannot distinguish test cases otherwise
+            value.p.Add(0);
+            // Act
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.MeanFromDistribution(value.v, value.p));
+        }
+
+
         #endregion Average and Median
 
 
