@@ -586,6 +586,38 @@ public class RollStatsM
     }
 
 
+    /// <summary>
+    /// Determines the median value from a discrete probability distribution.
+    /// </summary>
+    /// <param name="values">A list of discrete numeric events.</param>
+    /// <param name="probabilities">A list of probabilities in the same order as <paramref name="values"/>.</param>
+    /// <param name="interpolate">If <codetrue</param> the median is interpolated between two values if necessary.</param>
+    /// <returns>The median of the distribution.</returns>
+    /// <remarks>This method does not validate the probabily distribution.</remarks>
+    public static double MedianFromDistribution(List<int> values, List<double> probabilities, bool interpolate = false)
+    {
+        ArgumentOutOfRangeException.ThrowIfNotEqual(values.Count, probabilities.Count, 
+            "Internal error: Values and probabilities must have the same length.");
+        const double MedianQuantile = 0.5;
+
+        double cumsum = 0;
+        int i;
+        for (i = 0; i < probabilities.Count; i++)
+        {
+            cumsum += probabilities[i];
+            if (cumsum >= MedianQuantile)
+                break;
+        }
+        double median_value = values[i];
+
+        // Optional interpolation
+        if (i > 0 && interpolate && !IsExactlyHalfway(median_value))
+        {
+            median_value = values[i - 1] + (MedianQuantile - probabilities[i - 1]) / (probabilities[i] - probabilities[i - 1]) * (median_value - values[i - 1]);
+        }
+        return median_value;
+    }
+
     #endregion AverageAndMedian
 
 

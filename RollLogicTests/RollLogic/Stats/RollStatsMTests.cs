@@ -472,6 +472,32 @@ namespace UnitTests.RollLogic.Stats
         }
 
 
+
+        [Test]
+        [TestCaseSource(nameof(TestDiceCombinations))]
+        public void MedianFromDistribution_KnownCases((List<double> p, List<int> v, double mean, double median) value)
+        {
+            // Arrange
+            Console.WriteLine($"{value.median}"); // because we cannot distinguish test cases otherwise
+            Assume.That(value.p.Sum(), Is.EqualTo(1.0).Within(1e-10));
+            // Act
+            var result = RollStatsM.MedianFromDistribution(value.v, value.p);
+            // Assert
+            Assert.That(result, Is.EqualTo(value.median).Within(1e-10));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(TestDiceCombinations))]
+        public void MedianFromDistribution_UnequalSequenceLength_Exception((List<double> p, List<int> v, double mean, double median) value)
+        {
+            // Arrange
+            Console.WriteLine($"{value.median}"); // because we cannot distinguish test cases otherwise
+            value.p.Add(0);
+            // Act
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.MedianFromDistribution(value.v, value.p));
+        }
+
         #endregion Average and Median
 
 
