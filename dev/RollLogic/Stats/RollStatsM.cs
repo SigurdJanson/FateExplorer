@@ -389,6 +389,63 @@ public class RollStatsM
 
 
     #region ProbabilityDistributions
+
+
+    // https://en.wikipedia.org/wiki/Irwin%E2%80%93Hall_distribution
+    // https://www.geeksforgeeks.org/dsa/dice-throw-dp-30/
+    // https://stats.stackexchange.com/questions/46872/how-to-compute-the-distribution-of-sums-when-rolling-n-dice-with-m-faces
+    // https://stats.stackexchange.com/questions/116792/dungeons-dragons-attack-hit-probability-success-percentage
+
+    // https://csharphelper.com/howtos/howto_calculate_n_choose_k.html
+    // https://stackoverflow.com/questions/12983731/algorithm-for-calculating-binomial-coefficient
+
+
+
+    /// <summary>
+    /// Determines the number of events that lead to a sum <paramref name="x"/> with 
+    /// <paramref name="count"/> dice with <paramref name="sides"/> sides each.
+    /// </summary>
+    /// <param name="sides">The sides of the dice. A number > 2.</param>
+    /// <param name="count">Number of dice. Number > 0.</param>
+    /// <param name="x">The event defined by the sum of faces.</param>
+    /// <remarks>
+    /// <see href="https://www.geeksforgeeks.org/dsa/dice-throw-dp-30/">See source</see>
+    /// </remarks>
+    public static int NoOfWays(int sides, int count, int x)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(sides, 2);
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 1);
+        // Create a 2D dp array with (count+1) rows and (x+1)
+        // columns dp[i, j] will store the number of ways to
+        // get a sum of 'j' using 'i' dice
+        int[,] dp = new int[count + 1, x + 1];
+
+        // Base case: There is 1 way to get a sum of 0 with 0 dice
+        dp[0, 0] = 1;
+
+        // Loop through each die (i) from 1 to count
+        for (int i = 1; i <= count; i++)
+        {
+            // Loop through each sum (j) from 1 to x
+            for (int j = 1; j <= x; j++)
+            {
+                // Loop through all possible dice values (k)
+                // from 1 to sides and if the sum j - k is valid
+                // (non-negative), add the number of ways
+                // from dp[i-1, j-k]
+                for (int k = 1; k <= sides && j - k >= 0; k++)
+                {
+                    dp[i, j] += dp[i - 1, j - k];
+                }
+            }
+        }
+
+        // The sumCount will be in dp[count, x], which contains
+        // the number of ways to get sum 'x' using 'count' dice
+        return dp[count, x];
+    }
+
+
     /// <summary>
     /// Generates the distribution of sums for rolling a specified number of dice with a 
     /// given number of sides.

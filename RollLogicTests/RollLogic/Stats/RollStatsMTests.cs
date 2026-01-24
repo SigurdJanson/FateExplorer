@@ -556,7 +556,37 @@ namespace UnitTests.RollLogic.Stats
             //Assert.That(result, Is.EqualTo(15));
             return result;
         }
-
+        [Test]
+        public void NoOfWays_SidesTooLow_Exception()
+        {
+            // Arrange
+            const int sides = 1;
+            const int count = 2;
+            const int sum = 1;
+            // Act
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.NoOfWays(sides, count, sum));
+        }
+        [Test]
+        public void NoOfWays_CountTooLow_Exception()
+        {
+            // Arrange
+            const int sides = 2;
+            const int count = 0;
+            const int sum = 1;
+            // Act
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.NoOfWays(sides, count, sum));
+        }
+        [Test]
+        public void NoOfWays_SumOutOfRange_ReturnsZero([Values(6)] int sides, [Values(2)] int count, [Values(0, 13)] int sum)
+        {
+            // Arrange
+            // Act
+            int result = RollStatsM.NoOfWays(sides, count, sum);
+            // Assert
+            Assert.That(result, Is.Zero);
+        }
 
 
         [Test]
