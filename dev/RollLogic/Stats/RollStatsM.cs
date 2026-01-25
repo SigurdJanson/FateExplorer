@@ -5,6 +5,15 @@ using System.Linq;
 
 namespace FateExplorer.RollLogic.Stats;
 
+/// * DiceSumDistribution - the probability distribution for the sum of arbitrary dice rolls using 
+/// dice with equal sides.
+/// * D20SumDistribution - a special case of DiceSumDistribution for 3d20.
+/// * SkillCriticalDistribution - distribution of criticals for skills
+/// * SkillSumDistribution - The combination <code>D20SumDistribution + SkillCriticalDistribution</code>
+/// * Combat distribution - the probability distribution for the success of combat actions
+/// such as attack, parry, dodge.
+/// * Hit Point distribution - probability distribution for hit points given an attack skill and the 
+/// weapon's damage dice.
 public class RollStatsM
 {
     /// <summary>
@@ -18,13 +27,16 @@ public class RollStatsM
 
 
     /// <summary>
-    /// Calculates the probabilities of various outcomes for a skill check based on brute-force enumeration of all possible dice rolls.
+    /// Calculates the probabilities of various outcomes for a skill check based on brute-force enumeration 
+    /// of all possible dice rolls.
     /// </summary>
     /// <param name="abilities">An array of exactly three base ability values for the skill check.</param>
     /// <param name="skill">The skill level applied to the check.</param>
     /// <param name="modifier">An advantage or penalty modifier applied to the abilities before the check.</param>
-    /// <returns>A list of tuples where each tuple contains an outcome name and its probability.</returns>
-    /// <exception cref="ArgumentException">Thrown if any effective ability (ability + modifier) is less than or equal to zero, or if the abilities array does not contain exactly three elements.</exception>
+    /// <returns>A list of tuples where each tuple contains an outcome name and its probability. 
+    /// Outcomes are diveded into quality levels.</returns>
+    /// <exception cref="ArgumentException">Thrown if any effective ability (ability + modifier) is less than 
+    /// or equal to zero, or if the abilities array does not contain exactly three elements.</exception>
     /// <remarks>
     /// The algorithm uses brute-force enumeration over all 8000 (20^3) possible dice combinations. 
     /// It simulates rolling 3d20 and evaluates each combination against the effective abilities 
@@ -341,10 +353,9 @@ public class RollStatsM
         // Add criticals
         for (int i = 0; i < sumCount.Count; i++)
         {
-            int index = (i + hpmod + 1) * 2 + (hpcount - 1) - (hpmod + 1);
+            int index = (i + hpmod + 1) * 2 + (hpcount - 1) - (hpmod + 1); // add 1 for zero-based index, remove it after the multiplication
             hitPointChances[index] += sumCount[i] / TotalOutcomes * critical;
         }
-        // TODO
 
         return FormatChances(hitPointNames, hitPointChances);
     }
