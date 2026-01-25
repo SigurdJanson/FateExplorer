@@ -673,7 +673,8 @@ public class RollStatsM
     /// <param name="probabilities">A list of probabilities in the same order as <paramref name="values"/>.</param>
     /// <param name="interpolate">If <codetrue</param> the median is interpolated between two values if necessary.</param>
     /// <returns>The median of the distribution.</returns>
-    /// <remarks>This method does not validate the probabily distribution.</remarks>
+    /// <remarks>1. This method does not validate the probabily distribution. 2. It
+    /// limits digits to 10E-6.</remarks>
     public static double MedianFromDistribution(List<int> values, List<double> probabilities, bool interpolate = false)
     {
         ArgumentOutOfRangeException.ThrowIfNotEqual(values.Count, probabilities.Count, 
@@ -685,6 +686,7 @@ public class RollStatsM
         for (i = 0; i < probabilities.Count; i++)
         {
             cumsum += probabilities[i];
+            cumsum = Math.Round(cumsum, 6); // avoid floating point issues
             if (cumsum >= MedianQuantile)
                 break;
         }
