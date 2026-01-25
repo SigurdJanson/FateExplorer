@@ -619,9 +619,21 @@ public class RollStatsM
     /// <remarks>Formula: n × (h + 1) / 2 + m with n = count, h = sides, m = modifier.</remarks>
     public static double DiceSumAverage(int sides, int count, int modifier)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThan(sides, 2, "Dice must have at least two sides.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(count, 1, "At least one die is required.");
+
         return count * (sides + 1) / 2.0 + modifier;
     }
 
+    /// <summary>
+    /// Calculates the median result of rolling a specified number of dice with a given number of sides,
+    /// </summary>
+    /// <inheritdoc cref="DiceSumAverage" select="sides"/>
+    /// <inheritdoc cref="DiceSumAverage" select="count"/>
+    /// <inheritdoc cref="DiceSumAverage" select="modifier"/>
+    /// <returns>The median of the probability distribution.</returns>
+    public static double DiceSumMedian(int sides, int count, int modifier) => 
+        DiceSumAverage(sides, count, modifier); // since these distributions are symmetric: median = mean
 
     /// <summary>
     /// Calculates the mean value from a discrete probability distribution.
