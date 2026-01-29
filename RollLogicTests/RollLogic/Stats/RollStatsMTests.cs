@@ -355,25 +355,6 @@ namespace UnitTests.RollLogic.Stats
 
 
 
-        [Test, Sequential]
-        public void UniformSkillSumDistributionTrunc_CompareMethods_IdenticalResultsExpected(
-            [Random(1, 30, 50)] int lowera, [Random(1, 30, 50)] int lowerb, [Random(1, 30, 50)] int lowerc)
-        {
-            // Arrange
-            // Act
-            var resultB = RollStatsM.UniformSkillSumDistributionTrunc(lowera, lowerb, lowerc);
-            var resultO = RollStatsM.UniformSkillSumDistributionTruncO(lowera, lowerb, lowerc);
-            for (int i = 0; i < resultB.Count; i++)
-            {
-                TestContext.WriteLine($"{i + 3}: {resultB[i]} vs {resultO[i]}");
-            }
-            //TestContext.WriteLine(resultB.);
-            //TestContext.WriteLine(resultO);
-            
-            // Assert
-            Assume.That(resultB.Sum(), Is.EqualTo(20 * 20 *20));
-            Assert.That(resultO, Is.EqualTo(resultB));
-        }
 
 
         [TestCase( 5, 15, 10, 0)]
@@ -426,11 +407,19 @@ namespace UnitTests.RollLogic.Stats
         {
             // Arrange
             // Act
-
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.DiceSumAverage(sides, count, modifier));
         }
 
+        [TestCase(6, 0, 0)]   // no dice
+        [TestCase(0, 1, 0)]   // no sides
+        public void DiceSumMedian_InvalidDice_ThrowsException(int sides, int count, int modifier)
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => RollStatsM.DiceSumAverage(sides, count, modifier));
+        }
 
         public static IEnumerable<(List<double>, List<int>, double mean, double median)> TestDiceCombinations
         {

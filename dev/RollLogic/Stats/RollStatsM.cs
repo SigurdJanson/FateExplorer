@@ -570,6 +570,10 @@ public class RollStatsM
         // the remaining values are zero and have been initialized as such -> done
         return result;
     }
+
+
+
+
     /// <summary>
     /// Calculates the distribution of possible sums for three uniformly distributed attributes, 
     /// with each skill ranging from 1 to 20. This distribution differs from the 
@@ -645,6 +649,7 @@ public class RollStatsM
     /// <returns>The median of the probability distribution.</returns>
     public static double DiceSumMedian(int sides, int count, int modifier) => 
         DiceSumAverage(sides, count, modifier); // since these distributions are symmetric: median = mean
+
 
     /// <summary>
     /// Calculates the mean value from a discrete probability distribution.
