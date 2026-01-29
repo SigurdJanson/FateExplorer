@@ -151,9 +151,9 @@ public partial class CalendarViMo
     };
 
     public string MoonPhaseName 
-        => GameData.GetMoonPhaseName(GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate)));
+        => GameData.GetMoonPhaseName(GameData.GetMoonPhase(BosparanCalendar.GetMoonCycle(EffectiveDate)));
 
-    public string MoonPhaseIcon => IconsFE.Moon(GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate)));
+    public string MoonPhaseIcon => IconsFE.Moon(GameData.GetMoonPhase(BosparanCalendar.GetMoonCycle(EffectiveDate)));
 
     public void GotoTomorrow() => EffectiveDate = EffectiveDate.AddDays(1);
 
@@ -174,7 +174,7 @@ public partial class CalendarViMo
     {
         int Month = Calendar.GetMonth(EffectiveDate);
         DayOfWeek DoW = Calendar.GetDayOfWeek(EffectiveDate);
-        MoonPhase Phase = GameData.GetMoonPhase(Calendar.GetMoonCycle(EffectiveDate));
+        MoonPhase Phase = GameData.GetMoonPhase(BosparanCalendar.GetMoonCycle(EffectiveDate));
         return GameData.GetHolidays(Month, DayOfMonth, DoW, Phase);
     }
 
